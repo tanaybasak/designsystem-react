@@ -1,0 +1,108 @@
+.patron-modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1050;
+    display: block;
+    overflow: hidden;
+    outline: 1;
+    z-index: 1072;
+    transition: opacity .15s linear;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding-right: 16px;
+    .patron-modal-dialog {
+        transition: -webkit-transform .3s ease-out;
+        transition: transform .3s ease-out;
+        transition: transform .3s ease-out, -webkit-transform .3s ease-out;
+        -webkit-transform: translate(0, 0);
+        transform: translate(0, 0);
+        max-width: 500px;
+        margin: 1.75rem auto;
+        .patron-modal-content {
+            position: relative;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            width: 100%;
+            pointer-events: auto;
+            background-color: #fff;
+            background-clip: padding-box;
+            outline: 0;
+            .patron-modal-header {
+                padding: 0.5rem;
+                border-bottom: 1px solid #e5e5e5;
+                background-color: #047cc0;
+                color: #fff;
+                display: flex;
+                align-items: flex-start;
+                >h5 {
+                    margin: 0;
+                    font-weight: 400;
+                }
+                button.patron-modal-close {
+                    background-color: transparent;
+                    border: none;
+                    outline: none;
+                    cursor: pointer;
+                    color: #fff;
+                    font-weight: 400; 
+                    font-size: 1.25rem;
+                    margin: -0.5rem 0rem -1rem auto;
+                    &::after {
+                        content: 'x'
+                    }
+                }
+            }
+            .patron-modal-body {
+                padding: 1rem;
+            }
+            .patron-modal-footer {
+                padding: 0.825rem;
+                text-align: right;
+                border-top: 1px solid #e5e5e5;
+            }
+        }
+    }
+}
+
+.patron-modal-backdrop {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1040;
+    background-color: #000;
+    opacity: .5;
+    z-index: 1071;
+}
+
+.patron-btn {
+    font-size: 16px;
+    outline: none;
+    min-height: 35px;
+    min-width: 70px;
+    cursor: pointer;
+    margin: 0 0.5rem;
+    &-submit {
+        background-color: #40d5bb;
+        outline: none;
+        border: 1px solid #40d5bb;
+        color: white;
+        &:hover {
+            background-color: #40d5bb;
+        }
+    }
+    &-cancel {
+        background-color: #fff;
+        border: 1px solid #343a40;
+        color: #000;
+    }
+}

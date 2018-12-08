@@ -1,0 +1,22 @@
+.patron-text-field {
+    margin: 1rem;
+    >label {
+        display: inline-block;
+        max-width: 100%;
+        margin-bottom: 5px;
+        font-weight: 400;
+    }
+    >textarea {
+        display: block;
+        width: 100%;
+        min-height: 5rem;
+        line-height: 1.42857143;
+        color: #555;
+        background-color: #fff;
+        background-image: none;
+        border: 1px solid #ccc;
+        &:not([resize="true"]) {
+            resize: none !important;
+        }
+    }
+}
