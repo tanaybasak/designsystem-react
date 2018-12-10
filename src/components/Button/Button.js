@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from "prop-types";
 import './Button.scss';
 
-const Button = props => <button className={`patron-btn ${props.className}`} {...data} onClick={props.onClick}>{props.title}</button>
+const Button = props => <button className={`patron-btn ${props.className}`} {...props.data} onClick={props.onClick}>{props.title}</button>
 
 Button.propTypes = {
     title: PropTypes.string.isRequired,

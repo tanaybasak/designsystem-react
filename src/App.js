@@ -4,7 +4,10 @@ import Button from './components/Button/Button';
 class App extends Component {
     render() {
         return (
-            <Button  className="patron-btn-outline-dark" onClick={event => { console.log(event.currentTarget.checked) }} />
+            <Button
+                className="patron-btn-outline-dark"
+                onClick={event => { console.log(event.currentTarget.checked) }}
+            />
         )
     }
 }
