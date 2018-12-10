@@ -1,0 +1,40 @@
+$primaryBlue: #0578c3;
+$primaryBlueHover: #0066b3;
+$white: #ffffff;
+$disabled: #aaaaaa;
+$dark: #000000;
+$darkHover: #4b4b4b;
+
+@mixin button($bgColor, $textColor, $borderColor, $hoverBgColor, $hoverColor, $hoverBorderColor) {
+    background-color: $bgColor;
+    border: 1px solid $borderColor;
+    color: $textColor;
+    &:hover {
+        background-color: $hoverBgColor;
+        color: $hoverColor;
+        border: 1px solid $hoverBorderColor;
+    }
+}
+
+.patron-btn {
+    min-height: 35px;
+    outline: none;
+    &.patron-btn-primary {
+        @include button($primaryBlue, $white, $primaryBlue, $primaryBlueHover, $white, $primaryBlue);
+    }
+    &.patron-btn-outline-primary {
+        @include button($white, $primaryBlue, $primaryBlue, $primaryBlueHover, $white, $primaryBlue);
+    }
+
+    &.patron-btn-dark {
+        @include button($dark, $white, $dark, $darkHover, $white, $darkHover);
+    }
+    &.patron-btn-outline-dark {
+        @include button($white, $darkHover, $darkHover, $darkHover, $white, $darkHover);
+    }
+
+    &.patron-btn-info {}
+    &[disabled] {
+        @include button($disabled, $white, $disabled, $disabled, $white, $disabled);
+    }
+}

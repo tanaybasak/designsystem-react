@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import Switch from './components/Switch/Switch';
+import Button from './components/Button/Button';
 
 class App extends Component {
     render() {
         return (
-            <Switch checked={true} onChange={event => { console.log(event.currentTarget.checked) }} />
+            <Button  className="patron-btn-outline-dark" onClick={event => { console.log(event.currentTarget.checked) }} />
         )
     }
 }
-
+// className={} data={}
 export default App;
