@@ -6,4 +6,7 @@ module.exports = [
     'Modal',
     'Select',
     'Tooltip',
+    'Accordion',
+    'Button',
+    'Switch',
 ];

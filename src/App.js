@@ -1,15 +1,25 @@
 import React, { Component } from 'react';
-import Button from './components/Button/Button';
+import { Accordion, AccordionTab } from '../dist/Accordion';
 
 class App extends Component {
     render() {
         return (
-            <Button
-                className="patron-btn-outline-dark"
-                onClick={event => { console.log(event.currentTarget.checked) }}
-            />
+            <Accordion
+                expandAll="false"
+                accordionId="test"
+                activeIndex="0"
+                onTabChange={()=> {}}
+            >
+                <AccordionTab header="Header I">
+                <div>Content 1</div>
+                </AccordionTab>
+                <AccordionTab header="Header II">
+                    Content II
+                </AccordionTab>
+            </Accordion>
+
         )
     }
 }
-// className={} data={}
+
 export default App;
