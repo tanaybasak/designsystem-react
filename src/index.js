@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.scss';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import 'patron-css/dist/patron-style.9c8f3fc7.css';
 
 ReactDOM.render(<App />, document.getElementById('root'));
 

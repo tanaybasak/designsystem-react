@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Button from './components/Button';
 import Link from './components/Link';
 import Breadcrumb from './components/Breadcrumb';
-import './App.scss';
 
 const ref = React.createRef();
 
@@ -16,7 +15,7 @@ class App extends Component {
                         ref={ref}
                         label="Click Me"
                         onClick={event => { console.log('Button Clicked') }}
-                        className="btn-primary"
+                        className="btn-secondary"
                         data={{}}
                     />
                 </div>
