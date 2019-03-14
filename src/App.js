@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Button from './components/Button';
 import Link from './components/Link';
 import Breadcrumb from './components/Breadcrumb';
+import Tag from './components/Tag';
 
 const ref = React.createRef();
 
@@ -15,7 +16,7 @@ class App extends Component {
                         ref={ref}
                         label="Click Me"
                         onClick={event => { console.log('Button Clicked') }}
-                        className="btn-secondary"
+                        className="secondary"
                         data={{}}
                     />
                 </div>
@@ -24,7 +25,7 @@ class App extends Component {
                     <Link
                         label="google.com"
                         href="https://www.google.com"
-                        className="link-primary"
+                        className="primary"
                         data={{ target: '_blank' }}
                     />
                 </div>
@@ -38,7 +39,16 @@ class App extends Component {
                         ]}
                         activeBreadcrumb={1}
                         className="breadcrumb"
-                        onClick={event => { debugger; console.log('Tab clicked') }}
+                        onClick={event => { console.log('Tab clicked') }}
+                    />
+                </div>
+                {/* Tag */}
+                <div>
+                    <Tag
+                        className="primary"
+                        children={<span>Country</span>}
+                        isCloseable={true}
+                        onClick={event => { console.log('Tab clicked') }}
                     />
                 </div>
             </main>

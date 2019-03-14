@@ -5,13 +5,13 @@ import './Breadcrumb.scss';
 
 const Breadcrumb = props => (
     <div className={`${prefix}-breadcrumb`}>
-        <ol className={`${prefix}-breadcrumb_container`}>
+        <ol className={`${prefix}-breadcrumb__container`}>
             {
                 props.breadcrumbs.length ?
                     props.breadcrumbs.map((item, index) => (
                         <li
                             key={`${item.value}-${index}`}
-                            className={`${prefix}-breadcrumb_item ${props.activeBreadcrumb === index ? `${prefix}-breadcrumb_item--active` : ``}`}
+                            className={`${prefix}-breadcrumb__item ${props.activeBreadcrumb === index ? `${prefix}-breadcrumb__item--active` : ``}`}
                             data-value={item.value}
                             onClick={props.onClick}
                         >

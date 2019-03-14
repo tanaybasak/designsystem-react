@@ -5,7 +5,7 @@ import { prefix } from '../../settings';
 const Button = React.forwardRef((props, ref) => (
     <button
         ref={ref}
-        className={`${prefix}-btn ${prefix}-${props.className}`}
+        className={`${prefix}-btn ${prefix}-btn--${props.className}`}
         {...props.data}
         onClick={props.onClick}
     >

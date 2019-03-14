@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { prefix } from '../../settings';
 
 const Link = props => (
-    <a className={`${prefix}-link ${prefix}-${props.className}`}
+    <a className={`${prefix}-link ${prefix}-link--${props.className}`}
         {...props.data}
         href={props.href}
         onClick={props.onClick}
