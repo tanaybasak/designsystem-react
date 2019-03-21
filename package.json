@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "flow-bin": "^0.95.1",
     "node-sass": "^4.11.0",
     "patron-css": "git+https://github01.hclpnp.com/UXUIAssets/patron-css.git",
     "react": "^16.8.4",
@@ -13,7 +14,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "flow:watch": "flow-watch"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -24,5 +26,7 @@
     "not ie <= 11",
     "not op_mini all"
   ],
-  "devDependencies": {}
+  "devDependencies": {
+    "flow-watch": "^1.1.4"
+  }
 }

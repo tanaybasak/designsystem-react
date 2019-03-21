@@ -3,31 +3,29 @@ import Button from './components/Button';
 import Link from './components/Link';
 import Breadcrumb from './components/Breadcrumb';
 import Tag from './components/Tag';
+import Heading from './components/Heading';
 
-const ref = React.createRef();
-
-class App extends Component {
+class App extends Component<{}> {
     render() {
         return (
             <main>
                 {/* Button */}
                 <div>
                     <Button
-                        ref={ref}
-                        label="Click Me"
-                        onClick={event => { console.log('Button Clicked') }}
-                        className="secondary"
-                        data={{}}
-                    />
+                        onClick={event => { console.log('Button Clicked'); }}
+                        className="primary"
+                    >
+                        Click Me
+                    </Button>
                 </div>
                 {/* Link */}
                 <div>
                     <Link
-                        label="google.com"
                         href="https://www.google.com"
                         className="primary"
-                        data={{ target: '_blank' }}
-                    />
+                    >
+                        google.com
+                    </Link>
                 </div>
                 {/* Breadcrumb */}
                 <div>
@@ -37,7 +35,6 @@ class App extends Component {
                             { label: 'Tab 2', value: 'tab2' },
                             { label: 'Tab 3', value: 'tab3' }
                         ]}
-                        activeBreadcrumb={1}
                         className="breadcrumb"
                         onClick={event => { console.log('Tab clicked') }}
                     />
@@ -46,10 +43,21 @@ class App extends Component {
                 <div>
                     <Tag
                         className="primary"
-                        children={<span>Country</span>}
                         isCloseable={true}
-                        onClick={event => { console.log('Tab clicked') }}
-                    />
+                        onClick={event => { console.log('Tag clicked') }}
+                    >
+                        Country
+                    </Tag>
+                </div>
+                {/* Heading */}
+                <div>
+                    <Heading
+                        className="h1"
+                        type="h3"
+                        onClick={event => { console.log('Tag clicked') }}
+                    >
+                        La La La
+                    </Heading>
                 </div>
             </main>
         );
