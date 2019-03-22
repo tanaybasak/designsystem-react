@@ -18,7 +18,7 @@ function TooltipContainer(title: string, myRef: any) {
             </div>
         ),
         document.body
-    )
+    );
 }
 
 
@@ -37,23 +37,38 @@ export default class Tooltip extends Component {
             switch (direction) {
                 case 'auto':
                 case 'top': {
-                    if ((tooltipMetaData.top + 20) > tooltipTextMetaData.height &&
-                        tooltipMetaData.left > (tooltipTextMetaData.width / 2 - 30) &&
-                        (window.innerWidth - tooltipMetaData.left - tooltipMetaData.width) > (tooltipTextMetaData.width / 2 - 30)) {
+                    if ((tooltipMetaData.top + 20) > tooltipTextMetaData.height) {
                         top = tooltipMetaData.top - tooltipTextMetaData.height - 10;
-                        left = (tooltipMetaData.left + (tooltipMetaData.width / 2) - (tooltipTextMetaData.width / 2)) + 10;
-                        this.myRef.current.setAttribute('data-tooltip-direction', 'top');
+                        if (tooltipMetaData.left > (tooltipTextMetaData.width / 2 - 30) &&
+                            (window.innerWidth - tooltipMetaData.left - tooltipMetaData.width) > (tooltipTextMetaData.width / 2)) {
+                            left = (tooltipMetaData.left + (tooltipMetaData.width / 2) - (tooltipTextMetaData.width / 2));
+                            this.myRef.current.setAttribute('data-tooltip-direction', 'top');
+                        } else if (tooltipMetaData.left > (tooltipTextMetaData.width - 30)) {
+                            left = tooltipMetaData.left - tooltipTextMetaData.width / 2;
+                            this.myRef.current.setAttribute('data-tooltip-direction', 'top-left');
+                        } else {
+                            left = tooltipMetaData.left + 10;
+                            this.myRef.current.setAttribute('data-tooltip-direction', 'top-right');
+                        }
                         break;
                     }
                 }
                 case 'bottom': {
-                    if ((tooltipMetaData.bottom + 20) > tooltipTextMetaData.height &&
-                        tooltipMetaData.left > (tooltipTextMetaData.width / 2 - 30) &&
-                        (window.innerWidth - tooltipMetaData.left - tooltipMetaData.width) > (tooltipTextMetaData.width / 2 - 30)) {
+                    if ((tooltipMetaData.bottom + 20) > tooltipTextMetaData.height) {
                         top = tooltipMetaData.bottom + 10;
-                        left = (tooltipMetaData.left + (tooltipMetaData.width / 2) - (tooltipTextMetaData.width / 2)) + 10;
-                        this.myRef.current.setAttribute('data-tooltip-direction', 'bottom');
+                        if (tooltipMetaData.left > (tooltipTextMetaData.width / 2 - 30) &&
+                            (window.innerWidth - tooltipMetaData.left - (tooltipMetaData.width / 2)) > (tooltipTextMetaData.width / 2)) {
+                            left = (tooltipMetaData.left + (tooltipMetaData.width / 2) - (tooltipTextMetaData.width / 2));
+                            this.myRef.current.setAttribute('data-tooltip-direction', 'bottom');
+                        } else if (tooltipMetaData.left > (tooltipTextMetaData.width - 30)) {
+                            left = tooltipMetaData.left - tooltipTextMetaData.width + 50;
+                            this.myRef.current.setAttribute('data-tooltip-direction', 'bottom-left');
+                        } else {
+                            left = tooltipMetaData.left + 10;
+                            this.myRef.current.setAttribute('data-tooltip-direction', 'bottom-right');
+                        }
                         break;
+
                     }
                 }
                 case 'left': {
