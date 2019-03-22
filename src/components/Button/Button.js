@@ -1,13 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { prefix } from '../../settings';
 
-type Props = {
-    children: any,
-    className: string,
-    onClick: () => void,
-};
-
-export default function Button(props: Props) {
+export default function Button(props) {
     return (
         <button
             className={`${prefix}-btn ${prefix}-btn--${props.className}`}
@@ -16,4 +11,10 @@ export default function Button(props: Props) {
             {props.children}
         </button>
     );
+};
+
+Button.propTypes = {
+    children: PropTypes.node.isRequired,
+    className: PropTypes.string.isRequired,
+    onClick: PropTypes.func.isRequired,
 };

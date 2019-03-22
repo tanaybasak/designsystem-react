@@ -6,7 +6,7 @@ import Tag from './components/Tag';
 import Heading from './components/Heading';
 import Tooltip from './components/Tooltip';
 
-class App extends Component<{}> {
+class App extends Component {
     render() {
         return (
             <main>
@@ -54,7 +54,7 @@ class App extends Component<{}> {
                 <div>
                     <Heading
                         className="h1"
-                        type="h3"
+                        type="h1"
                         onClick={event => { console.log('Tag clicked') }}
                     >
                         La La La

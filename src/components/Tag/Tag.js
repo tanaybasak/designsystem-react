@@ -1,16 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { prefix } from '../../settings';
 import './Tag.scss';
 
-type Props = {
-    children: any,
-    className: string,
-    isCloseable?: boolean,
-    onClick: () => void,
-    onClose: (event: any) => void
-};
-
-export default function Tag(props: Props) {
+export default function Tag(props) {
     return (
         <div className={`${prefix}-tag ${prefix}-tag--${props.className}`}
             onClick={props.onClick}
@@ -32,4 +25,12 @@ export default function Tag(props: Props) {
 
 Tag.defaultProps = {
     onClose: event => { console.log('Tag close button clicked') }
+};
+
+Tag.propTypes = {
+    children: PropTypes.node.isRequired,
+    className: PropTypes.string.isRequired,
+    isCloseable: PropTypes.bool,
+    onClick: PropTypes.func.isRequired,
+    onClose: PropTypes.func
 };

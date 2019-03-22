@@ -1,15 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { prefix } from '../../settings';
 
-type Props = {
-    children: any,
-    className: string,
-    onClick?: () => void,
-    href: string,
-    target?: string
-};
-
-export default function Link(props: Props) {
+export default function Link(props) {
     return (
         <a className={`${prefix}-link ${prefix}-link--${props.className}`}
             href={props.href}
@@ -18,4 +11,12 @@ export default function Link(props: Props) {
             {props.children}
         </a>
     )
+};
+
+Link.propTypes = {
+    children: PropTypes.node.isRequired,
+    className: PropTypes.string.isRequired,
+    onClick: PropTypes.func,
+    href: PropTypes.string.isRequired,
+    target: PropTypes.string
 };

@@ -1,16 +1,9 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
 import './Tooltip.scss';
 
-type Props = {
-    className: string,
-    clickToOpen?: boolean,
-    children: string,
-    direction?: string,
-    title: string
-};
-
-function TooltipContainer(title: string, myRef: any) {
+function TooltipContainer(title, myRef) {
     return ReactDOM.createPortal(
         (
             <div className="tooltiptext" ref={myRef}>
@@ -24,7 +17,15 @@ function TooltipContainer(title: string, myRef: any) {
 
 export default class Tooltip extends Component {
     state = {
-        displayTooltip: false,
+        displayTooltip: false
+    };
+
+    static propTypes = {
+        children: PropTypes.node.isRequired,
+        className: PropTypes.string.isRequired,
+        clickToOpen: PropTypes.bool,
+        direction: PropTypes.string,
+        title: PropTypes.string.isRequired
     };
 
     myRef = React.createRef();
@@ -68,7 +69,6 @@ export default class Tooltip extends Component {
                             this.myRef.current.setAttribute('data-tooltip-direction', 'bottom-right');
                         }
                         break;
-
                     }
                 }
                 case 'left': {
@@ -119,7 +119,6 @@ export default class Tooltip extends Component {
                 {this.props.children}
                 {this.state.displayTooltip ? TooltipContainer(this.props.title, this.myRef) : null}
             </div >
-
-        )
+        );
     }
 };

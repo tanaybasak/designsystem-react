@@ -1,20 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { prefix } from '../../settings';
 import './Breadcrumb.scss';
 
-type Item = {
-    label: number | string,
-    value: number | string
-};
-
-type Props = {
-    className: string,
-    onClick: () => void,
-    breadcrumbs: Array<Item>,
-    activeBreadcrumb?: number
-};
-
-export default function Breadcrumb(props: Props) {
+export default function Breadcrumb(props) {
     return (
         <div className={`${prefix}-breadcrumb`}>
             <ol className={`${prefix}-breadcrumb__container`}>
@@ -41,4 +30,11 @@ export default function Breadcrumb(props: Props) {
 
 Breadcrumb.defaultProps = {
     activeBreadcrumb: 0
+};
+
+Breadcrumb.propTypes = {
+    className: PropTypes.string.isRequired,
+    onClick: PropTypes.func.isRequired,
+    breadcrumbs: PropTypes.array.isRequired,
+    activeBreadcrumb: PropTypes.number
 };
