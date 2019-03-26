@@ -5,7 +5,7 @@ import './Tag.scss';
 
 export default function Tag(props) {
     return (
-        <div className={`${prefix}-tag ${prefix}-tag--${props.className}`}
+        <div className={`${prefix}-tag ${props.className}`}
             onClick={props.onClick}
         >
             {props.children}

@@ -115,7 +115,7 @@ export default class Tooltip extends Component {
 
     render() {
         return (
-            <div className="tooltip" onMouseEnter={this._handleMouseEnter} onMouseLeave={this._handleMouseLeave}>
+            <div className={`tooltip ${this.props.className}`} onMouseEnter={this._handleMouseEnter} onMouseLeave={this._handleMouseLeave}>
                 {this.props.children}
                 {this.state.displayTooltip ? TooltipContainer(this.props.title, this.myRef) : null}
             </div >

@@ -57,55 +57,54 @@ class App extends Component {
                         type="h1"
                         onClick={event => { console.log('Tag clicked') }}
                     >
-                        La La La
+                        Heading
                     </Heading>
                 </div>
                 {/* Tooltip */}
-                <div>
-                    Contrary to popular belief, Lorem Ipsum is not simply random text.
-                    It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.
-                    &nbsp;
-                    <Tooltip
-                        title="Richard McClintock"
-                        className="tooltip"
-                        clickToOpen={true}
-                        direction="top"
-                    >
-                        <b><i>Richard McClintock</i></b>
-                    </Tooltip>
-                    , a Latin professor at Hampden-Sydney College in &nbsp;
+                <div className="row">
+                    <div className="col-3">
+                        <Tooltip
+                            title="Tooltip Top"
+                            className=""
+                            clickToOpen={true}
+                            direction="top"
+                        >
+                            top
+                        </Tooltip>
+                    </div>
 
-                    <Tooltip
-                        title="Virginia"
-                        className="tooltip"
-                        clickToOpen={true}
-                        direction="bottom"
-                    >
-                        <b><i>Virginia</i></b>
-                    </Tooltip>,
-                    looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage,
-                    and going through the cites of the word in classical literature, discovered the undoubtable source.
-                    Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of
-                    <Tooltip
-                        title="de Finibus Bonorum et Malorum"
-                        className="tooltip"
-                        clickToOpen={true}
-                        direction="right"
-                    >
-                        <b><i>"de Finibus Bonorum et Malorum"</i></b>
-                    </Tooltip>
-                    (The Extremes of Good and Evil) by &nbsp;
-                    <Tooltip
-                        title="Cicero"
-                        className="tooltip"
-                        clickToOpen={true}
-                        direction="left"
-                    >
-                        <b><i>Cicero</i></b>
-                    </Tooltip>
-                    , written in 45 BC.
-                    This book is a treatise on the theory of ethics, very popular during the Renaissance.
-                    The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
+                    <div className="col-3">
+                        <Tooltip
+                            title="Tooltip bottom"
+                            className=""
+                            clickToOpen={true}
+                            direction="bottom"
+                        >
+                            bottom
+                        </Tooltip>
+                    </div>
+
+                    <div className="col-3">
+                        <Tooltip
+                            title="Tooltip right"
+                            className=""
+                            clickToOpen={true}
+                            direction="right"
+                        >
+                            right
+                        </Tooltip>
+                    </div>
+
+                    <div className="col-3">
+                        <Tooltip
+                            title="Tooltip left"
+                            className=""
+                            clickToOpen={true}
+                            direction="left"
+                        >
+                            left
+                        </Tooltip>
+                    </div>
                 </div>
             </main>
         );
