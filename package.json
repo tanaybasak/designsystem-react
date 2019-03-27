@@ -3,8 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "flow-bin": "^0.95.1",
-    "node-sass": "^4.11.0",
     "patron-css": "git+https://github01.hclpnp.com/UXUIAssets/patron-css.git",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
@@ -27,6 +25,8 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "flow-bin": "^0.95.1",
+    "node-sass": "^4.11.0",
     "flow-watch": "^1.1.4"
   }
 }
