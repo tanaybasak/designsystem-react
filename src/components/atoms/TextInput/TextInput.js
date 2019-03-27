@@ -13,9 +13,7 @@ export default function TextInput({ className, type, helperText, ...inputFieldPr
             value={value}
             onChange={event => {
                 setValue(event.currentTarget.value);
-                if (inputFieldProps.onChange && typeof inputFieldProps.onChange === 'function') {
-                    inputFieldProps.onChange(event);
-                }
+                inputFieldProps.onChange(event);
             }}
         />
     )
