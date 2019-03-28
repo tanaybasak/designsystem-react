@@ -6,7 +6,7 @@ export default function Label({ className, children, ...labelProps }) {
 
     return (
         <label className={`${prefix}-label ${className}`} {...labelProps}>
-            {children}
+            <span>{children}</span>
         </label>
     )
 };

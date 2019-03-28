@@ -5,6 +5,7 @@ import FormHelperText from './components/atoms/FormHelperText';
 import Button from './components/atoms/Button';
 import Heading from './components/atoms/Heading';
 import Checkbox from './components/atoms/Checkbox';
+import Radio from './components/atoms/Radio';
 
 class App extends Component {
     render() {
@@ -20,16 +21,25 @@ class App extends Component {
                     </div>
                     {/* Button */}
                     <div className="hcl-form-group col-12">
-                        <Button className="btn--secondary">Button</Button>
+                        <Button className="btn--secondary" onClick={event => { console.log('Button Clicked'); }}>Button</Button>
                     </div>
                     {/* Heading */}
                     <div className="hcl-form-group col-12">
                         <Heading type="h2">Heading h2</Heading>
                     </div>
                     {/* Checkbox */}
-                    <div className="hcl-checkbox-wrapper" aria-disabled="true">
+                    <div className="hcl-checkbox-wrapper col-12" aria-disabled="true">
                         <Checkbox id="checkbox1" checked onChange={event => { console.log('checked: ', event.currentTarget.checked); }} />
                         <Label htmlFor="checkbox1" className="hcl-checkbox-label">Burlywood</Label>
+                    </div>
+                    {/* Radio */}
+                    <div className="hcl-radio-item col-12">
+                        <Radio id="radio1" name="planets" value="Option1" onChange={event => { console.log('checked: ', event.currentTarget.checked); }} />
+                        <Label htmlFor="radio1" className="hcl-radio-label">Earth</Label>
+                    </div>
+                    <div className="hcl-radio-item col-12">
+                        <Radio id="radio2" name="planets" value="Option2" onChange={event => { console.log('checked: ', event.currentTarget.checked); }} />
+                        <Label htmlFor="radio2" className="hcl-radio-label">Mars</Label>
                     </div>
                 </div>
             </main>
