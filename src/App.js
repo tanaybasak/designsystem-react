@@ -6,6 +6,7 @@ import Button from './components/atoms/Button';
 import Heading from './components/atoms/Heading';
 import Checkbox from './components/atoms/Checkbox';
 import Radio from './components/atoms/Radio';
+import Tag from './components/atoms/Tag';
 
 class App extends Component {
     render() {
@@ -40,6 +41,10 @@ class App extends Component {
                     <div className="hcl-radio-item col-12">
                         <Radio id="radio2" name="planets" value="Option2" onChange={event => { console.log('checked: ', event.currentTarget.checked); }} />
                         <Label htmlFor="radio2" className="hcl-radio-label">Mars</Label>
+                    </div>
+                    {/* Tag */}
+                    <div className="col-12">
+                        <Tag isCloseable>Date</Tag>
                     </div>
                 </div>
             </main>

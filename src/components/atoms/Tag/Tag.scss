@@ -1,0 +1,16 @@
+.hcl-tag {
+    display: inline-block;
+    padding: 0 14px;
+    font-size: 14px;
+    line-height: 1.6;
+    border-radius: 24px;
+    background-color: #0066b3;
+    color: #fff;
+    font-weight: 300;
+    &--is-closeable {
+        color: #fff;
+        cursor: pointer;
+        margin-left: 14px;
+        font-weight: 400;
+    }
+}
