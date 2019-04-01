@@ -5,7 +5,9 @@ import { prefix } from '../../../settings';
 export default function Heading(props) {
     const Element = props.type;
     return (
-        <Element className={`${prefix}-${props.type} ${props.className}`}>
+        <Element
+            className={`${prefix}-${props.type} ${props.className}`}
+        >
             {props.children}
         </Element>
     );

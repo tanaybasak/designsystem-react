@@ -5,7 +5,10 @@ import { prefix } from '../../../settings';
 export default function Label({ className, children, ...labelProps }) {
 
     return (
-        <label className={`${prefix}-label ${className}`} {...labelProps}>
+        <label
+            className={`${prefix}-label ${className}`}
+            {...labelProps}
+        >
             <span>{children}</span>
         </label>
     )

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { prefix } from '../../../settings';
 
-export default function Button({ className, children, onClick, buttonProps }) {
+export default function Button({ className, children, onClick, ...buttonProps }) {
     return (
         <button
             className={`${prefix}-btn ${className}`}

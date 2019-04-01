@@ -5,7 +5,10 @@ import { prefix } from '../../../settings';
 export default function FormHelperText({ className, children, ...labelProps }) {
 
     return (
-        <div className={`${prefix}-${className}`} {...labelProps}>
+        <div
+            className={`${prefix}-${className}`}
+            {...labelProps}
+        >
             {children}
         </div>
     )
