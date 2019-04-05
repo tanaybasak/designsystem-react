@@ -10,6 +10,7 @@ import Tag from './components/atoms/Tag';
 import TextArea from './components/atoms/TextArea';
 import Link from './components/atoms/Link';
 import Paragraph from './components/atoms/Paragraph';
+import Toggle from './components/atoms/Toggle';
 
 class App extends Component {
     render() {
@@ -73,6 +74,12 @@ class App extends Component {
                         <Paragraph>
                             There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.
                         </Paragraph>
+                    </div>
+                    {/* Toggle */}
+                    <div className="col-12 mt-5">
+                        <Toggle label="Play Song" labelA="Paused" labelB="Playing..." id="sample_toggle_1" toggled onToggle={event => { console.log(event.currentTarget) }} />
+                        <Toggle labelA="" labelB="" id="sample_toggle_2" />
+                        <Toggle disabled id="sample_toggle_3" />
                     </div>
                 </div>
             </main >
