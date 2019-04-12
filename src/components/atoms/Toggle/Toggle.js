@@ -3,35 +3,34 @@ import PropTypes from 'prop-types';
 import { prefix } from '../../../settings';
 import './Toggle.scss';
 
-export default function Toggle({ defaultToggled, label, labelA, labelB, onToggle, className, id, toggled, disabled }) {
+export default function Toggle({ defaultToggled, labelOff, labelOn, onToggle, className, id, toggled, disabled }) {
     const [checked, setChecked] = useState(toggled || false);
 
     return (
-        <fieldset className={`${prefix}-fieldset ${className || ''}`} id={id}>
-            {label ? <legend className={`${prefix}-label`}>{label}</legend> : null}
-            <label className={`${prefix}-toggle`}>
-                <input
-                    type="checkbox"
-                    onChange={event => {
-                        setChecked(!checked);
-                        onToggle(event);
-                    }}
-                    checked={checked}
-                    disabled={disabled}
-                />
-                <span className={`${prefix}-slider`}></span>
-                {labelA ? <span className={`${prefix}-toggle-label-off`}>{labelA}</span> : null}
-                {labelB ? <span className={`${prefix}-toggle-label-on`}>{labelB}</span> : null}
+        <span className={`${prefix}-toggle-container ${className || ''}`}>
+            <input
+                id={id}
+                type="checkbox"
+                onChange={event => {
+                    setChecked(!checked);
+                    onToggle(event);
+                }}
+                checked={checked}
+                disabled={disabled}
+            />
+            <label className={`${prefix}-toggle`} for={id}>
+                <span className={`${prefix}-slider`} />
             </label>
-        </fieldset>
+            {labelOff ? <span className={`${prefix}-toggle-off`}>{labelOff}</span> : null}
+            {labelOn ? <span className={`${prefix}-toggle-on`}>{labelOn}</span> : null}
+        </span>
     )
 };
 
 Toggle.propTypes = {
     defaultToggled: PropTypes.bool,
-    label: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    labelA: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    labelB: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    labelOff: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    labelOn: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     onToggle: PropTypes.func,
     className: PropTypes.string,
     id: PropTypes.string.isRequired,
@@ -41,9 +40,8 @@ Toggle.propTypes = {
 
 Toggle.defaultProps = {
     defaultToggled: false,
-    label: '',
-    labelA: 'Off',
-    labelB: 'On',
+    labelOff: 'Off',
+    labelOn: 'On',
     onToggle: () => { },
     disabled: false
 };
