@@ -2,21 +2,21 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { prefix } from '../../../settings';
 
-export default function TextInput({ className, type, helperText, ...inputFieldProps }) {
-    const [value, setValue] = useState(inputFieldProps.value || '');
+export default function TextInput({ className, type, ...restProps }) {
+    const [value, setValue] = useState(restProps.value || '');
 
     return (
         <input
             className={`${prefix}-form-control ${className}`}
             type={type}
-            {...inputFieldProps}
+            {...restProps}
             value={value}
             onChange={event => {
                 setValue(event.currentTarget.value);
-                inputFieldProps.onChange(event);
+                restProps.onChange(event);
             }}
         />
-    )
+    );
 };
 
 TextInput.propTypes = {
@@ -32,17 +32,15 @@ TextInput.propTypes = {
     type: PropTypes.oneOf([
         'text', 'email', 'password', 'search', 'tel', 'url'
     ]).isRequired,
-    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    helperText: PropTypes.node,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 };
 
 TextInput.defaultProps = {
-    className: '',
+    className: null,
     disabled: false,
     onChange: () => { },
     onClick: () => { },
     onFocus: () => { },
     onBlur: () => { },
-    type: 'text',
-    helperText: ''
+    type: 'text'
 };

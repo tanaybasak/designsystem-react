@@ -2,16 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { prefix } from '../../../settings';
 
-export default function FormHelperText({ className, children, ...labelProps }) {
+export default function FormHelperText({ className, children, ...restProps }) {
 
     return (
         <div
             className={`${prefix}-${className}`}
-            {...labelProps}
+            {...restProps}
         >
             {children}
         </div>
-    )
+    );
 };
 
 FormHelperText.propTypes = {
@@ -22,7 +22,7 @@ FormHelperText.propTypes = {
 };
 
 FormHelperText.defaultProps = {
-    children: '',
+    children: null,
     className: '',
     htmlFor: '',
     onClick: () => { }
