@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { prefix } from '../../../settings';
 
-export default function Radio({ className, helperText, checked, ...checkboxProps }) {
+export default function Radio({ className, checked, ...restProps }) {
     const [isChecked, setValue] = useState(checked || false);
 
     return (
@@ -10,13 +10,13 @@ export default function Radio({ className, helperText, checked, ...checkboxProps
             className={`${prefix}-radio ${className}`}
             type="radio"
             checked={isChecked}
-            {...checkboxProps}
+            {...restProps}
             onChange={event => {
                 setValue(event.currentTarget.checked);
-                checkboxProps.onChange(event);
+                restProps.onChange(event);
             }}
         />
-    )
+    );
 };
 
 Radio.propTypes = {
@@ -25,14 +25,13 @@ Radio.propTypes = {
     id: PropTypes.string,
     onChange: PropTypes.func,
     checked: PropTypes.bool,
-    helperText: PropTypes.node,
     name: PropTypes.string,
     title: PropTypes.string,
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 };
 
 Radio.defaultProps = {
-    className: '',
+    className: null,
     disabled: false,
     onChange: () => { },
     checked: false

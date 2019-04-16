@@ -2,16 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { prefix } from '../../../settings';
 
-export default function Paragraph({ className, children, ...labelProps }) {
+export default function Paragraph({ className, children, ...restProps }) {
 
     return (
         <p
             className={className}
-            {...labelProps}
+            {...restProps}
         >
             {children}
         </p>
-    )
+    );
 };
 
 Paragraph.propTypes = {
@@ -20,6 +20,6 @@ Paragraph.propTypes = {
 };
 
 Paragraph.defaultProps = {
-    children: '',
+    children: null,
     className: ''
 };

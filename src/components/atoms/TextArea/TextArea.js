@@ -2,20 +2,20 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { prefix } from '../../../settings';
 
-export default function TextArea({ className, helperText, ...inputFieldProps }) {
-    const [value, setValue] = useState(inputFieldProps.value || '');
+export default function TextArea({ className, ...restProps }) {
+    const [value, setValue] = useState(restProps.value || '');
 
     return (
         <textarea
             className={`${prefix}-text-area ${className}`}
-            {...inputFieldProps}
+            {...restProps}
             value={value}
             onChange={event => {
                 setValue(event.currentTarget.value);
-                inputFieldProps.onChange(event);
+                restProps.onChange(event);
             }}
         />
-    )
+    );
 };
 
 TextArea.propTypes = {
@@ -28,16 +28,14 @@ TextArea.propTypes = {
     onFocus: PropTypes.func,
     onBlur: PropTypes.func,
     placeholder: PropTypes.string,
-    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    helperText: PropTypes.node,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 };
 
 TextArea.defaultProps = {
-    className: '',
+    className: null,
     disabled: false,
     onChange: () => { },
     onClick: () => { },
     onFocus: () => { },
-    onBlur: () => { },
-    helperText: ''
+    onBlur: () => { }
 };

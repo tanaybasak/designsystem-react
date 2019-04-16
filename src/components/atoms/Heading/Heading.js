@@ -4,6 +4,7 @@ import { prefix } from '../../../settings';
 
 export default function Heading(props) {
     const Element = props.type;
+
     return (
         <Element
             className={`${prefix}-${props.type} ${props.className}`}
@@ -20,7 +21,7 @@ Heading.propTypes = {
 };
 
 Heading.defaultProps = {
-    children: 'Heading h2',
+    children: 'Heading',
     className: '',
     type: 'h2'
 };
