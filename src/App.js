@@ -10,6 +10,7 @@ import Tag from './components/atoms/Tag';
 import TextArea from './components/atoms/TextArea';
 import Link from './components/atoms/Link';
 import Paragraph from './components/atoms/Paragraph';
+import Breadcrumb from './components/atoms/Breadcrumb';
 
 class App extends Component {
     render() {
@@ -73,6 +74,15 @@ class App extends Component {
                         <Paragraph>
                             There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.
                         </Paragraph>
+                    </div>
+                    {/* Breadcrumb */}
+                    <div className="col-12 mt-5">
+                        <Breadcrumb id="breadcrumb" model={[
+                            { label: "Breadcrumb 1", url: "https://google.co.in" },
+                            { label: "Breadcrumb 2", url: "https://google.co.in" },
+                            { label: "Breadcrumb 3", url: "https://google.co.in" }
+                        ]}>
+                        </Breadcrumb>
                     </div>
                 </div>
             </main >
