@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { prefix } from '../../../settings';
-import './Toggle.scss';
 
 export default function Toggle({ defaultToggled, labelOff, labelOn, onToggle, className, id, toggled, disabled }) {
     const [checked, setChecked] = useState(toggled || false);
@@ -18,7 +17,7 @@ export default function Toggle({ defaultToggled, labelOff, labelOn, onToggle, cl
                 checked={checked}
                 disabled={disabled}
             />
-            <label className={`${prefix}-toggle`} for={id}>
+            <label className={`${prefix}-toggle`} htmlFor={id}>
                 <span className={`${prefix}-slider`} />
             </label>
             {labelOff ? <span className={`${prefix}-toggle-off`}>{labelOff}</span> : null}
