@@ -19,18 +19,22 @@ class Breadcrumb extends React.Component {
         className: PropTypes.string
     };
 
-    static style = {
-        'breadcrumb': `${prefix}-breadcrumb`,
-        'breadcrumbItem': `${prefix}-breadcrumb-item`
-    };
+    constructor(props) {
+        super(props);
+        this.defaultStyle = {
+            'breadcrumb': `${prefix}-breadcrumb`,
+            'breadcrumbItem': `${prefix}-breadcrumb-item`,
+            'breadcrumbLink': `${prefix}-link`
+        }
+    }
 
     renderItems() {
         if (this.props.model) {
             const items = this.props.model.map((item, index) => {
-                const itemClassName = classNames(`${Breadcrumb.style.breadcrumbItem}`, '');
+                const itemClassName = classNames(`${this.defaultStyle.breadcrumbItem}`, '');
                 return (
-                    <li className={itemClassName}>
-                        <Link href={item.url || '#'}>{item.label}</Link>
+                    <li className={itemClassName} key={`${index}_`}>
+                        <Link href={item.url || '#'} className={`${this.defaultStyle.breadcrumbLink}`}>{item.label}</Link>
                     </li>
                 );
             });
@@ -41,10 +45,10 @@ class Breadcrumb extends React.Component {
     }
 
     render() {
-        const className = classNames(Breadcrumb.style.breadcrumb, this.props.className);
+        const className = classNames(this.defaultStyle.breadcrumb, this.props.className);
         const items = this.renderItems();
         return (
-            <ul id={this.props.id} className={className}>
+            <ul id={this.props.id || null} className={className} style={this.props.style || {}}>
                 {items}
             </ul>
         );
