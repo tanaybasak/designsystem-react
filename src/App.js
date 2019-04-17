@@ -6,10 +6,10 @@ import Button from './components/atoms/Button';
 import Heading from './components/atoms/Heading';
 import Checkbox from './components/atoms/Checkbox';
 import Radio from './components/atoms/Radio';
-import Tag from './components/atoms/Tag';
 import TextArea from './components/atoms/TextArea';
 import Link from './components/atoms/Link';
 import Paragraph from './components/atoms/Paragraph';
+import Breadcrumb from './components/atoms/Breadcrumb';
 import Spinner from './components/atoms/Spinner';
 import Toggle from './components/atoms/Toggle';
 import Notification from './components/atoms/Notification';
@@ -76,6 +76,15 @@ class App extends Component {
                         <Paragraph>
                             There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.
                         </Paragraph>
+                    </div>
+                    {/* Breadcrumb */}
+                    <div className="col-12 mt-5">
+                        <Breadcrumb id="breadcrumb" className="custom-breadcrumb" model={[
+                            { label: "Breadcrumb 1", url: "" },
+                            { label: "Breadcrumb 2", url: "https://google.co.in" },
+                            { label: "Breadcrumb 3" }
+                        ]}>
+                        </Breadcrumb>
                     </div>
                     {/* Spinner */}
                     <div className="col-12 mt-5">

@@ -25,8 +25,9 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "classnames": "^2.2.6",
     "flow-bin": "^0.95.1",
-    "node-sass": "^4.11.0",
-    "flow-watch": "^1.1.4"
+    "flow-watch": "^1.1.4",
+    "node-sass": "^4.11.0"
   }
 }
