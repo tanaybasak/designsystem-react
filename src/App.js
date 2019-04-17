@@ -11,6 +11,9 @@ import TextArea from './components/atoms/TextArea';
 import Link from './components/atoms/Link';
 import Paragraph from './components/atoms/Paragraph';
 import Breadcrumb from './components/atoms/Breadcrumb';
+import Spinner from './components/atoms/Spinner';
+import Toggle from './components/atoms/Toggle';
+import Notification from './components/atoms/Notification';
 
 class App extends Component {
     render() {
@@ -83,6 +86,26 @@ class App extends Component {
                             { label: "Breadcrumb 3" }
                         ]}>
                         </Breadcrumb>
+                    </div>
+                    {/* Spinner */}
+                    <div className="col-12 mt-5">
+                        <Spinner />
+                    </div>
+                    {/* Toggle */}
+                    <div className="col-12 mt-5">
+                        <Toggle labelOff="Paused" labelOn="Playing..." id="sample_toggle_1" toggled onChange={event => { console.log('Toggled') }} />
+                        <Toggle labelOff="" labelOn="" id="sample_toggle_2" />
+                        <Toggle disabled id="sample_toggle_3" />
+                    </div>
+                    <div className="col-12 mt-5">
+                        <Notification
+                            title="Notification title"
+                            subtitle="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
+                                has been the industry's standard dummy text ever since the 1500s."
+                            className='hcl-info'
+                            closable
+                            onClose={event => { console.log('Notification Closed'); }}
+                        />
                     </div>
                 </div>
             </main >

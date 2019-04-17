@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { prefix } from '../../../settings';
 
-export default function Checkbox({ className, helperText, checked, ...checkboxProps }) {
+export default function Checkbox({ className, checked, ...restProps }) {
     const [isChecked, setValue] = useState(checked || false);
 
     return (
@@ -10,13 +10,13 @@ export default function Checkbox({ className, helperText, checked, ...checkboxPr
             className={`${prefix}-checkbox ${className}`}
             type="checkbox"
             checked={isChecked}
-            {...checkboxProps}
+            {...restProps}
             onChange={event => {
                 setValue(event.currentTarget.checked);
-                checkboxProps.onChange(event);
+                restProps.onChange(event);
             }}
         />
-    )
+    );
 };
 
 Checkbox.propTypes = {
@@ -25,12 +25,11 @@ Checkbox.propTypes = {
     id: PropTypes.string,
     onChange: PropTypes.func,
     checked: PropTypes.bool,
-    helperText: PropTypes.node,
-    title: PropTypes.string,
+    title: PropTypes.string
 };
 
 Checkbox.defaultProps = {
-    className: '',
+    className: null,
     disabled: false,
     onChange: () => { },
     checked: false

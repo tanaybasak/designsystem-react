@@ -2,12 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { prefix } from '../../../settings';
 
-export default function Link({ className, children, href, ...linkProps }) {
+export default function Link({ className, children, href, ...restProps }) {
+    
     return (
         <a
             className={className}
             href={href}
-            {...linkProps}
+            {...restProps}
         >
             {children}
         </a>
@@ -23,7 +24,7 @@ Link.propTypes = {
 };
 
 Link.defaultProps = {
-    children: '',
+    children: null,
     className: '',
     href: '#',
     onClick: () => { }
