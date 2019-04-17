@@ -6,7 +6,6 @@ import Button from './components/atoms/Button';
 import Heading from './components/atoms/Heading';
 import Checkbox from './components/atoms/Checkbox';
 import Radio from './components/atoms/Radio';
-import Tag from './components/atoms/Tag';
 import TextArea from './components/atoms/TextArea';
 import Link from './components/atoms/Link';
 import Paragraph from './components/atoms/Paragraph';
