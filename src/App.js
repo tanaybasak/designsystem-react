@@ -77,7 +77,7 @@ class App extends Component {
                     </div>
                     {/* Toggle */}
                     <div className="col-12 mt-5">
-                        <Toggle labelOff="Paused" labelOn="Playing..." id="sample_toggle_1" toggled onToggle={event => { console.log(event.currentTarget) }} />
+                        <Toggle labelOff="Paused" labelOn="Playing..." id="sample_toggle_1" toggled onChange={event => { console.log('Toggled') }} />
                         <Toggle labelOff="" labelOn="" id="sample_toggle_2" />
                         <Toggle disabled id="sample_toggle_3" />
                     </div>
