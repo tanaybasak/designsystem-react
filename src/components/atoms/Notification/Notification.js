@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { prefix } from '../../../settings';
 
-export default function Notification({ title, subtitle, className, onClose, ...restProps }) {
+export default function Notification({ title, subtitle, className, closable, onClose }) {
     return (
         <div data-notification="" className={`${prefix}-notification ${className}`} role="alert">
             <div className={`${prefix}-notification-body`}>
@@ -14,13 +14,23 @@ export default function Notification({ title, subtitle, className, onClose, ...r
                     </path>
                 </svg>
                 <div className={`${prefix}-notification-text-wrapper`}>
-                    <p className={`${prefix}-notification-title`}>{title}</p>
-                    <p className={`${prefix}-notification-subtitle`}>{subtitle}
+                    <p className={`${prefix}-notification-title`}>{
+                        title}
+                    </p>
+                    <p className={`${prefix}-notification-subtitle`}>
+                        {subtitle}
                     </p>
                 </div>
             </div>
-            <button className={`${prefix}-notification-close`} type="button" aria-label="close" onClick={onClose}>
-            </button>
+            {closable ?
+                <button
+                    className={`${prefix}-notification-close`}
+                    type="button"
+                    aria-label="close"
+                    onClick={onClose}
+                />
+                : null
+            }
         </div>
     );
 };
@@ -29,6 +39,7 @@ Notification.propTypes = {
     title: PropTypes.string.isRequired,
     subtitle: PropTypes.string.isRequired,
     className: PropTypes.string.isRequired,
+    closable: PropTypes.bool,
     onClose: PropTypes.func
 };
 
