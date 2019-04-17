@@ -10,6 +10,7 @@ import Tag from './components/atoms/Tag';
 import TextArea from './components/atoms/TextArea';
 import Link from './components/atoms/Link';
 import Paragraph from './components/atoms/Paragraph';
+import Spinner from './components/atoms/Spinner';
 import Toggle from './components/atoms/Toggle';
 import Notification from './components/atoms/Notification';
 
@@ -75,6 +76,10 @@ class App extends Component {
                         <Paragraph>
                             There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.
                         </Paragraph>
+                    </div>
+                    {/* Spinner */}
+                    <div className="col-12 mt-5">
+                        <Spinner />
                     </div>
                     {/* Toggle */}
                     <div className="col-12 mt-5">
