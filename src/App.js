@@ -10,6 +10,7 @@ import Tag from './components/atoms/Tag';
 import TextArea from './components/atoms/TextArea';
 import Link from './components/atoms/Link';
 import Paragraph from './components/atoms/Paragraph';
+import Notification from './components/atoms/Notification';
 
 class App extends Component {
     render() {
@@ -73,6 +74,16 @@ class App extends Component {
                         <Paragraph>
                             There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.
                         </Paragraph>
+                    </div>
+                    <div className="col-12 mt-5">
+                        <Notification
+                            title="Notification title"
+                            subtitle="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
+                                has been the industry's standard dummy text ever since the 1500s."
+                            className='hcl-info'
+                            closable
+                            onClose={event => { console.log('Notification Closed'); }}
+                        />
                     </div>
                 </div>
             </main >
