@@ -77,10 +77,10 @@ class App extends Component {
                     </div>
                     {/* Breadcrumb */}
                     <div className="col-12 mt-5">
-                        <Breadcrumb id="breadcrumb" model={[
-                            { label: "Breadcrumb 1", url: "https://google.co.in" },
+                        <Breadcrumb id="breadcrumb" className="custom-breadcrumb" model={[
+                            { label: "Breadcrumb 1", url: "" },
                             { label: "Breadcrumb 2", url: "https://google.co.in" },
-                            { label: "Breadcrumb 3", url: "https://google.co.in" }
+                            { label: "Breadcrumb 3" }
                         ]}>
                         </Breadcrumb>
                     </div>

@@ -7,14 +7,17 @@ import Link from '../Link';
 class Breadcrumb extends React.Component {
     static defaultProps = {
         id: null,
-        model: null,
+        model: [],
         style: null,
-        className: null
+        className: `${prefix}-breadcrumb`
     };
 
     static propTypes = {
         id: PropTypes.string,
-        model: PropTypes.array,
+        model: PropTypes.arrayOf(PropTypes.shape({
+            label: PropTypes.string.isRequired,
+            url: PropTypes.string
+        })).isRequired,
         style: PropTypes.object,
         className: PropTypes.string
     };
@@ -46,10 +49,9 @@ class Breadcrumb extends React.Component {
 
     render() {
         const className = classNames(this.defaultStyle.breadcrumb, this.props.className);
-        const items = this.renderItems();
         return (
-            <ul id={this.props.id || null} className={className} style={this.props.style || {}}>
-                {items}
+            <ul id={this.props.id || null} className={className} style={this.props.style || {}} aria-label={'breadcrumb'}>
+                {this.renderItems()}
             </ul>
         );
     }
