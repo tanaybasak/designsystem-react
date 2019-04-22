@@ -1,0 +1,30 @@
+{
+    "parser": "babel-eslint",
+    "env" : {
+        "browser" : true,
+        "jest" : true
+    },
+    "settings" : {
+        "react" : {
+            "version" : "16.8.0"
+        }
+    },
+    "plugins": [
+      "react"
+    ],
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "plugin:prettier/recommended"
+    ],
+    "rules": {
+      "no-undef": [1],
+      "prop-types": [1],
+      "react/jsx-filename-extensions" : [
+          "error" , {
+              "extensions" : [".js", ".jsx"]
+          }
+      ]
+    }
+
+  }
