@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { prefix } from '../../../settings';
+import { prefix } from '../../settings';
 
 export default function Checkbox({ className, checked, ...restProps }) {
     const [isChecked, setValue] = useState(checked || false);

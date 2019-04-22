@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
-import Label from './components/atoms/Label';
-import TextInput from './components/atoms/TextInput';
-import FormHelperText from './components/atoms/FormHelperText';
-import Button from './components/atoms/Button';
-import Heading from './components/atoms/Heading';
-import Checkbox from './components/atoms/Checkbox';
-import Radio from './components/atoms/Radio';
-import TextArea from './components/atoms/TextArea';
-import Link from './components/atoms/Link';
-import Paragraph from './components/atoms/Paragraph';
-import Breadcrumb from './components/atoms/Breadcrumb';
-import Spinner from './components/atoms/Spinner';
-import Toggle from './components/atoms/Toggle';
-import Notification from './components/atoms/Notification';
+import Label from './atoms/Label';
+import TextInput from './atoms/TextInput';
+import FormHelperText from './atoms/FormHelperText';
+import Button from './atoms/Button';
+import Heading from './atoms/Heading';
+import Checkbox from './atoms/Checkbox';
+import Radio from './atoms/Radio';
+import TextArea from './atoms/TextArea';
+import Link from './atoms/Link';
+import Paragraph from './atoms/Paragraph';
+import Breadcrumb from './atoms/Breadcrumb'
+import Spinner from './atoms/Spinner';
+import Toggle from './atoms/Toggle';
+import Notification from './atoms/Notification';
 
 class App extends Component {
     render() {

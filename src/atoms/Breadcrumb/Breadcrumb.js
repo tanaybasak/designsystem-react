@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { prefix } from '../../../settings';
+import { prefix } from '../../settings';
 import Link from '../Link';
 
 class Breadcrumb extends React.Component {
