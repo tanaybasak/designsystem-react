@@ -8,7 +8,6 @@
     "patron-css": "git+https://github01.hclpnp.com/UXUIAssets/patron-css.git",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
-    "react-scripts": "2.1.8",
     "react-test-renderer": "^16.8.6"
   },
   "scripts": {
@@ -28,7 +27,6 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "eslint-plugin-react": "^7.12.4",
     "classnames": "^2.2.6",
     "node-sass": "^4.11.0"
   }
