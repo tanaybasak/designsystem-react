@@ -90,6 +90,10 @@ class App extends Component {
                     <div className="col-12 mt-5">
                         <Spinner />
                     </div>
+                    {/* Small Spinner */}
+                    <div className="col-12 mt-5">
+                        <Spinner small />
+                    </div>
                     {/* Toggle */}
                     <div className="col-12 mt-5">
                         <Toggle id="simple-toggle" className="ml-3" onChange={event => { console.log('Toggled') }} />
