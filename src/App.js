@@ -49,21 +49,21 @@ class App extends Component {
                     </div>
                     {/* Checkbox */}
                     <div className="col-12 mt-5">
-                        <legend class="hcl-legend">Checkbox - Horizontally arranged (default)</legend>
-                        <Checkbox id="checkbox1" labelText="1 (default)" onChange={event => { console.log('Default Checkbox') }}/>
+                        <legend className="hcl-legend">Checkbox - Horizontally arranged (default)</legend>
+                        <Checkbox id="checkbox1" labelText="1 (default)" onChange={event => { console.log('Default Checkbox.') }}/>
                         <Checkbox id="checkbox2" labelText="2" checked onChange={event => { console.log('Checked state is changed.') }}/>
                         <Checkbox id="checkbox3" labelText="3 (disabled)" disabled />
                     </div>
                     <div className="col-12 mt-5">
-                        <legend class="hcl-legend">Checkbox - Vertically arranged</legend>
-                        <div className="hcl-checkbox-group hcl-stack-vertical">
-                            <Checkbox id="checkbox4" labelText="4 (default)" onChange={event => { console.log('Default Checkbox') }}/>
-                            <Checkbox id="checkbox5" labelText="5" checked onChange={event => { console.log('Checked state is changed.') }}/>
-                            <Checkbox id="checkbox6" labelText="6 (disabled)" disabled />
-                        </div>
+                        <legend className="hcl-legend">Checkbox - Vertically arranged</legend>
+                            <div className="hcl-checkbox-group hcl-stack-vertical">
+                                <Checkbox id="checkbox4" labelText="4 (default)" onChange={event => { console.log('Default Checkbox.') }}/>
+                                <Checkbox id="checkbox5" labelText="5" checked onChange={event => { console.log('Checked state is changed.') }}/>
+                                <Checkbox id="checkbox6" labelText="6 (disabled)" disabled />
+                            </div>
                     </div>
                     {/* Radio */}
-                    <div className="hcl-radio-group col-12 hcl-stack-vertical" aria-disabled="true">
+                    {/* <div className="hcl-radio-group col-12 hcl-stack-vertical" aria-disabled="true">
                         <div className="hcl-radio-item">
                             <Radio id="radio1" name="sampleText" value="Option1" onChange={event => { console.log('checked: ', event.currentTarget.checked); }} />
                             <Label htmlFor="radio1" className="hcl-radio-label">Sample text 1</Label>
@@ -72,7 +72,21 @@ class App extends Component {
                             <Radio id="radio2" name="sampleText" value="Option2" onChange={event => { console.log('checked: ', event.currentTarget.checked); }} />
                             <Label htmlFor="radio2" className="hcl-radio-label">Sample text 2</Label>
                         </div>
-                    </div>
+                    </div> */}
+                    <div className="col-12 mt-5">
+                        <legend className="hcl-legend">Radio - Horizontally arranged (default)</legend>
+                        <Radio id="Radio1" labelText="1 (default)" value="Option1" name="planets" onChange={event => { console.log('Default Radio.') }}/>
+                        <Radio id="Radio2" labelText="2" name="planets" value="Option2" checked onChange={event => { console.log('Radio state is changed.') }}/>
+                        <Radio id="Radio3" labelText="3 (disabled)" value="Option3" name="planets" disabled onChange={event => {  }}/>
+                    </div>  
+                    <div className="col-12 mt-5">
+                        <legend className="hcl-legend">Radio - Vertically arranged</legend>
+                            <div className="hcl-radio-group hcl-stack-vertical">
+                                <Radio id="Radio4" labelText="4 (default)" value="Option4" name="animal" onChange={event => { console.log('Default Radio.') }}/>
+                                <Radio id="Radio5" labelText="5" value="Option5" name="animal" checked onChange={event => { console.log('Radio state is changed.') }}/>
+                                <Radio id="Radio6" labelText="6 (disabled)" value="Option6" name="animal" disabled onChange={event => {  }}/>
+                            </div>
+                    </div>  
                     {/* Tag */}
                     {/* <div className="col-12">
                         <Tag isCloseable>Date</Tag>
