@@ -48,9 +48,19 @@ class App extends Component {
                         <Heading type="h2">Heading h2</Heading>
                     </div>
                     {/* Checkbox */}
-                    <div className="hcl-checkbox-wrapper col-12" aria-disabled="true">
-                        <Checkbox id="checkbox1" checked onChange={event => { console.log('checked: ', event.currentTarget.checked); }} />
-                        <Label htmlFor="checkbox1" className="hcl-checkbox-label">Sample text</Label>
+                    <div className="col-12 mt-5">
+                        <legend class="hcl-legend">Checkbox - Horizontally arranged (default)</legend>
+                        <Checkbox id="checkbox1" labelText="1 (default)" onChange={event => { console.log('Default Checkbox') }}/>
+                        <Checkbox id="checkbox2" labelText="2" checked onChange={event => { console.log('Checked state is changed.') }}/>
+                        <Checkbox id="checkbox3" labelText="3 (disabled)" disabled />
+                    </div>
+                    <div className="col-12 mt-5">
+                        <legend class="hcl-legend">Checkbox - Vertically arranged</legend>
+                        <div className="hcl-checkbox-group hcl-stack-vertical">
+                            <Checkbox id="checkbox4" labelText="4 (default)" onChange={event => { console.log('Default Checkbox') }}/>
+                            <Checkbox id="checkbox5" labelText="5" checked onChange={event => { console.log('Checked state is changed.') }}/>
+                            <Checkbox id="checkbox6" labelText="6 (disabled)" disabled />
+                        </div>
                     </div>
                     {/* Radio */}
                     <div className="hcl-radio-group col-12 hcl-stack-vertical" aria-disabled="true">
