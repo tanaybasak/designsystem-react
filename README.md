@@ -1,4 +1,20 @@
-# patron-react
+# HCL Design System - React Reuseable Components
+This repo has all the React Reuseable Components. This repo requires patron-css as dependency.
+
+## List of available Components
+- Headings
+- Form Elements
+- Paragraph
+- Link
+- Toggle
+- Buttons
+- Spinner
+
+## How to use
+Run the following command in the terminal
+
+        npm run start
+
 
 ## Contributors
 
