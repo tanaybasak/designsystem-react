@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { prefix } from '../../settings';
 
-export default function Toggle({ labelOff, labelOn, onChange, className, toggled, ...restProps }) {
+export default function Toggle({ small, labelOff, labelOn, onChange, className, toggled, ...restProps }) {
     const [checked, setChecked] = useState(toggled || false);
 
     return (
-        <span className={`${prefix}-toggle-container ${className || ''}`}>
+        <span className={`${prefix}-toggle${small ? '-small' : ''} ${className || ''}`}>
             <input
                 type="checkbox"
                 onChange={event => {
@@ -16,7 +16,7 @@ export default function Toggle({ labelOff, labelOn, onChange, className, toggled
                 checked={checked}
                 {...restProps}
             />
-            <label className={`${prefix}-toggle`} htmlFor={restProps.id}>
+            <label className={`${prefix}-toggle-label`} htmlFor={restProps.id}>
                 <span className={`${prefix}-slider`} />
             </label>
             {labelOff ? <span className={`${prefix}-toggle-off`}>{labelOff}</span> : null}
@@ -26,6 +26,7 @@ export default function Toggle({ labelOff, labelOn, onChange, className, toggled
 };
 
 Toggle.propTypes = {
+    small: PropTypes.bool,
     labelOff: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     labelOn: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     onChange: PropTypes.func,
@@ -36,6 +37,7 @@ Toggle.propTypes = {
 };
 
 Toggle.defaultProps = {
+    small: false,
     labelOff: 'Off',
     labelOn: 'On',
     onChange: () => { },

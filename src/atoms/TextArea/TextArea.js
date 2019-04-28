@@ -19,7 +19,7 @@ export default function TextArea({ className, ...restProps }) {
 };
 
 TextArea.propTypes = {
-    className: PropTypes.string.isRequired,
+    className: PropTypes.string,
     defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     disabled: PropTypes.bool,
     id: PropTypes.string,

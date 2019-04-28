@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { prefix } from '../../settings';
 
 export default function Link({ className, children, href, ...restProps }) {
     

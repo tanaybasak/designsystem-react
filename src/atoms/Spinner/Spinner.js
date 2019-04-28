@@ -2,25 +2,25 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { prefix } from '../../settings';
 
-export default function Spinner({ x, y, radius }) {
+export default function Spinner({ small, title, className }) {
 
     return (
-        <section className={`${prefix}-spinner`} title="loading">
-            <svg className={`${prefix}-spinner-svg`}>
-                <circle className={`${prefix}-spinner-svg-circle`} cx={x} cy={y} r={radius} />
+        <div className={`${prefix}-spinner${small ? '-small' : ''} ${className}`} title={title}>
+            <svg viewBox="-75 -75 150 150">
+                <circle cx="0" cy="0" r="37.5" />
             </svg>
-        </section>
+        </div>
     );
 };
 
 Spinner.propTypes = {
-    x: PropTypes.number.isRequired,
-    y: PropTypes.number.isRequired,
-    radius: PropTypes.number.isRequired
+    small: PropTypes.bool,
+    title: PropTypes.string,
+    className: PropTypes.string
 };
 
 Spinner.defaultProps = {
-    x: 50,
-    y: 50,
-    radius: 40
+    small: false,
+    title: '',
+    className: ''
 };

@@ -90,11 +90,21 @@ class App extends Component {
                     <div className="col-12 mt-5">
                         <Spinner />
                     </div>
+                    {/* Small Spinner */}
+                    <div className="col-12 mt-5">
+                        <Spinner small />
+                    </div>
                     {/* Toggle */}
                     <div className="col-12 mt-5">
-                        <Toggle labelOff="Paused" labelOn="Playing..." id="sample_toggle_1" toggled onChange={event => { console.log('Toggled') }} />
-                        <Toggle labelOff="" labelOn="" id="sample_toggle_2" />
-                        <Toggle disabled id="sample_toggle_3" />
+                        <Toggle id="simple-toggle" className="ml-3" onChange={event => { console.log('Toggled') }} />
+                        <Toggle id="disabled-checked-toggle" className="ml-3" disabled toggled />
+                        <Toggle id="disabled-toggle" className="ml-3" disabled labelOff="off" labelOn="on" />
+                    </div>
+                    {/* Small Toggle */}
+                    <div className="col-12 mt-5">
+                        <Toggle small id="simple-small-toggle" className="ml-3" onChange={event => { console.log('Toggled') }} />
+                        <Toggle small id="disabled-checked-small-toggle" className="ml-3" disabled toggled />
+                        <Toggle small id="disabled-small-toggle" className="ml-3" disabled labelOff="off" labelOn="on" />
                     </div>
                     <div className="col-12 mt-5">
                         <Notification

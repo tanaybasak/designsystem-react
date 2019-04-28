@@ -8,6 +8,7 @@
     "patron-css": "git+https://github01.hclpnp.com/UXUIAssets/patron-css.git",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
+    "react-scripts": "^3.0.0",
     "react-test-renderer": "^16.8.6"
   },
   "scripts": {
