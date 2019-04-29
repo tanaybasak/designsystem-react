@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { prefix } from '../../../settings';
 
-export default function Tag({ className, children, text, type, onClose, src, ...restProps }) {
+export default function Tag({ className, children, text, type, onClose, thumbnailSrc, ...restProps }) {
     return (
         <button
             className={`${prefix}-tag hcl-tag-${type} ${className}`}
             {...restProps}
         >
-            {src ? <img src={src} className={`${prefix}-tag-thumbnail`} aria-hidden="true" /> : null}
+            {thumbnailSrc ? <img src={thumbnailSrc} className={`${prefix}-tag-thumbnail`} aria-hidden="true" /> : null}
             <span className={`${prefix}-tag-text`}>
                 {children || text}
             </span>
@@ -26,7 +26,7 @@ Tag.propTypes = {
     tabIndex: PropTypes.number,
     disabled: PropTypes.bool,
     onClose: PropTypes.func,
-    src: PropTypes.string
+    thumbnailSrc: PropTypes.string
 };
 
 Tag.defaultProps = {
@@ -38,5 +38,5 @@ Tag.defaultProps = {
     tabIndex: 0,
     disabled: false,
     onClose: null,
-    src: null
+    thumbnailSrc: null
 };
