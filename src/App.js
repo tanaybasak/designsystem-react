@@ -122,7 +122,7 @@ class App extends Component {
                         <Tag className="ml-3" title="Secondary Tag" type="secondary">Secondary Tag</Tag>
                         <Tag className="ml-3" title="Secondary Disabled Tag" disabled type="secondary">Secondary Disabled Tag</Tag>
                         <Tag className="ml-3" title="Secondary Closable" type="secondary" onClose={event => { alert('Closing Tag') }}>Secondary Closable</Tag>
-                        <Tag className="ml-3" title="Secondary Tag With Thumbnail" thumbnailSrc="https://image.flaticon.com/icons/png/512/862/862358.png">Secondary Tag With Thumbnail</Tag>
+                        <Tag className="ml-3" title="Secondary Tag With Thumbnail" type="secondary" thumbnailSrc="https://image.flaticon.com/icons/png/512/862/862358.png">Secondary Tag With Thumbnail</Tag>
                     </div>
                 </div>
             </main >
