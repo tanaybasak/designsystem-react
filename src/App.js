@@ -75,9 +75,9 @@ class App extends Component {
                     </div> */}
                     <div className="col-12 mt-5">
                         <legend className="hcl-legend">Radio - Horizontally arranged (default)</legend>
-                        <Radio id="Radio1" labelText="1 (default)" value="Option1" name="planets" onChange={event => { console.log('Default Radio.') }}/>
-                        <Radio id="Radio2" labelText="2" name="planets" value="Option2" checked onChange={event => { console.log('Radio state is changed.') }}/>
-                        <Radio id="Radio3" labelText="3 (disabled)" value="Option3" name="planets" disabled onChange={event => {  }}/>
+                            <Radio id="Radio1" labelText="1 (default)" value="Option1" name="planets" onChange={event => { console.log('Default Radio.') }}/>
+                            <Radio id="Radio2" labelText="2" name="planets" value="Option2" checked onChange={event => { console.log('Radio state is changed.') }}/>
+                            <Radio id="Radio3" labelText="3 (disabled)" value="Option3" name="planets" disabled onChange={event => {  }}/>
                     </div>  
                     <div className="col-12 mt-5">
                         <legend className="hcl-legend">Radio - Vertically arranged</legend>

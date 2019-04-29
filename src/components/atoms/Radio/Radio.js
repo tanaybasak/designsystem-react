@@ -3,30 +3,15 @@ import PropTypes from 'prop-types';
 import { prefix } from '../../../settings';
 
 export default function Radio({ className, checked, labelText, ...restProps }) {
-    const [isChecked, setChecked] = useState(checked || false);
 
     return (
-        // <input
-        //     className={`${prefix}-radio ${className}`}
-        //     type="radio"
-        //     checked={isChecked}
-        //     {...restProps}
-        //     onChange={event => {
-        //         setValue(event.currentTarget.checked);
-        //         restProps.onChange(event);
-        //     }}
-        // />
         <div className={`${prefix}-radio-item ${className || ''}`}>
             <input
                 className={`${prefix}-radio`}
                 type="radio"
-                checked={isChecked}
-                aria-checked={isChecked}
-                aria-disabled={restProps['disabled'] ? true : false}
+                defaultChecked={checked}
                 {...restProps}
                 onChange={event => {
-                    console.log(event.target);
-                    setChecked(!isChecked);
                     if (restProps.onChange) {
                         restProps.onChange(event);
                     }
