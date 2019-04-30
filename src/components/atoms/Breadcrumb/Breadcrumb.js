@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import { prefix } from '../../../settings';
 import Link from '../Link';
 
@@ -34,7 +33,7 @@ class Breadcrumb extends React.Component {
     renderItems() {
         if (this.props.model) {
             const items = this.props.model.map((item, index) => {
-                const itemClassName = classNames(`${this.defaultStyle.breadcrumbItem}`, '');
+                const itemClassName = `${this.defaultStyle.breadcrumbItem}`;
                 return (
                     <li className={itemClassName} key={`${index}_`}>
                         <Link href={item.url || '#'} className={`${this.defaultStyle.breadcrumbLink}`}>{item.label}</Link>
@@ -48,9 +47,8 @@ class Breadcrumb extends React.Component {
     }
 
     render() {
-        const className = classNames(this.defaultStyle.breadcrumb, this.props.className);
         return (
-            <ul id={this.props.id || null} className={className} style={this.props.style || {}} aria-label={'breadcrumb'}>
+            <ul id={this.props.id || null} className={`${this.defaultStyle.breadcrumb} ${this.props.className} || ''`} style={this.props.style || {}} aria-label={'breadcrumb'}>
                 {this.renderItems()}
             </ul>
         );
