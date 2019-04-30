@@ -15,6 +15,13 @@ import Toggle from './components/atoms/Toggle';
 import Notification from './components/atoms/Notification';
 
 class App extends Component {
+    constructor() {
+        super();
+    this.state = {
+        temperature: 45,
+        city: 'Chennai'
+    }
+}
     render() {
         return (
             <main className="container">
@@ -75,16 +82,16 @@ class App extends Component {
                     </div> */}
                     <div className="col-12 mt-5">
                         <legend className="hcl-legend">Radio - Horizontally arranged (default)</legend>
-                            <Radio id="Radio1" labelText="1 (default)" value="Option1" name="planets" onChange={event => { console.log('Default Radio.') }}/>
-                            <Radio id="Radio2" labelText="2" name="planets" value="Option2" checked onChange={event => { console.log('Radio state is changed.') }}/>
-                            <Radio id="Radio3" labelText="3 (disabled)" value="Option3" name="planets" disabled onChange={event => {  }}/>
+                            <Radio id="Radio1" labelText="1 (default)" value="37" name="temperature" onChange={(e) => { this.setState({temperature: e.target.value}); }} checked={this.state.temperature === 37}/>
+                            <Radio id="Radio2" labelText="2" name="temperature" value="45" onChange={(e) => { this.setState({temperature: e.target.value}); }} checked={this.state.temperature === 45}/>
+                            <Radio id="Radio3" labelText="3 (disabled)" value="30" name="temperature" disabled onChange={(e) => { this.setState({temperature: e.target.value}); }} checked={this.state.temperature === 30}/>
                     </div>  
                     <div className="col-12 mt-5">
                         <legend className="hcl-legend">Radio - Vertically arranged</legend>
                             <div className="hcl-radio-group hcl-stack-vertical">
-                                <Radio id="Radio4" labelText="4 (default)" value="Option4" name="animal" onChange={event => { console.log('Default Radio.') }}/>
-                                <Radio id="Radio5" labelText="5" value="Option5" name="animal" checked onChange={event => { console.log('Radio state is changed.') }}/>
-                                <Radio id="Radio6" labelText="6 (disabled)" value="Option6" name="animal" disabled onChange={event => {  }}/>
+                                <Radio id="Radio4" labelText="4 (default)" value="Bangalore" name="city" onChange={(e) => { this.setState({city: e.target.value}); }} checked={this.state.city === 'Bangalore'}/>
+                                <Radio id="Radio5" labelText="5" value="Chennai" name="city" onChange={(e) => { this.setState({city: e.target.value}); }} checked={this.state.city === 'Chennai'}/>
+                                <Radio id="Radio6" labelText="6 (disabled)" value="Mumbai" name="city" disabled onChange={(e) => { this.setState({city: e.target.value}); }} checked={this.state.city === 'Mumbai'}/>
                             </div>
                     </div>  
                     {/* Tag */}
