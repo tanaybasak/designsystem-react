@@ -2,14 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { prefix } from '../../../settings';
 
-export default function Radio({ className, checked, labelText, ...restProps }) {
+export default function Radio({ className, labelText, ...restProps }) {
 
     return (
         <div className={`${prefix}-radio-item ${className || ''}`}>
             <input
                 className={`${prefix}-radio`}
                 type="radio"
-                defaultChecked={checked}
                 {...restProps}
                 onChange={event => {
                     if (restProps.onChange) {
