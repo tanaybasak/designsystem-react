@@ -13,6 +13,7 @@ import Breadcrumb from './components/atoms/Breadcrumb';
 import Spinner from './components/atoms/Spinner';
 import Toggle from './components/atoms/Toggle';
 import Notification from './components/atoms/Notification';
+import Tag from './components/atoms/Tag/Tag';
 
 class App extends Component {
 
@@ -155,6 +156,17 @@ class App extends Component {
                             closable
                             onClose={event => { console.log('Notification Closed'); }}
                         />
+                    </div>
+                    {/* Tag */}
+                    <div className="col-12 mt-5">
+                        <Tag className="ml-3" title="Primary Tag">Primary Tag</Tag>
+                        <Tag className="ml-3" title="Primary Disabled" disabled>Primary Disabled</Tag>
+                        <Tag className="ml-3" title="Primary Closable" closable onClose={event => { alert('Closing Tag') }}>Primary Closable</Tag>
+                        <Tag className="ml-3" title="Primary Tag With Thumbnail" thumbnailSrc="https://image.flaticon.com/icons/png/512/862/862358.png">Primary Tag With Thumbnail</Tag>
+                        <Tag className="ml-3" title="Secondary Tag" type="secondary">Secondary Tag</Tag>
+                        <Tag className="ml-3" title="Secondary Disabled Tag" disabled type="secondary">Secondary Disabled Tag</Tag>
+                        <Tag className="ml-3" title="Secondary Closable" type="secondary" closable onClose={event => { alert('Closing Tag') }}>Secondary Closable</Tag>
+                        <Tag className="ml-3" title="Secondary Tag With Thumbnail" type="secondary" thumbnailSrc="https://image.flaticon.com/icons/png/512/862/862358.png">Secondary Tag With Thumbnail</Tag>
                     </div>
                 </div>
             </main >
