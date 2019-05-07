@@ -1,27 +1,30 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { prefix } from '../../../settings';
 
-export default function Radio({ className, checked, ...restProps }) {
-    const [isChecked, setValue] = useState(checked || false);
+export default function Radio({ className, labelText, ...restProps }) {
 
     return (
-        <input
-            className={`${prefix}-radio ${className}`}
-            type="radio"
-            checked={isChecked}
-            {...restProps}
-            onChange={event => {
-                setValue(event.currentTarget.checked);
-                restProps.onChange(event);
-            }}
-        />
+        <div className={`${prefix}-radio-item ${className || ''}`}>
+            <input
+                className={`${prefix}-radio`}
+                type="radio"
+                {...restProps}
+                onChange={event => {
+                    if (restProps.onChange) {
+                        restProps.onChange(event);
+                    }
+                }}
+            />
+            {labelText ? <label className={`${prefix}-radio-label`} htmlFor={restProps.id}>{labelText}</label> : null}
+        </div>
     );
 };
 
 Radio.propTypes = {
     className: PropTypes.string,
     disabled: PropTypes.bool,
+    labelText: PropTypes.string,
     id: PropTypes.string,
     onChange: PropTypes.func,
     checked: PropTypes.bool,
@@ -32,6 +35,7 @@ Radio.propTypes = {
 
 Radio.defaultProps = {
     className: null,
+    labelText: null,
     disabled: false,
     onChange: () => { },
     checked: false

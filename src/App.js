@@ -16,6 +16,32 @@ import Notification from './components/atoms/Notification';
 import Tag from './components/atoms/Tag/Tag';
 
 class App extends Component {
+
+    state = {
+        radio: {
+            temperature: 45,
+            city: 'Chennai'
+        }
+    }
+
+    _onTemperatureRadioChange = (e) => {
+        this.setState({ 
+            radio: {
+                ...this.state.radio,
+                temperature: e.currentTarget.value
+            }
+        });
+    }
+
+    _onCityRadioChange = (e) => {
+        this.setState({
+            radio: {
+                ...this.state.radio,
+                city: e.currentTarget.value
+            }
+        });
+    }
+
     render() {
         return (
             <main className="container">
@@ -49,21 +75,39 @@ class App extends Component {
                         <Heading type="h2">Heading h2</Heading>
                     </div>
                     {/* Checkbox */}
-                    <div className="hcl-checkbox-wrapper col-12" aria-disabled="true">
-                        <Checkbox id="checkbox1" checked onChange={event => { console.log('checked: ', event.currentTarget.checked); }} />
-                        <Label htmlFor="checkbox1" className="hcl-checkbox-label">Sample text</Label>
+                    <div className="col-12 mt-5">
+                        <legend className="hcl-legend">Checkbox - Horizontally arranged (default)</legend>
+                        <Checkbox id="checkbox1" labelText="1 (default)" onChange={event => { console.log('Default Checkbox.') }}/>
+                        <Checkbox id="checkbox2" labelText="2" checked onChange={event => { console.log('Checked state is changed.') }}/>
+                        <Checkbox id="checkbox3" labelText="3 (disabled)" disabled />
+                    </div>
+                    <div className="col-12 mt-5">
+                        <legend className="hcl-legend">Checkbox - Vertically arranged</legend>
+                            <div className="hcl-checkbox-group hcl-stack-vertical">
+                                <Checkbox id="checkbox4" labelText="4 (default)" onChange={event => { console.log('Default Checkbox.') }}/>
+                                <Checkbox id="checkbox5" labelText="5" checked onChange={event => { console.log('Checked state is changed.') }}/>
+                                <Checkbox id="checkbox6" labelText="6 (disabled)" disabled />
+                            </div>
                     </div>
                     {/* Radio */}
-                    <div className="hcl-radio-group col-12 hcl-stack-vertical" aria-disabled="true">
-                        <div className="hcl-radio-item">
-                            <Radio id="radio1" name="sampleText" value="Option1" onChange={event => { console.log('checked: ', event.currentTarget.checked); }} />
-                            <Label htmlFor="radio1" className="hcl-radio-label">Sample text 1</Label>
-                        </div>
-                        <div className="hcl-radio-item">
-                            <Radio id="radio2" name="sampleText" value="Option2" onChange={event => { console.log('checked: ', event.currentTarget.checked); }} />
-                            <Label htmlFor="radio2" className="hcl-radio-label">Sample text 2</Label>
-                        </div>
-                    </div>
+                    <div className="col-12 mt-5">
+                        <legend className="hcl-legend">Radio - Horizontally arranged (default)</legend>
+                            <Radio id="Radio1" labelText="1 (default)" value="37" name="temperature" onChange={  this._onTemperatureRadioChange } checked={this.state.radio.temperature == 37}/>
+                            <Radio id="Radio2" labelText="2" name="temperature" value="45" onChange={this._onTemperatureRadioChange } checked={this.state.radio.temperature == 45}/>
+                            <Radio id="Radio3" labelText="3 (disabled)" value="30" name="temperature" disabled onChange={ this._onTemperatureRadioChange } checked={this.state.radio.temperature == 30}/>
+                    </div>  
+                    <div className="col-12 mt-5">
+                        <legend className="hcl-legend">Radio - Vertically arranged</legend>
+                            <div className="hcl-radio-group hcl-stack-vertical">
+                                <Radio id="Radio4" labelText="4 (default)" value="Bangalore" name="city" onChange={this._onCityRadioChange } checked={this.state.radio.city === 'Bangalore'}/>
+                                <Radio id="Radio5" labelText="5" value="Chennai" name="city" onChange={this._onCityRadioChange} checked={this.state.radio.city === 'Chennai'}/>
+                                <Radio id="Radio6" labelText="6 (disabled)" value="Mumbai" name="city" disabled onChange={this._onCityRadioChange } checked={this.state.radio.city === 'Mumbai'}/>
+                            </div>
+                    </div>  
+                    {/* Tag */}
+                    {/* <div className="col-12">
+                        <Tag isCloseable>Date</Tag>
+                    </div> */}
                     {/* Link */}
                     <div className="col-12 mt-5">
                         <Link href="https://www.google.com" target="_blank">Google</Link>
