@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { prefix } from '../../../settings';
 
-export default function Tag({ className, children, text, type, onClose, thumbnailSrc, ...restProps }) {
+export default function Tag({ className, children, text, type, closable, onClose, thumbnailSrc, ...restProps }) {
     return (
         <button
             className={`${prefix}-tag hcl-tag-${type} ${className}`}
@@ -12,7 +12,7 @@ export default function Tag({ className, children, text, type, onClose, thumbnai
             <span className={`${prefix}-tag-text`}>
                 {children || text}
             </span>
-            {onClose ? <span className={`${prefix}-close`} aria-hidden="true" onClick={onClose}></span> : null}
+            {closable ? <span className={`${prefix}-close`} aria-hidden="true" onClick={onClose}></span> : null}
         </button>
     );
 };
@@ -25,6 +25,7 @@ Tag.propTypes = {
     title: PropTypes.string,
     tabIndex: PropTypes.number,
     disabled: PropTypes.bool,
+    closable: PropTypes.bool,
     onClose: PropTypes.func,
     thumbnailSrc: PropTypes.string
 };
@@ -37,6 +38,7 @@ Tag.defaultProps = {
     title: '',
     tabIndex: 0,
     disabled: false,
+    closable: false,
     onClose: null,
     thumbnailSrc: null
 };
