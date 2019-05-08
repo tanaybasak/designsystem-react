@@ -4,10 +4,11 @@ import { prefix } from '../../../settings';
 
 export default function Checkbox({ className, checked, ...restProps }) {
     const [isChecked, setValue] = useState(checked || false);
+    const classnames = `${prefix}-checkbox ${className}`.trim();
 
     return (
         <input
-            className={`${prefix}-checkbox ${className}`}
+            className={classnames}
             type="checkbox"
             checked={isChecked}
             {...restProps}

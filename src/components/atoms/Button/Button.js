@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 import { prefix } from '../../../settings';
 
 export default function Button({ className, children, onClick, ...restProps }) {
+    const classnames = `${prefix}-btn ${className}`.trim();
+
     return (
         <button
-            className={`${prefix}-btn ${className}`}
+            className={classnames}
             {...restProps}
             onClick={onClick}
         >

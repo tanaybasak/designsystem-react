@@ -4,10 +4,11 @@ import { prefix } from '../../../settings';
 
 export default function Radio({ className, checked, ...restProps }) {
     const [isChecked, setValue] = useState(checked || false);
+    const classnames = `${prefix}-radio ${className}`.trim();
 
     return (
         <input
-            className={`${prefix}-radio ${className}`}
+            className={classnames}
             type="radio"
             checked={isChecked}
             {...restProps}
@@ -31,7 +32,7 @@ Radio.propTypes = {
 };
 
 Radio.defaultProps = {
-    className: null,
+    className: '',
     disabled: false,
     onChange: () => { },
     checked: false

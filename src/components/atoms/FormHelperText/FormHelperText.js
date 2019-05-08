@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import { prefix } from '../../../settings';
 
 export default function FormHelperText({ className, children, ...restProps }) {
+    const classnames = `${prefix}-${className}`.trim();
 
     return (
         <div
-            className={`${prefix}-${className}`}
+            className={classnames}
             {...restProps}
         >
             {children}
