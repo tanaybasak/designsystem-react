@@ -52,10 +52,12 @@ class App extends Component {
                 toast: {
                     visible: true
                 }
+            },
+            () => {
+                setTimeout(() => {
+                    this.hideToast(e);
+                }, 5000);
             });
-            setTimeout(() => {
-                this.hideToast(e);
-            }, 5000);
         }
     }
 
