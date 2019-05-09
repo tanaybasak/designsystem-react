@@ -47,8 +47,7 @@ HCL has more than 50+ products and few of them are based on the Carbon Design V9
         npm run test
 
 ## Code Style Guide 
-At HCL we follow the HCL Code Guidelines. Please read them here.
-For the Design system we have following guidelines:
+- We are following (Airbnb Styleguide)[https://github.com/airbnb/javascript/tree/master/react] 
 
 
 ## Documentation

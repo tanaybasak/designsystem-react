@@ -1,6 +1,16 @@
 {
     "parser": "babel-eslint",
-    "extends": "airbnb",
+    "extends": ["airbnb","prettier"],
+    "plugins" : ["prettier"],
+    "rules": {
+        "quotes": ["error", "double"],
+        "comma-dangle": ["error", "always-multiline"],
+        "react/jsx-filename-extension": 0,
+        "react/jsx-one-expression-per-line": 0,
+        "react/jsx-wrap-multilines": 0,
+        "no-useless-concat": 0,
+        "import/no-extraneous-dependencies": 0
+     },
     "env": {
         "mocha": true,
         "browser": true   

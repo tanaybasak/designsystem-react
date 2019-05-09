@@ -9,7 +9,7 @@ import Radio from './atoms/Radio';
 import TextArea from './atoms/TextArea';
 import Link from './atoms/Link';
 import Paragraph from './atoms/Paragraph';
-import Breadcrumb from './atoms/Breadcrumb'
+import Breadcrumb from './atoms/Breadcrumb';
 import Spinner from './atoms/Spinner';
 import Toggle from './atoms/Toggle';
 import Notification from './atoms/Notification';
