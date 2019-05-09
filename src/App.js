@@ -14,6 +14,7 @@ import Spinner from './components/atoms/Spinner';
 import Toggle from './components/atoms/Toggle';
 import Notification from './components/atoms/Notification';
 import Tag from './components/atoms/Tag/Tag';
+import Toast from './components/atoms/Toast/Toast';
 
 class App extends Component {
 
@@ -21,8 +22,11 @@ class App extends Component {
         radio: {
             temperature: 45,
             city: 'Chennai'
+        },
+        toast: {
+            visible: false
         }
-    }
+    };
 
     _onTemperatureRadioChange = (e) => {
         this.setState({ 
@@ -40,6 +44,29 @@ class App extends Component {
                 city: e.currentTarget.value
             }
         });
+    }
+
+    showToast = (e) => {
+        if (!this.state.toast.visible) {
+            this.setState({
+                toast: {
+                    visible: true
+                }
+            });
+            setTimeout(() => {
+                this.hideToast(e);
+            }, 5000);
+        }
+    }
+
+    hideToast = (e) => {
+        if (this.state.toast.visible) {
+            this.setState({
+                toast: {
+                    visible: false
+                }
+            });
+        }
     }
 
     render() {
@@ -167,6 +194,19 @@ class App extends Component {
                         <Tag className="ml-3" title="Secondary Disabled Tag" disabled type="secondary">Secondary Disabled Tag</Tag>
                         <Tag className="ml-3" title="Secondary Closable" type="secondary" closable onClose={event => { alert('Closing Tag') }}>Secondary Closable</Tag>
                         <Tag className="ml-3" title="Secondary Tag With Thumbnail" type="secondary" thumbnailSrc="https://image.flaticon.com/icons/png/512/862/862358.png">Secondary Tag With Thumbnail</Tag>
+                    </div>
+                    {/* Tag */}
+                    <div className="col-12 mt-5">
+                        <Toast
+                            type="success"
+                            title="Notification title"
+                            subtitle="Subtitle text goes here."
+                            caption="Time stamp [00:00:00]"
+                            closable
+                            onClose={this.hideToast}
+                            visible={this.state.toast.visible}
+                        />
+                        <Button title="Default" onClick={this.showToast}>Show Toggle</Button>
                     </div>
                 </div>
             </main >
