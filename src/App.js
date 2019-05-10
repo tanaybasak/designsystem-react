@@ -212,40 +212,17 @@ class App extends Component {
                         <Button title="Default" onClick={this.showToast}>Show Toggle</Button>
                     </div>
                     <div className="col-12 mt-5">
-                       
-                        {/* Default type Modals */}
-                        < Modal  type="danger" label="optional label" heading="heading" content="This is temporaray content" footer > 
-                        </Modal>
-
-                        < Modal  type="danger" label="optional label" heading="heading" content="This is temporaray content"  > 
-                        </Modal>
-
-                        < Modal  type="danger"  heading="heading" content="This is temporaray content" footer > 
-                        </Modal>
-
-                        < Modal  type="danger"  heading="heading" content="This is temporaray content"  > 
-                        </Modal>
-
                         {/* Danger type Modals */}
-
-                        < Modal  label="optional label" heading="heading" content="This is temporaray content" footer > 
-                        </Modal>
-
-                        < Modal  label="optional label" heading="heading" content="This is temporaray content"  > 
-                        </Modal>
-
-                        < Modal  heading="heading" content="This is temporaray content" footer > 
-                        </Modal>
-
-                        < Modal  heading="heading" content="This is temporaray content"  > 
-                        </Modal>
-
-                        {/* <Modal></Modal> */}
-                        {/* <Button title="Default" onClick={this.showToast}>Show Toggle</Button> */}
+                        < Modal  type="danger" label="optional label" heading="heading" content="This is temporaray content" footer onClose onDelete></Modal>
+                        < Modal  type="danger" label="optional label" heading="heading" content="This is temporaray content" onClose></Modal>
+                        < Modal  type="danger"  heading="heading" content="This is temporaray content" footer onClose onDelete></Modal>
+                        < Modal  type="danger"  heading="heading" content="This is temporaray content" onClose></Modal>
+                        {/* Default type Modals */}
+                        < Modal  label="optional label" heading="heading" content="This is temporaray content" footer onClose onSave></Modal>
+                        < Modal  label="optional label" heading="heading" content="This is temporaray content" onClose></Modal>
+                        < Modal  heading="heading" content="This is temporaray content" footer onClose onSave></Modal>
+                        < Modal  heading="heading" content="This is temporaray content" onClose></Modal>
                     </div>
-
-              
-
                 </div>
             </main >
         );
