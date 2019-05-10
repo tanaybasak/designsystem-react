@@ -17,7 +17,7 @@ export default function Modal({ type, label, heading, content, footer, onClose ,
                     <footer className={`${prefix}-modal-footer`}>
                         <button className={`${prefix}-btn ${prefix}-primary ${prefix}-primary-outline`} onClick={onClose}>Cancel</button>
                         {type === 'danger' ?
-                            <button class={`${prefix}-btn ${prefix}-danger`} onClick={onDelete}>Delete</button>
+                            <button className={`${prefix}-btn ${prefix}-danger`} onClick={onDelete}>Delete</button>
                             :
                             <button className={`${prefix}-btn ${prefix}-primary`} onClick={onSave}>Save</button>
                         }
