@@ -208,7 +208,7 @@ class App extends Component {
                             onClose={this.hideToast}
                             visible={this.state.toast.visible}
                         />
-                        <Button title="Default" onClick={this.showToast}>Show Toggle</Button>
+                        <Button title="Default" onClick={this.showToast}>Show Toast Notification</Button>
                     </div>
                 </div>
             </main >
