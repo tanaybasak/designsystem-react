@@ -1,20 +1,42 @@
-import React, { createContext } from 'react';
+import React, { useState } from 'react';
 
-const context = createContext({});
+function TabPanel() {
 
-const { Provider, Consumer } = context;
+}
 
-const Tab = (props) => (
-    <Consumer>
-        {() => (props.children)}
-    </Consumer>
-);
+function renderTabHeaders() {
+    return(
+        React.Children
+    );
+}
 
-const TabPanel = (props) => (
-    <Consumer>
-        {() => (props.children)}
-    </Consumer>
-);
+function renderNavigator() {
+    const headers = renderTabHeaders();
+
+    return (
+        <nav data-tabs role="navigation" class="hcl-tabs">
+            {headers}
+        </nav>
+    );
+}
+
+function renderTabPanels() {
+
+}
+
+function TabView(props) {
+    if (!props['onTabChange']) {
+        const [activeIndex, setIndex] = useState(0);
+    }
+
+    const navigator = renderNavigator();
+    const content = renderTabPanels();
+
+    return (
+        <>
+        </>
+    )
+}
 
 
-export { Tab, TabPanel };
+export { };
