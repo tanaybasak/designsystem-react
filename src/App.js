@@ -15,6 +15,7 @@ import Toggle from './components/atoms/Toggle';
 import Notification from './components/atoms/Notification';
 import Tag from './components/atoms/Tag/Tag';
 import Toast from './components/atoms/Toast/Toast';
+import Modal from './components/atoms/Modal/Modal';
 
 class App extends Component {
 
@@ -209,6 +210,18 @@ class App extends Component {
                             visible={this.state.toast.visible}
                         />
                         <Button title="Default" onClick={this.showToast}>Show Toast Notification</Button>
+                    </div>
+                    <div className="col-12 mt-5">
+                        {/* Danger type Modals */}
+                        < Modal  type="danger" label="optional label" heading="heading" content="This is temporaray content" footer onClose={event => { }} onDelete={event => { }}></Modal>
+                        < Modal  type="danger" label="optional label" heading="heading" content="This is temporaray content" onClose={event => { }}></Modal>
+                        < Modal  type="danger"  heading="heading" content="This is temporaray content" footer onClose={event => { }} onDelete={event => { }}></Modal>
+                        < Modal  type="danger"  heading="heading" content="This is temporaray content" onClose={event => { }}></Modal>
+                        {/* Default type Modals */}
+                        < Modal  label="optional label" heading="heading" content="This is temporaray content" footer onClose={event => { }} onSave={event => { }}></Modal>
+                        < Modal  label="optional label" heading="heading" content="This is temporaray content" onClose={event => { }}></Modal>
+                        < Modal  heading="heading" content="This is temporaray content" footer onClose={event => { }} onSave={event => { }}></Modal>
+                        < Modal  heading="heading" content="This is temporaray content" onClose={event => { }}></Modal>
                     </div>
                 </div>
             </main >
