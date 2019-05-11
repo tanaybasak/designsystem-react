@@ -4,9 +4,15 @@ function TabPanel() {
 
 }
 
+function renderTabHeader(tab, index) {
+
+}
+
 function renderTabHeaders() {
-    return(
-        React.Children
+    return (
+        React.Children.map(this.props.children, (tab, index) => {
+            return renderTabHeader(tab, index);
+        })
     );
 }
 
