@@ -15,6 +15,7 @@ import Toggle from './components/atoms/Toggle';
 import Notification from './components/atoms/Notification';
 import Tag from './components/atoms/Tag/Tag';
 import Toast from './components/atoms/Toast/Toast';
+import Modal from './components/molecules/Modal/Modal';
 
 class App extends Component {
 
@@ -25,7 +26,8 @@ class App extends Component {
         },
         toast: {
             visible: false
-        }
+        },
+        modal : null
     };
 
     _onTemperatureRadioChange = (e) => {
@@ -69,6 +71,16 @@ class App extends Component {
                 }
             });
         }
+    }
+
+    modalActions1 = [ {label : "Save"}, {label : "Close", handler: ()=>{ this.onModalClose() }, danger : true}];
+    modalActions3 = [ {label : "Close", danger : true, handler: ()=>{ this.onModalClose() }}];
+    modalActions4 = [ {label : "Save", primary : true, handler: ()=>{ this.onModalClose() }}];
+    modalActions5 = [ {label : "Delete", danger : true}];
+    modalActions7 = [ {label : "Save", primary : true}];
+
+    onModalClose = ()=>{
+        this.setState({ modal : null })
     }
 
     render() {
@@ -201,7 +213,6 @@ class App extends Component {
                     <div className="col-12 mt-5">
                         <Toast
                             type="success"
-                            title="Notification title"
                             subtitle="Subtitle text goes here."
                             caption="Time stamp [00:00:00]"
                             closable
@@ -209,6 +220,39 @@ class App extends Component {
                             visible={this.state.toast.visible}
                         />
                         <Button title="Default" onClick={this.showToast}>Show Toast Notification</Button>
+                    </div>
+                    <div className="col-12 mt-5">
+                        {/* Danger type Modals */}
+                        {this.state.modal === 1 && <Modal type="danger" label="optional label" heading="Heading comes here." onClose={this.onModalClose} actions={this.modalActions1}>
+                          <Paragraph>Danger Modal with save and close buttons</Paragraph>
+                        </Modal>}
+                        {this.state.modal === 2 && <Modal type="danger" label="optional label" heading="Heading comes here." onClose={this.onModalClose}>
+                         <Paragraph> Danger Modal with no buttons</Paragraph>
+                        </Modal>}
+                        {this.state.modal === 3 && <Modal type="danger" heading="Heading comes here."  onClose={this.onModalClose} actions={this.modalActions3}>
+                         <Paragraph> Danger Modal with close button</Paragraph>
+                        </Modal>}
+                        {this.state.modal === 4 && <Modal type="danger" onClose={this.onModalClose}>
+                         <Paragraph> Danger Modal with no footer and heading</Paragraph>
+                        </Modal>}
+                        {/* Default type Modals */}
+                        {this.state.modal === 5 && <Modal label="optional label" heading="Heading comes here."  onClose={this.onModalClose} actions={this.modalActions5}>
+                         <Paragraph> Modal with Delete (Danger) button</Paragraph>
+                        </Modal>}
+                        {this.state.modal === 6 && <Modal label="optional label" heading="Heading comes here." onClose={this.onModalClose}>
+                         <Paragraph> Modal with no buttons</Paragraph>
+                        </Modal>}
+                        {this.state.modal === 7 && <Modal heading="Heading comes here." onClose={this.onModalClose} actions={this.modalActions7}>
+                         <Paragraph>Modal with save button</Paragraph>
+                        </Modal>}
+                        Show modal layout : 
+                        <Button title="Default" onClick={()=>{ this.setState({ modal : 1 }) }}>1</Button>
+                        <Button title="Default" onClick={()=>{ this.setState({ modal : 2 }) }}>2</Button>
+                        <Button title="Default" onClick={()=>{ this.setState({ modal : 3 }) }}>3</Button>
+                        <Button title="Default" onClick={()=>{ this.setState({ modal : 4 }) }}>4</Button>
+                        <Button title="Default" onClick={()=>{ this.setState({ modal : 5 }) }}>5</Button>
+                        <Button title="Default" onClick={()=>{ this.setState({ modal : 6 }) }}>6</Button>
+                        <Button title="Default" onClick={()=>{ this.setState({ modal : 7 }) }}>7</Button>
                     </div>
                 </div>
             </main >
