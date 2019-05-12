@@ -15,7 +15,7 @@ import Toggle from './components/atoms/Toggle';
 import Notification from './components/atoms/Notification';
 import Tag from './components/atoms/Tag/Tag';
 import Toast from './components/atoms/Toast/Toast';
-import Modal from './components/atoms/Modal/Modal';
+import Modal from './components/molecules/Modal/Modal';
 
 class App extends Component {
 
