@@ -13,7 +13,9 @@ import Breadcrumb from './components/atoms/Breadcrumb';
 import Spinner from './components/atoms/Spinner';
 import Toggle from './components/atoms/Toggle';
 import Notification from './components/atoms/Notification';
-import Tag from './components/atoms/Tag/Tag';
+import Tag from './components/atoms/Tag';
+import List from './components/atoms/List';
+import listItems from './components/atoms/List/sample-list-data.json';
 import Toast from './components/atoms/Toast/Toast';
 import Modal from './components/molecules/Modal/Modal';
 
@@ -84,17 +86,18 @@ class App extends Component {
     }
 
     render() {
+
         return (
-            <main className="container">
-                <div className="row mt-5 pl-5">
+            <main className="hcl-container">
+                <div className="hcl-row m-0">
                     {/* Input Field */}
-                    <div className="hcl-form-group col-12">
+                    <div className="hcl-form-group hcl-col-12">
                         <Label htmlFor="firstname">First Name </Label>
                         <FormHelperText className="helper-text">Enter first name</FormHelperText>
                         <TextInput type="text" placeholder="name" id="firstname" data-invalid="true" onChange={event => { console.log(event.currentTarget.value) }} />
                         <FormHelperText className="error-msg">Enter first name</FormHelperText>
                     </div>
-                    <div className="hcl-form-group col-12">
+                    <div className="hcl-form-group hcl-col-12">
                         <Label htmlFor="feedback">Feedback </Label>
                         <FormHelperText className="helper-text">Feedback helper</FormHelperText>
                         <TextArea aria-disabled="false" id="feedback" data-invalid="true" onChange={event => { console.log(event.currentTarget.value) }} />
@@ -103,7 +106,7 @@ class App extends Component {
 
                     <hr />
                     {/* Button */}
-                    <div className="hcl-form-group col-12">
+                    <div className="hcl-form-group hcl-col-12">
                         <Button title="Default" onClick={event => { console.log('Button Clicked'); }}>Default</Button>
                         <Button className="hcl-btn-primary" onClick={event => { console.log('Button Clicked'); }}>Primary</Button>
                         <Button className="hcl-btn-secondary" onClick={event => { console.log('Button Clicked'); }}>Secondary</Button>
@@ -112,17 +115,17 @@ class App extends Component {
                         <Button className="hcl-btn-primary sm" onClick={event => { console.log('Button Clicked'); }}>Primary small</Button>
                     </div>
                     {/* Heading */}
-                    <div className="hcl-form-group col-12">
+                    <div className="hcl-form-group hcl-col-12">
                         <Heading type="h2">Heading h2</Heading>
                     </div>
                     {/* Checkbox */}
-                    <div className="col-12 mt-5">
+                    <div className="hcl-col-12 mt-5">
                         <legend className="hcl-legend">Checkbox - Horizontally arranged (default)</legend>
                         <Checkbox id="checkbox1" labelText="1 (default)" onChange={event => { console.log('Default Checkbox.') }}/>
                         <Checkbox id="checkbox2" labelText="2" checked onChange={event => { console.log('Checked state is changed.') }}/>
                         <Checkbox id="checkbox3" labelText="3 (disabled)" disabled />
                     </div>
-                    <div className="col-12 mt-5">
+                    <div className="hcl-col-12 mt-5">
                         <legend className="hcl-legend">Checkbox - Vertically arranged</legend>
                             <div className="hcl-checkbox-group hcl-stack-vertical">
                                 <Checkbox id="checkbox4" labelText="4 (default)" onChange={event => { console.log('Default Checkbox.') }}/>
@@ -131,36 +134,32 @@ class App extends Component {
                             </div>
                     </div>
                     {/* Radio */}
-                    <div className="col-12 mt-5">
+                    <div className="hcl-col-12 mt-5">
                         <legend className="hcl-legend">Radio - Horizontally arranged (default)</legend>
-                            <Radio id="Radio1" labelText="1 (default)" value="37" name="temperature" onChange={  this._onTemperatureRadioChange } checked={this.state.radio.temperature == 37}/>
-                            <Radio id="Radio2" labelText="2" name="temperature" value="45" onChange={this._onTemperatureRadioChange } checked={this.state.radio.temperature == 45}/>
-                            <Radio id="Radio3" labelText="3 (disabled)" value="30" name="temperature" disabled onChange={ this._onTemperatureRadioChange } checked={this.state.radio.temperature == 30}/>
+                            <Radio id="Radio1" labelText="1 (default)" value="37" name="temperature" onChange={  this._onTemperatureRadioChange } checked={this.state.radio.temperature === 37}/>
+                            <Radio id="Radio2" labelText="2" name="temperature" value="45" onChange={this._onTemperatureRadioChange } checked={this.state.radio.temperature === 45}/>
+                            <Radio id="Radio3" labelText="3 (disabled)" value="30" name="temperature" disabled onChange={ this._onTemperatureRadioChange } checked={this.state.radio.temperature === 30}/>
                     </div>  
-                    <div className="col-12 mt-5">
+                    <div className="hcl-col-12 mt-5">
                         <legend className="hcl-legend">Radio - Vertically arranged</legend>
                             <div className="hcl-radio-group hcl-stack-vertical">
                                 <Radio id="Radio4" labelText="4 (default)" value="Bangalore" name="city" onChange={this._onCityRadioChange } checked={this.state.radio.city === 'Bangalore'}/>
                                 <Radio id="Radio5" labelText="5" value="Chennai" name="city" onChange={this._onCityRadioChange} checked={this.state.radio.city === 'Chennai'}/>
                                 <Radio id="Radio6" labelText="6 (disabled)" value="Mumbai" name="city" disabled onChange={this._onCityRadioChange } checked={this.state.radio.city === 'Mumbai'}/>
                             </div>
-                    </div>  
-                    {/* Tag */}
-                    {/* <div className="col-12">
-                        <Tag isCloseable>Date</Tag>
-                    </div> */}
+                    </div> 
                     {/* Link */}
-                    <div className="col-12 mt-5">
+                    <div className="hcl-col-12 mt-5">
                         <Link href="https://www.google.com" target="_blank">Google</Link>
                     </div>
                     {/* Paragraphs */}
-                    <div className="col-12 mt-5">
+                    <div className="hcl-col-12 mt-5">
                         <Paragraph>
                             There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.
                         </Paragraph>
                     </div>
                     {/* Breadcrumb */}
-                    <div className="col-12 mt-5">
+                    <div className="hcl-col-12 mt-5">
                         <Breadcrumb id="breadcrumb" className="custom-breadcrumb" model={[
                             { label: "Breadcrumb 1", url: "" },
                             { label: "Breadcrumb 2", url: "https://google.co.in" },
@@ -169,26 +168,26 @@ class App extends Component {
                         </Breadcrumb>
                     </div>
                     {/* Spinner */}
-                    <div className="col-12 mt-5">
+                    <div className="hcl-col-12 mt-5">
                         <Spinner />
                     </div>
                     {/* Small Spinner */}
-                    <div className="col-12 mt-5">
+                    <div className="hcl-col-12 mt-5">
                         <Spinner small />
                     </div>
                     {/* Toggle */}
-                    <div className="col-12 mt-5">
+                    <div className="hcl-col-12 mt-5">
                         <Toggle id="simple-toggle" className="ml-3" onChange={event => { console.log('Toggled') }} />
                         <Toggle id="disabled-checked-toggle" className="ml-3" disabled toggled />
                         <Toggle id="disabled-toggle" className="ml-3" disabled labelOff="off" labelOn="on" />
                     </div>
                     {/* Small Toggle */}
-                    <div className="col-12 mt-5">
+                    <div className="hcl-col-12 mt-5">
                         <Toggle small id="simple-small-toggle" className="ml-3" onChange={event => { console.log('Toggled') }} />
                         <Toggle small id="disabled-checked-small-toggle" className="ml-3" disabled toggled />
                         <Toggle small id="disabled-small-toggle" className="ml-3" disabled labelOff="off" labelOn="on" />
                     </div>
-                    <div className="col-12 mt-5">
+                    <div className="hcl-col-12 mt-5">
                         <Notification
                             title="Notification title"
                             subtitle="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
@@ -199,7 +198,7 @@ class App extends Component {
                         />
                     </div>
                     {/* Tag */}
-                    <div className="col-12 mt-5">
+                    <div className="hcl-col-12 mt-5">
                         <Tag className="ml-3" title="Primary Tag">Primary Tag</Tag>
                         <Tag className="ml-3" title="Primary Disabled" disabled>Primary Disabled</Tag>
                         <Tag className="ml-3" title="Primary Closable" closable onClose={event => { alert('Closing Tag') }}>Primary Closable</Tag>
@@ -208,6 +207,17 @@ class App extends Component {
                         <Tag className="ml-3" title="Secondary Disabled Tag" disabled type="secondary">Secondary Disabled Tag</Tag>
                         <Tag className="ml-3" title="Secondary Closable" type="secondary" closable onClose={event => { alert('Closing Tag') }}>Secondary Closable</Tag>
                         <Tag className="ml-3" title="Secondary Tag With Thumbnail" type="secondary" thumbnailSrc="https://image.flaticon.com/icons/png/512/862/862358.png">Secondary Tag With Thumbnail</Tag>
+                    </div>
+                    {/* List */}
+                    <div className="hcl-col-12 mt-5">
+                        {/* Ordered */}
+                        <Label>Ordered List</Label>
+                        <List listItems={listItems} type="ol" onClick={event => {}} />
+                        <br />
+                        <br />
+                        {/* Unordered */}
+                        <Label>Unordered List</Label>
+                        <List listItems={listItems} type="ul" onClick={event => {}} />
                     </div>
                     {/* Tag */}
                     <div className="col-12 mt-5">

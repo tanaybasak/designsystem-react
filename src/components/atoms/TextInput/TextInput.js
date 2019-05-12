@@ -4,10 +4,11 @@ import { prefix } from '../../../settings';
 
 export default function TextInput({ className, type, ...restProps }) {
     const [value, setValue] = useState(restProps.value || '');
+    const classnames = `${prefix}-form-control ${className}`.trim();
 
     return (
         <input
-            className={`${prefix}-form-control ${className}`}
+            className={classnames}
             type={type}
             {...restProps}
             value={value}
@@ -36,7 +37,7 @@ TextInput.propTypes = {
 };
 
 TextInput.defaultProps = {
-    className: null,
+    className: '',
     disabled: false,
     onChange: () => { },
     onClick: () => { },
