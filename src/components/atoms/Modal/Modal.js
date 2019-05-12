@@ -5,7 +5,7 @@ import { prefix } from '../../../settings';
 export default function Modal({ type, label, heading, content, footer, onClose , onSave, onDelete}) {
     return (
         <section className={`${prefix}-modal ${prefix}-modal-hide`} >
-            <div className={`${prefix}-modal-container ${prefix}-modal-container-lg  ${type === 'danger' ? `${prefix}-modal-container-danger` : null}`}>
+            <div className={`${prefix}-modal-container ${prefix}-modal-container-lg  ${type === 'danger' ? `${prefix}-modal-container-danger` : ''}`}>
                 <header className={`${prefix}-modal-header`}>
                     {label !== '' ? <small className={`${prefix}-modal-label`}>{label}</small> : null}
                     <h5>{heading}</h5>
