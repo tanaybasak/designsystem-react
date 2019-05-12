@@ -232,8 +232,8 @@ class App extends Component {
                         {this.state.modal === 3 && <Modal type="danger" heading="Heading comes here."  onClose={this.onModalClose} actions={this.modalActions3}>
                          <Paragraph> Danger Modal with close button</Paragraph>
                         </Modal>}
-                        {this.state.modal === 4 && <Modal type="danger" heading="Heading comes here." onClose={this.onModalClose}>
-                         <Paragraph> Danger Modal with on footer</Paragraph>
+                        {this.state.modal === 4 && <Modal type="danger" onClose={this.onModalClose}>
+                         <Paragraph> Danger Modal with no footer and heading</Paragraph>
                         </Modal>}
                         {/* Default type Modals */}
                         {this.state.modal === 5 && <Modal label="optional label" heading="Heading comes here."  onClose={this.onModalClose} actions={this.modalActions5}>

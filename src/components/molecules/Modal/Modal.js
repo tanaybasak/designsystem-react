@@ -19,12 +19,12 @@ export default function Modal({
     <section className={`${prefix}-modal`}>
       <div className={classNames.join(" ")}>
         <button className={`${prefix}-modal-close`} onClick={onClose} />
-        <header className={`${prefix}-modal-header`}>
+        {(heading !== "" || label !== "") && <header className={`${prefix}-modal-header`}>
           {label !== "" ? (
             <small className={`${prefix}-modal-label`}>{label}</small>
           ) : null}
-          <h5>{heading}</h5>
-        </header>
+          {heading !== "" && <h5>{heading}</h5>}
+        </header>}
         <div className={`${prefix}-modal-content`}>{children}</div>
         {actions.length > 0 && (
           <footer className={`${prefix}-modal-footer`}>
@@ -39,17 +39,17 @@ export default function Modal({
 Modal.propTypes = {
   type: PropTypes.string,
   label: PropTypes.string,
-  heading: PropTypes.string.isRequired,
-  content: PropTypes.string.isRequired,
+  heading: PropTypes.string,
+  content: PropTypes.string,
   footer: PropTypes.bool,
   onClose: PropTypes.func.isRequired,
-  actions: PropTypes.array.isRequired
+  actions: PropTypes.array
 };
 
 Modal.defaultProps = {
   type: "default",
   label: "",
-  heading: "heading",
+  heading: "",
   content: "This is temporary content",
   footer: false,
   onClose: () => {},
