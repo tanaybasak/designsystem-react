@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { prefix } from '../../../settings';
 
-function _getList(type, list) { // for nested ol/ul
+
+// To select the type of List (nested) : UL or OL
+const _getList = (type, list) => { 
 
     return React.createElement(
         type,
@@ -11,7 +13,8 @@ function _getList(type, list) { // for nested ol/ul
     );
 }
 
-function _getListItem(type, listItems) { // for li's
+// To create LIs
+const _getListItem = (type, listItems) => { 
 
     return listItems && listItems.length && listItems.map((item, index) => (
         <li
