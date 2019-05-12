@@ -2,16 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { prefix } from '../../../settings';
 
-export default function Modal({ type, label, heading, content, footer, onClose , onSave, onDelete}) {
+export default function Modal({ children, type, label, heading, footer, onClose, onSave, onDelete }) {
     return (
         <section className={`${prefix}-modal ${prefix}-modal-hide`} >
-            <div className={`${prefix}-modal-container ${prefix}-modal-container-lg  ${type === 'danger' ? `${prefix}-modal-container-danger` : null}`}>
+            <div className={`${prefix}-modal-container ${prefix}-modal-container-lg  ${type === 'danger' ? `${prefix}-modal-container-danger` : ''}`}>
                 <header className={`${prefix}-modal-header`}>
                     {label !== '' ? <small className={`${prefix}-modal-label`}>{label}</small> : null}
                     <h5>{heading}</h5>
                 </header>
                 <div className={`${prefix}-modal-content`}>
-                    {content !== '' ? <p> {content}</p> : null}
+                    {children}
                 </div>
                 {footer ?
                     <footer className={`${prefix}-modal-footer`}>
@@ -31,10 +31,10 @@ export default function Modal({ type, label, heading, content, footer, onClose ,
 };
 
 Modal.propTypes = {
+    children: PropTypes.node.isRequired,
     type: PropTypes.string,
     label: PropTypes.string,
     heading: PropTypes.string.isRequired,
-    content: PropTypes.string.isRequired,
     footer: PropTypes.bool,
     onClose: PropTypes.func.isRequired,
     onDelete: PropTypes.func,
@@ -42,10 +42,10 @@ Modal.propTypes = {
 };
 
 Modal.defaultProps = {
+    children: null,
     type: 'default',
     label: '',
     heading: 'heading',
-    content: 'This is temporary content',
     footer: false,
     onClose: null,
     onDelete: null,

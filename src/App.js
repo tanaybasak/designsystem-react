@@ -15,7 +15,7 @@ import Toggle from './components/atoms/Toggle';
 import Notification from './components/atoms/Notification';
 import Tag from './components/atoms/Tag/Tag';
 import Toast from './components/atoms/Toast/Toast';
-import Modal from './components/atoms/Modal/Modal';
+import Modal from './components/molecules/Modal/Modal';
 
 class App extends Component {
 
@@ -213,15 +213,31 @@ class App extends Component {
                     </div>
                     <div className="col-12 mt-5">
                         {/* Danger type Modals */}
-                        < Modal  type="danger" label="optional label" heading="heading" content="This is temporaray content" footer onClose={event => { }} onDelete={event => { }}></Modal>
-                        < Modal  type="danger" label="optional label" heading="heading" content="This is temporaray content" onClose={event => { }}></Modal>
-                        < Modal  type="danger"  heading="heading" content="This is temporaray content" footer onClose={event => { }} onDelete={event => { }}></Modal>
-                        < Modal  type="danger"  heading="heading" content="This is temporaray content" onClose={event => { }}></Modal>
+                        <Modal type="danger" label="optional label" heading="heading" footer onClose={event => { }} onDelete={event => { }}>
+                          <Paragraph> this is temporaray content</Paragraph>
+                        </Modal>
+                        <Modal type="danger" label="optional label" heading="heading" onClose={event => { }}>
+                         <Paragraph> this is temporaray content</Paragraph>
+                        </Modal>
+                        <Modal type="danger" heading="heading" footer onClose={event => { }} onDelete={event => { }}>
+                         <Paragraph> this is temporaray content</Paragraph>
+                        </Modal>
+                        <Modal type="danger" heading="heading" onClose={event => { }}>
+                         <Paragraph> this is temporaray content</Paragraph>
+                        </Modal>
                         {/* Default type Modals */}
-                        < Modal  label="optional label" heading="heading" content="This is temporaray content" footer onClose={event => { }} onSave={event => { }}></Modal>
-                        < Modal  label="optional label" heading="heading" content="This is temporaray content" onClose={event => { }}></Modal>
-                        < Modal  heading="heading" content="This is temporaray content" footer onClose={event => { }} onSave={event => { }}></Modal>
-                        < Modal  heading="heading" content="This is temporaray content" onClose={event => { }}></Modal>
+                        <Modal label="optional label" heading="heading" footer onClose={event => { }} onSave={event => { }}>
+                         <Paragraph> this is temporaray content</Paragraph>
+                        </Modal>
+                        <Modal label="optional label" heading="heading" onClose={event => { }}>
+                         <Paragraph> this is temporaray content</Paragraph>
+                        </Modal>
+                        <Modal heading="heading" footer onClose={event => { }} onSave={event => { }}>
+                         <Paragraph> this is temporaray content</Paragraph>
+                        </Modal>
+                        <Modal heading="heading" onClose={event => { }}>
+                         <Paragraph> this is temporaray content</Paragraph>
+                        </Modal>
                     </div>
                 </div>
             </main >
