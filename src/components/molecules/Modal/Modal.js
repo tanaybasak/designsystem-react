@@ -8,7 +8,6 @@ export default function Modal({
   label,
   heading,
   children,
-  footer,
   onClose,
   actions
 }) {
@@ -25,7 +24,7 @@ export default function Modal({
           ) : null}
           {heading !== "" && <h5>{heading}</h5>}
         </header>}
-        <div className={`${prefix}-modal-content`}>{children}</div>
+        {children && <div className={`${prefix}-modal-content`}>{children}</div>}
         {actions.length > 0 && (
           <footer className={`${prefix}-modal-footer`}>
             <ActionBar actions={actions} />
@@ -50,7 +49,6 @@ Modal.defaultProps = {
   type: "default",
   label: "",
   heading: "",
-  content: "This is temporary content",
   footer: false,
   onClose: () => {},
   actions: []
