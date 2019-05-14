@@ -13,8 +13,9 @@ import Breadcrumb from './components/atoms/Breadcrumb';
 import Spinner from './components/atoms/Spinner';
 import Toggle from './components/atoms/Toggle';
 import Notification from './components/atoms/Notification';
-import Tag from './components/atoms/Tag/Tag';
-import Toast from './components/atoms/Toast/Toast';
+import Tag from './components/atoms/Tag';
+import Toast from './components/atoms/Toast';
+import { Tabs, Tab, TabList, TabContent, TabPanel } from './components/atoms/Tab';
 
 class App extends Component {
 
@@ -209,6 +210,22 @@ class App extends Component {
                             visible={this.state.toast.visible}
                         />
                         <Button title="Default" onClick={this.showToast}>Show Toast Notification</Button>
+                    </div>
+                    <div className="col-12 mt-5">
+                    <Tabs initialValue="tab2">
+                        <TabList>
+                            <Tab name="tab1" label="Tab Label 1"></Tab>
+                            <Tab name="tab2" label="Tab Label 2"></Tab>
+                        </TabList>
+                        <TabContent>
+                            <TabPanel name="tab1">
+                                <p>Hooks are a new addition in React 16.8. They let you use state and other React features without writing a class </p>
+                            </TabPanel>
+                            <TabPanel name="tab2">
+                                <p>React has a powerful composition model, and we recommend using composition instead of inheritance to reuse code between components</p>
+                            </TabPanel>
+                        </TabContent>
+                    </Tabs>
                     </div>
                 </div>
             </main >

@@ -1,2 +1,3 @@
-import Tab from './Tab';
-export default Tab;
+import Tabs, { Tab, TabList, TabContent } from './Tabs';
+
+export * from './Tabs';
