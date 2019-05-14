@@ -24,7 +24,7 @@ Tabs are used to quickly navigate between views within the same context.
     </Tabs>
 ```
 
-> ## Properties for Tabs
+> **Properties for Tabs**
 
 | Name | Type | Default | Description
 | --- | --- | --- | --- |
