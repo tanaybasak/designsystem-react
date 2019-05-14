@@ -265,7 +265,7 @@ class App extends Component {
                         <Button title="Default" onClick={()=>{ this.setState({ modal : 6 }) }}>6</Button>
                         <Button title="Default" onClick={()=>{ this.setState({ modal : 7 }) }}>7</Button>
                     </div>
-                    <div className="col-12 mt-5">
+                    <div className="col-12 mt-5 colBorder p-5">
                         <Tabs initialValue="tab2">
                             <TabList>
                                 <Tab name="tab1" label="Tab Label 1"></Tab>
@@ -273,10 +273,10 @@ class App extends Component {
                             </TabList>
                             <TabContent>
                                 <TabPanel name="tab1">
-                                    <p>Hooks are a new addition in React 16.8. They let you use state and other React features without writing a class </p>
+                                    <p>Hooks are a new addition in React 16.8. They let you use state and other React features without writing a class.</p>
                                 </TabPanel>
                                 <TabPanel name="tab2">
-                                    <p>React has a powerful composition model, and we recommend using composition instead of inheritance to reuse code between components</p>
+                                    <p>React has powerful composition model, and we recommend using composition to reuse code between components.</p>
                                 </TabPanel>
                             </TabContent>
                         </Tabs>
