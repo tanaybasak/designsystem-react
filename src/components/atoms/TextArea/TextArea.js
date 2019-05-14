@@ -4,10 +4,11 @@ import { prefix } from '../../../settings';
 
 export default function TextArea({ className, ...restProps }) {
     const [value, setValue] = useState(restProps.value || '');
+    const classnames = `${prefix}-textarea ${className}`.trim();
 
     return (
         <textarea
-            className={`${prefix}-text-area ${className}`}
+            className={classnames}
             {...restProps}
             value={value}
             onChange={event => {
@@ -32,7 +33,7 @@ TextArea.propTypes = {
 };
 
 TextArea.defaultProps = {
-    className: null,
+    className: '',
     disabled: false,
     onChange: () => { },
     onClick: () => { },

@@ -4,9 +4,10 @@ import { prefix } from '../../../settings';
 
 export default function Checkbox({ className, checked, labelText, ...restProps }) {
     const [isChecked, setChecked] = useState(checked || false);
+    const classnames = `${prefix}-checkbox-item ${className}`.trim();
 
     return (
-        <div className={`${prefix}-checkbox-item ${className || ''}`}>
+        <div className={classnames}>
             <input
                 className={`${prefix}-checkbox`}
                 type="checkbox"
@@ -21,7 +22,16 @@ export default function Checkbox({ className, checked, labelText, ...restProps }
                     }
                 }}
             />
-            {labelText ? <label className={`${prefix}-checkbox-label`} htmlFor={restProps.id}>{labelText}</label> : null}
+            {
+                labelText ?
+                    <label
+                        className={`${prefix}-checkbox-label`}
+                        htmlFor={restProps.id}
+                    >
+                        {labelText}
+                    </label>
+                    : null
+            }
         </div>
     );
 };
@@ -37,8 +47,8 @@ Checkbox.propTypes = {
 };
 
 Checkbox.defaultProps = {
-    className: null,
-    labelText: null,
+    className: '',
+    labelText: '',
     disabled: false,
     onChange: () => { },
     checked: false

@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import { prefix } from '../../../settings';
 
 export default function Radio({ className, labelText, ...restProps }) {
+    const classnames = `${prefix}-radio-item ${className}`.trim();
 
     return (
-        <div className={`${prefix}-radio-item ${className || ''}`}>
+        <div className={classnames}>
             <input
                 className={`${prefix}-radio`}
                 type="radio"
@@ -16,7 +17,16 @@ export default function Radio({ className, labelText, ...restProps }) {
                     }
                 }}
             />
-            {labelText ? <label className={`${prefix}-radio-label`} htmlFor={restProps.id}>{labelText}</label> : null}
+            {
+                labelText ?
+                    <label
+                        className={`${prefix}-radio-label`}
+                        htmlFor={restProps.id}
+                    >
+                        {labelText}
+                    </label>
+                    : null
+            }
         </div>
     );
 };
@@ -34,8 +44,8 @@ Radio.propTypes = {
 };
 
 Radio.defaultProps = {
-    className: null,
-    labelText: null,
+    className: '',
+    labelText: '',
     disabled: false,
     onChange: () => { },
     checked: false

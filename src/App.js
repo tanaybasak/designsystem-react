@@ -15,6 +15,9 @@ import Toggle from './components/atoms/Toggle';
 import Notification from './components/atoms/Notification';
 import Tag from './components/atoms/Tag';
 import Toast from './components/atoms/Toast';
+import List from './components/atoms/List';
+import listItems from './components/atoms/List/sample-list-data.json';
+import Modal from './components/molecules/Modal/Modal';
 import { Tabs, Tab, TabList, TabContent, TabPanel } from './components/atoms/Tab';
 
 class App extends Component {
@@ -26,7 +29,8 @@ class App extends Component {
         },
         toast: {
             visible: false
-        }
+        },
+        modal : null
     };
 
     _onTemperatureRadioChange = (e) => {
@@ -72,18 +76,29 @@ class App extends Component {
         }
     }
 
+    modalActions1 = [ {label : "Save"}, {label : "Close", handler: ()=>{ this.onModalClose() }, danger : true}];
+    modalActions3 = [ {label : "Close", danger : true, handler: ()=>{ this.onModalClose() }}];
+    modalActions4 = [ {label : "Save", primary : true, handler: ()=>{ this.onModalClose() }}];
+    modalActions5 = [ {label : "Delete", danger : true}];
+    modalActions7 = [ {label : "Save", primary : true}];
+
+    onModalClose = ()=>{
+        this.setState({ modal : null })
+    }
+
     render() {
+
         return (
-            <main className="container">
-                <div className="row mt-5 pl-5">
+            <main className="hcl-container">
+                <div className="hcl-row m-0">
                     {/* Input Field */}
-                    <div className="hcl-form-group col-12">
+                    <div className="hcl-form-group hcl-col-12">
                         <Label htmlFor="firstname">First Name </Label>
                         <FormHelperText className="helper-text">Enter first name</FormHelperText>
                         <TextInput type="text" placeholder="name" id="firstname" data-invalid="true" onChange={event => { console.log(event.currentTarget.value) }} />
                         <FormHelperText className="error-msg">Enter first name</FormHelperText>
                     </div>
-                    <div className="hcl-form-group col-12">
+                    <div className="hcl-form-group hcl-col-12">
                         <Label htmlFor="feedback">Feedback </Label>
                         <FormHelperText className="helper-text">Feedback helper</FormHelperText>
                         <TextArea aria-disabled="false" id="feedback" data-invalid="true" onChange={event => { console.log(event.currentTarget.value) }} />
@@ -92,7 +107,7 @@ class App extends Component {
 
                     <hr />
                     {/* Button */}
-                    <div className="hcl-form-group col-12">
+                    <div className="hcl-form-group hcl-col-12">
                         <Button title="Default" onClick={event => { console.log('Button Clicked'); }}>Default</Button>
                         <Button className="hcl-btn-primary" onClick={event => { console.log('Button Clicked'); }}>Primary</Button>
                         <Button className="hcl-btn-secondary" onClick={event => { console.log('Button Clicked'); }}>Secondary</Button>
@@ -101,17 +116,17 @@ class App extends Component {
                         <Button className="hcl-btn-primary sm" onClick={event => { console.log('Button Clicked'); }}>Primary small</Button>
                     </div>
                     {/* Heading */}
-                    <div className="hcl-form-group col-12">
+                    <div className="hcl-form-group hcl-col-12">
                         <Heading type="h2">Heading h2</Heading>
                     </div>
                     {/* Checkbox */}
-                    <div className="col-12 mt-5">
+                    <div className="hcl-col-12 mt-5">
                         <legend className="hcl-legend">Checkbox - Horizontally arranged (default)</legend>
                         <Checkbox id="checkbox1" labelText="1 (default)" onChange={event => { console.log('Default Checkbox.') }}/>
                         <Checkbox id="checkbox2" labelText="2" checked onChange={event => { console.log('Checked state is changed.') }}/>
                         <Checkbox id="checkbox3" labelText="3 (disabled)" disabled />
                     </div>
-                    <div className="col-12 mt-5">
+                    <div className="hcl-col-12 mt-5">
                         <legend className="hcl-legend">Checkbox - Vertically arranged</legend>
                             <div className="hcl-checkbox-group hcl-stack-vertical">
                                 <Checkbox id="checkbox4" labelText="4 (default)" onChange={event => { console.log('Default Checkbox.') }}/>
@@ -120,36 +135,32 @@ class App extends Component {
                             </div>
                     </div>
                     {/* Radio */}
-                    <div className="col-12 mt-5">
+                    <div className="hcl-col-12 mt-5">
                         <legend className="hcl-legend">Radio - Horizontally arranged (default)</legend>
-                            <Radio id="Radio1" labelText="1 (default)" value="37" name="temperature" onChange={  this._onTemperatureRadioChange } checked={this.state.radio.temperature == 37}/>
-                            <Radio id="Radio2" labelText="2" name="temperature" value="45" onChange={this._onTemperatureRadioChange } checked={this.state.radio.temperature == 45}/>
-                            <Radio id="Radio3" labelText="3 (disabled)" value="30" name="temperature" disabled onChange={ this._onTemperatureRadioChange } checked={this.state.radio.temperature == 30}/>
+                            <Radio id="Radio1" labelText="1 (default)" value="37" name="temperature" onChange={  this._onTemperatureRadioChange } checked={this.state.radio.temperature === 37}/>
+                            <Radio id="Radio2" labelText="2" name="temperature" value="45" onChange={this._onTemperatureRadioChange } checked={this.state.radio.temperature === 45}/>
+                            <Radio id="Radio3" labelText="3 (disabled)" value="30" name="temperature" disabled onChange={ this._onTemperatureRadioChange } checked={this.state.radio.temperature === 30}/>
                     </div>  
-                    <div className="col-12 mt-5">
+                    <div className="hcl-col-12 mt-5">
                         <legend className="hcl-legend">Radio - Vertically arranged</legend>
                             <div className="hcl-radio-group hcl-stack-vertical">
                                 <Radio id="Radio4" labelText="4 (default)" value="Bangalore" name="city" onChange={this._onCityRadioChange } checked={this.state.radio.city === 'Bangalore'}/>
                                 <Radio id="Radio5" labelText="5" value="Chennai" name="city" onChange={this._onCityRadioChange} checked={this.state.radio.city === 'Chennai'}/>
                                 <Radio id="Radio6" labelText="6 (disabled)" value="Mumbai" name="city" disabled onChange={this._onCityRadioChange } checked={this.state.radio.city === 'Mumbai'}/>
                             </div>
-                    </div>  
-                    {/* Tag */}
-                    {/* <div className="col-12">
-                        <Tag isCloseable>Date</Tag>
-                    </div> */}
+                    </div> 
                     {/* Link */}
-                    <div className="col-12 mt-5">
+                    <div className="hcl-col-12 mt-5">
                         <Link href="https://www.google.com" target="_blank">Google</Link>
                     </div>
                     {/* Paragraphs */}
-                    <div className="col-12 mt-5">
+                    <div className="hcl-col-12 mt-5">
                         <Paragraph>
                             There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.
                         </Paragraph>
                     </div>
                     {/* Breadcrumb */}
-                    <div className="col-12 mt-5">
+                    <div className="hcl-col-12 mt-5">
                         <Breadcrumb id="breadcrumb" className="custom-breadcrumb" model={[
                             { label: "Breadcrumb 1", url: "" },
                             { label: "Breadcrumb 2", url: "https://google.co.in" },
@@ -158,26 +169,26 @@ class App extends Component {
                         </Breadcrumb>
                     </div>
                     {/* Spinner */}
-                    <div className="col-12 mt-5">
+                    <div className="hcl-col-12 mt-5">
                         <Spinner />
                     </div>
                     {/* Small Spinner */}
-                    <div className="col-12 mt-5">
+                    <div className="hcl-col-12 mt-5">
                         <Spinner small />
                     </div>
                     {/* Toggle */}
-                    <div className="col-12 mt-5">
+                    <div className="hcl-col-12 mt-5">
                         <Toggle id="simple-toggle" className="ml-3" onChange={event => { console.log('Toggled') }} />
                         <Toggle id="disabled-checked-toggle" className="ml-3" disabled toggled />
                         <Toggle id="disabled-toggle" className="ml-3" disabled labelOff="off" labelOn="on" />
                     </div>
                     {/* Small Toggle */}
-                    <div className="col-12 mt-5">
+                    <div className="hcl-col-12 mt-5">
                         <Toggle small id="simple-small-toggle" className="ml-3" onChange={event => { console.log('Toggled') }} />
                         <Toggle small id="disabled-checked-small-toggle" className="ml-3" disabled toggled />
                         <Toggle small id="disabled-small-toggle" className="ml-3" disabled labelOff="off" labelOn="on" />
                     </div>
-                    <div className="col-12 mt-5">
+                    <div className="hcl-col-12 mt-5">
                         <Notification
                             title="Notification title"
                             subtitle="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
@@ -188,7 +199,7 @@ class App extends Component {
                         />
                     </div>
                     {/* Tag */}
-                    <div className="col-12 mt-5">
+                    <div className="hcl-col-12 mt-5">
                         <Tag className="ml-3" title="Primary Tag">Primary Tag</Tag>
                         <Tag className="ml-3" title="Primary Disabled" disabled>Primary Disabled</Tag>
                         <Tag className="ml-3" title="Primary Closable" closable onClose={event => { alert('Closing Tag') }}>Primary Closable</Tag>
@@ -198,11 +209,21 @@ class App extends Component {
                         <Tag className="ml-3" title="Secondary Closable" type="secondary" closable onClose={event => { alert('Closing Tag') }}>Secondary Closable</Tag>
                         <Tag className="ml-3" title="Secondary Tag With Thumbnail" type="secondary" thumbnailSrc="https://image.flaticon.com/icons/png/512/862/862358.png">Secondary Tag With Thumbnail</Tag>
                     </div>
+                    {/* List */}
+                    <div className="hcl-col-12 mt-5">
+                        {/* Ordered */}
+                        <Label>Ordered List</Label>
+                        <List listItems={listItems} type="ol" onClick={event => {}} />
+                        <br />
+                        <br />
+                        {/* Unordered */}
+                        <Label>Unordered List</Label>
+                        <List listItems={listItems} type="ul" onClick={event => {}} />
+                    </div>
                     {/* Tag */}
                     <div className="col-12 mt-5">
                         <Toast
                             type="success"
-                            title="Notification title"
                             subtitle="Subtitle text goes here."
                             caption="Time stamp [00:00:00]"
                             closable
@@ -212,20 +233,53 @@ class App extends Component {
                         <Button title="Default" onClick={this.showToast}>Show Toast Notification</Button>
                     </div>
                     <div className="col-12 mt-5">
-                    <Tabs initialValue="tab2">
-                        <TabList>
-                            <Tab name="tab1" label="Tab Label 1"></Tab>
-                            <Tab name="tab2" label="Tab Label 2"></Tab>
-                        </TabList>
-                        <TabContent>
-                            <TabPanel name="tab1">
-                                <p>Hooks are a new addition in React 16.8. They let you use state and other React features without writing a class </p>
-                            </TabPanel>
-                            <TabPanel name="tab2">
-                                <p>React has a powerful composition model, and we recommend using composition instead of inheritance to reuse code between components</p>
-                            </TabPanel>
-                        </TabContent>
-                    </Tabs>
+                        {/* Danger type Modals */}
+                        {this.state.modal === 1 && <Modal type="danger" label="optional label" heading="Heading comes here." onClose={this.onModalClose} actions={this.modalActions1}>
+                          <Paragraph>Danger Modal with save and close buttons</Paragraph>
+                        </Modal>}
+                        {this.state.modal === 2 && <Modal type="danger" label="optional label" heading="Heading comes here." onClose={this.onModalClose}>
+                         <Paragraph> Danger Modal with no buttons</Paragraph>
+                        </Modal>}
+                        {this.state.modal === 3 && <Modal type="danger" heading="Heading comes here."  onClose={this.onModalClose} actions={this.modalActions3}>
+                         <Paragraph> Danger Modal with close button</Paragraph>
+                        </Modal>}
+                        {this.state.modal === 4 && <Modal type="danger" onClose={this.onModalClose}>
+                         <Paragraph> Danger Modal with no footer and heading</Paragraph>
+                        </Modal>}
+                        {/* Default type Modals */}
+                        {this.state.modal === 5 && <Modal label="optional label" heading="Heading comes here."  onClose={this.onModalClose} actions={this.modalActions5}>
+                         <Paragraph> Modal with Delete (Danger) button</Paragraph>
+                        </Modal>}
+                        {this.state.modal === 6 && <Modal label="optional label" heading="Heading comes here." onClose={this.onModalClose}>
+                         <Paragraph> Modal with no buttons</Paragraph>
+                        </Modal>}
+                        {this.state.modal === 7 && <Modal heading="Heading comes here." onClose={this.onModalClose} actions={this.modalActions7}>
+                         <Paragraph>Modal with save button</Paragraph>
+                        </Modal>}
+                        Show modal layout : 
+                        <Button title="Default" onClick={()=>{ this.setState({ modal : 1 }) }}>1</Button>
+                        <Button title="Default" onClick={()=>{ this.setState({ modal : 2 }) }}>2</Button>
+                        <Button title="Default" onClick={()=>{ this.setState({ modal : 3 }) }}>3</Button>
+                        <Button title="Default" onClick={()=>{ this.setState({ modal : 4 }) }}>4</Button>
+                        <Button title="Default" onClick={()=>{ this.setState({ modal : 5 }) }}>5</Button>
+                        <Button title="Default" onClick={()=>{ this.setState({ modal : 6 }) }}>6</Button>
+                        <Button title="Default" onClick={()=>{ this.setState({ modal : 7 }) }}>7</Button>
+                    </div>
+                    <div className="col-12 mt-5">
+                        <Tabs initialValue="tab2">
+                            <TabList>
+                                <Tab name="tab1" label="Tab Label 1"></Tab>
+                                <Tab name="tab2" label="Tab Label 2"></Tab>
+                            </TabList>
+                            <TabContent>
+                                <TabPanel name="tab1">
+                                    <p>Hooks are a new addition in React 16.8. They let you use state and other React features without writing a class </p>
+                                </TabPanel>
+                                <TabPanel name="tab2">
+                                    <p>React has a powerful composition model, and we recommend using composition instead of inheritance to reuse code between components</p>
+                                </TabPanel>
+                            </TabContent>
+                        </Tabs>
                     </div>
                 </div>
             </main >

@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 import { prefix } from '../../../settings';
 
 export default function Tag({ className, children, text, type, closable, onClose, thumbnailSrc, ...restProps }) {
+    const classnames = `${prefix}-tag hcl-tag-${type} ${className}`.trim();
+    
     return (
         <button
-            className={`${prefix}-tag hcl-tag-${type} ${className}`}
+            className={classnames}
             {...restProps}
         >
             {thumbnailSrc ? <img src={thumbnailSrc} className={`${prefix}-tag-thumbnail`} aria-hidden="true" /> : null}

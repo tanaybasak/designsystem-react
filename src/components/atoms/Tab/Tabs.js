@@ -66,8 +66,6 @@ function TabPanel(props) {
     const { children, name, ...restProps } = props;
     const tabContext = useContext(TabContext);
 
-    console.log(name);
-
     return (
         <div role="tabpanel" className={`${prefix}-tabs-panel ${tabContext.activeTab === name ? 'active' : ''}`} {...restProps}>
             {children}

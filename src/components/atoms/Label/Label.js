@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import { prefix } from '../../../settings';
 
 export default function Label({ className, children, ...restProps }) {
+    const classnames = `${prefix}-label ${className}`.trim();
 
     return (
         <label
-            className={`${prefix}-label ${className}`}
+            className={classnames}
             {...restProps}
         >
             <span>{children}</span>
