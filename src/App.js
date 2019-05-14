@@ -266,7 +266,7 @@ class App extends Component {
                         <Button title="Default" onClick={()=>{ this.setState({ modal : 7 }) }}>7</Button>
                     </div>
                     <div className="hcl-col-12 mt-5 colBorder p-5">
-                        <Tabs initialValue="tab2">
+                        <Tabs initialValue="tab2" onSelectionChange={ (e) => console.log(e)}>
                             <TabList>
                                 <Tab name="tab1" isDisabled={true} label="Tab Label 1"></Tab>
                                 <Tab name="tab2" label="Tab Label 2"></Tab>

@@ -1,13 +1,13 @@
-import React, { useState, createContext, useContext } from 'react';
+import React, { useState, createContext, useContext, useEffect } from 'react';
 // import PropTypes from 'prop-types';
 import { prefix } from '../../../settings';
 
 export const TabContext = createContext();
 
 function Tabs(props) {
-    const { initialValue, children, ...restProps } = props;
+    const { initialValue, children, onSelectionChange, ...restProps } = props;
     const [activeTab, changeTab] = useState(initialValue);
-    const tabProvider = { activeTab, changeTab }
+    const tabProvider = { activeTab, changeTab, onSelectionChange }
 
     return (
         <TabContext.Provider value={tabProvider}>
@@ -15,28 +15,30 @@ function Tabs(props) {
                 <nav data-tabs role="navigation">
                     {children}
                 </nav>
-                {/* <section className={`${prefix}-tabcontent`}>
-            </section> */}
             </section >
         </TabContext.Provider>
     )
 }
 
 function Tab(props) {
-    const { name, label, className = "", onTabClick = () => { }, children, isDisabled = false, ...restProps } = props;
+    const { name, label, className = "", isDisabled = false, ...restProps } = props;
 
     const tabContext = useContext(TabContext);
 
     const handleClick = (e) => {
         if (!e.currentTarget.classList.contains(`${prefix}-tabs-disabled`)) {
             tabContext.changeTab(name);
-            onTabClick(e);
+            tabContext.onSelectionChange(e)
         }
     };
 
     return (
-        <li role="tab" onClick={handleClick} className={`${prefix}-tabs-nav-item ${tabContext.activeTab === name ? 'active' : ''} ${isDisabled ? `${prefix}-tabs-disabled` : ''}`}>
-            <a className={`${prefix}-tabs-nav-link ${className}`} href={null}>
+        <li role="tab"
+            onClick={handleClick}
+            className={`${prefix}-tabs-nav-item ${tabContext.activeTab === name ? 'active' : ''} ${isDisabled ? `${prefix}-tabs-disabled` : ''}`}
+            {...restProps}
+        >
+            <a className={`${prefix}-tabs-nav-link ${className}`} href="javascript:void(0);">
                 {label}
             </a>
         </li>
