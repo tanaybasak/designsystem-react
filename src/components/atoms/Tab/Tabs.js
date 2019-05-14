@@ -5,7 +5,7 @@ import { prefix } from '../../../settings';
 export const TabContext = createContext();
 
 function Tabs(props) {
-    const { initialValue, children, onSelectionChange, ...restProps } = props;
+    const { initialValue, children, onSelectionChange = () => {}, ...restProps } = props;
     const [activeTab, changeTab] = useState(initialValue);
     const tabProvider = { activeTab, changeTab, onSelectionChange }
 
@@ -28,7 +28,7 @@ function Tab(props) {
     const handleClick = (e) => {
         if (!e.currentTarget.classList.contains(`${prefix}-tabs-disabled`)) {
             tabContext.changeTab(name);
-            tabContext.onSelectionChange(e)
+            tabContext.onSelectionChange(e);
         }
     };
 
