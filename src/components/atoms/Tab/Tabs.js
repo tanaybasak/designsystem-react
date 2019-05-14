@@ -1,11 +1,11 @@
 import React, { useState, createContext, useContext, useEffect } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { prefix } from '../../../settings';
 
 export const TabContext = createContext();
 
 function Tabs(props) {
-    const { initialValue, children, onSelectionChange = () => {}, ...restProps } = props;
+    const { initialValue, children, onSelectionChange, ...restProps } = props;
     const [activeTab, changeTab] = useState(initialValue);
     const tabProvider = { activeTab, changeTab, onSelectionChange }
 
@@ -21,7 +21,7 @@ function Tabs(props) {
 }
 
 function Tab(props) {
-    const { name, label, className = "", isDisabled = false, ...restProps } = props;
+    const { name, label, className = "", isDisabled, ...restProps } = props;
 
     const tabContext = useContext(TabContext);
 
@@ -77,6 +77,24 @@ function TabPanel(props) {
                 {children}
             </div>)
     )
+}
+
+Tabs.propTypes = {
+    initialValue: PropTypes.string.isRequired,
+    onSelectionChange: PropTypes.func
+}
+
+Tabs.defaultProps = {
+    onSelectionChange: () => { }
+}
+
+Tab.propTypes = {
+    name: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
+    isDisabled: PropTypes.bool
+}
+Tab.defaultProps = {
+    isDisabled: false
 }
 
 
