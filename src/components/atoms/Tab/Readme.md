@@ -2,7 +2,7 @@
 
 Tabs are used to quickly navigate between views within the same context.
 
-# Usage
+## Usage
 ```
     <Tabs initialValue="tab2" onSelectionChange={ (e) => console.log(e)}>
         <TabList>
