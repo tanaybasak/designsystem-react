@@ -23,18 +23,20 @@ function Tabs(props) {
 }
 
 function Tab(props) {
-    const { name, label, className = "", onTabClick = () => { }, children, ...restProps } = props;
+    const { name, label, className = "", onTabClick = () => { }, children, isDisabled = false, ...restProps } = props;
 
     const tabContext = useContext(TabContext);
 
     const handleClick = (e) => {
-        tabContext.changeTab(name);
-        onTabClick(e);
+        if (!e.currentTarget.classList.contains(`${prefix}-tabs-disabled`)) {
+            tabContext.changeTab(name);
+            onTabClick(e);
+        }
     };
 
     return (
-        <li role="tab" className={`${prefix}-tabs-nav-item ${tabContext.activeTab === name ? 'active' : ''}`} {...restProps}>
-            <a className={`${prefix}-tabs-nav-link ${className}`} href={null} onClick={handleClick}>
+        <li role="tab" onClick={handleClick} className={`${prefix}-tabs-nav-item ${tabContext.activeTab === name ? 'active' : ''} ${isDisabled ? `${prefix}-tabs-disabled` : ''}`}>
+            <a className={`${prefix}-tabs-nav-link ${className}`} href={null}>
                 {label}
             </a>
         </li>
@@ -65,11 +67,13 @@ function TabContent(props) {
 function TabPanel(props) {
     const { children, name, ...restProps } = props;
     const tabContext = useContext(TabContext);
+    const isActive = tabContext.activeTab === name;
 
     return (
-        <div role="tabpanel" className={`${prefix}-tabs-panel ${tabContext.activeTab === name ? 'active' : ''}`} {...restProps}>
-            {children}
-        </div>
+        isActive && (
+            <div role="tabpanel" className={`${prefix}-tabs-panel ${isActive ? 'active' : ''}`} {...restProps}>
+                {children}
+            </div>)
     )
 }
 

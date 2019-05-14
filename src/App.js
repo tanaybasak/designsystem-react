@@ -232,7 +232,7 @@ class App extends Component {
                         />
                         <Button title="Default" onClick={this.showToast}>Show Toast Notification</Button>
                     </div>
-                    <div className="col-12 mt-5">
+                    <div className="hcl-col-12 mt-5">
                         {/* Danger type Modals */}
                         {this.state.modal === 1 && <Modal type="danger" label="optional label" heading="Heading comes here." onClose={this.onModalClose} actions={this.modalActions1}>
                           <Paragraph>Danger Modal with save and close buttons</Paragraph>
@@ -265,11 +265,12 @@ class App extends Component {
                         <Button title="Default" onClick={()=>{ this.setState({ modal : 6 }) }}>6</Button>
                         <Button title="Default" onClick={()=>{ this.setState({ modal : 7 }) }}>7</Button>
                     </div>
-                    <div className="col-12 mt-5 colBorder p-5">
+                    <div className="hcl-col-12 mt-5 colBorder p-5">
                         <Tabs initialValue="tab2">
                             <TabList>
-                                <Tab name="tab1" label="Tab Label 1"></Tab>
+                                <Tab name="tab1" isDisabled={true} label="Tab Label 1"></Tab>
                                 <Tab name="tab2" label="Tab Label 2"></Tab>
+                                <Tab name="tab3" label="Tab Label 3"></Tab>
                             </TabList>
                             <TabContent>
                                 <TabPanel name="tab1">
@@ -277,6 +278,9 @@ class App extends Component {
                                 </TabPanel>
                                 <TabPanel name="tab2">
                                     <p>React has powerful composition model, and we recommend using composition to reuse code between components.</p>
+                                </TabPanel>
+                                <TabPanel name="tab3">
+                                    <p>Several components need to reflect the same changing data.</p>
                                 </TabPanel>
                             </TabContent>
                         </Tabs>
