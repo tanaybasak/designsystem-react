@@ -264,6 +264,9 @@ class App extends Component {
                         <Button title="Default" onClick={()=>{ this.setState({ modal : 6 }) }}>6</Button>
                         <Button title="Default" onClick={()=>{ this.setState({ modal : 7 }) }}>7</Button>
                     </div>
+                    <div className="hcl-col-12 mt-5">
+                        {/* Reserved for Content Switcher Component */}
+                    </div>
                 </div>
             </main >
         );
