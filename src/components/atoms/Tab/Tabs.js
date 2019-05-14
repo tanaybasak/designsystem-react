@@ -20,7 +20,7 @@ function Tabs(props) {
     )
 }
 
-function Tab(props) {
+const Tab = (props) => {
     const { name, label, className = "", isDisabled, ...restProps } = props;
 
     const tabContext = useContext(TabContext);
@@ -45,7 +45,7 @@ function Tab(props) {
     )
 }
 
-function TabList(props) {
+const TabList = (props) => {
     const { className = "", children, ...restProps } = props;
 
 
@@ -56,7 +56,7 @@ function TabList(props) {
     );
 }
 
-function TabContent(props) {
+const TabContent = (props) => {
     const { className = "", children, ...restProps } = props;
 
     return (
@@ -66,7 +66,7 @@ function TabContent(props) {
     );
 }
 
-function TabPanel(props) {
+const TabPanel = (props) => {
     const { children, name, ...restProps } = props;
     const tabContext = useContext(TabContext);
     const isActive = tabContext.activeTab === name;
@@ -95,6 +95,10 @@ Tab.propTypes = {
 }
 Tab.defaultProps = {
     isDisabled: false
+}
+
+TabPanel.propTypes = {
+    name: PropTypes.string.isRequired,
 }
 
 
