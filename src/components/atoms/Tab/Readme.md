@@ -24,13 +24,13 @@ Tabs are used to quickly navigate between views within the same context.
     </Tabs>
 ```
 
-> **Properties for Tabs**
+# **Properties for Tabs**
 
 | Name | Type | Default | Description
 | --- | --- | --- | --- |
 | initialValue | string | required | The Tab to be selected by default.
 
-> ## Properties for Tab
+# **Properties for Tab**
 
 | Name | Type | Default | Description
 | --- | --- | --- | --- |
@@ -38,7 +38,7 @@ Tabs are used to quickly navigate between views within the same context.
 | label | string | required | Text to be displayed in Tab Header.
 | isDisabled | bool | false | Tab is disabled or not.
 
-> ## Properties for TabPanel
+# **Properties for TabPanel**
 
 | Name | Type | Default | Description
 | --- | --- | --- | --- |
