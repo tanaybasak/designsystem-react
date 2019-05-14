@@ -23,3 +23,29 @@ Tabs are used to quickly navigate between views within the same context.
         </TabContent>
     </Tabs>
 ```
+
+> Properties for Tabs
+
+| Name | Type | Default | Description
+| --- | --- | --- | --- |
+| initialValue | string | required | The Tab to be selected by default.
+
+> Properties for Tab
+
+| Name | Type | Default | Description
+| --- | --- | --- | --- |
+| name | string | required | Name of Each Tab to distinguish.
+| label | string | required | Text to be displayed in Tab Header.
+| isDisabled | bool | false | Tab is disabled or not.
+
+> Properties for TabPanel
+
+| Name | Type | Default | Description
+| --- | --- | --- | --- |
+| name | string | required | Name of Tab Content to Link with each Tab.
+
+
+
+
+
+

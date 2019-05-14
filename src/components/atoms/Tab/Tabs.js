@@ -34,6 +34,7 @@ const Tab = (props) => {
 
     return (
         <li role="tab"
+            aria-controls={name}
             onClick={handleClick}
             className={`${prefix}-tabs-nav-item ${tabContext.activeTab === name ? 'active' : ''} ${isDisabled ? `${prefix}-tabs-disabled` : ''}`}
             {...restProps}
@@ -73,7 +74,11 @@ const TabPanel = (props) => {
 
     return (
         isActive && (
-            <div role="tabpanel" className={`${prefix}-tabs-panel ${isActive ? 'active' : ''}`} {...restProps}>
+            <div 
+            role="tabpanel" 
+            aria-labelledby={name}
+            className={`${prefix}-tabs-panel ${isActive ? 'active' : ''}`} 
+            {...restProps}>
                 {children}
             </div>)
     )
