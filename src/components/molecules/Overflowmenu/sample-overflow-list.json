@@ -1,27 +1,22 @@
 [
     {
-        "name": "option 1",
-        "type": ""
-        
+        "name": "option 1"
+            
     },
     {
         "name": "option 2",
-        "type": ""
-        
+        "danger" : true   
     },
     {
         "name": "option 3",
-        "type": ""
-        
+        "separator" : true   
     },
     {
-        "name": "option 3",
-        "type": "diabled"
-        
+        "name": "option 4",
+        "disabled" : true       
     },
     {
-        "name": "Danger",
-        "value": "Danger"
-        
+        "name": "option 5",
+        "link" : "https://google.com"     
     }
 ]

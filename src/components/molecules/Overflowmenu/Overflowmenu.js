@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { prefix } from "../../../settings";
-import List from "../../atoms/List";
+import MenuList from "../../atoms/MenuList";
 import PropTypes from "prop-types";
 
 const Overflowmenu = ({ direction = "left" , ...rest}) => {
@@ -15,7 +15,7 @@ const Overflowmenu = ({ direction = "left" , ...rest}) => {
       <div className={`${prefix}-ellipsis`} onClick={clickHandler} />
       {display && <div
           className={`${prefix}-overflow-menu ${prefix}-overflow-${direction}`}
-        ><List listItems={rest.listItems}/>
+        ><MenuList items={rest.listItems}/>
          <div class={`${prefix}-overflow-caret`} />
          </div>}
     </section>
