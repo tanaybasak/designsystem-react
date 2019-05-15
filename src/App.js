@@ -266,11 +266,12 @@ class App extends Component {
                         <Button title="Default" onClick={()=>{ this.setState({ modal : 7 }) }}>7</Button>
                     </div>
                     <div className="hcl-col-12 mt-5 colBorder p-5">
-                        <Tabs initialValue="tab2" onSelectionChange={ (e) => console.log(e)}>
+                        <Tabs initialValue="tab3" onSelectionChange={ (e) => console.log(e)}>
                             <TabList>
                                 <Tab name="tab1" isDisabled={true} label="Tab Label 1"></Tab>
                                 <Tab name="tab2" label="Tab Label 2"></Tab>
                                 <Tab name="tab3" label="Tab Label 3"></Tab>
+                                <Tab name="tab4" label="Tab Label 4"></Tab>
                             </TabList>
                             <TabContent>
                                 <TabPanel name="tab1">
@@ -280,6 +281,9 @@ class App extends Component {
                                     <p>React has powerful composition model, and we recommend using composition to reuse code between components.</p>
                                 </TabPanel>
                                 <TabPanel name="tab3">
+                                    <p>Several components need to reflect the same changing data.</p>
+                                </TabPanel>
+                                <TabPanel name="tab4">
                                     <p>Several components need to reflect the same changing data.</p>
                                 </TabPanel>
                             </TabContent>

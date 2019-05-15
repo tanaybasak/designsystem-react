@@ -1,4 +1,4 @@
-import React, { useState, createContext, useContext } from 'react';
+import React, { useState, createContext, useContext, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { prefix } from '../../../settings';
 
@@ -35,6 +35,7 @@ const Tab = (props) => {
     return (
         <li role="tab"
             aria-controls={name}
+            key={`${name}-`}
             onClick={handleClick}
             className={`${prefix}-tabs-nav-item ${tabContext.activeTab === name ? 'active' : ''} ${isDisabled ? `${prefix}-tabs-disabled` : ''}`}
             {...restProps}
@@ -48,7 +49,6 @@ const Tab = (props) => {
 
 const TabList = (props) => {
     const { className = "", children, ...restProps } = props;
-
 
     return (
         <ul role="tablist" className={`${prefix}-tabs-nav ${className}`} {...restProps}>
@@ -73,16 +73,16 @@ const TabPanel = (props) => {
     const isActive = tabContext.activeTab === name;
 
     return (
-        isActive && (
-            <div 
-            role="tabpanel" 
+        isActive ? (<div
+            role="tabpanel"
             aria-labelledby={name}
-            className={`${prefix}-tabs-panel ${isActive ? 'active' : ''}`} 
+            key={`${name}-`}
+            className={`${prefix}-tabs-panel ${isActive ? 'active' : ''}`}
             {...restProps}>
-                {children}
-            </div>)
+            {children}
+        </div>) : null
     )
-}
+};
 
 Tabs.propTypes = {
     initialValue: PropTypes.string.isRequired,
