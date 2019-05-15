@@ -18,6 +18,7 @@ import List from './components/atoms/List';
 import listItems from './components/atoms/List/sample-list-data.json';
 import Toast from './components/atoms/Toast/Toast';
 import Modal from './components/molecules/Modal/Modal';
+import { ContentSwitcher, Switch } from './components/atoms/ContentSwitcher';
 
 class App extends Component {
 
@@ -29,8 +30,42 @@ class App extends Component {
         toast: {
             visible: false
         },
-        modal : null
+        modal : null,
+        contentSwitch: {
+            example1: 'Switch1',
+            example2: 'Switch4',
+            example3: 'Switch7',
+            example4: 'Switch10'
+        }
     };
+
+    switchAll = [{
+        "name": "Cybernetics",
+        "value": "ll-1",
+        "child": [
+            {
+                "name": "Artifical Intelligence",
+                "value": "ll-1-1"
+            },
+            {
+                "name": "Bionics",
+                "value": "ll-1-2"
+            }
+        ]
+    },{
+        "name": "Information & Communication technology",
+        "value": "ll-1",
+        "child": [
+            {
+                "name": "Cyber Infrastructure",
+                "value": "ll-1-1"
+            },
+            {
+                "name": "Digital Technology",
+                "value": "ll-1-2"
+            }
+        ]
+    }];
 
     _onTemperatureRadioChange = (e) => {
         this.setState({ 
@@ -75,6 +110,18 @@ class App extends Component {
         }
     }
 
+    onSwitchChange = (e, example) => {
+        const states = Object.assign({}, { 
+            contentSwitch: {
+                ...this.state.contentSwitch,
+                [example] : e.selectedValue
+            }
+        });
+        this.setState({
+            ...states
+        })
+    }
+
     modalActions1 = [ {label : "Save"}, {label : "Close", handler: ()=>{ this.onModalClose() }, danger : true}];
     modalActions3 = [ {label : "Close", danger : true, handler: ()=>{ this.onModalClose() }}];
     modalActions4 = [ {label : "Save", primary : true, handler: ()=>{ this.onModalClose() }}];
@@ -86,6 +133,8 @@ class App extends Component {
     }
 
     render() {
+
+        const { contentSwitch = {} } = this.state;
 
         return (
             <main className="hcl-container">
@@ -264,9 +313,110 @@ class App extends Component {
                         <Button title="Default" onClick={()=>{ this.setState({ modal : 6 }) }}>6</Button>
                         <Button title="Default" onClick={()=>{ this.setState({ modal : 7 }) }}>7</Button>
                     </div>
-                    <div className="hcl-col-12 mt-5">
-                        {/* Reserved for Content Switcher Component */}
-                    </div>
+                    <section className="hcl-col-12 mt-5 colBorder p-5">
+                        {/* Content Switcher Component */}
+                        <h5 className="p-2">Content Switcher - (default)</h5>
+                        <ContentSwitcher initialValue={contentSwitch.example1} onSelectionChange={(e) => this.onSwitchChange(e, 'example1')}>
+                            <Switch name="Switch1" text="All"></Switch>
+                            <Switch name="Switch2" text="Cybernetics"></Switch>
+                            <Switch name="Switch3" text="Information & Communication"></Switch>
+                        </ContentSwitcher>
+                        <section className="mt-1 p-2">
+                            {contentSwitch.example1 === 'Switch1' && 
+                                <div className="colBorder p-2">
+                                    <List listItems={this.switchAll} type="ol" onClick={event => {}} />
+                                </div>
+                            }
+                            {contentSwitch.example1 === 'Switch2' && 
+                                <div className="colBorder p-2">
+                                    <List listItems={[this.switchAll[0]]} type="ol" onClick={event => {}} />
+                                </div>
+                            }
+                            {contentSwitch.example1 === 'Switch3' && 
+                                <div className="colBorder p-2">
+                                    <List listItems={[this.switchAll[1]]} type="ol" onClick={event => {}} />
+                                </div>
+                            }
+                        </section>
+                    </section>
+                    <section className="hcl-col-12 mt-5 colBorder p-5">
+                        {/* Content Switcher Component */}
+                        <h5 className="p-2">Content Switcher - (disabled)</h5>
+                        <ContentSwitcher initialValue={contentSwitch.example2} onSelectionChange={(e) => this.onSwitchChange(e, 'example2')}>
+                                <Switch name="Switch4" text="All"></Switch>
+                                <Switch name="Switch5" text="Cybernetics"></Switch>
+                                <Switch name="Switch6" text="Information & Communication" isDisabled={true}></Switch>
+                        </ContentSwitcher>
+                        <section className="mt-1 p-2">
+                            {contentSwitch.example2 === 'Switch4' && 
+                                <div className="colBorder p-2">
+                                    <List listItems={this.switchAll} type="ol" onClick={event => {}} />
+                                </div>
+                            }
+                            {contentSwitch.example2 === 'Switch5' && 
+                                <div className="colBorder p-2">
+                                    <List listItems={[this.switchAll[0]]} type="ol" onClick={event => {}} />
+                                </div>
+                            }
+                            {contentSwitch.example2 === 'Switch6' && 
+                                <div className="colBorder p-2">
+                                    <List listItems={[this.switchAll[1]]} type="ol" onClick={event => {}} />
+                                </div>
+                            }
+                        </section>
+                    </section>
+                    <section className="hcl-col-12 mt-5 colBorder p-5">
+                        {/* Content Switcher Component */}
+                        <h5 className="p-2">Content Switcher - (with icons)</h5>
+                        <ContentSwitcher initialValue={contentSwitch.example3} onSelectionChange={(e) => this.onSwitchChange(e, 'example3')}>
+                                <Switch name="Switch7" text="All" iconClass="fa fa-left"></Switch>
+                                <Switch name="Switch8" text="Cybernetics" iconClass="fa fa-center"></Switch>
+                                <Switch name="Switch9" text="Information & Communication" iconClass="fa fa-right"></Switch>
+                        </ContentSwitcher>
+                        <section className="mt-1 p-2">
+                            {contentSwitch.example3 === 'Switch7' && 
+                                <div className="colBorder p-2">
+                                    <List listItems={this.switchAll} type="ol" onClick={event => {}} />
+                                </div>
+                            }
+                            {contentSwitch.example3 === 'Switch8' && 
+                                <div className="colBorder p-2">
+                                    <List listItems={[this.switchAll[0]]} type="ol" onClick={event => {}} />
+                                </div>
+                            }
+                            {contentSwitch.example3 === 'Switch9' && 
+                                <div className="colBorder p-2">
+                                    <List listItems={[this.switchAll[1]]} type="ol" onClick={event => {}} />
+                                </div>
+                            }
+                        </section>
+                    </section>
+                    <section className="hcl-col-12 mt-5 colBorder p-5">
+                        {/* Content Switcher Component */}
+                        <h5 className="p-2">Content Switcher - with icons (disabled)</h5>
+                        <ContentSwitcher initialValue={contentSwitch.example4} onSelectionChange={(e) => this.onSwitchChange(e, 'example4')}>
+                                <Switch name="Switch10" text="All" iconClass="fa fa-left" isDisabled={true}></Switch>
+                                <Switch name="Switch11" text="Cybernetics" iconClass="fa fa-center" isDisabled={true}></Switch>
+                                <Switch name="Switch12" text="Information & Communication" iconClass="fa fa-right" isDisabled={true}></Switch>
+                        </ContentSwitcher>
+                        <section className="mt-1 p-2">
+                            {contentSwitch.example4 === 'Switch10' && 
+                                <div className="colBorder p-2">
+                                    <List listItems={this.switchAll} type="ol" onClick={event => {}} />
+                                </div>
+                            }
+                            {contentSwitch.example4 === 'Switch11' && 
+                                <div className="colBorder p-2">
+                                    <List listItems={[this.switchAll[0]]} type="ol" onClick={event => {}} />
+                                </div>
+                            }
+                            {contentSwitch.example4 === 'Switch12' && 
+                                <div className="colBorder p-2">
+                                    <List listItems={[this.switchAll[1]]} type="ol" onClick={event => {}} />
+                                </div>
+                            }
+                        </section>
+                    </section>
                 </div>
             </main >
         );
