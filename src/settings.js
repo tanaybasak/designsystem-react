@@ -1,1 +1,3 @@
-export const prefix = 'hcl';
+const prefix = "hcl";
+
+export default prefix;

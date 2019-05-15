@@ -32,7 +32,7 @@ HCL has more than 50+ products and few of them are based on the Carbon Design V9
 
 2. Install the dependencies 
     
-        npm run start
+        npm install
 
 3. To Run the Dev Server
 
@@ -48,6 +48,11 @@ HCL has more than 50+ products and few of them are based on the Carbon Design V9
 
 ## Code Style Guide 
 - We are following (Airbnb Styleguide)[https://github.com/airbnb/javascript/tree/master/react] 
+- ESlint
+- Prettier
+- No '_' 
+- Use React Hooks before moving to the class based functions
+- Use Proptypes
 
 
 ## Documentation
