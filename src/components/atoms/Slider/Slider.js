@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { prefix } from '../../../settings';
+import Label from "../Label";
 
-export default function Slider({ min, max, step, className, onChange: _onChangeHandler, value: propsVal, withInputBox, ...restProps }) {
+export default function Slider({ min, max, step, className, onChange: onChangeHandler, value: propsVal, withInputBox, ...restProps }) {
     const [value, setValue] = useState(propsVal || 0);
     const classnames = `${prefix}-slider ${className}`.trim();
 
     return (
         <div className={classnames}>
-            <label className={`${prefix}-slider-bottom-range`}>{min}</label>
+            <Label className={`${prefix}-slider-bottom-range`}>{min}</Label>
             <input className={`${prefix}-slider-input`}
                 type="range"
                 min={min}
@@ -17,13 +18,13 @@ export default function Slider({ min, max, step, className, onChange: _onChangeH
                 value={value}
                 {...restProps}
                 onChange={event => {
-                    setValue(event.currentTarget.value);
-                    if (_onChangeHandler && typeof _onChangeHandler === 'function') {
-                        _onChangeHandler(event);
+                setValue(event.currentTarget.value);
+                    if (onChangeHandler && typeof onChangeHandler === 'function') {
+                        onChangeHandler(event);
                     }
                 }}
             />
-            <label className={`${prefix}-slider-top-range`}>{max}</label>
+            <Label className={`${prefix}-slider-top-range`}>{max}</Label>
             {
                 withInputBox ?
                     <input
@@ -37,11 +38,15 @@ export default function Slider({ min, max, step, className, onChange: _onChangeH
                             let val = Number(event.currentTarget.value);
                             val = val > max ? max : val < min ? min : val;
                             setValue(val);
+                            
                         }}
                         disabled={restProps.disabled}
                     />
+                    
                     : null
+                    
             }
+         
         </div>
     );
 };

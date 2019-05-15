@@ -10,7 +10,7 @@ export default function Label({ className, children, ...restProps }) {
             className={classnames}
             {...restProps}
         >
-            <span>{children}</span>
+           {children}
         </label>
     );
 };
