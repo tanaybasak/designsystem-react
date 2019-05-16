@@ -3,28 +3,25 @@ import PropTypes from "prop-types";
 import prefix from "../../../settings";
 
 export default function Label({ className, children, ...restProps }) {
-    const classnames = `${prefix}-label ${className}`.trim();
+  const classnames = `${prefix}-label ${className}`.trim();
 
-    return (
-        <label
-            className={classnames}
-            {...restProps}
-        >
-          <span>{children}</span>
-        </label>
-    );
-};
+  return (
+    <label className={classnames} {...restProps}>
+      {children}
+    </label>
+  );
+}
 
 Label.propTypes = {
-    children: PropTypes.node.isRequired,
-    className: PropTypes.string,
-    htmlFor: PropTypes.string,
-    onClick: PropTypes.func
+  children: PropTypes.node,
+  className: PropTypes.string,
+  htmlFor: PropTypes.string,
+  onClick: PropTypes.func
 };
 
 Label.defaultProps = {
-    children: null,
-    className: "",
-    htmlFor: "",
-    onClick: () => { }
+  children: null,
+  className: "",
+  htmlFor: "",
+  onClick: () => {}
 };

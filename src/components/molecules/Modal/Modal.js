@@ -17,8 +17,9 @@ export default function Modal({
   return (
     <section className={`${prefix}-modal`}>
       <div className={classNames.join(" ")}>
-        <button className={`${prefix}-modal-close`} onClick={onClose} />
-        {(heading !== "" || label !== "") && <header className={`${prefix}-modal-header`}>
+        <button type="button" className={`${prefix}-modal-close`} onClick={onClose} />
+        {(heading !== "" || label !== "") && 
+        <header className={`${prefix}-modal-header`}>
           {label !== "" ? (
             <small className={`${prefix}-modal-label`}>{label}</small>
           ) : null}
@@ -41,8 +42,9 @@ Modal.propTypes = {
   heading: PropTypes.string,
   content: PropTypes.string,
   footer: PropTypes.bool,
-  onClose: PropTypes.func.isRequired,
-  actions: PropTypes.array
+  onClose: PropTypes.func,
+  actions: PropTypes.arrayOf([]),
+  children : PropTypes.node
 };
 
 Modal.defaultProps = {

@@ -1,23 +1,24 @@
-import React, { Component } from "react";
-import Label from "./components/atoms/Label";
-import TextInput from "./components/atoms/TextInput";
-import FormHelperText from "./components/atoms/FormHelperText";
-import Button from "./components/atoms/Button";
-import Heading from "./components/atoms/Heading";
-import Checkbox from "./components/atoms/Checkbox";
-import Radio from "./components/atoms/Radio";
-import TextArea from "./components/atoms/TextArea";
-import Link from "./components/atoms/Link";
-import Paragraph from "./components/atoms/Paragraph";
-import Breadcrumb from "./components/atoms/Breadcrumb";
-import Spinner from "./components/atoms/Spinner";
-import Toggle from "./components/atoms/Toggle";
-import Notification from "./components/atoms/Notification";
-import Tag from "./components/atoms/Tag";
-import List from "./components/atoms/List";
-import listItems from "./components/atoms/List/sample-list-data.json";
-import Toast from "./components/atoms/Toast/Toast";
-import Modal from "./components/molecules/Modal/Modal";
+import React, { Component } from 'react';
+import Label from './components/atoms/Label';
+import TextInput from './components/atoms/TextInput';
+import FormHelperText from './components/atoms/FormHelperText';
+import Button from './components/atoms/Button';
+import Heading from './components/atoms/Heading';
+import Checkbox from './components/atoms/Checkbox';
+import Radio from './components/atoms/Radio';
+import TextArea from './components/atoms/TextArea';
+import Link from './components/atoms/Link';
+import Paragraph from './components/atoms/Paragraph';
+import Breadcrumb from './components/atoms/Breadcrumb';
+import Spinner from './components/atoms/Spinner';
+import Toggle from './components/atoms/Toggle';
+import Notification from './components/atoms/Notification';
+import Tag from './components/atoms/Tag';
+import List from './components/atoms/List';
+import listItems from './components/atoms/List/sample-list-data.json';
+import Toast from './components/atoms/Toast';
+import Modal from './components/molecules/Modal';
+import Slider from './components/atoms/Slider';
 
 class App extends Component {
   state = {
@@ -407,223 +408,93 @@ class App extends Component {
               title="Notification title"
               subtitle="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
                                 has been the industry's standard dummy text ever since the 1500s."
-              className="hcl-info"
-              closable
-              onClose={() => {
-                console.log("Notification Closed");
-              }}
-            />
-          </div>
-          {/* Tag */}
-          <div className="hcl-col-12 mt-5">
-            <Tag className="ml-3" title="Primary Tag">
-              Primary Tag
-            </Tag>
-            <Tag className="ml-3" title="Primary Disabled" disabled>
-              Primary Disabled
-            </Tag>
-            <Tag
-              className="ml-3"
-              title="Primary Closable"
-              closable
-              onClose={() => {
-                alert("Closing Tag");
-              }}
-            >
-              Primary Closable
-            </Tag>
-            <Tag
-              className="ml-3"
-              title="Primary Tag With Thumbnail"
-              thumbnailSrc="https://image.flaticon.com/icons/png/512/862/862358.png"
-            >
-              Primary Tag With Thumbnail
-            </Tag>
-            <Tag className="ml-3" title="Secondary Tag" type="secondary">
-              Secondary Tag
-            </Tag>
-            <Tag
-              className="ml-3"
-              title="Secondary Disabled Tag"
-              disabled
-              type="secondary"
-            >
-              Secondary Disabled Tag
-            </Tag>
-            <Tag
-              className="ml-3"
-              title="Secondary Closable"
-              type="secondary"
-              closable
-              onClose={() => {
-                alert("Closing Tag");
-              }}
-            >
-              Secondary Closable
-            </Tag>
-            <Tag
-              className="ml-3"
-              title="Secondary Tag With Thumbnail"
-              type="secondary"
-              thumbnailSrc="https://image.flaticon.com/icons/png/512/862/862358.png"
-            >
-              Secondary Tag With Thumbnail
-            </Tag>
-          </div>
-          {/* List */}
-          <div className="hcl-col-12 mt-5">
-            {/* Ordered */}
-            <Label>Ordered List</Label>
-            <List listItems={listItems} type="ol" onClick={() => {}} />
-            <br />
-            <br />
-            {/* Unordered */}
-            <Label>Unordered List</Label>
-            <List listItems={listItems} type="ul" onClick={() => {}} />
-          </div>
-          {/* Tag */}
-          <div className="col-12 mt-5">
-            <Toast
-              type="success"
-              subtitle="Subtitle text goes here."
-              caption="Time stamp [00:00:00]"
-              closable
-              onClose={this.hideToast}
-              visible={this.state.toast.visible}
-            />
-            <Button title="Default" onClick={this.showToast}>
-              Show Toast Notification
-            </Button>
-          </div>
-          <div className="col-12 mt-5">
-            {/* Danger type Modals */}
-            {this.state.modal === 1 && (
-              <Modal
-                type="danger"
-                label="optional label"
-                heading="Heading comes here."
-                onClose={this.onModalClose}
-                actions={this.modalActions1}
-              >
-                <Paragraph>Danger Modal with save and close buttons</Paragraph>
-              </Modal>
-            )}
-            {this.state.modal === 2 && (
-              <Modal
-                type="danger"
-                label="optional label"
-                heading="Heading comes here."
-                onClose={this.onModalClose}
-              >
-                <Paragraph> Danger Modal with no buttons</Paragraph>
-              </Modal>
-            )}
-            {this.state.modal === 3 && (
-              <Modal
-                type="danger"
-                heading="Heading comes here."
-                onClose={this.onModalClose}
-                actions={this.modalActions3}
-              >
-                <Paragraph> Danger Modal with close button</Paragraph>
-              </Modal>
-            )}
-            {this.state.modal === 4 && (
-              <Modal type="danger" onClose={this.onModalClose}>
-                <Paragraph> Danger Modal with no footer and heading</Paragraph>
-              </Modal>
-            )}
-            {/* Default type Modals */}
-            {this.state.modal === 5 && (
-              <Modal
-                label="optional label"
-                heading="Heading comes here."
-                onClose={this.onModalClose}
-                actions={this.modalActions5}
-              >
-                <Paragraph> Modal with Delete (Danger) button</Paragraph>
-              </Modal>
-            )}
-            {this.state.modal === 6 && (
-              <Modal
-                label="optional label"
-                heading="Heading comes here."
-                onClose={this.onModalClose}
-              >
-                <Paragraph> Modal with no buttons</Paragraph>
-              </Modal>
-            )}
-            {this.state.modal === 7 && (
-              <Modal
-                heading="Heading comes here."
-                onClose={this.onModalClose}
-                actions={this.modalActions7}
-              >
-                <Paragraph>Modal with save button</Paragraph>
-              </Modal>
-            )}
-            Show modal layout :
-            <Button
-              title="Default"
-              onClick={() => {
-                this.setState({ modal: 1 });
-              }}
-            >
-              1
-            </Button>
-            <Button
-              title="Default"
-              onClick={() => {
-                this.setState({ modal: 2 });
-              }}
-            >
-              2
-            </Button>
-            <Button
-              title="Default"
-              onClick={() => {
-                this.setState({ modal: 3 });
-              }}
-            >
-              3
-            </Button>
-            <Button
-              title="Default"
-              onClick={() => {
-                this.setState({ modal: 4 });
-              }}
-            >
-              4
-            </Button>
-            <Button
-              title="Default"
-              onClick={() => {
-                this.setState({ modal: 5 });
-              }}
-            >
-              5
-            </Button>
-            <Button
-              title="Default"
-              onClick={() => {
-                this.setState({ modal: 6 });
-              }}
-            >
-              6
-            </Button>
-            <Button
-              title="Default"
-              onClick={() => {
-                this.setState({ modal: 7 });
-              }}
-            >
-              7
-            </Button>
-          </div>
-        </div>
-      </main>
-    );
-  }
+                            className='hcl-info'
+                            closable
+                            onClose={event => { console.log('Notification Closed'); }}
+                        />
+                    </div>
+                    {/* Tag */}
+                    <div className="hcl-col-12 mt-5">
+                        <Tag className="ml-3" title="Primary Tag">Primary Tag</Tag>
+                        <Tag className="ml-3" title="Primary Disabled" disabled>Primary Disabled</Tag>
+                        <Tag className="ml-3" title="Primary Closable" closable onClose={event => { alert('Closing Tag') }}>Primary Closable</Tag>
+                        <Tag className="ml-3" title="Primary Tag With Thumbnail" thumbnailSrc="https://image.flaticon.com/icons/png/512/862/862358.png">Primary Tag With Thumbnail</Tag>
+                        <Tag className="ml-3" title="Secondary Tag" type="secondary">Secondary Tag</Tag>
+                        <Tag className="ml-3" title="Secondary Disabled Tag" disabled type="secondary">Secondary Disabled Tag</Tag>
+                        <Tag className="ml-3" title="Secondary Closable" type="secondary" closable onClose={event => { alert('Closing Tag') }}>Secondary Closable</Tag>
+                        <Tag className="ml-3" title="Secondary Tag With Thumbnail" type="secondary" thumbnailSrc="https://image.flaticon.com/icons/png/512/862/862358.png">Secondary Tag With Thumbnail</Tag>
+                    </div>
+                    {/* List */}
+                    <div className="hcl-col-12 mt-5">
+                        {/* Ordered */}
+                        <Label>Ordered List</Label>
+                        <List listItems={listItems} type="ol" onClick={event => {}} />
+                        <br />
+                        <br />
+                        {/* Unordered */}
+                        <Label>Unordered List</Label>
+                        <List listItems={listItems} type="ul" onClick={event => {}} />
+                    </div>
+                    {/* Tag */}
+                    <div className="col-12 mt-5">
+                        <Toast
+                            type="success"
+                            subtitle="Subtitle text goes here."
+                            caption="Time stamp [00:00:00]"
+                            closable
+                            onClose={this.hideToast}
+                            visible={this.state.toast.visible}
+                        />
+                        <Button title="Default" onClick={this.showToast}>Show Toast Notification</Button>
+                    </div>
+                    <div className="col-12 mt-5">
+                        {/* Danger type Modals */}
+                        {this.state.modal === 1 && <Modal type="danger" label="optional label" heading="Heading comes here." onClose={this.onModalClose} actions={this.modalActions1}>
+                          <Paragraph>Danger Modal with save and close buttons</Paragraph>
+                        </Modal>}
+                        {this.state.modal === 2 && <Modal type="danger" label="optional label" heading="Heading comes here." onClose={this.onModalClose}>
+                         <Paragraph> Danger Modal with no buttons</Paragraph>
+                        </Modal>}
+                        {this.state.modal === 3 && <Modal type="danger" heading="Heading comes here."  onClose={this.onModalClose} actions={this.modalActions3}>
+                         <Paragraph> Danger Modal with close button</Paragraph>
+                        </Modal>}
+                        {this.state.modal === 4 && <Modal type="danger" onClose={this.onModalClose}>
+                         <Paragraph> Danger Modal with no footer and heading</Paragraph>
+                        </Modal>}
+                        {/* Default type Modals */}
+                        {this.state.modal === 5 && <Modal label="optional label" heading="Heading comes here."  onClose={this.onModalClose} actions={this.modalActions5}>
+                         <Paragraph> Modal with Delete (Danger) button</Paragraph>
+                        </Modal>}
+                        {this.state.modal === 6 && <Modal label="optional label" heading="Heading comes here." onClose={this.onModalClose}>
+                         <Paragraph> Modal with no buttons</Paragraph>
+                        </Modal>}
+                        {this.state.modal === 7 && <Modal heading="Heading comes here." onClose={this.onModalClose} actions={this.modalActions7}>
+                         <Paragraph>Modal with save button</Paragraph>
+                        </Modal>}
+                        Show modal layout : 
+                        <Button title="Default" onClick={()=>{ this.setState({ modal : 1 }) }}>1</Button>
+                        <Button title="Default" onClick={()=>{ this.setState({ modal : 2 }) }}>2</Button>
+                        <Button title="Default" onClick={()=>{ this.setState({ modal : 3 }) }}>3</Button>
+                        <Button title="Default" onClick={()=>{ this.setState({ modal : 4 }) }}>4</Button>
+                        <Button title="Default" onClick={()=>{ this.setState({ modal : 5 }) }}>5</Button>
+                        <Button title="Default" onClick={()=>{ this.setState({ modal : 6 }) }}>6</Button>
+                        <Button title="Default" onClick={()=>{ this.setState({ modal : 7 }) }}>7</Button>
+                    </div>
+                    {/* Slider Component */}
+                    <div className="hcl-col-12">
+                        <Slider 
+                            min={0} 
+                            max={100} 
+                            step={2} 
+                            value={44}
+                            title="Slider" 
+                            onChange={event => {console.log(event.currentTarget.value)}}
+                        />
+                    </div>
+                </div>
+            </main >
+        );
+    }
 }
 
 export default App;

@@ -15,11 +15,11 @@ export default function Heading(props) {
 };
 
 Heading.propTypes = {
-    className: PropTypes.string.isRequired,
-    type: PropTypes.oneOf(['h1', 'h2', 'h3', 'h4', 'h5', 'h6']).isRequired
+    className: PropTypes.string,
+    type: PropTypes.oneOf(["h1", "h2", "h3", "h4", "h5", "h6"])
 };
 
 Heading.defaultProps = {
-    className: '',
-    type: 'h2'
+    className: "",
+    type: "h2"
 };
