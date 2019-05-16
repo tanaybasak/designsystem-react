@@ -1,7 +1,8 @@
-import React, { useState } from "./node_modules/react";
+import React, { useState } from "react";
+import PropTypes from "prop-types";
 import { prefix } from "../../../settings";
 import MenuList from "../../atoms/MenuList";
-import PropTypes from "./node_modules/prop-types";
+
 
 const Overflowmenu = ({ direction = "left" , ...rest}) => {
   const [display, changeDisplay] = useState(false);

@@ -1,4 +1,4 @@
-import React, { Component } from './node_modules/react';
+import React, { Component } from 'react';
 import Label from './components/atoms/Label';
 import TextInput from './components/atoms/TextInput';
 import FormHelperText from './components/atoms/FormHelperText';
@@ -15,12 +15,12 @@ import Toggle from './components/atoms/Toggle';
 import Notification from './components/atoms/Notification';
 import Tag from './components/atoms/Tag';
 import List from './components/atoms/List';
-import listItems from './components/atoms/List/sample-list-data.json.js';
+import listItems from './components/atoms/List/sample-list-data.json';
 import Toast from './components/atoms/Toast';
 import Modal from './components/molecules/Modal';
 import Slider from './components/atoms/Slider';
 import Overflowmenu from './components/molecules/Overflowmenu';
-import overflowlist from './components/molecules/Overflowmenu/sample-overflow-list.json.js';
+import overflowlist from './components/molecules/Overflowmenu/sample-overflow-list.json';
 
 class App extends Component {
 

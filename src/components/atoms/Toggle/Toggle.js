@@ -1,5 +1,5 @@
-import React, { useState } from './node_modules/react';
-import PropTypes from './node_modules/prop-types';
+import React , { useState }from "react";
+import PropTypes from "prop-types";
 import { prefix } from '../../../settings';
 
 export default function Toggle({ small, labelOff, labelOn, onChange, className, toggled, ...restProps }) {
