@@ -19,7 +19,6 @@ import listItems from './components/atoms/List/sample-list-data.json';
 import Toast from './components/atoms/Toast';
 import Modal from './components/molecules/Modal';
 import Slider from './components/atoms/Slider';
-// import { Tabs, Tab, TabList, TabContent, TabPanel } from './components/atoms/Tab';
 import { Tabs, Tab } from './components/atoms/Tab';
 
 class App extends Component {
