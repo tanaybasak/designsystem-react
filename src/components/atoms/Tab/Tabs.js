@@ -1,6 +1,5 @@
 import React, { useState, cloneElement } from 'react';
 import PropTypes from 'prop-types';
-import { Tab } from './Tab';
 import { prefix } from '../../../settings';
 
 
@@ -48,4 +47,4 @@ Tabs.defaultProps = {
     onSelectionChange: () => { }
 }
 
-export { Tabs, Tab };
+export { Tabs };

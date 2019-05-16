@@ -9,11 +9,11 @@ const Tab = ({ label, onClick, active, isDisabled }) => {
             className={`${prefix}-tabs-nav-item ${active ? 'active' : ''} ${isDisabled ? `${prefix}-tabs-disabled` : ''}`}
             onClick={onClick}
         >
-            <a
+            <a                
                 className={`${prefix}-tabs-nav-link`}>
                 {label}
             </a>
-        </li>
+        </li >
     );
 }
 
