@@ -7,15 +7,15 @@ export default function Checkbox({ className, checked, labelText, ...restProps }
     const classnames = `${prefix}-checkbox-item ${className}`.trim();
 
     return (
-        <div className={classnames}>
-            <input
-                className={`${prefix}-checkbox`}
-                type="checkbox"
-                checked={isChecked}
-                aria-checked={isChecked}
-                aria-disabled={restProps['disabled'] ? true : false}
-                {...restProps}
-                onChange={event => {
+      <div className={classnames}>
+        <input
+          className={`${prefix}-checkbox`}
+          type="checkbox"
+          checked={isChecked}
+          aria-checked={isChecked}
+          aria-disabled={restProps["disabled"] ? true : false}
+          {...restProps}
+          onChange={event => {
                     setChecked(!isChecked);
                     if (restProps.onChange) {
                         restProps.onChange(event);
@@ -47,9 +47,11 @@ Checkbox.propTypes = {
 };
 
 Checkbox.defaultProps = {
-    className: '',
-    labelText: '',
+    className: "",
+    labelText: "",
     disabled: false,
     onChange: () => { },
-    checked: false
+    checked: false,
+    title : "",
+    id : ""
 };

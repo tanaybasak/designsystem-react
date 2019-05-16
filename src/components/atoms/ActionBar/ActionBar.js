@@ -1,7 +1,9 @@
 import React from "react";
+import propTypes from "prop-types";
 import prefix from "../../../settings";
 
-function ActionBar({ actions }) {
+
+const ActionBar = ({ actions }) => {
   const actionButtons = () => {
     return actions.map(
       ({ label, handler, primary = false, danger = false }) => {
@@ -9,7 +11,7 @@ function ActionBar({ actions }) {
         primary ? classNames.push(`${prefix}-primary`) : classNames.push(`${prefix}-secondary`);
         danger && classNames.push(`${prefix}-danger`);
         return (
-          <button key={label} className={classNames.join(" ")} onClick={handler}>
+          <button type="button" key={label} className={classNames.join(" ")} onClick={handler}>
             {label}
           </button>
         );
@@ -19,4 +21,7 @@ function ActionBar({ actions }) {
   return <div className={`${prefix}-action-bar`}>{actionButtons()}</div>;
 }
 
+ActionBar.propTypes = {
+ actions : propTypes.arrayOf([])
+}
 export default ActionBar;
