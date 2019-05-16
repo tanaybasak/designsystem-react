@@ -16,8 +16,9 @@ import Notification from './components/atoms/Notification';
 import Tag from './components/atoms/Tag';
 import List from './components/atoms/List';
 import listItems from './components/atoms/List/sample-list-data.json';
-import Toast from './components/atoms/Toast/Toast';
-import Modal from './components/molecules/Modal/Modal';
+import Toast from './components/atoms/Toast';
+import Modal from './components/molecules/Modal';
+import Slider from './components/atoms/Slider';
 import { ContentSwitcher, Switch } from './components/atoms/ContentSwitcher';
 
 class App extends Component {
@@ -417,6 +418,17 @@ class App extends Component {
                             }
                         </section>
                     </section>
+                    {/* Slider Component */}
+                    <div className="hcl-col-12">
+                        <Slider 
+                            min={0} 
+                            max={100} 
+                            step={2} 
+                            value={44}
+                            title="Slider" 
+                            onChange={event => {console.log(event.currentTarget.value)}}
+                        />
+                    </div>
                 </div>
             </main >
         );
