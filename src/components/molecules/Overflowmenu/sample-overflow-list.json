@@ -1,0 +1,22 @@
+[
+    {
+        "name": "option 1"
+            
+    },
+    {
+        "name": "option 2",
+        "danger" : true   
+    },
+    {
+        "name": "option 3",
+        "separator" : true   
+    },
+    {
+        "name": "option 4",
+        "disabled" : true       
+    },
+    {
+        "name": "option 5",
+        "link" : "https://google.com"     
+    }
+]
