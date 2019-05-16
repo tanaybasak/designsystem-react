@@ -1,7 +1,7 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from './node_modules/react';
+import ReactDOM from './node_modules/react-dom';
 import './index.scss';
 import App from './App';
-import 'patron-css-build/dist/patron-style.css';
+import './node_modules/patron-css-build/dist/patron-style.css';
 
 ReactDOM.render(<App />, document.getElementById('root'));
