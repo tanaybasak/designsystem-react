@@ -14,10 +14,11 @@ import Spinner from './components/atoms/Spinner';
 import Toggle from './components/atoms/Toggle';
 import Notification from './components/atoms/Notification';
 import Tag from './components/atoms/Tag';
-import Toast from './components/atoms/Toast';
 import List from './components/atoms/List';
 import listItems from './components/atoms/List/sample-list-data.json';
-import Modal from './components/molecules/Modal/Modal';
+import Toast from './components/atoms/Toast';
+import Modal from './components/molecules/Modal';
+import Slider from './components/atoms/Slider';
 import { Tabs, Tab, TabList, TabContent, TabPanel } from './components/atoms/Tab';
 
 class App extends Component {
@@ -271,7 +272,6 @@ class App extends Component {
                                 <Tab name="tab1" isDisabled={true} label="Tab Label 1"></Tab>
                                 <Tab name="tab2" label="Tab Label 2"></Tab>
                                 <Tab name="tab3" label="Tab Label 3"></Tab>
-                                <Tab name="tab4" label="Tab Label 4"></Tab>
                             </TabList>
                             <TabContent>
                                 <TabPanel name="tab1">
@@ -283,11 +283,19 @@ class App extends Component {
                                 <TabPanel name="tab3">
                                     <p>Several components need to reflect the same changing data.</p>
                                 </TabPanel>
-                                <TabPanel name="tab4">
-                                    <p>Several components need to reflect the same changing data.</p>
-                                </TabPanel>
                             </TabContent>
                         </Tabs>
+                    </div>
+                    {/* Slider Component */}
+                    <div className="hcl-col-12">
+                        <Slider 
+                            min={0} 
+                            max={100} 
+                            step={2} 
+                            value={44}
+                            title="Slider" 
+                            onChange={event => {console.log(event.currentTarget.value)}}
+                        />
                     </div>
                 </div>
             </main >

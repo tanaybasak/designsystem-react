@@ -1,4 +1,4 @@
-import React, { useState, createContext, useContext, useMemo } from 'react';
+import React, { useState, createContext, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { prefix } from '../../../settings';
 
