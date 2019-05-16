@@ -1,91 +1,46 @@
-import React, { useState, createContext, useContext } from 'react';
+import React, { useState, cloneElement } from 'react';
 import PropTypes from 'prop-types';
+import { Tab } from './Tab';
 import { prefix } from '../../../settings';
 
-export const TabContext = createContext();
 
-function Tabs(props) {
-    const { initialValue, children, onSelectionChange, ...restProps } = props;
-    const [activeTab, changeTab] = useState(initialValue);
-    const tabProvider = { activeTab, changeTab, onSelectionChange }
+const Tabs = ({ activeIndex, onSelectionChange, children }) => {
+    const [isActive, setActive] = useState(activeIndex || 0);
+    let tabContent = null;
+
+    const modifiedChildren = React.Children.map(children, (child, index) => {
+        if (index === isActive)
+            tabContent = child.props.children;
+        const { isDisabled, label } = child.props;
+        return cloneElement(child, {
+            onClick: (e) => {
+                if (!isDisabled)
+                    setActive(index);
+                onSelectionChange(Object.assign({}, e, { label }));
+            },
+            key: index,
+            active: (isActive === index)
+        })
+    });
 
     return (
-        <TabContext.Provider value={tabProvider}>
-            <section className={`${prefix}-tab`} {...restProps}>
-                <nav data-tabs role="navigation">
-                    {children}
-                </nav>
-            </section >
-        </TabContext.Provider>
+        <section className={`${prefix}-tab`}>
+            <nav data-tabs role='navigation'>
+                <ul role='tablist' className={`${prefix}-tabs-nav`}>
+                    {modifiedChildren}
+                </ul>
+            </nav>
+            <section className={`${prefix}-tabcontent`}>
+                <div role='tabpanel' className={`${prefix}-tabs-panel active`}>
+                    {tabContent}
+                </div>
+            </section>
+        </section >
     )
 }
-
-const Tab = (props) => {
-    const { name, label, className = "", isDisabled, ...restProps } = props;
-
-    const tabContext = useContext(TabContext);
-
-    const handleClick = (e) => {
-        if (!e.currentTarget.classList.contains(`${prefix}-tabs-disabled`)) {
-            tabContext.changeTab(name);
-            tabContext.onSelectionChange(e);
-        }
-    };
-
-    return (
-        <li role="tab"
-            aria-controls={name}
-            key={`${name}-`}
-            onClick={handleClick}
-            className={`${prefix}-tabs-nav-item ${tabContext.activeTab === name ? 'active' : ''} ${isDisabled ? `${prefix}-tabs-disabled` : ''}`}
-            {...restProps}
-        >
-            <a className={`${prefix}-tabs-nav-link ${className}`} href="javascript:void(0);">
-                {label}
-            </a>
-        </li>
-    )
-}
-
-const TabList = (props) => {
-    const { className = "", children, ...restProps } = props;
-
-    return (
-        <ul role="tablist" className={`${prefix}-tabs-nav ${className}`} {...restProps}>
-            {children}
-        </ul>
-    );
-}
-
-const TabContent = (props) => {
-    const { className = "", children, ...restProps } = props;
-
-    return (
-        <section className={`${prefix}-tabcontent ${className}`} {...restProps}>
-            {children}
-        </section>
-    );
-}
-
-const TabPanel = (props) => {
-    const { children, name, ...restProps } = props;
-    const tabContext = useContext(TabContext);
-    const isActive = tabContext.activeTab === name;
-
-    return (
-        isActive ? (<div
-            role="tabpanel"
-            aria-labelledby={name}
-            key={`${name}-`}
-            className={`${prefix}-tabs-panel ${isActive ? 'active' : ''}`}
-            {...restProps}>
-            {children}
-        </div>) : null
-    )
-};
 
 Tabs.propTypes = {
-    initialValue: PropTypes.string.isRequired,
+    activeIndex: PropTypes.number,
     onSelectionChange: PropTypes.func
 }
 
@@ -93,18 +48,4 @@ Tabs.defaultProps = {
     onSelectionChange: () => { }
 }
 
-Tab.propTypes = {
-    name: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired,
-    isDisabled: PropTypes.bool
-}
-Tab.defaultProps = {
-    isDisabled: false
-}
-
-TabPanel.propTypes = {
-    name: PropTypes.string.isRequired,
-}
-
-
-export { Tabs, Tab, TabList, TabContent, TabPanel };
+export { Tabs, Tab };

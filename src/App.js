@@ -19,7 +19,8 @@ import listItems from './components/atoms/List/sample-list-data.json';
 import Toast from './components/atoms/Toast';
 import Modal from './components/molecules/Modal';
 import Slider from './components/atoms/Slider';
-import { Tabs, Tab, TabList, TabContent, TabPanel } from './components/atoms/Tab';
+// import { Tabs, Tab, TabList, TabContent, TabPanel } from './components/atoms/Tab';
+import { Tabs, Tab } from './components/atoms/Tab';
 
 class App extends Component {
 
@@ -267,23 +268,11 @@ class App extends Component {
                         <Button title="Default" onClick={()=>{ this.setState({ modal : 7 }) }}>7</Button>
                     </div>
                     <div className="hcl-col-12 mt-5 colBorder p-5">
-                        <Tabs initialValue="tab3" onSelectionChange={ (e) => console.log(e)}>
-                            <TabList>
-                                <Tab name="tab1" isDisabled={true} label="Tab Label 1"></Tab>
-                                <Tab name="tab2" label="Tab Label 2"></Tab>
-                                <Tab name="tab3" label="Tab Label 3"></Tab>
-                            </TabList>
-                            <TabContent>
-                                <TabPanel name="tab1">
-                                    <p>Hooks are a new addition in React 16.8. They let you use state and other React features without writing a class.</p>
-                                </TabPanel>
-                                <TabPanel name="tab2">
-                                    <p>React has powerful composition model, and we recommend using composition to reuse code between components.</p>
-                                </TabPanel>
-                                <TabPanel name="tab3">
-                                    <p>Several components need to reflect the same changing data.</p>
-                                </TabPanel>
-                            </TabContent>
+                    {/* Tab Component */}
+                        <Tabs activeIndex={1} onSelectionChange={(e) => {console.log(e.label)}}>
+                            <Tab label='Tab List 1' isDisabled={true}>Content 1</Tab>
+                            <Tab label='Tab List 2'>Content 2</Tab>
+                            <Tab label='Tab List 3'>Content 3</Tab>
                         </Tabs>
                     </div>
                     {/* Slider Component */}
