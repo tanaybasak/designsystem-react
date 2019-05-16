@@ -1,15 +1,15 @@
-import React from "react";
-import PropTypes from "prop-types";
-import prefix from "../../../settings";
+import React from 'react';
+import PropTypes from 'prop-types';
+import prefix from '../../../settings';
 
-export default function Radio({ className, labelText, ...restProps }) {
+const Radio = ({ className, labelText, ...restProps }) => {
   const classnames = `${prefix}-radio-item ${className}`.trim();
 
   return (
     <div className={classnames}>
       <input
         className={`${prefix}-radio`}
-        type="radio"
+        type='radio'
         {...restProps}
         onChange={event => {
           if (restProps.onChange) {
@@ -39,9 +39,11 @@ Radio.propTypes = {
 };
 
 Radio.defaultProps = {
-  className: "",
-  labelText: "",
+  className: '',
+  labelText: '',
   disabled: false,
   onChange: () => {},
   checked: false
 };
+
+export default Radio;

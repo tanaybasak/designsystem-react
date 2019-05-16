@@ -1,16 +1,16 @@
-import React from "react";
-import PropTypes from "prop-types";
-import prefix from "../../../settings";
+import React from 'react';
+import PropTypes from 'prop-types';
+import prefix from '../../../settings';
 
-export default function Spinner({ small, title, className }) {
+const Spinner = ({ small, title, className }) => {
   const classnames = `${prefix}-spinner${
     small ? "-small" : ""
   } ${className}`.trim();
 
   return (
     <div className={classnames} title={title}>
-      <svg viewBox="-75 -75 150 150">
-        <circle cx="0" cy="0" r="37.5" />
+      <svg viewBox='-75 -75 150 150'>
+        <circle cx='0' cy='0' r='37.5' />
       </svg>
     </div>
   );
@@ -27,3 +27,5 @@ Spinner.defaultProps = {
   title: "",
   className: ""
 };
+
+export default Spinner;

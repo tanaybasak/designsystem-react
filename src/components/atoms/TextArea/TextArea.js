@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
-import prefix from "../../../settings";
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import prefix from '../../../settings';
 
-export default function TextArea({ className, ...restProps }) {
+const TextArea = ({ className, ...restProps }) => {
   const [value, setValue] = useState(restProps.value || "");
   const classnames = `${prefix}-textarea ${className}`.trim();
 
@@ -40,3 +40,5 @@ TextArea.defaultProps = {
   onFocus: () => {},
   onBlur: () => {}
 };
+
+export default TextArea;

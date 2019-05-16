@@ -1,7 +1,7 @@
-import React from "react";
-import PropTypes from "prop-types";
-import prefix from "../../../settings";
-import Link from "../Link";
+import React from 'react';
+import PropTypes from 'prop-types';
+import prefix from '../../../settings';
+import Link from '../Link';
 
 class Breadcrumb extends React.Component {
   static defaultProps = {
@@ -39,7 +39,7 @@ class Breadcrumb extends React.Component {
         return (
           <li className={itemClassName} key={`${index}_`}>
             <Link
-              href={item.url || "#"}
+              href={item.url || '#'}
               className={`${this.defaultStyle.breadcrumbLink}`}
             >
               {item.label}
@@ -48,7 +48,7 @@ class Breadcrumb extends React.Component {
         );
       });
       return items;
-    } 
+    }
   }
 
   render() {
@@ -59,7 +59,7 @@ class Breadcrumb extends React.Component {
           this.props.className
         } || ''`}
         style={this.props.style || {}}
-        aria-label="breadcrumb"
+        aria-label='breadcrumb'
       >
         {this.renderItems()}
       </ul>

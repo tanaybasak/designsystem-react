@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
-import prefix from "../../../settings";
-import Label from "../Label";
+import React , { useState }from 'react';
+import PropTypes from 'prop-types';
+import prefix from '../../../settings';
+import Label from '../Label';
 
-export default function Slider({
+const Slider = ({
   min,
   max,
   step,
@@ -12,7 +12,7 @@ export default function Slider({
   value: propsVal,
   withInputBox,
   ...restProps
-}) {
+}) => {
   const [value, setValue] = useState(propsVal || 0);
   const classnames = `${prefix}-slider ${className}`.trim();
 
@@ -21,7 +21,7 @@ export default function Slider({
       <Label className={`${prefix}-slider-bottom-range`}>{min}</Label>
       <input
         className={`${prefix}-slider-input`}
-        type="range"
+        type='range'
         min={min}
         max={max}
         step={step}
@@ -38,7 +38,7 @@ export default function Slider({
       {withInputBox ? (
         <input
           className={`${prefix}-slider-text-input`}
-          type="text"
+          type='text'
           value={value}
           onChange={event => {
             setValue(Number(event.currentTarget.value));
@@ -69,8 +69,10 @@ Slider.defaultProps = {
   min: 0,
   max: 100,
   step: 1,
-  value : 0,
-  className : "",
+  value: 0,
+  className: "",
   onChange: () => {},
   withInputBox: true
 };
+
+export default Slider;

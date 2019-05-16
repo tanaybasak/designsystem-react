@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
-import prefix from "../../../settings";
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import prefix from '../../../settings';
 
 export default function Checkbox({
   className,
@@ -15,10 +15,10 @@ export default function Checkbox({
     <div className={classnames}>
       <input
         className={`${prefix}-checkbox`}
-        type="checkbox"
+        type='checkbox'
         checked={isChecked}
         aria-checked={isChecked}
-        aria-disabled={restProps["disabled"] ? true : false}
+        aria-disabled={!!restProps.disabled}
         {...restProps}
         onChange={event => {
           setChecked(!isChecked);
@@ -47,11 +47,11 @@ Checkbox.propTypes = {
 };
 
 Checkbox.defaultProps = {
-  className: "",
-  labelText: "",
+  className: '',
+  labelText: '',
   disabled: false,
   onChange: () => {},
   checked: false,
-  title: "",
-  id: ""
+  title: '',
+  id: ''
 };

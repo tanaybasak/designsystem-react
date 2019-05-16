@@ -1,3 +1,3 @@
-import FormHelperText from "./FormHelperText";
+import FormHelperText from './FormHelperText';
 
 export default FormHelperText;

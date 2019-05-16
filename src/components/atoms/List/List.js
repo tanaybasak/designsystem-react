@@ -1,6 +1,6 @@
-import React from "react";
-import PropTypes from "prop-types";
-import prefix from "../../../settings";
+import React from 'react';
+import PropTypes from 'prop-types';
+import prefix from '../../../settings';
 
 // To select the type of List (nested) : UL or OL
 const _getList = (type, list) => {
@@ -53,5 +53,5 @@ List.defaultProps = {
   className: "",
   type: "ul",
   //listItems: [],
-  onClick : () => {}
+  onClick: () => {}
 };

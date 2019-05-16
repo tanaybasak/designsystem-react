@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
-import prefix from "../../../settings";
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import prefix from '../../../settings';
 
-export default function TextInput({ className, type, ...restProps }) {
+const TextInput = ({ className, type, ...restProps }) => {
   const [value, setValue] = useState(restProps.value || "");
   const classnames = `${prefix}-form-control ${className}`.trim();
 
@@ -43,3 +43,5 @@ TextInput.defaultProps = {
   onBlur: () => {},
   type: "text"
 };
+
+export default TextInput;

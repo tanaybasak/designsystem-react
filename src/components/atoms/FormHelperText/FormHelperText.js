@@ -1,8 +1,8 @@
-import React from "react";
-import PropTypes from "prop-types";
-import prefix from "../../../settings";
+import React from 'react';
+import PropTypes from 'prop-types';
+import prefix from '../../../settings';
 
-export default function FormHelperText({ className, children, ...restProps }) {
+const FormHelperText = ({ className, children, ...restProps }) => {
   const classnames = `${prefix}-${className}`.trim();
 
   return (
@@ -21,7 +21,9 @@ FormHelperText.propTypes = {
 
 FormHelperText.defaultProps = {
   children: null,
-  className: "",
-  htmlFor: "",
+  className: '',
+  htmlFor: '',
   onClick: () => {}
 };
+
+export default FormHelperText;

@@ -1,8 +1,8 @@
-import React from "react";
-import PropTypes from "prop-types";
-import prefix from "../../../settings";
+import React from 'react';
+import PropTypes from 'prop-types';
+import prefix from '../../../settings';
 
-export default function Tag({
+const Tag = ({
   className,
   children,
   text,
@@ -11,24 +11,24 @@ export default function Tag({
   onClose,
   thumbnailSrc,
   ...restProps
-}) {
+}) => {
   const classnames = `${prefix}-tag hcl-tag-${type} ${className}`.trim();
 
   return (
-    <button className={classnames} {...restProps}>
+    <button type='button' className={classnames} {...restProps}>
       {thumbnailSrc ? (
         <img
           src={thumbnailSrc}
           className={`${prefix}-tag-thumbnail`}
-          aria-hidden="true"
-          alt="Thumbnail"
+          aria-hidden='true'
+          alt='Thumbnail'
         />
       ) : null}
       <span className={`${prefix}-tag-text`}>{children || text}</span>
       {closable ? (
         <span
           className={`${prefix}-close`}
-          aria-hidden="true"
+          aria-hidden='true'
           onClick={onClose}
         />
       ) : null}
@@ -61,3 +61,5 @@ Tag.defaultProps = {
   onClose: null,
   thumbnailSrc: null
 };
+
+export default Tag;

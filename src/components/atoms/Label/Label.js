@@ -1,8 +1,8 @@
-import React from "react";
-import PropTypes from "prop-types";
-import prefix from "../../../settings";
+import React from 'react';
+import PropTypes from 'prop-types';
+import prefix from '../../../settings';
 
-export default function Label({ className, children, ...restProps }) {
+const Label = ({ className, children, ...restProps }) => {
   const classnames = `${prefix}-label ${className}`.trim();
 
   return (
@@ -25,3 +25,5 @@ Label.defaultProps = {
   htmlFor: "",
   onClick: () => {}
 };
+
+export default Label;
