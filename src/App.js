@@ -16,8 +16,9 @@ import Notification from './components/atoms/Notification';
 import Tag from './components/atoms/Tag';
 import List from './components/atoms/List';
 import listItems from './components/atoms/List/sample-list-data.json';
-import Toast from './components/atoms/Toast/Toast';
-import Modal from './components/molecules/Modal/Modal';
+import Toast from './components/atoms/Toast';
+import Modal from './components/molecules/Modal';
+import Slider from './components/atoms/Slider';
 
 class App extends Component {
 
@@ -263,6 +264,17 @@ class App extends Component {
                         <Button title="Default" onClick={()=>{ this.setState({ modal : 5 }) }}>5</Button>
                         <Button title="Default" onClick={()=>{ this.setState({ modal : 6 }) }}>6</Button>
                         <Button title="Default" onClick={()=>{ this.setState({ modal : 7 }) }}>7</Button>
+                    </div>
+                    {/* Slider Component */}
+                    <div className="hcl-col-12">
+                        <Slider 
+                            min={0} 
+                            max={100} 
+                            step={2} 
+                            value={44}
+                            title="Slider" 
+                            onChange={event => {console.log(event.currentTarget.value)}}
+                        />
                     </div>
                 </div>
             </main >
