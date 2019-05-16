@@ -23,6 +23,12 @@ const Overflowmenu = ({ direction = "left", ...rest }) => {
   );
 };
 
+Overflowmenu.defaultProps = {
+  direction: 'left',
+  listItems: null,
+  onClick: () => { }
+};
+
 Overflowmenu.propTypes = {
   direction: PropTypes.oneOf(['left', 'right']),
   listItems: PropTypes.array.isRequired,
