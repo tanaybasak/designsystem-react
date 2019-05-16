@@ -13,9 +13,10 @@ const Tabs = ({ activeIndex, onSelectionChange, children }) => {
         const { isDisabled, label } = child.props;
         return cloneElement(child, {
             onClick: (e) => {
-                if (!isDisabled)
+                if (!isDisabled) {
                     setActive(index);
-                onSelectionChange(Object.assign({}, e, { label }));
+                    onSelectionChange(Object.assign({}, e, { label, tabIndex: index }));
+                }
             },
             key: index,
             active: (isActive === index)
