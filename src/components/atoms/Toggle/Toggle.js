@@ -17,7 +17,7 @@ export default function Toggle({ small, labelOff, labelOn, onChange, className, 
                 {...restProps}
             />
             <label className={`${prefix}-toggle-label`} htmlFor={restProps.id}>
-                <span className={`${prefix}-slider`} />
+                <span className={`${prefix}-switch`} />
             </label>
             {labelOff ? <span className={`${prefix}-toggle-off`}>{labelOff}</span> : null}
             {labelOn ? <span className={`${prefix}-toggle-on`}>{labelOn}</span> : null}
