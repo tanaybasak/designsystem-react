@@ -4,13 +4,22 @@ import { prefix } from '../../../settings';
 
 export default function Tag({ className, children, text, type, closable, onClose, thumbnailSrc, ...restProps }) {
     const classnames = `${prefix}-tag hcl-tag-${type} ${className}`.trim();
-    
+
     return (
         <button
             className={classnames}
             {...restProps}
         >
-            {thumbnailSrc ? <img src={thumbnailSrc} className={`${prefix}-tag-thumbnail`} aria-hidden="true" /> : null}
+            {
+                thumbnailSrc ?
+                    <img
+                        src={thumbnailSrc}
+                        className={`${prefix}-tag-thumbnail`}
+                        aria-hidden="true"
+                        alt="Thumbnail"
+                    />
+                    : null
+            }
             <span className={`${prefix}-tag-text`}>
                 {children || text}
             </span>

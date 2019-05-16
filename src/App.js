@@ -16,9 +16,15 @@ import Notification from './components/atoms/Notification';
 import Tag from './components/atoms/Tag';
 import List from './components/atoms/List';
 import listItems from './components/atoms/List/sample-list-data.json';
+<<<<<<< HEAD
 import Toast from './components/atoms/Toast/Toast';
 import Modal from './components/molecules/Modal/Modal';
 import FileUploader from './components/atoms/FileUploader/FileUploader';
+=======
+import Toast from './components/atoms/Toast';
+import Modal from './components/molecules/Modal';
+import Slider from './components/atoms/Slider';
+>>>>>>> 366beba8596da0aa52d05e59a62b48261aa730ba
 
 class App extends Component {
 
@@ -264,6 +270,17 @@ class App extends Component {
                         <Button title="Default" onClick={()=>{ this.setState({ modal : 5 }) }}>5</Button>
                         <Button title="Default" onClick={()=>{ this.setState({ modal : 6 }) }}>6</Button>
                         <Button title="Default" onClick={()=>{ this.setState({ modal : 7 }) }}>7</Button>
+                    </div>
+                    {/* Slider Component */}
+                    <div className="hcl-col-12">
+                        <Slider 
+                            min={0} 
+                            max={100} 
+                            step={2} 
+                            value={44}
+                            title="Slider" 
+                            onChange={event => {console.log(event.currentTarget.value)}}
+                        />
                     </div>
                     <div className="hcl-col mt-5">
                         <FileUploader
