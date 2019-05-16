@@ -18,6 +18,7 @@ import List from './components/atoms/List';
 import listItems from './components/atoms/List/sample-list-data.json';
 import Toast from './components/atoms/Toast/Toast';
 import Modal from './components/molecules/Modal/Modal';
+import FileUploader from './components/atoms/FileUploader/FileUploader';
 
 class App extends Component {
 
@@ -220,7 +221,7 @@ class App extends Component {
                         <List listItems={listItems} type="ul" onClick={event => {}} />
                     </div>
                     {/* Tag */}
-                    <div className="col-12 mt-5">
+                    <div className="hcl-col-12 mt-5">
                         <Toast
                             type="success"
                             subtitle="Subtitle text goes here."
@@ -231,7 +232,7 @@ class App extends Component {
                         />
                         <Button title="Default" onClick={this.showToast}>Show Toast Notification</Button>
                     </div>
-                    <div className="col-12 mt-5">
+                    <div className="hcl-col-12 mt-5">
                         {/* Danger type Modals */}
                         {this.state.modal === 1 && <Modal type="danger" label="optional label" heading="Heading comes here." onClose={this.onModalClose} actions={this.modalActions1}>
                           <Paragraph>Danger Modal with save and close buttons</Paragraph>
@@ -263,6 +264,15 @@ class App extends Component {
                         <Button title="Default" onClick={()=>{ this.setState({ modal : 5 }) }}>5</Button>
                         <Button title="Default" onClick={()=>{ this.setState({ modal : 6 }) }}>6</Button>
                         <Button title="Default" onClick={()=>{ this.setState({ modal : 7 }) }}>7</Button>
+                    </div>
+                    <div className="hcl-col mt-5">
+                        <FileUploader
+                            id="file-uploader"
+                            label="Account photo"
+                            description="only .jpg and .png files. 500kb max file size."
+                            onChange={(e) => { alert(`File [${e.currentTarget.value}] uploaded successfully!`) }}
+                            disabled
+                        />
                     </div>
                 </div>
             </main >
