@@ -2,7 +2,6 @@ import React from "react";
 import propTypes from "prop-types";
 import prefix from "../../../settings";
 
-
 const ActionBar = ({ actions }) => {
   const actionButtons = () => {
     return actions.map(
