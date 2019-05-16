@@ -4,7 +4,7 @@ Tabs are used to quickly navigate between views within the same context.
 
 ## Usage
 ```
-    <Tabs activeIndex={1} onSelectionChange={(e) => {console.log(e.label)}}>
+    <Tabs activeIndex={1} onSelectionChange={(e) => {console.log(e.label, e.tabIndex)}}>
         <Tab label='Tab List 1' isDisabled={true}>Content 1</Tab>
         <Tab label='Tab List 2'>Content 2</Tab>
         <Tab label='Tab List 3'>Content 3</Tab>
