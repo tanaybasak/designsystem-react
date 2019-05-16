@@ -9,7 +9,7 @@ const Tab = ({ label, onClick, active, isDisabled }) => {
             className={`${prefix}-tabs-nav-item ${active ? 'active' : ''} ${isDisabled ? `${prefix}-tabs-disabled` : ''}`}
             onClick={onClick}
         >
-            <a                
+            <a
                 className={`${prefix}-tabs-nav-link`}>
                 {label}
             </a>
@@ -19,11 +19,13 @@ const Tab = ({ label, onClick, active, isDisabled }) => {
 
 Tab.propTypes = {
     label: PropTypes.string,
-    isDisabled: PropTypes.bool
+    isDisabled: PropTypes.bool,
+    onClick: PropTypes.func
 }
 Tab.defaultProps = {
     label: '',
-    isDisabled: false
+    isDisabled: false,
+    onClick: () => { }
 }
 
 export { Tab };
