@@ -5,8 +5,8 @@ import { prefix } from '../../../settings';
 const Tab = ({ label, onClick, active, isDisabled }) => {
     return (
         <li
-            role='tab'
-            className={`${prefix}-tabs-nav-item ${active ? 'active' : ''} ${isDisabled ? `${prefix}-tabs-disabled` : ''}`}
+            role="tab"
+            className={`${prefix}-tabs-nav-item ${active ? "active" : ""} ${isDisabled ? `${prefix}-tabs-disabled` : ""}`}
             onClick={onClick}
         >
             <a
@@ -23,7 +23,7 @@ Tab.propTypes = {
     onClick: PropTypes.func
 }
 Tab.defaultProps = {
-    label: '',
+    label: "",
     isDisabled: false,
     onClick: () => { }
 }

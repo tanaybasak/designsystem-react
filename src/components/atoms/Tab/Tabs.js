@@ -4,12 +4,13 @@ import { prefix } from '../../../settings';
 
 
 const Tabs = ({ activeIndex, onSelectionChange, children }) => {
-    const [isActive, setActive] = useState(activeIndex || 0);
+    const [isActive, setActive] = useState(activeIndex);
     let tabContent = null;
 
     const modifiedChildren = React.Children.map(children, (child, index) => {
-        if (index === isActive)
+        if (index === isActive) {
             tabContent = child.props.children;
+        }
         const { isDisabled, label } = child.props;
         return cloneElement(child, {
             onClick: (e) => {
@@ -25,13 +26,13 @@ const Tabs = ({ activeIndex, onSelectionChange, children }) => {
 
     return (
         <section className={`${prefix}-tab`}>
-            <nav data-tabs role='navigation'>
-                <ul role='tablist' className={`${prefix}-tabs-nav`}>
+            <nav data-tabs role="navigation">
+                <ul role="tablist" className={`${prefix}-tabs-nav`}>
                     {modifiedChildren}
                 </ul>
             </nav>
             <section className={`${prefix}-tabcontent`}>
-                <div role='tabpanel' className={`${prefix}-tabs-panel active`}>
+                <div role="tabpanel" className={`${prefix}-tabs-panel active`}>
                     {tabContent}
                 </div>
             </section>
@@ -45,6 +46,7 @@ Tabs.propTypes = {
 }
 
 Tabs.defaultProps = {
+    activeIndex: 0,
     onSelectionChange: () => { }
 }
 
