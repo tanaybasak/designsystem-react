@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState } from "react";
+import PropTypes from "prop-types";
 import { prefix } from '../../../settings';
 
 export default function TextArea({ className, ...restProps }) {

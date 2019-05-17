@@ -19,7 +19,9 @@ import listItems from './components/atoms/List/sample-list-data.json';
 import Toast from './components/atoms/Toast';
 import Modal from './components/molecules/Modal';
 import Slider from './components/atoms/Slider';
-import { Tabs, Tab }from './components/atoms/Tab';
+import { Tabs, Tab } from './components/atoms/Tab';
+import Overflowmenu from './components/molecules/Overflowmenu';
+import overflowlist from './components/molecules/Overflowmenu/sample-overflow-list.json';
 
 class App extends Component {
 
@@ -198,6 +200,8 @@ class App extends Component {
                             closable
                             onClose={event => { console.log('Notification Closed'); }}
                         />
+                        <Overflowmenu listItems={overflowlist} />
+                        <Overflowmenu listItems={overflowlist} direction="right"/>
                     </div>
                     {/* Tag */}
                     <div className="hcl-col-12 mt-5">
@@ -284,6 +288,10 @@ class App extends Component {
                             title="Slider" 
                             onChange={event => {console.log(event.currentTarget.value)}}
                         />
+                    </div>
+                    {/* Overflow */ }
+                    <div>
+                    
                     </div>
                 </div>
             </main >

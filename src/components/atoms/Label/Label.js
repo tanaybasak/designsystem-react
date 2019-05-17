@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 import { prefix } from '../../../settings';
 
 export default function Label({ className, children, ...restProps }) {

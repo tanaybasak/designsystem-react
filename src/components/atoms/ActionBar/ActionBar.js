@@ -1,7 +1,7 @@
 import React from "react";
 import { prefix } from "../../../settings";
 
-function ActionBar({ actions }) {
+const ActionBar = ({ actions }) => {
   const actionButtons = () => {
     return actions.map(
       ({ label, handler, primary = false, danger = false }) => {
