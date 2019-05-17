@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { prefix } from '../../../settings';
 
-const Tab = ({ label, onClick, active, isDisabled }) => {
+function Tab({ label, onClick, active, isDisabled }) {
     return (
         <li
             role="tab"
@@ -21,11 +21,11 @@ Tab.propTypes = {
     label: PropTypes.string,
     isDisabled: PropTypes.bool,
     onClick: PropTypes.func
-}
+};
 Tab.defaultProps = {
     label: "",
     isDisabled: false,
     onClick: () => { }
-}
+};
 
-export { Tab };
+export default Tab ;

@@ -19,7 +19,7 @@ import listItems from './components/atoms/List/sample-list-data.json';
 import Toast from './components/atoms/Toast';
 import Modal from './components/molecules/Modal';
 import Slider from './components/atoms/Slider';
-import { Tabs, Tab } from './components/atoms/Tab';
+import { Tabs, Tab }from './components/atoms/Tab';
 
 class App extends Component {
 
@@ -268,9 +268,9 @@ class App extends Component {
                     </div>
                     <div className="hcl-col-12 mt-5 colBorder p-5">
                     {/* Tab Component */}
-                        <Tabs activeIndex={1} onSelectionChange={(e) => {console.log(e.label, e.tabIndex)}}>
-                            <Tab label='Tab List 1' isDisabled={true}>Content 1</Tab>
-                            <Tab label='Tab List 2'>Content 2</Tab>
+                        <Tabs activeIndex={0} onChange={(e) => {console.log(`Label => ${e.label} Index => ${e.tabIndex}`)}}>
+                            <Tab label='Tab List 1'>Content 1</Tab>
+                            <Tab label='Tab List 2' isDisabled>Content 2</Tab>
                             <Tab label='Tab List 3'>Content 3</Tab>
                         </Tabs>
                     </div>

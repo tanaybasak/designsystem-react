@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { prefix } from '../../../settings';
 
 
-const Tabs = ({ activeIndex, onSelectionChange, children }) => {
+function Tabs({ activeIndex, onChange, children }) {
     const [isActive, setActive] = useState(activeIndex);
     let tabContent = null;
 
@@ -16,7 +16,7 @@ const Tabs = ({ activeIndex, onSelectionChange, children }) => {
             onClick: (e) => {
                 if (!isDisabled) {
                     setActive(index);
-                    onSelectionChange(Object.assign({}, e, { label, tabIndex: index }));
+                    onChange(Object.assign({}, e, { label, tabIndex: index }));
                 }
             },
             key: index,
@@ -31,23 +31,23 @@ const Tabs = ({ activeIndex, onSelectionChange, children }) => {
                     {modifiedChildren}
                 </ul>
             </nav>
-            <section className={`${prefix}-tabcontent`}>
+            <div className={`${prefix}-tabcontent`}>
                 <div role="tabpanel" className={`${prefix}-tabs-panel active`}>
                     {tabContent}
                 </div>
-            </section>
+            </div>
         </section >
     )
 }
 
 Tabs.propTypes = {
     activeIndex: PropTypes.number,
-    onSelectionChange: PropTypes.func
-}
+    onChange: PropTypes.func
+};
 
 Tabs.defaultProps = {
     activeIndex: 0,
-    onSelectionChange: () => { }
-}
+    onChange: () => { }
+};
 
-export { Tabs };
+export default Tabs;
