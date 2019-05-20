@@ -1,29 +1,28 @@
 /* eslint-disable no-console */
 import React, { Component } from 'react';
-import Label from './components/atoms/Label';
-import TextInput from './components/atoms/TextInput';
-import FormHelperText from './components/atoms/FormHelperText';
-import Button from './components/atoms/Button';
-import Heading from './components/atoms/Heading';
-import Checkbox from './components/atoms/Checkbox';
-import Radio from './components/atoms/Radio';
-import TextArea from './components/atoms/TextArea';
-import Link from './components/atoms/Link';
-import Paragraph from './components/atoms/Paragraph';
-import Breadcrumb from './components/atoms/Breadcrumb';
-import Spinner from './components/atoms/Spinner';
-import Toggle from './components/atoms/Toggle';
-import Notification from './components/atoms/Notification';
-import Tag from './components/atoms/Tag';
-import List from './components/atoms/List';
-import listItems from './components/atoms/List/sample-list-data.json';
-import Toast from './components/atoms/Toast';
-import Modal from './components/molecules/Modal';
-import Slider from './components/atoms/Slider';
-import { ContentSwitcher, Switch } from './components/atoms/ContentSwitcher';
-import Overflowmenu from './components/molecules/Overflowmenu';
-import overflowlist from './components/molecules/Overflowmenu/sample-overflow-list.json';
-
+import Label from './atoms/Label';
+import TextInput from './atoms/TextInput';
+import FormHelperText from './atoms/FormHelperText';
+import Button from './atoms/Button';
+import Heading from './atoms/Heading';
+import Checkbox from './atoms/Checkbox';
+import Radio from './atoms/Radio';
+import TextArea from './atoms/TextArea';
+import Link from './atoms/Link';
+import Paragraph from './atoms/Paragraph';
+import Breadcrumb from './atoms/Breadcrumb';
+import Spinner from './atoms/Spinner';
+import Toggle from './atoms/Toggle';
+import Notification from './atoms/Notification';
+import Tag from './atoms/Tag';
+import List from './atoms/List';
+import listItems from './atoms/List/sample-list-data.json';
+import Toast from './atoms/Toast';
+import Modal from './molecules/Modal';
+import Slider from './atoms/Slider';
+import Overflowmenu from './molecules/Overflowmenu';
+import overflowlist from './molecules/Overflowmenu/sample-overflow-list.json';
+import { ContentSwitcher, Switch } from './molecules/ContentSwitcher';
 class App extends Component {
   state = {
     radio: {
