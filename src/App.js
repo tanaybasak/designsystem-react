@@ -33,10 +33,10 @@ class App extends Component {
         },
         modal : null,
         contentSwitch: {
-            example1: 'Switch1',
-            example2: 'Switch4',
-            example3: 'Switch7',
-            example4: 'Switch10'
+            example1: 0,
+            example2: 1,
+            example3: 2,
+            example4: 0
         }
     };
 
@@ -115,7 +115,7 @@ class App extends Component {
         const states = Object.assign({}, { 
             contentSwitch: {
                 ...this.state.contentSwitch,
-                [example] : e.selectedValue
+                [example] : e.switchIndex
             }
         });
         this.setState({
@@ -317,23 +317,23 @@ class App extends Component {
                     <section className="hcl-col-12 mt-5 colBorder p-5">
                         {/* Content Switcher Component */}
                         <h5 className="p-2">Content Switcher - (default)</h5>
-                        <ContentSwitcher initialValue={contentSwitch.example1} onSelectionChange={(e) => this.onSwitchChange(e, 'example1')}>
-                            <Switch name="Switch1" text="All"></Switch>
-                            <Switch name="Switch2" text="Cybernetics"></Switch>
-                            <Switch name="Switch3" text="Information & Communication"></Switch>
+                        <ContentSwitcher activeIndex={contentSwitch.example1} onChange={(e) => this.onSwitchChange(e, 'example1')}>
+                            <Switch label="All"></Switch>
+                            <Switch label="Cybernetics"></Switch>
+                            <Switch label="Information & Communication"></Switch>
                         </ContentSwitcher>
                         <section className="mt-1 p-2">
-                            {contentSwitch.example1 === 'Switch1' && 
+                            {contentSwitch.example1 === 0 && 
                                 <div className="colBorder p-2">
                                     <List listItems={this.switchAll} type="ol" onClick={event => {}} />
                                 </div>
                             }
-                            {contentSwitch.example1 === 'Switch2' && 
+                            {contentSwitch.example1 === 1 && 
                                 <div className="colBorder p-2">
                                     <List listItems={[this.switchAll[0]]} type="ol" onClick={event => {}} />
                                 </div>
                             }
-                            {contentSwitch.example1 === 'Switch3' && 
+                            {contentSwitch.example1 === 2 && 
                                 <div className="colBorder p-2">
                                     <List listItems={[this.switchAll[1]]} type="ol" onClick={event => {}} />
                                 </div>
@@ -341,25 +341,24 @@ class App extends Component {
                         </section>
                     </section>
                     <section className="hcl-col-12 mt-5 colBorder p-5">
-                        {/* Content Switcher Component */}
                         <h5 className="p-2">Content Switcher - (disabled)</h5>
-                        <ContentSwitcher initialValue={contentSwitch.example2} onSelectionChange={(e) => this.onSwitchChange(e, 'example2')}>
-                                <Switch name="Switch4" text="All"></Switch>
-                                <Switch name="Switch5" text="Cybernetics"></Switch>
-                                <Switch name="Switch6" text="Information & Communication" isDisabled={true}></Switch>
+                        <ContentSwitcher activeIndex={contentSwitch.example2} onChange={(e) => this.onSwitchChange(e, 'example2')}>
+                            <Switch label="All"></Switch>
+                            <Switch label="Cybernetics" isDisabled></Switch>
+                            <Switch label="Information & Communication"></Switch>
                         </ContentSwitcher>
                         <section className="mt-1 p-2">
-                            {contentSwitch.example2 === 'Switch4' && 
+                            {contentSwitch.example2 === 0 && 
                                 <div className="colBorder p-2">
                                     <List listItems={this.switchAll} type="ol" onClick={event => {}} />
                                 </div>
                             }
-                            {contentSwitch.example2 === 'Switch5' && 
+                            {contentSwitch.example2 === 1 && 
                                 <div className="colBorder p-2">
                                     <List listItems={[this.switchAll[0]]} type="ol" onClick={event => {}} />
                                 </div>
                             }
-                            {contentSwitch.example2 === 'Switch6' && 
+                            {contentSwitch.example2 === 2 && 
                                 <div className="colBorder p-2">
                                     <List listItems={[this.switchAll[1]]} type="ol" onClick={event => {}} />
                                 </div>
@@ -367,51 +366,49 @@ class App extends Component {
                         </section>
                     </section>
                     <section className="hcl-col-12 mt-5 colBorder p-5">
-                        {/* Content Switcher Component */}
                         <h5 className="p-2">Content Switcher - (with icons)</h5>
-                        <ContentSwitcher initialValue={contentSwitch.example3} onSelectionChange={(e) => this.onSwitchChange(e, 'example3')}>
-                                <Switch name="Switch7" text="All" iconClass="fa fa-left"></Switch>
-                                <Switch name="Switch8" text="Cybernetics" iconClass="fa fa-center"></Switch>
-                                <Switch name="Switch9" text="Information & Communication" iconClass="fa fa-right"></Switch>
+                        <ContentSwitcher activeIndex={contentSwitch.example3} onChange={(e) => this.onSwitchChange(e, 'example3')}>
+                                <Switch label="All" iconClass="fa fa-center"></Switch>
+                                <Switch label="Cybernetics" iconClass="fa fa-center"></Switch>
+                                <Switch label="Information & Communication" iconClass="fa fa-right"></Switch>
                         </ContentSwitcher>
                         <section className="mt-1 p-2">
-                            {contentSwitch.example3 === 'Switch7' && 
+                            {contentSwitch.example3 === 0 && 
                                 <div className="colBorder p-2">
                                     <List listItems={this.switchAll} type="ol" onClick={event => {}} />
                                 </div>
                             }
-                            {contentSwitch.example3 === 'Switch8' && 
+                            {contentSwitch.example3 === 1 && 
                                 <div className="colBorder p-2">
                                     <List listItems={[this.switchAll[0]]} type="ol" onClick={event => {}} />
                                 </div>
                             }
-                            {contentSwitch.example3 === 'Switch9' && 
+                            {contentSwitch.example3 === 2 && 
                                 <div className="colBorder p-2">
                                     <List listItems={[this.switchAll[1]]} type="ol" onClick={event => {}} />
                                 </div>
                             }
                         </section>
                     </section>
-                    <section className="hcl-col-12 mt-5 colBorder p-5">
-                        {/* Content Switcher Component */}
+                    <section className="hcl-col-12 mt-5 colBorder p-5">                        
                         <h5 className="p-2">Content Switcher - with icons (disabled)</h5>
-                        <ContentSwitcher initialValue={contentSwitch.example4} onSelectionChange={(e) => this.onSwitchChange(e, 'example4')}>
-                                <Switch name="Switch10" text="All" iconClass="fa fa-left" isDisabled={true}></Switch>
-                                <Switch name="Switch11" text="Cybernetics" iconClass="fa fa-center" isDisabled={true}></Switch>
-                                <Switch name="Switch12" text="Information & Communication" iconClass="fa fa-right" isDisabled={true}></Switch>
+                        <ContentSwitcher activeIndex={contentSwitch.example4} onChange={(e) => this.onSwitchChange(e, 'example4')}>
+                                <Switch label="All" iconClass="fa fa-left" isDisabled></Switch>
+                                <Switch label="Cybernetics" iconClass="fa fa-center" isDisabled></Switch>
+                                <Switch label="Information & Communication" iconClass="fa fa-right" isDisabled></Switch>
                         </ContentSwitcher>
                         <section className="mt-1 p-2">
-                            {contentSwitch.example4 === 'Switch10' && 
+                            {contentSwitch.example4 === 0 && 
                                 <div className="colBorder p-2">
                                     <List listItems={this.switchAll} type="ol" onClick={event => {}} />
                                 </div>
                             }
-                            {contentSwitch.example4 === 'Switch11' && 
+                            {contentSwitch.example4 === 1 && 
                                 <div className="colBorder p-2">
                                     <List listItems={[this.switchAll[0]]} type="ol" onClick={event => {}} />
                                 </div>
                             }
-                            {contentSwitch.example4 === 'Switch12' && 
+                            {contentSwitch.example4 === 2 && 
                                 <div className="colBorder p-2">
                                     <List listItems={[this.switchAll[1]]} type="ol" onClick={event => {}} />
                                 </div>
