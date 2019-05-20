@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { prefix } from '../../../settings';
+import prefix from '../../../settings';
 
-export default function Button({ className, children, onClick, ...restProps }) {
+const Button = ({ className, children, onClick, ...restProps }) => {
     const classnames = `${prefix}-btn ${className}`.trim();
 
     return (
         <button
+            type='button'
             className={classnames}
             {...restProps}
             onClick={onClick}
@@ -17,10 +18,10 @@ export default function Button({ className, children, onClick, ...restProps }) {
 };
 
 Button.propTypes = {
-    children: PropTypes.node.isRequired,
-    className: PropTypes.string.isRequired,
+    children: PropTypes.any,
+    className: PropTypes.string,
     disabled: PropTypes.bool,
-    onClick: PropTypes.func.isRequired
+    onClick: PropTypes.func
 };
 
 Button.defaultProps = {
@@ -29,3 +30,5 @@ Button.defaultProps = {
     disabled: false,
     onClick: () => { }
 };
+
+export default Button;
