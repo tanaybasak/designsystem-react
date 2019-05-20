@@ -45,13 +45,13 @@ export default function List({ listItems, type, className, ...restProps }) {
 List.propTypes = {
   className: PropTypes.string,
   type: PropTypes.oneOf(["ol", "ul"]),
-  //listItems: PropTypes.arrayof(),
+  // listItems: PropTypes.arrayof(),
   onClick: PropTypes.func
 };
 
 List.defaultProps = {
   className: "",
   type: "ul",
-  //listItems: [],
+  // listItems: [],
   onClick: () => {}
 };

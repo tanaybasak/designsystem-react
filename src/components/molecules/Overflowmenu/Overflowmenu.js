@@ -18,7 +18,7 @@ const Overflowmenu = ({ direction = "left", ...rest }) => {
         className={`${prefix}-overflow-menu ${prefix}-overflow-${direction}`}
       ><MenuList items={rest.listItems} />
         <div className={direction === 'left' ? `${prefix}-overflow-caret` : `${prefix}-overflow-caret-right`} />
-                  </div>}
+      </div>}
     </section>
   );
 };
