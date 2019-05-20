@@ -4,22 +4,14 @@ import prefix from '../../../settings';
 
 const MenuList = ({ items = [] }) => {
   return (
-    <ul className={`${prefix}-menulist`}>
-      {items.map(item => {
-        const {
-          onClick = () => {},
-          danger,
-          disabled,
-          separator,
-          link,
-          name,
-          ...rest
-        } = item;
-        const itemClassNames = [`${prefix}-menulist-item`];
+    <ul className={`${prefix}-overflow-list`}>
+      {items.map((item) => {
+        const { onClick = ()=>{}, danger, disabled, separator, link, name, ...rest} = item
+        const itemClassNames = [`${prefix}-overflow-option`];
 
-        danger && itemClassNames.push(`${prefix}-danger`);
-        disabled && itemClassNames.push(`${prefix}-disabled`);
-        separator && itemClassNames.push(`${prefix}-separator`);
+        danger && itemClassNames.push(`${prefix}-overflow-optiondanger`);
+        disabled && itemClassNames.push(`${prefix}-overflow-disable`);
+        separator && itemClassNames.push(`${prefix}-overflow-separator`);
 
         return (
           <li className={itemClassNames.join(' ')} onClick={onClick} {...rest}>

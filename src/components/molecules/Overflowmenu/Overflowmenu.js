@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import prefix from '../../../settings';
 import MenuList from '../../atoms/MenuList';
 
-const Overflowmenu = ({ direction = 'left', ...rest }) => {
+
+const Overflowmenu = ({ direction = "left", ...rest }) => {
   const [display, changeDisplay] = useState(false);
 
   const clickHandler = () => {
@@ -11,30 +12,27 @@ const Overflowmenu = ({ direction = 'left', ...rest }) => {
   };
 
   return (
-    <section className={`${prefix}-overflow`}>
+    <section className='hcl-overflow-container'>
       <div className={`${prefix}-ellipsis`} onClick={clickHandler} />
-      {display && (
-        <div
-          className={`${prefix}-overflow-menu ${prefix}-overflow-${direction}`}
-        >
-          <MenuList items={rest.listItems} />
-          <div className={`${prefix}-overflow-caret`} />
-        </div>
-      )}
+      {display && <div
+        className={`${prefix}-overflow-menu ${prefix}-overflow-${direction}`}
+      ><MenuList items={rest.listItems} />
+        <div className={direction === 'left' ? `${prefix}-overflow-caret` : `${prefix}-overflow-caret-right`} />
+                  </div>}
     </section>
   );
 };
 
-Overflowmenu.propTypes = {
-  direction: PropTypes.oneOf(['left', 'right']),
-  listItems: PropTypes.arrayOf([]).isRequired,
-  onClick: PropTypes.func.isRequired
+Overflowmenu.defaultProps = {
+  direction: 'left',
+  listItems: null,
+  onClick: () => { }
 };
 
-Overflowmenu.defaultProps = {
-  direction : "left"
-}
-
-
+Overflowmenu.propTypes = {
+  direction: PropTypes.oneOf(['left', 'right']),
+  listItems: PropTypes.array.isRequired,
+  onClick: PropTypes.func.isRequired
+};
 
 export default Overflowmenu;
