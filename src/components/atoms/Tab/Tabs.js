@@ -2,7 +2,6 @@ import React, { useState, cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import { prefix } from '../../../settings';
 
-
 function Tabs({ activeIndex, onChange, children }) {
     const [isActive, setActive] = useState(activeIndex);
     let tabContent = null;
@@ -37,7 +36,7 @@ function Tabs({ activeIndex, onChange, children }) {
                 </div>
             </div>
         </section >
-    )
+    );
 }
 
 Tabs.propTypes = {

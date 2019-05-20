@@ -28,4 +28,4 @@ Tab.defaultProps = {
     onClick: () => { }
 };
 
-export default Tab ;
+export default Tab;
