@@ -1,8 +1,8 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { prefix } from '../../../settings';
+import React from 'react';
+import PropTypes from 'prop-types';
+import prefix from '../../../settings';
 
-function MenuList({ items = [] }) {
+const MenuList = ({ items = [] }) => {
   return (
     <ul className={`${prefix}-overflow-list`}>
       {items.map((item) => {
@@ -13,18 +13,23 @@ function MenuList({ items = [] }) {
         disabled && itemClassNames.push(`${prefix}-overflow-disable`);
         separator && itemClassNames.push(`${prefix}-overflow-separator`);
 
-        return <li className={itemClassNames.join(" ")} onClick={onClick} {...rest}>
-            {link && <a href={link} title={name}>{name}</a>}
+        return (
+          <li className={itemClassNames.join(' ')} onClick={onClick} {...rest}>
+            {link && (
+              <a href={link} title={name}>
+                {name}
+              </a>
+            )}
             {!link && name}
-        </li>;
-
+          </li>
+        );
       })}
     </ul>
   );
 }
 
 MenuList.propTypes = {
-  items : PropTypes.array.isRequired,
-}
+  items: PropTypes.array.isRequired
+};
 
 export default MenuList;

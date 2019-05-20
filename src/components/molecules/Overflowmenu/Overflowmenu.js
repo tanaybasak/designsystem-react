@@ -1,17 +1,17 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
-import { prefix } from "../../../settings";
-import MenuList from "../../atoms/MenuList";
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import prefix from '../../../settings';
+import MenuList from '../../atoms/MenuList';
 
 const Overflowmenu = ({ direction = "left", ...rest }) => {
   const [display, changeDisplay] = useState(false);
 
-  const clickHandler = e => {
+  const clickHandler = () => {
     changeDisplay(!display);
   };
 
   return (
-    <section className="hcl-overflow-container">
+    <section className='hcl-overflow-container'>
       <div className={`${prefix}-ellipsis`} onClick={clickHandler} />
       {display && <div
         className={`${prefix}-overflow-menu ${prefix}-overflow-${direction}`}
