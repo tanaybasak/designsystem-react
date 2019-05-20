@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { prefix } from "../../../settings";
 import MenuList from "../../atoms/MenuList";
 
-
 const Overflowmenu = ({ direction = "left", ...rest }) => {
   const [display, changeDisplay] = useState(false);
 
