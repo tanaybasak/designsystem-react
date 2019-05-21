@@ -23,7 +23,7 @@ import { Tabs, Tab } from './molecules/Tab';
 import Slider from './atoms/Slider';
 import Overflowmenu from './molecules/Overflowmenu';
 import overflowlist from './molecules/Overflowmenu/sample-overflow-list.json';
-
+import { ContentSwitcher, Switch } from './molecules/ContentSwitcher';
 class App extends Component {
   state = {
     radio: {
@@ -33,12 +33,42 @@ class App extends Component {
     toast: {
       visible: false
     },
-    modal: null
+    modal: null,
+    contentSwitch: {
+        example1: 0,
+        example2: 1,
+        example3: 2,
+        example4: 0
+    }
   };
 
-  
-
-  
+  switchAll = [{
+    "name": "Cybernetics",
+    "value": "ll-1",
+    "child": [
+        {
+            "name": "Artifical Intelligence",
+            "value": "ll-1-1"
+        },
+        {
+            "name": "Bionics",
+            "value": "ll-1-2"
+        }
+    ]
+},{
+    "name": "Information & Communication technology",
+    "value": "ll-1",
+    "child": [
+        {
+            "name": "Cyber Infrastructure",
+            "value": "ll-1-1"
+        },
+        {
+            "name": "Digital Technology",
+            "value": "ll-1-2"
+        }
+    ]
+}];
 
   modalActions1 = [
     { label: "Save" },
@@ -110,6 +140,18 @@ class App extends Component {
     }
   };
 
+  onSwitchChange = (e, example) => {
+    const states = Object.assign({}, { 
+        contentSwitch: {
+            ...this.state.contentSwitch,
+            [example] : e.switchIndex
+        }
+    });
+    this.setState({
+        ...states
+    })
+}
+
   hideToast = () => {
     if (this.state.toast.visible) {
       this.setState({
@@ -125,6 +167,8 @@ class App extends Component {
   };
 
   render() {
+    const { contentSwitch = {} } = this.state;
+    
     return (
       <main className='hcl-container'>
         <div className='hcl-row m-0'>
@@ -505,6 +549,107 @@ class App extends Component {
               <Tab label='Tab List 3'>Content 3</Tab>
             </Tabs>
           </div>
+          <section className="hcl-col-12 mt-5 colBorder p-5">
+                        {/* Content Switcher Component */}
+                        <h5 className="p-2">Content Switcher - (default)</h5>
+                        <ContentSwitcher activeIndex={contentSwitch.example1} onChange={(e) => this.onSwitchChange(e, 'example1')}>
+                            <Switch label="All"></Switch>
+                            <Switch label="Cybernetics"></Switch>
+                            <Switch label="Information & Communication"></Switch>
+                        </ContentSwitcher>
+                        <section className="mt-1 p-2">
+                            {contentSwitch.example1 === 0 && 
+                                <div className="colBorder p-2">
+                                    <List listItems={this.switchAll} type="ol" onClick={(e) => console.log(e)} />
+                                </div>
+                            }
+                            {contentSwitch.example1 === 1 && 
+                                <div className="colBorder p-2">
+                                    <List listItems={[this.switchAll[0]]} type="ol" />
+                                </div>
+                            }
+                            {contentSwitch.example1 === 2 && 
+                                <div className="colBorder p-2">
+                                    <List listItems={[this.switchAll[1]]} type="ol" />
+                                </div>
+                            }
+                        </section>
+                    </section>
+                    <section className="hcl-col-12 mt-5 colBorder p-5">
+                        <h5 className="p-2">Content Switcher - (disabled)</h5>
+                        <ContentSwitcher activeIndex={contentSwitch.example2} onChange={(e) => this.onSwitchChange(e, 'example2')}>
+                            <Switch label="All"></Switch>
+                            <Switch label="Cybernetics" isDisabled></Switch>
+                            <Switch label="Information & Communication"></Switch>
+                        </ContentSwitcher>
+                        <section className="mt-1 p-2">
+                            {contentSwitch.example2 === 0 && 
+                                <div className="colBorder p-2">
+                                    <List listItems={this.switchAll} type="ol" />
+                                </div>
+                            }
+                            {contentSwitch.example2 === 1 && 
+                                <div className="colBorder p-2">
+                                    <List listItems={[this.switchAll[0]]} type="ol" />
+                                </div>
+                            }
+                            {contentSwitch.example2 === 2 && 
+                                <div className="colBorder p-2">
+                                    <List listItems={[this.switchAll[1]]} type="ol" />
+                                </div>
+                            }
+                        </section>
+                    </section>
+                    <section className="hcl-col-12 mt-5 colBorder p-5">
+                        <h5 className="p-2">Content Switcher - (with icons)</h5>
+                        <ContentSwitcher activeIndex={contentSwitch.example3} onChange={(e) => this.onSwitchChange(e, 'example3')}>
+                                <Switch label="All" iconClass="fa fa-center"></Switch>
+                                <Switch label="Cybernetics" iconClass="fa fa-center"></Switch>
+                                <Switch label="Information & Communication" iconClass="fa fa-right"></Switch>
+                        </ContentSwitcher>
+                        <section className="mt-1 p-2">
+                            {contentSwitch.example3 === 0 && 
+                                <div className="colBorder p-2">
+                                    <List listItems={this.switchAll} type="ol" />
+                                </div>
+                            }
+                            {contentSwitch.example3 === 1 && 
+                                <div className="colBorder p-2">
+                                    <List listItems={[this.switchAll[0]]} type="ol" />
+                                </div>
+                            }
+                            {contentSwitch.example3 === 2 && 
+                                <div className="colBorder p-2">
+                                    <List listItems={[this.switchAll[1]]} type="ol" />
+                                </div>
+                            }
+                        </section>
+                    </section>
+                    <section className="hcl-col-12 mt-5 colBorder p-5">                        
+                        <h5 className="p-2">Content Switcher - with icons (disabled)</h5>
+                        <ContentSwitcher activeIndex={contentSwitch.example4} onChange={(e) => this.onSwitchChange(e, 'example4')}>
+                                <Switch label="All" iconClass="fa fa-left" isDisabled></Switch>
+                                <Switch label="Cybernetics" iconClass="fa fa-center" isDisabled></Switch>
+                                <Switch label="Information & Communication" iconClass="fa fa-right" isDisabled></Switch>
+                        </ContentSwitcher>
+                        <section className="mt-1 p-2">
+                            {contentSwitch.example4 === 0 && 
+                                <div className="colBorder p-2">
+                                    <List listItems={this.switchAll} type="ol" />
+                                </div>
+                            }
+                            {contentSwitch.example4 === 1 && 
+                                <div className="colBorder p-2">
+                                    <List listItems={[this.switchAll[0]]} type="ol" />
+                                </div>
+                            }
+                            {contentSwitch.example4 === 2 && 
+                                <div className="colBorder p-2">
+                                    <List listItems={[this.switchAll[1]]} type="ol" />
+                                </div>
+                            }
+                        </section>
+                    </section>
           {/* Slider Component */}
           <div className='hcl-col-12'>
             <Slider 
