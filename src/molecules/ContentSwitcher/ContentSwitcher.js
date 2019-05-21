@@ -17,15 +17,16 @@ function ContentSwitcher({ activeIndex, onChange, children }) {
     });
 
     return (
-        <div className={`${prefix}-content-switcher`} role="tablist">
-            {modifiedChildren}
-        </div>
+      <div className={`${prefix}-content-switcher`} role='tablist'>
+        {modifiedChildren}
+      </div>
     );
 }
 
 ContentSwitcher.propTypes = {
     activeIndex: PropTypes.number,
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    children : PropTypes.node.isRequired
 };
 
 ContentSwitcher.defaultProps = {
