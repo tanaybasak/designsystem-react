@@ -497,14 +497,14 @@ class App extends Component {
             <Button title='Default' onClick={()=>{ this.setState({ modal : 6 }) }}>6</Button>
             <Button title='Default' onClick={()=>{ this.setState({ modal : 7 }) }}>7</Button>
           </div>
-          <div className="hcl-col-12 mt-5 colBorder p-5">
+          <div className='hcl-col-12 mt-5 colBorder p-5'>
             {/* Tab Component */}
             <Tabs activeIndex={0} onChange={(e) => {console.log(`Label => ${e.label} Index => ${e.tabIndex}`)}}>
-                <Tab label='Tab List 1'>Content 1</Tab>
-                <Tab label='Tab List 2' isDisabled>Content 2</Tab>
-                <Tab label='Tab List 3'>Content 3</Tab>
+              <Tab label='Tab List 1'>Content 1</Tab>
+              <Tab label='Tab List 2' isDisabled>Content 2</Tab>
+              <Tab label='Tab List 3'>Content 3</Tab>
             </Tabs>
-            </div>
+          </div>
           {/* Slider Component */}
           <div className='hcl-col-12'>
             <Slider 
