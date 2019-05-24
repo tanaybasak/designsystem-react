@@ -11,7 +11,7 @@ function Tab({ label, onClick, active, isDisabled }) {
       }`}
       onClick={onClick}
     >
-      <a className={`${prefix}-tabs-nav-link`} href={()=>{}}>{label}</a>
+      <a className={`${prefix}-tabs-nav-link`} href={''}>{label}</a>
     </li>
   );
 }
