@@ -1,22 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { prefix } from '../../../settings';
+import prefix from "../../settings";
 
 export default function FileUploader({ id, className, label, description, disabled, multiple, tabIndex, onChange, ...restProps }) {
-    const classnames = `${prefix}-file ${className}`.trim();
+    const classnames = `${prefix}-file-btn ${className}`.trim();
 
     return (
         <div className={`${prefix}-form-item`}>
-            <strong className={`${prefix}-label`}>{label}
-            </strong>
+            <span className={`${prefix}-label`}>{label}
+            </span>
             <p className={`${prefix}-label-description`}>{description}</p>
-            <div className={classnames} {...restProps}>
+            <div className={`${prefix}-file-uploader`} {...restProps}>
                 <input type="file" className={`${prefix}-file-input`} id={id} tabIndex={tabIndex}
                     onChange={onChange} disabled={disabled} multiple={multiple} />
-                <label for={id} className={`${prefix}-file-btn ${prefix}-btn ${prefix}-primary
-                    ${prefix}-primary-outline ${prefix}-sm`} role="button" tabindex="0">
+                <label for={id} className={classnames} role="button">
                     Add file
-                    <span className={`${prefix}-file-btn-icon`}></span>
                 </label>
             </div>
         </div>

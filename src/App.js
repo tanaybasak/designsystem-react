@@ -18,6 +18,7 @@ import Tag from './atoms/Tag';
 import List from './atoms/List';
 import listItems from './atoms/List/sample-list-data.json';
 import Toast from './atoms/Toast';
+import FileUploader from './atoms/FileUploader';
 import Modal from './molecules/Modal';
 import { Tabs, Tab } from './molecules/Tab';
 import Slider from './atoms/Slider';
@@ -660,6 +661,10 @@ class App extends Component {
               title='Slider' 
               onChange={event => {console.log(event.currentTarget.value)}}
             />
+          </div>
+          {/* File Uploader Component */}
+          <div className='hcl-col-12'>
+                <FileUploader id="file_uploader" className="hcl-btn hcl-secondary hcl-sml" />
           </div>
           {/* Overflow */ }
           <div />
