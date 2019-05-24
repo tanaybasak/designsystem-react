@@ -177,7 +177,7 @@ class App extends Component {
               Default
             </Button>
             <Button
-              className='hcl-btn-primary'
+              className='hcl-primary'
               onClick={() => {
                 console.log("Button Clicked");
               }}
@@ -185,7 +185,7 @@ class App extends Component {
               Primary
             </Button>
             <Button
-              className='hcl-btn-secondary'
+              className='hcl-secondary'
               onClick={() => {
                 console.log("Button Clicked");
               }}
@@ -193,28 +193,37 @@ class App extends Component {
               Secondary
             </Button>
             <Button
-              className='hcl-btn-primary ghost'
+              className='hcl-primary hcl-ghost'
               onClick={() => {
                 console.log("Button Clicked");
               }}
             >
               Primary ghost
             </Button>
+           
             <Button
-              className='hcl-btn-primary outline'
-              onClick={() => {
-                console.log("Button Clicked");
-              }}
-            >
-              Primary outline
-            </Button>
-            <Button
-              className='hcl-btn-primary sm'
+              className='hcl-primary hcl-sm'
               onClick={() => {
                 console.log("Button Clicked");
               }}
             >
               Primary small
+            </Button>
+            <Button
+              className='hcl-primary hcl-danger'
+              onClick={() => {
+                console.log("Button Clicked");
+              }}
+            >
+              Danger outline
+            </Button>
+            <Button
+              className='hcl-primary hcl-danger hcl-secondary'
+              onClick={() => {
+                console.log("Button Clicked");
+              }}
+            >
+              Danger outline
             </Button>
           </div>
           {/* Heading */}
