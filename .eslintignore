@@ -1,8 +1,0 @@
-# Dependencies
-node_modules
-
-# Snapshots
-__snapshots__
-
-# Package
-package.json
