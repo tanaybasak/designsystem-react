@@ -101,7 +101,7 @@ module.exports.commonConfig = {
     ],
     resolve: {
         alias: {
-            'patron-css': path.resolve(`${NODE_MODULES_DIR}/patron-css/dist/patron-style.css`)
+            'patron-css': path.resolve(`${NODE_MODULES_DIR}/patron-css-build/dist/patron-style.css`)
         },
         extensions: ['.wasm', '.mjs', '.js', '.jsx', '.json'],
         modules: [SRC_DIR, NODE_MODULES_DIR]

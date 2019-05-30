@@ -106,11 +106,11 @@ class App extends Component {
 
     modalActions7 = [{ label: "Save", primary: true }];
 
-    onTemperatureRadioChange = e => {
+    _onTemperatureRadioChange = e => {
         this.setState({
             radio: {
                 ...this.state.radio,
-                temperature: e.currentTarget.value
+                temperature: Number(e.currentTarget.value)
             }
         });
     };
@@ -212,9 +212,10 @@ class App extends Component {
 
                     <hr />
                     {/* Button */}
-                    <div className="hcl-form-group hcl-col-12">
+                    <div className="hcl-col-12">
                         <Button
                             title="Default"
+                            className="mr-2"
                             onClick={() => {
                                 console.log("Button Clicked");
                             }}
@@ -222,7 +223,7 @@ class App extends Component {
                             Default
                         </Button>
                         <Button
-                            className="hcl-primary"
+                            className="mr-2 hcl-primary"
                             onClick={() => {
                                 console.log("Button Clicked");
                             }}
@@ -230,7 +231,7 @@ class App extends Component {
                             Primary
                         </Button>
                         <Button
-                            className="hcl-secondary"
+                            className="mr-2 hcl-secondary"
                             onClick={() => {
                                 console.log("Button Clicked");
                             }}
@@ -238,7 +239,7 @@ class App extends Component {
                             Secondary
                         </Button>
                         <Button
-                            className="hcl-primary hcl-ghost"
+                            className="mr-2 hcl-primary hcl-ghost"
                             onClick={() => {
                                 console.log("Button Clicked");
                             }}
@@ -247,7 +248,7 @@ class App extends Component {
                         </Button>
 
                         <Button
-                            className="hcl-primary hcl-sm"
+                            className="mr-2 hcl-primary hcl-sm"
                             onClick={() => {
                                 console.log("Button Clicked");
                             }}
@@ -255,7 +256,7 @@ class App extends Component {
                             Primary small
                         </Button>
                         <Button
-                            className="hcl-primary hcl-danger"
+                            className="mr-2 hcl-primary hcl-danger"
                             onClick={() => {
                                 console.log("Button Clicked");
                             }}
@@ -263,7 +264,7 @@ class App extends Component {
                             Danger outline
                         </Button>
                         <Button
-                            className="hcl-primary hcl-danger hcl-secondary"
+                            className="mr-2 hcl-primary hcl-danger hcl-secondary"
                             onClick={() => {
                                 console.log("Button Clicked");
                             }}
@@ -272,7 +273,7 @@ class App extends Component {
                     </Button>
                     </div>
                     {/* Heading */}
-                    <div className="hcl-form-group hcl-col-12">
+                    <div className="hcl-col-12">
                         <Heading type="h2">Heading h2</Heading>
                     </div>
                     {/* Checkbox */}
@@ -280,22 +281,24 @@ class App extends Component {
                         <legend className="hcl-legend">
                             Checkbox - Horizontally arranged (default)
                         </legend>
-                        <Checkbox
-                            id="checkbox1"
-                            labelText="1 (default)"
-                            onChange={() => {
-                                console.log("Default Checkbox.");
-                            }}
-                        />
-                        <Checkbox
-                            id="checkbox2"
-                            labelText="2"
-                            checked
-                            onChange={() => {
-                                console.log("Checked state is changed.");
-                            }}
-                        />
-                        <Checkbox id="checkbox3" labelText="3 (disabled)" disabled />
+                        <div className="hcl-checkbox-group">
+                            <Checkbox
+                                id="checkbox1"
+                                labelText="1 (default)"
+                                onChange={() => {
+                                    console.log("Default Checkbox.");
+                                }}
+                            />
+                            <Checkbox
+                                id="checkbox2"
+                                labelText="2"
+                                checked
+                                onChange={() => {
+                                    console.log("Checked state is changed.");
+                                }}
+                            />
+                            <Checkbox id="checkbox3" labelText="3 (disabled)" disabled />
+                        </div>
                     </div>
                     <div className="hcl-col-12 mt-5">
                         <legend className="hcl-legend">
@@ -330,7 +333,7 @@ class App extends Component {
                             labelText="1 (default)"
                             value="37"
                             name="temperature"
-                            onChange={this.onTemperatureRadioChange}
+                            onChange={this._onTemperatureRadioChange}
                             checked={this.state.radio.temperature === 37}
                         />
                         <Radio
@@ -338,7 +341,7 @@ class App extends Component {
                             labelText="2"
                             name="temperature"
                             value="45"
-                            onChange={this.onTemperatureRadioChange}
+                            onChange={this._onTemperatureRadioChange}
                             checked={this.state.radio.temperature === 45}
                         />
                         <Radio
@@ -347,7 +350,7 @@ class App extends Component {
                             value="30"
                             name="temperature"
                             disabled
-                            onChange={this.onTemperatureRadioChange}
+                            onChange={this._onTemperatureRadioChange}
                             checked={this.state.radio.temperature === 30}
                         />
                     </div>
@@ -359,7 +362,7 @@ class App extends Component {
                                 labelText="4 (default)"
                                 value="Bangalore"
                                 name="city"
-                                onChange={this.onCityRadioChange}
+                                onChange={this._onCityRadioChange}
                                 checked={this.state.radio.city === "Bangalore"}
                             />
                             <Radio
@@ -367,7 +370,7 @@ class App extends Component {
                                 labelText="5"
                                 value="Chennai"
                                 name="city"
-                                onChange={this.onCityRadioChange}
+                                onChange={this._onCityRadioChange}
                                 checked={this.state.radio.city === "Chennai"}
                             />
                             <Radio
@@ -376,7 +379,7 @@ class App extends Component {
                                 value="Mumbai"
                                 name="city"
                                 disabled
-                                onChange={this.onCityRadioChange}
+                                onChange={this._onCityRadioChange}
                                 checked={this.state.radio.city === "Mumbai"}
                             />
                         </div>
@@ -465,6 +468,7 @@ class App extends Component {
                             labelOn="on"
                         />
                     </div>
+                    {/* Notification */}
                     <div className="hcl-col-12 mt-5">
                         <Notification
                             title="Notification title"
@@ -473,8 +477,16 @@ class App extends Component {
                             closable
                             onClose={() => { console.log("Notification Closed"); }}
                         />
-                        <Overflowmenu listItems={overflowlist} />
-                        <Overflowmenu listItems={overflowlist} direction="right" />
+                    </div>
+                    {/* Overflow */}
+                    <div className="hcl-col-12 mt-5">
+                        <h5>Overflow Menu</h5>
+                        <div className="hcl-font-center">
+                            <Overflowmenu listItems={overflowlist} />
+                        </div>
+                        <div className="hcl-font-center">
+                            <Overflowmenu listItems={overflowlist} direction="right" />
+                        </div>
                     </div>
                     {/* Tag */}
                     <div className="hcl-col-12 mt-5">
@@ -511,6 +523,15 @@ class App extends Component {
                         <Button title="Default" onClick={this.showToast}>Show Toast Notification</Button>
                     </div>
                     <div className="hcl-col-12 mt-5">
+                        <h5>Show modal layout :</h5>
+                        <Button title="Default" className="mr-2" onClick={() => { this.setState({ modal: 1 }) }}>1</Button>
+                        <Button title="Default" className="mr-2" onClick={() => { this.setState({ modal: 2 }) }}>2</Button>
+                        <Button title="Default" className="mr-2" onClick={() => { this.setState({ modal: 3 }) }}>3</Button>
+                        <Button title="Default" className="mr-2" onClick={() => { this.setState({ modal: 4 }) }}>4</Button>
+                        <Button title="Default" className="mr-2" onClick={() => { this.setState({ modal: 5 }) }}>5</Button>
+                        <Button title="Default" className="mr-2" onClick={() => { this.setState({ modal: 6 }) }}>6</Button>
+                        <Button title="Default" className="mr-2" onClick={() => { this.setState({ modal: 7 }) }}>7</Button>
+
                         {/* Danger type Modals */}
                         {this.state.modal === 1 &&
                             <Modal type="danger" label="optional label" heading="Heading comes here." onClose={this.onModalClose} actions={this.modalActions1}>
@@ -541,14 +562,6 @@ class App extends Component {
                             <Modal heading="Heading comes here." onClose={this.onModalClose} actions={this.modalActions7}>
                                 <Paragraph>Modal with save button</Paragraph>
                             </Modal>}
-                        Show modal layout :
-                        <Button title="Default" onClick={() => { this.setState({ modal: 1 }) }}>1</Button>
-                        <Button title="Default" onClick={() => { this.setState({ modal: 2 }) }}>2</Button>
-                        <Button title="Default" onClick={() => { this.setState({ modal: 3 }) }}>3</Button>
-                        <Button title="Default" onClick={() => { this.setState({ modal: 4 }) }}>4</Button>
-                        <Button title="Default" onClick={() => { this.setState({ modal: 5 }) }}>5</Button>
-                        <Button title="Default" onClick={() => { this.setState({ modal: 6 }) }}>6</Button>
-                        <Button title="Default" onClick={() => { this.setState({ modal: 7 }) }}>7</Button>
                     </div>
                     <div className="hcl-col-12 mt-5 colBorder p-5">
                         {/* Tab Component */}
@@ -660,7 +673,7 @@ class App extends Component {
                         </section>
                     </section>
                     {/* Slider Component */}
-                    <div className="hcl-col-12">
+                    <div className="hcl-col-12 mt-5 mb-5">
                         <Slider
                             min={0}
                             max={100}
@@ -670,8 +683,6 @@ class App extends Component {
                             onChange={event => { console.log(event.currentTarget.value) }}
                         />
                     </div>
-                    {/* Overflow */}
-                    <div />
                 </div>
             </main>
         );
