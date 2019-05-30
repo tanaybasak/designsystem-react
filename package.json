@@ -105,7 +105,7 @@
     "transform": {
       "^.+\\.(js|jsx)$": "<rootDir>/node_modules/babel-jest",
       "^.+\\.(le|sa|sc|c)ss$": "<rootDir>/config/jest/cssTransform.js",
-      "(?!.*\\.(js|jsx|css|json)$)": "<rootDir>/config/jest/fileTransform.js"
+      "[/\\\\]node_modules[/\\\\].+\\.(js|jsx)$": "<rootDir>/config/jest/fileTransform.js"
     },
     "transformIgnorePatterns": [
       "[/\\\\]node_modules[/\\\\].+\\.(js|jsx)$"
