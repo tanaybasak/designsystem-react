@@ -328,31 +328,33 @@ class App extends Component {
                         <legend className="hcl-legend">
                             Radio - Horizontally arranged (default)
                         </legend>
-                        <Radio
-                            id="Radio1"
-                            labelText="1 (default)"
-                            value="37"
-                            name="temperature"
-                            onChange={this._onTemperatureRadioChange}
-                            checked={this.state.radio.temperature === 37}
-                        />
-                        <Radio
-                            id="Radio2"
-                            labelText="2"
-                            name="temperature"
-                            value="45"
-                            onChange={this._onTemperatureRadioChange}
-                            checked={this.state.radio.temperature === 45}
-                        />
-                        <Radio
-                            id="Radio3"
-                            labelText="3 (disabled)"
-                            value="30"
-                            name="temperature"
-                            disabled
-                            onChange={this._onTemperatureRadioChange}
-                            checked={this.state.radio.temperature === 30}
-                        />
+                        <div className="hcl-radio-group">
+                            <Radio
+                                id="Radio1"
+                                labelText="1 (default)"
+                                value="37"
+                                name="temperature"
+                                onChange={this._onTemperatureRadioChange}
+                                checked={this.state.radio.temperature === 37}
+                            />
+                            <Radio
+                                id="Radio2"
+                                labelText="2"
+                                name="temperature"
+                                value="45"
+                                onChange={this._onTemperatureRadioChange}
+                                checked={this.state.radio.temperature === 45}
+                            />
+                            <Radio
+                                id="Radio3"
+                                labelText="3 (disabled)"
+                                value="30"
+                                name="temperature"
+                                disabled
+                                onChange={this._onTemperatureRadioChange}
+                                checked={this.state.radio.temperature === 30}
+                            />
+                        </div>
                     </div>
                     <div className="hcl-col-12 mt-5">
                         <legend className="hcl-legend">Radio - Vertically arranged</legend>
