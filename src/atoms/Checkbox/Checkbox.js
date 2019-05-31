@@ -22,11 +22,9 @@ export default function Checkbox({ className, checked, labelText, ...restProps }
                     }
                 }}
             />
-            {labelText ? (
-                <label className={`${prefix}-checkbox-label`} htmlFor={restProps.id}>
-                    {labelText}
-                </label>
-            ) : null}
+            <label className={`${prefix}-checkbox-label`} htmlFor={restProps.id}>
+                {labelText}
+            </label>
         </div>
     );
 }
