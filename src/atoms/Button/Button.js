@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import prefix from "../../settings";
+import prefix from '../../settings';
 
 const Button = ({ className, children, onClick, ...restProps }) => {
     const classnames = `${prefix}-btn ${className}`.trim();
 
     return (
         <button
-            type='button'
+            type="button"
             className={classnames}
             {...restProps}
             onClick={onClick}
