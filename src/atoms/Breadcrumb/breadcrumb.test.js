@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import prefix from '../../settings';
 
 import Breadcrumb from './Breadcrumb';
@@ -19,7 +19,12 @@ describe('<breadcrumb> component', () => {
     });
     it('render breadcrumb with props', () => {
         const wrapper = shallow(<Breadcrumb {...breadcrumbModel} />);
-        const props = wrapper.instance().props;
-        expect(props.model).toEqual(breadcrumbModel.model);
+        expect(wrapper.instance().props.model).toEqual(breadcrumbModel.model);
     });
+    it('allows to set props in breadcrumb', () => {
+        const wrapper = mount(<Breadcrumb id="breadcrumbtest" {...breadcrumbModel} />);
+        expect(wrapper.props().id).toEqual("breadcrumbtest");
+        wrapper.setProps({className: 'custombreadcrumbstyle'});
+        expect(wrapper.props().className).toEqual("custombreadcrumbstyle");
+    })
 });
