@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<Button> component renders Button correctly 1`] = `
+exports[`<Button> component snapshots/renders Button correctly 1`] = `
 <button
   className="hcl-btn"
   disabled={false}
