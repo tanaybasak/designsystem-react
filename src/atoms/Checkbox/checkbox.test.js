@@ -30,10 +30,11 @@ describe('<Checkbox> component', () => {
         expect(checkbox.props().checked).toBeTruthy();
     });
 
-    // it('on state change, trigger onChange event ', () => {
-    //     const mockcallback = jest.fn();
-    //     const checkbox = mount((<Checkbox checked onChange={mockcallback} />));
-    //     checkbox.simulate('onchange');
-    //     expect(mockcallback.mock.calls.length).toEqual(1);
-    // });
+    it('on state change, trigger onChange event ', () => {
+        const mockcallback = jest.fn();
+        const checkbox = mount((<Checkbox onChange={mockcallback} />));
+        expect(checkbox.find('input[type="checkbox"]').props().checked).toEqual(false);
+        checkbox.find('input[type="checkbox"]').simulate('change', { target: { checked: true } });
+        expect(mockcallback.mock.calls.length).toEqual(1);
+    });
 });
