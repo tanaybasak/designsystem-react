@@ -24,7 +24,7 @@ import Slider from './atoms/Slider';
 import Overflowmenu from './molecules/Overflowmenu';
 import overflowlist from './molecules/Overflowmenu/sample-overflow-list.json';
 import { ContentSwitcher, Switch } from './molecules/ContentSwitcher';
-
+import Tooltip from './atoms/Tooltip';
 class App extends Component {
     state = {
         radio: {
@@ -169,6 +169,40 @@ class App extends Component {
 
     render() {
         const { contentSwitch = {} } = this.state;
+
+        const interactiveTooltipIcon = (
+            <svg focusable="false" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+                <path d="M8.5 11V6.5h-2v1h1V11H6v1h4v-1zM8 3.5c-.4 0-.8.3-.8.8s.4.7.8.7.8-.3.8-.8-.4-.7-.8-.7z" />
+                <path d="M8 15c-3.9 0-7-3.1-7-7s3.1-7 7-7 7 3.1 7 7-3.1 7-7 7zM8 2C4.7 2 2 4.7 2 8s2.7 6 6 6 6-2.7 6-6-2.7-6-6-6z" />
+            </svg>
+        )
+
+        const tooltipIcon = (
+            <svg data-tooltip="Filter" data-direction="right" data-type="icon" focusable="false" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+                <path d="M15 4h-2.1c-.2-1.1-1.2-2-2.4-2s-2.2.9-2.4 2H1v1h7.1c.2 1.1 1.2 2 2.4 2s2.2-.9 2.4-2H15V4zm-4.5 2C9.7 6 9 5.3 9 4.5S9.7 3 10.5 3s1.5.7 1.5 1.5S11.3 6 10.5 6zM1 12h2.1c.2 1.1 1.2 2 2.4 2s2.2-.9 2.4-2H15v-1H7.9c-.2-1.1-1.2-2-2.4-2s-2.2.9-2.4 2H1v1zm4.5-2c.8 0 1.5.7 1.5 1.5S6.3 13 5.5 13 4 12.3 4 11.5 4.7 10 5.5 10z" />
+            </svg>
+        )
+
+        const tooltipContent = (
+            <div>
+                <Paragraph>
+                    There are many variations of passages of Lorem Ipsum available,
+                    but the majority have suffered alteration in some form, by
+                    injected humour, or randomised words which don&lsquo;t look even
+                    slightly believable.
+                </Paragraph>
+                <div style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    flexWrap: 'wrap',
+                    alignItems: 'center'
+                }}
+                >
+                    <Link href="https://www.google.com" className="pr-5" target="_blank">Google</Link>
+                    <Button className="hcl-primary">Create</Button>
+                </div>
+            </div>
+        )
 
         return (
             <main className="hcl-container">
@@ -685,6 +719,56 @@ class App extends Component {
                             onChange={event => { console.log(event.currentTarget.value) }}
                         />
                     </div>
+
+                    <div className="hcl-col-12">
+                        <div className="hcl-row mb-5">
+                            <div className="hcl-col-3 mt-5 mb-5">
+                                <Tooltip content="Filter" direction="right" type="icon">{tooltipIcon}</Tooltip>
+                            </div>
+                            <div className="hcl-col-3 mt-5 mb-5">
+                                <Tooltip content="Filter" direction="top" type="icon">{tooltipIcon}</Tooltip>
+                            </div>
+                            <div className="hcl-col-3 mt-5 mb-5">
+                                <Tooltip content="Filter" direction="bottom" type="icon">{tooltipIcon}</Tooltip>
+                            </div>
+                            <div className="hcl-col-3 mt-5 mb-5">
+                                <Tooltip content="Filter" direction="left" type="icon">{tooltipIcon}</Tooltip>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="hcl-col-12">
+                        <div className="hcl-row mb-5">
+                            <div className="hcl-col-3 mt-5 mb-5">
+                                <Tooltip content="Breif Definition of the dotted underlined word." direction="right" type="definition">Definition Tooltip on Right</Tooltip>
+                            </div>
+                            <div className="hcl-col-3 mt-5 mb-5">
+                                <Tooltip content="Breif Definition of the dotted underlined word." direction="top" type="definition">Definition Tooltip on Top</Tooltip>
+                            </div>
+                            <div className="hcl-col-3 mt-5 mb-5">
+                                <Tooltip content="Breif Definition of the dotted underlined word." direction="bottom" type="definition">Definition Tooltip on Bottom</Tooltip>
+                            </div>
+                            <div className="hcl-col-3 mt-5 mb-5">
+                                <Tooltip content="Breif Definition of the dotted underlined word." direction="left" type="definition"><p>Definition Tooltip on Left</p></Tooltip>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="hcl-col-12">
+                        <div className="hcl-row mb-5">
+
+                            <div className="hcl-col-3 mt-5 mb-5">
+                                Interactive Tooltip<Tooltip content={tooltipContent} direction="top" type="interactive">{interactiveTooltipIcon}</Tooltip>
+                            </div>
+
+                            <div className="hcl-col-3 mt-5 mb-5">
+                                Interactive Tooltip<Tooltip content={tooltipContent} direction="left" type="interactive">{interactiveTooltipIcon}</Tooltip>
+                            </div>
+
+                        </div>
+                    </div>
+
+
                 </div>
             </main>
         );
