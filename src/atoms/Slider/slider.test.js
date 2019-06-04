@@ -51,7 +51,6 @@ describe('<Slider> component', () => {
                 value: 'k'
             }
         });
-        console.log(wrapper.debug());
         expect(wrapper.find(`.${prefix}-slider-text-input`).props().value).not.toBeNaN();
     });
 });
