@@ -25,6 +25,13 @@ describe('<Checkbox> component', () => {
         expect(checkbox.props().checked).toBeFalsy();
     });
 
+    it('default onChange event is called in checkbox', () => {
+        const mockCallBackchange = jest.fn().mockReturnValue(undefined);
+        const wrapper = mount((<Checkbox />));
+        wrapper.find('input[type="checkbox"]').simulate('change', { target: { checked: true } });
+        expect(mockCallBackchange()).toEqual(undefined);
+    });
+
     it('renders checkbox with default checked', () => {
         const checkbox = mount((<Checkbox checked />));
         expect(checkbox.props().checked).toBeTruthy();
