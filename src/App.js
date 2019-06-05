@@ -16,15 +16,15 @@ import Toggle from './atoms/Toggle';
 import Notification from './atoms/Notification';
 import Tag from './atoms/Tag';
 import List from './atoms/List';
+import listItems from './atoms/List/sample-list-data.json';
 import Toast from './atoms/Toast';
 import Modal from './molecules/Modal';
 import { Tabs, Tab } from './molecules/Tab';
 import Slider from './atoms/Slider';
 import Overflowmenu from './molecules/Overflowmenu';
-import FileUploader from './atoms/FileUploader';
-import { ContentSwitcher, Switch } from './molecules/ContentSwitcher';
-import listItems from './atoms/List/sample-list-data.json';
 import overflowlist from './molecules/Overflowmenu/sample-overflow-list.json';
+import { ContentSwitcher, Switch } from './molecules/ContentSwitcher';
+import FileUploader from './atoms/FileUploader';
 
 class App extends Component {
     state = {
