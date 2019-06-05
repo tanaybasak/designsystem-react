@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import prefix from "../../settings";
 
-export default function FileUploader({ id, className, label, description, disabled, multiple, tabIndex, onChange, ...restProps }) {
+export default function FileUploader({ id, className, label, description, disabled, multiple, fileType, tabIndex, onChange, ...restProps }) {
     const classnames = `${prefix}-file-btn ${className}`.trim();
 
     return (
@@ -12,7 +12,7 @@ export default function FileUploader({ id, className, label, description, disabl
             <p className={`${prefix}-label-description`}>{description}</p>
             <div className={`${prefix}-file-uploader`} {...restProps}>
                 <input type="file" className={`${prefix}-file-input`} id={id} tabIndex={tabIndex}
-                    onChange={onChange} disabled={disabled} multiple={multiple} 
+                    onChange={onChange} disabled={disabled} multiple={multiple} accept={fileType}
                 />
                 <label htmlFor={id} className={classnames} role="button">
                     Add file
@@ -29,6 +29,7 @@ FileUploader.propTypes = {
     description: PropTypes.string.isRequired,
     disabled: PropTypes.bool,
     multiple: PropTypes.bool,
+    fileType: PropTypes.string,
     tabIndex: PropTypes.number,
     onChange: PropTypes.func
 };
@@ -40,6 +41,7 @@ FileUploader.defaultProps = {
     description: '',
     disabled: false,
     multiple: true,
+    fileType: '',
     tabIndex: 0,
     onChange: () => { }
 };

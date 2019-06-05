@@ -688,7 +688,13 @@ class App extends Component {
                     </div>
                     {/* File Uploader Component */}
                     <div className="hcl-col-12">
-                        <FileUploader id="file_uploader" className="hcl-btn hcl-secondary hcl-sml" />
+                        <FileUploader
+                            id="file_uploader"
+                            label="Account photo"
+                            description="only .jpg and .png files. 500kb max file size."
+                            fileType=".jpg"
+                            className="hcl-btn hcl-secondary hcl-sml"
+                        />
                     </div>
                 </div>
             </main>
