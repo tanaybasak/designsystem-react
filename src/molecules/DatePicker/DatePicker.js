@@ -1,12 +1,9 @@
 import React from 'react';
 
-
 const DatePicker = () => {
-
   const style = {display: 'block'};
     return (
       <section className='hcl-datePicker' data-component='datepicker'>
-        {/* <label>Date picker label</label> */}
         <div className='hcl-datePicker-container'>
           <input
             type='text'
