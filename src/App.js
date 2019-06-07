@@ -24,7 +24,7 @@ import Slider from './atoms/Slider';
 import Overflowmenu from './molecules/Overflowmenu';
 import overflowlist from './molecules/Overflowmenu/sample-overflow-list.json';
 import { ContentSwitcher, Switch } from './molecules/ContentSwitcher';
-import Overflowmenu from './molecules/DatePicker';
+import DatePicker from './molecules/DatePicker';
 class App extends Component {
   state = {
     radio: {
@@ -662,7 +662,10 @@ class App extends Component {
               onChange={event => {console.log(event.currentTarget.value)}}
             />
           </div>
-          {/* Overflow */ }
+          {/* DatePicker */ }
+          <div className='hcl-col-12'>
+               <DatePicker></DatePicker>
+          </div>
           <div />
         </div>
       </main>
