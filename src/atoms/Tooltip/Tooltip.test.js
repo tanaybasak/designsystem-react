@@ -52,4 +52,3 @@ it('Interactive Tooltip generated on mouse Click and Updated Position on Scroll'
     global.document.dispatchEvent(new Event('scroll'));
 });
 
-
