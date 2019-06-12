@@ -3,7 +3,9 @@ import React from 'react';
 class YearMonthPanel extends React.Component {
   constructor(props) {
     super(props);
-    this.temp = null;
+    this.months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+    ;
   }
 
   render() {
@@ -15,14 +17,14 @@ class YearMonthPanel extends React.Component {
           </svg>
         </span>
         <div className='hcl-datePicker-select'>
-          <span className='hcl-datePicker-curMonth'>March </span>
+          <span className='hcl-datePicker-curMonth'>{this.months[this.props.currDateObj.month]} </span>
           <div className='hcl-datePicker-year'>
             <input
               className='hcl-datePicker-year-input'
               type='text'
               tabIndex='-1'
               aria-label='Year'
-              value='2019'
+              value={this.props.currDateObj.year}
             />
             <div className='hcl-datePicker-arrows'>
               <span className='hcl-datePicker-up' onClick={this.props.yearIncrease} />

@@ -1,30 +1,47 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import TextInput from '../../../atoms/TextInput';
 
 class DateInput extends React.Component {
-  // DateInput.propTypes = {
+  static defaultProps = {
+    dateSelected: null,
+    toggleDateContainer : () => {},
+    onChangeInputDate :() => {},
+    dateValue: null,
+  };
 
-  // };
-  
-  // DateInput.defaultProps = {
-  
-  // };
+  static propTypes = {
+    dateSelected: PropTypes.string,
+    toggleDateContainer: PropTypes.func,
+    onChangeInputDate: PropTypes.func,
+    dateValue: PropTypes.string,
+  };
 
   constructor(props){
     super(props);
     this.temp = null;
+    this.date = ''
   }
   
+  getDateValue = () =>{
+    return this.props.dateValue;
+  }
 
   render(){
+
+    console.log('input rendered');
       return (
-        <div>
+        <React.Fragment>
           <input
             type='text'
             className='hcl-datePicker-input'
             placeholder='mm/dd/yyyy'
             autoComplete='off'
+            value={this.props.dateSelected ? this.props.dateSelected : null}
+            onClick={this.props.toggleDateContainer}
+            onChange={this.props.onChangeInputDate}
           />
-          <svg className='hcl-datePicker-container-svg' width='14' height='16' viewBox='0 0 14 16'>
+          <svg className='hcl-datePicker-container-svg' width='14' height='16' viewBox='0 0 14 16' onClick={this.props.toggleDateContainer}>
             <path
               d=' M0 5h14v1H0V5zm3-5h1v4H3V0zm7 0h1v4h-1V0zM0 2.5A1.5 1.5 0 0 1 1.5 1h11A1.5 1.5 0 0 1 14
                               2.5v12a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 0 14.5v-12zm1 0v12a.5.5 0 0 0 .5.5h11a.5.5 0 0 0
@@ -32,7 +49,7 @@ class DateInput extends React.Component {
               fillRule='nonzero'
             />
           </svg>
-        </div>);
+        </React.Fragment>);
     }
 }
 

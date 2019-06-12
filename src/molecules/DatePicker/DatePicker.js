@@ -5,14 +5,6 @@ import DateInput from './DateInput';
 import WeekPanel from './WeekPanel';
 
 class DatePicker extends React.Component {
-
-  // static propTypes = {
-
-  // };
-
-  // static defaultProps = {
-  // };
-
   constructor(props) {
     super(props);
     this.dateObj = '';
@@ -24,9 +16,11 @@ class DatePicker extends React.Component {
         'month': this.date.getMonth(),
         'date': this.date.getDate(),
         'year': this.date.getFullYear(),
-      }
+      },
+      dateSelected: null,
+      showDateContainer: false,
     };
-    console.log('constrcutor',this.state.currDateObj)
+    console.log('constrcutor', this.state.currDateObj)
   }
 
 
@@ -42,6 +36,17 @@ class DatePicker extends React.Component {
         'date': date.getDate(),
         'year': date.getFullYear(),
       }
+    });
+  }
+
+  onChangeInputDate = (event) => {
+    console.log('onChangeHandler', event.target.value)
+  }
+
+  toggleDateContainer = () => {
+    console.log('toggleDAteContainer');
+    this.setState({
+      showDateContainer: !this.state.showDateContainer
     });
   }
 
@@ -69,22 +74,33 @@ class DatePicker extends React.Component {
     setTimeout(() => { console.log('yearDecresase', this.state.currDateObj) }, 3000)
   }
 
+  selectDate = (event) => {
+    this.setState({
+      dateSelected: event.target.getAttribute('date')
+    });
+    this.toggleDateContainer();
+    console.log('date Se;ected', this.state.dateSelected)
+  };
+
 
   render() {
     return (
       <section className='hcl-datePicker' data-component='datepicker'>
         {/* toggleDateContainer,dateChangeHAndlen will be passed */}
         <div className='hcl-datePicker-container'>
-          <DateInput />
-          <div className='hcl-datePicker-panel hcl-datePicker-panel-above' style={{ display: 'block' }}>
-            {/* dateobj,prevMonth,nextMonth will be passed */}
-            <YearMonthPanel currDateObj={this.state.currDateObj} prevMonth={this.prevMonth} nextMonth={this.nextMonth} yearIncrease={this.yearIncrease} yearDecrease={this.yearDecrease} />
-            <WeekPanel />
-            {/* dateobj, selectDAte will be passed */}
-            <DatePanel currDateObj={this.state.currDateObj} />
-          </div>
+          <DateInput dateSelected={this.state.dateSelected} toggleDateContainer={this.toggleDateContainer} onChangeInputDate={this.onChangeInputDate} currDateObj={this.state.currDateObj} />
+          {this.state.showDateContainer
+            ?
+              <div className='hcl-datePicker-panel hcl-datePicker-panel-above' style={{ display: 'block' }}>
+                {/* dateobj,prevMonth,nextMonth will be passed */}
+                <YearMonthPanel currDateObj={this.state.currDateObj} prevMonth={this.prevMonth} nextMonth={this.nextMonth} yearIncrease={this.yearIncrease} yearDecrease={this.yearDecrease} />
+                <WeekPanel />
+                {/* dateobj, selectDAte will be passed */}
+                <DatePanel currDateObj={this.state.currDateObj} dateSelected={this.state.dateSelected} selectDate={this.selectDate} />
+              </div>
+            : null}
         </div>
-        <div className='hcl-datePicker-error'>
+        <div className='hcl-datePicker-error' style={{ display: 'block' }}>
           Invalid date format.
         </div>
       </section>);

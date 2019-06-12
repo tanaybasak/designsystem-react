@@ -70,6 +70,7 @@ class DatePanel extends React.Component {
             className={`${this.DOMstrings.dateUnSelected} ${type !== 'current' ? this.DOMstrings.fade : ''} ${year === todayDate.getFullYear() &&
                     this.props.currDateObj.month === todayDate.getMonth() && Number(day) === todayDate.getDate() ? this.DOMstrings.todayHighlight : ''}`}
             date={`${month}/${day}/${year}`}
+            onClick={this.props.selectDate}
           >{day}
           </span>);
     };
