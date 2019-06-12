@@ -22,13 +22,7 @@ class DatePicker extends React.Component {
       dateSelected: '',
       showDateContainer: false,
     };
-    console.log('constrcutor', this.state.currDateObj)
   }
-
-
-  // dateChangeHAndlen
-  // yearchangeHandler
-  // toggleDateContainer 
 
   setDateObj = (date) => {
     this.setState({
