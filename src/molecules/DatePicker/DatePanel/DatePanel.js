@@ -48,6 +48,7 @@ class DatePanel extends React.Component {
         let month; let year;
         const day = (`0${String(i)}`).slice(-2);
         const todayDate = new Date();
+        // let pickedDate = this.props.dateSelected.split('/');
 
         // eslint-disable-next-line default-case
         switch (type) {
@@ -65,10 +66,12 @@ class DatePanel extends React.Component {
                 month = (`0${Number(this.props.currDateObj.month === 11 ? -1 : this.props.currDateObj.month) + 2}`).slice(-2);
                 year = this.props.currDateObj.month === 11 ? this.props.currDateObj.year + 1 : this.props.currDateObj.year;
         }
+        const date = `${month}/${day}/${year}`
         return (
           <span
             className={`${this.DOMstrings.dateUnSelected} ${type !== 'current' ? this.DOMstrings.fade : ''} ${year === todayDate.getFullYear() &&
-                    this.props.currDateObj.month === todayDate.getMonth() && Number(day) === todayDate.getDate() ? this.DOMstrings.todayHighlight : ''}`}
+                    this.props.currDateObj.month === todayDate.getMonth() && Number(day) === todayDate.getDate() ? this.DOMstrings.todayHighlight : ''}
+                    ${date === this.props.dateSelected ?  this.DOMstrings.datePicked : ''}`}
             date={`${month}/${day}/${year}`}
             onClick={this.props.selectDate}
           >{day}
