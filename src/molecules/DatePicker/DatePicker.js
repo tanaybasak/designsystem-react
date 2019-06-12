@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-expressions */
+/* eslint-disable no-param-reassign */
 import React from 'react';
 import YearMonthPanel from './YearMonthPanel/YearMonthPanel';
 import DatePanel from './DatePanel/DatePanel';
@@ -17,7 +19,7 @@ class DatePicker extends React.Component {
         'date': this.date.getDate(),
         'year': this.date.getFullYear(),
       },
-      dateSelected: null,
+      dateSelected: '',
       showDateContainer: false,
     };
     console.log('constrcutor', this.state.currDateObj)
@@ -40,7 +42,10 @@ class DatePicker extends React.Component {
   }
 
   onChangeInputDate = (event) => {
-    console.log('onChangeHandler', event.target.value)
+    console.log('onChangeHandler', event.target.value);
+    this.setState({
+      dateSelected: event.target.value
+    });
   }
 
   toggleDateContainer = () => {
@@ -83,6 +88,27 @@ class DatePicker extends React.Component {
   };
 
 
+  isValidDate = (s) => {
+    if (s) {
+      // eslint-disable-next-line no-useless-escape
+      const regex = /^[0-9]{2}[\/][0-9]{2}[\/][0-9]{4}$/g;
+      s = s.split('/');
+      if (s.length === 3 && (s[0].length === 1 || s[1].length === 1)) {
+        s[0].length === 1 ? s[0] = s[0].padStart(2, '0') : null;
+        s[1].length === 1 ? s[1] = s[1].padStart(2, '0') : null;
+      }
+      const d = new Date(s[2], s[0] - 1, s[1]);
+      if (d && (d.getMonth() + 1) === Number(s[0]) && regex.test(s.join('/')) && Number(s[2]) > 999) {
+        return true;
+      }
+      return false;
+    }
+    if (s === '') {
+      return true;
+    }
+    return false;
+  }
+
   render() {
     return (
       <section className='hcl-datePicker' data-component='datepicker'>
@@ -91,18 +117,23 @@ class DatePicker extends React.Component {
           <DateInput dateSelected={this.state.dateSelected} toggleDateContainer={this.toggleDateContainer} onChangeInputDate={this.onChangeInputDate} currDateObj={this.state.currDateObj} />
           {this.state.showDateContainer
             ?
-              <div className='hcl-datePicker-panel hcl-datePicker-panel-above' style={{ display: 'block' }}>
-                {/* dateobj,prevMonth,nextMonth will be passed */}
-                <YearMonthPanel currDateObj={this.state.currDateObj} prevMonth={this.prevMonth} nextMonth={this.nextMonth} yearIncrease={this.yearIncrease} yearDecrease={this.yearDecrease} />
-                <WeekPanel />
-                {/* dateobj, selectDAte will be passed */}
-                <DatePanel currDateObj={this.state.currDateObj} dateSelected={this.state.dateSelected} selectDate={this.selectDate} />
-              </div>
+            <div className='hcl-datePicker-panel hcl-datePicker-panel-above' style={{ display: 'block' }}>
+              {/* dateobj,prevMonth,nextMonth will be passed */}
+              <YearMonthPanel currDateObj={this.state.currDateObj} prevMonth={this.prevMonth} nextMonth={this.nextMonth} yearIncrease={this.yearIncrease} yearDecrease={this.yearDecrease} />
+              <WeekPanel />
+              {/* dateobj, selectDAte will be passed */}
+              <DatePanel currDateObj={this.state.currDateObj} dateSelected={this.state.dateSelected} selectDate={this.selectDate} />
+            </div>
             : null}
         </div>
-        <div className='hcl-datePicker-error' style={{ display: 'block' }}>
-          Invalid date format.
-        </div>
+        {
+          !this.isValidDate(this.state.dateSelected)
+            ?
+            <div className='hcl-datePicker-error hcl-datePicker-error-show'>
+              Invalid date format.
+            </div>
+            : null
+        }
       </section>);
   }
 }

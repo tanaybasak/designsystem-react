@@ -1,20 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import TextInput from '../../../atoms/TextInput';
+// import TextInput from '../../../atoms/TextInput';
 
 class DateInput extends React.Component {
   static defaultProps = {
     dateSelected: null,
     toggleDateContainer : () => {},
     onChangeInputDate :() => {},
-    dateValue: null,
   };
 
   static propTypes = {
     dateSelected: PropTypes.string,
     toggleDateContainer: PropTypes.func,
     onChangeInputDate: PropTypes.func,
-    dateValue: PropTypes.string,
   };
 
   constructor(props){
@@ -23,9 +21,7 @@ class DateInput extends React.Component {
     this.date = ''
   }
   
-  getDateValue = () =>{
-    return this.props.dateValue;
-  }
+ 
 
   render(){
 
