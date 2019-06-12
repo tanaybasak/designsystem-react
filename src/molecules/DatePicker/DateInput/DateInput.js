@@ -24,8 +24,6 @@ class DateInput extends React.Component {
  
 
   render(){
-
-    console.log('input rendered');
       return (
         <React.Fragment>
           <input

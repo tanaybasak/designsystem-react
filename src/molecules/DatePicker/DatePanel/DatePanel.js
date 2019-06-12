@@ -81,12 +81,9 @@ class DatePanel extends React.Component {
 
     createDateNodelist = () => {
         const numOfDaysInMonth = this.getDaysInMonth(this.props.currDateObj.month + 1, this.props.currDateObj.year);
-        // const element = this.DOMstrings.datePanel;
         let numOfDaysFromPrevMonth = this.props.currDateObj.day - this.props.currDateObj.date % 7;
         numOfDaysFromPrevMonth = numOfDaysFromPrevMonth < 0 ? 7 + numOfDaysFromPrevMonth : numOfDaysFromPrevMonth;
         const numOfDaysInPrevMonth = this.getDaysInMonth(this.props.currDateObj.month === 0 ? 12 : this.props.currDateObj.month, this.props.currDateObj.month === 0 ? this.props.currDateObj.year - 1 : this.props.currDateObj.year);
-        // const datePanel = this.datePickerElm.querySelector(element);
-
         // days from previous month
         for (let i = numOfDaysInPrevMonth - numOfDaysFromPrevMonth; i <= numOfDaysInPrevMonth && numOfDaysFromPrevMonth !== 6; i++) {
             // datePanel.insertAdjacentHTML('beforeend', createDayHTML('previous', i));
@@ -100,8 +97,8 @@ class DatePanel extends React.Component {
         }
         // days from next month  
         const numOfDaysFromNextMonth = numOfDaysFromPrevMonth === 6 ? 42 - numOfDaysInMonth + 1 : 42 - numOfDaysInMonth - numOfDaysFromPrevMonth;
+        // eslint-disable-next-line no-plusplus
         for (let i = 1; i < numOfDaysFromNextMonth; i++) {
-            // datePanel.insertAdjacentHTML('beforeend', this.createDayHTML('next', i));
             this.dateNodeList.push(this.createDayHTML('next', i));
         }
         // hightlight today's Date
