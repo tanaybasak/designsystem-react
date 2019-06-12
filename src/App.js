@@ -24,6 +24,8 @@ import Slider from './atoms/Slider';
 import Overflowmenu from './molecules/Overflowmenu';
 import overflowlist from './molecules/Overflowmenu/sample-overflow-list.json';
 import { ContentSwitcher, Switch } from './molecules/ContentSwitcher';
+import DataTable from './atoms/DataTable';
+import tableData from './atoms/DataTable/sample-table-data';
 
 class App extends Component {
     state = {
@@ -684,6 +686,10 @@ class App extends Component {
                             title="Slider"
                             onChange={event => { console.log(event.currentTarget.value) }}
                         />
+                    </div>
+                    {/* Table Component */}
+                    <div className="hcl-col-12 mt-5 mb-5">
+                        <DataTable id="sample_table_1" tableData={tableData} selectable />
                     </div>
                 </div>
             </main>
