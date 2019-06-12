@@ -100,7 +100,7 @@ class DatePicker extends React.Component {
     return (
       <section className='hcl-datePicker' data-component='datepicker'>
         <div className='hcl-datePicker-container'>
-          <DateInput dateSelected={this.state.dateSelected} toggleDateContainer={this.toggleDateContainer} onChangeInputDate={this.onChangeInputDate} currDateObj={this.state.currDateObj} />
+          <DateInput dateSelected={this.state.dateSelected} toggleDateContainer={this.toggleDateContainer} onChangeInputDate={this.onChangeInputDate} currDateObj={this.state.currDateObj} isValidDate={this.isValidDate} />
           {this.state.showDateContainer
             ?
               <div className='hcl-datePicker-panel hcl-datePicker-panel-above' style={{ display: 'block' }}>
