@@ -15,7 +15,9 @@ function Switch({ label, onClick, active, isDisabled, iconClass, ...restProps })
         >
             {
                 iconClass ?
-                    <span className={`${prefix}-thumbnail ${iconClass}`} />
+                    <div className={`${prefix}-thumbnail-wrapper`}>
+                        <span className={`${prefix}-thumbnail ${iconClass}`} />
+                    </div>
                     : null
             }
             <span>
