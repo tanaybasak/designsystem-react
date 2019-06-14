@@ -5,7 +5,7 @@ import prefix from '../../settings';
 
 function Switch({ label, onClick, active, isDisabled, iconClass, ...restProps }) {
     return (
-        <Button
+        <button
             tabIndex={0}
             aria-label={label}
             key={`${label}-`}
@@ -22,7 +22,7 @@ function Switch({ label, onClick, active, isDisabled, iconClass, ...restProps })
             <span>
                 {label}
             </span>
-        </Button>
+        </button>
     )
 }
 
