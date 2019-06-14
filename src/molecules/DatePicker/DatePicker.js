@@ -1,12 +1,24 @@
 /* eslint-disable no-unused-expressions */
 /* eslint-disable no-param-reassign */
 import React from 'react';
+import PropTypes from 'prop-types';
 import YearMonthPanel from './YearMonthPanel/YearMonthPanel';
 import DatePanel from './DatePanel/DatePanel';
 import DateInput from './DateInput';
 import WeekPanel from './WeekPanel';
 
 class DatePicker extends React.Component {
+  static propTypes = {
+    weekDays: PropTypes.array,
+    months: PropTypes.array,
+  };
+
+  static defaultProps = {
+    weekDays:['S', 'M', 'T', 'W', 'Th', 'F', 'S'] ,
+    months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+
+  };
+
   constructor(props) {
     super(props);
     this.dateObj = '';
@@ -103,9 +115,9 @@ class DatePicker extends React.Component {
           <DateInput dateSelected={this.state.dateSelected} toggleDateContainer={this.toggleDateContainer} onChangeInputDate={this.onChangeInputDate} currDateObj={this.state.currDateObj} isValidDate={this.isValidDate} />
           {this.state.showDateContainer
             ?
-              <div className='hcl-datePicker-panel hcl-datePicker-panel-above' style={{ display: 'block' }}>
-                <YearMonthPanel currDateObj={this.state.currDateObj} prevMonth={this.prevMonth} nextMonth={this.nextMonth} yearIncrease={this.yearIncrease} yearDecrease={this.yearDecrease} />
-                <WeekPanel />
+              <div className='hcl-datePicker-panel hcl-datePicker-panel-above hcl-datePicker-panel-show'>
+                <YearMonthPanel months={this.props.months} currDateObj={this.state.currDateObj} prevMonth={this.prevMonth} nextMonth={this.nextMonth} yearIncrease={this.yearIncrease} yearDecrease={this.yearDecrease} />
+                <WeekPanel weekDays={this.props.weekDays} />
                 <DatePanel currDateObj={this.state.currDateObj} dateSelected={this.state.dateSelected} selectDate={this.selectDate} />
               </div>
             : null}

@@ -1,21 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import prefix from "../../../settings";
+import {prefix} from '../../../settings';
 
 class DatePanel extends React.Component {
     static propTypes = {
-        currDateObj: PropTypes.object,
+        currDateObj: PropTypes.object.isRequired,
+        dateSelected: PropTypes.string,
+        selectDate : PropTypes.func.isRequired
     };
 
     static defaultProps = {
-        currDateObj: null
+        dateSelected:'',
     };
 
     constructor(props) {
         super(props);
         this.temp = null;
         this.dateNodeList = [];
-        // console.log('this.props.currDateObj', this.props.currDateObj);
         this.DOMstrings = {
             showDateContainer: `${prefix}-datePicker-panel-show`,
             datePicked: `${prefix}-datePicker-date-picked`,
@@ -48,8 +49,6 @@ class DatePanel extends React.Component {
         let month; let year;
         const day = (`0${String(i)}`).slice(-2);
         const todayDate = new Date();
-        // let pickedDate = this.props.dateSelected.split('/');
-
         // eslint-disable-next-line default-case
         switch (type) {
             case 'previous':
@@ -102,12 +101,6 @@ class DatePanel extends React.Component {
         for (let i = 1; i < numOfDaysFromNextMonth; i++) {
             this.dateNodeList.push(this.createDayHTML('next', i));
         }
-        // hightlight today's Date
-        // let todayDate = new Date();
-        // todayDate = `${(`0${todayDate.getMonth() + 1}`).slice(-2)}/${(`0${todayDate.getDate()}`).slice(-2)}/${todayDate.getFullYear()}`;
-        // const selector = `[date='${todayDate}']`;
-        // this.datePickerElm.querySelector(selector) ? this.datePickerElm.querySelector(selector).classList.add(this.DOMstrings.todayHighlight) : null;
-
         return this.dateNodeList;
     };
 

@@ -1,11 +1,19 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class YearMonthPanel extends React.Component {
+  static propTypes = {
+    months: PropTypes.array.isRequired,
+    currDateObj: PropTypes.object.isRequired,
+    prevMonth: PropTypes.func.isRequired,
+    nextMonth: PropTypes.func.isRequired,
+    yearIncrease: PropTypes.func.isRequired,
+    yearDecrease: PropTypes.func.isRequired
+  };
+
   constructor(props) {
     super(props);
-    this.months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-
-    ;
+    this.temp= null;
   }
 
   render() {
@@ -17,7 +25,7 @@ class YearMonthPanel extends React.Component {
           </svg>
         </span>
         <div className='hcl-datePicker-select'>
-          <span className='hcl-datePicker-curMonth'>{this.months[this.props.currDateObj.month]} </span>
+          <span className='hcl-datePicker-curMonth'>{this.props.months[this.props.currDateObj.month]} </span>
           <div className='hcl-datePicker-year'>
             <input
               className='hcl-datePicker-year-input'

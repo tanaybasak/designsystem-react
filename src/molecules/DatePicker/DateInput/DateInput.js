@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import TextInput from '../../../atoms/TextInput';
 
 class DateInput extends React.Component {
   static defaultProps = {
@@ -19,17 +18,13 @@ class DateInput extends React.Component {
 
   constructor(props){
     super(props);
-    this.temp = null;
     this.date = ''
   }
-  
- 
 
   render(){
       return (
         <React.Fragment>
           <input
-            // className = { this.props.isValidDate(this.props.dateSelected) ? 'hcl-datePicker-container-error': ''}
             type='text'
             className={`${'hcl-datePicker-input'} ${!this.props.isValidDate(this.props.dateSelected) ? 'hcl-datePicker-container-error': ''}`}
             placeholder='mm/dd/yyyy'

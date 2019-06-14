@@ -1,16 +1,18 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
 
 class WeekPanel extends React.Component {
+    static propTypes = {
+        weekDays: PropTypes.array.isRequired
+      };
 
     constructor(props) {
         super(props)
-        this.weekDays = ['S', 'M', 'T', 'W', 'Th', 'F', 'S'];
         this.daysNodeList =[];
     }
 
     createWeekDays = () => {
-        this.weekDays.forEach(element => {
+       this.props.weekDays.forEach(element => {
             this.daysNodeList.push(<span>{element}</span>);
         });
         return this.daysNodeList;
