@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Button from '../../atoms/Button';
 import prefix from '../../settings';
 
 function Switch({ label, onClick, active, isDisabled, iconClass, ...restProps }) {
