@@ -18,24 +18,9 @@ class DatePanel extends React.Component {
         this.temp = null;
         this.dateNodeList = [];
         this.DOMstrings = {
-            showDateContainer: `${prefix}-datePicker-panel-show`,
             datePicked: `${prefix}-datePicker-date-picked`,
             todayHighlight: `${prefix}-datePicker-dates-today`,
             dateUnSelected: `${prefix}-datePicker-date`,
-            showErrorDiv: `${prefix}-datePicker-error-show`,
-            addErrorBorder: `${prefix}-datePicker-container-error`,
-            inputCalSVG: `.${prefix}-datePicker-container-svg`,
-            prevMonth: `.${prefix}-datePicker-month-prev`,
-            yearInput: `.${prefix}-datePicker-year-input`,
-            nextMonth: `.${prefix}-datePicker-month-next`,
-            inputDate: `.${prefix}-datePicker-input`,
-            weekDaysPanel: `.${prefix}-datePicker-days`,
-            datePanel: `.${prefix}-datePicker-dates`,
-            yearIncrease: `.${prefix}-datePicker-up`,
-            yearDecrease: `.${prefix}-datePicker-down`,
-            monthInput: `.${prefix}-datePicker-curMonth`,
-            dateContainer: `.${prefix}-datePicker-panel`,
-            errorDiv: `.${prefix}-datePicker-error`,
             fade: `${prefix}-datePicker-date-fade`,
         };
     }
@@ -59,7 +44,6 @@ class DatePanel extends React.Component {
 
                 month = (`0${Number(this.props.currDateObj.month) + 1}`).slice(-2);
                 year = this.props.currDateObj.year;
-
                 break;
             case 'next':
                 month = (`0${Number(this.props.currDateObj.month === 11 ? -1 : this.props.currDateObj.month) + 2}`).slice(-2);
