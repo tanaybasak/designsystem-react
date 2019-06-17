@@ -21,8 +21,6 @@ class DatePicker extends React.Component {
 
   constructor(props) {
     super(props);
-    this.dateObj = '';
-    this.selectedDAte = '';
     this.date = new Date();
     this.isValidYear = true;
     this.state = {
