@@ -24,6 +24,7 @@ class DatePicker extends React.Component {
     this.dateObj = '';
     this.selectedDAte = '';
     this.date = new Date();
+    this.isValidYear = true;
     this.state = {
       currDateObj: {
         'day': this.date.getDay(),
@@ -59,14 +60,15 @@ class DatePicker extends React.Component {
       const dateArray = event.target.value.split('/');
       const date = new Date(dateArray[2], dateArray[0] - 1, dateArray[1]);
       this.setDateObj(date);
+      this.setState({
+        yearSelected: dateArray[2]
+      });
     }
   }
 
   onChangeYear = (event) => {
-
-    if (this.isValidYear(event.target.value)) {
-      const tempDate = new Date(Number(event.target.value), this.state.currDateObj.month , 15);
-      // this.setDateObj(tempDate);
+    if (this.isValidYearFunc(event.target.value)) {
+      const tempDate = new Date(Number(event.target.value), this.state.currDateObj.month, 15);
       this.setState({
         yearSelected: Number(event.target.value),
         currDateObj: {
@@ -81,9 +83,6 @@ class DatePicker extends React.Component {
         yearSelected: event.target.value
       });
     }
-  
-
-
   }
 
   toggleDateContainer = () => {
@@ -137,8 +136,9 @@ class DatePicker extends React.Component {
   };
 
 
-  isValidYear = (s) => {
+  isValidYearFunc = (s) => {
     const regex = /^[1-9]{1}[0-9]{3}$/g;
+    this.isValidYear = regex.test(s);
     return regex.test(s);
   }
 
@@ -167,23 +167,38 @@ class DatePicker extends React.Component {
     return (
       <section className='hcl-datePicker' data-component='datepicker'>
         <div className='hcl-datePicker-container'>
-          <DateInput dateSelected={this.state.dateSelected} toggleDateContainer={this.toggleDateContainer} onChangeInputDate={this.onChangeInputDate} currDateObj={this.state.currDateObj} isDateSelectedValid={this.state.isDateSelectedValid} />
+          <DateInput
+            dateSelected={this.state.dateSelected}
+            toggleDateContainer={this.toggleDateContainer}
+            onChangeInputDate={this.onChangeInputDate}
+            currDateObj={this.state.currDateObj}
+            isDateSelectedValid={this.state.isDateSelectedValid}
+            isValidYear={this.isValidYear}
+          />
           {this.state.showDateContainer
             ?
-            <div className='hcl-datePicker-panel hcl-datePicker-panel-above hcl-datePicker-panel-show'>
-              <YearMonthPanel months={this.props.months} currDateObj={this.state.currDateObj} prevMonth={this.prevMonth} nextMonth={this.nextMonth}
-                yearIncrease={this.yearIncrease} yearDecrease={this.yearDecrease} onChangeYear={this.onChangeYear} yearSelected={this.state.yearSelected} />
-              <WeekPanel weekDays={this.props.weekDays} />
-              <DatePanel currDateObj={this.state.currDateObj} dateSelected={this.state.dateSelected} selectDate={this.selectDate} />
-            </div>
+              <div className='hcl-datePicker-panel hcl-datePicker-panel-above hcl-datePicker-panel-show'>
+                <YearMonthPanel
+                  months={this.props.months}
+                  currDateObj={this.state.currDateObj}
+                  prevMonth={this.prevMonth}
+                  nextMonth={this.nextMonth}
+                  yearIncrease={this.yearIncrease}
+                  yearDecrease={this.yearDecrease}
+                  onChangeYear={this.onChangeYear}
+                  yearSelected={this.state.yearSelected}
+                />
+                <WeekPanel weekDays={this.props.weekDays} />
+                <DatePanel currDateObj={this.state.currDateObj} dateSelected={this.state.dateSelected} selectDate={this.selectDate} />
+              </div>
             : null}
         </div>
         {
           !this.state.isDateSelectedValid
             ?
-            <div className='hcl-datePicker-error hcl-datePicker-error-show'>
+              <div className='hcl-datePicker-error hcl-datePicker-error-show'>
               Invalid date format.
-              </div>
+            </div>
             : null
         }
       </section>);
