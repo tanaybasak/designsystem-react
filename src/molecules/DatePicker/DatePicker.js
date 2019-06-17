@@ -137,7 +137,7 @@ class DatePicker extends React.Component {
   isValidYearFunc = (s) => {
     const regex = /^[1-9]{1}[0-9]{3}$/g;
     this.isValidYear = regex.test(s);
-    return regex.test(s);
+    return this.isValidYear;
   }
 
   isValidDate = (s) => {
