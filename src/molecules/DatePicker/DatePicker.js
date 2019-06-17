@@ -131,6 +131,7 @@ class DatePicker extends React.Component {
       dateSelected: event.target.getAttribute('date'),
       isDateSelectedValid: true
     });
+    this.isValidYear = true;
     this.toggleDateContainer();
   };
 
