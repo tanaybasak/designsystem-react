@@ -6,14 +6,13 @@ class DateInput extends React.Component {
     dateSelected: null,
     toggleDateContainer : () => {},
     onChangeInputDate :() => {},
-    isValidDate:() => {},
   };
 
   static propTypes = {
     dateSelected: PropTypes.string,
     toggleDateContainer: PropTypes.func,
     onChangeInputDate: PropTypes.func,
-    isValidDate: PropTypes.func,
+    isDateSelectedValid: PropTypes.string.isRequired,
   };
 
   constructor(props){
@@ -26,7 +25,7 @@ class DateInput extends React.Component {
         <React.Fragment>
           <input
             type='text'
-            className={`${'hcl-datePicker-input'} ${!this.props.isValidDate(this.props.dateSelected) ? 'hcl-datePicker-container-error': ''}`}
+            className={`${'hcl-datePicker-input'} ${!this.props.isDateSelectedValid ? 'hcl-datePicker-container-error': ''}`}
             placeholder='mm/dd/yyyy'
             autoComplete='off'
             value={this.props.dateSelected ? this.props.dateSelected : null}

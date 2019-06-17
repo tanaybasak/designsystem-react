@@ -9,11 +9,12 @@ class YearMonthPanel extends React.Component {
     nextMonth: PropTypes.func.isRequired,
     yearIncrease: PropTypes.func.isRequired,
     yearDecrease: PropTypes.func.isRequired
+  
   };
 
   constructor(props) {
     super(props);
-    this.temp= null;
+    this.year= '';
   }
 
   render() {
@@ -29,10 +30,10 @@ class YearMonthPanel extends React.Component {
           <div className='hcl-datePicker-year'>
             <input
               className='hcl-datePicker-year-input'
-              type='text'
               tabIndex='-1'
               aria-label='Year'
-              value={this.props.currDateObj.year}
+              value={this.props.yearSelected}
+              onChange={this.props.onChangeYear}
             />
             <div className='hcl-datePicker-arrows'>
               <span className='hcl-datePicker-up' onClick={this.props.yearIncrease} />

@@ -14,7 +14,7 @@ class DatePicker extends React.Component {
   };
 
   static defaultProps = {
-    weekDays:['S', 'M', 'T', 'W', 'Th', 'F', 'S'] ,
+    weekDays: ['S', 'M', 'T', 'W', 'Th', 'F', 'S'],
     months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
 
   };
@@ -32,7 +32,9 @@ class DatePicker extends React.Component {
         'year': this.date.getFullYear(),
       },
       dateSelected: '',
+      isDateSelectedValid: true,
       showDateContainer: false,
+      yearSelected: this.date.getFullYear(),
     };
   }
 
@@ -48,9 +50,40 @@ class DatePicker extends React.Component {
   }
 
   onChangeInputDate = (event) => {
+    const isdateValid = this.isValidDate(event.target.value);
     this.setState({
-      dateSelected: event.target.value
+      dateSelected: event.target.value,
+      isDateSelectedValid: this.isValidDate(event.target.value),
     });
+    if (isdateValid) {
+      const dateArray = event.target.value.split('/');
+      const date = new Date(dateArray[2], dateArray[0] - 1, dateArray[1]);
+      this.setDateObj(date);
+    }
+  }
+
+  onChangeYear = (event) => {
+
+    if (this.isValidYear(event.target.value)) {
+      const tempDate = new Date(Number(event.target.value), this.state.currDateObj.month , 15);
+      // this.setDateObj(tempDate);
+      this.setState({
+        yearSelected: Number(event.target.value),
+        currDateObj: {
+          'day': tempDate.getDay(),
+          'month': tempDate.getMonth(),
+          'date': tempDate.getDate(),
+          'year': tempDate.getFullYear(),
+        }
+      });
+    } else {
+      this.setState({
+        yearSelected: event.target.value
+      });
+    }
+  
+
+
   }
 
   toggleDateContainer = () => {
@@ -71,21 +104,43 @@ class DatePicker extends React.Component {
 
   yearIncrease = () => {
     const tempDate = new Date(this.state.currDateObj.year + 1, this.state.currDateObj.month, 15);
-    this.setDateObj(tempDate);
+    this.setState({
+      currDateObj: {
+        'day': tempDate.getDay(),
+        'month': tempDate.getMonth(),
+        'date': tempDate.getDate(),
+        'year': tempDate.getFullYear(),
+      },
+      yearSelected: this.state.yearSelected + 1,
+    });
   }
 
   yearDecrease = () => {
     const tempDate = new Date(this.state.currDateObj.year - 1, this.state.currDateObj.month, 15);
-    this.setDateObj(tempDate);
+    this.setState({
+      currDateObj: {
+        'day': tempDate.getDay(),
+        'month': tempDate.getMonth(),
+        'date': tempDate.getDate(),
+        'year': tempDate.getFullYear(),
+      },
+      yearSelected: this.state.yearSelected - 1,
+    });
   }
 
   selectDate = (event) => {
     this.setState({
-      dateSelected: event.target.getAttribute('date')
+      dateSelected: event.target.getAttribute('date'),
+      isDateSelectedValid: true
     });
     this.toggleDateContainer();
   };
 
+
+  isValidYear = (s) => {
+    const regex = /^[1-9]{1}[0-9]{3}$/g;
+    return regex.test(s);
+  }
 
   isValidDate = (s) => {
     if (s) {
@@ -112,20 +167,21 @@ class DatePicker extends React.Component {
     return (
       <section className='hcl-datePicker' data-component='datepicker'>
         <div className='hcl-datePicker-container'>
-          <DateInput dateSelected={this.state.dateSelected} toggleDateContainer={this.toggleDateContainer} onChangeInputDate={this.onChangeInputDate} currDateObj={this.state.currDateObj} isValidDate={this.isValidDate} />
+          <DateInput dateSelected={this.state.dateSelected} toggleDateContainer={this.toggleDateContainer} onChangeInputDate={this.onChangeInputDate} currDateObj={this.state.currDateObj} isDateSelectedValid={this.state.isDateSelectedValid} />
           {this.state.showDateContainer
             ?
-              <div className='hcl-datePicker-panel hcl-datePicker-panel-above hcl-datePicker-panel-show'>
-                <YearMonthPanel months={this.props.months} currDateObj={this.state.currDateObj} prevMonth={this.prevMonth} nextMonth={this.nextMonth} yearIncrease={this.yearIncrease} yearDecrease={this.yearDecrease} />
-                <WeekPanel weekDays={this.props.weekDays} />
-                <DatePanel currDateObj={this.state.currDateObj} dateSelected={this.state.dateSelected} selectDate={this.selectDate} />
-              </div>
+            <div className='hcl-datePicker-panel hcl-datePicker-panel-above hcl-datePicker-panel-show'>
+              <YearMonthPanel months={this.props.months} currDateObj={this.state.currDateObj} prevMonth={this.prevMonth} nextMonth={this.nextMonth}
+                yearIncrease={this.yearIncrease} yearDecrease={this.yearDecrease} onChangeYear={this.onChangeYear} yearSelected={this.state.yearSelected} />
+              <WeekPanel weekDays={this.props.weekDays} />
+              <DatePanel currDateObj={this.state.currDateObj} dateSelected={this.state.dateSelected} selectDate={this.selectDate} />
+            </div>
             : null}
         </div>
         {
-          !this.isValidDate(this.state.dateSelected)
+          !this.state.isDateSelectedValid
             ?
-              <div className='hcl-datePicker-error hcl-datePicker-error-show'>
+            <div className='hcl-datePicker-error hcl-datePicker-error-show'>
               Invalid date format.
               </div>
             : null

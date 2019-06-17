@@ -30,6 +30,32 @@ class DatePanel extends React.Component {
         return true;
     };
 
+    
+
+    createDateNodelist = () => {
+        const numOfDaysInMonth = this.getDaysInMonth(this.props.currDateObj.month + 1, this.props.currDateObj.year);
+        let numOfDaysFromPrevMonth = this.props.currDateObj.day - this.props.currDateObj.date % 7;
+        numOfDaysFromPrevMonth = numOfDaysFromPrevMonth < 0 ? 7 + numOfDaysFromPrevMonth : numOfDaysFromPrevMonth;
+        const numOfDaysInPrevMonth = this.getDaysInMonth(this.props.currDateObj.month === 0 ? 12 : this.props.currDateObj.month, this.props.currDateObj.month === 0 ? this.props.currDateObj.year - 1 : this.props.currDateObj.year);
+        // days from previous month
+        for (let i = numOfDaysInPrevMonth - numOfDaysFromPrevMonth; i <= numOfDaysInPrevMonth && numOfDaysFromPrevMonth !== 6; i++) {
+            this.dateNodeList.push(this.createDayHTML('previous', i));
+        }
+        // days from current month
+        // eslint-disable-next-line no-plusplus
+        for (let i = 1; i <= numOfDaysInMonth; i++) {
+            this.dateNodeList.push(this.createDayHTML('current', i));
+        }
+        // days from next month  
+        const numOfDaysFromNextMonth = numOfDaysFromPrevMonth === 6 ? 42 - numOfDaysInMonth + 1 : 42 - numOfDaysInMonth - numOfDaysFromPrevMonth;
+        // eslint-disable-next-line no-plusplus
+        for (let i = 1; i < numOfDaysFromNextMonth; i++) {
+            this.dateNodeList.push(this.createDayHTML('next', i));
+        }
+
+        return this.dateNodeList;
+    };
+
     createDayHTML = (type, i) => {
         let month; let year;
         const day = (`0${String(i)}`).slice(-2);
@@ -65,35 +91,11 @@ class DatePanel extends React.Component {
         return new Date(year, month, 0).getDate();
     };
 
-    createDateNodelist = () => {
-        const numOfDaysInMonth = this.getDaysInMonth(this.props.currDateObj.month + 1, this.props.currDateObj.year);
-        let numOfDaysFromPrevMonth = this.props.currDateObj.day - this.props.currDateObj.date % 7;
-        numOfDaysFromPrevMonth = numOfDaysFromPrevMonth < 0 ? 7 + numOfDaysFromPrevMonth : numOfDaysFromPrevMonth;
-        const numOfDaysInPrevMonth = this.getDaysInMonth(this.props.currDateObj.month === 0 ? 12 : this.props.currDateObj.month, this.props.currDateObj.month === 0 ? this.props.currDateObj.year - 1 : this.props.currDateObj.year);
-        // days from previous month
-        for (let i = numOfDaysInPrevMonth - numOfDaysFromPrevMonth; i <= numOfDaysInPrevMonth && numOfDaysFromPrevMonth !== 6; i++) {
-            this.dateNodeList.push(this.createDayHTML('previous', i));
-        }
-        // days from current month
-        // eslint-disable-next-line no-plusplus
-        for (let i = 1; i <= numOfDaysInMonth; i++) {
-            this.dateNodeList.push(this.createDayHTML('current', i));
-        }
-        // days from next month  
-        const numOfDaysFromNextMonth = numOfDaysFromPrevMonth === 6 ? 42 - numOfDaysInMonth + 1 : 42 - numOfDaysInMonth - numOfDaysFromPrevMonth;
-        // eslint-disable-next-line no-plusplus
-        for (let i = 1; i < numOfDaysFromNextMonth; i++) {
-            this.dateNodeList.push(this.createDayHTML('next', i));
-        }
-        return this.dateNodeList;
-    };
-
     render() {
         return (
           <div className='hcl-datePicker-dates'>
             {this.createDateNodelist()}
           </div>);
-
     }
 }
 export default DatePanel;
