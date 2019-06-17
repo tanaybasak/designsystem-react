@@ -82,6 +82,7 @@ class DatePanel extends React.Component {
                     this.props.currDateObj.month === todayDate.getMonth() && Number(day) === todayDate.getDate() ? this.DOMstrings.todayHighlight : ''}
                     ${date === this.props.dateSelected ?  this.DOMstrings.datePicked : ''}`}
             date={`${month}/${day}/${year}`}
+            key={`${month}/${day}/${year}`}
             onClick={this.props.selectDate}
           >{day}
           </span>);

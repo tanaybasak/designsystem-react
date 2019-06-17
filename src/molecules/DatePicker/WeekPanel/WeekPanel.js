@@ -12,8 +12,8 @@ class WeekPanel extends React.Component {
     }
 
     createWeekDays = () => {
-       this.props.weekDays.forEach(element => {
-            this.daysNodeList.push(<span>{element}</span>);
+       this.props.weekDays.forEach((element , index) => {
+            this.daysNodeList.push(<span key={index}>{element}</span>);
         });
         return this.daysNodeList;
     }
