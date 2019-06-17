@@ -85,7 +85,8 @@ class DatePicker extends React.Component {
 
   toggleDateContainer = () => {
     this.setState({
-      showDateContainer: !this.state.showDateContainer
+      showDateContainer: !this.state.showDateContainer,
+      yearSelected:  this.state.currDateObj.year
     });
   }
 
