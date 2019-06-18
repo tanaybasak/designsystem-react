@@ -55,7 +55,7 @@ class DatePicker extends React.Component {
     if (isdateValid) {
       const dateArray = event.target.value.split('/');
       const date = new Date(dateArray[2], dateArray[0] - 1, dateArray[1]);
-      this.setDateObj(date);
+      this.setDateObj(date); //TODO make it one set state
       this.setState({
         yearSelected: dateArray[2]
       });
@@ -162,8 +162,8 @@ class DatePicker extends React.Component {
 
   render() {
     return (
-      <section className='hcl-datePicker' data-component='datepicker'>
-        <div className='hcl-datePicker-container'>
+      <section className="hcl-datePicker" data-component="datepicker">
+        <div className="hcl-datePicker-container">
           <DateInput
             dateSelected={this.dateSelected}
             toggleDateContainer={this.toggleDateContainer}
@@ -174,7 +174,7 @@ class DatePicker extends React.Component {
           />
           {this.state.showDateContainer
             ?
-            <div className='hcl-datePicker-panel hcl-datePicker-panel-above hcl-datePicker-panel-show'>
+            <div className="hcl-datePicker-panel hcl-datePicker-panel-above hcl-datePicker-panel-show">
               <YearMonthPanel
                 months={this.props.months}
                 currDateObj={this.state.currDateObj}
@@ -193,7 +193,7 @@ class DatePicker extends React.Component {
         {
           !this.isDateSelectedValid
             ?
-            <div className='hcl-datePicker-error hcl-datePicker-error-show'>
+            <div className="hcl-datePicker-error hcl-datePicker-error-show">
               Invalid date format.
             </div>
             : null

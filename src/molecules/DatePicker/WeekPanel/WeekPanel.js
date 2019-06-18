@@ -20,10 +20,10 @@ class WeekPanel extends React.Component {
 
     render() {
         return (
-          <div className='hcl-datePicker-days'>
-            {this.daysNodeList.length ===0 ?  this.createWeekDays() : this.daysNodeList}
+          <div className="hcl-datePicker-days">
+            {this.daysNodeList.length ===0 ? this.createWeekDays() : this.daysNodeList}
           </div>
         );
     }
-};
+}
 export default WeekPanel;

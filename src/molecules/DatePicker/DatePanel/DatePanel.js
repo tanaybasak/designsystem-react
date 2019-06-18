@@ -28,9 +28,7 @@ class DatePanel extends React.Component {
     shouldComponentUpdate() {
         this.dateNodeList = [];
         return true;
-    };
-
-    
+    }
 
     createDateNodelist = () => {
         const numOfDaysInMonth = this.getDaysInMonth(this.props.currDateObj.month + 1, this.props.currDateObj.year);
@@ -54,7 +52,7 @@ class DatePanel extends React.Component {
         }
 
         return this.dateNodeList;
-    };
+    }
 
     createDayHTML = (type, i) => {
         let month; let year;
@@ -80,7 +78,7 @@ class DatePanel extends React.Component {
           <span
             className={`${this.DOMstrings.dateUnSelected} ${type !== 'current' ? this.DOMstrings.fade : ''} ${year === todayDate.getFullYear() &&
                     this.props.currDateObj.month === todayDate.getMonth() && Number(day) === todayDate.getDate() ? this.DOMstrings.todayHighlight : ''}
-                    ${date === this.props.dateSelected ?  this.DOMstrings.datePicked : ''}`}
+                    ${date === this.props.dateSelected ? this.DOMstrings.datePicked : ''}`}
             date={`${month}/${day}/${year}`}
             key={`${month}/${day}/${year}`}
             onClick={this.props.selectDate}
@@ -94,7 +92,7 @@ class DatePanel extends React.Component {
 
     render() {
         return (
-          <div className='hcl-datePicker-dates'>
+          <div className="hcl-datePicker-dates">
             {this.createDateNodelist()}
           </div>);
     }
