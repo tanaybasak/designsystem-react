@@ -1,39 +1,35 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import prefix from "../../settings";
+import prefix from '../../settings';
 
 const ActionBar = ({ actions }) => {
-  const actionButtons = () => {
-    return actions.map(
-      ({ label, handler, primary = false, danger = false }) => {
-        const classNames = [`${prefix}-btn`];
-        if (primary) {
-          classNames.push(`${prefix}-primary`);
-        } else {
-          classNames.push(`${prefix}-secondary`);
-        }
+    const actionButtons = () => {
+        return actions.map(
+            ({ label, handler, primary = false, danger = false }) => {
+                const classNames = [`${prefix}-btn`];
+                classNames.push(`${prefix}-${primary ? `primary` : `secondary`}`);
 
-        if (danger) {
-          classNames.push(`${prefix}-danger`);
-        }
+                if (danger) {
+                    classNames.push(`${prefix}-danger`);
+                }
 
-        return (
-          <button
-            type='button'
-            key={label}
-            className={classNames.join(' ')}
-            onClick={handler}
-          >
-            {label}
-          </button>
+                return (
+                    <button
+                        type="button"
+                        key={label}
+                        className={classNames.join(' ')}
+                        onClick={handler}
+                    >
+                        {label}
+                    </button>
+                );
+            }
         );
-      }
-    );
-  };
-  return <div className={`${prefix}-action-bar`}>{actionButtons()}</div>;
+    };
+    return <div className={`${prefix}-action-bar`}>{actionButtons()}</div>;
 };
 
 ActionBar.propTypes = {
-  actions: propTypes.array.isRequired
+    actions: propTypes.array.isRequired
 };
 export default ActionBar;
