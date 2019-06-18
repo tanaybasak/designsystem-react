@@ -22,7 +22,6 @@ class DatePicker extends React.Component {
     this.date = new Date();
     this.isValidYear = true;
     this.isDateSelectedValid = true;
-    this.dateSelected = '';
     this.state = {
       currDateObj: {
         'day': this.date.getDay(),
@@ -32,6 +31,7 @@ class DatePicker extends React.Component {
       },
       showDateContainer: false,
       yearSelected: this.date.getFullYear(),
+      dateSelected: '',
     };
   }
 
@@ -48,19 +48,31 @@ class DatePicker extends React.Component {
 
   onChangeInputDate = (event) => {
     const isdateValid = this.isValidDate(event.target.value);
-    this.dateSelected = event.target.value;
     this.isDateSelectedValid = this.isValidDate(event.target.value);
-    if (isdateValid) {
+    if (isdateValid && event.target.value !== '') {
       const dateArray = event.target.value.split('/');
       const tempDate = new Date(dateArray[2], dateArray[0] - 1, dateArray[1]);
+      const day = tempDate.getDay();
+      const month = tempDate.getMonth();
+      let monthStr = String(month + 1);
+      const year = tempDate.getFullYear();
+      const date = tempDate.getDate();
+      let dateStr = String(date);
+      monthStr.length === 1 ? monthStr = monthStr.padStart(2, '0') : null;
+      dateStr.length === 1 ? dateStr = dateStr.padStart(2, '0') : null;
       this.setState({
         currDateObj: {
-          'day': tempDate.getDay(),
-          'month': tempDate.getMonth(),
-          'date': tempDate.getDate(),
-          'year': tempDate.getFullYear(),
+          'day': day,
+          'month': month,
+          'date': date,
+          'year': year,
         },
-        yearSelected: dateArray[2]
+        yearSelected: Number(dateArray[2]),
+        dateSelected: `${monthStr}/${dateStr}/${year}`
+      });
+    } else {
+      this.setState({
+        dateSelected: event.target.value
       });
     }
   }
@@ -79,7 +91,7 @@ class DatePicker extends React.Component {
       });
     } else {
       this.setState({
-        yearSelected: event.target.value
+        yearSelected: Number(event.target.value)
       });
     }
   }
@@ -129,7 +141,9 @@ class DatePicker extends React.Component {
   }
 
   selectDate = (event) => {
-    this.dateSelected = event.target.getAttribute('date');
+    this.setState({
+      dateSelected: event.target.getAttribute('date')
+    });
     this.isDateSelectedValid = true;
     this.isValidYear = true;
     this.toggleDateContainer();
@@ -167,7 +181,7 @@ class DatePicker extends React.Component {
       <section className="hcl-datePicker" data-component="datepicker">
         <div className="hcl-datePicker-container">
           <DateInput
-            dateSelected={this.dateSelected}
+            dateSelected={this.state.dateSelected}
             toggleDateContainer={this.toggleDateContainer}
             onChangeInputDate={this.onChangeInputDate}
             currDateObj={this.state.currDateObj}
@@ -188,7 +202,7 @@ class DatePicker extends React.Component {
                 yearSelected={this.state.yearSelected}
               />
               <WeekPanel weekDays={this.props.weekDays} />
-              <DatePanel currDateObj={this.state.currDateObj} dateSelected={this.dateSelected} selectDate={this.selectDate} />
+              <DatePanel currDateObj={this.state.currDateObj} dateSelected={this.state.dateSelected} selectDate={this.selectDate} />
             </div>
             : null}
         </div>
