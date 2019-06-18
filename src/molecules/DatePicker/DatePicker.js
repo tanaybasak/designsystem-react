@@ -30,7 +30,7 @@ class DatePicker extends React.Component {
         'year': this.date.getFullYear(),
       },
       showDateContainer: false,
-      yearSelected: this.date.getFullYear(),
+      yearSelected: String(this.date.getFullYear()),
       dateSelected: '',
     };
   }
@@ -67,7 +67,7 @@ class DatePicker extends React.Component {
           'date': date,
           'year': year,
         },
-        yearSelected: Number(dateArray[2]),
+        yearSelected: dateArray[2],
         dateSelected: `${monthStr}/${dateStr}/${year}`
       });
     } else {
@@ -81,7 +81,7 @@ class DatePicker extends React.Component {
     if (this.isValidYearFunc(event.target.value)) {
       const tempDate = new Date(Number(event.target.value), this.state.currDateObj.month, 15);
       this.setState({
-        yearSelected: Number(event.target.value),
+        yearSelected: event.target.value,
         currDateObj: {
           'day': tempDate.getDay(),
           'month': tempDate.getMonth(),
@@ -91,7 +91,7 @@ class DatePicker extends React.Component {
       });
     } else {
       this.setState({
-        yearSelected: Number(event.target.value)
+        yearSelected: event.target.value
       });
     }
   }
@@ -123,7 +123,7 @@ class DatePicker extends React.Component {
         'date': tempDate.getDate(),
         'year': tempDate.getFullYear(),
       },
-      yearSelected: this.state.yearSelected + 1,
+      yearSelected: String(Number(this.state.yearSelected) + 1),
     });
   }
 
@@ -136,7 +136,7 @@ class DatePicker extends React.Component {
         'date': tempDate.getDate(),
         'year': tempDate.getFullYear(),
       },
-      yearSelected: this.state.yearSelected - 1,
+      yearSelected: String(Number(this.state.yearSelected) - 1),
     });
   }
 
