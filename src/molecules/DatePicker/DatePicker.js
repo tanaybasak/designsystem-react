@@ -9,12 +9,13 @@ class DatePicker extends React.Component {
   static propTypes = {
     weekDays: PropTypes.array,
     months: PropTypes.array,
+    open: PropTypes.string
   };
 
   static defaultProps = {
     weekDays: ['S', 'M', 'T', 'W', 'Th', 'F', 'S'],
     months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-
+    open: 'down'
   };
 
   constructor(props) {
@@ -190,7 +191,7 @@ class DatePicker extends React.Component {
           />
           {this.state.showDateContainer
             ?
-            <div className="hcl-datePicker-panel hcl-datePicker-panel-above hcl-datePicker-panel-show">
+            <div className={`hcl-datePicker-panel hcl-datePicker-panel-show ${this.props.open === 'up' ? 'hcl-datePicker-panel-above' : 'hcl-datePicker-panel-below'}`}>
               <YearMonthPanel
                 months={this.props.months}
                 currDateObj={this.state.currDateObj}

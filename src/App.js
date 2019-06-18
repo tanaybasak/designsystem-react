@@ -687,11 +687,16 @@ class App extends Component {
               onChange={event => { console.log(event.currentTarget.value) }}
             />
           </div>
-          {/* DatePicker */}
-          <div className="hcl-col-12">
-            <DatePicker weekDays={weekDays} months={months} />
-          </div>
           <div />
+          {/* DatePicker */}
+          <div className="hcl-row m-3 hcl-col-12">
+            <div className="hcl-col-6">
+              <DatePicker weekDays={weekDays} months={months} open="up" />
+            </div>
+            <div className="hcl-col-6">
+              <DatePicker weekDays={weekDays} months={months} open="down" />
+            </div>
+          </div>
         </div>
       </main>
     );
