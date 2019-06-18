@@ -13,11 +13,6 @@ class YearMonthPanel extends React.Component {
     onChangeYear: PropTypes.func.isRequired,
   };
 
-  constructor(props) {
-    super(props);
-    this.year = '';
-  }
-
   render() {
     return (
       <div className="hcl-datePicker-month">

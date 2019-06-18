@@ -2,25 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 class DateInput extends React.Component {
-  static defaultProps = {
-    dateSelected: null,
-    toggleDateContainer : () => {},
-    onChangeInputDate :() => {},
-  
-  };
 
   static propTypes = {
-    dateSelected: PropTypes.string,
-    toggleDateContainer: PropTypes.func,
-    onChangeInputDate: PropTypes.func,
+    dateSelected: PropTypes.string.isRequired,
+    toggleDateContainer: PropTypes.func.isRequired,
+    onChangeInputDate: PropTypes.func.isRequired,
     isDateSelectedValid: PropTypes.bool.isRequired,
     isValidYear: PropTypes.bool.isRequired
   };
-
-  constructor(props){
-    super(props);
-    this.date = '';
-  }
 
   render(){
       return (
@@ -45,6 +34,4 @@ class DateInput extends React.Component {
         </React.Fragment>);
     }
 }
-
-
 export default DateInput;

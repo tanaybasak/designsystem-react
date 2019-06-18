@@ -40,17 +40,14 @@ class DatePanel extends React.Component {
             this.dateNodeList.push(this.createDayHTML('previous', i));
         }
         // days from current month
-        // eslint-disable-next-line no-plusplus
         for (let i = 1; i <= numOfDaysInMonth; i++) {
             this.dateNodeList.push(this.createDayHTML('current', i));
         }
         // days from next month  
         const numOfDaysFromNextMonth = numOfDaysFromPrevMonth === 6 ? 42 - numOfDaysInMonth + 1 : 42 - numOfDaysInMonth - numOfDaysFromPrevMonth;
-        // eslint-disable-next-line no-plusplus
         for (let i = 1; i < numOfDaysFromNextMonth; i++) {
             this.dateNodeList.push(this.createDayHTML('next', i));
         }
-
         return this.dateNodeList;
     }
 
@@ -58,7 +55,6 @@ class DatePanel extends React.Component {
         let month; let year;
         const day = (`0${String(i)}`).slice(-2);
         const todayDate = new Date();
-        // eslint-disable-next-line default-case
         switch (type) {
             case 'previous':
                 month = (`0${this.props.currDateObj.month === 0 ? 12 : this.props.currDateObj.month}`).slice(-2);

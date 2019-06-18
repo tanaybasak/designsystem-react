@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-expressions */
-/* eslint-disable no-param-reassign */
 import React from 'react';
 import PropTypes from 'prop-types';
 import YearMonthPanel from './YearMonthPanel/YearMonthPanel';
@@ -23,7 +21,7 @@ class DatePicker extends React.Component {
     super(props);
     this.date = new Date();
     this.isValidYear = true;
-    this.isDateSelectedValid= true;
+    this.isDateSelectedValid = true;
     this.dateSelected = '';
     this.state = {
       currDateObj: {
@@ -50,13 +48,18 @@ class DatePicker extends React.Component {
 
   onChangeInputDate = (event) => {
     const isdateValid = this.isValidDate(event.target.value);
-    this.dateSelected=event.target.value;
-    this.isDateSelectedValid=this.isValidDate(event.target.value);
+    this.dateSelected = event.target.value;
+    this.isDateSelectedValid = this.isValidDate(event.target.value);
     if (isdateValid) {
       const dateArray = event.target.value.split('/');
-      const date = new Date(dateArray[2], dateArray[0] - 1, dateArray[1]);
-      this.setDateObj(date); //TODO make it one set state
+      const tempDate = new Date(dateArray[2], dateArray[0] - 1, dateArray[1]);
       this.setState({
+        currDateObj: {
+          'day': tempDate.getDay(),
+          'month': tempDate.getMonth(),
+          'date': tempDate.getDate(),
+          'year': tempDate.getFullYear(),
+        },
         yearSelected: dateArray[2]
       });
     }
@@ -126,8 +129,8 @@ class DatePicker extends React.Component {
   }
 
   selectDate = (event) => {
-    this.dateSelected=event.target.getAttribute('date');
-    this.isDateSelectedValid =true;
+    this.dateSelected = event.target.getAttribute('date');
+    this.isDateSelectedValid = true;
     this.isValidYear = true;
     this.toggleDateContainer();
   };
@@ -141,7 +144,6 @@ class DatePicker extends React.Component {
 
   isValidDate = (s) => {
     if (s) {
-      // eslint-disable-next-line no-useless-escape
       const regex = /^[0-9]{2}[\/][0-9]{2}[\/][0-9]{4}$/g;
       s = s.split('/');
       if (s.length === 3 && (s[0].length === 1 || s[1].length === 1)) {
