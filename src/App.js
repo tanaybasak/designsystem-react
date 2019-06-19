@@ -688,10 +688,19 @@ class App extends Component {
                     </div>
                     {/* Tile Component */}
                     <div className="hcl-col-12 mt-5 mb-5">
-                        <Tile type="readable" />
-                        {/* <Tile type="clickable" />
-                        <Tile type="selectable" />
-                        <Tile type="expandable" /> */}
+                        <Tile type="readable" >
+                            <p>This is read only tile</p>
+                        </Tile>
+                        <Tile type="clickable" >
+                            <p>This is read only tile</p>
+                        </Tile>
+                        <Tile type="selectable" >
+                            <p>This is read only tile</p>
+                        </Tile>
+                        <Tile type="expandable" >
+                            <p >Content shown prior expand </p>
+                            <p >Content shown after expand </p>
+                        </Tile>
                     </div>
                 </div>
             </main>
