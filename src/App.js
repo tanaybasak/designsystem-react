@@ -24,6 +24,7 @@ import Slider from './atoms/Slider';
 import Overflowmenu from './molecules/Overflowmenu';
 import overflowlist from './molecules/Overflowmenu/sample-overflow-list.json';
 import { ContentSwitcher, Switch } from './molecules/ContentSwitcher';
+import Tile from './atoms/Tile';
 
 class App extends Component {
     state = {
@@ -684,6 +685,13 @@ class App extends Component {
                             title="Slider"
                             onChange={event => { console.log(event.currentTarget.value) }}
                         />
+                    </div>
+                    {/* Tile Component */}
+                    <div className="hcl-col-12 mt-5 mb-5">
+                        <Tile type="readable" />
+                        {/* <Tile type="clickable" />
+                        <Tile type="selectable" />
+                        <Tile type="expandable" /> */}
                     </div>
                 </div>
             </main>
