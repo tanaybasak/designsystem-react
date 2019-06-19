@@ -1,23 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import isRequiredIf from 'react-proptype-conditional-require';
 import prefix from '../../settings';
 
-const Tile = ({ type, children }) => {
+const Tile = ({ children, selectable, expandable, readable, clickable, id }) => {
     return (
         <React.Fragment>
-            {type === 'readable' && children
+            {readable && children
                 ?
                 <div className={`${prefix}-tile`}>
                     {children}
                 </div>
-                : type === 'clickable' && children
+                : clickable && children
                     ?
                     <div className={`${prefix}-tile-clickable`} tabIndex="0">
                         <a>
                             {children}
                         </a>
                     </div>
-                    : type === 'selectable' && children
+                    : selectable && children
                         ?
                         <label htmlFor="tile-id" className={`${prefix}-tile-selectable`} tabIndex="0">
                             <input id="tile-id" className={`${prefix}-tile-input`} type="checkbox" title="tile" />
@@ -29,11 +30,11 @@ const Tile = ({ type, children }) => {
                             </svg>
                             {children}
                         </label>
-                        : type === 'expandable' && children
+                        : expandable && children
                             ?
                             <div className={`${prefix}-tile-expandable`} tabIndex="0">
-                                <input id="tile-id-expand" className={`${prefix}-tile-input`} type="checkbox" title="tile" />
-                                <label htmlFor="tile-id-expand" className={`${prefix}-tile-arrow"`}>
+                                <input id={`${id}`} className={`${prefix}-tile-input`} type="checkbox" title="tile" />
+                                <label htmlFor={`${id}`} className={`${prefix}-tile-arrow`}>
                                     <svg width="12" height="7" viewBox="0 0 12 7">
                                         <path fillRule="nonzero" d="M6.002 5.55L11.27 0l.726.685L6.003 7 0 .685.726 0z" />
                                     </svg>
@@ -41,7 +42,7 @@ const Tile = ({ type, children }) => {
                                 <div className={`${prefix}-tile-content`}>
                                     {children[0]}
                                 </div>
-                                <div className={`${prefix}-tile-hide`}>
+                                <div className={`hcl-tile-hide`}>
                                     {children[1]}
                                 </div>
                             </div>
@@ -50,14 +51,13 @@ const Tile = ({ type, children }) => {
         </React.Fragment >
     );
 }
-
 Tile.propTypes = {
-    type: PropTypes.string,
-    children: PropTypes.node.isRequired
-};
-
-Tile.defaultProps = {
-    type: 'readable'
+    readable: PropTypes.bool,
+    clickable: PropTypes.bool,
+    selectable: PropTypes.bool,
+    expandable: PropTypes.bool,
+    children: PropTypes.node.isRequired,
+    id: isRequiredIf(PropTypes.string, (props) => props.hasOwnProperty('expandable'))
 };
 
 export default Tile;
