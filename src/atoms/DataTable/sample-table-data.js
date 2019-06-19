@@ -2,7 +2,8 @@ const tableData = {
     heading: [
         {
             content: 'Name',
-            title: 'Name'
+            title: 'Name',
+            sortable: true
         },
         {
             content: 'Protocol',

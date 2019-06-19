@@ -689,7 +689,14 @@ class App extends Component {
                     </div>
                     {/* Table Component */}
                     <div className="hcl-col-12 mt-5 mb-5">
-                        <DataTable id="sample_table_1" tableData={tableData} selectable />
+                        <DataTable
+                            id="sample_table_1"
+                            tableData={tableData}
+                            selectable
+                            onSort={(event) => {
+                                console.log(event.currentTarget);
+                            }}
+                        />
                     </div>
                 </div>
             </main>

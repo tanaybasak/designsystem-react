@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import prefix from '../../settings';
 import Checkbox from '../Checkbox';
 
-const DataTable = ({ id, tableData, selectable, className, ...restProps }) => {
+const DataTable = ({ id, tableData, selectable, className, onSort, ...restProps }) => {
     const { heading, content } = tableData;
     const [selected, setSelected] = useState(new Array(content.length));
     const [allSelected, setAllSelected] = useState(false);
@@ -40,6 +40,18 @@ const DataTable = ({ id, tableData, selectable, className, ...restProps }) => {
         updateAllSelected(newSelected);
     };
 
+    const sort = event => {
+        const col = event.currentTarget;
+        if (col.classList.contains('desc')) {
+            col.classList.remove('desc');
+            col.dataset.order = "asc";
+        } else {
+            col.classList.add("desc");
+            col.dataset.order = "desc";
+        }
+        onSort(event);
+    };
+
     return (
         <table
             id={id}
@@ -49,11 +61,29 @@ const DataTable = ({ id, tableData, selectable, className, ...restProps }) => {
             <thead>
                 <tr>
                     {
-                        selectable ? <th>
-                            <Checkbox id={`${id}_checkbox_all`} checked={allSelected} onChange={selectAll} />
-                        </th> : null
+                        selectable ?
+                            <th>
+                                <Checkbox
+                                    id={`${id}_checkbox_all`}
+                                    checked={allSelected}
+                                    onChange={selectAll}
+                                />
+                            </th>
+                            : null
                     }
-                    {heading.map((col, index) => (<th key={`heading-${index}`} title={col.title}>{col.content}</th>))}
+                    {
+                        heading.map(({ content, title, sortable }, index) => (
+                            <th
+                                key={`heading-${index}`}
+                                title={title}
+                                className={sortable ? 'sortable' : ''}
+                                data-column={content}
+                                onClick={sortable ? sort : null}
+                            >
+                                {content}
+                            </th>
+                        ))
+                    }
                 </tr>
             </thead>
             <tbody>
@@ -61,13 +91,25 @@ const DataTable = ({ id, tableData, selectable, className, ...restProps }) => {
                     content.map((row, index) => (
                         <tr key={`row-${index}`}>
                             {
-                                selectable ? <td>
-                                    <Checkbox id={`${id}_checkbox_${index}`} data-index={index} checked={selected[index]} onChange={setSelection} />
-                                </td> : null
+                                selectable ?
+                                    <td>
+                                        <Checkbox
+                                            id={`${id}_checkbox_${index}`}
+                                            data-index={index}
+                                            checked={selected[index]}
+                                            onChange={setSelection}
+                                        />
+                                    </td>
+                                    : null
                             }
                             {
                                 row.map((col, i) => (
-                                    <td key={`col-${index}-${i}`} title={col.title}>{col.content}</td>
+                                    <td
+                                        key={`col-${index}-${i}`}
+                                        title={col.title}
+                                    >
+                                        {col.content}
+                                    </td>
                                 ))
                             }
                         </tr>
@@ -82,14 +124,16 @@ DataTable.propTypes = {
     id: PropTypes.string.isRequired,
     tableData: PropTypes.any,
     selectable: PropTypes.bool,
-    className: PropTypes.string
+    className: PropTypes.string,
+    onSort: PropTypes.func
 };
 
 DataTable.defaultProps = {
     id: null,
     tableData: {},
     selectable: false,
-    className: ''
+    className: '',
+    onSort: {}
 };
 
 export default DataTable;
