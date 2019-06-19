@@ -687,21 +687,29 @@ class App extends Component {
                         />
                     </div>
                     {/* Tile Component */}
-                    <div className="hcl-col-12 mt-5 mb-5">
-                        <Tile readable>
-                            <p>This is read only tile</p>
-                        </Tile>
-                        <Tile clickable>
-                            <p>This is clickable tile</p>
-                        </Tile>
-                        <Tile selectable>
-                            <p>This is selectable tile</p>
-                        </Tile>
-                        <Tile expandable id="expandable-tile-1">
-                            <p >Content shown prior expand </p>
-                            <p >Content shown after expand </p>
-                        </Tile>
-                    </div>
+                    <section >
+                        <div className="hcl-col-12 mt-5 mb-5">
+                            <Tile readable>
+                                <p>This is read only tile</p>
+                            </Tile>
+                        </div>
+                        <div className="hcl-col-12 mt-5 mb-5">
+                            <Tile clickable>
+                                <p>This is clickable tile</p>
+                            </Tile>
+                        </div>
+                        <div className="hcl-col-12 mt-5 mb-5">
+                            <Tile selectable>
+                                <p>This is selectable tile</p>
+                            </Tile>
+                        </div>
+                        <div className="hcl-col-12 mt-5 mb-5">
+                            <Tile expandable id="expandable-tile-1">
+                                <p >Content shown prior expand </p>
+                                <p >Content shown after expand </p>
+                            </Tile>
+                        </div>
+                    </section>
                 </div>
             </main>
         );
