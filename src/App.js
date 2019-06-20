@@ -24,6 +24,7 @@ import Slider from './atoms/Slider';
 import Overflowmenu from './molecules/Overflowmenu';
 import overflowlist from './molecules/Overflowmenu/sample-overflow-list.json';
 import { ContentSwitcher, Switch } from './molecules/ContentSwitcher';
+import NumberInput from './atoms/NumberInput';
 
 class App extends Component {
     state = {
@@ -40,7 +41,9 @@ class App extends Component {
             example2: 1,
             example3: 2,
             example4: 0
-        }
+        },
+        valueNumber: 10,
+        validationMessage: ''
     };
 
     switchAll = [{
@@ -683,6 +686,57 @@ class App extends Component {
                             value={44}
                             title="Slider"
                             onChange={event => { console.log(event.currentTarget.value) }}
+                        />
+                    </div>
+
+                    <div className="hcl-col-12 mt-5 mb-5">
+                        <NumberInput
+                            defaultValue={this.state.valueNumber}
+                            onChange={value => {
+                                console.log(value);
+                            }}
+                            max={100}
+                            min={10}
+                            id="numberInput1"
+                            label="Number Input"
+
+                        />
+
+                        <NumberInput
+                            defaultValue={this.state.valueNumber}
+                            onChange={value => {
+                                if (value > 100) {
+                                    this.setState({
+                                        validationMessage: 'Value Should Be less than or equal to 100'
+                                    })
+                                } else if (value < 10) {
+                                    this.setState({
+                                        validationMessage: 'Value Should Be greater than or equal to 10'
+                                    })
+                                } else {
+                                    this.setState({
+                                        validationMessage: null
+                                    })
+                                }
+                            }}
+                            step={2}
+                            id="numberInput2"
+                            label="Number Input validation"
+                            helperText="Optional Helper text goes here (max 100 and min 10)"
+                            validationMessage={this.state.validationMessage}
+                        />
+
+                        <NumberInput
+                            defaultValue={this.state.valueNumber}
+                            id="numberInput3"
+                            helperText="Optional Helper text goes here (max 100 and min 10)"
+                            label="Number Input validation"
+                            disabled
+                        />
+
+                        <NumberInput
+                            defaultValue={this.state.valueNumber}
+                            helperText="Optional Helper text goes here (max 100 and min 10)"
                         />
                     </div>
                 </div>
