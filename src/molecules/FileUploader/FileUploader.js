@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import prefix from "../../settings";
-import Paragraph from '../Paragraph/Paragraph';
+import Paragraph from '../../atoms/Paragraph/Paragraph';
 
 export default function FileUploader({ id, className, label, children, description, disabled, multiple, fileType, tabIndex, onChange, ...restProps }) {
     const classnames = `${prefix}-file-btn ${className}`.trim();

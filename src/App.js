@@ -24,7 +24,7 @@ import Slider from './atoms/Slider';
 import Overflowmenu from './molecules/Overflowmenu';
 import overflowlist from './molecules/Overflowmenu/sample-overflow-list.json';
 import { ContentSwitcher, Switch } from './molecules/ContentSwitcher';
-import FileUploader from './atoms/FileUploader';
+import FileUploader from './molecules/FileUploader';
 
 class App extends Component {
     state = {
