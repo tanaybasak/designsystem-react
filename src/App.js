@@ -695,7 +695,9 @@ class App extends Component {
                         </div>
                         <div className="hcl-col-12 mt-5 mb-5">
                             <Tile clickable>
-                                <p>This is clickable tile</p>
+                                <a href="">
+                                    <p>This is clickable tile</p>
+                                </a>
                             </Tile>
                         </div>
                         <div className="hcl-col-12 mt-5 mb-5">
@@ -705,7 +707,9 @@ class App extends Component {
                         </div>
                         <div className="hcl-col-12 mt-5 mb-5">
                             <Tile expandable id="expandable-tile-1">
+                                {/* container for default content */}
                                 <p >Content shown prior expand </p>
+                                {/* container for content which will be added once expanded */}
                                 <p >Content shown after expand </p>
                             </Tile>
                         </div>

@@ -42,7 +42,7 @@ const Tile = ({ children, selectable, expandable, readable, clickable, id }) => 
                                 <div className={`${prefix}-tile-content`}>
                                     {children[0]}
                                 </div>
-                                <div className={`hcl-tile-hide`}>
+                                <div className={`${prefix}-tile-hide`}>
                                     {children[1]}
                                 </div>
                             </div>
