@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Button from '../../atoms/Button';
 import prefix from '../../settings';
 
 function Switch({ label, onClick, active, isDisabled, iconClass, ...restProps }) {
     return (
-        <Button
+        <button
             tabIndex={0}
             aria-label={label}
             key={`${label}-`}
@@ -16,13 +15,15 @@ function Switch({ label, onClick, active, isDisabled, iconClass, ...restProps })
         >
             {
                 iconClass ?
-                    <span className={`${prefix}-thumbnail ${iconClass}`} />
+                    <div className={`${prefix}-thumbnail-wrapper`}>
+                        <span className={`${prefix}-thumbnail ${iconClass}`} />
+                    </div>
                     : null
             }
             <span>
                 {label}
             </span>
-        </Button>
+        </button>
     )
 }
 
