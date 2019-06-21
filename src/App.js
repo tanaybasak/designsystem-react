@@ -733,11 +733,6 @@ class App extends Component {
                             label="Number Input validation"
                             disabled
                         />
-
-                        <NumberInput
-                            defaultValue={this.state.valueNumber}
-                            helperText="Optional Helper text goes here (max 100 and min 10)"
-                        />
                     </div>
                 </div>
             </main>

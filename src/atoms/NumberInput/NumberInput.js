@@ -9,6 +9,9 @@ const NumberInput = (
         id,
         label,
         disabled,
+        max,
+        min,
+        step,
         ...restProps
     }
 ) => {
@@ -58,14 +61,14 @@ const NumberInput = (
     }
 
     return (
-        <div className={`${prefix}-form-group`} disabled={disabled ? 'disabled' : null} data-invalid={restProps.validationMessage ? true : false}>
+        <div className={`${prefix}-number-input-wrapper ${prefix}-form-group`} disabled={disabled ? 'disabled' : null} data-invalid={restProps.validationMessage ? true : false}>
             <div className={`${prefix}-form-control ${prefix}-number-input`}>
                 <input
                     type="number"
                     className={`${prefix}-form-control`}
-                    max={restProps.max ? restProps.max : null}
-                    min={restProps.min ? restProps.min : null}
-                    step={restProps.step ? restProps.step : null}
+                    max={max ? max : null}
+                    min={min ? min : null}
+                    step={step ? step : null}
                     disabled={disabled ? 'disabled' : null}
                     id={id ? id : null}
                     value={value}
@@ -102,14 +105,20 @@ NumberInput.propTypes = {
     defaultValue: PropTypes.number,
     id: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
-    disabled: PropTypes.bool
+    disabled: PropTypes.bool,
+    max: PropTypes.number,
+    min: PropTypes.number,
+    step: PropTypes.number
 };
 
 NumberInput.defaultProps = {
     defaultValue: 0,
     id: '',
     label: '',
-    disabled: false
+    disabled: false,
+    max: null,
+    min: null,
+    step: null
 };
 
 export default NumberInput;

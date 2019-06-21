@@ -2,7 +2,7 @@
 
 exports[`Number Input renders correctly 1`] = `
 <div
-  className="hcl-form-group"
+  className="hcl-number-input-wrapper hcl-form-group"
   data-invalid={true}
   disabled={null}
 >
