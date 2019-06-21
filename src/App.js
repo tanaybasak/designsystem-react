@@ -689,23 +689,25 @@ class App extends Component {
                     {/* Tile Component */}
                     <section >
                         <div className="hcl-col-12 mt-5 mb-5">
-                            <Tile readable>
+                            {/* default tile */}
+                            <Tile >
                                 <p>This is read only tile</p>
                             </Tile>
                         </div>
                         <div className="hcl-col-12 mt-5 mb-5">
-                            <Tile clickable>
-                                <a href="">
-                                    <p>This is clickable tile</p>
-                                </a>
+                            {/* clickable tile */}
+                            <Tile clickable href="">
+                                <p>This is clickable tile</p>
                             </Tile>
                         </div>
                         <div className="hcl-col-12 mt-5 mb-5">
+                            {/* selectable tile */}
                             <Tile selectable>
                                 <p>This is selectable tile</p>
                             </Tile>
                         </div>
                         <div className="hcl-col-12 mt-5 mb-5">
+                            {/* expandable tile */}
                             <Tile expandable id="expandable-tile-1">
                                 {/* container for default content */}
                                 <p >Content shown prior expand </p>
