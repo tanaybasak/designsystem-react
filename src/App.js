@@ -24,7 +24,7 @@ import Slider from './atoms/Slider';
 import Overflowmenu from './molecules/Overflowmenu';
 import overflowlist from './molecules/Overflowmenu/sample-overflow-list.json';
 import { ContentSwitcher, Switch } from './molecules/ContentSwitcher';
-import NumberInput from './atoms/NumberInput';
+import NumberInput from './molecules/NumberInput';
 
 class App extends Component {
     state = {
