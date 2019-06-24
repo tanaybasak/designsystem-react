@@ -1,8 +1,8 @@
 import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
-import FormHelperText from '../FormHelperText';
-import Label from '../Label';
+import FormHelperText from '../../atoms/FormHelperText';
+import Label from '../../atoms/Label';
 const NumberInput = (
     {
         defaultValue,
@@ -12,11 +12,14 @@ const NumberInput = (
         max,
         min,
         step,
+        className,
         ...restProps
     }
 ) => {
     let [value, setValue] = useState(Number(defaultValue) || 0);
     const inputRef = useRef(null);
+    const classnames = `${prefix}-number-input-wrapper ${prefix}-form-group ${className.trim()}`;
+
     const increment = (event) => {
         event.preventDefault();
         if (inputRef.current.stepUp) {
@@ -61,7 +64,7 @@ const NumberInput = (
     }
 
     return (
-        <div className={`${prefix}-number-input-wrapper ${prefix}-form-group`} disabled={disabled ? 'disabled' : null} data-invalid={restProps.validationMessage ? true : false}>
+        <div className={classnames} disabled={disabled ? 'disabled' : null} data-invalid={restProps.validationMessage ? true : false}>
             <div className={`${prefix}-form-control ${prefix}-number-input`}>
                 <input
                     type="number"
@@ -108,7 +111,8 @@ NumberInput.propTypes = {
     disabled: PropTypes.bool,
     max: PropTypes.number,
     min: PropTypes.number,
-    step: PropTypes.number
+    step: PropTypes.number,
+    className: PropTypes.string
 };
 
 NumberInput.defaultProps = {
@@ -118,7 +122,8 @@ NumberInput.defaultProps = {
     disabled: false,
     max: null,
     min: null,
-    step: null
+    step: null,
+    className: ''
 };
 
 export default NumberInput;
