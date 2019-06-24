@@ -1,26 +1,23 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 
-const AccordionItem = ({ title, expanded, onChange, className, children, ...restProps }) => {
-    const [checked, setChecked] = useState(expanded || false);
+const AccordionItem = ({ title, expanded, onChange, onExpand, className, children, dataIndex, ...restProps }) => {
 
     const classnames = `${prefix}-accordion-item ${className}`.trim();
 
     return (
-        <li className={classnames} {...restProps}>
-            <input
-                className="hcl-accordion-expended"
-                type="checkbox"
-                checked={checked}
-                onClick={
-                    event => {
-                        const ch = !checked
-                        setChecked(ch);
-                        onChange(event, ch);
-                    }
+        <li
+            className={`${classnames}${expanded ? ' expanded' : ''}`}
+            data-index={dataIndex}
+            onClick={
+                event => {
+                    onChange(event);
+                    onExpand(event);
                 }
-            />
+            }
+            {...restProps}
+        >
             <span className="hcl-accordion-icon" />
             <span className="hcl-accordion-title">{title}</span>
             <p className="hcl-accordion-content">
@@ -34,16 +31,20 @@ AccordionItem.propTypes = {
     title: PropTypes.string.isRequired,
     expanded: PropTypes.bool,
     onChange: PropTypes.func,
+    onExpand: PropTypes.func,
     className: PropTypes.string,
-    children: PropTypes.any
+    children: PropTypes.any,
+    dataIndex: PropTypes.number
 };
 
 AccordionItem.defaultProps = {
     title: null,
     expanded: false,
     onChange: () => { },
+    onExpand: () => { },
     className: '',
-    children: ''
+    children: '',
+    dataIndex: null
 };
 
 export default AccordionItem;
