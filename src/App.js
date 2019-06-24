@@ -24,8 +24,7 @@ import Slider from './atoms/Slider';
 import Overflowmenu from './molecules/Overflowmenu';
 import overflowlist from './molecules/Overflowmenu/sample-overflow-list.json';
 import { ContentSwitcher, Switch } from './molecules/ContentSwitcher';
-import Accordion from './atoms/Accordion';
-import AccordionItem from './atoms/AccordionItem';
+import { Accordion, AccordionItem } from './molecules/Accordion';
 
 class App extends Component {
     state = {
@@ -694,8 +693,8 @@ class App extends Component {
                                 title="What is Lorem Ipsum ?"
                                 expanded
                                 onChange={
-                                    (event, expanded) => {
-                                        expanded ? alert('Accordian expanded') : alert('Accordian collapsed');
+                                    event => {
+                                        console.log(`Accordian toggled ${event.currentTarget}`);
                                     }
                                 }
                             >
@@ -711,8 +710,8 @@ class App extends Component {
                             <AccordionItem
                                 title="Why do we use it ?"
                                 onChange={
-                                    (event, expanded) => {
-                                        expanded ? alert('Accordian expanded') : alert('Accordian collapsed');
+                                    event => {
+                                        console.log(`Accordian toggled ${event.currentTarget}`);
                                     }
                                 }
                             >
@@ -729,8 +728,8 @@ class App extends Component {
                             <AccordionItem
                                 title="Wher we can it ?"
                                 onChange={
-                                    (event, expanded) => {
-                                        expanded ? alert('Accordian expanded') : alert('Accordian collapsed');
+                                    event => {
+                                        console.log(`Accordian toggled ${event.currentTarget}`);
                                     }
                                 }
                             >
