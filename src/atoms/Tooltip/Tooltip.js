@@ -2,9 +2,23 @@ import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import prefix from "../../settings";
-import EventManager from './eventManager';
 
-export default function Tooltip({ type, content, direction, children }) {
+const EventManager = {
+    functionList: {},
+    addEvent(eventName, fn, status) {
+        if (this.functionList[eventName]) {
+            this.functionList[eventName]();
+        }
+        this.functionList[eventName] = fn;
+        document.addEventListener(eventName, this.functionList[eventName], status);
+    },
+    removeEvent(eventName, status) {
+        document.removeEventListener(eventName, this.functionList[eventName], status);
+        delete this.functionList[eventName]
+    }
+}
+
+const Tooltip = ({ type, content, direction, children }) => {
 
     const tooltipContainerRef = useRef(null);
     const parentRef = useRef(null);
@@ -388,3 +402,5 @@ Tooltip.defaultProps = {
     direction: 'bottom',
     content: ''
 };
+
+export default Tooltip;
