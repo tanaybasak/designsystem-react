@@ -24,7 +24,11 @@ import Slider from './atoms/Slider';
 import Overflowmenu from './molecules/Overflowmenu';
 import overflowlist from './molecules/Overflowmenu/sample-overflow-list.json';
 import { ContentSwitcher, Switch } from './molecules/ContentSwitcher';
+<<<<<<< HEAD
 import Tooltip from './atoms/Tooltip';
+=======
+import FileUploader from './molecules/FileUploader';
+>>>>>>> 64170a0b3cbb0cb18949f1f277b5c50534887ca5
 
 class App extends Component {
     state = {
@@ -741,6 +745,7 @@ class App extends Component {
                             onChange={event => { console.log(event.currentTarget.value) }}
                         />
                     </div>
+<<<<<<< HEAD
 
                     <div className="hcl-col-12">
                         <div className="hcl-row mb-5">
@@ -796,6 +801,20 @@ class App extends Component {
                     </div>
 
 
+=======
+                    {/* File Uploader Component */}
+                    <div className="hcl-col-12">
+                        <FileUploader
+                            id="file_uploader"
+                            label="Account photo"
+                            description="only .jpg and .png files. 500kb max file size."
+                            fileType=".jpg"
+                            className="hcl-btn hcl-secondary hcl-sml"
+                        >
+                            Add file
+                        </FileUploader>
+                    </div>
+>>>>>>> 64170a0b3cbb0cb18949f1f277b5c50534887ca5
                 </div>
             </main>
         );
