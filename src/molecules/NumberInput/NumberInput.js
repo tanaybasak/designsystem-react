@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 import FormHelperText from '../../atoms/FormHelperText';
@@ -17,8 +17,41 @@ const NumberInput = (
     }
 ) => {
     let [value, setValue] = useState(Number(defaultValue) || 0);
+
+    const maxError = `Value Should Be less than or equal to ${max}`;
+    const minError = `Value Should Be less than or equal to ${min}`;
+    const requiredError = 'Number is not valid';
+
+    let [validationMessage, setValidationMessage] = useState('')
+
     const inputRef = useRef(null);
     const classnames = `${prefix}-number-input-wrapper ${prefix}-form-group ${className.trim()}`;
+
+    useEffect(
+        () => {
+
+            let newValue = Number(value);
+            if (restProps.required && value === '') {
+                setValidationMessage(requiredError);
+                return;
+            } else if (value !== '') {
+                if (max) {
+                    if (newValue > max) {
+                        setValidationMessage(maxError);
+                        return;
+                    }
+                }
+                if (min) {
+                    if (newValue < min) {
+                        setValidationMessage(minError);
+                        return;
+                    }
+                }
+            }
+            setValidationMessage('')
+        },
+        [value]
+    );
 
     const increment = (event) => {
         event.preventDefault();
@@ -64,7 +97,7 @@ const NumberInput = (
     }
 
     return (
-        <div className={classnames} disabled={disabled ? 'disabled' : null} data-invalid={restProps.validationMessage ? true : false}>
+        <div className={classnames} disabled={disabled ? 'disabled' : null} data-invalid={validationMessage !== '' ? true : false}>
             <div className={`${prefix}-form-control ${prefix}-number-input`}>
                 <input
                     type="number"
@@ -73,6 +106,7 @@ const NumberInput = (
                     min={min ? min : null}
                     step={step ? step : null}
                     disabled={disabled ? 'disabled' : null}
+                    data-invalid={validationMessage !== '' ? true : false}
                     id={id ? id : null}
                     value={value}
                     onChange={event => {
@@ -99,7 +133,11 @@ const NumberInput = (
 
             {label ? <Label htmlFor={id}>{label} </Label> : null}
             {restProps.helperText ? <FormHelperText className="helper-text">{restProps.helperText}</FormHelperText> : null}
-            {restProps.validationMessage ? <FormHelperText className="error-msg">{restProps.validationMessage}</FormHelperText> : null}
+            {/* {restProps.validationMessage ? <FormHelperText className="error-msg">{restProps.validationMessage}</FormHelperText> : null} */}
+            {<FormHelperText className="error-msg">
+                {validationMessage}
+            </FormHelperText>
+            }
         </div>
     )
 }

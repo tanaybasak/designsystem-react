@@ -696,6 +696,7 @@ class App extends Component {
                             onChange={value => {
                                 console.log(value);
                             }}
+                            required
                             max={100}
                             min={10}
                             id="numberInput1"
@@ -705,26 +706,10 @@ class App extends Component {
 
                         <NumberInput
                             defaultValue={this.state.valueNumber}
-                            onChange={value => {
-                                if (value > 100) {
-                                    this.setState({
-                                        validationMessage: 'Value Should Be less than or equal to 100'
-                                    })
-                                } else if (value < 10) {
-                                    this.setState({
-                                        validationMessage: 'Value Should Be greater than or equal to 10'
-                                    })
-                                } else {
-                                    this.setState({
-                                        validationMessage: null
-                                    })
-                                }
-                            }}
                             step={2}
                             id="numberInput2"
                             label="Number Input validation"
                             helperText="Optional Helper text goes here (max 100 and min 10)"
-                            validationMessage={this.state.validationMessage}
                         />
 
                         <NumberInput
@@ -734,6 +719,7 @@ class App extends Component {
                             label="Number Input validation"
                             disabled
                         />
+                    </div>
                     {/* File Uploader Component */}
                     <div className="hcl-col-12">
                         <FileUploader
