@@ -9,10 +9,10 @@ const DataTable = ({ id, tableData, selectable, className, onSort, ...restProps 
     const [allSelected, setAllSelected] = useState(false);
     const classnames = `${prefix}-data-table ${className}`.trim();
 
-    const updateAllSelected = (t_selected) => {
+    const updateAllSelected = (selectedRows) => {
         let result = content.length ? true : false;
-        for (let i = 0; i < t_selected.length; i++) {
-            if (!t_selected[i]) {
+        for (let i = 0; i < selectedRows.length; i++) {
+            if (!selectedRows[i]) {
                 result = false;
             }
         }
