@@ -25,6 +25,7 @@ import Overflowmenu from './molecules/Overflowmenu';
 import overflowlist from './molecules/Overflowmenu/sample-overflow-list.json';
 import { ContentSwitcher, Switch } from './molecules/ContentSwitcher';
 import NumberInput from './molecules/NumberInput';
+import FileUploader from './molecules/FileUploader';
 
 class App extends Component {
     state = {
@@ -733,6 +734,17 @@ class App extends Component {
                             label="Number Input validation"
                             disabled
                         />
+                    {/* File Uploader Component */}
+                    <div className="hcl-col-12">
+                        <FileUploader
+                            id="file_uploader"
+                            label="Account photo"
+                            description="only .jpg and .png files. 500kb max file size."
+                            fileType=".jpg"
+                            className="hcl-btn hcl-secondary hcl-sml"
+                        >
+                            Add file
+                        </FileUploader>
                     </div>
                 </div>
             </main>
