@@ -6,32 +6,32 @@ const Search = (
     {
         type,
         size,
-        background,
+        theme,
         className,
         ...restProps
     }
 ) => {
     let [value, setValue] = useState('');
-    let [newType, setType] = useState('');
+    let [clickableContent, setClickableContent] = useState('');
     const inputRef = useRef(null);
     const classnames = `${prefix}-search 
-        ${type === 'icon' ? `${prefix}-search-btn-only` : ''} 
-        ${newType} 
+        ${type === 'clickable' ? `${prefix}-search-btn-only` : ''} 
+        ${clickableContent} 
         ${size === 'small' ? `${prefix}-search-sm` : ''} 
-        ${background === 'white' ? `${prefix}-bg-white` : ''} 
+        ${theme === 'white' ? `${prefix}-bg-white` : ''} 
         ${className.trim()}`;
 
     const showSearch = (event) => {
         event.preventDefault();
-        setType('show');
+        setClickableContent('show');
         setTimeout(() => {
             inputRef.current.focus();
-        }, 150)
+        }, 200)
     }
 
     const hideSearch = () => {
         if (value === '') {
-            setType('');
+            setClickableContent('');
         }
     }
 
@@ -50,8 +50,8 @@ const Search = (
     return (
         <div className={classnames}>
             {
-                newType === '' ?
-                    (type === 'icon' ?
+                clickableContent === '' ?
+                    (type === 'clickable' ?
                         (<button className={`${prefix}-search-btn`} onClick={showSearch}>{searchIcon}</button>) :
                         (<span className={`${prefix}-search-btn`}>{searchIcon}</span>)
                     ) : null
@@ -68,7 +68,7 @@ const Search = (
                         restProps.onChange(event.currentTarget.value)
                     }
                 }}
-                onBlur={newType === 'show' ? hideSearch : null}
+                onBlur={clickableContent === 'show' ? hideSearch : null}
             />
             <button className={`${prefix}-search-reset ${value !== '' ? `show` : ``}`} onMouseDown={clearSearch} tabIndex="-1" />
         </div>
@@ -76,17 +76,17 @@ const Search = (
 }
 
 Search.propTypes = {
-    type: PropTypes.oneOf(["icon", "normal"]),
-    size: PropTypes.oneOf(["small", "normal"]),
-    background: PropTypes.oneOf(["white", "normal"]),
+    type: PropTypes.oneOf(["clickable", "default"]),
+    size: PropTypes.oneOf(["small", "default"]),
+    theme: PropTypes.oneOf(["white", "default"]),
     className: PropTypes.string,
     onChange: PropTypes.func
 };
 
 Search.defaultProps = {
-    type: 'normal',
-    size: 'normal',
-    background: 'normal',
+    type: 'default',
+    size: 'default',
+    theme: 'default',
     className: '',
     onChange: () => { }
 };

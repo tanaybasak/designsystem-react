@@ -695,7 +695,7 @@ class App extends Component {
 
                     <section className="hcl-col-12 mt-5 colBorder p-5">
                         <h5 className="p-2">Header Search</h5>
-                        <Search type="icon" />
+                        <Search type="clickable" />
                     </section>
 
                     <section className="hcl-col-12 mt-5 colBorder p-5">
@@ -705,27 +705,27 @@ class App extends Component {
 
                     <section className="hcl-col-12 mt-5 colBorder p-5">
                         <h5 className="p-2">Small Header Search</h5>
-                        <Search size="small" type="icon" />
+                        <Search size="small" type="clickable" />
                     </section>
 
-                    <section className="hcl-col-12 mt-5 colBorder p-5" style={{background: '#F5F7FB'}}>
+                    <section className="hcl-col-12 mt-5 colBorder p-5" style={{ background: '#F5F7FB' }}>
                         <h5 className="p-2">Normal Search (White background)</h5>
-                        <Search background="white" />
+                        <Search theme="white" />
                     </section>
 
-                    <section className="hcl-col-12 mt-5 colBorder p-5" style={{background: '#F5F7FB'}}>
+                    <section className="hcl-col-12 mt-5 colBorder p-5" style={{ background: '#F5F7FB' }}>
                         <h5 className="p-2">Header Search (White background)</h5>
-                        <Search type="icon" background="white" />
+                        <Search type="clickable" theme="white" />
                     </section>
 
-                    <section className="hcl-col-12 mt-5 colBorder p-5" style={{background: '#F5F7FB'}}>
+                    <section className="hcl-col-12 mt-5 colBorder p-5" style={{ background: '#F5F7FB' }}>
                         <h5 className="p-2">Small Search (White background)</h5>
-                        <Search size="small" background="white" />
+                        <Search size="small" theme="white" />
                     </section>
 
-                    <section className="hcl-col-12 mt-5 colBorder p-5" style={{background: '#F5F7FB'}}>
+                    <section className="hcl-col-12 mt-5 colBorder p-5" style={{ background: '#F5F7FB' }}>
                         <h5 className="p-2">Small Header Search (White background)</h5>
-                        <Search size="small" type="icon" background="white" />
+                        <Search size="small" type="clickable" theme="white" />
                     </section>
                 </div>
             </main>
