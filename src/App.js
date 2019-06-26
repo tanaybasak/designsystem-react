@@ -25,6 +25,7 @@ import Overflowmenu from './molecules/Overflowmenu';
 import overflowlist from './molecules/Overflowmenu/sample-overflow-list.json';
 import { ContentSwitcher, Switch } from './molecules/ContentSwitcher';
 import FileUploader from './molecules/FileUploader';
+import Pagination from './atoms/Pagination';
 
 class App extends Component {
     state = {
@@ -212,6 +213,9 @@ class App extends Component {
                     </div>
 
                     <hr />
+                    <div className="hcl-col-12">
+                        <Pagination totalItems={100} pageSizes={[10, 20, 30, 40, 50]} onChange={(e) => { console.log(e); }} />
+                    </div>
                     {/* Button */}
                     <div className="hcl-col-12">
                         <Button
