@@ -257,15 +257,6 @@ class App extends Component {
         return (
             <main className="hcl-container">
                 <div className="hcl-row m-0">
-                    {/* Dropdown Component */}
-                    <div className="hcl-row m-3 hcl-col-12">
-                        <div className="hcl-col-6">
-                            <Dropdown type="up" items={this.items} id="dropdown-3" label="Up Dropdown" />
-                        </div>
-                        <div className="hcl-col-6">
-                            <Dropdown type="down" items={this.items} id="dropdown-4" label="Down Dropdown" />
-                        </div>
-                    </div>
                     {/* Input Field */}
                     <div className="hcl-form-group hcl-col-12">
                         <Label htmlFor="firstname">First Name </Label>
