@@ -24,6 +24,7 @@ import Slider from './atoms/Slider';
 import Overflowmenu from './molecules/Overflowmenu';
 import overflowlist from './molecules/Overflowmenu/sample-overflow-list.json';
 import { ContentSwitcher, Switch } from './molecules/ContentSwitcher';
+import Dropdown from './atoms/Dropdown';
 
 class App extends Component {
     state = {
@@ -42,6 +43,25 @@ class App extends Component {
             example4: 0
         }
     };
+
+    items = [
+        {
+            id: 'option-1',
+            text: 'Option 1',
+        },
+        {
+            id: 'option-2',
+            text: 'Option 2',
+        },
+        {
+            id: 'option-3',
+            text: 'Option 3',
+        },
+        {
+            id: 'option-4',
+            text: 'Option 4',
+        },
+    ];
 
     switchAll = [{
         "name": "Cybernetics",
@@ -685,8 +705,17 @@ class App extends Component {
                             onChange={event => { console.log(event.currentTarget.value) }}
                         />
                     </div>
+                    {/* Dropdown Component */}
+                    <div className="hcl-row m-3 hcl-col-12">
+                        <div className="hcl-col-6">
+                            <Dropdown type="up" items={this.items} />
+                        </div>
+                        <div className="hcl-col-6">
+                            <Dropdown type="down" items={this.items} />
+                        </div>
+                    </div>
                 </div>
-            </main>
+            </main >
         );
     }
 }
