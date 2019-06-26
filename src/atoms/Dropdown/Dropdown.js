@@ -21,17 +21,17 @@ const Dropdown = ({ type, items, id, label }) => {
         if (document.getElementById(id).getElementsByTagName('ul')[0]) {
             getBound = document.getElementById(id).getElementsByTagName('ul')[0].getBoundingClientRect();
             // To open bottom dropdown at top
-            if (window.innerHeight < getBound.bottom && type === 'down') {
+            if (window.innerHeight < getBound.bottom && type === 'bottom') {
                 setTypeState('top')
             }
             // To open top dropdown at bottom
-            if (getBound.top + window.pageYOffset < 0 && type === 'up') {
+            if (getBound.top + window.pageYOffset < 0 && type === 'top') {
                 setTypeState('down')
             }
         }
     }
     return (
-        <section className={`${prefix}-dropdown ${typeState === "down" ? `${prefix}-dropdown-bottom` : `${prefix}-dropdown-top`}
+        <section className={`${prefix}-dropdown ${typeState === "bottom" ? `${prefix}-dropdown-bottom` : `${prefix}-dropdown-top`}
              ${isOpen ? `${prefix}-dropdown-open` : ""}`} data-component="dropdown" id={id}
         >
             <button className={`${prefix}-btn ${prefix}-dropdown-toggle`}

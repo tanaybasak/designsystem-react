@@ -772,10 +772,10 @@ class App extends Component {
                     {/* Dropdown Component */}
                     <div className="hcl-row m-3 hcl-col-12">
                         <div className="hcl-col-6">
-                            <Dropdown type="up" items={this.items} id="dropdown-1" label="Up DpopDown" />
+                            <Dropdown type="top" items={this.items} id="dropdown-1" label="Top DropDown" />
                         </div>
                         <div className="hcl-col-6">
-                            <Dropdown type="down" items={this.items} id="dropdown-2" label="Down DpopDown" />
+                            <Dropdown type="bottom" items={this.items} id="dropdown-2" label="Bottom DropDown" />
                         </div>
                     </div>
                 </div>
