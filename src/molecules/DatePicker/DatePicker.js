@@ -6,7 +6,6 @@ import DateInput from './DateInput';
 import WeekPanel from './WeekPanel';
 
 const DatePicker = ({ weekDays, months, open }) => {
-
   const date = new Date();
   const [currDateObj, setCurrDateObj] = useState({
     'day': date.getDay(),
@@ -76,7 +75,6 @@ const DatePicker = ({ weekDays, months, open }) => {
       'date': tempDate.getDate(),
       'year': tempDate.getFullYear(),
     });
-    console
   }
 
   const nextMonth = () => {
@@ -142,7 +140,6 @@ const DatePicker = ({ weekDays, months, open }) => {
       return true;
     }
     return false;
-
   }
 
   return (
@@ -183,7 +180,6 @@ const DatePicker = ({ weekDays, months, open }) => {
           : null
       }
     </section>);
-
 }
 
 DatePicker.propTypes = {

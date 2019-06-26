@@ -33,7 +33,6 @@ const YearMonthPanel = ({ months, currDateObj, prevMonth, nextMonth, yearIncreas
     </div>);
 };
 
-
 YearMonthPanel.propTypes = {
   months: PropTypes.array.isRequired,
   currDateObj: PropTypes.object.isRequired,

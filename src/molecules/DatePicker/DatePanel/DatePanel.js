@@ -73,7 +73,6 @@ const DatePanel = ({ currDateObj, dateSelected, selectDate }) => {
         </div>);
 }
 
-
 DatePanel.propTypes = {
     currDateObj: PropTypes.object.isRequired,
     dateSelected: PropTypes.string,
