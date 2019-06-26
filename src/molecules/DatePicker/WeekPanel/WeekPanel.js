@@ -1,29 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-class WeekPanel extends React.Component {
-    static propTypes = {
-        weekDays: PropTypes.array.isRequired
-      };
+const WeekPanel = ({ weekDays }) => {
+  const daysNodeList = [];
 
-    constructor(props) {
-        super(props)
-        this.daysNodeList =[];
-    }
+  const createWeekDays = () => {
+    weekDays.forEach((element, index) => {
+      daysNodeList.push(<span key={index}>{element}</span>);
+    });
+    return daysNodeList;
+  }
 
-    createWeekDays = () => {
-       this.props.weekDays.forEach((element , index) => {
-            this.daysNodeList.push(<span key={index}>{element}</span>);
-        });
-        return this.daysNodeList;
-    }
-
-    render() {
-        return (
-          <div className="hcl-datePicker-days">
-            {this.daysNodeList.length ===0 ? this.createWeekDays() : this.daysNodeList}
-          </div>
-        );
-    }
+  return (
+    <div className="hcl-datePicker-days">
+      {daysNodeList.length === 0 ? createWeekDays() : daysNodeList}
+    </div>
+  );
 }
+WeekPanel.propTypes = {
+  weekDays: PropTypes.array.isRequired
+};
 export default WeekPanel;
