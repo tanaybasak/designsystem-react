@@ -95,7 +95,8 @@ const DatePicker = ({ weekDays, months, open }) => {
       'date': tempDate.getDate(),
       'year': tempDate.getFullYear(),
     });
-    setYearSelected(String(Number(yearSelected) + 1));
+    setIsValidYear(true);
+    setYearSelected(String(tempDate.getFullYear()));
   }
 
   const yearDecrease = () => {
@@ -106,7 +107,8 @@ const DatePicker = ({ weekDays, months, open }) => {
       'date': tempDate.getDate(),
       'year': tempDate.getFullYear(),
     });
-    setYearSelected(String(Number(yearSelected) - 1));
+    setIsValidYear(true);
+    setYearSelected(String(tempDate.getFullYear()));
   }
 
   const selectDate = (event) => {
@@ -119,7 +121,7 @@ const DatePicker = ({ weekDays, months, open }) => {
   const isValidYearFunc = (s) => {
     const regex = /^[1-9]{1}[0-9]{3}$/g;
     setIsValidYear(regex.test(s))
-    return isValidYear;
+    return regex.test(s);
   }
 
   const isValidDate = (s) => {
