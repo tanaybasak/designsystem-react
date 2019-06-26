@@ -70,7 +70,7 @@ const DatePicker = ({ weekDays, months, open }) => {
 
   const toggleDateContainer = () => {
     isValidYear = true;
-    setYearSelected(currDateObj.year);
+    setYearSelected(String(currDateObj.year));
     setShowDateContainer(!showDateContainer)
   }
 

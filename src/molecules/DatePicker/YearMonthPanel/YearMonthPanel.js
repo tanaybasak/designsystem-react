@@ -41,7 +41,7 @@ YearMonthPanel.propTypes = {
   nextMonth: PropTypes.func.isRequired,
   yearIncrease: PropTypes.func.isRequired,
   yearDecrease: PropTypes.func.isRequired,
-  yearSelected: PropTypes.number.isRequired,
+  yearSelected: PropTypes.string.isRequired,
   onChangeYear: PropTypes.func.isRequired,
 };
 export default YearMonthPanel;
