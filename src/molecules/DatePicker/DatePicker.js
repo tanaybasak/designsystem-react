@@ -8,7 +8,6 @@ import WeekPanel from './WeekPanel';
 const DatePicker = ({ weekDays, months, open }) => {
 
   const date = new Date();
-  let isValidYear = true;
   const [currDateObj, setCurrDateObj] = useState({
     'day': date.getDay(),
     'month': date.getMonth(),
@@ -19,6 +18,7 @@ const DatePicker = ({ weekDays, months, open }) => {
   const [yearSelected, setYearSelected] = useState(String(date.getFullYear()));
   const [dateSelected, setDateSelected] = useState('');
   const [isDateSelectedValid, setIsDateSelectedValid] = useState(true);
+  const [isValidYear, setIsValidYear] = useState(true);
 
   const onChangeInputDate = (event) => {
     const isdateValid = isValidDate(event.target.value);
@@ -63,7 +63,7 @@ const DatePicker = ({ weekDays, months, open }) => {
   }
 
   const toggleDateContainer = () => {
-    isValidYear = true;
+    setIsValidYear(true)
     setYearSelected(String(currDateObj.year));
     setShowDateContainer(!showDateContainer)
   }
@@ -114,13 +114,13 @@ const DatePicker = ({ weekDays, months, open }) => {
   const selectDate = (event) => {
     setDateSelected(event.target.getAttribute('date'));
     setIsDateSelectedValid(true);
-    isValidYear = true;
+    setIsValidYear(true)
     toggleDateContainer();
   };
 
   const isValidYearFunc = (s) => {
     const regex = /^[1-9]{1}[0-9]{3}$/g;
-    isValidYear = regex.test(s);
+    setIsValidYear(regex.test(s))
     return isValidYear;
   }
 
