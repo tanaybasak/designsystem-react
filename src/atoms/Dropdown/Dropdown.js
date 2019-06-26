@@ -24,14 +24,11 @@ const Dropdown = ({ type, items, id, label }) => {
             if (window.innerHeight < getBound.bottom && type === 'down') {
                 setTypeState('top')
             }
-
             // To open top dropdown at bottom
             if (getBound.top + window.pageYOffset < 0 && type === 'up') {
                 setTypeState('down')
             }
         }
-
-
     }
     return (
         <section className={`${prefix}-dropdown ${typeState === "down" ? `${prefix}-dropdown-bottom` : `${prefix}-dropdown-top`}
@@ -56,7 +53,6 @@ const Dropdown = ({ type, items, id, label }) => {
                     : null}
         </section>
     );
-
 };
 
 Dropdown.propTypes = {
