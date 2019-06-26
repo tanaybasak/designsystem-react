@@ -9,8 +9,6 @@ const DatePicker = ({ weekDays, months, open }) => {
 
   const date = new Date();
   let isValidYear = true;
-  let isDateSelectedValid = true;
-
   const [currDateObj, setCurrDateObj] = useState({
     'day': date.getDay(),
     'month': date.getMonth(),
@@ -20,11 +18,11 @@ const DatePicker = ({ weekDays, months, open }) => {
   const [showDateContainer, setShowDateContainer] = useState(false);
   const [yearSelected, setYearSelected] = useState(String(date.getFullYear()));
   const [dateSelected, setDateSelected] = useState('');
-
+  const [isDateSelectedValid, setIsDateSelectedValid] = useState(true);
 
   const onChangeInputDate = (event) => {
     const isdateValid = isValidDate(event.target.value);
-    isDateSelectedValid = isValidDate(event.target.value);
+    setIsDateSelectedValid(isdateValid);
     if (isdateValid && event.target.value !== '') {
       const dateArray = event.target.value.split('/');
       const tempDate = new Date(dateArray[2], dateArray[0] - 1, dateArray[1]);
@@ -36,7 +34,6 @@ const DatePicker = ({ weekDays, months, open }) => {
       let dateStr = String(date);
       monthStr.length === 1 ? monthStr = monthStr.padStart(2, '0') : null;
       dateStr.length === 1 ? dateStr = dateStr.padStart(2, '0') : null;
-
       setCurrDateObj({
         'day': day,
         'month': month,
@@ -45,7 +42,6 @@ const DatePicker = ({ weekDays, months, open }) => {
       });
       setYearSelected(dateArray[2]);
       setDateSelected(`${monthStr}/${dateStr}/${year}`);
-
     } else {
       setDateSelected(event.target.value);
     }
@@ -61,9 +57,7 @@ const DatePicker = ({ weekDays, months, open }) => {
         'year': tempDate.getFullYear(),
       });
       setYearSelected(event.target.value);
-
     } else {
-
       setYearSelected(event.target.value);
     }
   }
@@ -119,11 +113,10 @@ const DatePicker = ({ weekDays, months, open }) => {
 
   const selectDate = (event) => {
     setDateSelected(event.target.getAttribute('date'));
-    isDateSelectedValid = true;
+    setIsDateSelectedValid(true);
     isValidYear = true;
     toggleDateContainer();
   };
-
 
   const isValidYearFunc = (s) => {
     const regex = /^[1-9]{1}[0-9]{3}$/g;
@@ -149,6 +142,7 @@ const DatePicker = ({ weekDays, months, open }) => {
       return true;
     }
     return false;
+
   }
 
   return (
