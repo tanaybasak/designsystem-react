@@ -60,7 +60,71 @@ class App extends Component {
         {
             id: 'option-4',
             text: 'Option 4',
+        }, {
+            id: 'option-13',
+            text: 'Option 13',
         },
+        {
+            id: 'option-14',
+            text: 'Option 14',
+        },
+        {
+            id: 'option-15',
+            text: 'Option 15',
+        },
+        {
+            id: 'option-16',
+            text: 'Option 16',
+        }, {
+            id: 'option-17',
+            text: 'Option 17',
+        },
+        {
+            id: 'option-18',
+            text: 'Option 18',
+        },
+        {
+            id: 'option-19',
+            text: 'Option 19',
+        },
+        {
+            id: 'option-20',
+            text: 'Option 20',
+        }, {
+            id: 'option-21',
+            text: 'Option 21',
+        },
+        {
+            id: 'option-22',
+            text: 'Option 22',
+        },
+        {
+            id: 'option-23',
+            text: 'Option 23',
+        },
+        {
+            id: 'option-24',
+            text: 'Option 24',
+        }, {
+            id: 'option-25',
+            text: 'Option 25',
+        },
+        {
+            id: 'option-26',
+            text: 'Option 26',
+        },
+        {
+            id: 'option-27',
+            text: 'Option 27',
+        },
+        {
+            id: 'option-28',
+            text: 'Option 28',
+        }, {
+            id: 'option-29',
+            text: 'Option 29',
+        },
+        
     ];
 
     switchAll = [{
@@ -193,13 +257,13 @@ class App extends Component {
         return (
             <main className="hcl-container">
                 <div className="hcl-row m-0">
-                 {/* Dropdown Component */}
-                 <div className="hcl-row m-3 hcl-col-12">
+                    {/* Dropdown Component */}
+                    <div className="hcl-row m-3 hcl-col-12">
                         <div className="hcl-col-6">
-                            <Dropdown type="up" items={this.items} id="dropdown-3" />
+                            <Dropdown type="up" items={this.items} id="dropdown-3" label="Up Dropdown" />
                         </div>
                         <div className="hcl-col-6">
-                            <Dropdown type="down" items={this.items} id="dropdown-4" />
+                            <Dropdown type="down" items={this.items} id="dropdown-4" label="Down Dropdown" />
                         </div>
                     </div>
                     {/* Input Field */}
@@ -717,10 +781,10 @@ class App extends Component {
                     {/* Dropdown Component */}
                     <div className="hcl-row m-3 hcl-col-12">
                         <div className="hcl-col-6">
-                            <Dropdown type="up" items={this.items} id="dropdown-1" />
+                            <Dropdown type="up" items={this.items} id="dropdown-1" label="Up DpopDown" />
                         </div>
                         <div className="hcl-col-6">
-                            <Dropdown type="down" items={this.items} id="dropdown-2" />
+                            <Dropdown type="down" items={this.items} id="dropdown-2" label="Down DpopDown" />
                         </div>
                     </div>
                 </div>
