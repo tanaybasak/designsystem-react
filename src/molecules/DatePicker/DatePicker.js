@@ -76,12 +76,23 @@ const DatePicker = ({ weekDays, months, open }) => {
 
   const prevMonth = () => {
     const tempDate = new Date(currDateObj.month === 0 ? currDateObj.year - 1 : currDateObj.year, currDateObj.month === 0 ? 11 : currDateObj.month - 1, 15);
-    setCurrDateObj(tempDate);
+    setCurrDateObj({
+      'day': tempDate.getDay(),
+      'month': tempDate.getMonth(),
+      'date': tempDate.getDate(),
+      'year': tempDate.getFullYear(),
+    });
+    console
   }
 
   const nextMonth = () => {
     const tempDate = new Date(currDateObj.month === 11 ? currDateObj.year + 1 : currDateObj.year, currDateObj.month === 11 ? 0 : currDateObj.month + 1, 15);
-    setCurrDateObj(tempDate);
+    setCurrDateObj({
+      'day': tempDate.getDay(),
+      'month': tempDate.getMonth(),
+      'date': tempDate.getDate(),
+      'year': tempDate.getFullYear(),
+    });
   }
 
   const yearIncrease = () => {
