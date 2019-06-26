@@ -11,11 +11,6 @@ const DatePanel = ({ currDateObj, dateSelected, selectDate }) => {
         fade: `${prefix}-datePicker-date-fade`,
     };
 
-    // shouldComponentUpdate() {
-    //     this.dateNodeList = [];
-    //     return true;
-    // }
-
     const createDateNodelist = () => {
         const numOfDaysInMonth = getDaysInMonth(currDateObj.month + 1, currDateObj.year);
         let numOfDaysFromPrevMonth = currDateObj.day - currDateObj.date % 7;
@@ -89,5 +84,3 @@ DatePanel.defaultProps = {
     dateSelected: '',
 };
 export default DatePanel;
-
-
