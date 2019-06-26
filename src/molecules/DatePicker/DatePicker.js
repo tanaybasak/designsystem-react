@@ -5,7 +5,7 @@ import DatePanel from './DatePanel/DatePanel';
 import DateInput from './DateInput';
 import WeekPanel from './WeekPanel';
 
-const DatePicker = ({ weekDays, months, open }) => {
+const DatePicker = ({ weekDays, months, open, format }) => {
   const date = new Date();
   const [currDateObj, setCurrDateObj] = useState({
     'day': date.getDay(),
@@ -24,25 +24,43 @@ const DatePicker = ({ weekDays, months, open }) => {
     setIsDateSelectedValid(isdateValid);
     if (isdateValid && event.target.value !== '') {
       const dateArray = event.target.value.split('/');
-      const tempDate = new Date(dateArray[2], dateArray[0] - 1, dateArray[1]);
-      const day = tempDate.getDay();
-      const month = tempDate.getMonth();
-      let monthStr = String(month + 1);
-      const year = tempDate.getFullYear();
-      const date = tempDate.getDate();
-      let dateStr = String(date);
-      monthStr.length === 1 ? monthStr = monthStr.padStart(2, '0') : null;
-      dateStr.length === 1 ? dateStr = dateStr.padStart(2, '0') : null;
-      setCurrDateObj({
-        'day': day,
-        'month': month,
-        'date': date,
-        'year': year,
-      });
-      setYearSelected(dateArray[2]);
-      setDateSelected(`${monthStr}/${dateStr}/${year}`);
+      switch (format) {
+        case 'mm/dd/yyyy':
+          updateFormattedDate(dateArray[0], dateArray[1], dateArray[2]);
+          break;
+        case 'dd/mm/yyyy':
+          updateFormattedDate(dateArray[1], dateArray[0], dateArray[2]);
+          break;
+      }
     } else {
       setDateSelected(event.target.value);
+    }
+  }
+
+  const updateFormattedDate = (mm, dd, yyyy) => {
+    const tempDate = new Date(yyyy, mm - 1, dd);
+    const day = tempDate.getDay();
+    const month = tempDate.getMonth();
+    let monthStr = String(month + 1);
+    const year = tempDate.getFullYear();
+    const date = tempDate.getDate();
+    let dateStr = String(date);
+    monthStr.length === 1 ? monthStr = monthStr.padStart(2, '0') : null;
+    dateStr.length === 1 ? dateStr = dateStr.padStart(2, '0') : null;
+    setCurrDateObj({
+      'day': day,
+      'month': month,
+      'date': date,
+      'year': year,
+    });
+    setYearSelected(yyyy);
+    switch (format) {
+      case 'mm/dd/yyyy':
+        setDateSelected(`${monthStr}/${dateStr}/${year}`);
+        break;
+      case 'dd/mm/yyyy':
+        setDateSelected(`${dateStr}/${monthStr}/${year}`);
+        break;
     }
   }
 
@@ -126,14 +144,28 @@ const DatePicker = ({ weekDays, months, open }) => {
 
   const isValidDate = (s) => {
     if (s) {
+      let tempDate, date, month, year;
       const regex = /^[0-9]{2}[\/][0-9]{2}[\/][0-9]{4}$/g;
       s = s.split('/');
       if (s.length === 3 && (s[0].length === 1 || s[1].length === 1)) {
         s[0].length === 1 ? s[0] = s[0].padStart(2, '0') : null;
         s[1].length === 1 ? s[1] = s[1].padStart(2, '0') : null;
       }
-      const d = new Date(s[2], s[0] - 1, s[1]);
-      if (d && (d.getMonth() + 1) === Number(s[0]) && regex.test(s.join('/')) && Number(s[2]) > 999) {
+      switch (format) {
+        case 'mm/dd/yyyy':
+          tempDate = new Date(s[2], s[0] - 1, s[1]);
+          year = s[2];
+          month = s[0];
+          date = s[1];
+          break
+        case 'dd/mm/yyyy':
+          tempDate = new Date(s[2], s[1] - 1, s[0]);
+          year = s[2];
+          month = s[1];
+          date = s[0];
+          break;
+      }
+      if (tempDate && (tempDate.getMonth() + 1 === Number(month)) && regex.test(s.join('/')) && Number(year) > 999) {
         return true;
       }
       return false;
@@ -154,6 +186,7 @@ const DatePicker = ({ weekDays, months, open }) => {
           currDateObj={currDateObj}
           isDateSelectedValid={isDateSelectedValid}
           isValidYear={isValidYear}
+          format={format}
         />
         {showDateContainer
           ?
@@ -169,7 +202,7 @@ const DatePicker = ({ weekDays, months, open }) => {
               yearSelected={yearSelected}
             />
             <WeekPanel weekDays={weekDays} />
-            <DatePanel currDateObj={currDateObj} dateSelected={dateSelected} selectDate={selectDate} />
+            <DatePanel currDateObj={currDateObj} dateSelected={dateSelected} selectDate={selectDate} format={format} />
           </div>
           : null}
       </div>
@@ -187,12 +220,14 @@ const DatePicker = ({ weekDays, months, open }) => {
 DatePicker.propTypes = {
   weekDays: PropTypes.array,
   months: PropTypes.array,
-  open: PropTypes.string
+  open: PropTypes.string,
+  format: PropTypes.string,
 };
 
 DatePicker.defaultProps = {
   weekDays: ['S', 'M', 'T', 'W', 'Th', 'F', 'S'],
   months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-  open: 'down'
+  open: 'down',
+  format: 'MM/DD/YYYY'
 };
 export default DatePicker;

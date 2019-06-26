@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const DateInput = ({dateSelected,toggleDateContainer,onChangeInputDate,isDateSelectedValid, isValidYear}) => {
+const DateInput = ({dateSelected,toggleDateContainer,onChangeInputDate,isDateSelectedValid, isValidYear, format}) => {
 return (
     <React.Fragment>
       <input
         type="text"
         className={`${'hcl-datePicker-input'} ${!(isDateSelectedValid && isValidYear) ? 'hcl-datePicker-container-error': ''}`}
-        placeholder="mm/dd/yyyy"
+        placeholder={format}
         autoComplete="off"
         value={dateSelected ? dateSelected : ''}
         onClick={toggleDateContainer}
@@ -29,6 +29,7 @@ DateInput.propTypes = {
   toggleDateContainer: PropTypes.func.isRequired,
   onChangeInputDate: PropTypes.func.isRequired,
   isDateSelectedValid: PropTypes.bool.isRequired,
-  isValidYear: PropTypes.bool.isRequired
+  isValidYear: PropTypes.bool.isRequired,
+  format: PropTypes.string.isRequired
 };
 export default DateInput;

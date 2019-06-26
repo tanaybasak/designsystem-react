@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { prefix } from '../../../settings';
 
-const DatePanel = ({ currDateObj, dateSelected, selectDate }) => {
+const DatePanel = ({ currDateObj, dateSelected, selectDate, format }) => {
     let dateNodeList = [];
     let DOMstrings = {
         datePicked: `${prefix}-datePicker-date-picked`,
@@ -56,12 +56,21 @@ const DatePanel = ({ currDateObj, dateSelected, selectDate }) => {
                 className={`${DOMstrings.dateUnSelected} ${type !== 'current' ? DOMstrings.fade : ''} ${year === todayDate.getFullYear() &&
                     currDateObj.month === todayDate.getMonth() && Number(day) === todayDate.getDate() ? DOMstrings.todayHighlight : ''}
                     ${date === dateSelected ? DOMstrings.datePicked : ''}`}
-                date={`${month}/${day}/${year}`}
-                key={`${month}/${day}/${year}`}
+                date={getFormattedDate(month, day, year)}
+                key={getFormattedDate(month, day, year)}
                 onClick={selectDate}
             >{day}
             </span>);
     };
+
+    const getFormattedDate = (month, day, year) => {
+        switch (format) {
+            case 'mm/dd/yyyy':
+                return `${month}/${day}/${year}`;
+            case 'dd/mm/yyyy':
+                return `${day}/${month}/${year}`;
+        }
+    }
 
     const getDaysInMonth = (month, year) => {
         return new Date(year, month, 0).getDate();
@@ -76,7 +85,8 @@ const DatePanel = ({ currDateObj, dateSelected, selectDate }) => {
 DatePanel.propTypes = {
     currDateObj: PropTypes.object.isRequired,
     dateSelected: PropTypes.string,
-    selectDate: PropTypes.func.isRequired
+    selectDate: PropTypes.func.isRequired,
+    format: PropTypes.string.isRequired
 };
 
 DatePanel.defaultProps = {
