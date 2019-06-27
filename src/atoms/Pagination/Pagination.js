@@ -127,7 +127,7 @@ function Pagination(props) {
             previousButton = previousButtonRef.current,
             nextIndex = selectedIndex;
         nextIndex++;
-        if (totalItems === 0 || pageNumberDropDownRef.current.options.length.length === 1) { // One Option
+        if (totalItems === 0 || pageNumberDropDownRef.current.options.length === 1) { // One Option
             previousButton.disabled = true;
             nextButton.disabled = true;
         } else if (selectedIndex === 0) { //First Index
@@ -140,9 +140,8 @@ function Pagination(props) {
             nextButton.disabled = false;
             previousButton.disabled = false;
         }
-        let pageNumberDropDown = pageNumberDropDownRef.current;
-        if (pageNumberDropDown.selectedIndex != -1) {
-            pageStartDisplayRef.current.innerHTML = pageNumberDropDown.options[pageNumberDropDown.selectedIndex].value;
+        if (pageNumberDropDownRef.current && pageNumberDropDownRef.current.selectedIndex != -1) {
+            pageStartDisplayRef.current.innerHTML = pageNumberDropDownRef.current.options[pageNumberDropDownRef.current.selectedIndex].value;
         }
     }
 
