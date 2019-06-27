@@ -63,68 +63,12 @@ class App extends Component {
             id: 'option-4',
             text: 'Option 4',
         }, {
-            id: 'option-13',
-            text: 'Option 13',
+            id: 'option-5',
+            text: 'Option 5',
         },
         {
-            id: 'option-14',
-            text: 'Option 14',
-        },
-        {
-            id: 'option-15',
-            text: 'Option 15',
-        },
-        {
-            id: 'option-16',
-            text: 'Option 16',
-        }, {
-            id: 'option-17',
-            text: 'Option 17',
-        },
-        {
-            id: 'option-18',
-            text: 'Option 18',
-        },
-        {
-            id: 'option-19',
-            text: 'Option 19',
-        },
-        {
-            id: 'option-20',
-            text: 'Option 20',
-        }, {
-            id: 'option-21',
-            text: 'Option 21',
-        },
-        {
-            id: 'option-22',
-            text: 'Option 22',
-        },
-        {
-            id: 'option-23',
-            text: 'Option 23',
-        },
-        {
-            id: 'option-24',
-            text: 'Option 24',
-        }, {
-            id: 'option-25',
-            text: 'Option 25',
-        },
-        {
-            id: 'option-26',
-            text: 'Option 26',
-        },
-        {
-            id: 'option-27',
-            text: 'Option 27',
-        },
-        {
-            id: 'option-28',
-            text: 'Option 28',
-        }, {
-            id: 'option-29',
-            text: 'Option 29',
+            id: 'option-6',
+            text: 'Option 6',
         },
     ];
 
@@ -618,7 +562,7 @@ class App extends Component {
                         <Button title="Default" className="mr-2" onClick={() => { this.setState({ modal: 5 }) }}>5</Button>
                         <Button title="Default" className="mr-2" onClick={() => { this.setState({ modal: 6 }) }}>6</Button>
                         <Button title="Default" className="mr-2" onClick={() => { this.setState({ modal: 7 }) }}>7</Button>
-
+                      
                         {/* Danger type Modals */}
                         {this.state.modal === 1 &&
                             <Modal type="danger" label="optional label" heading="Heading comes here." onClose={this.onModalClose} actions={this.modalActions1}>
