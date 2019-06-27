@@ -1,19 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
+import Pager from './Pager';
 import prefix from '../../settings';
 
 function Pagination(props) {
-    //{ totalItems, pageSizes, pageSize, page, onChange }
     const [totalItems] = useState(props.totalItems);
     const [pageSizes] = useState(props.pageSizes);
-    const [pageSize, setPageSize] = useState(props.pageSize);
+    let [pageSize, setPageSize] = useState(props.pageSize);
     let [pageNumber, setPageNumber] = useState(1);
 
 
     let [pageArray, setPageArray] = useState([]);
-    const [pageCount, setPageCount] = useState(1);
-    const [rangeStart, setRangeStart] = useState(1);
-    const [rangeEnd, setRangeEnd] = useState(10);
 
     let itemsPerPageDropDownRef = useRef(null);
     let pageNumberDropDownRef = useRef(null);
@@ -30,9 +27,23 @@ function Pagination(props) {
                 onLoad();
             }
             adjustRange();
+            if (pageArray && (pageArray.length === 0 || pageArray.length === 1)) {
+                disableNavigationButtons();
+            }
         },
         [totalItems, pageSize, pageArray, pageNumber]
     )
+
+    const disableNavigationButtons = () => {
+        nextButtonRef.current.disabled = true;
+        previousButtonRef.current.disabled = true;
+    }
+
+    const onLoad = async () => {
+        await setNoofPagesArray();
+        await toggleNavigationButtons(pageNumberDropDownRef.current.selectedIndex, pageNumberDropDownRef.current.options.length);
+        adjustRange();
+    }
 
     const adjustRange = () => {
         let rangeStart = rangeStartDisplayRef.current,
@@ -47,34 +58,30 @@ function Pagination(props) {
         }
     }
 
-    const onLoad = async () => {
-        await setNoofPagesArray();
-        await toggleNavigationButtons(pageNumberDropDownRef.current.selectedIndex, pageNumberDropDownRef.current.options.length);
-        adjustRange();
-    }
-
-    const setNoofPagesArray = () => {
+    const setNoofPagesArray = async () => {
         let pages = 0,
             pageArray = [];
         pages = getPages();
         if (pages && pages > 0) {
             pageArray = Array.from({ length: pages }, (v, k) => k + 1);
-            setPageArray(pageArray);
-            setPageCount(pageArray.length);
+            await setPageArray(pageArray);
         }
     }
 
     const onPageNumberDropDownChange = (value, e) => {
-        pageStartDisplayRef.current.innerHTML = e.target.options[e.target.selectedIndex].value;
+        //pageStartDisplayRef.current.innerHTML = e.target.options[e.target.selectedIndex].value;
         setPageNumber(Number(e.target.options[e.target.selectedIndex].value));
         toggleNavigationButtons(e.target.selectedIndex, e.target.options.length);
         props.onChange(e);
     }
 
     const onPageItemsDropDownChange = async (value, e) => {
+        debugger;
         await setPageSize(Number(e.target.options[e.target.selectedIndex].value));
+        await setNoofPagesArray();
+        await setPageNumber(1);
+        await toggleNavigationButtons(pageNumberDropDownRef.current.selectedIndex, pageNumberDropDownRef.current.options.length);
         await adjustRange();
-        setNoofPagesArray();
         props.onChange(e);
     }
 
@@ -105,7 +112,6 @@ function Pagination(props) {
         e.preventDefault();
         let nextButton = nextButtonRef.current,
             totalPages = getPages();
-
         if (nextButton && !nextButton.disabled && totalPages !== pageNumber) {
             pageNumberDropDownRef.current.selectedIndex++;
             pageNumber++;
@@ -116,13 +122,12 @@ function Pagination(props) {
         }
     }
 
-    const toggleNavigationButtons = (selectedIndex, optionsLength) => {
+    const toggleNavigationButtons = async (selectedIndex, optionsLength) => {
         let nextButton = nextButtonRef.current,
             previousButton = previousButtonRef.current,
             nextIndex = selectedIndex;
         nextIndex++;
-
-        if ((optionsLength === nextIndex) || totalItems === 0) { // One Option
+        if (totalItems === 0 || pageNumberDropDownRef.current.options.length.length === 1) { // One Option
             previousButton.disabled = true;
             nextButton.disabled = true;
         } else if (selectedIndex === 0) { //First Index
@@ -187,9 +192,9 @@ function Pagination(props) {
                 <div className={`${prefix}-pagination-right`}>
                     <span className={`${prefix}-pagination-text`}>
                         <span className={`${prefix}-page-start`} ref={pageStartDisplayRef}>
-                            1
+                            {pageNumber}
                         </span>&nbsp;of&nbsp;
-                        <span className={`${prefix}-page-end`} ref={pageEndDisplayRef} />{pageCount}&nbsp;pages
+                        <span className={`${prefix}-page-end`} ref={pageEndDisplayRef} />{pageArray.length}&nbsp;pages
                     </span>
                     <button className={`${prefix}-pagination-button-previous`}
                         aria-label={`Previous page`}
@@ -201,23 +206,7 @@ function Pagination(props) {
                         </svg>
                     </button>
                     <div className={`${prefix}-pagination-select-wrapper`}>
-                        <select className={`${prefix}-pagination-select ${prefix}-page-number`}
-                            ref={pageNumberDropDownRef}
-                            onChange={(e) => {
-                                onPageNumberDropDownChange(pageNumberDropDownRef.current.value, e);
-                            }}
-                        >
-                            {
-                                pageArray.map((item, idx) => {
-                                    return (
-                                        <option key={idx} value={item}>{item}</option>
-                                    )
-                                })
-                            }
-                        </select>
-                        <svg className={`${prefix}-select-arrow`} width="10" height="5" viewBox="0 0 10 5">
-                            <path d="M0 0l5 4.998L10 0z" fillRule="evenodd" />
-                        </svg>
+                        <Pager ref={pageNumberDropDownRef} onChange={onPageNumberDropDownChange} options={pageArray} />
                     </div>
                     <button className={`${prefix}-pagination-button-next`}
                         aria-label="Next page"
