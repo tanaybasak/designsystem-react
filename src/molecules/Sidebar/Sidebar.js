@@ -14,7 +14,6 @@ const Sidebar = ({ className, title, items, ...restProps }) => {
     return (
         <nav
             className={`${classnames}${expanded ? ` ${prefix}-sidebar-expanded` : ''}`}
-            data-component="navigation"
             {...restProps}
         >
             <div
@@ -22,31 +21,37 @@ const Sidebar = ({ className, title, items, ...restProps }) => {
                 onClick={expandSidebar}
             >
                 <div className={`${prefix}-sidebar-title-item`}>
-                    <span className={`${prefix}-icon-2`} />
-                    <span className={`${prefix}-sidebar-title-text`}>{title}</span>
+                    {title && title.length ?
+                        <>
+                            <span className={`${prefix}-icon-2`} />
+                            <span className={`${prefix}-sidebar-title-text`}>{title}</span>
+                        </>
+                        : null}
                 </div>
                 <div className={`${prefix}-sidebar-title-item`}>
                     <button className={`${prefix}-icon-2`}>&#62;</button>
                 </div>
             </div>
-            <ul className={`${prefix}-sidebar-list`}>
-                {
-                    items.map(({ href, title, className, ...extraProps }) => (
-                        <li
-                            className={`${prefix}-sidebar-list-item ${className}`.trim()}
-                            key={`sidebar_item_${title}`}
-                        >
-                            <a
-                                href={href}
-                                className={`${prefix}-sidebar-list-link`}
-                                {...extraProps}
+            {items && items.length ?
+                <ul className={`${prefix}-sidebar-list`}>
+                    {
+                        items.map(({ href, title, className, ...extraProps }, index) => (
+                            <li
+                                className={`${prefix}-sidebar-list-item ${className}`.trim()}
+                                key={`sidebar_item_${title}_${index}`}
                             >
-                                <span>{title}</span>
-                            </a>
-                        </li>
-                    ))
-                }
-            </ul>
+                                <a
+                                    href={href}
+                                    className={`${prefix}-sidebar-list-link`}
+                                    {...extraProps}
+                                >
+                                    <span>{title}</span>
+                                </a>
+                            </li>
+                        ))
+                    }
+                </ul>
+                : null}
         </nav>
     );
 };
