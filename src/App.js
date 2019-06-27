@@ -181,7 +181,7 @@ class App extends Component {
                 <div className="hcl-content">
                     <Sidebar
                         title="Section Title"
-                        items={navigationData.items}
+                        items={navigationData}
                     />
                     <main className="hcl-content-main">
                         <section className="hcl-container pt-5 mb-5">

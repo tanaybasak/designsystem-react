@@ -31,14 +31,15 @@ const Sidebar = ({ className, title, items, ...restProps }) => {
             </div>
             <ul className={`${prefix}-sidebar-list`}>
                 {
-                    items.map(({ href, title }) => (
+                    items.map(({ href, title, className, ...extraProps }) => (
                         <li
-                            className={`${prefix}-sidebar-list-item`}
+                            className={`${prefix}-sidebar-list-item ${className}`.trim()}
                             key={`sidebar_item_${title}`}
                         >
                             <a
                                 href={href}
                                 className={`${prefix}-sidebar-list-link`}
+                                {...extraProps}
                             >
                                 <span>{title}</span>
                             </a>
