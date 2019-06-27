@@ -76,12 +76,11 @@ function Pagination(props) {
     }
 
     const onPageItemsDropDownChange = async (value, e) => {
-        debugger;
         await setPageSize(Number(e.target.options[e.target.selectedIndex].value));
         await setNoofPagesArray();
         await setPageNumber(1);
-        await toggleNavigationButtons(pageNumberDropDownRef.current.selectedIndex, pageNumberDropDownRef.current.options.length);
-        await adjustRange();
+        toggleNavigationButtons(pageNumberDropDownRef.current.selectedIndex, pageNumberDropDownRef.current.options.length);
+        adjustRange();
         props.onChange(e);
     }
 
