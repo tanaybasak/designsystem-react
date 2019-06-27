@@ -28,14 +28,10 @@ function Pagination(props) {
         () => {
             if (totalItems > 0 && pageSizes.length > 0 && pageArray.length === 0) {
                 onLoad();
-                console.log('AAA');
             }
             adjustRange();
-            // setRangeStart(1);
-            // setRangeEnd(pageSize);
-            // getPageEndDisplay();
         },
-        [totalItems, pageSize, pageArray]
+        [totalItems, pageSize, pageArray, pageNumber]
     )
 
     const adjustRange = () => {
@@ -69,32 +65,17 @@ function Pagination(props) {
     }
 
     const onPageNumberDropDownChange = (value, e) => {
-        setPageNumber(value);
         pageStartDisplayRef.current.innerHTML = e.target.options[e.target.selectedIndex].value;
         setPageNumber(Number(e.target.options[e.target.selectedIndex].value));
         toggleNavigationButtons(e.target.selectedIndex, e.target.options.length);
-        adjustRange();
-
         props.onChange(e);
     }
 
     const onPageItemsDropDownChange = async (value, e) => {
-        //setPageSize(value);
-        //rangeEndDisplayRef.current.innerHTML = e.target.options[e.target.selectedIndex].value;
-        //this.createOption(this.selectors.PageNumber,
-        //Number(this.element.querySelector(this.selectors.totalitems).innerText),
-        //e.target.options[e.target.selectedIndex].value);
         await setPageSize(Number(e.target.options[e.target.selectedIndex].value));
         await adjustRange();
         setNoofPagesArray();
-        //this.resetNavigationButtons();
         props.onChange(e);
-    }
-
-    const getPageEndDisplay = () => {
-        if (pageEndDisplayRef.current) {
-            pageEndDisplayRef.current.innerText = pageSize;
-        }
     }
 
     const getPages = () => {
@@ -112,22 +93,24 @@ function Pagination(props) {
         if (previousButton && !previousButton.disabled && pageNumber > 1) {
             let pageNumberDropdown = pageNumberDropDownRef.current;
             pageNumberDropdown.selectedIndex--;
-            setPageNumber(pageNumber--);
+            pageNumber--;
+            setPageNumber(pageNumber);
             toggleNavigationButtons(pageNumberDropdown.selectedIndex, pageNumberDropdown.options.length);
             adjustRange();
             //this.emitEvent(this.events.eventPageChange, { 'direction': this.buttons.PREVIOUS });
         }
     }
 
-    const onNextChange = async (e) => {
+    const onNextChange = (e) => {
         e.preventDefault();
         let nextButton = nextButtonRef.current,
             totalPages = getPages();
 
         if (nextButton && !nextButton.disabled && totalPages !== pageNumber) {
             pageNumberDropDownRef.current.selectedIndex++;
-            await setPageNumber(pageNumber++);
-            await toggleNavigationButtons(pageNumberDropDownRef.current.selectedIndex, pageNumberDropDownRef.current.options.length);
+            pageNumber++;
+            setPageNumber(pageNumber);
+            toggleNavigationButtons(pageNumberDropDownRef.current.selectedIndex, pageNumberDropDownRef.current.options.length);
             adjustRange();
             //this.emitEvent(this.events.eventPageChange, { 'direction': this.buttons.NEXT });
         }
