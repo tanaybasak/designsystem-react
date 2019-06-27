@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
+import { trackDocumentClick, positionComponent } from '../../util'
+
 
 const Dropdown = ({ type, items, id, label, onChange, defaulSelection }) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -8,7 +10,7 @@ const Dropdown = ({ type, items, id, label, onChange, defaulSelection }) => {
     const [typeState, setTypeState] = useState(type);
 
     useEffect(() => {
-        positionDropDown();
+        positionComponent(() => { setTypeState('top') }, () => { setTypeState('bottom') }, type, document.getElementById(id).getElementsByTagName('ul')[0]);
     });
 
     const onSelect = (event) => {
@@ -17,33 +19,6 @@ const Dropdown = ({ type, items, id, label, onChange, defaulSelection }) => {
         setSelected(event.target.innerText);
         onChange(event);
 
-    };
-
-    const trackDocumentClick = (element, callback) => {
-        const handler = event => {
-            if (event.target !== element) {
-                window.removeEventListener("click", handler);
-                if (typeof callback === "function") {
-                    callback();
-                }
-            }
-        };
-        window.addEventListener("click", handler);
-    };
-
-    const positionDropDown = () => {
-        let getBound;
-        if (document.getElementById(id).getElementsByTagName('ul')[0]) {
-            getBound = document.getElementById(id).getElementsByTagName('ul')[0].getBoundingClientRect();
-            // To open bottom dropdown at top
-            if (window.innerHeight < getBound.bottom && type === 'bottom') {
-                setTypeState('top')
-            }
-            // To open top dropdown at bottom
-            if (getBound.top + window.pageYOffset < 0 && type === 'top') {
-                setTypeState('down')
-            }
-        }
     };
 
     return (
