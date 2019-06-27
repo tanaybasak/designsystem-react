@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 
-const Dropdown = ({ type, items, id, label }) => {
+const Dropdown = ({ type, items, id, label, onChange, defaulSelection }) => {
     const [isOpen, setIsOpen] = useState(false);
-    const [selected, setSelected] = useState(null);
+    const [selected, setSelected] = useState(defaulSelection);
     const [typeState, setTypeState] = useState(type);
 
     useEffect(() => {
@@ -14,6 +14,7 @@ const Dropdown = ({ type, items, id, label }) => {
     const onSelect = (event) => {
         setIsOpen(false);
         setSelected(event.target.innerText);
+        onChange(event);
     };
 
     const positionDropDown = () => {
@@ -46,7 +47,12 @@ const Dropdown = ({ type, items, id, label }) => {
                     <ul className={`${prefix}-dropdown-container`} aria-labelledby="dropdownMenuButton">
                         {
                             items.map(item => {
-                                return (<li className={`${prefix}-dropdown-item`} key={item.id} onClick={onSelect}>{item.text}</li>)
+                                return (
+                                    <li className={`${prefix}-dropdown-item`}
+                                        key={item.id}
+                                        onClick={onSelect}
+                                        id={item.id}
+                                    >{item.text}</li>)
                             })
                         }
                     </ul>
@@ -59,12 +65,16 @@ Dropdown.propTypes = {
     type: PropTypes.string,
     items: PropTypes.array.isRequired,
     id: PropTypes.string.isRequired,
-    label: PropTypes.string
+    label: PropTypes.string,
+    onChange: PropTypes.func,
+    defaulSelection: PropTypes.string
 };
 
 Dropdown.defaultProps = {
     type: "down",
-    label: "Select Option"
+    label: "Select Option",
+    onChange: () => { },
+    defaulSelection: null
 };
 
 export default Dropdown;

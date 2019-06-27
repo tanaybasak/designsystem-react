@@ -126,7 +126,6 @@ class App extends Component {
             id: 'option-29',
             text: 'Option 29',
         },
-
     ];
 
     switchAll = [{
@@ -828,10 +827,27 @@ class App extends Component {
                 {/* Dropdown Component */}
                 <div className="hcl-row m-3 hcl-col-12">
                     <div className="hcl-col-6">
-                        <Dropdown type="top" items={this.items} id="dropdown-1" label="Top DropDown" />
+                        <Dropdown
+                            type="top"
+                            items={this.items}
+                            id="dropdown-1"
+                            label="Top DropDown"
+                            defaulSelection="option 1"
+                            onChange={(event) => {
+                                console.log("event.target", event.target);
+                            }}
+                        />
                     </div>
                     <div className="hcl-col-6">
-                        <Dropdown type="bottom" items={this.items} id="dropdown-2" label="Bottom DropDown" />
+                        <Dropdown
+                            type="bottom"
+                            items={this.items}
+                            id="dropdown-2"
+                            label="Bottom DropDown"
+                            onChange={(event) => {
+                                console.log("event.target", event.target);
+                            }}
+                        />
                     </div>
                 </div>
             </main >
