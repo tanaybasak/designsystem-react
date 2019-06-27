@@ -8,13 +8,27 @@ const Dropdown = ({ type, items, id, label, onChange, defaulSelection }) => {
     const [typeState, setTypeState] = useState(type);
 
     useEffect(() => {
-        positionDropDown()
+        positionDropDown();
     });
 
     const onSelect = (event) => {
+        event.stopPropagation();
         setIsOpen(false);
         setSelected(event.target.innerText);
         onChange(event);
+
+    };
+
+    const trackDocumentClick = (element, callback) => {
+        const handler = event => {
+            if (event.target !== element) {
+                window.removeEventListener("click", handler);
+                if (typeof callback === "function") {
+                    callback();
+                }
+            }
+        };
+        window.addEventListener("click", handler);
     };
 
     const positionDropDown = () => {
@@ -30,14 +44,21 @@ const Dropdown = ({ type, items, id, label, onChange, defaulSelection }) => {
                 setTypeState('down')
             }
         }
-    }
+    };
+
     return (
         <section className={`${prefix}-dropdown ${typeState === "bottom" ? `${prefix}-dropdown-bottom` : `${prefix}-dropdown-top`}
              ${isOpen ? `${prefix}-dropdown-open` : ""}`} data-component="dropdown" id={id}
         >
             <button className={`${prefix}-btn ${prefix}-dropdown-toggle`}
                 data-toggle="dropdown"
-                onClick={() => { setIsOpen(true) }}
+                onClick={(event) => {
+                    event.stopPropagation();
+                    setIsOpen(true);
+                    trackDocumentClick(document.getElementById(id), () => {
+                        setIsOpen(false);
+                    });
+                }}
             >
                 {selected ? selected : label}
             </button>
