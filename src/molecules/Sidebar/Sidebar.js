@@ -61,7 +61,7 @@ Sidebar.propTypes = {
 Sidebar.defaultProps = {
     className: '',
     title: '',
-    items: null,
+    items: [],
     disabled: false
 };
 
