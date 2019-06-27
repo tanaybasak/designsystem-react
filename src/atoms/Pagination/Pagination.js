@@ -122,7 +122,10 @@ function Pagination(props) {
             nextIndex = selectedIndex;
         nextIndex++;
 
-        if (selectedIndex === 0) { //First Index
+        if ((optionsLength === nextIndex) || totalItems === 0) { // One Option
+            previousButton.disabled = true;
+            nextButton.disabled = true;
+        } else if (selectedIndex === 0) { //First Index
             previousButton.disabled = true;
             nextButton.disabled = false;
         } else if (nextIndex === optionsLength) { //Last Index
@@ -141,6 +144,7 @@ function Pagination(props) {
 
     return (
         <>
+            {totalItems > 0 && pageSizes.length > 0 && pageArray.length === 0}
             <div className={`${prefix}-pagination`}>
                 <div className={`${prefix}-pagination-left`}>
                     <label
