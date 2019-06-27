@@ -24,6 +24,7 @@ import Slider from './atoms/Slider';
 import Overflowmenu from './molecules/Overflowmenu';
 import overflowlist from './molecules/Overflowmenu/sample-overflow-list.json';
 import { ContentSwitcher, Switch } from './molecules/ContentSwitcher';
+import Search from './atoms/Search';
 import FileUploader from './molecules/FileUploader';
 import Pagination from './atoms/Pagination';
 
@@ -690,6 +691,47 @@ class App extends Component {
                             onChange={event => { console.log(event.currentTarget.value) }}
                         />
                     </div>
+
+                    {/* Search Component */}
+                    <section className="hcl-col-12 mt-5 colBorder p-5">
+                        <h5 className="p-2">Normal Search</h5>
+                        <Search />
+                    </section>
+
+                    <section className="hcl-col-12 mt-5 colBorder p-5">
+                        <h5 className="p-2">Header Search</h5>
+                        <Search type="clickable" />
+                    </section>
+
+                    <section className="hcl-col-12 mt-5 colBorder p-5">
+                        <h5 className="p-2">Small Search</h5>
+                        <Search size="small" />
+                    </section>
+
+                    <section className="hcl-col-12 mt-5 colBorder p-5">
+                        <h5 className="p-2">Small Header Search</h5>
+                        <Search size="small" type="clickable" />
+                    </section>
+
+                    <section className="hcl-col-12 mt-5 colBorder p-5" style={{ background: '#F5F7FB' }}>
+                        <h5 className="p-2">Normal Search (White background)</h5>
+                        <Search theme="white" />
+                    </section>
+
+                    <section className="hcl-col-12 mt-5 colBorder p-5" style={{ background: '#F5F7FB' }}>
+                        <h5 className="p-2">Header Search (White background)</h5>
+                        <Search type="clickable" theme="white" />
+                    </section>
+
+                    <section className="hcl-col-12 mt-5 colBorder p-5" style={{ background: '#F5F7FB' }}>
+                        <h5 className="p-2">Small Search (White background)</h5>
+                        <Search size="small" theme="white" />
+                    </section>
+
+                    <section className="hcl-col-12 mt-5 colBorder p-5" style={{ background: '#F5F7FB' }}>
+                        <h5 className="p-2">Small Header Search (White background)</h5>
+                        <Search size="small" type="clickable" theme="white" />
+                    </section>
                     {/* File Uploader Component */}
                     <div className="hcl-col-12">
                         <FileUploader
