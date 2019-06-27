@@ -2,21 +2,8 @@ import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import prefix from "../../settings";
-
-const EventManager = {
-    functionList: {},
-    addEvent(eventName, fn, status) {
-        if (this.functionList[eventName]) {
-            this.functionList[eventName]();
-        }
-        this.functionList[eventName] = fn;
-        document.addEventListener(eventName, this.functionList[eventName], status);
-    },
-    removeEvent(eventName, status) {
-        document.removeEventListener(eventName, this.functionList[eventName], status);
-        delete this.functionList[eventName]
-    }
-}
+import { getRem } from "../../common/utils";
+import EventManager from "../../common/eventManager";
 
 const Tooltip = ({ type, content, direction, children }) => {
 
@@ -30,7 +17,7 @@ const Tooltip = ({ type, content, direction, children }) => {
         return ReactDOM.createPortal(
             (
                 <div
-                    className={`${prefix}-tooltip ${prefix}-tooltip-${type}`}
+                    className={`${prefix}-tooltip ${prefix}-tooltip-${type} show`}
                     data-focus-on-click={type === 'interactive'}
                     ref={tooltipContainerRef}
                 >
@@ -81,10 +68,6 @@ const Tooltip = ({ type, content, direction, children }) => {
         },
         [showTooltip]
     );
-
-    const getRem = (value) => {
-        return `${value / 16}rem`;
-    }
 
     const updateIconPosition = (icon, position, value) => {
         icon.removeAttribute("style");
