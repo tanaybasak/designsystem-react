@@ -89,6 +89,7 @@ function Pagination(props) {
         await setPageSize(Number(e.target.options[e.target.selectedIndex].value));
         await setNoofPagesArray();
         await setPageNumber(1);
+        pageNumberDropDownRef.current.selectedIndex = 0;
         await toggleNavigationButtons(pageNumberDropDownRef.current.selectedIndex, pageNumberDropDownRef.current.options.length);
         adjustRange();
         props.onChange(e);
@@ -131,7 +132,7 @@ function Pagination(props) {
         }
     }
 
-    const toggleNavigationButtons = async (selectedIndex, optionsLength) => {
+    const toggleNavigationButtons = (selectedIndex, optionsLength) => {
         let nextButton = nextButtonRef.current,
             previousButton = previousButtonRef.current,
             nextIndex = selectedIndex;
