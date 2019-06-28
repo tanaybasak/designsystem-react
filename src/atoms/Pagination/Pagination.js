@@ -9,6 +9,14 @@ function Pagination(props) {
     let [pageSize, setPageSize] = useState(props.pageSize);
     let [pageNumber, setPageNumber] = useState(1);
 
+    // TODO: Why not using state as Object & use 1 callback to update?
+    // const [paginationState, updateState] = useState({
+    //     totalItems: props.totalItems,
+    //     pageSizes: props.pageSizes,
+    //     pageSize: props.pageSize,
+    //     pageNumber: 1,
+    //     pageArray: []
+    // });
 
     let [pageArray, setPageArray] = useState([]);
 
@@ -31,7 +39,7 @@ function Pagination(props) {
                 disableNavigationButtons();
             }
         },
-        [totalItems, pageSize, pageArray, pageNumber]
+        [totalItems, pageSizes, pageSize, pageArray, pageNumber]
     )
 
     const disableNavigationButtons = () => {
@@ -41,11 +49,13 @@ function Pagination(props) {
 
     const onLoad = async () => {
         await setNoofPagesArray();
+        await setPageSize(pageSizes[0]);
         await toggleNavigationButtons(pageNumberDropDownRef.current.selectedIndex, pageNumberDropDownRef.current.options.length);
         adjustRange();
     }
 
     const adjustRange = () => {
+        let pageSize = itemsPerPageDropDownRef.current.options[itemsPerPageDropDownRef.current.selectedIndex].value;
         let rangeStart = rangeStartDisplayRef.current,
             rangeEnd = rangeEndDisplayRef.current;
         if (rangeStart && rangeEnd) {
@@ -79,7 +89,7 @@ function Pagination(props) {
         await setPageSize(Number(e.target.options[e.target.selectedIndex].value));
         await setNoofPagesArray();
         await setPageNumber(1);
-        toggleNavigationButtons(pageNumberDropDownRef.current.selectedIndex, pageNumberDropDownRef.current.options.length);
+        await toggleNavigationButtons(pageNumberDropDownRef.current.selectedIndex, pageNumberDropDownRef.current.options.length);
         adjustRange();
         props.onChange(e);
     }
@@ -103,7 +113,7 @@ function Pagination(props) {
             setPageNumber(pageNumber);
             toggleNavigationButtons(pageNumberDropdown.selectedIndex, pageNumberDropdown.options.length);
             adjustRange();
-            //this.emitEvent(this.events.eventPageChange, { 'direction': this.buttons.PREVIOUS });
+            props.onChange(e);
         }
     }
 
@@ -117,7 +127,7 @@ function Pagination(props) {
             setPageNumber(pageNumber);
             toggleNavigationButtons(pageNumberDropDownRef.current.selectedIndex, pageNumberDropDownRef.current.options.length);
             adjustRange();
-            //this.emitEvent(this.events.eventPageChange, { 'direction': this.buttons.NEXT });
+            props.onChange(e);
         }
     }
 
@@ -234,7 +244,7 @@ Pagination.propTypes = {
 
 Pagination.defaultProps = {
     totalItems: 0,
-    pageSizes: [],
+    pageSizes: [10, 20, 30],
     pageSize: 10,
     page: 1,
     itemsPerPageText: 'Items per page:',

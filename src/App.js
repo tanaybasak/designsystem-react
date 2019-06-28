@@ -215,7 +215,8 @@ class App extends Component {
 
                     <hr />
                     <div className="hcl-col-12">
-                        <Pagination totalItems={11} pageSizes={[10, 20, 30, 40, 50]} onChange={(e) => { console.log(e); }} />
+                        <Pagination totalItems={8} pageSizes={[10, 20, 30, 40, 50]} onChange={(e) => { console.log(e); }} />
+                        <Pagination totalItems={300} pageSizes={[30, 40, 50]} onChange={(e) => { console.log(e); }} />
                     </div>
                     {/* Button */}
                     <div className="hcl-col-12">
