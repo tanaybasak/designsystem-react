@@ -3,162 +3,126 @@ import PropTypes from 'prop-types';
 import Pager from './Pager';
 import prefix from '../../settings';
 
-function Pagination(props) {
-    const [totalItems] = useState(props.totalItems);
-    const [pageSizes] = useState(props.pageSizes);
-    let [pageSize, setPageSize] = useState(props.pageSize);
-    let [pageNumber, setPageNumber] = useState(1);
+const Pagination = ({ totalItems, pageSizes, itemsPerPageText }) => {
+    //states
+    const [items, setItems] = useState(pageSizes[0]);
+    const [totalPages, setTotalPages] = useState(0);
+    const [pageItems, setPageItems] = useState([]);
 
-    // TODO: Why not using state as Object & use 1 callback to update?
-    // const [paginationState, updateState] = useState({
-    //     totalItems: props.totalItems,
-    //     pageSizes: props.pageSizes,
-    //     pageSize: props.pageSize,
-    //     pageNumber: 1,
-    //     pageArray: []
-    // });
+    //ref
+    const pageItemsSelectedRef = useRef();
+    const rangeStartRef = useRef();
+    const rangeEndRef = useRef();
+    const pagesRef = useRef(null);
+    const nextbtnRef = useRef();
+    const previousbtnRef = useRef();
+    const startpagedisplayRef = useRef();
+    const totalpagesdisplayRef = useRef();
 
-    let [pageArray, setPageArray] = useState([]);
-
-    let itemsPerPageDropDownRef = useRef(null);
-    let pageNumberDropDownRef = useRef(null);
-    let nextButtonRef = useRef(null);
-    let previousButtonRef = useRef(null);
-    let pageEndDisplayRef = useRef(null);
-    let pageStartDisplayRef = useRef(null);
-    let rangeStartDisplayRef = useRef(null);
-    let rangeEndDisplayRef = useRef(null);
-
+    //useEffect PagesItems
     useEffect(
         () => {
-            if (totalItems > 0 && pageSizes.length > 0 && pageArray.length === 0) {
-                onLoad();
-            }
-            adjustRange();
-            if (pageArray && (pageArray.length === 0 || pageArray.length === 1)) {
-                disableNavigationButtons();
-            }
+            rangeStartRef.current.innerHTML = 1;
+            rangeEndRef.current.innerHTML = items;
+            calculatePages();
         },
-        [totalItems, pageSizes, pageSize, pageArray, pageNumber]
+        [items, pageItemsSelectedRef.current]
     )
 
-    const disableNavigationButtons = () => {
-        nextButtonRef.current.disabled = true;
-        previousButtonRef.current.disabled = true;
+    // useEffect pages
+    useEffect(
+        () => {
+            if (pagesRef.current && pagesRef.current.selectedIndex != -1) {
+                pagesRef.current.selectedIndex = 0;
+                startpagedisplayRef.current.innerHTML = pagesRef.current.options[pagesRef.current.selectedIndex].value;
+                toggleNavButtons();
+            }
+        },
+        [pageItems, pagesRef.current]
+    )
+
+    const calculatePages = () => {
+        if (pageItemsSelectedRef.current && totalItems) {
+            let pages = Math.ceil(Number(totalItems) / Number(pageItemsSelectedRef.current.options[pageItemsSelectedRef.current.selectedIndex].value));
+            if (pages > 0) {
+                setTotalPages(
+                    Math.ceil(Number(totalItems) / Number(pageItemsSelectedRef.current.options[pageItemsSelectedRef.current.selectedIndex].value))
+                );
+                setPageItems(Array.from({ length: pages }, (v, k) => k + 1));
+            }
+        }
     }
 
-    const onLoad = async () => {
-        await setNoofPagesArray();
-        await setPageSize(pageSizes[0]);
-        await toggleNavigationButtons(pageNumberDropDownRef.current.selectedIndex, pageNumberDropDownRef.current.options.length);
-        adjustRange();
+    const toggleNavButtons = () => {
+        if (pagesRef.current) {
+            let nextIndex = pagesRef.current.selectedIndex;
+            nextIndex++;
+            if (totalItems === 0 || pagesRef.current.options.length === 1) { // One Option
+                previousbtnRef.current.disabled = true;
+                nextbtnRef.current.disabled = true;
+            } else if (pagesRef.current.selectedIndex === 0) { //First Index
+                previousbtnRef.current.disabled = true;
+                nextbtnRef.current.disabled = false;
+            } else if (nextIndex === pagesRef.current.options.length) { //Last Index
+                nextbtnRef.current.disabled = true;
+                previousbtnRef.current.disabled = false;
+            } else { // Enable Navigation Buttons
+                nextbtnRef.current.disabled = false;
+                previousbtnRef.current.disabled = false;
+            }
+        }
+    }
+
+    const _onItemsChange = () => {
+        setItems(pageItemsSelectedRef.current.options[pageItemsSelectedRef.current.selectedIndex].value);
     }
 
     const adjustRange = () => {
-        let pageSize = itemsPerPageDropDownRef.current.options[itemsPerPageDropDownRef.current.selectedIndex].value;
-        let rangeStart = rangeStartDisplayRef.current,
-            rangeEnd = rangeEndDisplayRef.current;
+        let pageSize = pageItemsSelectedRef.current.options[pageItemsSelectedRef.current.selectedIndex],
+            pageDropDown = pagesRef.current.options[pagesRef.current.selectedIndex];
+
+        let rangeStart = rangeStartRef.current,
+            rangeEnd = rangeEndRef.current;
         if (rangeStart && rangeEnd) {
-            rangeStart.innerHTML = ((pageNumber - 1) * pageSize) + 1;
-            if ((pageNumber * pageSize) > totalItems) {
+            rangeStart.innerHTML = ((pageDropDown.value - 1) * pageSize.value) + 1;
+            if ((pageDropDown.value * pageSize.value) > totalItems) {
                 rangeEnd.innerHTML = totalItems;
             } else {
-                rangeEnd.innerHTML = (pageNumber * pageSize);
+                rangeEnd.innerHTML = (pageDropDown.value * pageSize.value);
             }
         }
     }
 
-    const setNoofPagesArray = async () => {
-        let pages = 0,
-            pageArray = [];
-        pages = getPages();
-        if (pages && pages > 0) {
-            pageArray = Array.from({ length: pages }, (v, k) => k + 1);
-            await setPageArray(pageArray);
+    const _onNextClick = (e) => {
+        e.preventDefault();
+        let pageDropDown = pagesRef.current.options[pagesRef.current.selectedIndex];
+        if (nextbtnRef.current && !nextbtnRef.current.disabled && totalPages != pageDropDown.value) {
+            pagesRef.current.selectedIndex++;
+            startpagedisplayRef.current.innerHTML = pagesRef.current.options[pagesRef.current.selectedIndex].value;
+            toggleNavButtons();
+            adjustRange();
         }
     }
 
-    const onPageNumberDropDownChange = (value, e) => {
-        //pageStartDisplayRef.current.innerHTML = e.target.options[e.target.selectedIndex].value;
-        setPageNumber(Number(e.target.options[e.target.selectedIndex].value));
-        toggleNavigationButtons(e.target.selectedIndex, e.target.options.length);
-        props.onChange(e);
+    const _onPreviousClick = (e) => {
+        e.preventDefault();
+        let pageDropDown = pagesRef.current.options[pagesRef.current.selectedIndex];
+        if (previousbtnRef.current && !previousbtnRef.current.disabled && pageDropDown.value > 1) {
+            pagesRef.current.selectedIndex--;
+            startpagedisplayRef.current.innerHTML = pagesRef.current.options[pagesRef.current.selectedIndex].value;
+            toggleNavButtons();
+            adjustRange();
+        }
     }
 
-    const onPageItemsDropDownChange = async (value, e) => {
-        await setPageSize(Number(e.target.options[e.target.selectedIndex].value));
-        await setNoofPagesArray();
-        await setPageNumber(1);
-        pageNumberDropDownRef.current.selectedIndex = 0;
-        await toggleNavigationButtons(pageNumberDropDownRef.current.selectedIndex, pageNumberDropDownRef.current.options.length);
+    const _onPagesChange = () => {
+        toggleNavButtons();
         adjustRange();
-        props.onChange(e);
+        startpagedisplayRef.current.innerHTML = pagesRef.current.options[pagesRef.current.selectedIndex].value;
     }
-
-    const getPages = () => {
-        let pageItemsSelected = itemsPerPageDropDownRef.current;
-
-        if (pageItemsSelected && totalItems) {
-            return (Math.ceil(totalItems / pageItemsSelected.options[pageItemsSelected.selectedIndex].value));
-        }
-    }
-
-    const onPreviousChange = (e) => {
-        e.preventDefault();
-        let previousButton = previousButtonRef;
-
-        if (previousButton && !previousButton.disabled && pageNumber > 1) {
-            let pageNumberDropdown = pageNumberDropDownRef.current;
-            pageNumberDropdown.selectedIndex--;
-            pageNumber--;
-            setPageNumber(pageNumber);
-            toggleNavigationButtons(pageNumberDropdown.selectedIndex, pageNumberDropdown.options.length);
-            adjustRange();
-            props.onChange(e);
-        }
-    }
-
-    const onNextChange = (e) => {
-        e.preventDefault();
-        let nextButton = nextButtonRef.current,
-            totalPages = getPages();
-        if (nextButton && !nextButton.disabled && totalPages !== pageNumber) {
-            pageNumberDropDownRef.current.selectedIndex++;
-            pageNumber++;
-            setPageNumber(pageNumber);
-            toggleNavigationButtons(pageNumberDropDownRef.current.selectedIndex, pageNumberDropDownRef.current.options.length);
-            adjustRange();
-            props.onChange(e);
-        }
-    }
-
-    const toggleNavigationButtons = (selectedIndex, optionsLength) => {
-        let nextButton = nextButtonRef.current,
-            previousButton = previousButtonRef.current,
-            nextIndex = selectedIndex;
-        nextIndex++;
-        if (totalItems === 0 || pageNumberDropDownRef.current.options.length === 1) { // One Option
-            previousButton.disabled = true;
-            nextButton.disabled = true;
-        } else if (selectedIndex === 0) { //First Index
-            previousButton.disabled = true;
-            nextButton.disabled = false;
-        } else if (nextIndex === optionsLength) { //Last Index
-            nextButton.disabled = true;
-            previousButton.disabled = false;
-        } else { // Enable Navigation Buttons
-            nextButton.disabled = false;
-            previousButton.disabled = false;
-        }
-        if (pageNumberDropDownRef.current && pageNumberDropDownRef.current.selectedIndex != -1) {
-            pageStartDisplayRef.current.innerHTML = pageNumberDropDownRef.current.options[pageNumberDropDownRef.current.selectedIndex].value;
-        }
-    }
-
 
     return (
         <>
-            {totalItems > 0 && pageSizes.length > 0 && pageArray.length === 0}
             <div className={`${prefix}-pagination`}>
                 <div className={`${prefix}-pagination-left`}>
                     <label
@@ -166,61 +130,45 @@ function Pagination(props) {
                         className={`${prefix}-pagination-text`}
                         htmlFor={`${prefix}-pagination-select-7`}
                     >
-                        {props.itemsPerPageText}
+                        {itemsPerPageText}
                     </label>
                     <div className={`${prefix}-pagination-select-wrapper`}>
-                        <select
-                            className={`${prefix}-pagination-select ${prefix}-page-items`}
-                            ref={itemsPerPageDropDownRef}
-                            value={pageSize}
-                            onChange={(e) => {
-                                onPageItemsDropDownChange(itemsPerPageDropDownRef.current.value, e);
-                            }}
-                        >
-                            {pageSizes.map((item, idx) => {
-                                return (
-                                    <option key={idx} value={item}>{item}</option>
-                                );
-                            })}
-                        </select>
-                        <svg className={`${prefix}-select-arrow`} width="10" height="5" viewBox="0 0 10 5">
-                            <path d="M0 0l5 4.998L10 0z" fillRule="evenodd" />
-                        </svg>
+                        <Pager ref={pageItemsSelectedRef} onChange={_onItemsChange} options={pageSizes} className={`${prefix}-pagination-select ${prefix}-page-items`} />
                     </div>
                     <span className={`${prefix}-pagination-text`}>
                         <span className={`${prefix}-pagination-range`}>
-                            <span className={`${prefix}-range-start`} ref={rangeStartDisplayRef} />&nbsp;
-                            <span className={`${prefix}-range-separator`}>-</span>&nbsp;
-                            <span className={`${prefix}-range-end`} ref={rangeEndDisplayRef}>{pageSize}</span>
+                            <span className={`${prefix}-range-start`} ref={rangeStartRef} />&nbsp;
+                             <span className={`${prefix}-range-separator`}>-</span>&nbsp;
+                             <span className={`${prefix}-range-end`} ref={rangeEndRef} />
                         </span>&nbsp;of&nbsp;
-                        <span className={`${prefix}-pagination-totalitems`}>
+                         <span className={`${prefix}-pagination-totalitems`}>
                             {totalItems}
                         </span>&nbsp;items
-                    </span>
+                     </span>
                 </div>
                 <div className={`${prefix}-pagination-right`}>
                     <span className={`${prefix}-pagination-text`}>
-                        <span className={`${prefix}-page-start`} ref={pageStartDisplayRef}>
-                            {pageNumber}
+                        <span className={`${prefix}-page-start`} ref={startpagedisplayRef}>
+                            1
                         </span>&nbsp;of&nbsp;
-                        <span className={`${prefix}-page-end`} ref={pageEndDisplayRef} />{pageArray.length}&nbsp;pages
-                    </span>
+                         <span className={`${prefix}-page-end`} ref={totalpagesdisplayRef} />{totalPages}&nbsp;pages
+                     </span>
                     <button className={`${prefix}-pagination-button-previous`}
                         aria-label={`Previous page`}
-                        ref={previousButtonRef}
-                        onClick={onPreviousChange}
+                        ref={previousbtnRef}
+                        onClick={(e) => { _onPreviousClick(e); }}
                     >
                         <svg className={`bx--pagination__button-icon`} width="7" height="12" viewBox="0 0 7 12">
                             <path fillRule="nonzero" d="M1.45 6.002L7 11.27l-.685.726L0 6.003 6.315 0 7 .726z" />
                         </svg>
                     </button>
                     <div className={`${prefix}-pagination-select-wrapper`}>
-                        <Pager ref={pageNumberDropDownRef} onChange={onPageNumberDropDownChange} options={pageArray} />
+                        <Pager ref={pagesRef} onChange={_onPagesChange} options={pageItems} className={`${prefix}-pagination-select ${prefix}-page-number`} />
                     </div>
                     <button className={`${prefix}-pagination-button-next`}
                         aria-label="Next page"
-                        ref={nextButtonRef}
-                        onClick={onNextChange}
+                        ref={nextbtnRef}
+                        onClick={(e) => { _onNextClick(e); }}
                     >
                         <svg className={`bx--pagination__button-icon`} width="7" height="12" viewBox="0 0 7 12">
                             <path fillRule="nonzero"
@@ -231,14 +179,12 @@ function Pagination(props) {
                 </div>
             </div>
         </>
-    );
+    )
 }
 
 Pagination.propTypes = {
     totalItems: PropTypes.number.isRequired,
-    pageSizes: PropTypes.array.isRequired,
-    pageSize: PropTypes.number,
-    page: PropTypes.number,
+    pageSizes: PropTypes.array,
     itemsPerPageText: PropTypes.string,
     onChange: PropTypes.func
 };
@@ -246,9 +192,7 @@ Pagination.propTypes = {
 Pagination.defaultProps = {
     totalItems: 0,
     pageSizes: [10, 20, 30],
-    pageSize: 10,
-    page: 1,
-    itemsPerPageText: 'Items per page:',
+    itemsPerPageText: 'Items per Page:',
     onChange: () => { }
 };
 

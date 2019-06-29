@@ -8,10 +8,10 @@ const Pager = (props, ref) => {
         return null;
     }
 
-
     return (
         <>
-            <select className={`${prefix}-pagination-select ${prefix}-page-number`}
+            {/* eslint-disable-next-line react/prop-types */}
+            <select className={props.className}
                 ref={ref}
                 onChange={(e) => {
                     // eslint-disable-next-line react/prop-types
@@ -36,14 +36,14 @@ const Pager = (props, ref) => {
 
 // Pager.protoTypes = {
 //     options: PropTypes.arrayOf(PropTypes.number),
+//     className: PropTypes.string,
 //     onChange: PropTypes.func
 // }
 
 // Pager.defaultProps = {
 //     options: [],
+//     className: '',
 //     onChange: () => { }
 // }
-
-//Pager.displayName = 'Pager';
 
 export default React.forwardRef(Pager);
