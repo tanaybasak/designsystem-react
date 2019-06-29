@@ -765,9 +765,13 @@ class App extends Component {
                             {/* expandable tile */}
                             <Tile expandable id="expandable-tile-1">
                                 {/* container for default content */}
-                                <p >Content shown prior expand </p>
+                                <div>
+                                    <p >Content shown prior expand </p>
+                                </div>
                                 {/* container for content which will be added once expanded */}
-                                <p >Content shown after expand </p>
+                                <div>
+                                    <p >Content shown after expand </p>
+                                </div>
                             </Tile>
                         </div>
                     </section>
