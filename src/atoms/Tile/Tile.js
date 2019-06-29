@@ -73,7 +73,8 @@ const Tile = ({ children, selectable, expandable, clickable, id, href }) => {
             }
         </React.Fragment >
     );
-}
+};
+
 Tile.propTypes = {
     clickable: PropTypes.bool,
     selectable: PropTypes.bool,
