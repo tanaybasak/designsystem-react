@@ -24,6 +24,8 @@ import Slider from './atoms/Slider';
 import Overflowmenu from './molecules/Overflowmenu';
 import overflowlist from './molecules/Overflowmenu/sample-overflow-list.json';
 import { ContentSwitcher, Switch } from './molecules/ContentSwitcher';
+import DataTable from './atoms/DataTable';
+import tableData from './atoms/DataTable/sample-table-data';
 import Search from './atoms/Search';
 import FileUploader from './molecules/FileUploader';
 import { Accordion, AccordionItem } from './molecules/Accordion';
@@ -715,6 +717,15 @@ class App extends Component {
                             onChange={event => { console.log(event.currentTarget.value) }}
                         />
                     </div>
+                    {/* Table Component */}
+                    <div className="hcl-col-12 mt-5 mb-5">
+                        <DataTable
+                            id="sample_table_1"
+                            tableData={tableData}
+                            selectable
+                            onSort={(event) => { console.log(event.currentTarget) }}
+                        />
+                    </div>
                     {/* Search Component */}
                     <section className="hcl-col-12 mt-5 colBorder p-5">
                         <h5 className="p-2">Normal Search</h5>
@@ -827,7 +838,7 @@ class App extends Component {
                             </AccordionItem>
                         </Accordion>
                     </div>
-                </div>
+                
                 {/* Dropdown Component */}
                 <div className="hcl-row m-3 hcl-col-12">
                     <div className="hcl-col-6">
@@ -841,6 +852,7 @@ class App extends Component {
                             }}
                         />
                     </div>
+                </div>
                     <div className="hcl-col-6">
                         <Dropdown
                             type="bottom"
@@ -851,8 +863,8 @@ class App extends Component {
                             }}
                         />
                     </div>
-                </div>
-            </main >
+                    </div>
+            </main>
         );
     }
 }
