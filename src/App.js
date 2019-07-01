@@ -774,7 +774,6 @@ class App extends Component {
                         <Dropdown
                             type="top"
                             items={this.items}
-                            id="dropdown-1"
                             label="Top DropDown"
                             defaulSelection={{
                                 id: 'option-1',
@@ -789,7 +788,6 @@ class App extends Component {
                         <Dropdown
                             type="bottom"
                             items={this.items}
-                            id="dropdown-2"
                             label="Bottom DropDown"
                             onChange={(selected) => {
                                 console.log("selected item", selected);
