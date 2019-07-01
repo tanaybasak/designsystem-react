@@ -142,35 +142,33 @@ const DatePicker = ({ weekDays, months, open, format }) => {
     return regex.test(s);
   }
 
-  const isValidDate = (s) => {
-    if (s) {
-      let tempDate, date, month, year;
+  const isValidDate = (str) => {
+    if (str) {
+      let tempDate, month, year;
       const regex = /^[0-9]{2}[\/][0-9]{2}[\/][0-9]{4}$/g;
-      s = s.split('/');
-      if (s.length === 3 && (s[0].length === 1 || s[1].length === 1)) {
-        s[0].length === 1 ? s[0] = s[0].padStart(2, '0') : null;
-        s[1].length === 1 ? s[1] = s[1].padStart(2, '0') : null;
+      str = str.split('/');
+      if (str.length === 3 && (str[0].length === 1 || str[1].length === 1)) {
+        str[0].length === 1 ? str[0] = str[0].padStart(2, '0') : null;
+        str[1].length === 1 ? str[1] = str[1].padStart(2, '0') : null;
       }
       switch (format) {
         case 'mm/dd/yyyy':
-          tempDate = new Date(s[2], s[0] - 1, s[1]);
-          year = s[2];
-          month = s[0];
-          date = s[1];
+          tempDate = new Date(str[2], str[0] - 1, str[1]);
+          year = str[2];
+          month = str[0];
           break
         case 'dd/mm/yyyy':
-          tempDate = new Date(s[2], s[1] - 1, s[0]);
-          year = s[2];
-          month = s[1];
-          date = s[0];
+          tempDate = new Date(str[2], str[1] - 1, str[0]);
+          year = str[2];
+          month = str[1];
           break;
       }
-      if (tempDate && (tempDate.getMonth() + 1 === Number(month)) && regex.test(s.join('/')) && Number(year) > 999) {
+      if (tempDate && (tempDate.getMonth() + 1 === Number(month)) && regex.test(str.join('/')) && Number(year) > 999) {
         return true;
       }
       return false;
     }
-    if (s === '') {
+    if (str === '') {
       return true;
     }
     return false;
