@@ -31,7 +31,7 @@ const Dropdown = ({ type, items, label, onChange, defaulSelection }) => {
                 onClick={(event) => {
                     event.stopPropagation();
                     setIsOpen(true);
-                    trackDocumentClick(document.getElementById(id), () => {
+                    trackDocumentClick(dropDown.current, () => {
                         setIsOpen(false);
                     });
                 }}
