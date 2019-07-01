@@ -25,7 +25,7 @@ import Overflowmenu from './molecules/Overflowmenu';
 import overflowlist from './molecules/Overflowmenu/sample-overflow-list.json';
 import { ContentSwitcher, Switch } from './molecules/ContentSwitcher';
 import DatePicker from './molecules/DatePicker';
-import { weekDays, months } from './settings';
+import { weekDays, months } from './content';
 
 class App extends Component {
   state = {
