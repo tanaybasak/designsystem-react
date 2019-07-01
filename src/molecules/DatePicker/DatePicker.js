@@ -21,10 +21,6 @@ const DatePicker = ({ weekDays, months, open, format }) => {
   const [isDateSelectedValid, setIsDateSelectedValid] = useState(true);
   const [isValidYear, setIsValidYear] = useState(true);
 
-  const onChangeInputDate = (event) => {
-    setDateSelected(event.target.value);
-  };
-
   const onEnterPressInputDate = (event) => {
     if (event.key === "Enter") {
       const isdateValid = isValidDate(event.target.value, format);
@@ -144,7 +140,7 @@ const DatePicker = ({ weekDays, months, open, format }) => {
         <DateInput
           dateSelected={dateSelected}
           toggleDateContainer={toggleDateContainer}
-          onChangeInputDate={onChangeInputDate}
+          onChangeInputDate={(event)=>{ setDateSelected(event.target.value)}}
           currDateObj={currDateObj}
           isDateSelectedValid={isDateSelectedValid}
           isValidYear={isValidYear}
