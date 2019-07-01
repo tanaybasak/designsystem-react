@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../../settings';
 
-const DateInput = ({dateSelected,toggleDateContainer,onChangeInputDate,isDateSelectedValid, isValidYear, format}) => {
-return (
+const DateInput = ({dateSelected,toggleDateContainer,onChangeInputDate,isDateSelectedValid, isValidYear,onEnterPressInputDate, format}) => {
+  return (
     <React.Fragment>
       <input
         type="text"
@@ -13,6 +13,7 @@ return (
         value={dateSelected ? dateSelected : ''}
         onClick={toggleDateContainer}
         onChange={onChangeInputDate}
+        onKeyPress ={onEnterPressInputDate}
       />
       <svg className={`${prefix}-datePicker-container-svg`} width="14" height="16" viewBox="0 0 14 16" onClick={toggleDateContainer}>
         <path
@@ -31,6 +32,7 @@ DateInput.propTypes = {
   onChangeInputDate: PropTypes.func.isRequired,
   isDateSelectedValid: PropTypes.bool.isRequired,
   isValidYear: PropTypes.bool.isRequired,
-  format: PropTypes.string.isRequired
+  format: PropTypes.string.isRequired,
+  onEnterPressInputDate:PropTypes.func.isRequired,
 };
 export default DateInput;

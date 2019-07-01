@@ -5,7 +5,7 @@ import DatePanel from './DatePanel/DatePanel';
 import DateInput from './DateInput';
 import WeekPanel from './WeekPanel';
 import prefix from '../../settings';
-import {isValidDate} from '../../utility';
+import { isValidDate } from '../../utility';
 
 const DatePicker = ({ weekDays, months, open, format }) => {
   const date = new Date();
@@ -22,20 +22,26 @@ const DatePicker = ({ weekDays, months, open, format }) => {
   const [isValidYear, setIsValidYear] = useState(true);
 
   const onChangeInputDate = (event) => {
-    const isdateValid = isValidDate(event.target.value, format);
-    setIsDateSelectedValid(isdateValid);
-    if (isdateValid && event.target.value !== '') {
-      const dateArray = event.target.value.split('/');
-      switch (format) {
-        case 'mm/dd/yyyy':
-          updateFormattedDate(dateArray[0], dateArray[1], dateArray[2]);
-          break;
-        case 'dd/mm/yyyy':
-          updateFormattedDate(dateArray[1], dateArray[0], dateArray[2]);
-          break;
+    setDateSelected(event.target.value);
+  };
+
+  const onEnterPressInputDate = (event) => {
+    if (event.key === "Enter") {
+      const isdateValid = isValidDate(event.target.value, format);
+      setIsDateSelectedValid(isdateValid);
+      if (isdateValid && event.target.value !== '') {
+        const dateArray = event.target.value.split('/');
+        switch (format) {
+          case 'mm/dd/yyyy':
+            updateFormattedDate(dateArray[0], dateArray[1], dateArray[2]);
+            break;
+          case 'dd/mm/yyyy':
+            updateFormattedDate(dateArray[1], dateArray[0], dateArray[2]);
+            break;
+        }
+      } else {
+        setDateSelected(event.target.value);
       }
-    } else {
-      setDateSelected(event.target.value);
     }
   };
 
@@ -143,6 +149,7 @@ const DatePicker = ({ weekDays, months, open, format }) => {
           isDateSelectedValid={isDateSelectedValid}
           isValidYear={isValidYear}
           format={format}
+          onEnterPressInputDate={onEnterPressInputDate}
         />
         {showDateContainer
           ?
