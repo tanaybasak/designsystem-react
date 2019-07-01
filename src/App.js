@@ -26,6 +26,7 @@ import overflowlist from './molecules/Overflowmenu/sample-overflow-list.json';
 import { ContentSwitcher, Switch } from './molecules/ContentSwitcher';
 import Search from './atoms/Search';
 import FileUploader from './molecules/FileUploader';
+import Dropdown from './atoms/Dropdown';
 
 class App extends Component {
     state = {
@@ -44,6 +45,32 @@ class App extends Component {
             example4: 0
         }
     };
+
+    items = [
+        {
+            id: 'option-1',
+            text: 'Option 1',
+        },
+        {
+            id: 'option-2',
+            text: 'Option 2',
+        },
+        {
+            id: 'option-3',
+            text: 'Option 3',
+        },
+        {
+            id: 'option-4',
+            text: 'Option 4',
+        }, {
+            id: 'option-5',
+            text: 'Option 5',
+        },
+        {
+            id: 'option-6',
+            text: 'Option 6',
+        },
+    ];
 
     switchAll = [{
         "name": "Cybernetics",
@@ -741,7 +768,31 @@ class App extends Component {
                         </FileUploader>
                     </div>
                 </div>
-            </main>
+                {/* Dropdown Component */}
+                <div className="hcl-row m-3 hcl-col-12">
+                    <div className="hcl-col-6">
+                        <Dropdown
+                            type="top"
+                            items={this.items}
+                            label="Top DropDown"
+                            selectedIndex={1}
+                            onChange={(selected) => {
+                                console.log("selected item", selected);
+                            }}
+                        />
+                    </div>
+                    <div className="hcl-col-6">
+                        <Dropdown
+                            type="bottom"
+                            items={this.items}
+                            label="Bottom DropDown"
+                            onChange={(selected) => {
+                                console.log("selected item", selected);
+                            }}
+                        />
+                    </div>
+                </div>
+            </main >
         );
     }
 }
