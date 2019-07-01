@@ -562,7 +562,7 @@ class App extends Component {
                         <Button title="Default" className="mr-2" onClick={() => { this.setState({ modal: 5 }) }}>5</Button>
                         <Button title="Default" className="mr-2" onClick={() => { this.setState({ modal: 6 }) }}>6</Button>
                         <Button title="Default" className="mr-2" onClick={() => { this.setState({ modal: 7 }) }}>7</Button>
-                      
+
                         {/* Danger type Modals */}
                         {this.state.modal === 1 &&
                             <Modal type="danger" label="optional label" heading="Heading comes here." onClose={this.onModalClose} actions={this.modalActions1}>
@@ -776,9 +776,12 @@ class App extends Component {
                             items={this.items}
                             id="dropdown-1"
                             label="Top DropDown"
-                            defaulSelection="option 1"
-                            onChange={(event) => {
-                                console.log("event.target", event.target);
+                            defaulSelection={{
+                                id: 'option-1',
+                                text: 'Option 1',
+                            }}
+                            onChange={(selected) => {
+                                console.log("selected item", selected);
                             }}
                         />
                     </div>
@@ -788,8 +791,8 @@ class App extends Component {
                             items={this.items}
                             id="dropdown-2"
                             label="Bottom DropDown"
-                            onChange={(event) => {
-                                console.log("event.target", event.target);
+                            onChange={(selected) => {
+                                console.log("selected item", selected);
                             }}
                         />
                     </div>

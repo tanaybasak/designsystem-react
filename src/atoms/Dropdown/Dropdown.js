@@ -1,29 +1,30 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 import { trackDocumentClick, positionComponent } from '../../util'
 
 
-const Dropdown = ({ type, items, id, label, onChange, defaulSelection }) => {
+const Dropdown = ({ type, items, label, onChange, defaulSelection }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [selected, setSelected] = useState(defaulSelection);
     const [typeState, setTypeState] = useState(type);
+    const dropDown = useRef(null);
 
     useEffect(() => {
-        positionComponent(() => { setTypeState('top') }, () => { setTypeState('bottom') }, type, document.getElementById(id).getElementsByTagName('ul')[0]);
+        positionComponent(() => { setTypeState('top') }, () => { setTypeState('bottom') }, type, dropDown.current.getElementsByTagName('ul')[0]);
     });
 
     const onSelect = (event) => {
         event.stopPropagation();
         setIsOpen(false);
-        setSelected(event.target.innerText);
-        onChange(event);
-
+        const itemSelected = { id: event.target.id, text: event.target.innerText };
+        setSelected(itemSelected);
+        onChange(itemSelected);
     };
 
     return (
         <section className={`${prefix}-dropdown ${typeState === "bottom" ? `${prefix}-dropdown-bottom` : `${prefix}-dropdown-top`}
-             ${isOpen ? `${prefix}-dropdown-open` : ""}`} data-component="dropdown" id={id}
+             ${isOpen ? `${prefix}-dropdown-open` : ""}`} ref={dropDown}
         >
             <button className={`${prefix}-btn ${prefix}-dropdown-toggle`}
                 data-toggle="dropdown"
@@ -35,7 +36,7 @@ const Dropdown = ({ type, items, id, label, onChange, defaulSelection }) => {
                     });
                 }}
             >
-                {selected ? selected : label}
+                {selected ? selected.text : label}
             </button>
             {
                 isOpen
@@ -60,10 +61,9 @@ const Dropdown = ({ type, items, id, label, onChange, defaulSelection }) => {
 Dropdown.propTypes = {
     type: PropTypes.string,
     items: PropTypes.array.isRequired,
-    id: PropTypes.string.isRequired,
     label: PropTypes.string,
     onChange: PropTypes.func,
-    defaulSelection: PropTypes.string
+    defaulSelection: PropTypes.object
 };
 
 Dropdown.defaultProps = {
