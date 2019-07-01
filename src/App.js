@@ -26,6 +26,10 @@ import overflowlist from './molecules/Overflowmenu/sample-overflow-list.json';
 import { ContentSwitcher, Switch } from './molecules/ContentSwitcher';
 import DataTable from './atoms/DataTable';
 import tableData from './atoms/DataTable/sample-table-data';
+import Search from './atoms/Search';
+import FileUploader from './molecules/FileUploader';
+import { Accordion, AccordionItem } from './molecules/Accordion';
+import Dropdown from './atoms/Dropdown';
 
 class App extends Component {
     state = {
@@ -44,6 +48,32 @@ class App extends Component {
             example4: 0
         }
     };
+
+    items = [
+        {
+            id: 'option-1',
+            text: 'Option 1',
+        },
+        {
+            id: 'option-2',
+            text: 'Option 2',
+        },
+        {
+            id: 'option-3',
+            text: 'Option 3',
+        },
+        {
+            id: 'option-4',
+            text: 'Option 4',
+        }, {
+            id: 'option-5',
+            text: 'Option 5',
+        },
+        {
+            id: 'option-6',
+            text: 'Option 6',
+        },
+    ];
 
     switchAll = [{
         "name": "Cybernetics",
@@ -693,12 +723,147 @@ class App extends Component {
                             id="sample_table_1"
                             tableData={tableData}
                             selectable
-                            onSort={(event) => {
-                                console.log(event.currentTarget);
+                            onSort={(event) => { console.log(event.currentTarget) }}
+                        />
+                    </div>
+                    {/* Search Component */}
+                    <section className="hcl-col-12 mt-5 colBorder p-5">
+                        <h5 className="p-2">Normal Search</h5>
+                        <Search />
+                    </section>
+
+                    <section className="hcl-col-12 mt-5 colBorder p-5">
+                        <h5 className="p-2">Header Search</h5>
+                        <Search type="clickable" />
+                    </section>
+
+                    <section className="hcl-col-12 mt-5 colBorder p-5">
+                        <h5 className="p-2">Small Search</h5>
+                        <Search size="small" />
+                    </section>
+
+                    <section className="hcl-col-12 mt-5 colBorder p-5">
+                        <h5 className="p-2">Small Header Search</h5>
+                        <Search size="small" type="clickable" />
+                    </section>
+
+                    <section className="hcl-col-12 mt-5 colBorder p-5" style={{ background: '#F5F7FB' }}>
+                        <h5 className="p-2">Normal Search (White background)</h5>
+                        <Search theme="white" />
+                    </section>
+
+                    <section className="hcl-col-12 mt-5 colBorder p-5" style={{ background: '#F5F7FB' }}>
+                        <h5 className="p-2">Header Search (White background)</h5>
+                        <Search type="clickable" theme="white" />
+                    </section>
+
+                    <section className="hcl-col-12 mt-5 colBorder p-5" style={{ background: '#F5F7FB' }}>
+                        <h5 className="p-2">Small Search (White background)</h5>
+                        <Search size="small" theme="white" />
+                    </section>
+
+                    <section className="hcl-col-12 mt-5 colBorder p-5" style={{ background: '#F5F7FB' }}>
+                        <h5 className="p-2">Small Header Search (White background)</h5>
+                        <Search size="small" type="clickable" theme="white" />
+                    </section>
+                    {/* File Uploader Component */}
+                    <div className="hcl-col-12 mt-5">
+                        <FileUploader
+                            id="file_uploader"
+                            label="Account photo"
+                            description="only .jpg and .png files. 500kb max file size."
+                            fileType=".jpg"
+                            className="hcl-btn hcl-secondary hcl-sml"
+                        >
+                            Add file
+                        </FileUploader>
+                    </div>
+                    {/* Accordion Component */}
+                    <div className="hcl-col-12 mt-5 mb-5">
+                        <Accordion>
+                            <AccordionItem
+                                title="What is Lorem Ipsum ?"
+                                expanded
+                                onChange={
+                                    event => {
+                                        console.log(`Accordian toggled ${event.currentTarget}`);
+                                    }
+                                }
+                            >
+                                Lorem Ipsum is simply dummy text of the printing and
+                                typesetting industry. Lorem Ipsum
+                                has been the industry&apos;s standard dummy text ever since the 1500s, when an unknown
+                                printer took a galley of type and scrambled it to make a type specimen book. It has
+                                survived not only five centuries, but also the leap into electronic typesetting,
+                                remaining essentially unchanged. It was popularised in the 1960s with the release of
+                                Letraset sheets containing Lorem Ipsum passages, and more recently with desktop
+                                publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                            </AccordionItem>
+                            <AccordionItem
+                                title="Why do we use it ?"
+                                onChange={
+                                    event => {
+                                        console.log(`Accordian toggled ${event.currentTarget}`);
+                                    }
+                                }
+                            >
+                                It is a long established fact that a reader will be distracted
+                                by the readable content of
+                                a page when looking at its layout. The point of using Lorem Ipsum is that it has a
+                                more-or-less normal distribution of letters, as opposed to using &apos;Content here, content
+                                here&apos;, making it look like readable English. Many desktop publishing packages and web
+                                page editors now use Lorem Ipsum as their default model text, and a search for &apos;lorem
+                                ipsum&apos; will uncover many web sites still in their infancy. Various versions have evolved
+                                over the years, sometimes by accident, sometimes on purpose (injected humour and the
+                                like).
+                            </AccordionItem>
+                            <AccordionItem
+                                title="Wher we can it ?"
+                                onChange={
+                                    event => {
+                                        console.log(`Accordian toggled ${event.currentTarget}`);
+                                    }
+                                }
+                            >
+                                There are many variations of passages of Lorem Ipsum available,
+                                but the majority have
+                                suffered alteration in some form, by injected humour, or randomised words which don&apos;t
+                                look even slightly believable. If you are going to use a passage of Lorem Ipsum, you
+                                need to be sure there isn&apos;t anything embarrassing hidden in the middle of text. All the
+                                Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary,
+                                making this the first true generator on the Internet. It uses a dictionary of over 200
+                                Latin words, combined with a handful of model sentence structures, to generate Lorem
+                                Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from
+                                repetition, injected humour, or non-characteristic words etc.
+                            </AccordionItem>
+                        </Accordion>
+                    </div>
+                
+                {/* Dropdown Component */}
+                <div className="hcl-row m-3 hcl-col-12">
+                    <div className="hcl-col-6">
+                        <Dropdown
+                            type="top"
+                            items={this.items}
+                            label="Top DropDown"
+                            selectedIndex={1}
+                            onChange={(selected) => {
+                                console.log("selected item", selected);
                             }}
                         />
                     </div>
                 </div>
+                    <div className="hcl-col-6">
+                        <Dropdown
+                            type="bottom"
+                            items={this.items}
+                            label="Bottom DropDown"
+                            onChange={(selected) => {
+                                console.log("selected item", selected);
+                            }}
+                        />
+                    </div>
+                    </div>
             </main>
         );
     }
