@@ -26,6 +26,7 @@ import overflowlist from './molecules/Overflowmenu/sample-overflow-list.json';
 import { ContentSwitcher, Switch } from './molecules/ContentSwitcher';
 import Search from './atoms/Search';
 import FileUploader from './molecules/FileUploader';
+import Dropdown from './atoms/Dropdown';
 import Tile from './atoms/Tile';
 
 class App extends Component {
@@ -45,6 +46,32 @@ class App extends Component {
             example4: 0
         }
     };
+
+    items = [
+        {
+            id: 'option-1',
+            text: 'Option 1',
+        },
+        {
+            id: 'option-2',
+            text: 'Option 2',
+        },
+        {
+            id: 'option-3',
+            text: 'Option 3',
+        },
+        {
+            id: 'option-4',
+            text: 'Option 4',
+        }, {
+            id: 'option-5',
+            text: 'Option 5',
+        },
+        {
+            id: 'option-6',
+            text: 'Option 6',
+        },
+    ];
 
     switchAll = [{
         "name": "Cybernetics",
@@ -741,6 +768,30 @@ class App extends Component {
                             Add file
                         </FileUploader>
                     </div>
+                    {/* Dropdown Component */}
+                    <div className="hcl-row m-3 hcl-col-12">
+                        <div className="hcl-col-6">
+                            <Dropdown
+                                type="top"
+                                items={this.items}
+                                label="Top DropDown"
+                                selectedIndex={1}
+                                onChange={(selected) => {
+                                    console.log("selected item", selected);
+                                }}
+                            />
+                        </div>
+                        <div className="hcl-col-6">
+                            <Dropdown
+                                type="bottom"
+                                items={this.items}
+                                label="Bottom DropDown"
+                                onChange={(selected) => {
+                                    console.log("selected item", selected);
+                                }}
+                            />
+                        </div>
+                    </div>
                     {/* Tile Component */}
                     <section >
                         <div className="hcl-col-12 mt-5 mb-5">
@@ -776,7 +827,7 @@ class App extends Component {
                         </div>
                     </section>
                 </div>
-            </main>
+            </main >
         );
     }
 }
