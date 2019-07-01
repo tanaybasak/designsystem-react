@@ -4,6 +4,7 @@ import YearMonthPanel from './YearMonthPanel/YearMonthPanel';
 import DatePanel from './DatePanel/DatePanel';
 import DateInput from './DateInput';
 import WeekPanel from './WeekPanel';
+import prefix from '../../settings';
 
 const DatePicker = ({ weekDays, months, open, format }) => {
   const date = new Date();
@@ -35,7 +36,7 @@ const DatePicker = ({ weekDays, months, open, format }) => {
     } else {
       setDateSelected(event.target.value);
     }
-  }
+  };
 
   const updateFormattedDate = (mm, dd, yyyy) => {
     const tempDate = new Date(yyyy, mm - 1, dd);
@@ -62,7 +63,7 @@ const DatePicker = ({ weekDays, months, open, format }) => {
         setDateSelected(`${dateStr}/${monthStr}/${year}`);
         break;
     }
-  }
+  };
 
   const onChangeYear = (event) => {
     if (isValidYearFunc(event.target.value)) {
@@ -77,48 +78,36 @@ const DatePicker = ({ weekDays, months, open, format }) => {
     } else {
       setYearSelected(event.target.value);
     }
-  }
+  };
 
   const toggleDateContainer = () => {
     setIsValidYear(true)
     setYearSelected(String(currDateObj.year));
     setShowDateContainer(!showDateContainer)
-  }
+  };
 
-  const prevMonth = () => {
-    const tempDate = new Date(currDateObj.month === 0 ? currDateObj.year - 1 : currDateObj.year, currDateObj.month === 0 ? 11 : currDateObj.month - 1, 15);
+  const monthChangeHandler = (event) => {
+    let tempDate;
+    if (event.target.parentElement.classList.contains(`${prefix}-datePicker-month-next`)) {
+      tempDate = new Date(currDateObj.month === 11 ? currDateObj.year + 1 : currDateObj.year, currDateObj.month === 11 ? 0 : currDateObj.month + 1, 15);
+    } else {
+      tempDate = new Date(currDateObj.month === 0 ? currDateObj.year - 1 : currDateObj.year, currDateObj.month === 0 ? 11 : currDateObj.month - 1, 15);
+    }
     setCurrDateObj({
       'day': tempDate.getDay(),
       'month': tempDate.getMonth(),
       'date': tempDate.getDate(),
       'year': tempDate.getFullYear(),
     });
-  }
+  };
 
-  const nextMonth = () => {
-    const tempDate = new Date(currDateObj.month === 11 ? currDateObj.year + 1 : currDateObj.year, currDateObj.month === 11 ? 0 : currDateObj.month + 1, 15);
-    setCurrDateObj({
-      'day': tempDate.getDay(),
-      'month': tempDate.getMonth(),
-      'date': tempDate.getDate(),
-      'year': tempDate.getFullYear(),
-    });
-  }
-
-  const yearIncrease = () => {
-    const tempDate = new Date(currDateObj.year + 1, currDateObj.month, 15);
-    setCurrDateObj({
-      'day': tempDate.getDay(),
-      'month': tempDate.getMonth(),
-      'date': tempDate.getDate(),
-      'year': tempDate.getFullYear(),
-    });
-    setIsValidYear(true);
-    setYearSelected(String(tempDate.getFullYear()));
-  }
-
-  const yearDecrease = () => {
-    const tempDate = new Date(currDateObj.year - 1, currDateObj.month, 15);
+  const yearChangeHandler = (event) => {
+    let tempDate;
+    if (event.target.classList.contains(`${prefix}-datePicker-up`)) {
+      tempDate = new Date(currDateObj.year + 1, currDateObj.month, 15);
+    } else {
+      tempDate = new Date(currDateObj.year - 1, currDateObj.month, 15);
+    }
     setCurrDateObj({
       'day': tempDate.getDay(),
       'month': tempDate.getMonth(),
@@ -127,7 +116,7 @@ const DatePicker = ({ weekDays, months, open, format }) => {
     });
     setIsValidYear(true);
     setYearSelected(String(tempDate.getFullYear()));
-  }
+  };
 
   const selectDate = (event) => {
     setDateSelected(event.target.getAttribute('date'));
@@ -136,11 +125,11 @@ const DatePicker = ({ weekDays, months, open, format }) => {
     toggleDateContainer();
   };
 
-  const isValidYearFunc = (s) => {
+  const isValidYearFunc = (str) => {
     const regex = /^[1-9]{1}[0-9]{3}$/g;
-    setIsValidYear(regex.test(s))
-    return regex.test(s);
-  }
+    setIsValidYear(regex.test(str))
+    return regex.test(str);
+  };
 
   const isValidDate = (str) => {
     if (str) {
@@ -172,11 +161,11 @@ const DatePicker = ({ weekDays, months, open, format }) => {
       return true;
     }
     return false;
-  }
+  };
 
   return (
-    <section className="hcl-datePicker" data-component="datepicker">
-      <div className="hcl-datePicker-container">
+    <section className={`${prefix}-datePicker`} data-component="datepicker">
+      <div className={`${prefix}-datePicker-container`}>
         <DateInput
           dateSelected={dateSelected}
           toggleDateContainer={toggleDateContainer}
@@ -188,14 +177,12 @@ const DatePicker = ({ weekDays, months, open, format }) => {
         />
         {showDateContainer
           ?
-          <div className={`hcl-datePicker-panel hcl-datePicker-panel-show ${open === 'up' ? 'hcl-datePicker-panel-above' : 'hcl-datePicker-panel-below'}`}>
+          <div className={`${prefix}-datePicker-panel ${prefix}-datePicker-panel-show ${open === 'up' ? `${prefix}-datePicker-panel-above` : `${prefix}-datePicker-panel-below`}`}>
             <YearMonthPanel
               months={months}
               currDateObj={currDateObj}
-              prevMonth={prevMonth}
-              nextMonth={nextMonth}
-              yearIncrease={yearIncrease}
-              yearDecrease={yearDecrease}
+              monthChangeHandler={monthChangeHandler}
+              yearChangeHandler={yearChangeHandler}
               onChangeYear={onChangeYear}
               yearSelected={yearSelected}
             />
@@ -207,7 +194,7 @@ const DatePicker = ({ weekDays, months, open, format }) => {
       {
         !isDateSelectedValid
           ?
-          <div className="hcl-datePicker-error hcl-datePicker-error-show">
+          <div className={`${prefix}-datePicker-error ${prefix}-datePicker-error-show`}>
             Invalid date format.
             </div>
           : null

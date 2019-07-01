@@ -77,7 +77,7 @@ const DatePanel = ({ currDateObj, dateSelected, selectDate, format }) => {
     };
 
     return (
-        <div className="hcl-datePicker-dates">
+        <div className={`${prefix}-datePicker-dates`}>
             {createDateNodelist()}
         </div>);
 }
