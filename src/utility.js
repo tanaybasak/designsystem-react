@@ -1,8 +1,7 @@
 // To change direction of component
 const positionComponent = (top, bottom, type, element) => {
-    let getBound;
     if (element) {
-        getBound = element.getBoundingClientRect();
+        const getBound = element.getBoundingClientRect();
         // To open bottom dropdown at top
         if (window.innerHeight < getBound.bottom && type === 'bottom') {
             top();
