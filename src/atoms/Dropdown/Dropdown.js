@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
-import { trackDocumentClick, positionComponent } from '../../util'
+import { trackDocumentClick, positionComponent } from '../../util/utility'
 
 
-const Dropdown = ({ type, items, label, onChange, defaulSelection }) => {
+const Dropdown = ({ type, items, label, onChange, selectedIndex }) => {
     const [isOpen, setIsOpen] = useState(false);
-    const [selected, setSelected] = useState(defaulSelection);
+    const [selected, setSelected] = useState(selectedIndex ? items[selectedIndex] : null);
     const [typeState, setTypeState] = useState(type);
     const dropDown = useRef(null);
 
@@ -63,14 +63,14 @@ Dropdown.propTypes = {
     items: PropTypes.array.isRequired,
     label: PropTypes.string,
     onChange: PropTypes.func,
-    defaulSelection: PropTypes.object
+    selectedIndex: PropTypes.number
 };
 
 Dropdown.defaultProps = {
     type: "down",
     label: "Select Option",
     onChange: () => { },
-    defaulSelection: null
+    selectedIndex: null
 };
 
 export default Dropdown;

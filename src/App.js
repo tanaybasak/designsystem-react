@@ -775,10 +775,7 @@ class App extends Component {
                             type="top"
                             items={this.items}
                             label="Top DropDown"
-                            defaulSelection={{
-                                id: 'option-1',
-                                text: 'Option 1',
-                            }}
+                            selectedIndex={1}
                             onChange={(selected) => {
                                 console.log("selected item", selected);
                             }}
