@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../../settings';
 
-const YearMonthPanel = ({ months, currDateObj, monthChangeHandler, yearChangeHandler, yearSelected, onChangeYear }) => {
+const YearMonthPanel = ({ months, currDateObj, monthChangeHandler, yearChangeHandler, yearSelected, onChangeYear, onEnterPressYear }) => {
   return (
     <div className={`${prefix}-datePicker-month`}>
       <span className={`${prefix}-datePicker-month-prev`} onClick={monthChangeHandler}>
@@ -19,6 +19,7 @@ const YearMonthPanel = ({ months, currDateObj, monthChangeHandler, yearChangeHan
             aria-label="Year"
             value={yearSelected}
             onChange={onChangeYear}
+            onKeyPress={onEnterPressYear}
           />
           <div className={`${prefix}-datePicker-arrows`}>
             <span className={`${prefix}-datePicker-up`} onClick={yearChangeHandler} />
@@ -41,5 +42,6 @@ YearMonthPanel.propTypes = {
   yearChangeHandler: PropTypes.func.isRequired,
   yearSelected: PropTypes.string.isRequired,
   onChangeYear: PropTypes.func.isRequired,
+  onEnterPressYear: PropTypes.func.isRequired,
 };
 export default YearMonthPanel;

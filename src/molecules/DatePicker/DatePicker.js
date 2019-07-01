@@ -41,6 +41,23 @@ const DatePicker = ({ weekDays, months, open, format }) => {
     }
   };
 
+  const onEnterPressYear = (event) => {
+    if (event.key === "Enter") {
+      if (isValidYearFunc(event.target.value)) {
+        const tempDate = new Date(Number(event.target.value), currDateObj.month, 15);
+        setCurrDateObj({
+          'day': tempDate.getDay(),
+          'month': tempDate.getMonth(),
+          'date': tempDate.getDate(),
+          'year': tempDate.getFullYear(),
+        });
+        setYearSelected(event.target.value);
+      } else {
+        setYearSelected(event.target.value);
+      }
+    }
+  };
+
   const updateFormattedDate = (mm, dd, yyyy) => {
     const tempDate = new Date(yyyy, mm - 1, dd);
     const day = tempDate.getDay();
@@ -65,21 +82,6 @@ const DatePicker = ({ weekDays, months, open, format }) => {
       case 'dd/mm/yyyy':
         setDateSelected(`${dateStr}/${monthStr}/${year}`);
         break;
-    }
-  };
-
-  const onChangeYear = (event) => {
-    if (isValidYearFunc(event.target.value)) {
-      const tempDate = new Date(Number(event.target.value), currDateObj.month, 15);
-      setCurrDateObj({
-        'day': tempDate.getDay(),
-        'month': tempDate.getMonth(),
-        'date': tempDate.getDate(),
-        'year': tempDate.getFullYear(),
-      });
-      setYearSelected(event.target.value);
-    } else {
-      setYearSelected(event.target.value);
     }
   };
 
@@ -140,7 +142,7 @@ const DatePicker = ({ weekDays, months, open, format }) => {
         <DateInput
           dateSelected={dateSelected}
           toggleDateContainer={toggleDateContainer}
-          onChangeInputDate={(event)=>{ setDateSelected(event.target.value)}}
+          onChangeInputDate={(event) => { setDateSelected(event.target.value) }}
           currDateObj={currDateObj}
           isDateSelectedValid={isDateSelectedValid}
           isValidYear={isValidYear}
@@ -155,7 +157,8 @@ const DatePicker = ({ weekDays, months, open, format }) => {
               currDateObj={currDateObj}
               monthChangeHandler={monthChangeHandler}
               yearChangeHandler={yearChangeHandler}
-              onChangeYear={onChangeYear}
+              onChangeYear={(event) => { setYearSelected(event.target.value) }}
+              onEnterPressYear={onEnterPressYear}
               yearSelected={yearSelected}
             />
             <WeekPanel weekDays={weekDays} />
