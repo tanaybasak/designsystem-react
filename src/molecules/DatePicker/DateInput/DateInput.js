@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import prefix from '../../settings';
+import prefix from '../../../settings';
 
 const DateInput = ({dateSelected,toggleDateContainer,onChangeInputDate,isDateSelectedValid, isValidYear, format}) => {
 return (
