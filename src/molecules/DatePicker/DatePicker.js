@@ -5,7 +5,7 @@ import DatePanel from './DatePanel/DatePanel';
 import DateInput from './DateInput';
 import WeekPanel from './WeekPanel';
 import prefix from '../../settings';
-import isValidDate from '../../utility';
+import {isValidDate} from '../../utility';
 
 const DatePicker = ({ weekDays, months, open, format }) => {
   const date = new Date();
