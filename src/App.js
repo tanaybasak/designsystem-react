@@ -594,12 +594,12 @@ class App extends Component {
           <div className="hcl-col-12 mt-5">
             {/* Ordered */}
             <Label>Ordered List</Label>
-            <List listItems={listItems} type="ol" onClick={() => { }} />
+            <List listItems={listItems} type="ol" onClick={() => {}} />
             <br />
             <br />
             {/* Unordered */}
             <Label>Unordered List</Label>
-            <List listItems={listItems} type="ul" onClick={() => { }} />
+            <List listItems={listItems} type="ul" onClick={() => {}} />
           </div>
           {/* Tag */}
           <div className="hcl-col-12 mt-5">
@@ -1096,15 +1096,25 @@ class App extends Component {
           {/* DatePicker */}
           <div className="hcl-row m-3 hcl-col-12">
             <div className="hcl-col-6">
-              <DatePicker weekDays={weekDays} months={months} open="top" format="mm/dd/yyyy" onDateSelect={dateSelected => {
-                console.log('Selected Date', dateSelected);
-              }}
+              <DatePicker
+                weekDays={weekDays}
+                months={months}
+                open="top"
+                format="mm/dd/yyyy"
+                onDateSelect={dateSelected => {
+                  console.log('Selected Date', dateSelected);
+                }}
               />
             </div>
             <div className="hcl-col-6">
-              <DatePicker weekDays={weekDays} months={months} open="bottom" format="dd/mm/yyyy" onDateSelect={dateSelected => {
-                console.log('Selected Date', dateSelected);
-              }}
+              <DatePicker
+                weekDays={weekDays}
+                months={months}
+                open="bottom"
+                format="dd/mm/yyyy"
+                onDateSelect={dateSelected => {
+                  console.log('Selected Date', dateSelected);
+                }}
               />
             </div>
           </div>

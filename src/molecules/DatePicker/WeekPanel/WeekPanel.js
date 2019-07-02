@@ -10,14 +10,14 @@ const WeekPanel = ({ weekDays }) => {
       daysNodeList.push(<span key={index}>{element}</span>);
     });
     return daysNodeList;
-  }
+  };
 
   return (
     <div className={`${prefix}-datePicker-days`}>
       {daysNodeList.length === 0 ? createWeekDays() : daysNodeList}
     </div>
   );
-}
+};
 WeekPanel.propTypes = {
   weekDays: PropTypes.array.isRequired
 };
