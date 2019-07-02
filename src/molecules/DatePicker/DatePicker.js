@@ -7,7 +7,7 @@ import WeekPanel from './WeekPanel';
 import prefix from '../../settings';
 import { positionComponent, isValidDate } from '../../util/utility'
 
-const DatePicker = ({ weekDays, months, open, format }) => {
+const DatePicker = ({ weekDays, months, open, format, onDateSelect }) => {
   const date = new Date();
   const [currDateObj, setCurrDateObj] = useState({
     'day': date.getDay(),
@@ -84,9 +84,11 @@ const DatePicker = ({ weekDays, months, open, format }) => {
     switch (format) {
       case 'mm/dd/yyyy':
         setDateSelected(`${monthStr}/${dateStr}/${year}`);
+        onDateSelect(`${monthStr}/${dateStr}/${year}`)
         break;
       case 'dd/mm/yyyy':
         setDateSelected(`${dateStr}/${monthStr}/${year}`);
+        onDateSelect(`${dateStr}/${monthStr}/${year}`);
         break;
     }
   };
@@ -134,6 +136,7 @@ const DatePicker = ({ weekDays, months, open, format }) => {
     setIsDateSelectedValid(true);
     setIsValidYear(true)
     toggleDateContainer();
+    onDateSelect(event.target.getAttribute('date'))
   };
 
   const isValidYearFunc = (str) => {
@@ -188,12 +191,14 @@ DatePicker.propTypes = {
   months: PropTypes.array,
   open: PropTypes.string,
   format: PropTypes.string,
+  onDateSelect: PropTypes.func
 };
 
 DatePicker.defaultProps = {
   weekDays: ['S', 'M', 'T', 'W', 'Th', 'F', 'S'],
   months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
   open: 'down',
-  format: 'MM/DD/YYYY'
+  format: 'MM/DD/YYYY',
+  onDateSelect: () => { },
 };
 export default DatePicker;
