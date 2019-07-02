@@ -4,7 +4,7 @@ import prefix from '../../../settings';
 
 const DateInput = ({dateSelected,toggleDateContainer,onChangeInputDate,isDateSelectedValid, isValidYear,onEnterPressInputDate, format}) => {
   return (
-    <React.Fragment>
+    <>
       <input
         type="text"
         className={`${prefix}-datePicker-input ${!(isDateSelectedValid && isValidYear) ? `${prefix}-datePicker-container-error`: ''}`}
@@ -23,7 +23,7 @@ const DateInput = ({dateSelected,toggleDateContainer,onChangeInputDate,isDateSel
           fillRule="nonzero"
         />
       </svg>
-    </React.Fragment>);
+    </>);
     }
 
 DateInput.propTypes = {

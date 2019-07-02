@@ -58,7 +58,7 @@ const Tile = ({ children, selectable, expandable, clickable, id, href }) => {
     };
 
     return (
-        <React.Fragment>
+        <>
             {children ?
                 clickable
                     ?
@@ -73,7 +73,7 @@ const Tile = ({ children, selectable, expandable, clickable, id, href }) => {
                             readableTile()
                 : null
             }
-        </React.Fragment >
+        </>
     );
 };
 
