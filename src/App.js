@@ -31,6 +31,8 @@ import FileUploader from './molecules/FileUploader';
 import { Accordion, AccordionItem } from './molecules/Accordion';
 import Dropdown from './atoms/Dropdown';
 import Tile from './atoms/Tile';
+import DatePicker from './molecules/DatePicker';
+import { weekDays, months } from './content';
 
 class App extends Component {
   state = {
@@ -208,7 +210,7 @@ class App extends Component {
   };
 
   render() {
-    const {contentSwitch = {} } = this.state;
+    const { contentSwitch = {} } = this.state;
 
     return (
       <main className="hcl-container">
@@ -1091,6 +1093,31 @@ class App extends Component {
               from repetition, injected humour, or non-characteristic words etc.
             </AccordionItem>
           </Accordion>
+          {/* DatePicker */}
+          <div className="hcl-row m-3 hcl-col-12">
+            <div className="hcl-col-6">
+              <DatePicker
+                weekDays={weekDays}
+                months={months}
+                open="top"
+                format="mm/dd/yyyy"
+                onDateSelect={dateSelected => {
+                  console.log('Selected Date', dateSelected);
+                }}
+              />
+            </div>
+            <div className="hcl-col-6">
+              <DatePicker
+                weekDays={weekDays}
+                months={months}
+                open="bottom"
+                format="dd/mm/yyyy"
+                onDateSelect={dateSelected => {
+                  console.log('Selected Date', dateSelected);
+                }}
+              />
+            </div>
+          </div>
         </div>
       </main>
     );
