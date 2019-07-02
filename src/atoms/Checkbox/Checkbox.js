@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 
 export default function Checkbox({ className, checked, labelText, ...restProps }) {
     const [isChecked, setChecked] = useState(checked || false);
     const classnames = `${prefix}-checkbox-item ${className}`.trim();
+
+    useEffect(() => {
+        setChecked(checked);
+    }, [checked]);
 
     return (
         <div className={classnames}>
