@@ -2,7 +2,7 @@ import React from 'react';
 import prefix from '../../settings';
 
 const Pager = (props, ref) => {
-    if (props.options.length <= 0) {
+    if (!props.options && !props.className && !props.onChange && props.options.length <= 0) {
         return null;
     }
 
@@ -11,12 +11,10 @@ const Pager = (props, ref) => {
             <select className={props.className}
                 ref={ref}
                 onChange={(e) => {
-
-                    props.onChange(ref.current.value, e);
+                    props.onChange(e);
                 }}
             >
                 {
-
                     props.options.map((item, idx) => {
                         return (
                             <option key={idx} value={item}>{item}</option>
@@ -30,5 +28,6 @@ const Pager = (props, ref) => {
         </>
     )
 };
+//Warning: forwardRef render functions do not support propTypes or defaultProps. Did you accidentally pass a React component?
 
 export default React.forwardRef(Pager);
