@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import YearMonthPanel from './YearMonthPanel/YearMonthPanel';
 import DatePanel from './DatePanel/DatePanel';
 import DateInput from './DateInput';
 import WeekPanel from './WeekPanel';
 import prefix from '../../settings';
-import { isValidDate } from '../../utility';
+import { positionComponent, isValidDate } from '../../util/utility'
 
 const DatePicker = ({ weekDays, months, open, format }) => {
   const date = new Date();
@@ -20,6 +20,12 @@ const DatePicker = ({ weekDays, months, open, format }) => {
   const [dateSelected, setDateSelected] = useState('');
   const [isDateSelectedValid, setIsDateSelectedValid] = useState(true);
   const [isValidYear, setIsValidYear] = useState(true);
+  const [direction, setDirection] = useState(open);
+  const datePickerContainer = useRef(null);
+
+  useEffect(() => {
+    positionComponent(() => { setDirection('top') }, () => { setDirection('bottom') }, open, datePickerContainer.current);
+  });
 
   const onEnterPressInputDate = (event) => {
     if (event.key === "Enter") {
@@ -151,7 +157,7 @@ const DatePicker = ({ weekDays, months, open, format }) => {
         />
         {showDateContainer
           ?
-          <div className={`${prefix}-datePicker-panel ${prefix}-datePicker-panel-show ${open === 'up' ? `${prefix}-datePicker-panel-above` : `${prefix}-datePicker-panel-below`}`}>
+          <div className={`${prefix}-datePicker-panel ${prefix}-datePicker-panel-show ${direction === 'top' ? `${prefix}-datePicker-panel-above` : `${prefix}-datePicker-panel-below`}`} ref={datePickerContainer}>
             <YearMonthPanel
               months={months}
               currDateObj={currDateObj}

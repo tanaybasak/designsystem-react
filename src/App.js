@@ -1096,10 +1096,10 @@ class App extends Component {
           {/* DatePicker */}
           <div className="hcl-row m-3 hcl-col-12">
             <div className="hcl-col-6">
-              <DatePicker weekDays={weekDays} months={months} open="up" format="mm/dd/yyyy" />
+              <DatePicker weekDays={weekDays} months={months} open="top" format="mm/dd/yyyy" />
             </div>
             <div className="hcl-col-6">
-              <DatePicker weekDays={weekDays} months={months} open="down" format="dd/mm/yyyy" />
+              <DatePicker weekDays={weekDays} months={months} open="bottom" format="dd/mm/yyyy" />
             </div>
           </div>
         </div>
