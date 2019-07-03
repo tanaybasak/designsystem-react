@@ -25,7 +25,7 @@ import Overflowmenu from "./molecules/Overflowmenu";
 import overflowlist from "./molecules/Overflowmenu/sample-overflow-list.json";
 import { ContentSwitcher, Switch } from "./molecules/ContentSwitcher";
 import DataTable from "./atoms/DataTable";
-import tableData from "./atoms/DataTable/sample-table-data";
+import tableData from "./atoms/DataTable/sample-table-data.json";
 import Search from "./atoms/Search";
 import FileUploader from "./molecules/FileUploader";
 import { Accordion, AccordionItem } from "./molecules/Accordion";
