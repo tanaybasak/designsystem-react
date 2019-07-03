@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import prefix from '../../settings';
 import FormHelperText from '../../atoms/FormHelperText';
 import Label from '../../atoms/Label';
+import { numberInputMaxValidation, numberInputMinValidation, numberInputInvalid } from '../../content';
 const NumberInput = (
     {
         defaultValue,
@@ -17,33 +18,26 @@ const NumberInput = (
     }
 ) => {
     let [value, setValue] = useState(Number(defaultValue) || 0);
-
-    const maxError = `Value Should Be less than or equal to ${max}`;
-    const minError = `Value Should Be less than or equal to ${min}`;
-    const requiredError = 'Number is not valid';
-
     let [validationMessage, setValidationMessage] = useState('')
-
     const inputRef = useRef(null);
     const classnames = `${prefix}-number-input-wrapper ${prefix}-form-group ${className.trim()}`;
 
     useEffect(
         () => {
-
             let newValue = Number(value);
             if (restProps.required && value === '') {
-                setValidationMessage(requiredError);
+                setValidationMessage(numberInputInvalid);
                 return;
             } else if (value !== '') {
                 if (max) {
                     if (newValue > max) {
-                        setValidationMessage(maxError);
+                        setValidationMessage(`${numberInputMaxValidation} ${max}`);
                         return;
                     }
                 }
                 if (min) {
                     if (newValue < min) {
-                        setValidationMessage(minError);
+                        setValidationMessage(`${numberInputMinValidation} ${min}`);
                         return;
                     }
                 }
@@ -57,12 +51,11 @@ const NumberInput = (
         event.preventDefault();
         if (inputRef.current.stepUp) {
             inputRef.current.stepUp();
+            setValue(inputRef.current.value);
         } else {
             stepUp(inputRef.current, inputRef.current.step === '' ? 1 : inputRef.current.step)
         }
-
         inputRef.current.focus();
-        setValue(inputRef.current.value);
         if (restProps.onChange) {
             restProps.onChange(inputRef.current.value);
         }
@@ -70,14 +63,13 @@ const NumberInput = (
 
     const decrement = (event) => {
         event.preventDefault();
-
         if (inputRef.current.stepDown) {
             inputRef.current.stepDown();
+            setValue(inputRef.current.value);
         } else {
             stepDown(inputRef.current, inputRef.current.step === '' ? 1 : inputRef.current.step)
         }
         inputRef.current.focus();
-        setValue(inputRef.current.value);
         if (restProps.onChange) {
             restProps.onChange(inputRef.current.value);
         }
@@ -87,13 +79,13 @@ const NumberInput = (
         if (input.max !== '' && Number(input.max) < (Number(input.value) + Number(step))) {
             return;
         }
-        input.value = Number(input.value) + Number(step);
+        setValue(Number(input.value) + Number(step));
     }
     const stepDown = (input, step) => {
         if (input.min !== '' && Number(input.min) > (Number(input.value) - Number(step))) {
             return;
         }
-        input.value = Number(input.value) - Number(step);
+        setValue(Number(input.value) - Number(step));
     }
 
     return (
@@ -133,11 +125,7 @@ const NumberInput = (
 
             {label ? <Label htmlFor={id}>{label} </Label> : null}
             {restProps.helperText ? <FormHelperText className="helper-text">{restProps.helperText}</FormHelperText> : null}
-            {/* {restProps.validationMessage ? <FormHelperText className="error-msg">{restProps.validationMessage}</FormHelperText> : null} */}
-            {<FormHelperText className="error-msg">
-                {validationMessage}
-            </FormHelperText>
-            }
+            {<FormHelperText className="error-msg">{validationMessage}</FormHelperText>}
         </div>
     )
 }

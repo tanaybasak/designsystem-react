@@ -3,7 +3,7 @@
 exports[`Number Input renders correctly 1`] = `
 <div
   className="hcl-number-input-wrapper hcl-form-group "
-  data-invalid={true}
+  data-invalid={false}
   disabled={null}
 >
   <div
@@ -11,6 +11,7 @@ exports[`Number Input renders correctly 1`] = `
   >
     <input
       className="hcl-form-control"
+      data-invalid={false}
       disabled={null}
       id="numberInput2"
       max={null}
@@ -83,7 +84,7 @@ exports[`Number Input renders correctly 1`] = `
     htmlFor=""
     onClick={[Function]}
   >
-    validation message
+    
   </div>
 </div>
 `;
