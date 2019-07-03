@@ -25,13 +25,21 @@ import Overflowmenu from './molecules/Overflowmenu';
 import overflowlist from './molecules/Overflowmenu/sample-overflow-list.json';
 import { ContentSwitcher, Switch } from './molecules/ContentSwitcher';
 import NumberInput from './molecules/NumberInput';
+import DataTable from './atoms/DataTable';
+import tableData from './atoms/DataTable/sample-table-data';
+import Search from './atoms/Search';
 import FileUploader from './molecules/FileUploader';
+import { Accordion, AccordionItem } from './molecules/Accordion';
+import Dropdown from './atoms/Dropdown';
+import Tile from './atoms/Tile';
+import DatePicker from './molecules/DatePicker';
+import { weekDays, months } from './content';
 
 class App extends Component {
     state = {
         radio: {
             temperature: 45,
-            city: "Chennai"
+            city: 'Chennai'
         },
         toast: {
             visible: false
@@ -47,38 +55,68 @@ class App extends Component {
         validationMessage: ''
     };
 
-    switchAll = [{
-        "name": "Cybernetics",
-        "value": "ll-1",
-        "child": [
-            {
-                "name": "Artifical Intelligence",
-                "value": "ll-1-1"
-            },
-            {
-                "name": "Bionics",
-                "value": "ll-1-2"
-            }
-        ]
-    }, {
-        "name": "Information & Communication technology",
-        "value": "ll-1",
-        "child": [
-            {
-                "name": "Cyber Infrastructure",
-                "value": "ll-1-1"
-            },
-            {
-                "name": "Digital Technology",
-                "value": "ll-1-2"
-            }
-        ]
-    }];
+    items = [
+        {
+            id: 'option-1',
+            text: 'Option 1'
+        },
+        {
+            id: 'option-2',
+            text: 'Option 2'
+        },
+        {
+            id: 'option-3',
+            text: 'Option 3'
+        },
+        {
+            id: 'option-4',
+            text: 'Option 4'
+        },
+        {
+            id: 'option-5',
+            text: 'Option 5'
+        },
+        {
+            id: 'option-6',
+            text: 'Option 6'
+        }
+    ];
+
+    switchAll = [
+        {
+            name: 'Cybernetics',
+            value: 'll-1',
+            child: [
+                {
+                    name: 'Artifical Intelligence',
+                    value: 'll-1-1'
+                },
+                {
+                    name: 'Bionics',
+                    value: 'll-1-2'
+                }
+            ]
+        },
+        {
+            name: 'Information & Communication technology',
+            value: 'll-1',
+            child: [
+                {
+                    name: 'Cyber Infrastructure',
+                    value: 'll-1-1'
+                },
+                {
+                    name: 'Digital Technology',
+                    value: 'll-1-2'
+                }
+            ]
+        }
+    ];
 
     modalActions1 = [
-        { label: "Save" },
+        { label: 'Save' },
         {
-            label: "Close",
+            label: 'Close',
             handler: () => {
                 this.onModalClose();
             },
@@ -88,7 +126,7 @@ class App extends Component {
 
     modalActions3 = [
         {
-            label: "Close",
+            label: 'Close',
             danger: true,
             handler: () => {
                 this.onModalClose();
@@ -98,7 +136,7 @@ class App extends Component {
 
     modalActions4 = [
         {
-            label: "Save",
+            label: 'Save',
             primary: true,
             handler: () => {
                 this.onModalClose();
@@ -106,9 +144,9 @@ class App extends Component {
         }
     ];
 
-    modalActions5 = [{ label: "Delete", danger: true }];
+    modalActions5 = [{ label: 'Delete', danger: true }];
 
-    modalActions7 = [{ label: "Save", primary: true }];
+    modalActions7 = [{ label: 'Save', primary: true }];
 
     _onTemperatureRadioChange = e => {
         this.setState({
@@ -146,16 +184,19 @@ class App extends Component {
     };
 
     onSwitchChange = (e, example) => {
-        const states = Object.assign({}, {
-            contentSwitch: {
-                ...this.state.contentSwitch,
-                [example]: e.switchIndex
+        const states = Object.assign(
+            {},
+            {
+                contentSwitch: {
+                    ...this.state.contentSwitch,
+                    [example]: e.switchIndex
+                }
             }
-        });
+        );
         this.setState({
             ...states
-        })
-    }
+        });
+    };
 
     hideToast = () => {
         if (this.state.toast.visible) {
@@ -182,7 +223,7 @@ class App extends Component {
                         <Label htmlFor="firstname">First Name </Label>
                         <FormHelperText className="helper-text">
                             Enter first name
-                        </FormHelperText>
+            </FormHelperText>
                         <TextInput
                             type="text"
                             placeholder="name"
@@ -194,13 +235,13 @@ class App extends Component {
                         />
                         <FormHelperText className="error-msg">
                             Enter first name
-                        </FormHelperText>
+            </FormHelperText>
                     </div>
                     <div className="hcl-form-group hcl-col-12">
                         <Label htmlFor="feedback">Feedback </Label>
                         <FormHelperText className="helper-text">
                             Feedback helper
-                        </FormHelperText>
+            </FormHelperText>
                         <TextArea
                             aria-disabled="false"
                             id="feedback"
@@ -211,7 +252,7 @@ class App extends Component {
                         />
                         <FormHelperText className="error-msg">
                             Validation message
-                        </FormHelperText>
+            </FormHelperText>
                     </div>
 
                     <hr />
@@ -221,60 +262,60 @@ class App extends Component {
                             title="Default"
                             className="mr-2"
                             onClick={() => {
-                                console.log("Button Clicked");
+                                console.log('Button Clicked');
                             }}
                         >
                             Default
-                        </Button>
+            </Button>
                         <Button
                             className="mr-2 hcl-primary"
                             onClick={() => {
-                                console.log("Button Clicked");
+                                console.log('Button Clicked');
                             }}
                         >
                             Primary
-                        </Button>
+            </Button>
                         <Button
                             className="mr-2 hcl-secondary"
                             onClick={() => {
-                                console.log("Button Clicked");
+                                console.log('Button Clicked');
                             }}
                         >
                             Secondary
-                        </Button>
+            </Button>
                         <Button
                             className="mr-2 hcl-primary hcl-ghost"
                             onClick={() => {
-                                console.log("Button Clicked");
+                                console.log('Button Clicked');
                             }}
                         >
                             Primary ghost
-                        </Button>
+            </Button>
 
                         <Button
                             className="mr-2 hcl-primary hcl-sm"
                             onClick={() => {
-                                console.log("Button Clicked");
+                                console.log('Button Clicked');
                             }}
                         >
                             Primary small
-                        </Button>
+            </Button>
                         <Button
                             className="mr-2 hcl-primary hcl-danger"
                             onClick={() => {
-                                console.log("Button Clicked");
+                                console.log('Button Clicked');
                             }}
                         >
                             Danger outline
-                        </Button>
+            </Button>
                         <Button
                             className="mr-2 hcl-primary hcl-danger hcl-secondary"
                             onClick={() => {
-                                console.log("Button Clicked");
+                                console.log('Button Clicked');
                             }}
                         >
                             Danger outline
-                    </Button>
+            </Button>
                     </div>
                     {/* Heading */}
                     <div className="hcl-col-12">
@@ -284,13 +325,13 @@ class App extends Component {
                     <div className="hcl-col-12 mt-5">
                         <legend className="hcl-legend">
                             Checkbox - Horizontally arranged (default)
-                        </legend>
+            </legend>
                         <div className="hcl-checkbox-group">
                             <Checkbox
                                 id="checkbox1"
                                 labelText="1 (default)"
                                 onChange={() => {
-                                    console.log("Default Checkbox.");
+                                    console.log('Default Checkbox.');
                                 }}
                             />
                             <Checkbox
@@ -298,7 +339,7 @@ class App extends Component {
                                 labelText="2"
                                 checked
                                 onChange={() => {
-                                    console.log("Checked state is changed.");
+                                    console.log('Checked state is changed.');
                                 }}
                             />
                             <Checkbox id="checkbox3" labelText="3 (disabled)" disabled />
@@ -307,13 +348,13 @@ class App extends Component {
                     <div className="hcl-col-12 mt-5">
                         <legend className="hcl-legend">
                             Checkbox - Vertically arranged
-                        </legend>
+            </legend>
                         <div className="hcl-checkbox-group hcl-stack-vertical">
                             <Checkbox
                                 id="checkbox4"
                                 labelText="4 (default)"
                                 onChange={() => {
-                                    console.log("Default Checkbox.");
+                                    console.log('Default Checkbox.');
                                 }}
                             />
                             <Checkbox
@@ -321,7 +362,7 @@ class App extends Component {
                                 labelText="5"
                                 checked
                                 onChange={() => {
-                                    console.log("Checked state is changed.");
+                                    console.log('Checked state is changed.');
                                 }}
                             />
                             <Checkbox id="checkbox6" labelText="6 (disabled)" disabled />
@@ -331,7 +372,7 @@ class App extends Component {
                     <div className="hcl-col-12 mt-5">
                         <legend className="hcl-legend">
                             Radio - Horizontally arranged (default)
-                        </legend>
+            </legend>
                         <div className="hcl-radio-group">
                             <Radio
                                 id="Radio1"
@@ -369,7 +410,7 @@ class App extends Component {
                                 value="Bangalore"
                                 name="city"
                                 onChange={this._onCityRadioChange}
-                                checked={this.state.radio.city === "Bangalore"}
+                                checked={this.state.radio.city === 'Bangalore'}
                             />
                             <Radio
                                 id="Radio5"
@@ -377,7 +418,7 @@ class App extends Component {
                                 value="Chennai"
                                 name="city"
                                 onChange={this._onCityRadioChange}
-                                checked={this.state.radio.city === "Chennai"}
+                                checked={this.state.radio.city === 'Chennai'}
                             />
                             <Radio
                                 id="Radio6"
@@ -386,7 +427,7 @@ class App extends Component {
                                 name="city"
                                 disabled
                                 onChange={this._onCityRadioChange}
-                                checked={this.state.radio.city === "Mumbai"}
+                                checked={this.state.radio.city === 'Mumbai'}
                             />
                         </div>
                     </div>
@@ -394,7 +435,7 @@ class App extends Component {
                     <div className="hcl-col-12 mt-5">
                         <Link href="https://www.google.com" target="_blank">
                             Google
-                        </Link>
+            </Link>
                     </div>
                     {/* Paragraphs */}
                     <div className="hcl-col-12 mt-5">
@@ -403,7 +444,7 @@ class App extends Component {
                             but the majority have suffered alteration in some form, by
                             injected humour, or randomised words which don&lsquo;t look even
                             slightly believable.
-                        </Paragraph>
+            </Paragraph>
                     </div>
                     {/* Breadcrumb */}
                     <div className="hcl-col-12 mt-5">
@@ -411,9 +452,9 @@ class App extends Component {
                             id="breadcrumb"
                             className="custom-breadcrumb"
                             model={[
-                                { label: "Breadcrumb 1", url: "" },
-                                { label: "Breadcrumb 2", url: "https://google.co.in" },
-                                { label: "Breadcrumb 3" }
+                                { label: 'Breadcrumb 1', url: '' },
+                                { label: 'Breadcrumb 2', url: 'https://google.co.in' },
+                                { label: 'Breadcrumb 3' }
                             ]}
                         />
                     </div>
@@ -431,7 +472,7 @@ class App extends Component {
                             id="simple-toggle"
                             className="ml-3"
                             onChange={() => {
-                                console.log("Toggled");
+                                console.log('Toggled');
                             }}
                         />
                         <Toggle
@@ -455,7 +496,7 @@ class App extends Component {
                             id="simple-small-toggle"
                             className="ml-3"
                             onChange={() => {
-                                console.log("Toggled");
+                                console.log('Toggled');
                             }}
                         />
                         <Toggle
@@ -481,7 +522,9 @@ class App extends Component {
                             subtitle="Lorem Ipsum is simply dummy text of the printing and typesetting industry."
                             className="hcl-info"
                             closable
-                            onClose={() => { console.log("Notification Closed"); }}
+                            onClose={() => {
+                                console.log('Notification Closed');
+                            }}
                         />
                     </div>
                     {/* Overflow */}
@@ -496,14 +539,59 @@ class App extends Component {
                     </div>
                     {/* Tag */}
                     <div className="hcl-col-12 mt-5">
-                        <Tag className="ml-3" title="Primary Tag">Primary Tag</Tag>
-                        <Tag className="ml-3" title="Primary Disabled" disabled>Primary Disabled</Tag>
-                        <Tag className="ml-3" title="Primary Closable" closable onClose={() => { alert('Closing Tag') }}>Primary Closable</Tag>
-                        <Tag className="ml-3" title="Primary Tag With Thumbnail" thumbnailSrc="https://image.flaticon.com/icons/png/512/862/862358.png">Primary Tag With Thumbnail</Tag>
-                        <Tag className="ml-3" title="Secondary Tag" type="secondary">Secondary Tag</Tag>
-                        <Tag className="ml-3" title="Secondary Disabled Tag" disabled type="secondary">Secondary Disabled Tag</Tag>
-                        <Tag className="ml-3" title="Secondary Closable" type="secondary" closable onClose={() => { alert('Closing Tag') }}>Secondary Closable</Tag>
-                        <Tag className="ml-3" title="Secondary Tag With Thumbnail" type="secondary" thumbnailSrc="https://image.flaticon.com/icons/png/512/862/862358.png">Secondary Tag With Thumbnail</Tag>
+                        <Tag className="ml-3" title="Primary Tag">
+                            Primary Tag
+            </Tag>
+                        <Tag className="ml-3" title="Primary Disabled" disabled>
+                            Primary Disabled
+            </Tag>
+                        <Tag
+                            className="ml-3"
+                            title="Primary Closable"
+                            closable
+                            onClose={() => {
+                                alert('Closing Tag');
+                            }}
+                        >
+                            Primary Closable
+            </Tag>
+                        <Tag
+                            className="ml-3"
+                            title="Primary Tag With Thumbnail"
+                            thumbnailSrc="https://image.flaticon.com/icons/png/512/862/862358.png"
+                        >
+                            Primary Tag With Thumbnail
+            </Tag>
+                        <Tag className="ml-3" title="Secondary Tag" type="secondary">
+                            Secondary Tag
+            </Tag>
+                        <Tag
+                            className="ml-3"
+                            title="Secondary Disabled Tag"
+                            disabled
+                            type="secondary"
+                        >
+                            Secondary Disabled Tag
+            </Tag>
+                        <Tag
+                            className="ml-3"
+                            title="Secondary Closable"
+                            type="secondary"
+                            closable
+                            onClose={() => {
+                                alert('Closing Tag');
+                            }}
+                        >
+                            Secondary Closable
+            </Tag>
+                        <Tag
+                            className="ml-3"
+                            title="Secondary Tag With Thumbnail"
+                            type="secondary"
+                            thumbnailSrc="https://image.flaticon.com/icons/png/512/862/862358.png"
+                        >
+                            Secondary Tag With Thumbnail
+            </Tag>
                     </div>
                     {/* List */}
                     <div className="hcl-col-12 mt-5">
@@ -526,156 +614,280 @@ class App extends Component {
                             onClose={this.hideToast}
                             visible={this.state.toast.visible}
                         />
-                        <Button title="Default" onClick={this.showToast}>Show Toast Notification</Button>
+                        <Button title="Default" onClick={this.showToast}>
+                            Show Toast Notification
+            </Button>
                     </div>
                     <div className="hcl-col-12 mt-5">
                         <h5>Show modal layout :</h5>
-                        <Button title="Default" className="mr-2" onClick={() => { this.setState({ modal: 1 }) }}>1</Button>
-                        <Button title="Default" className="mr-2" onClick={() => { this.setState({ modal: 2 }) }}>2</Button>
-                        <Button title="Default" className="mr-2" onClick={() => { this.setState({ modal: 3 }) }}>3</Button>
-                        <Button title="Default" className="mr-2" onClick={() => { this.setState({ modal: 4 }) }}>4</Button>
-                        <Button title="Default" className="mr-2" onClick={() => { this.setState({ modal: 5 }) }}>5</Button>
-                        <Button title="Default" className="mr-2" onClick={() => { this.setState({ modal: 6 }) }}>6</Button>
-                        <Button title="Default" className="mr-2" onClick={() => { this.setState({ modal: 7 }) }}>7</Button>
+                        <Button
+                            title="Default"
+                            className="mr-2"
+                            onClick={() => {
+                                this.setState({ modal: 1 });
+                            }}
+                        >
+                            1
+            </Button>
+                        <Button
+                            title="Default"
+                            className="mr-2"
+                            onClick={() => {
+                                this.setState({ modal: 2 });
+                            }}
+                        >
+                            2
+            </Button>
+                        <Button
+                            title="Default"
+                            className="mr-2"
+                            onClick={() => {
+                                this.setState({ modal: 3 });
+                            }}
+                        >
+                            3
+            </Button>
+                        <Button
+                            title="Default"
+                            className="mr-2"
+                            onClick={() => {
+                                this.setState({ modal: 4 });
+                            }}
+                        >
+                            4
+            </Button>
+                        <Button
+                            title="Default"
+                            className="mr-2"
+                            onClick={() => {
+                                this.setState({ modal: 5 });
+                            }}
+                        >
+                            5
+            </Button>
+                        <Button
+                            title="Default"
+                            className="mr-2"
+                            onClick={() => {
+                                this.setState({ modal: 6 });
+                            }}
+                        >
+                            6
+            </Button>
+                        <Button
+                            title="Default"
+                            className="mr-2"
+                            onClick={() => {
+                                this.setState({ modal: 7 });
+                            }}
+                        >
+                            7
+            </Button>
 
                         {/* Danger type Modals */}
-                        {this.state.modal === 1 &&
-                            <Modal type="danger" label="optional label" heading="Heading comes here." onClose={this.onModalClose} actions={this.modalActions1}>
+                        {this.state.modal === 1 && (
+                            <Modal
+                                type="danger"
+                                label="optional label"
+                                heading="Heading comes here."
+                                onClose={this.onModalClose}
+                                actions={this.modalActions1}
+                            >
                                 <Paragraph>Danger Modal with save and close buttons</Paragraph>
-                            </Modal>}
-                        {this.state.modal === 2 &&
-                            <Modal type="danger" label="optional label" heading="Heading comes here." onClose={this.onModalClose}>
+                            </Modal>
+                        )}
+                        {this.state.modal === 2 && (
+                            <Modal
+                                type="danger"
+                                label="optional label"
+                                heading="Heading comes here."
+                                onClose={this.onModalClose}
+                            >
                                 <Paragraph> Danger Modal with no buttons</Paragraph>
-                            </Modal>}
-                        {this.state.modal === 3 &&
-                            <Modal type="danger" heading="Heading comes here." onClose={this.onModalClose} actions={this.modalActions3}>
+                            </Modal>
+                        )}
+                        {this.state.modal === 3 && (
+                            <Modal
+                                type="danger"
+                                heading="Heading comes here."
+                                onClose={this.onModalClose}
+                                actions={this.modalActions3}
+                            >
                                 <Paragraph> Danger Modal with close button</Paragraph>
-                            </Modal>}
-                        {this.state.modal === 4 &&
+                            </Modal>
+                        )}
+                        {this.state.modal === 4 && (
                             <Modal type="danger" onClose={this.onModalClose}>
                                 <Paragraph> Danger Modal with no footer and heading</Paragraph>
-                            </Modal>}
+                            </Modal>
+                        )}
                         {/* Default type Modals */}
-                        {this.state.modal === 5 &&
-                            <Modal label="optional label" heading="Heading comes here." onClose={this.onModalClose} actions={this.modalActions5}>
+                        {this.state.modal === 5 && (
+                            <Modal
+                                label="optional label"
+                                heading="Heading comes here."
+                                onClose={this.onModalClose}
+                                actions={this.modalActions5}
+                            >
                                 <Paragraph> Modal with Delete (Danger) button</Paragraph>
-                            </Modal>}
-                        {this.state.modal === 6 &&
-                            <Modal label="optional label" heading="Heading comes here." onClose={this.onModalClose}>
+                            </Modal>
+                        )}
+                        {this.state.modal === 6 && (
+                            <Modal
+                                label="optional label"
+                                heading="Heading comes here."
+                                onClose={this.onModalClose}
+                            >
                                 <Paragraph> Modal with no buttons</Paragraph>
-                            </Modal>}
-                        {this.state.modal === 7 &&
-                            <Modal heading="Heading comes here." onClose={this.onModalClose} actions={this.modalActions7}>
+                            </Modal>
+                        )}
+                        {this.state.modal === 7 && (
+                            <Modal
+                                heading="Heading comes here."
+                                onClose={this.onModalClose}
+                                actions={this.modalActions7}
+                            >
                                 <Paragraph>Modal with save button</Paragraph>
-                            </Modal>}
+                            </Modal>
+                        )}
                     </div>
                     <div className="hcl-col-12 mt-5 colBorder p-5">
                         {/* Tab Component */}
-                        <Tabs activeIndex={0} onChange={(e) => { console.log(`Label => ${e.label} Index => ${e.tabIndex}`) }}>
+                        <Tabs
+                            activeIndex={0}
+                            onChange={e => {
+                                console.log(`Label => ${e.label} Index => ${e.tabIndex}`);
+                            }}
+                        >
                             <Tab label="Tab List 1">Content 1</Tab>
-                            <Tab label="Tab List 2" isDisabled>Content 2</Tab>
+                            <Tab label="Tab List 2" isDisabled>
+                                Content 2
+              </Tab>
                             <Tab label="Tab List 3">Content 3</Tab>
                         </Tabs>
                     </div>
                     <section className="hcl-col-12 mt-5 colBorder p-5">
                         {/* Content Switcher Component */}
                         <h5 className="p-2">Content Switcher - (default)</h5>
-                        <ContentSwitcher activeIndex={contentSwitch.example1} onChange={(e) => this.onSwitchChange(e, "example1")}>
+                        <ContentSwitcher
+                            activeIndex={contentSwitch.example1}
+                            onChange={e => this.onSwitchChange(e, 'example1')}
+                        >
                             <Switch label="All" />
                             <Switch label="Cybernetics" />
                             <Switch label="Information &amp; Communication" />
                         </ContentSwitcher>
                         <section className="mt-1 p-2">
-                            {contentSwitch.example1 === 0 &&
+                            {contentSwitch.example1 === 0 && (
                                 <div className="colBorder p-2">
-                                    <List listItems={this.switchAll} type="ol" onClick={(e) => console.log(e)} />
+                                    <List
+                                        listItems={this.switchAll}
+                                        type="ol"
+                                        onClick={e => console.log(e)}
+                                    />
                                 </div>
-                            }
-                            {contentSwitch.example1 === 1 &&
+                            )}
+                            {contentSwitch.example1 === 1 && (
                                 <div className="colBorder p-2">
                                     <List listItems={[this.switchAll[0]]} type="ol" />
                                 </div>
-                            }
-                            {contentSwitch.example1 === 2 &&
+                            )}
+                            {contentSwitch.example1 === 2 && (
                                 <div className="colBorder p-2">
                                     <List listItems={[this.switchAll[1]]} type="ol" />
                                 </div>
-                            }
+                            )}
                         </section>
                     </section>
                     <section className="hcl-col-12 mt-5 colBorder p-5">
                         <h5 className="p-2">Content Switcher - (disabled)</h5>
-                        <ContentSwitcher activeIndex={contentSwitch.example2} onChange={(e) => this.onSwitchChange(e, "example2")}>
+                        <ContentSwitcher
+                            activeIndex={contentSwitch.example2}
+                            onChange={e => this.onSwitchChange(e, 'example2')}
+                        >
                             <Switch label="All" />
                             <Switch label="Cybernetics" isDisabled />
                             <Switch label="Information &amp; Communication" />
                         </ContentSwitcher>
                         <section className="mt-1 p-2">
-                            {contentSwitch.example2 === 0 &&
+                            {contentSwitch.example2 === 0 && (
                                 <div className="colBorder p-2">
                                     <List listItems={this.switchAll} type="ol" />
                                 </div>
-                            }
-                            {contentSwitch.example2 === 1 &&
+                            )}
+                            {contentSwitch.example2 === 1 && (
                                 <div className="colBorder p-2">
                                     <List listItems={[this.switchAll[0]]} type="ol" />
                                 </div>
-                            }
-                            {contentSwitch.example2 === 2 &&
+                            )}
+                            {contentSwitch.example2 === 2 && (
                                 <div className="colBorder p-2">
                                     <List listItems={[this.switchAll[1]]} type="ol" />
                                 </div>
-                            }
+                            )}
                         </section>
                     </section>
                     <section className="hcl-col-12 mt-5 colBorder p-5">
                         <h5 className="p-2">Content Switcher - (with icons)</h5>
-                        <ContentSwitcher activeIndex={contentSwitch.example3} onChange={(e) => this.onSwitchChange(e, "example3")}>
+                        <ContentSwitcher
+                            activeIndex={contentSwitch.example3}
+                            onChange={e => this.onSwitchChange(e, 'example3')}
+                        >
                             <Switch label="All" iconClass="fa fa-center" />
                             <Switch label="Cybernetics" iconClass="fa fa-center" />
-                            <Switch label="Information &amp; Communication" iconClass="fa fa-right" />
+                            <Switch
+                                label="Information &amp; Communication"
+                                iconClass="fa fa-right"
+                            />
                         </ContentSwitcher>
                         <section className="mt-1 p-2">
-                            {contentSwitch.example3 === 0 &&
+                            {contentSwitch.example3 === 0 && (
                                 <div className="colBorder p-2">
                                     <List listItems={this.switchAll} type="ol" />
                                 </div>
-                            }
-                            {contentSwitch.example3 === 1 &&
+                            )}
+                            {contentSwitch.example3 === 1 && (
                                 <div className="colBorder p-2">
                                     <List listItems={[this.switchAll[0]]} type="ol" />
                                 </div>
-                            }
-                            {contentSwitch.example3 === 2 &&
+                            )}
+                            {contentSwitch.example3 === 2 && (
                                 <div className="colBorder p-2">
                                     <List listItems={[this.switchAll[1]]} type="ol" />
                                 </div>
-                            }
+                            )}
                         </section>
                     </section>
                     <section className="hcl-col-12 mt-5 colBorder p-5">
                         <h5 className="p-2">Content Switcher - with icons (disabled)</h5>
-                        <ContentSwitcher activeIndex={contentSwitch.example4} onChange={(e) => this.onSwitchChange(e, "example4")}>
+                        <ContentSwitcher
+                            activeIndex={contentSwitch.example4}
+                            onChange={e => this.onSwitchChange(e, 'example4')}
+                        >
                             <Switch label="All" iconClass="fa fa-left" isDisabled />
                             <Switch label="Cybernetics" iconClass="fa fa-center" isDisabled />
-                            <Switch label="Information &amp; Communication" iconClass="fa fa-right" isDisabled />
+                            <Switch
+                                label="Information &amp; Communication"
+                                iconClass="fa fa-right"
+                                isDisabled
+                            />
                         </ContentSwitcher>
                         <section className="mt-1 p-2">
-                            {contentSwitch.example4 === 0 &&
+                            {contentSwitch.example4 === 0 && (
                                 <div className="colBorder p-2">
                                     <List listItems={this.switchAll} type="ol" />
                                 </div>
-                            }
-                            {contentSwitch.example4 === 1 &&
+                            )}
+                            {contentSwitch.example4 === 1 && (
                                 <div className="colBorder p-2">
                                     <List listItems={[this.switchAll[0]]} type="ol" />
                                 </div>
-                            }
-                            {contentSwitch.example4 === 2 &&
+                            )}
+                            {contentSwitch.example4 === 2 && (
                                 <div className="colBorder p-2">
                                     <List listItems={[this.switchAll[1]]} type="ol" />
                                 </div>
-                            }
+                            )}
                         </section>
                     </section>
                     {/* Slider Component */}
@@ -686,8 +898,228 @@ class App extends Component {
                             step={2}
                             value={44}
                             title="Slider"
-                            onChange={event => { console.log(event.currentTarget.value) }}
+                            onChange={event => {
+                                console.log(event.currentTarget.value);
+                            }}
                         />
+                    </div>
+                    {/* Table Component */}
+                    <div className="hcl-col-12 mt-5 mb-5">
+                        <DataTable
+                            id="sample_table_1"
+                            tableData={tableData}
+                            selectable
+                            onSort={event => {
+                                console.log(event.currentTarget);
+                            }}
+                        />
+                    </div>
+                    {/* Search Component */}
+                    <section className="hcl-col-12 mt-5 colBorder p-5">
+                        <h5 className="p-2">Normal Search</h5>
+                        <Search />
+                    </section>
+
+                    <section className="hcl-col-12 mt-5 colBorder p-5">
+                        <h5 className="p-2">Header Search</h5>
+                        <Search type="clickable" />
+                    </section>
+
+                    <section className="hcl-col-12 mt-5 colBorder p-5">
+                        <h5 className="p-2">Small Search</h5>
+                        <Search size="small" />
+                    </section>
+
+                    <section className="hcl-col-12 mt-5 colBorder p-5">
+                        <h5 className="p-2">Small Header Search</h5>
+                        <Search size="small" type="clickable" />
+                    </section>
+
+                    <section
+                        className="hcl-col-12 mt-5 colBorder p-5"
+                        style={{ background: '#F5F7FB' }}
+                    >
+                        <h5 className="p-2">Normal Search (White background)</h5>
+                        <Search theme="white" />
+                    </section>
+
+                    <section
+                        className="hcl-col-12 mt-5 colBorder p-5"
+                        style={{ background: '#F5F7FB' }}
+                    >
+                        <h5 className="p-2">Header Search (White background)</h5>
+                        <Search type="clickable" theme="white" />
+                    </section>
+
+                    <section
+                        className="hcl-col-12 mt-5 colBorder p-5"
+                        style={{ background: '#F5F7FB' }}
+                    >
+                        <h5 className="p-2">Small Search (White background)</h5>
+                        <Search size="small" theme="white" />
+                    </section>
+
+                    <section
+                        className="hcl-col-12 mt-5 colBorder p-5"
+                        style={{ background: '#F5F7FB' }}
+                    >
+                        <h5 className="p-2">Small Header Search (White background)</h5>
+                        <Search size="small" type="clickable" theme="white" />
+                    </section>
+                    {/* File Uploader Component */}
+                    <div className="hcl-col-12 mt-5">
+                        <FileUploader
+                            id="file_uploader"
+                            label="Account photo"
+                            description="only .jpg and .png files. 500kb max file size."
+                            fileType=".jpg"
+                            className="hcl-btn hcl-secondary hcl-sml"
+                        >
+                            Add file
+            </FileUploader>
+                    </div>
+                    {/* Dropdown Component */}
+                    <div className="hcl-row m-3 hcl-col-12">
+                        <div className="hcl-col-6">
+                            <Dropdown
+                                type="top"
+                                items={this.items}
+                                label="Top DropDown"
+                                selectedIndex={1}
+                                onChange={selected => {
+                                    console.log('selected item', selected);
+                                }}
+                            />
+                        </div>
+                        <div className="hcl-col-6">
+                            <Dropdown
+                                type="bottom"
+                                items={this.items}
+                                label="Bottom DropDown"
+                                onChange={selected => {
+                                    console.log('selected item', selected);
+                                }}
+                            />
+                        </div>
+                    </div>
+                    {/* Tile Component */}
+                    <section>
+                        <div className="hcl-col-12 mt-5 mb-5">
+                            {/* default tile */}
+                            <Tile>
+                                <p>This is read only tile</p>
+                            </Tile>
+                        </div>
+                        <div className="hcl-col-12 mt-5 mb-5">
+                            {/* clickable tile */}
+                            <Tile clickable href="">
+                                <p>This is clickable tile</p>
+                            </Tile>
+                        </div>
+                        <div className="hcl-col-12 mt-5 mb-5">
+                            {/* selectable tile */}
+                            <Tile selectable>
+                                <p>This is selectable tile</p>
+                            </Tile>
+                        </div>
+                        <div className="hcl-col-12 mt-5 mb-5">
+                            {/* expandable tile */}
+                            <Tile expandable id="expandable-tile-1">
+                                {/* container for default content */}
+                                <div>
+                                    <p>Content shown prior expand </p>
+                                </div>
+                                {/* container for content which will be added once expanded */}
+                                <div>
+                                    <p>Content shown after expand </p>
+                                </div>
+                            </Tile>
+                        </div>
+                    </section>
+                </div>
+
+                {/* Accordion Component */}
+                <div className="hcl-col-12 mt-5 mb-5">
+                    <Accordion>
+                        <AccordionItem
+                            title="What is Lorem Ipsum ?"
+                            expanded
+                            onChange={event => {
+                                console.log(`Accordian toggled ${event.currentTarget}`);
+                            }}
+                        >
+                            Lorem Ipsum is simply dummy text of the printing and typesetting
+                            industry. Lorem Ipsum has been the industry&apos;s standard dummy
+                            text ever since the 1500s, when an unknown printer took a galley
+                            of type and scrambled it to make a type specimen book. It has
+                            survived not only five centuries, but also the leap into
+                            electronic typesetting, remaining essentially unchanged. It was
+                            popularised in the 1960s with the release of Letraset sheets
+                            containing Lorem Ipsum passages, and more recently with desktop
+                            publishing software like Aldus PageMaker including versions of
+                            Lorem Ipsum.
+            </AccordionItem>
+                        <AccordionItem
+                            title="Why do we use it ?"
+                            onChange={event => {
+                                console.log(`Accordian toggled ${event.currentTarget}`);
+                            }}
+                        >
+                            It is a long established fact that a reader will be distracted by
+                            the readable content of a page when looking at its layout. The
+                            point of using Lorem Ipsum is that it has a more-or-less normal
+                            distribution of letters, as opposed to using &apos;Content here,
+                            content here&apos;, making it look like readable English. Many
+                            desktop publishing packages and web page editors now use Lorem
+                            Ipsum as their default model text, and a search for &apos;lorem
+                            ipsum&apos; will uncover many web sites still in their infancy.
+                            Various versions have evolved over the years, sometimes by
+                            accident, sometimes on purpose (injected humour and the like).
+            </AccordionItem>
+                        <AccordionItem
+                            title="Wher we can it ?"
+                            onChange={event => {
+                                console.log(`Accordian toggled ${event.currentTarget}`);
+                            }}
+                        >
+                            There are many variations of passages of Lorem Ipsum available,
+                            but the majority have suffered alteration in some form, by
+                            injected humour, or randomised words which don&apos;t look even
+                            slightly believable. If you are going to use a passage of Lorem
+                            Ipsum, you need to be sure there isn&apos;t anything embarrassing
+                            hidden in the middle of text. All the Lorem Ipsum generators on
+                            the Internet tend to repeat predefined chunks as necessary, making
+                            this the first true generator on the Internet. It uses a
+                            dictionary of over 200 Latin words, combined with a handful of
+                            model sentence structures, to generate Lorem Ipsum which looks
+                            reasonable. The generated Lorem Ipsum is therefore always free
+                            from repetition, injected humour, or non-characteristic words etc.
+            </AccordionItem>
+                    </Accordion>
+                    {/* DatePicker */}
+                    <div className="hcl-row m-3 hcl-col-12">
+                        <div className="hcl-col-6">
+                            <DatePicker
+                                weekDays={weekDays}
+                                months={months}
+                                open="top"
+                                format="mm/dd/yyyy"
+                                onDateSelect={dateSelected => {
+                                    console.log('Selected Date', dateSelected);
+                                }}
+                            />
+                        </div>
+                        <div className="hcl-col-6">
+                            <DatePicker
+                                weekDays={weekDays}
+                                months={months}
+                                open="bottom"
+                                format="dd/mm/yyyy"
+                                onDateSelect={dateSelected => {
+                                    console.log('Selected Date', dateSelected);
+                                }}
+                            />
+                        </div>
                     </div>
 
                     <div className="hcl-col-12 mt-5 mb-5">
@@ -719,18 +1151,6 @@ class App extends Component {
                             label="Number Input validation"
                             disabled
                         />
-                    </div>
-                    {/* File Uploader Component */}
-                    <div className="hcl-col-12">
-                        <FileUploader
-                            id="file_uploader"
-                            label="Account photo"
-                            description="only .jpg and .png files. 500kb max file size."
-                            fileType=".jpg"
-                            className="hcl-btn hcl-secondary hcl-sml"
-                        >
-                            Add file
-                        </FileUploader>
                     </div>
                 </div>
             </main>
