@@ -6,12 +6,12 @@ import { trackDocumentClick, positionComponent } from '../../util/utility'
 
 const Dropdown = ({ type, items, label, onChange, selectedIndex }) => {
     const [isOpen, setIsOpen] = useState(false);
-    const [selected, setSelected] = useState(selectedIndex + 1 ? items[selectedIndex] : null);
+    const [selected, setSelected] = useState(selectedIndex !== null ? items[selectedIndex] : null);
     const [typeState, setTypeState] = useState(type);
     const dropDown = useRef(null);
 
     useEffect(() => {
-         setSelected(selectedIndex ? items[selectedIndex] : null);
+         setSelected(selectedIndex !== null ? items[selectedIndex] : null);
          positionComponent(() => { setTypeState('top') }, () => { setTypeState('bottom') }, type, dropDown.current.getElementsByTagName('ul')[0]);
      });
 
