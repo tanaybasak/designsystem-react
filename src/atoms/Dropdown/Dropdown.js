@@ -12,7 +12,10 @@ const Dropdown = ({ type, items, label, onChange, selectedIndex }) => {
 
     useEffect(() => {
          setSelected(selectedIndex !== null ? items[selectedIndex] : null);
-         positionComponent(() => { setTypeState('top') }, () => { setTypeState('bottom') }, type, dropDown.current.getElementsByTagName('ul')[0]);
+     },[selectedIndex]);
+
+     useEffect(() => {
+       positionComponent(() => { setTypeState('top') }, () => { setTypeState('bottom') }, type, dropDown.current.getElementsByTagName('ul')[0]);
      });
 
     const onSelect = (event) => {
