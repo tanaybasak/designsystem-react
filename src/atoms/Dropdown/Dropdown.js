@@ -11,8 +11,10 @@ const Dropdown = ({ type, items, label, onChange, selectedIndex }) => {
     const dropDown = useRef(null);
 
     useEffect(() => {
-        positionComponent(() => { setTypeState('top') }, () => { setTypeState('bottom') }, type, dropDown.current.getElementsByTagName('ul')[0]);
-    });
+         setSelected(selectedIndex ? items[selectedIndex] : null);
+         setTypeState(type);
+         positionComponent(() => { setTypeState('top') }, () => { setTypeState('bottom') }, type, dropDown.current.getElementsByTagName('ul')[0]);
+     });
 
     const onSelect = (event) => {
         event.stopPropagation();

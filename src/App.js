@@ -1,45 +1,45 @@
 /* eslint-disable no-console */
-import React, { Component } from 'react';
-import Label from './atoms/Label';
-import TextInput from './atoms/TextInput';
-import FormHelperText from './atoms/FormHelperText';
-import Button from './atoms/Button';
-import Heading from './atoms/Heading';
-import Checkbox from './atoms/Checkbox';
-import Radio from './atoms/Radio';
-import TextArea from './atoms/TextArea';
-import Link from './atoms/Link';
-import Paragraph from './atoms/Paragraph';
-import Breadcrumb from './atoms/Breadcrumb';
-import Spinner from './atoms/Spinner';
-import Toggle from './atoms/Toggle';
-import Notification from './atoms/Notification';
-import Tag from './atoms/Tag';
-import List from './atoms/List';
-import listItems from './atoms/List/sample-list-data.json';
-import Toast from './atoms/Toast';
-import Modal from './molecules/Modal';
-import { Tabs, Tab } from './molecules/Tab';
-import Slider from './atoms/Slider';
-import Overflowmenu from './molecules/Overflowmenu';
-import overflowlist from './molecules/Overflowmenu/sample-overflow-list.json';
-import { ContentSwitcher, Switch } from './molecules/ContentSwitcher';
-import NumberInput from './molecules/NumberInput';
-import DataTable from './atoms/DataTable';
-import tableData from './atoms/DataTable/sample-table-data';
-import Search from './atoms/Search';
-import FileUploader from './molecules/FileUploader';
-import { Accordion, AccordionItem } from './molecules/Accordion';
-import Dropdown from './atoms/Dropdown';
-import Tile from './atoms/Tile';
-import DatePicker from './molecules/DatePicker';
-import { weekDays, months } from './content';
+import React, { Component } from "react";
+import Label from "./atoms/Label";
+import TextInput from "./atoms/TextInput";
+import FormHelperText from "./atoms/FormHelperText";
+import Button from "./atoms/Button";
+import Heading from "./atoms/Heading";
+import Checkbox from "./atoms/Checkbox";
+import Radio from "./atoms/Radio";
+import TextArea from "./atoms/TextArea";
+import Link from "./atoms/Link";
+import Paragraph from "./atoms/Paragraph";
+import Breadcrumb from "./atoms/Breadcrumb";
+import Spinner from "./atoms/Spinner";
+import Toggle from "./atoms/Toggle";
+import Notification from "./atoms/Notification";
+import Tag from "./atoms/Tag";
+import List from "./atoms/List";
+import listItems from "./atoms/List/sample-list-data.json";
+import Toast from "./atoms/Toast";
+import Modal from "./molecules/Modal";
+import { Tabs, Tab } from "./molecules/Tab";
+import Slider from "./atoms/Slider";
+import Overflowmenu from "./molecules/Overflowmenu";
+import overflowlist from "./molecules/Overflowmenu/sample-overflow-list.json";
+import { ContentSwitcher, Switch } from "./molecules/ContentSwitcher";
+import DataTable from "./atoms/DataTable";
+import tableData from "./atoms/DataTable/sample-table-data.json";
+import Search from "./atoms/Search";
+import FileUploader from "./molecules/FileUploader";
+import { Accordion, AccordionItem } from "./molecules/Accordion";
+import Dropdown from "./atoms/Dropdown";
+import Tile from "./atoms/Tile";
+import DatePicker from "./molecules/DatePicker";
+import { weekDays, months } from "./content";
+import NumberInput from "./molecules/NumberInput";
 
 class App extends Component {
     state = {
         radio: {
             temperature: 45,
-            city: 'Chennai'
+            city: "Chennai"
         },
         toast: {
             visible: false
@@ -50,73 +50,71 @@ class App extends Component {
             example2: 1,
             example3: 2,
             example4: 0
-        },
-        valueNumber: 10,
-        validationMessage: ''
+        }
     };
 
     items = [
         {
-            id: 'option-1',
-            text: 'Option 1'
+            id: "option-1",
+            text: "Option 1"
         },
         {
-            id: 'option-2',
-            text: 'Option 2'
+            id: "option-2",
+            text: "Option 2"
         },
         {
-            id: 'option-3',
-            text: 'Option 3'
+            id: "option-3",
+            text: "Option 3"
         },
         {
-            id: 'option-4',
-            text: 'Option 4'
+            id: "option-4",
+            text: "Option 4"
         },
         {
-            id: 'option-5',
-            text: 'Option 5'
+            id: "option-5",
+            text: "Option 5"
         },
         {
-            id: 'option-6',
-            text: 'Option 6'
+            id: "option-6",
+            text: "Option 6"
         }
     ];
 
     switchAll = [
         {
-            name: 'Cybernetics',
-            value: 'll-1',
+            name: "Cybernetics",
+            value: "ll-1",
             child: [
                 {
-                    name: 'Artifical Intelligence',
-                    value: 'll-1-1'
+                    name: "Artifical Intelligence",
+                    value: "ll-1-1"
                 },
                 {
-                    name: 'Bionics',
-                    value: 'll-1-2'
+                    name: "Bionics",
+                    value: "ll-1-2"
                 }
             ]
         },
         {
-            name: 'Information & Communication technology',
-            value: 'll-1',
+            name: "Information & Communication technology",
+            value: "ll-1",
             child: [
                 {
-                    name: 'Cyber Infrastructure',
-                    value: 'll-1-1'
+                    name: "Cyber Infrastructure",
+                    value: "ll-1-1"
                 },
                 {
-                    name: 'Digital Technology',
-                    value: 'll-1-2'
+                    name: "Digital Technology",
+                    value: "ll-1-2"
                 }
             ]
         }
     ];
 
     modalActions1 = [
-        { label: 'Save' },
+        { label: "Save" },
         {
-            label: 'Close',
+            label: "Close",
             handler: () => {
                 this.onModalClose();
             },
@@ -126,7 +124,7 @@ class App extends Component {
 
     modalActions3 = [
         {
-            label: 'Close',
+            label: "Close",
             danger: true,
             handler: () => {
                 this.onModalClose();
@@ -136,7 +134,7 @@ class App extends Component {
 
     modalActions4 = [
         {
-            label: 'Save',
+            label: "Save",
             primary: true,
             handler: () => {
                 this.onModalClose();
@@ -144,9 +142,9 @@ class App extends Component {
         }
     ];
 
-    modalActions5 = [{ label: 'Delete', danger: true }];
+    modalActions5 = [{ label: "Delete", danger: true }];
 
-    modalActions7 = [{ label: 'Save', primary: true }];
+    modalActions7 = [{ label: "Save", primary: true }];
 
     _onTemperatureRadioChange = e => {
         this.setState({
@@ -262,7 +260,7 @@ class App extends Component {
                             title="Default"
                             className="mr-2"
                             onClick={() => {
-                                console.log('Button Clicked');
+                                console.log("Button Clicked");
                             }}
                         >
                             Default
@@ -270,7 +268,7 @@ class App extends Component {
                         <Button
                             className="mr-2 hcl-primary"
                             onClick={() => {
-                                console.log('Button Clicked');
+                                console.log("Button Clicked");
                             }}
                         >
                             Primary
@@ -278,7 +276,7 @@ class App extends Component {
                         <Button
                             className="mr-2 hcl-secondary"
                             onClick={() => {
-                                console.log('Button Clicked');
+                                console.log("Button Clicked");
                             }}
                         >
                             Secondary
@@ -286,7 +284,7 @@ class App extends Component {
                         <Button
                             className="mr-2 hcl-primary hcl-ghost"
                             onClick={() => {
-                                console.log('Button Clicked');
+                                console.log("Button Clicked");
                             }}
                         >
                             Primary ghost
@@ -295,7 +293,7 @@ class App extends Component {
                         <Button
                             className="mr-2 hcl-primary hcl-sm"
                             onClick={() => {
-                                console.log('Button Clicked');
+                                console.log("Button Clicked");
                             }}
                         >
                             Primary small
@@ -303,7 +301,7 @@ class App extends Component {
                         <Button
                             className="mr-2 hcl-primary hcl-danger"
                             onClick={() => {
-                                console.log('Button Clicked');
+                                console.log("Button Clicked");
                             }}
                         >
                             Danger outline
@@ -311,7 +309,7 @@ class App extends Component {
                         <Button
                             className="mr-2 hcl-primary hcl-danger hcl-secondary"
                             onClick={() => {
-                                console.log('Button Clicked');
+                                console.log("Button Clicked");
                             }}
                         >
                             Danger outline
@@ -331,7 +329,7 @@ class App extends Component {
                                 id="checkbox1"
                                 labelText="1 (default)"
                                 onChange={() => {
-                                    console.log('Default Checkbox.');
+                                    console.log("Default Checkbox.");
                                 }}
                             />
                             <Checkbox
@@ -339,7 +337,7 @@ class App extends Component {
                                 labelText="2"
                                 checked
                                 onChange={() => {
-                                    console.log('Checked state is changed.');
+                                    console.log("Checked state is changed.");
                                 }}
                             />
                             <Checkbox id="checkbox3" labelText="3 (disabled)" disabled />
@@ -354,7 +352,7 @@ class App extends Component {
                                 id="checkbox4"
                                 labelText="4 (default)"
                                 onChange={() => {
-                                    console.log('Default Checkbox.');
+                                    console.log("Default Checkbox.");
                                 }}
                             />
                             <Checkbox
@@ -362,7 +360,7 @@ class App extends Component {
                                 labelText="5"
                                 checked
                                 onChange={() => {
-                                    console.log('Checked state is changed.');
+                                    console.log("Checked state is changed.");
                                 }}
                             />
                             <Checkbox id="checkbox6" labelText="6 (disabled)" disabled />
@@ -410,7 +408,7 @@ class App extends Component {
                                 value="Bangalore"
                                 name="city"
                                 onChange={this._onCityRadioChange}
-                                checked={this.state.radio.city === 'Bangalore'}
+                                checked={this.state.radio.city === "Bangalore"}
                             />
                             <Radio
                                 id="Radio5"
@@ -418,7 +416,7 @@ class App extends Component {
                                 value="Chennai"
                                 name="city"
                                 onChange={this._onCityRadioChange}
-                                checked={this.state.radio.city === 'Chennai'}
+                                checked={this.state.radio.city === "Chennai"}
                             />
                             <Radio
                                 id="Radio6"
@@ -427,7 +425,7 @@ class App extends Component {
                                 name="city"
                                 disabled
                                 onChange={this._onCityRadioChange}
-                                checked={this.state.radio.city === 'Mumbai'}
+                                checked={this.state.radio.city === "Mumbai"}
                             />
                         </div>
                     </div>
@@ -452,9 +450,9 @@ class App extends Component {
                             id="breadcrumb"
                             className="custom-breadcrumb"
                             model={[
-                                { label: 'Breadcrumb 1', url: '' },
-                                { label: 'Breadcrumb 2', url: 'https://google.co.in' },
-                                { label: 'Breadcrumb 3' }
+                                { label: "Breadcrumb 1", url: "" },
+                                { label: "Breadcrumb 2", url: "https://google.co.in" },
+                                { label: "Breadcrumb 3" }
                             ]}
                         />
                     </div>
@@ -472,7 +470,7 @@ class App extends Component {
                             id="simple-toggle"
                             className="ml-3"
                             onChange={() => {
-                                console.log('Toggled');
+                                console.log("Toggled");
                             }}
                         />
                         <Toggle
@@ -496,7 +494,7 @@ class App extends Component {
                             id="simple-small-toggle"
                             className="ml-3"
                             onChange={() => {
-                                console.log('Toggled');
+                                console.log("Toggled");
                             }}
                         />
                         <Toggle
@@ -523,7 +521,7 @@ class App extends Component {
                             className="hcl-info"
                             closable
                             onClose={() => {
-                                console.log('Notification Closed');
+                                console.log("Notification Closed");
                             }}
                         />
                     </div>
@@ -550,7 +548,7 @@ class App extends Component {
                             title="Primary Closable"
                             closable
                             onClose={() => {
-                                alert('Closing Tag');
+                                alert("Closing Tag");
                             }}
                         >
                             Primary Closable
@@ -579,7 +577,7 @@ class App extends Component {
                             type="secondary"
                             closable
                             onClose={() => {
-                                alert('Closing Tag');
+                                alert("Closing Tag");
                             }}
                         >
                             Secondary Closable
@@ -771,7 +769,7 @@ class App extends Component {
                         <h5 className="p-2">Content Switcher - (default)</h5>
                         <ContentSwitcher
                             activeIndex={contentSwitch.example1}
-                            onChange={e => this.onSwitchChange(e, 'example1')}
+                            onChange={e => this.onSwitchChange(e, "example1")}
                         >
                             <Switch label="All" />
                             <Switch label="Cybernetics" />
@@ -803,7 +801,7 @@ class App extends Component {
                         <h5 className="p-2">Content Switcher - (disabled)</h5>
                         <ContentSwitcher
                             activeIndex={contentSwitch.example2}
-                            onChange={e => this.onSwitchChange(e, 'example2')}
+                            onChange={e => this.onSwitchChange(e, "example2")}
                         >
                             <Switch label="All" />
                             <Switch label="Cybernetics" isDisabled />
@@ -831,7 +829,7 @@ class App extends Component {
                         <h5 className="p-2">Content Switcher - (with icons)</h5>
                         <ContentSwitcher
                             activeIndex={contentSwitch.example3}
-                            onChange={e => this.onSwitchChange(e, 'example3')}
+                            onChange={e => this.onSwitchChange(e, "example3")}
                         >
                             <Switch label="All" iconClass="fa fa-center" />
                             <Switch label="Cybernetics" iconClass="fa fa-center" />
@@ -862,7 +860,7 @@ class App extends Component {
                         <h5 className="p-2">Content Switcher - with icons (disabled)</h5>
                         <ContentSwitcher
                             activeIndex={contentSwitch.example4}
-                            onChange={e => this.onSwitchChange(e, 'example4')}
+                            onChange={e => this.onSwitchChange(e, "example4")}
                         >
                             <Switch label="All" iconClass="fa fa-left" isDisabled />
                             <Switch label="Cybernetics" iconClass="fa fa-center" isDisabled />
@@ -937,7 +935,7 @@ class App extends Component {
 
                     <section
                         className="hcl-col-12 mt-5 colBorder p-5"
-                        style={{ background: '#F5F7FB' }}
+                        style={{ background: "#F5F7FB" }}
                     >
                         <h5 className="p-2">Normal Search (White background)</h5>
                         <Search theme="white" />
@@ -945,7 +943,7 @@ class App extends Component {
 
                     <section
                         className="hcl-col-12 mt-5 colBorder p-5"
-                        style={{ background: '#F5F7FB' }}
+                        style={{ background: "#F5F7FB" }}
                     >
                         <h5 className="p-2">Header Search (White background)</h5>
                         <Search type="clickable" theme="white" />
@@ -953,7 +951,7 @@ class App extends Component {
 
                     <section
                         className="hcl-col-12 mt-5 colBorder p-5"
-                        style={{ background: '#F5F7FB' }}
+                        style={{ background: "#F5F7FB" }}
                     >
                         <h5 className="p-2">Small Search (White background)</h5>
                         <Search size="small" theme="white" />
@@ -961,7 +959,7 @@ class App extends Component {
 
                     <section
                         className="hcl-col-12 mt-5 colBorder p-5"
-                        style={{ background: '#F5F7FB' }}
+                        style={{ background: "#F5F7FB" }}
                     >
                         <h5 className="p-2">Small Header Search (White background)</h5>
                         <Search size="small" type="clickable" theme="white" />
@@ -987,7 +985,7 @@ class App extends Component {
                                 label="Top DropDown"
                                 selectedIndex={1}
                                 onChange={selected => {
-                                    console.log('selected item', selected);
+                                    console.log("selected item", selected);
                                 }}
                             />
                         </div>
@@ -997,7 +995,7 @@ class App extends Component {
                                 items={this.items}
                                 label="Bottom DropDown"
                                 onChange={selected => {
-                                    console.log('selected item', selected);
+                                    console.log("selected item", selected);
                                 }}
                             />
                         </div>
@@ -1012,19 +1010,19 @@ class App extends Component {
                         </div>
                         <div className="hcl-col-12 mt-5 mb-5">
                             {/* clickable tile */}
-                            <Tile clickable href="">
+                            <Tile type="clickable" href="">
                                 <p>This is clickable tile</p>
                             </Tile>
                         </div>
                         <div className="hcl-col-12 mt-5 mb-5">
                             {/* selectable tile */}
-                            <Tile selectable>
+                            <Tile type="selectable">
                                 <p>This is selectable tile</p>
                             </Tile>
                         </div>
                         <div className="hcl-col-12 mt-5 mb-5">
                             {/* expandable tile */}
-                            <Tile expandable id="expandable-tile-1">
+                            <Tile type="expandable" id="expandable-tile-1">
                                 {/* container for default content */}
                                 <div>
                                     <p>Content shown prior expand </p>
@@ -1105,7 +1103,7 @@ class App extends Component {
                                 open="top"
                                 format="mm/dd/yyyy"
                                 onDateSelect={dateSelected => {
-                                    console.log('Selected Date', dateSelected);
+                                    console.log("Selected Date", dateSelected);
                                 }}
                             />
                         </div>
@@ -1116,12 +1114,11 @@ class App extends Component {
                                 open="bottom"
                                 format="dd/mm/yyyy"
                                 onDateSelect={dateSelected => {
-                                    console.log('Selected Date', dateSelected);
+                                    console.log("Selected Date", dateSelected);
                                 }}
                             />
                         </div>
                     </div>
-
                     <div className="hcl-col-12 mt-5 mb-5">
                         <NumberInput
                             defaultValue={this.state.valueNumber}
