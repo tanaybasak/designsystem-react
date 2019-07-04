@@ -136,22 +136,22 @@ const Pagination = ({ totalItems, pageSizes, itemsPerPageText }) => {
                 </div>
                 <span className={`${prefix}-pagination-text`}>
                     <span className={`${prefix}-pagination-range`}>
-                        <span className={`${prefix}-range-start`} ref={rangeStartRef} />&nbsp;
-                             <span className={`${prefix}-range-separator`}>-</span>&nbsp;
-                             <span className={`${prefix}-range-end`} ref={rangeEndRef} />
-                    </span>&nbsp;of&nbsp;
-                         <span className={`${prefix}-pagination-totalitems`}>
+                        <span className={`${prefix}-range-start`} ref={rangeStartRef} />
+                        <span className={`${prefix}-range-separator`}>-</span>
+                        <span className={`${prefix}-range-end`} ref={rangeEndRef} />
+                    </span>of
+                    <span className={`${prefix}-pagination-totalitems`}>
                         {totalItems}
-                    </span>&nbsp;items
-                     </span>
+                    </span>items
+                </span>
             </div>
             <div className={`${prefix}-pagination-right`}>
                 <span className={`${prefix}-pagination-text`}>
                     <span className={`${prefix}-page-start`} ref={startpagedisplayRef}>
                         1
-                        </span>&nbsp;of&nbsp;
-                         <span className={`${prefix}-page-end`} ref={totalpagesdisplayRef} />{totalPages}&nbsp;pages
-                     </span>
+                    </span>of
+                    <span className={`${prefix}-page-end`} ref={totalpagesdisplayRef} />{totalPages}pages
+                </span>
                 <button className={`${prefix}-pagination-button-previous`}
                     aria-label={`Previous page`}
                     ref={previousbtnRef}
