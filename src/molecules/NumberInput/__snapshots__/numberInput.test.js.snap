@@ -1,0 +1,90 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Number Input renders correctly 1`] = `
+<div
+  className="hcl-number-input-wrapper hcl-form-group "
+  data-invalid={false}
+  disabled={null}
+>
+  <div
+    className="hcl-form-control hcl-number-input"
+  >
+    <input
+      className="hcl-form-control"
+      data-invalid={false}
+      disabled={null}
+      id="numberInput2"
+      max={null}
+      min={null}
+      onChange={[Function]}
+      step={1}
+      type="number"
+      value={10}
+    />
+    <div
+      className="hcl-number-input-control"
+    >
+      <button
+        className="increment-btn"
+        disabled={null}
+        onMouseDown={[Function]}
+        tabIndex="-1"
+        type="button"
+      >
+        <svg
+          aria-hidden="true"
+          focusable="false"
+          preserveAspectRatio="xMidYMid meet"
+          viewBox="0 0 8 4"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M0 4l4-4 4 4z"
+          />
+        </svg>
+      </button>
+      <button
+        className="decrement-btn"
+        disabled={null}
+        onMouseDown={[Function]}
+        tabIndex="-1"
+        type="button"
+      >
+        <svg
+          aria-hidden="true"
+          focusable="false"
+          preserveAspectRatio="xMidYMid meet"
+          viewBox="0 0 8 4"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M8 0L4 4 0 0z"
+          />
+        </svg>
+      </button>
+    </div>
+  </div>
+  <label
+    className="hcl-label"
+    htmlFor="numberInput2"
+    onClick={[Function]}
+  >
+    Number Input validation
+     
+  </label>
+  <div
+    className="hcl-helper-text"
+    htmlFor=""
+    onClick={[Function]}
+  >
+    Optional Helper text goes here (max 100 and min 10)
+  </div>
+  <div
+    className="hcl-error-msg"
+    htmlFor=""
+    onClick={[Function]}
+  >
+    
+  </div>
+</div>
+`;

@@ -33,6 +33,7 @@ import Dropdown from "./atoms/Dropdown";
 import Tile from "./atoms/Tile";
 import DatePicker from "./molecules/DatePicker";
 import { weekDays, months } from "./content";
+import NumberInput from "./molecules/NumberInput";
 
 class App extends Component {
   state = {
@@ -1117,6 +1118,34 @@ class App extends Component {
                 }}
               />
             </div>
+          </div>
+          <div className="hcl-col-12 mt-5 mb-5">
+            <NumberInput
+              defaultValue={0}
+              step={2}
+              id="numberInput2"
+              label="Number Input"
+            />
+            <NumberInput
+              defaultValue={10}
+              onChange={value => {
+                console.log(value);
+              }}
+              required
+              max={100}
+              min={10}
+              id="numberInput1"
+              label="Number Input validation"
+              helperText="Optional Helper text goes here (max 100 and min 10)"
+            />
+
+            <NumberInput
+              defaultValue={0}
+              id="numberInput3"
+              helperText="Optional Helper text goes here"
+              label="Number Input validation"
+              disabled
+            />
           </div>
         </div>
       </main>
