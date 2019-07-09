@@ -34,6 +34,7 @@ import Tile from "./atoms/Tile";
 import DatePicker from "./molecules/DatePicker";
 import { weekDays, months } from "./content";
 import NumberInput from "./molecules/NumberInput";
+import Select from "./atoms/Select/Select";
 
 class App extends Component {
   state = {
@@ -1145,6 +1146,16 @@ class App extends Component {
               helperText="Optional Helper text goes here"
               label="Number Input validation"
               disabled
+            />
+          </div>
+          <div className="hcl-col-12 mt-5 mb-5">
+            <Select
+              items={this.items}
+              label="Select Label"
+              onChange={selected => {
+                console.log("selected item", selected);
+              }}
+              id="hcl-select-id-1"
             />
           </div>
         </div>
