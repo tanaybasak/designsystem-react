@@ -35,6 +35,7 @@ import DatePicker from "./molecules/DatePicker";
 import { weekDays, months } from "./content";
 import NumberInput from "./molecules/NumberInput";
 import Select from "./atoms/Select/Select";
+import TimePicker from "./molecules/TimePicker/TimePicker";
 
 class App extends Component {
   state = {
@@ -1156,6 +1157,15 @@ class App extends Component {
                 console.log("selected item", selected);
               }}
               id="hcl-select-id-1"
+            />
+          </div>
+          <div className="hcl-col-12 mt-5 mb-5">
+            <TimePicker
+              timeZones={["Time zone 1", "Time zone 2", "Time zone 3"]}
+              label="Select a time"
+              onChange={selected => {
+                console.log("selected item", selected);
+              }}
             />
           </div>
         </div>
