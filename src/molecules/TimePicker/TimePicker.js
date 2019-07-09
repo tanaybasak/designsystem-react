@@ -5,7 +5,7 @@ import prefix from "../../settings";
 const TimePicker = ({ timeZones, label, onChange }) => {
   let timeObj = {
     time: "00:00",
-    period: "am",
+    period: "AM",
     timezone: timeZones[0]
   };
 
