@@ -530,7 +530,9 @@ class App extends Component {
                                         subtitle="Lorem Ipsum is simply dummy text of the printing and typesetting industry."
                                         className="hcl-info"
                                         closable
-                                        onClose={() => { console.log("Notification Closed"); }}
+                                        onClose={() => {
+                                            console.log("Notification Closed");
+                                        }}
                                     />
                                 </div>
                                 {/* Overflow */}
@@ -545,14 +547,59 @@ class App extends Component {
                                 </div>
                                 {/* Tag */}
                                 <div className="hcl-col-12 mt-5" id="tags-section">
-                                    <Tag className="ml-3" title="Primary Tag">Primary Tag</Tag>
-                                    <Tag className="ml-3" title="Primary Disabled" disabled>Primary Disabled</Tag>
-                                    <Tag className="ml-3" title="Primary Closable" closable onClose={() => { alert('Closing Tag') }}>Primary Closable</Tag>
-                                    <Tag className="ml-3" title="Primary Tag With Thumbnail" thumbnailSrc="https://image.flaticon.com/icons/png/512/862/862358.png">Primary Tag With Thumbnail</Tag>
-                                    <Tag className="ml-3" title="Secondary Tag" type="secondary">Secondary Tag</Tag>
-                                    <Tag className="ml-3" title="Secondary Disabled Tag" disabled type="secondary">Secondary Disabled Tag</Tag>
-                                    <Tag className="ml-3" title="Secondary Closable" type="secondary" closable onClose={() => { alert('Closing Tag') }}>Secondary Closable</Tag>
-                                    <Tag className="ml-3" title="Secondary Tag With Thumbnail" type="secondary" thumbnailSrc="https://image.flaticon.com/icons/png/512/862/862358.png">Secondary Tag With Thumbnail</Tag>
+                                    <Tag className="ml-3" title="Primary Tag">
+                                        Primary Tag
+                                    </Tag>
+                                    <Tag className="ml-3" title="Primary Disabled" disabled>
+                                        Primary Disabled
+                                    </Tag>
+                                    <Tag
+                                        className="ml-3"
+                                        title="Primary Closable"
+                                        closable
+                                        onClose={() => {
+                                            alert("Closing Tag");
+                                        }}
+                                    >
+                                        Primary Closable
+                                    </Tag>
+                                    <Tag
+                                        className="ml-3"
+                                        title="Primary Tag With Thumbnail"
+                                        thumbnailSrc="https://image.flaticon.com/icons/png/512/862/862358.png"
+                                    >
+                                        Primary Tag With Thumbnail
+                                    </Tag>
+                                    <Tag className="ml-3" title="Secondary Tag" type="secondary">
+                                        Secondary Tag
+                                    </Tag>
+                                    <Tag
+                                        className="ml-3"
+                                        title="Secondary Disabled Tag"
+                                        disabled
+                                        type="secondary"
+                                    >
+                                        Secondary Disabled Tag
+                                    </Tag>
+                                    <Tag
+                                        className="ml-3"
+                                        title="Secondary Closable"
+                                        type="secondary"
+                                        closable
+                                        onClose={() => {
+                                            alert("Closing Tag");
+                                        }}
+                                    >
+                                        Secondary Closable
+                                    </Tag>
+                                    <Tag
+                                        className="ml-3"
+                                        title="Secondary Tag With Thumbnail"
+                                        type="secondary"
+                                        thumbnailSrc="https://image.flaticon.com/icons/png/512/862/862358.png"
+                                    >
+                                        Secondary Tag With Thumbnail
+                                    </Tag>
                                 </div>
                                 {/* List */}
                                 <div className="hcl-col-12 mt-5" id="list-section">
@@ -579,152 +626,275 @@ class App extends Component {
                                 </div>
                                 <div className="hcl-col-12 mt-5" id="modal-section">
                                     <h5>Show modal layout :</h5>
-                                    <Button title="Default" className="mr-2" onClick={() => { this.setState({ modal: 1 }) }}>1</Button>
-                                    <Button title="Default" className="mr-2" onClick={() => { this.setState({ modal: 2 }) }}>2</Button>
-                                    <Button title="Default" className="mr-2" onClick={() => { this.setState({ modal: 3 }) }}>3</Button>
-                                    <Button title="Default" className="mr-2" onClick={() => { this.setState({ modal: 4 }) }}>4</Button>
-                                    <Button title="Default" className="mr-2" onClick={() => { this.setState({ modal: 5 }) }}>5</Button>
-                                    <Button title="Default" className="mr-2" onClick={() => { this.setState({ modal: 6 }) }}>6</Button>
-                                    <Button title="Default" className="mr-2" onClick={() => { this.setState({ modal: 7 }) }}>7</Button>
+                                    <Button
+                                        title="Default"
+                                        className="mr-2"
+                                        onClick={() => {
+                                            this.setState({ modal: 1 });
+                                        }}
+                                    >
+                                        1
+                                    </Button>
+                                    <Button
+                                        title="Default"
+                                        className="mr-2"
+                                        onClick={() => {
+                                            this.setState({ modal: 2 });
+                                        }}
+                                    >
+                                        2
+                                    </Button>
+                                    <Button
+                                        title="Default"
+                                        className="mr-2"
+                                        onClick={() => {
+                                            this.setState({ modal: 3 });
+                                        }}
+                                    >
+                                        3
+                                    </Button>
+                                    <Button
+                                        title="Default"
+                                        className="mr-2"
+                                        onClick={() => {
+                                            this.setState({ modal: 4 });
+                                        }}
+                                    >
+                                        4
+                                    </Button>
+                                    <Button
+                                        title="Default"
+                                        className="mr-2"
+                                        onClick={() => {
+                                            this.setState({ modal: 5 });
+                                        }}
+                                    >
+                                        5
+                                    </Button>
+                                    <Button
+                                        title="Default"
+                                        className="mr-2"
+                                        onClick={() => {
+                                            this.setState({ modal: 6 });
+                                        }}
+                                    >
+                                        6
+                                    </Button>
+                                    <Button
+                                        title="Default"
+                                        className="mr-2"
+                                        onClick={() => {
+                                            this.setState({ modal: 7 });
+                                        }}
+                                    >
+                                        7
+                                    </Button>
+
 
                                     {/* Danger type Modals */}
-                                    {this.state.modal === 1 &&
-                                        <Modal type="danger" label="optional label" heading="Heading comes here." onClose={this.onModalClose} actions={this.modalActions1}>
+                                    {this.state.modal === 1 && (
+                                        <Modal
+                                            type="danger"
+                                            label="optional label"
+                                            heading="Heading comes here."
+                                            onClose={this.onModalClose}
+                                            actions={this.modalActions1}
+                                        >
                                             <Paragraph>Danger Modal with save and close buttons</Paragraph>
-                                        </Modal>}
-                                    {this.state.modal === 2 &&
-                                        <Modal type="danger" label="optional label" heading="Heading comes here." onClose={this.onModalClose}>
+                                        </Modal>
+                                    )}
+                                    {this.state.modal === 2 && (
+                                        <Modal
+                                            type="danger"
+                                            label="optional label"
+                                            heading="Heading comes here."
+                                            onClose={this.onModalClose}
+                                        >
                                             <Paragraph> Danger Modal with no buttons</Paragraph>
-                                        </Modal>}
-                                    {this.state.modal === 3 &&
-                                        <Modal type="danger" heading="Heading comes here." onClose={this.onModalClose} actions={this.modalActions3}>
+                                        </Modal>
+                                    )}
+                                    {this.state.modal === 3 && (
+                                        <Modal
+                                            type="danger"
+                                            heading="Heading comes here."
+                                            onClose={this.onModalClose}
+                                            actions={this.modalActions3}
+                                        >
                                             <Paragraph> Danger Modal with close button</Paragraph>
-                                        </Modal>}
-                                    {this.state.modal === 4 &&
+                                        </Modal>
+                                    )}
+                                    {this.state.modal === 4 && (
                                         <Modal type="danger" onClose={this.onModalClose}>
                                             <Paragraph> Danger Modal with no footer and heading</Paragraph>
-                                        </Modal>}
+                                        </Modal>
+                                    )}
                                     {/* Default type Modals */}
-                                    {this.state.modal === 5 &&
-                                        <Modal label="optional label" heading="Heading comes here." onClose={this.onModalClose} actions={this.modalActions5}>
+                                    {this.state.modal === 5 && (
+                                        <Modal
+                                            label="optional label"
+                                            heading="Heading comes here."
+                                            onClose={this.onModalClose}
+                                            actions={this.modalActions5}
+                                        >
                                             <Paragraph> Modal with Delete (Danger) button</Paragraph>
-                                        </Modal>}
-                                    {this.state.modal === 6 &&
-                                        <Modal label="optional label" heading="Heading comes here." onClose={this.onModalClose}>
+                                        </Modal>
+                                    )}
+                                    {this.state.modal === 6 && (
+                                        <Modal
+                                            label="optional label"
+                                            heading="Heading comes here."
+                                            onClose={this.onModalClose}
+                                        >
                                             <Paragraph> Modal with no buttons</Paragraph>
-                                        </Modal>}
-                                    {this.state.modal === 7 &&
-                                        <Modal heading="Heading comes here." onClose={this.onModalClose} actions={this.modalActions7}>
+                                        </Modal>
+                                    )}
+                                    {this.state.modal === 7 && (
+                                        <Modal
+                                            heading="Heading comes here."
+                                            onClose={this.onModalClose}
+                                            actions={this.modalActions7}
+                                        >
                                             <Paragraph>Modal with save button</Paragraph>
-                                        </Modal>}
+                                        </Modal>
+                                    )}
                                 </div>
                                 <div className="hcl-col-12 mt-5 colBorder p-5" id="tabs-section">
                                     {/* Tab Component */}
-                                    <Tabs activeIndex={0} onChange={(e) => { console.log(`Label => ${e.label} Index => ${e.tabIndex}`) }}>
+                                    <Tabs
+                                        activeIndex={0}
+                                        onChange={e => {
+                                            console.log(`Label => ${e.label} Index => ${e.tabIndex}`);
+                                        }}
+                                    >
                                         <Tab label="Tab List 1">Content 1</Tab>
-                                        <Tab label="Tab List 2" isDisabled>Content 2</Tab>
+                                        <Tab label="Tab List 2" isDisabled>
+                                            Content 2
+              </Tab>
                                         <Tab label="Tab List 3">Content 3</Tab>
                                     </Tabs>
                                 </div>
                                 <section className="hcl-col-12 mt-5 colBorder p-5" id="content-swi-section">
                                     {/* Content Switcher Component */}
                                     <h5 className="p-2">Content Switcher - (default)</h5>
-                                    <ContentSwitcher activeIndex={contentSwitch.example1} onChange={(e) => this.onSwitchChange(e, "example1")}>
+                                    <ContentSwitcher
+                                        activeIndex={contentSwitch.example1}
+                                        onChange={e => this.onSwitchChange(e, "example1")}
+                                    >
                                         <Switch label="All" />
                                         <Switch label="Cybernetics" />
                                         <Switch label="Information &amp; Communication" />
                                     </ContentSwitcher>
                                     <section className="mt-1 p-2">
-                                        {contentSwitch.example1 === 0 &&
+                                        {contentSwitch.example1 === 0 && (
                                             <div className="colBorder p-2">
-                                                <List listItems={this.switchAll} type="ol" onClick={(e) => console.log(e)} />
+                                                <List
+                                                    listItems={this.switchAll}
+                                                    type="ol"
+                                                    onClick={e => console.log(e)}
+                                                />
                                             </div>
-                                        }
-                                        {contentSwitch.example1 === 1 &&
+                                        )}
+                                        {contentSwitch.example1 === 1 && (
                                             <div className="colBorder p-2">
                                                 <List listItems={[this.switchAll[0]]} type="ol" />
                                             </div>
-                                        }
-                                        {contentSwitch.example1 === 2 &&
+                                        )}
+                                        {contentSwitch.example1 === 2 && (
                                             <div className="colBorder p-2">
                                                 <List listItems={[this.switchAll[1]]} type="ol" />
                                             </div>
-                                        }
+                                        )}
                                     </section>
                                 </section>
                                 <section className="hcl-col-12 mt-5 colBorder p-5">
                                     <h5 className="p-2">Content Switcher - (disabled)</h5>
-                                    <ContentSwitcher activeIndex={contentSwitch.example2} onChange={(e) => this.onSwitchChange(e, "example2")}>
+                                    <ContentSwitcher
+                                        activeIndex={contentSwitch.example2}
+                                        onChange={e => this.onSwitchChange(e, "example2")}
+                                    >
                                         <Switch label="All" />
                                         <Switch label="Cybernetics" isDisabled />
                                         <Switch label="Information &amp; Communication" />
                                     </ContentSwitcher>
                                     <section className="mt-1 p-2">
-                                        {contentSwitch.example2 === 0 &&
+                                        {contentSwitch.example2 === 0 && (
                                             <div className="colBorder p-2">
                                                 <List listItems={this.switchAll} type="ol" />
                                             </div>
-                                        }
-                                        {contentSwitch.example2 === 1 &&
+                                        )}
+                                        {contentSwitch.example2 === 1 && (
                                             <div className="colBorder p-2">
                                                 <List listItems={[this.switchAll[0]]} type="ol" />
                                             </div>
-                                        }
-                                        {contentSwitch.example2 === 2 &&
+                                        )}
+                                        {contentSwitch.example2 === 2 && (
                                             <div className="colBorder p-2">
                                                 <List listItems={[this.switchAll[1]]} type="ol" />
                                             </div>
-                                        }
+                                        )}
                                     </section>
                                 </section>
                                 <section className="hcl-col-12 mt-5 colBorder p-5">
                                     <h5 className="p-2">Content Switcher - (with icons)</h5>
-                                    <ContentSwitcher activeIndex={contentSwitch.example3} onChange={(e) => this.onSwitchChange(e, "example3")}>
+                                    <ContentSwitcher
+                                        activeIndex={contentSwitch.example3}
+                                        onChange={e => this.onSwitchChange(e, "example3")}
+                                    >
                                         <Switch label="All" iconClass="fa fa-center" />
                                         <Switch label="Cybernetics" iconClass="fa fa-center" />
-                                        <Switch label="Information &amp; Communication" iconClass="fa fa-right" />
+                                        <Switch
+                                            label="Information &amp; Communication"
+                                            iconClass="fa fa-right"
+                                        />
                                     </ContentSwitcher>
                                     <section className="mt-1 p-2">
-                                        {contentSwitch.example3 === 0 &&
+                                        {contentSwitch.example3 === 0 && (
                                             <div className="colBorder p-2">
                                                 <List listItems={this.switchAll} type="ol" />
                                             </div>
-                                        }
-                                        {contentSwitch.example3 === 1 &&
+                                        )}
+                                        {contentSwitch.example3 === 1 && (
                                             <div className="colBorder p-2">
                                                 <List listItems={[this.switchAll[0]]} type="ol" />
                                             </div>
-                                        }
-                                        {contentSwitch.example3 === 2 &&
+                                        )}
+                                        {contentSwitch.example3 === 2 && (
                                             <div className="colBorder p-2">
                                                 <List listItems={[this.switchAll[1]]} type="ol" />
                                             </div>
-                                        }
+                                        )}
                                     </section>
                                 </section>
                                 <section className="hcl-col-12 mt-5 colBorder p-5">
                                     <h5 className="p-2">Content Switcher - with icons (disabled)</h5>
-                                    <ContentSwitcher activeIndex={contentSwitch.example4} onChange={(e) => this.onSwitchChange(e, "example4")}>
+                                    <ContentSwitcher
+                                        activeIndex={contentSwitch.example4}
+                                        onChange={e => this.onSwitchChange(e, "example4")}
+                                    >
                                         <Switch label="All" iconClass="fa fa-left" isDisabled />
                                         <Switch label="Cybernetics" iconClass="fa fa-center" isDisabled />
-                                        <Switch label="Information &amp; Communication" iconClass="fa fa-right" isDisabled />
+                                        <Switch
+                                            label="Information &amp; Communication"
+                                            iconClass="fa fa-right"
+                                            isDisabled
+                                        />
                                     </ContentSwitcher>
                                     <section className="mt-1 p-2">
-                                        {contentSwitch.example4 === 0 &&
+                                        {contentSwitch.example4 === 0 && (
                                             <div className="colBorder p-2">
                                                 <List listItems={this.switchAll} type="ol" />
                                             </div>
-                                        }
-                                        {contentSwitch.example4 === 1 &&
+                                        )}
+                                        {contentSwitch.example4 === 1 && (
                                             <div className="colBorder p-2">
                                                 <List listItems={[this.switchAll[0]]} type="ol" />
                                             </div>
-                                        }
-                                        {contentSwitch.example4 === 2 &&
+                                        )}
+                                        {contentSwitch.example4 === 2 && (
                                             <div className="colBorder p-2">
                                                 <List listItems={[this.switchAll[1]]} type="ol" />
                                             </div>
-                                        }
+                                        )}
                                     </section>
                                 </section>
                                 {/* Slider Component */}
@@ -735,7 +905,9 @@ class App extends Component {
                                         step={2}
                                         value={44}
                                         title="Slider"
-                                        onChange={event => { console.log(event.currentTarget.value) }}
+                                        onChange={event => {
+                                            console.log(event.currentTarget.value);
+                                        }}
                                     />
                                 </div>
                                 {/* Table Component */}
@@ -771,207 +943,217 @@ class App extends Component {
                                     <Search size="small" type="clickable" />
                                 </section>
 
-                                <section className="hcl-col-12 mt-5 colBorder p-5" style={{ background: '#F5F7FB' }}>
+                                <section
+                                    className="hcl-col-12 mt-5 colBorder p-5"
+                                    style={{ background: "#F5F7FB" }}
+                                >
                                     <h5 className="p-2">Normal Search (White background)</h5>
                                     <Search theme="white" />
                                 </section>
 
-                                <section className="hcl-col-12 mt-5 colBorder p-5" style={{ background: '#F5F7FB' }}>
+                                <section
+                                    className="hcl-col-12 mt-5 colBorder p-5"
+                                    style={{ background: "#F5F7FB" }}
+                                >
                                     <h5 className="p-2">Header Search (White background)</h5>
                                     <Search type="clickable" theme="white" />
                                 </section>
 
-                                <section className="hcl-col-12 mt-5 colBorder p-5" style={{ background: '#F5F7FB' }}>
+                                <section
+                                    className="hcl-col-12 mt-5 colBorder p-5"
+                                    style={{ background: "#F5F7FB" }}
+                                >
                                     <h5 className="p-2">Small Search (White background)</h5>
                                     <Search size="small" theme="white" />
                                 </section>
 
-                                <section className="hcl-col-12 mt-5 colBorder p-5" style={{ background: '#F5F7FB' }}>
-                                    <h5 className="p-2">Small Header Search (White background)</h5>
-                                    <Search size="small" type="clickable" theme="white" />
-                                </section>
-                                {/* File Uploader Component */}
-                                <div className="hcl-col-12 mt-5" id="file-uploader-section">
-                                    <FileUploader
-                                        id="file_uploader"
-                                        label="Account photo"
-                                        description="only .jpg and .png files. 500kb max file size."
-                                        fileType=".jpg"
-                                        className="hcl-btn hcl-secondary hcl-sml"
-                                    >
-                                        Add file
+                                <section
+                                    className="hcl-col-12 mt-5 colBorder p-5"
+                                    style={{ background: "#F5F7FB" }}
+                                >
+                                    {/* File Uploader Component */}
+                                    <div className="hcl-col-12 mt-5" id="file-uploader-section">
+                                        <FileUploader
+                                            id="file_uploader"
+                                            label="Account photo"
+                                            description="only .jpg and .png files. 500kb max file size."
+                                            fileType=".jpg"
+                                            className="hcl-btn hcl-secondary hcl-sml"
+                                        >
+                                            Add file
                                     </FileUploader>
-                                </div>
-                                {/* Dropdown Component */}
-                                <div className="hcl-row m-3 hcl-col-12">
-                                    <div className="hcl-col-6">
-                                        <Dropdown
-                                            type="top"
-                                            items={this.items}
-                                            label="Top DropDown"
-                                            selectedIndex={1}
-                                            onChange={selected => {
-                                                console.log("selected item", selected);
-                                            }}
+                                    </div>
+                                    {/* Dropdown Component */}
+                                    <div className="hcl-row m-3 hcl-col-12">
+                                        <div className="hcl-col-6">
+                                            <Dropdown
+                                                type="top"
+                                                items={this.items}
+                                                label="Top DropDown"
+                                                selectedIndex={1}
+                                                onChange={selected => {
+                                                    console.log("selected item", selected);
+                                                }}
+                                            />
+                                        </div>
+                                        <div className="hcl-col-6">
+                                            <Dropdown
+                                                type="bottom"
+                                                items={this.items}
+                                                label="Bottom DropDown"
+                                                onChange={selected => {
+                                                    console.log("selected item", selected);
+                                                }}
+                                            />
+                                        </div>
+                                    </div>
+                                    {/* Tile Component */}
+                                    <section>
+                                        <div className="hcl-col-12 mt-5 mb-5">
+                                            {/* default tile */}
+                                            <Tile>
+                                                <p>This is read only tile</p>
+                                            </Tile>
+                                        </div>
+                                        <div className="hcl-col-12 mt-5 mb-5">
+                                            {/* clickable tile */}
+                                            <Tile type="clickable" href="">
+                                                <p>This is clickable tile</p>
+                                            </Tile>
+                                        </div>
+                                        <div className="hcl-col-12 mt-5 mb-5">
+                                            {/* selectable tile */}
+                                            <Tile type="selectable">
+                                                <p>This is selectable tile</p>
+                                            </Tile>
+                                        </div>
+                                        <div className="hcl-col-12 mt-5 mb-5">
+                                            {/* expandable tile */}
+                                            <Tile type="expandable" id="expandable-tile-1">
+                                                {/* container for default content */}
+                                                <div>
+                                                    <p>Content shown prior expand </p>
+                                                </div>
+                                                {/* container for content which will be added once expanded */}
+                                                <div>
+                                                    <p>Content shown after expand </p>
+                                                </div>
+                                            </Tile>
+                                        </div>
+                                    </section>
+
+                                    {/* Accordion Component */}
+                                    <div className="hcl-col-12 mt-5 mb-5">
+                                        <Accordion>
+                                            <AccordionItem
+                                                title="What is Lorem Ipsum ?"
+                                                expanded
+                                                onChange={event => {
+                                                    console.log(`Accordian toggled ${event.currentTarget}`);
+                                                }}
+                                            >
+                                                Lorem Ipsum is simply dummy text of the printing and typesetting
+                                                industry. Lorem Ipsum has been the industry&apos;s standard dummy
+                                                text ever since the 1500s, when an unknown printer took a galley
+                                                of type and scrambled it to make a type specimen book. It has
+                                                survived not only five centuries, but also the leap into
+                                                electronic typesetting, remaining essentially unchanged. It was
+                                                popularised in the 1960s with the release of Letraset sheets
+                                                containing Lorem Ipsum passages, and more recently with desktop
+                                                publishing software like Aldus PageMaker including versions of
+                                                Lorem Ipsum.
+                                            </AccordionItem>
+                                            <AccordionItem
+                                                title="Why do we use it ?"
+                                                onChange={event => {
+                                                    console.log(`Accordian toggled ${event.currentTarget}`);
+                                                }}
+                                            >
+                                                It is a long established fact that a reader will be distracted by
+                                                the readable content of a page when looking at its layout. The
+                                                point of using Lorem Ipsum is that it has a more-or-less normal
+                                                distribution of letters, as opposed to using &apos;Content here,
+                                                content here&apos;, making it look like readable English. Many
+                                                desktop publishing packages and web page editors now use Lorem
+                                                Ipsum as their default model text, and a search for &apos;lorem
+                                                ipsum&apos; will uncover many web sites still in their infancy.
+                                                Various versions have evolved over the years, sometimes by
+                                                accident, sometimes on purpose (injected humour and the like).
+                                            </AccordionItem>
+                                            <AccordionItem
+                                                title="Wher we can it ?"
+                                                onChange={event => {
+                                                    console.log(`Accordian toggled ${event.currentTarget}`);
+                                                }}
+                                            >
+                                                There are many variations of passages of Lorem Ipsum available,
+                                                but the majority have suffered alteration in some form, by
+                                                injected humour, or randomised words which don&apos;t look even
+                                                slightly believable. If you are going to use a passage of Lorem
+                                                Ipsum, you need to be sure there isn&apos;t anything embarrassing
+                                                hidden in the middle of text. All the Lorem Ipsum generators on
+                                                the Internet tend to repeat predefined chunks as necessary, making
+                                                this the first true generator on the Internet. It uses a
+                                                dictionary of over 200 Latin words, combined with a handful of
+                                                model sentence structures, to generate Lorem Ipsum which looks
+                                                reasonable. The generated Lorem Ipsum is therefore always free
+                                                from repetition, injected humour, or non-characteristic words etc.
+                                            </AccordionItem>
+                                        </Accordion>
+                                    </div>
+                                    {/* DatePicker */}
+                                    <div className="hcl-row m-3 hcl-col-12">
+                                        <div className="hcl-col-6">
+                                            <DatePicker
+                                                weekDays={weekDays}
+                                                months={months}
+                                                open="top"
+                                                format="mm/dd/yyyy"
+                                                onDateSelect={dateSelected => {
+                                                    console.log("Selected Date", dateSelected);
+                                                }}
+                                            />
+                                        </div>
+                                        <div className="hcl-col-6">
+                                            <DatePicker
+                                                weekDays={weekDays}
+                                                months={months}
+                                                open="bottom"
+                                                format="dd/mm/yyyy"
+                                                onDateSelect={dateSelected => {
+                                                    console.log("Selected Date", dateSelected);
+                                                }}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="hcl-col-12 mt-5 mb-5">
+                                        <NumberInput
+                                            defaultValue={0}
+                                            step={2}
+                                            id="numberInput2"
+                                            label="Number Input"
                                         />
-                                    </div>
-                                    <div className="hcl-col-6">
-                                        <Dropdown
-                                            type="bottom"
-                                            items={this.items}
-                                            label="Bottom DropDown"
-                                            onChange={selected => {
-                                                console.log("selected item", selected);
+                                        <NumberInput
+                                            defaultValue={10}
+                                            onChange={value => {
+                                                console.log(value);
                                             }}
+                                            required
+                                            max={100}
+                                            min={10}
+                                            id="numberInput1"
+                                            label="Number Input validation"
+                                            helperText="Optional Helper text goes here (max 100 and min 10)"
                                         />
-                                    </div>
-                                </div>
-                                {/* Tile Component */}
-                                <section>
-                                    <div className="hcl-col-12 mt-5 mb-5">
-                                        {/* default tile */}
-                                        <Tile>
-                                            <p>This is read only tile</p>
-                                        </Tile>
-                                    </div>
-                                    <div className="hcl-col-12 mt-5 mb-5">
-                                        {/* clickable tile */}
-                                        <Tile type="clickable" href="">
-                                            <p>This is clickable tile</p>
-                                        </Tile>
-                                    </div>
-                                    <div className="hcl-col-12 mt-5 mb-5">
-                                        {/* selectable tile */}
-                                        <Tile type="selectable">
-                                            <p>This is selectable tile</p>
-                                        </Tile>
-                                    </div>
-                                    <div className="hcl-col-12 mt-5 mb-5">
-                                        {/* expandable tile */}
-                                        <Tile type="expandable" id="expandable-tile-1">
-                                            {/* container for default content */}
-                                            <div>
-                                                <p>Content shown prior expand </p>
-                                            </div>
-                                            {/* container for content which will be added once expanded */}
-                                            <div>
-                                                <p>Content shown after expand </p>
-                                            </div>
-                                        </Tile>
+                                        <NumberInput
+                                            defaultValue={0}
+                                            id="numberInput3"
+                                            helperText="Optional Helper text goes here"
+                                            label="Number Input validation"
+                                            disabled
+                                        />
                                     </div>
                                 </section>
-
-                                {/* Accordion Component */}
-                                <div className="hcl-col-12 mt-5 mb-5">
-                                    <Accordion>
-                                        <AccordionItem
-                                            title="What is Lorem Ipsum ?"
-                                            expanded
-                                            onChange={event => {
-                                                console.log(`Accordian toggled ${event.currentTarget}`);
-                                            }}
-                                        >
-                                            Lorem Ipsum is simply dummy text of the printing and typesetting
-                                            industry. Lorem Ipsum has been the industry&apos;s standard dummy
-                                            text ever since the 1500s, when an unknown printer took a galley
-                                            of type and scrambled it to make a type specimen book. It has
-                                            survived not only five centuries, but also the leap into
-                                            electronic typesetting, remaining essentially unchanged. It was
-                                            popularised in the 1960s with the release of Letraset sheets
-                                            containing Lorem Ipsum passages, and more recently with desktop
-                                            publishing software like Aldus PageMaker including versions of
-                                            Lorem Ipsum.
-                                        </AccordionItem>
-                                        <AccordionItem
-                                            title="Why do we use it ?"
-                                            onChange={event => {
-                                                console.log(`Accordian toggled ${event.currentTarget}`);
-                                            }}
-                                        >
-                                            It is a long established fact that a reader will be distracted by
-                                            the readable content of a page when looking at its layout. The
-                                            point of using Lorem Ipsum is that it has a more-or-less normal
-                                            distribution of letters, as opposed to using &apos;Content here,
-                                            content here&apos;, making it look like readable English. Many
-                                            desktop publishing packages and web page editors now use Lorem
-                                            Ipsum as their default model text, and a search for &apos;lorem
-                                            ipsum&apos; will uncover many web sites still in their infancy.
-                                            Various versions have evolved over the years, sometimes by
-                                            accident, sometimes on purpose (injected humour and the like).
-                                        </AccordionItem>
-                                        <AccordionItem
-                                            title="Wher we can it ?"
-                                            onChange={event => {
-                                                console.log(`Accordian toggled ${event.currentTarget}`);
-                                            }}
-                                        >
-                                            There are many variations of passages of Lorem Ipsum available,
-                                            but the majority have suffered alteration in some form, by
-                                            injected humour, or randomised words which don&apos;t look even
-                                            slightly believable. If you are going to use a passage of Lorem
-                                            Ipsum, you need to be sure there isn&apos;t anything embarrassing
-                                            hidden in the middle of text. All the Lorem Ipsum generators on
-                                            the Internet tend to repeat predefined chunks as necessary, making
-                                            this the first true generator on the Internet. It uses a
-                                            dictionary of over 200 Latin words, combined with a handful of
-                                            model sentence structures, to generate Lorem Ipsum which looks
-                                            reasonable. The generated Lorem Ipsum is therefore always free
-                                            from repetition, injected humour, or non-characteristic words etc.
-                                        </AccordionItem>
-                                    </Accordion>
-                                </div>
-                                {/* DatePicker */}
-                                <div className="hcl-row m-3 hcl-col-12">
-                                    <div className="hcl-col-6">
-                                        <DatePicker
-                                            weekDays={weekDays}
-                                            months={months}
-                                            open="top"
-                                            format="mm/dd/yyyy"
-                                            onDateSelect={dateSelected => {
-                                                console.log("Selected Date", dateSelected);
-                                            }}
-                                        />
-                                    </div>
-                                    <div className="hcl-col-6">
-                                        <DatePicker
-                                            weekDays={weekDays}
-                                            months={months}
-                                            open="bottom"
-                                            format="dd/mm/yyyy"
-                                            onDateSelect={dateSelected => {
-                                                console.log("Selected Date", dateSelected);
-                                            }}
-                                        />
-                                    </div>
-                                </div>
-                                <div className="hcl-col-12 mt-5 mb-5">
-                                    <NumberInput
-                                        defaultValue={0}
-                                        step={2}
-                                        id="numberInput2"
-                                        label="Number Input"
-                                    />
-                                    <NumberInput
-                                        defaultValue={10}
-                                        onChange={value => {
-                                            console.log(value);
-                                        }}
-                                        required
-                                        max={100}
-                                        min={10}
-                                        id="numberInput1"
-                                        label="Number Input validation"
-                                        helperText="Optional Helper text goes here (max 100 and min 10)"
-                                    />
-                                    <NumberInput
-                                        defaultValue={0}
-                                        id="numberInput3"
-                                        helperText="Optional Helper text goes here"
-                                        label="Number Input validation"
-                                        disabled
-                                    />
-                                </div>
                             </div>
                         </section>
                     </main>
