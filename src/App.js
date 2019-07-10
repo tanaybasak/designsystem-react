@@ -1120,17 +1120,29 @@ class App extends Component {
                     </div>
 
                     <div className="hcl-row">
-                        <div className="hcl-col-6">
-                            <LoadingState type="button" />
-
+                        <div className="hcl-col-6 mb-2">
+                            <LoadingState width="100%" height="40px" />
+                        </div>
+                        <div className="hcl-col-6 mb-2">
+                            <LoadingState height="1rem" />
+                        </div>
+                        <div className="hcl-col-6 mb-2">
                             <LoadingState type="breadcrumb" />
-
+                        </div>
+                        <div className="hcl-col-6 mb-2">
+                            <LoadingState type="tab" />
+                        </div>
+                        <div className="hcl-col-6 mb-2">
                             <LoadingState type="accordion" />
-
+                        </div>
+                        <div className="hcl-col-6 mb-2">
                             <LoadingState type="datatable" tableData={tableData} />
-
-
-                            
+                        </div>
+                        <div className="hcl-col-6 mb-2">
+                            <LoadingState type="slider" />
+                        </div>
+                        <div className="hcl-col-6 mb-2">
+                            <LoadingState />
                         </div>
                     </div>
                 </div>
