@@ -622,7 +622,9 @@ class App extends Component {
                                         onClose={this.hideToast}
                                         visible={this.state.toast.visible}
                                     />
-                                    <Button title="Default" onClick={this.showToast}>Show Toast Notification</Button>
+                                    <Button title="Default" onClick={this.showToast}>
+                                      Show Toast Notification
+                                    </Button>
                                 </div>
                                 <div className="hcl-col-12 mt-5" id="modal-section">
                                     <h5>Show modal layout :</h5>
@@ -768,7 +770,7 @@ class App extends Component {
                                         <Tab label="Tab List 1">Content 1</Tab>
                                         <Tab label="Tab List 2" isDisabled>
                                             Content 2
-              </Tab>
+                                        </Tab>
                                         <Tab label="Tab List 3">Content 3</Tab>
                                     </Tabs>
                                 </div>
@@ -1043,7 +1045,6 @@ class App extends Component {
                                     </div>
                                 </section>
 
-
                                 {/* Accordion Component */}
                                 <div className="hcl-col-12 mt-5 mb-5">
                                     <Accordion>
@@ -1147,6 +1148,7 @@ class App extends Component {
                                         label="Number Input validation"
                                         helperText="Optional Helper text goes here (max 100 and min 10)"
                                     />
+
                                     <NumberInput
                                         defaultValue={0}
                                         id="numberInput3"
