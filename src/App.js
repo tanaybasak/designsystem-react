@@ -220,8 +220,12 @@ class App extends Component {
                 <Header />
                 <div className="hcl-content">
                     <Sidebar
-                        title="Section Title"
+                        title="Components"
                         items={navigationData}
+                        onClick={event => {
+                            const { type, expanded, title } = event.currentTarget.dataset;
+                            console.log(type, expanded, title);
+                        }}
                     />
                     <main className="hcl-content-main">
                         <section className="hcl-container pt-5 mb-5">
@@ -623,7 +627,7 @@ class App extends Component {
                                         visible={this.state.toast.visible}
                                     />
                                     <Button title="Default" onClick={this.showToast}>
-                                      Show Toast Notification
+                                        Show Toast Notification
                                     </Button>
                                 </div>
                                 <div className="hcl-col-12 mt-5" id="modal-section">
