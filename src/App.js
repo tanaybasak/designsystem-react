@@ -690,7 +690,6 @@ class App extends Component {
                                         7
                                     </Button>
 
-
                                     {/* Danger type Modals */}
                                     {this.state.modal === 1 && (
                                         <Modal
@@ -921,7 +920,6 @@ class App extends Component {
                                         }}
                                     />
                                 </div>
-
                                 {/* Search Component */}
                                 <section className="hcl-col-12 mt-5 colBorder p-5" id="search-section">
                                     <h5 className="p-2">Normal Search</h5>
@@ -971,189 +969,192 @@ class App extends Component {
                                     className="hcl-col-12 mt-5 colBorder p-5"
                                     style={{ background: "#F5F7FB" }}
                                 >
-                                    {/* File Uploader Component */}
-                                    <div className="hcl-col-12 mt-5" id="file-uploader-section">
-                                        <FileUploader
-                                            id="file_uploader"
-                                            label="Account photo"
-                                            description="only .jpg and .png files. 500kb max file size."
-                                            fileType=".jpg"
-                                            className="hcl-btn hcl-secondary hcl-sml"
-                                        >
-                                            Add file
+                                    <h5 className="p-2">Small Header Search (White background)</h5>
+                                    <Search size="small" type="clickable" theme="white" />
+                                </section>
+                                {/* File Uploader Component */}
+                                <div className="hcl-col-12 mt-5" id="file-uploader-section">
+                                    <FileUploader
+                                        id="file_uploader"
+                                        label="Account photo"
+                                        description="only .jpg and .png files. 500kb max file size."
+                                        fileType=".jpg"
+                                        className="hcl-btn hcl-secondary hcl-sml"
+                                    >
+                                        Add file
                                     </FileUploader>
-                                    </div>
-                                    {/* Dropdown Component */}
-                                    <div className="hcl-row m-3 hcl-col-12">
-                                        <div className="hcl-col-6">
-                                            <Dropdown
-                                                type="top"
-                                                items={this.items}
-                                                label="Top DropDown"
-                                                selectedIndex={1}
-                                                onChange={selected => {
-                                                    console.log("selected item", selected);
-                                                }}
-                                            />
-                                        </div>
-                                        <div className="hcl-col-6">
-                                            <Dropdown
-                                                type="bottom"
-                                                items={this.items}
-                                                label="Bottom DropDown"
-                                                onChange={selected => {
-                                                    console.log("selected item", selected);
-                                                }}
-                                            />
-                                        </div>
-                                    </div>
-                                    {/* Tile Component */}
-                                    <section>
-                                        <div className="hcl-col-12 mt-5 mb-5">
-                                            {/* default tile */}
-                                            <Tile>
-                                                <p>This is read only tile</p>
-                                            </Tile>
-                                        </div>
-                                        <div className="hcl-col-12 mt-5 mb-5">
-                                            {/* clickable tile */}
-                                            <Tile type="clickable" href="">
-                                                <p>This is clickable tile</p>
-                                            </Tile>
-                                        </div>
-                                        <div className="hcl-col-12 mt-5 mb-5">
-                                            {/* selectable tile */}
-                                            <Tile type="selectable">
-                                                <p>This is selectable tile</p>
-                                            </Tile>
-                                        </div>
-                                        <div className="hcl-col-12 mt-5 mb-5">
-                                            {/* expandable tile */}
-                                            <Tile type="expandable" id="expandable-tile-1">
-                                                {/* container for default content */}
-                                                <div>
-                                                    <p>Content shown prior expand </p>
-                                                </div>
-                                                {/* container for content which will be added once expanded */}
-                                                <div>
-                                                    <p>Content shown after expand </p>
-                                                </div>
-                                            </Tile>
-                                        </div>
-                                    </section>
-
-                                    {/* Accordion Component */}
-                                    <div className="hcl-col-12 mt-5 mb-5">
-                                        <Accordion>
-                                            <AccordionItem
-                                                title="What is Lorem Ipsum ?"
-                                                expanded
-                                                onChange={event => {
-                                                    console.log(`Accordian toggled ${event.currentTarget}`);
-                                                }}
-                                            >
-                                                Lorem Ipsum is simply dummy text of the printing and typesetting
-                                                industry. Lorem Ipsum has been the industry&apos;s standard dummy
-                                                text ever since the 1500s, when an unknown printer took a galley
-                                                of type and scrambled it to make a type specimen book. It has
-                                                survived not only five centuries, but also the leap into
-                                                electronic typesetting, remaining essentially unchanged. It was
-                                                popularised in the 1960s with the release of Letraset sheets
-                                                containing Lorem Ipsum passages, and more recently with desktop
-                                                publishing software like Aldus PageMaker including versions of
-                                                Lorem Ipsum.
-                                            </AccordionItem>
-                                            <AccordionItem
-                                                title="Why do we use it ?"
-                                                onChange={event => {
-                                                    console.log(`Accordian toggled ${event.currentTarget}`);
-                                                }}
-                                            >
-                                                It is a long established fact that a reader will be distracted by
-                                                the readable content of a page when looking at its layout. The
-                                                point of using Lorem Ipsum is that it has a more-or-less normal
-                                                distribution of letters, as opposed to using &apos;Content here,
-                                                content here&apos;, making it look like readable English. Many
-                                                desktop publishing packages and web page editors now use Lorem
-                                                Ipsum as their default model text, and a search for &apos;lorem
-                                                ipsum&apos; will uncover many web sites still in their infancy.
-                                                Various versions have evolved over the years, sometimes by
-                                                accident, sometimes on purpose (injected humour and the like).
-                                            </AccordionItem>
-                                            <AccordionItem
-                                                title="Wher we can it ?"
-                                                onChange={event => {
-                                                    console.log(`Accordian toggled ${event.currentTarget}`);
-                                                }}
-                                            >
-                                                There are many variations of passages of Lorem Ipsum available,
-                                                but the majority have suffered alteration in some form, by
-                                                injected humour, or randomised words which don&apos;t look even
-                                                slightly believable. If you are going to use a passage of Lorem
-                                                Ipsum, you need to be sure there isn&apos;t anything embarrassing
-                                                hidden in the middle of text. All the Lorem Ipsum generators on
-                                                the Internet tend to repeat predefined chunks as necessary, making
-                                                this the first true generator on the Internet. It uses a
-                                                dictionary of over 200 Latin words, combined with a handful of
-                                                model sentence structures, to generate Lorem Ipsum which looks
-                                                reasonable. The generated Lorem Ipsum is therefore always free
-                                                from repetition, injected humour, or non-characteristic words etc.
-                                            </AccordionItem>
-                                        </Accordion>
-                                    </div>
-                                    {/* DatePicker */}
-                                    <div className="hcl-row m-3 hcl-col-12">
-                                        <div className="hcl-col-6">
-                                            <DatePicker
-                                                weekDays={weekDays}
-                                                months={months}
-                                                open="top"
-                                                format="mm/dd/yyyy"
-                                                onDateSelect={dateSelected => {
-                                                    console.log("Selected Date", dateSelected);
-                                                }}
-                                            />
-                                        </div>
-                                        <div className="hcl-col-6">
-                                            <DatePicker
-                                                weekDays={weekDays}
-                                                months={months}
-                                                open="bottom"
-                                                format="dd/mm/yyyy"
-                                                onDateSelect={dateSelected => {
-                                                    console.log("Selected Date", dateSelected);
-                                                }}
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="hcl-col-12 mt-5 mb-5">
-                                        <NumberInput
-                                            defaultValue={0}
-                                            step={2}
-                                            id="numberInput2"
-                                            label="Number Input"
-                                        />
-                                        <NumberInput
-                                            defaultValue={10}
-                                            onChange={value => {
-                                                console.log(value);
+                                </div>
+                                {/* Dropdown Component */}
+                                <div className="hcl-row m-3 hcl-col-12">
+                                    <div className="hcl-col-6">
+                                        <Dropdown
+                                            type="top"
+                                            items={this.items}
+                                            label="Top DropDown"
+                                            selectedIndex={1}
+                                            onChange={selected => {
+                                                console.log("selected item", selected);
                                             }}
-                                            required
-                                            max={100}
-                                            min={10}
-                                            id="numberInput1"
-                                            label="Number Input validation"
-                                            helperText="Optional Helper text goes here (max 100 and min 10)"
                                         />
-                                        <NumberInput
-                                            defaultValue={0}
-                                            id="numberInput3"
-                                            helperText="Optional Helper text goes here"
-                                            label="Number Input validation"
-                                            disabled
+                                    </div>
+                                    <div className="hcl-col-6">
+                                        <Dropdown
+                                            type="bottom"
+                                            items={this.items}
+                                            label="Bottom DropDown"
+                                            onChange={selected => {
+                                                console.log("selected item", selected);
+                                            }}
                                         />
+                                    </div>
+                                </div>
+                                {/* Tile Component */}
+                                <section>
+                                    <div className="hcl-col-12 mt-5 mb-5">
+                                        {/* default tile */}
+                                        <Tile>
+                                            <p>This is read only tile</p>
+                                        </Tile>
+                                    </div>
+                                    <div className="hcl-col-12 mt-5 mb-5">
+                                        {/* clickable tile */}
+                                        <Tile type="clickable" href="">
+                                            <p>This is clickable tile</p>
+                                        </Tile>
+                                    </div>
+                                    <div className="hcl-col-12 mt-5 mb-5">
+                                        {/* selectable tile */}
+                                        <Tile type="selectable">
+                                            <p>This is selectable tile</p>
+                                        </Tile>
+                                    </div>
+                                    <div className="hcl-col-12 mt-5 mb-5">
+                                        {/* expandable tile */}
+                                        <Tile type="expandable" id="expandable-tile-1">
+                                            {/* container for default content */}
+                                            <div>
+                                                <p>Content shown prior expand </p>
+                                            </div>
+                                            {/* container for content which will be added once expanded */}
+                                            <div>
+                                                <p>Content shown after expand </p>
+                                            </div>
+                                        </Tile>
                                     </div>
                                 </section>
+
+
+                                {/* Accordion Component */}
+                                <div className="hcl-col-12 mt-5 mb-5">
+                                    <Accordion>
+                                        <AccordionItem
+                                            title="What is Lorem Ipsum ?"
+                                            expanded
+                                            onChange={event => {
+                                                console.log(`Accordian toggled ${event.currentTarget}`);
+                                            }}
+                                        >
+                                            Lorem Ipsum is simply dummy text of the printing and typesetting
+                                            industry. Lorem Ipsum has been the industry&apos;s standard dummy
+                                            text ever since the 1500s, when an unknown printer took a galley
+                                            of type and scrambled it to make a type specimen book. It has
+                                            survived not only five centuries, but also the leap into
+                                            electronic typesetting, remaining essentially unchanged. It was
+                                            popularised in the 1960s with the release of Letraset sheets
+                                            containing Lorem Ipsum passages, and more recently with desktop
+                                            publishing software like Aldus PageMaker including versions of
+                                            Lorem Ipsum.
+                                            </AccordionItem>
+                                        <AccordionItem
+                                            title="Why do we use it ?"
+                                            onChange={event => {
+                                                console.log(`Accordian toggled ${event.currentTarget}`);
+                                            }}
+                                        >
+                                            It is a long established fact that a reader will be distracted by
+                                            the readable content of a page when looking at its layout. The
+                                            point of using Lorem Ipsum is that it has a more-or-less normal
+                                            distribution of letters, as opposed to using &apos;Content here,
+                                            content here&apos;, making it look like readable English. Many
+                                            desktop publishing packages and web page editors now use Lorem
+                                            Ipsum as their default model text, and a search for &apos;lorem
+                                            ipsum&apos; will uncover many web sites still in their infancy.
+                                            Various versions have evolved over the years, sometimes by
+                                            accident, sometimes on purpose (injected humour and the like).
+                                            </AccordionItem>
+                                        <AccordionItem
+                                            title="Wher we can it ?"
+                                            onChange={event => {
+                                                console.log(`Accordian toggled ${event.currentTarget}`);
+                                            }}
+                                        >
+                                            There are many variations of passages of Lorem Ipsum available,
+                                            but the majority have suffered alteration in some form, by
+                                            injected humour, or randomised words which don&apos;t look even
+                                            slightly believable. If you are going to use a passage of Lorem
+                                            Ipsum, you need to be sure there isn&apos;t anything embarrassing
+                                            hidden in the middle of text. All the Lorem Ipsum generators on
+                                            the Internet tend to repeat predefined chunks as necessary, making
+                                            this the first true generator on the Internet. It uses a
+                                            dictionary of over 200 Latin words, combined with a handful of
+                                            model sentence structures, to generate Lorem Ipsum which looks
+                                            reasonable. The generated Lorem Ipsum is therefore always free
+                                            from repetition, injected humour, or non-characteristic words etc.
+                                            </AccordionItem>
+                                    </Accordion>
+                                </div>
+                                {/* DatePicker */}
+                                <div className="hcl-row m-3 hcl-col-12">
+                                    <div className="hcl-col-6">
+                                        <DatePicker
+                                            weekDays={weekDays}
+                                            months={months}
+                                            open="top"
+                                            format="mm/dd/yyyy"
+                                            onDateSelect={dateSelected => {
+                                                console.log("Selected Date", dateSelected);
+                                            }}
+                                        />
+                                    </div>
+                                    <div className="hcl-col-6">
+                                        <DatePicker
+                                            weekDays={weekDays}
+                                            months={months}
+                                            open="bottom"
+                                            format="dd/mm/yyyy"
+                                            onDateSelect={dateSelected => {
+                                                console.log("Selected Date", dateSelected);
+                                            }}
+                                        />
+                                    </div>
+                                </div>
+                                <div className="hcl-col-12 mt-5 mb-5">
+                                    <NumberInput
+                                        defaultValue={0}
+                                        step={2}
+                                        id="numberInput2"
+                                        label="Number Input"
+                                    />
+                                    <NumberInput
+                                        defaultValue={10}
+                                        onChange={value => {
+                                            console.log(value);
+                                        }}
+                                        required
+                                        max={100}
+                                        min={10}
+                                        id="numberInput1"
+                                        label="Number Input validation"
+                                        helperText="Optional Helper text goes here (max 100 and min 10)"
+                                    />
+                                    <NumberInput
+                                        defaultValue={0}
+                                        id="numberInput3"
+                                        helperText="Optional Helper text goes here"
+                                        label="Number Input validation"
+                                        disabled
+                                    />
+                                </div>
                             </div>
                         </section>
                     </main>
