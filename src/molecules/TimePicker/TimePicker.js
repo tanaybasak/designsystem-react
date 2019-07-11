@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import prefix from "../../settings";
-import period from "./content";
+import {period} from "../../content";
 
 const TimePicker = ({ timeZones, label, onChange }) => {
   let timeObj = {
