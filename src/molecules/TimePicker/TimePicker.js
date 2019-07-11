@@ -1,11 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 import prefix from "../../settings";
+import period from "./content";
 
 const TimePicker = ({ timeZones, label, onChange }) => {
   let timeObj = {
     time: "00:00",
-    period: "AM",
+    period: period.am,
     timezone: timeZones[0]
   };
 
@@ -43,11 +44,11 @@ const TimePicker = ({ timeZones, label, onChange }) => {
         />
       </div>
       <select className={`${prefix}-select`} onChange={onSelectPeriod}>
-        <option className={`${prefix}-select-option`} value="AM">
-          AM
+        <option className={`${prefix}-select-option`} value={period.am}>
+          {period.am}
         </option>
-        <option className={`${prefix}-select-option`} value="PM">
-          PM
+        <option className={`${prefix}-select-option`} value={period.pm}>
+          {period.pm}
         </option>
       </select>
       <select className={`${prefix}-select`} onChange={onSelectTimezone}>
