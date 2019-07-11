@@ -33,6 +33,7 @@ import Dropdown from "./atoms/Dropdown";
 import Tile from "./atoms/Tile";
 import DatePicker from "./molecules/DatePicker";
 import { weekDays, months } from "./content";
+import Pagination from './atoms/Pagination';
 import NumberInput from "./molecules/NumberInput";
 import Select from "./atoms/Select/Select";
 import TimePicker from "./molecules/TimePicker/TimePicker";
@@ -1170,6 +1171,12 @@ class App extends Component {
               }}
             />
           </div>
+        </div>
+        <div className="hcl-col-12">
+            <Paragraph className="p-2 m-1">Pagination Example 1</Paragraph>
+            <Pagination totalItems={8} pageSizes={[10, 20, 30, 40, 50]} itemsPerPageText={"No. of Rows:"} onChange={(e) => { console.log(e); }} />
+            <Paragraph className="p-2 m-1">Pagination Example 2</Paragraph>
+            <Pagination totalItems={110} pageSizes={[30, 40, 50]} itemsPerPageText={"Items per page:"} onChange={(e) => { console.log(e); }} />
         </div>
       </main>
     );
