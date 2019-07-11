@@ -1121,6 +1121,7 @@ class App extends Component {
               />
             </div>
           </div>
+          {/* Number Input */}
           <div className="hcl-col-12 mt-5 mb-5">
             <NumberInput
               defaultValue={0}
@@ -1140,7 +1141,6 @@ class App extends Component {
               label="Number Input validation"
               helperText="Optional Helper text goes here (max 100 and min 10)"
             />
-
             <NumberInput
               defaultValue={0}
               id="numberInput3"
@@ -1149,6 +1149,7 @@ class App extends Component {
               disabled
             />
           </div>
+          {/* Select */}
           <div className="hcl-col-12 mt-5 mb-5">
             <Select
               items={this.items}
@@ -1159,6 +1160,7 @@ class App extends Component {
               id="hcl-select-id-1"
             />
           </div>
+          {/* TimePicker */}
           <div className="hcl-col-12 mt-5 mb-5">
             <TimePicker
               timeZones={["Time zone 1", "Time zone 2", "Time zone 3"]}
