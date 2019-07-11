@@ -221,7 +221,6 @@ class App extends Component {
         <div className="hcl-row m-0">
           {/* Input Field */}
           <div className="hcl-form-group hcl-col-12">
-            <Label htmlFor="firstname">First Name </Label>
             <FormHelperText className="helper-text">
               Enter first name
             </FormHelperText>
@@ -234,12 +233,12 @@ class App extends Component {
                 console.log(event.currentTarget.value);
               }}
             />
+            <Label htmlFor="firstname">First Name </Label>
             <FormHelperText className="error-msg">
               Enter first name
             </FormHelperText>
           </div>
           <div className="hcl-form-group hcl-col-12">
-            <Label htmlFor="feedback">Feedback </Label>
             <FormHelperText className="helper-text">
               Feedback helper
             </FormHelperText>
@@ -251,6 +250,7 @@ class App extends Component {
                 console.log(event.currentTarget.value);
               }}
             />
+            <Label htmlFor="feedback">Feedback </Label>
             <FormHelperText className="error-msg">
               Validation message
             </FormHelperText>
