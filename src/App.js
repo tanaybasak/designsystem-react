@@ -33,7 +33,10 @@ import Dropdown from "./atoms/Dropdown";
 import Tile from "./atoms/Tile";
 import DatePicker from "./molecules/DatePicker";
 import { weekDays, months } from "./content";
+import Pagination from './atoms/Pagination';
 import NumberInput from "./molecules/NumberInput";
+import Select from "./atoms/Select/Select";
+import TimePicker from "./molecules/TimePicker/TimePicker";
 import Sidebar from './molecules/Sidebar';
 import navigationData from './molecules/Sidebar/sidebar-navigation-data.json';
 import Header from './molecules/Header';
@@ -1162,6 +1165,33 @@ class App extends Component {
                             disabled
                             />
                         </div>
+                        </div>
+                        {/* Select */}
+                        <div className="hcl-col-12 mt-5 mb-5">
+                            <Select
+                                items={this.items}
+                                label="Select Label"
+                                onChange={selected => {
+                                    console.log("selected item", selected);
+                                }}
+                                id="hcl-select-id-1"
+                            />
+                        </div>
+                        {/* TimePicker */}
+                        <div className="hcl-col-12 mt-5 mb-5">
+                            <TimePicker
+                                timeZones={["Time zone 1", "Time zone 2", "Time zone 3"]}
+                                label="Select a time"
+                                onChange={selected => {
+                                    console.log("selected item", selected);
+                                }}
+                            />
+                        </div>
+                        <div className="hcl-col-12">
+                            <Paragraph className="p-2 m-1">Pagination Example 1</Paragraph>
+                            <Pagination totalItems={8} pageSizes={[10, 20, 30, 40, 50]} itemsPerPageText={"No. of Rows:"} onChange={(e) => { console.log(e); }} />
+                            <Paragraph className="p-2 m-1">Pagination Example 2</Paragraph>
+                            <Pagination totalItems={110} pageSizes={[30, 40, 50]} itemsPerPageText={"Items per page:"} onChange={(e) => { console.log(e); }} />
                         </div>
                     </section>
                 </main>
