@@ -273,30 +273,6 @@ class App extends Component {
       </div>
     );
 
-    const tooltipContent1 = (
-      <>
-        <Paragraph>
-          There are many variations of passages of Lorem Ipsum available, but
-          the majority have suffered alteration in some form, by injected
-          humour, or randomised words which don&lsquo;t look even slightly
-          believable.
-        </Paragraph>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            flexWrap: "wrap",
-            alignItems: "center"
-          }}
-        >
-          <Link href="https://www.google.com" className="pr-5" target="_blank">
-            Google
-          </Link>
-          <Button className="hcl-primary">Create</Button>
-        </div>
-      </>
-    );
-
     return (
       <main className="hcl-container">
         <div className="hcl-row m-0">
@@ -1355,7 +1331,7 @@ class App extends Component {
             <div className="hcl-col-3 mt-5 mb-5">
               Interactive Tooltip
               <Tooltip
-                content={tooltipContent1}
+                content={tooltipContent}
                 direction="right"
                 type="interactive"
               >
