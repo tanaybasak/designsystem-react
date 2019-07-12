@@ -2,10 +2,10 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-const HTML_TEMPLATE = path.resolve('./index.html');
-const FAVICON_PATH = path.resolve('./assets/images/favicon.ico');
-const NODE_MODULES_DIR = path.resolve('./node_modules');
 const SRC_DIR = path.resolve('./src');
+const HTML_TEMPLATE = path.resolve('./index.html');
+const FAVICON_PATH = path.resolve(SRC_DIR + '/assets/images/favicon.ico');
+const NODE_MODULES_DIR = path.resolve('./node_modules');
 const DIST_DIR = path.resolve('./dist');
 
 module.exports.DIRS = {

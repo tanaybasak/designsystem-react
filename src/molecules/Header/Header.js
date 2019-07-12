@@ -9,7 +9,7 @@ const Header = ({ className, ...restProps }) => {
 
         <header className={classnames} style={{ height: '3.125rem' }} {...restProps}>
             <img
-                src={require("../../../assets/images/logo.png")}
+                src={require("../../assets/images/logo.png")}
                 alt="Logo"
             />
         </header>
