@@ -45,6 +45,9 @@ import LoadingState from "./atoms/LoadingState/LoadingState";
 
 class App extends Component {
   state = {
+    totalItems: 300,
+    stepper: 10,
+    stepperLimit: 100,
     radio: {
       temperature: 45,
       city: "Chennai"
@@ -1284,10 +1287,14 @@ class App extends Component {
                 <div className="hcl-col-12">
                   <Paragraph className="p-2 m-1">
                     Pagination Example 1
+                    <button className="hcl-btn hcl-secondary" onClick={() => { let { totalItems } = this.state; totalItems+=50; this.setState({...this.state, 'totalItems': totalItems }); }}>Total Items</button>
+                    <button className="ml-2 hcl-btn hcl-secondary" onClick={() => { let { stepper } = this.state; stepper+=5; this.setState({...this.state, 'stepper': stepper }); }}>Change Stepper</button>
+                    <button className="ml-2 hcl-btn hcl-secondary" onClick={() => { let { stepperLimit } = this.state; stepperLimit+=50; this.setState({...this.state, 'stepperLimit': stepperLimit }); }}>Stepper Limit</button>
                   </Paragraph>
                   <Pagination
-                    totalItems={8}
-                    pageSizes={[10, 20, 30, 40, 50]}
+                    totalItems={this.state.totalItems}
+                    itemsPerPageStepper={this.state.stepper}
+                    itemsStepperLimit={this.state.stepperLimit}
                     itemsPerPageText={"No. of Rows:"}
                     onChange={e => {
                       console.log(e);
@@ -1297,8 +1304,9 @@ class App extends Component {
                     Pagination Example 2
                   </Paragraph>
                   <Pagination
-                    totalItems={110}
-                    pageSizes={[30, 40, 50]}
+                    totalItems={61302}
+                    itemsPerPageStepper={25}
+                    itemsStepperLimit={500}
                     itemsPerPageText={"Items per page:"}
                     onChange={e => {
                       console.log(e);
