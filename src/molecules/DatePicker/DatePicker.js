@@ -124,7 +124,11 @@ const DatePicker = ({ weekDays, months, open, format, onDateSelect }) => {
         currDateObj.month === 11 ? 0 : currDateObj.month + 1,
         15
       );
-    } else {
+    } else if (
+      event.target.parentElement.classList.contains(
+        `${prefix}-datePicker-month-prev`
+      )
+    ) {
       tempDate = new Date(
         currDateObj.month === 0 ? currDateObj.year - 1 : currDateObj.year,
         currDateObj.month === 0 ? 11 : currDateObj.month - 1,
