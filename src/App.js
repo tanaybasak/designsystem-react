@@ -1110,7 +1110,7 @@ class App extends Component {
                     label="Account photo"
                     description="only .jpg and .png files. 500kb max file size."
                     fileType=".jpg"
-                    className="hcl-btn hcl-secondary hcl-sml"
+                    className="hcl-secondary hcl-sml"
                   >
                     Add file
                   </FileUploader>
