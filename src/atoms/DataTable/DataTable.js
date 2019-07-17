@@ -133,7 +133,7 @@ DataTable.defaultProps = {
     tableData: {},
     selectable: false,
     className: '',
-    onSort: {}
+    onSort: () => {}
 };
 
 export default DataTable;
