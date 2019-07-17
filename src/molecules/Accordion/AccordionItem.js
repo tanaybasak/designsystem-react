@@ -8,19 +8,20 @@ const AccordionItem = ({ title, expanded, onChange, onExpand, className, childre
     const classnames = `${prefix}-accordion-item ${className}`.trim();
 
     return (
-        <li
-            className={`${classnames}${expanded ? ' expanded' : ''}`}
-            data-index={dataIndex}
-            onClick={
-                event => {
-                    onChange(event);
-                    onExpand(event);
-                }
-            }
-            {...restProps}
-        >
+        <li className={`${classnames}${expanded ? ' expanded' : ''}`} {...restProps}>
             <span className={`${prefix}-accordion-icon`} />
-            <span className={`${prefix}-accordion-title`}>{title}</span>
+            <span
+                className={`${prefix}-accordion-title`}
+                data-index={dataIndex}
+                onClick={
+                    event => {
+                        onChange(event);
+                        onExpand(event);
+                    }
+                }
+            >
+                {title}
+            </span>
             <Paragraph className={`${prefix}-accordion-content`}>
                 {children}
             </Paragraph>
