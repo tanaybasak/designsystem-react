@@ -279,16 +279,47 @@ class App extends Component {
 
     return (
       <>
-        <Header />
-        <div className="hcl-content">
-          <Sidebar
-            title="Components"
-            items={navigationData}
-            onClick={event => {
-              const { type, expanded, title } = event.currentTarget.dataset;
-              console.log(type, expanded, title);
-            }}
-          />
+        <Header
+            logo={<img src={require("./assets/images/logo.png")} alt="Logo" />}
+            searchComponent={<Search type="clickable" onChange={event => console.log(event)} />}
+            icons={
+                [
+                    {
+                        onClick: event => console.log(event.currentTarget),
+                        icon: <span className={`hcl-icon-1 bg-white`} />
+                    },
+                    {
+                        onClick: event => console.log(event.currentTarget),
+                        icon: <span className={`hcl-icon-1 bg-white`} />
+                    },
+                    {
+                        onClick: event => console.log(event.currentTarget),
+                        icon: <span className={`hcl-icon-1 bg-white`} />
+                    },
+                    {
+                        onClick: event => console.log(event.currentTarget),
+                        icon: <span className={`hcl-icon-1 bg-white`} />
+                    },
+                    {
+                        onClick: event => console.log(event.currentTarget),
+                        icon: <span className={`hcl-icon-1 bg-white`} />
+                    }
+                ]
+            }
+        />
+        <Sidebar
+          title="Components"
+          items={navigationData}
+          onClick={event => {
+            const { type, expanded, title } = event.currentTarget.dataset;
+            console.log(type, expanded, title);
+            const container = document.querySelector('[data-withsidenav]');
+            if (container) {
+                container.classList.toggle('sidebar-expanded', expanded === 'true');
+            }
+          }}
+        />
+        <div className="hcl-content" style={{ marginTop: '4rem' }} data-withsidenav>
           <main className="hcl-content-main">
             <section className="hcl-container pt-5 mb-5">
               <div className="hcl-row m-0">
