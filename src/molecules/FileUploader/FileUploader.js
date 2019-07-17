@@ -8,7 +8,7 @@ export default function FileUploader({ id, className, label, children, descripti
 
     return (
         <div className={`${prefix}-form-item`}>
-            {label && label.length? <span className={`${prefix}-label`}>{label}</span>: null}
+            {label && label.length ? <span className={`${prefix}-label`}>{label}</span> : null}
             {description && description.length ? <Paragraph className={`${prefix}-label-description`}>{description}</Paragraph> : null}
             <div className={`${prefix}-file-uploader`} {...restProps}>
                 <input type="file" className={`${prefix}-file-input`} id={id} tabIndex={tabIndex}
