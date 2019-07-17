@@ -36,34 +36,21 @@ const TextInput = ({ className, type, ...restProps }) => {
     return (
         <>
             {
-                type !== "password" ?
-                    (
-                        <input
-                            className={classnames}
-                            type={type}
-                            {...restProps}
-                            value={value}
-                            onChange={event => {
-                                setValue(event.currentTarget.value);
-                                restProps.onChange(event);
-                            }}
-                        />
-                    ) :
-                    (// password type
-                        <>
-                            <input
-                                className={classnames}
-                                type={typechange}
-                                {...restProps}
-                                value={value}
-                                onChange={event => {
-                                    setValue(event.currentTarget.value);
-                                    restProps.onChange(event);
-                                }}
-                            />
-                            {passwordIcon}
-                        </>
-                    )
+                <>
+                    <input
+                        className={classnames}
+                        type={type === "password" ? typechange : type}
+                        {...restProps}
+                        value={value}
+                        onChange={event => {
+                            setValue(event.currentTarget.value);
+                            restProps.onChange(event);
+                        }}
+                    />
+                    {
+                        type === "password" ? passwordIcon : null
+                    }
+                </>
             }
         </>
     );
