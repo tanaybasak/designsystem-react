@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
-import Paragraph from '../../atoms/Paragraph';
 
 const AccordionItem = ({ title, expanded, onChange, onExpand, className, children, dataIndex, ...restProps }) => {
 
@@ -9,8 +8,7 @@ const AccordionItem = ({ title, expanded, onChange, onExpand, className, childre
 
     return (
         <li className={`${classnames}${expanded ? ' expanded' : ''}`} {...restProps}>
-            <span className={`${prefix}-accordion-icon`} />
-            <span
+            <div
                 className={`${prefix}-accordion-title`}
                 data-index={dataIndex}
                 onClick={
@@ -21,10 +19,10 @@ const AccordionItem = ({ title, expanded, onChange, onExpand, className, childre
                 }
             >
                 {title}
-            </span>
-            <Paragraph className={`${prefix}-accordion-content`}>
+            </div>
+            <div className={`${prefix}-accordion-content`}>
                 {children}
-            </Paragraph>
+            </div>
         </li>
     );
 };
