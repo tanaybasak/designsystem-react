@@ -137,6 +137,7 @@ const DatePicker = ({ weekDays, months, open, format, onDateSelect }) => {
       date: tempDate.getDate(),
       year: tempDate.getFullYear()
     });
+    setYearSelected(String(tempDate.getFullYear()));
   };
 
   const yearChangeHandler = event => {
