@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 
-export default function Checkbox({ className, checked, labelText, ...restProps }) {
+export default function Checkbox({ className, checked, label, ...restProps }) {
     const [isChecked, setChecked] = useState(checked || false);
     const classnames = `${prefix}-checkbox-item ${className}`.trim();
 
@@ -27,7 +27,7 @@ export default function Checkbox({ className, checked, labelText, ...restProps }
                 }}
             />
             <label className={`${prefix}-checkbox-label`} htmlFor={restProps.id}>
-                {labelText}
+                {label}
             </label>
         </div>
     );
@@ -36,8 +36,8 @@ export default function Checkbox({ className, checked, labelText, ...restProps }
 Checkbox.propTypes = {
     className: PropTypes.string,
     disabled: PropTypes.bool,
-    labelText: PropTypes.string,
-    id: PropTypes.string,
+    label: PropTypes.string,
+    id: PropTypes.string.isRequired,
     onChange: PropTypes.func,
     checked: PropTypes.bool,
     title: PropTypes.string
@@ -45,10 +45,10 @@ Checkbox.propTypes = {
 
 Checkbox.defaultProps = {
     className: '',
-    labelText: '',
     disabled: false,
+    label: '',
+    id: null,
     onChange: () => { },
     checked: false,
     title: '',
-    id: ''
 };

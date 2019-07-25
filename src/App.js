@@ -460,14 +460,14 @@ class App extends Component {
                   <div className="hcl-checkbox-group">
                     <Checkbox
                       id="checkbox1"
-                      labelText="1 (default)"
+                      label="1 (default)"
                       onChange={() => {
                         console.log('Default Checkbox.');
                       }}
                     />
                     <Checkbox
                       id="checkbox2"
-                      labelText="2"
+                      label="2"
                       checked
                       onChange={() => {
                         console.log('Checked state is changed.');
@@ -475,7 +475,7 @@ class App extends Component {
                     />
                     <Checkbox
                       id="checkbox3"
-                      labelText="3 (disabled)"
+                      label="3 (disabled)"
                       disabled
                     />
                   </div>
@@ -487,14 +487,14 @@ class App extends Component {
                   <div className="hcl-checkbox-group hcl-stack-vertical">
                     <Checkbox
                       id="checkbox4"
-                      labelText="4 (default)"
+                      label="4 (default)"
                       onChange={() => {
                         console.log('Default Checkbox.');
                       }}
                     />
                     <Checkbox
                       id="checkbox5"
-                      labelText="5"
+                      label="5"
                       checked
                       onChange={() => {
                         console.log('Checked state is changed.');
@@ -502,7 +502,7 @@ class App extends Component {
                     />
                     <Checkbox
                       id="checkbox6"
-                      labelText="6 (disabled)"
+                      label="6 (disabled)"
                       disabled
                     />
                   </div>
