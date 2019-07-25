@@ -349,6 +349,25 @@ class App extends Component {
                     Enter first name
                   </FormHelperText>
                 </div>
+                {/* Password field */}
+                <div className="hcl-form-group hcl-col-12">
+                    <FormHelperText className="helper-text">
+                    Enter Password
+                    </FormHelperText>
+                    <TextInput
+                    type="password"
+                    placeholder="Password"
+                    id="password"
+                    data-invalid="false"
+                    onChange={event => {
+                        console.log(event.currentTarget.value);
+                    }}
+                    />
+                    <Label htmlFor="password">Password</Label>
+                    <FormHelperText className="error-msg">
+                    Enter Password
+                    </FormHelperText>
+                </div>
                 <div className="hcl-form-group hcl-col-12">
                   <Label htmlFor="feedback">Feedback </Label>
                   <FormHelperText className="helper-text">
