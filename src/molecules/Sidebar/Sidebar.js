@@ -112,7 +112,7 @@ const Sidebar = ({ className, title, items, onClick, ...restProps }) => {
                                                 data-title={categoryTitle}
                                                 onClick={itemClicked}
                                             >
-                                                {title}
+                                                {categoryTitle}
                                             </a>
                                         )
 
