@@ -282,7 +282,7 @@ class App extends Component {
         <Header
           logo={<img src={require('./assets/images/logo.png')} alt="Logo" />}
           searchComponent={
-            <Search type="clickable" onChange={event => console.log(event)} />
+            <Search type="clickable" iconTheme="white" onChange={event => console.log(event)} />
           }
           icons={[
             {
