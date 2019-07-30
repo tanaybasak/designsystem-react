@@ -282,7 +282,7 @@ class App extends Component {
         <Header
           logo={<img src={require('./assets/images/logo.png')} alt="Logo" />}
           searchComponent={
-            <Search type="clickable" iconTheme="white" onChange={event => console.log(event)} />
+            <Search type="clickable" iconTheme="white" onChange={event => console.log(event)} onBlur={event => console.log(event)} />
           }
           icons={[
             {
@@ -1081,7 +1081,7 @@ class App extends Component {
                   id="search-section"
                 >
                   <h5 className="p-2">Normal Search</h5>
-                  <Search />
+                  <Search onBlur={event => console.log(event)} />
                 </section>
 
                 <section className="hcl-col-12 mt-5 colBorder p-5">

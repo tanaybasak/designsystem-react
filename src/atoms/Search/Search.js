@@ -33,8 +33,10 @@ const Search = (
     }
 
     const hideSearch = (e) => {
-        if (value === '') {
-            setClickableContent('');
+        if (clickableContent === 'show') {
+            if (value === '') {
+                setClickableContent('');
+            }
         }
         if (restProps.onBlur) {
             restProps.onBlur(e)
@@ -77,7 +79,7 @@ const Search = (
                         restProps.onChange(event.currentTarget.value)
                     }
                 }}
-                onBlur={clickableContent === 'show' ? hideSearch : null}
+                onBlur={hideSearch}
             />
             <button className={`${prefix}-search-reset ${value !== '' ? `show` : ``}`} onMouseDown={clearSearch} tabIndex="-1" />
         </div>
