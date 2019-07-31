@@ -1,5 +1,5 @@
 {
-  "name": "patron-react",
+  "name": "patron-react-dev",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -28,7 +28,7 @@
     "react-router-dom": "^5.0.0"
   },
   "devDependencies": {
-    "patron-css-build": "git+https://github01.hclpnp.com/UXUIAssets/patron-css-build.git",
+    "patron-css": "git+https://github01.hclpnp.com/UXUIAssets/patron-css.git",
     "@babel/core": "^7.4.4",
     "@babel/plugin-proposal-class-properties": "^7.4.4",
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
