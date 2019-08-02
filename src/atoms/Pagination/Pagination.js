@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Pager from './Pager';
 import prefix from '../../settings';
 
-const Pagination = ({ totalItems, itemsPerPageStepper, itemsStepperLimit, itemsPerPageText }) => {
+const Pagination = ({ totalItems, itemsPerPageStepper, itemsStepperLimit, itemsPerPageText, onPageChange, onItemsPerPageChange }) => {
     //states
     const [nItems, setNItems] = useState(totalItems);//totalItems State
     const [stepper, setItemsPerPageStepper] = useState(itemsPerPageStepper);//itemsPerPageStepper State
@@ -43,7 +43,7 @@ const Pagination = ({ totalItems, itemsPerPageStepper, itemsStepperLimit, itemsP
 
     //props change - itemsStepperLimit
     useEffect(() => {
-        if(stepperLimit != itemsStepperLimit) {
+        if (stepperLimit != itemsStepperLimit) {
             setStepperLimit(itemsStepperLimit);
         }
     }, [itemsStepperLimit]);
@@ -177,6 +177,9 @@ const Pagination = ({ totalItems, itemsPerPageStepper, itemsStepperLimit, itemsP
     const _onItemsChange = () => {
         if (pageItemsSelectedRef.current) {
             setItemsPerPageSelected(pageItemsSelectedRef.current.options[pageItemsSelectedRef.current.selectedIndex].value);
+            if (onItemsPerPageChange) {
+                onItemsPerPageChange(pageItemsSelectedRef.current.options[pageItemsSelectedRef.current.selectedIndex].value);
+            }
         }
     }
 
@@ -187,6 +190,9 @@ const Pagination = ({ totalItems, itemsPerPageStepper, itemsStepperLimit, itemsP
             if (previousbtnRef.current && !previousbtnRef.current.disabled && pageDropDown.value > 1) {
                 pagesRef.current.selectedIndex--;
                 setPagesSelected(pagesRef.current.options[pagesRef.current.selectedIndex].value);
+                if (onPageChange) {
+                    onPageChange(pagesRef.current.options[pagesRef.current.selectedIndex].value);
+                }
             }
         }
     }
@@ -198,6 +204,9 @@ const Pagination = ({ totalItems, itemsPerPageStepper, itemsStepperLimit, itemsP
             if (nextbtnRef.current && !nextbtnRef.current.disabled && nItems != pageDropDown.value) {
                 pagesRef.current.selectedIndex++;
                 setPagesSelected(pagesRef.current.options[pagesRef.current.selectedIndex].value);
+                if (onPageChange) {
+                    onPageChange(pagesRef.current.options[pagesRef.current.selectedIndex].value);
+                }
             }
         }
     }
@@ -207,6 +216,9 @@ const Pagination = ({ totalItems, itemsPerPageStepper, itemsStepperLimit, itemsP
         setPagesSelected(pagesRef.current.options[pagesRef.current.selectedIndex].value);
         if (startpagedisplayRef.current) {
             startpagedisplayRef.current.innerHTML = pagesRef.current.options[pagesRef.current.selectedIndex].value;
+            if (onPageChange) {
+                onPageChange(pagesRef.current.options[pagesRef.current.selectedIndex].value);
+            }
         }
     }
 
@@ -268,7 +280,8 @@ Pagination.propTypes = {
     itemsPerPageStepper: PropTypes.number.isRequired,
     itemsStepperLimit: PropTypes.number,
     itemsPerPageText: PropTypes.string,
-    onChange: PropTypes.func
+    onItemsPerPageChange: PropTypes.func,
+    onPageChange: PropTypes.func
 };
 
 Pagination.defaultProps = {
@@ -276,7 +289,8 @@ Pagination.defaultProps = {
     itemsPerPageStepper: 20,
     itemsStepperLimit: 100,
     itemsPerPageText: 'Items per Page:',
-    onChange: () => { }
+    onItemsPerPageChange: () => { },
+    onPageChange: () => { }
 };
 
 export default Pagination;

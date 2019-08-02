@@ -1365,9 +1365,12 @@ class App extends Component {
                     itemsPerPageStepper={this.state.stepper}
                     itemsStepperLimit={this.state.stepperLimit}
                     itemsPerPageText={"No. of Rows:"}
-                    onChange={e => {
+                    onPageChange={e => {
                       console.log(e);
                     }}
+                    onItemsPerPageChange={e => {
+                        console.log(e);
+                      }}
                   />
                   <Paragraph className="p-2 m-1">
                     Pagination Example 2
@@ -1377,9 +1380,12 @@ class App extends Component {
                     itemsPerPageStepper={25}
                     itemsStepperLimit={500}
                     itemsPerPageText={"Items per page:"}
-                    onChange={e => {
+                    onPageChange={e => {
                       console.log(e);
                     }}
+                    onItemsPerPageChange={e => {
+                        console.log(e);
+                      }}
                   />
                 </div>
                 <div className="hcl-col-12">
