@@ -283,7 +283,7 @@ class App extends Component {
         <Header
           logo={<img src={require('./assets/images/logo.png')} alt="Logo" />}
           searchComponent={
-            <Search type="clickable" onChange={event => console.log(event)} />
+            <Search type="clickable" iconTheme="white" onChange={event => console.log(event)} onBlur={event => console.log(event)} />
           }
           icons={[
             {
@@ -346,6 +346,25 @@ class App extends Component {
                   <FormHelperText className="error-msg">
                     Enter first name
                   </FormHelperText>
+                </div>
+                {/* Password field */}
+                <div className="hcl-form-group hcl-col-12">
+                    <FormHelperText className="helper-text">
+                    Enter Password
+                    </FormHelperText>
+                    <TextInput
+                    type="password"
+                    placeholder="Password"
+                    id="password"
+                    data-invalid="false"
+                    onChange={event => {
+                        console.log(event.currentTarget.value);
+                    }}
+                    />
+                    <Label htmlFor="password">Password</Label>
+                    <FormHelperText className="error-msg">
+                    Enter Password
+                    </FormHelperText>
                 </div>
                 <div className="hcl-form-group hcl-col-12">
                   <Label htmlFor="feedback">Feedback </Label>
@@ -439,14 +458,14 @@ class App extends Component {
                   <div className="hcl-checkbox-group">
                     <Checkbox
                       id="checkbox1"
-                      labelText="1 (default)"
+                      label="1 (default)"
                       onChange={() => {
                         console.log('Default Checkbox.');
                       }}
                     />
                     <Checkbox
                       id="checkbox2"
-                      labelText="2"
+                      label="2"
                       checked
                       onChange={() => {
                         console.log('Checked state is changed.');
@@ -454,7 +473,7 @@ class App extends Component {
                     />
                     <Checkbox
                       id="checkbox3"
-                      labelText="3 (disabled)"
+                      label="3 (disabled)"
                       disabled
                     />
                   </div>
@@ -466,14 +485,14 @@ class App extends Component {
                   <div className="hcl-checkbox-group hcl-stack-vertical">
                     <Checkbox
                       id="checkbox4"
-                      labelText="4 (default)"
+                      label="4 (default)"
                       onChange={() => {
                         console.log('Default Checkbox.');
                       }}
                     />
                     <Checkbox
                       id="checkbox5"
-                      labelText="5"
+                      label="5"
                       checked
                       onChange={() => {
                         console.log('Checked state is changed.');
@@ -481,7 +500,7 @@ class App extends Component {
                     />
                     <Checkbox
                       id="checkbox6"
-                      labelText="6 (disabled)"
+                      label="6 (disabled)"
                       disabled
                     />
                   </div>
@@ -1063,7 +1082,7 @@ class App extends Component {
                   id="search-section"
                 >
                   <h5 className="p-2">Normal Search</h5>
-                  <Search />
+                  <Search onBlur={event => console.log(event)} />
                 </section>
 
                 <section className="hcl-col-12 mt-5 colBorder p-5">
