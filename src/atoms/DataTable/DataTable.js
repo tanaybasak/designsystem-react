@@ -127,7 +127,11 @@ const DataTable = ({ id, tableData, selectable, className, onSort, overflowMenu,
                             {
                                 overflowMenu ?
                                     <td>
-                                        <Overflowmenu listItems={overflowMenuItems} onClick={event => _overflowMenuOnClick(event, index)} />
+                                        <Overflowmenu
+                                            listItems={overflowMenuItems}
+                                            onClick={event => _overflowMenuOnClick(event, index)}
+                                            ellipsisType="horizontal"
+                                        />
                                     </td>
                                     : null
                             }
