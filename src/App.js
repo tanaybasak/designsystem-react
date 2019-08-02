@@ -1,47 +1,47 @@
 /* eslint-disable no-console */
-import React, { Component } from "react";
-import Label from "./atoms/Label";
-import TextInput from "./atoms/TextInput";
-import FormHelperText from "./atoms/FormHelperText";
-import Button from "./atoms/Button";
-import Heading from "./atoms/Heading";
-import Checkbox from "./atoms/Checkbox";
-import Radio from "./atoms/Radio";
-import TextArea from "./atoms/TextArea";
-import Link from "./atoms/Link";
-import Paragraph from "./atoms/Paragraph";
-import Breadcrumb from "./atoms/Breadcrumb";
-import Spinner from "./atoms/Spinner";
-import Toggle from "./atoms/Toggle";
-import Notification from "./atoms/Notification";
-import Tag from "./atoms/Tag";
-import List from "./atoms/List";
-import listItems from "./atoms/List/sample-list-data.json";
-import Toast from "./atoms/Toast";
-import Modal from "./molecules/Modal";
-import { Tabs, Tab } from "./molecules/Tab";
-import Slider from "./atoms/Slider";
-import Overflowmenu from "./molecules/Overflowmenu";
-import overflowlist from "./molecules/Overflowmenu/sample-overflow-list.json";
-import { ContentSwitcher, Switch } from "./molecules/ContentSwitcher";
-import DataTable from "./atoms/DataTable";
-import tableData from "./atoms/DataTable/sample-table-data.json";
-import Search from "./atoms/Search";
-import FileUploader from "./molecules/FileUploader";
-import { Accordion, AccordionItem } from "./molecules/Accordion";
-import Dropdown from "./atoms/Dropdown";
-import Tile from "./atoms/Tile";
-import DatePicker from "./molecules/DatePicker";
-import { weekDays, months } from "./content";
-import Pagination from "./atoms/Pagination";
-import NumberInput from "./molecules/NumberInput";
-import Select from "./atoms/Select/Select";
-import TimePicker from "./molecules/TimePicker/TimePicker";
-import Tooltip from "./atoms/Tooltip/Tooltip";
-import Sidebar from "./molecules/Sidebar";
-import navigationData from "./molecules/Sidebar/sidebar-navigation-data.json";
-import Header from "./molecules/Header";
-import LoadingState from "./atoms/LoadingState/LoadingState";
+import React, { Component } from 'react';
+import Label from './atoms/Label';
+import TextInput from './atoms/TextInput';
+import FormHelperText from './atoms/FormHelperText';
+import Button from './atoms/Button';
+import Heading from './atoms/Heading';
+import Checkbox from './atoms/Checkbox';
+import Radio from './atoms/Radio';
+import TextArea from './atoms/TextArea';
+import Link from './atoms/Link';
+import Paragraph from './atoms/Paragraph';
+import Breadcrumb from './atoms/Breadcrumb';
+import Spinner from './atoms/Spinner';
+import Toggle from './atoms/Toggle';
+import Notification from './atoms/Notification';
+import Tag from './atoms/Tag';
+import List from './atoms/List';
+import listItems from './atoms/List/sample-list-data.json';
+import Toast from './atoms/Toast';
+import Modal from './molecules/Modal';
+import { Tabs, Tab } from './molecules/Tab';
+import Slider from './atoms/Slider';
+import Overflowmenu from './molecules/Overflowmenu';
+import overflowlist from './molecules/Overflowmenu/sample-overflow-list.json';
+import { ContentSwitcher, Switch } from './molecules/ContentSwitcher';
+import DataTable from './atoms/DataTable';
+import tableData from './atoms/DataTable/sample-table-data.json';
+import Search from './atoms/Search';
+import FileUploader from './molecules/FileUploader';
+import { Accordion, AccordionItem } from './molecules/Accordion';
+import Dropdown from './atoms/Dropdown';
+import Tile from './atoms/Tile';
+import DatePicker from './molecules/DatePicker';
+import { weekDays, months } from './content';
+import Pagination from './atoms/Pagination';
+import NumberInput from './molecules/NumberInput';
+import Select from './atoms/Select/Select';
+import TimePicker from './molecules/TimePicker/TimePicker';
+import Tooltip from './atoms/Tooltip/Tooltip';
+import Sidebar from './molecules/Sidebar';
+import navigationData from './molecules/Sidebar/sidebar-navigation-data.json';
+import Header from './molecules/Header';
+import LoadingState from './atoms/LoadingState/LoadingState';
 
 class App extends Component {
   state = {
@@ -50,7 +50,7 @@ class App extends Component {
     stepperLimit: 100,
     radio: {
       temperature: 45,
-      city: "Chennai"
+      city: 'Chennai'
     },
     toast: {
       visible: false
@@ -66,66 +66,66 @@ class App extends Component {
 
   items = [
     {
-      id: "option-1",
-      text: "Option 1"
+      id: 'option-1',
+      text: 'Option 1'
     },
     {
-      id: "option-2",
-      text: "Option 2"
+      id: 'option-2',
+      text: 'Option 2'
     },
     {
-      id: "option-3",
-      text: "Option 3"
+      id: 'option-3',
+      text: 'Option 3'
     },
     {
-      id: "option-4",
-      text: "Option 4"
+      id: 'option-4',
+      text: 'Option 4'
     },
     {
-      id: "option-5",
-      text: "Option 5"
+      id: 'option-5',
+      text: 'Option 5'
     },
     {
-      id: "option-6",
-      text: "Option 6"
+      id: 'option-6',
+      text: 'Option 6'
     }
   ];
 
   switchAll = [
     {
-      name: "Cybernetics",
-      value: "ll-1",
+      name: 'Cybernetics',
+      value: 'll-1',
       child: [
         {
-          name: "Artifical Intelligence",
-          value: "ll-1-1"
+          name: 'Artifical Intelligence',
+          value: 'll-1-1'
         },
         {
-          name: "Bionics",
-          value: "ll-1-2"
+          name: 'Bionics',
+          value: 'll-1-2'
         }
       ]
     },
     {
-      name: "Information & Communication technology",
-      value: "ll-1",
+      name: 'Information & Communication technology',
+      value: 'll-1',
       child: [
         {
-          name: "Cyber Infrastructure",
-          value: "ll-1-1"
+          name: 'Cyber Infrastructure',
+          value: 'll-1-1'
         },
         {
-          name: "Digital Technology",
-          value: "ll-1-2"
+          name: 'Digital Technology',
+          value: 'll-1-2'
         }
       ]
     }
   ];
 
   modalActions1 = [
-    { label: "Save" },
+    { label: 'Save' },
     {
-      label: "Close",
+      label: 'Close',
       handler: () => {
         this.onModalClose();
       },
@@ -135,7 +135,7 @@ class App extends Component {
 
   modalActions3 = [
     {
-      label: "Close",
+      label: 'Close',
       danger: true,
       handler: () => {
         this.onModalClose();
@@ -145,7 +145,7 @@ class App extends Component {
 
   modalActions4 = [
     {
-      label: "Save",
+      label: 'Save',
       primary: true,
       handler: () => {
         this.onModalClose();
@@ -153,9 +153,9 @@ class App extends Component {
     }
   ];
 
-  modalActions5 = [{ label: "Delete", danger: true }];
+  modalActions5 = [{ label: 'Delete', danger: true }];
 
-  modalActions7 = [{ label: "Save", primary: true }];
+  modalActions7 = [{ label: 'Save', primary: true }];
 
   _onTemperatureRadioChange = e => {
     this.setState({
@@ -266,10 +266,10 @@ class App extends Component {
         </Paragraph>
         <div
           style={{
-            display: "flex",
-            justifyContent: "space-between",
-            flexWrap: "wrap",
-            alignItems: "center"
+            display: 'flex',
+            justifyContent: 'space-between',
+            flexWrap: 'wrap',
+            alignItems: 'center'
           }}
         >
           <Link href="https://www.google.com" className="pr-5" target="_blank">
@@ -282,16 +282,54 @@ class App extends Component {
 
     return (
       <>
-        <Header />
-        <div className="hcl-content">
-          <Sidebar
-            title="Components"
-            items={navigationData}
-            onClick={event => {
-              const { type, expanded, title } = event.currentTarget.dataset;
-              console.log(type, expanded, title);
-            }}
-          />
+        <Header
+          logo={<img src={require('./assets/images/logo.png')} alt="Logo" />}
+          searchComponent={
+            <Search type="clickable" iconTheme="white" onChange={event => console.log(event)} onBlur={event => console.log(event)} />
+          }
+          icons={[
+            {
+              onClick: event => console.log(event.currentTarget),
+              icon: <span className={`hcl-icon-1 bg-white`} />
+            },
+            {
+              onClick: event => console.log(event.currentTarget),
+              icon: <span className={`hcl-icon-1 bg-white`} />
+            },
+            {
+              onClick: event => console.log(event.currentTarget),
+              icon: <span className={`hcl-icon-1 bg-white`} />
+            },
+            {
+              onClick: event => console.log(event.currentTarget),
+              icon: <span className={`hcl-icon-1 bg-white`} />
+            },
+            {
+              onClick: event => console.log(event.currentTarget),
+              icon: <span className={`hcl-icon-1 bg-white`} />
+            }
+          ]}
+        />
+        <Sidebar
+          title="Components"
+          items={navigationData}
+          onClick={event => {
+            const { type, expanded, title } = event.currentTarget.dataset;
+            console.log(type, expanded, title);
+            const container = document.querySelector('[data-withsidenav]');
+            if (container) {
+              container.classList.toggle(
+                'sidebar-expanded',
+                expanded === 'true'
+              );
+            }
+          }}
+        />
+        <div
+          className="hcl-content"
+          style={{ marginTop: '4rem' }}
+          data-withsidenav
+        >
           <main className="hcl-content-main">
             <section className="hcl-container pt-5 mb-5">
               <div className="hcl-row m-0">
@@ -313,6 +351,25 @@ class App extends Component {
                   <FormHelperText className="error-msg">
                     Enter first name
                   </FormHelperText>
+                </div>
+                {/* Password field */}
+                <div className="hcl-form-group hcl-col-12">
+                    <FormHelperText className="helper-text">
+                    Enter Password
+                    </FormHelperText>
+                    <TextInput
+                    type="password"
+                    placeholder="Password"
+                    id="password"
+                    data-invalid="false"
+                    onChange={event => {
+                        console.log(event.currentTarget.value);
+                    }}
+                    />
+                    <Label htmlFor="password">Password</Label>
+                    <FormHelperText className="error-msg">
+                    Enter Password
+                    </FormHelperText>
                 </div>
                 <div className="hcl-form-group hcl-col-12">
                   <Label htmlFor="feedback">Feedback </Label>
@@ -339,7 +396,7 @@ class App extends Component {
                     title="Default"
                     className="mr-2"
                     onClick={() => {
-                      console.log("Button Clicked");
+                      console.log('Button Clicked');
                     }}
                   >
                     Default
@@ -347,7 +404,7 @@ class App extends Component {
                   <Button
                     className="mr-2 hcl-primary"
                     onClick={() => {
-                      console.log("Button Clicked");
+                      console.log('Button Clicked');
                     }}
                   >
                     Primary
@@ -355,7 +412,7 @@ class App extends Component {
                   <Button
                     className="mr-2 hcl-secondary"
                     onClick={() => {
-                      console.log("Button Clicked");
+                      console.log('Button Clicked');
                     }}
                   >
                     Secondary
@@ -363,7 +420,7 @@ class App extends Component {
                   <Button
                     className="mr-2 hcl-primary hcl-ghost"
                     onClick={() => {
-                      console.log("Button Clicked");
+                      console.log('Button Clicked');
                     }}
                   >
                     Primary ghost
@@ -372,7 +429,7 @@ class App extends Component {
                   <Button
                     className="mr-2 hcl-primary hcl-sm"
                     onClick={() => {
-                      console.log("Button Clicked");
+                      console.log('Button Clicked');
                     }}
                   >
                     Primary small
@@ -380,7 +437,7 @@ class App extends Component {
                   <Button
                     className="mr-2 hcl-primary hcl-danger"
                     onClick={() => {
-                      console.log("Button Clicked");
+                      console.log('Button Clicked');
                     }}
                   >
                     Danger outline
@@ -388,7 +445,7 @@ class App extends Component {
                   <Button
                     className="mr-2 hcl-primary hcl-danger hcl-secondary"
                     onClick={() => {
-                      console.log("Button Clicked");
+                      console.log('Button Clicked');
                     }}
                   >
                     Danger outline
@@ -406,22 +463,22 @@ class App extends Component {
                   <div className="hcl-checkbox-group">
                     <Checkbox
                       id="checkbox1"
-                      labelText="1 (default)"
+                      label="1 (default)"
                       onChange={() => {
-                        console.log("Default Checkbox.");
+                        console.log('Default Checkbox.');
                       }}
                     />
                     <Checkbox
                       id="checkbox2"
-                      labelText="2"
+                      label="2"
                       checked
                       onChange={() => {
-                        console.log("Checked state is changed.");
+                        console.log('Checked state is changed.');
                       }}
                     />
                     <Checkbox
                       id="checkbox3"
-                      labelText="3 (disabled)"
+                      label="3 (disabled)"
                       disabled
                     />
                   </div>
@@ -433,22 +490,22 @@ class App extends Component {
                   <div className="hcl-checkbox-group hcl-stack-vertical">
                     <Checkbox
                       id="checkbox4"
-                      labelText="4 (default)"
+                      label="4 (default)"
                       onChange={() => {
-                        console.log("Default Checkbox.");
+                        console.log('Default Checkbox.');
                       }}
                     />
                     <Checkbox
                       id="checkbox5"
-                      labelText="5"
+                      label="5"
                       checked
                       onChange={() => {
-                        console.log("Checked state is changed.");
+                        console.log('Checked state is changed.');
                       }}
                     />
                     <Checkbox
                       id="checkbox6"
-                      labelText="6 (disabled)"
+                      label="6 (disabled)"
                       disabled
                     />
                   </div>
@@ -497,7 +554,7 @@ class App extends Component {
                       value="Bangalore"
                       name="city"
                       onChange={this._onCityRadioChange}
-                      checked={this.state.radio.city === "Bangalore"}
+                      checked={this.state.radio.city === 'Bangalore'}
                     />
                     <Radio
                       id="Radio5"
@@ -505,7 +562,7 @@ class App extends Component {
                       value="Chennai"
                       name="city"
                       onChange={this._onCityRadioChange}
-                      checked={this.state.radio.city === "Chennai"}
+                      checked={this.state.radio.city === 'Chennai'}
                     />
                     <Radio
                       id="Radio6"
@@ -514,7 +571,7 @@ class App extends Component {
                       name="city"
                       disabled
                       onChange={this._onCityRadioChange}
-                      checked={this.state.radio.city === "Mumbai"}
+                      checked={this.state.radio.city === 'Mumbai'}
                     />
                   </div>
                 </div>
@@ -539,9 +596,12 @@ class App extends Component {
                     id="breadcrumb"
                     className="custom-breadcrumb"
                     model={[
-                      { label: "Breadcrumb 1", url: "" },
-                      { label: "Breadcrumb 2", url: "https://google.co.in" },
-                      { label: "Breadcrumb 3" }
+                      { label: 'Breadcrumb 1', url: '' },
+                      {
+                        label: 'Breadcrumb 2',
+                        url: 'https://google.co.in'
+                      },
+                      { label: 'Breadcrumb 3' }
                     ]}
                   />
                 </div>
@@ -559,7 +619,7 @@ class App extends Component {
                     id="simple-toggle"
                     className="ml-3"
                     onChange={() => {
-                      console.log("Toggled");
+                      console.log('Toggled');
                     }}
                   />
                   <Toggle
@@ -583,7 +643,7 @@ class App extends Component {
                     id="simple-small-toggle"
                     className="ml-3"
                     onChange={() => {
-                      console.log("Toggled");
+                      console.log('Toggled');
                     }}
                   />
                   <Toggle
@@ -610,7 +670,7 @@ class App extends Component {
                     className="hcl-info"
                     closable
                     onClose={() => {
-                      console.log("Notification Closed");
+                      console.log('Notification Closed');
                     }}
                   />
                 </div>
@@ -637,7 +697,7 @@ class App extends Component {
                     title="Primary Closable"
                     closable
                     onClose={() => {
-                      alert("Closing Tag");
+                      alert('Closing Tag');
                     }}
                   >
                     Primary Closable
@@ -666,7 +726,7 @@ class App extends Component {
                     type="secondary"
                     closable
                     onClose={() => {
-                      alert("Closing Tag");
+                      alert('Closing Tag');
                     }}
                   >
                     Secondary Closable
@@ -808,7 +868,7 @@ class App extends Component {
                   {this.state.modal === 4 && (
                     <Modal type="danger" onClose={this.onModalClose}>
                       <Paragraph>
-                        {" "}
+                        {' '}
                         Danger Modal with no footer and heading
                       </Paragraph>
                     </Modal>
@@ -869,7 +929,7 @@ class App extends Component {
                   <h5 className="p-2">Content Switcher - (default)</h5>
                   <ContentSwitcher
                     activeIndex={contentSwitch.example1}
-                    onChange={e => this.onSwitchChange(e, "example1")}
+                    onChange={e => this.onSwitchChange(e, 'example1')}
                   >
                     <Switch label="All" />
                     <Switch label="Cybernetics" />
@@ -901,7 +961,7 @@ class App extends Component {
                   <h5 className="p-2">Content Switcher - (disabled)</h5>
                   <ContentSwitcher
                     activeIndex={contentSwitch.example2}
-                    onChange={e => this.onSwitchChange(e, "example2")}
+                    onChange={e => this.onSwitchChange(e, 'example2')}
                   >
                     <Switch label="All" />
                     <Switch label="Cybernetics" isDisabled />
@@ -929,7 +989,7 @@ class App extends Component {
                   <h5 className="p-2">Content Switcher - (with icons)</h5>
                   <ContentSwitcher
                     activeIndex={contentSwitch.example3}
-                    onChange={e => this.onSwitchChange(e, "example3")}
+                    onChange={e => this.onSwitchChange(e, 'example3')}
                   >
                     <Switch label="All" iconClass="fa fa-center" />
                     <Switch label="Cybernetics" iconClass="fa fa-center" />
@@ -962,7 +1022,7 @@ class App extends Component {
                   </h5>
                   <ContentSwitcher
                     activeIndex={contentSwitch.example4}
-                    onChange={e => this.onSwitchChange(e, "example4")}
+                    onChange={e => this.onSwitchChange(e, 'example4')}
                   >
                     <Switch label="All" iconClass="fa fa-left" isDisabled />
                     <Switch
@@ -1024,7 +1084,7 @@ class App extends Component {
                   id="search-section"
                 >
                   <h5 className="p-2">Normal Search</h5>
-                  <Search />
+                  <Search onBlur={event => console.log(event)} />
                 </section>
 
                 <section className="hcl-col-12 mt-5 colBorder p-5">
@@ -1044,7 +1104,7 @@ class App extends Component {
 
                 <section
                   className="hcl-col-12 mt-5 colBorder p-5"
-                  style={{ background: "#F5F7FB" }}
+                  style={{ background: '#F5F7FB' }}
                 >
                   <h5 className="p-2">Normal Search (White background)</h5>
                   <Search theme="white" />
@@ -1052,7 +1112,7 @@ class App extends Component {
 
                 <section
                   className="hcl-col-12 mt-5 colBorder p-5"
-                  style={{ background: "#F5F7FB" }}
+                  style={{ background: '#F5F7FB' }}
                 >
                   <h5 className="p-2">Header Search (White background)</h5>
                   <Search type="clickable" theme="white" />
@@ -1060,7 +1120,7 @@ class App extends Component {
 
                 <section
                   className="hcl-col-12 mt-5 colBorder p-5"
-                  style={{ background: "#F5F7FB" }}
+                  style={{ background: '#F5F7FB' }}
                 >
                   <h5 className="p-2">Small Search (White background)</h5>
                   <Search size="small" theme="white" />
@@ -1068,7 +1128,7 @@ class App extends Component {
 
                 <section
                   className="hcl-col-12 mt-5 colBorder p-5"
-                  style={{ background: "#F5F7FB" }}
+                  style={{ background: '#F5F7FB' }}
                 >
                   <h5 className="p-2">
                     Small Header Search (White background)
@@ -1082,7 +1142,7 @@ class App extends Component {
                     label="Account photo"
                     description="only .jpg and .png files. 500kb max file size."
                     fileType=".jpg"
-                    className="hcl-btn hcl-secondary hcl-sml"
+                    className="hcl-secondary hcl-sml"
                   >
                     Add file
                   </FileUploader>
@@ -1096,7 +1156,7 @@ class App extends Component {
                       label="Top DropDown"
                       selectedIndex={1}
                       onChange={selected => {
-                        console.log("selected item", selected);
+                        console.log('selected item', selected);
                       }}
                     />
                   </div>
@@ -1106,7 +1166,7 @@ class App extends Component {
                       items={this.items}
                       label="Bottom DropDown"
                       onChange={selected => {
-                        console.log("selected item", selected);
+                        console.log('selected item', selected);
                       }}
                     />
                   </div>
@@ -1157,17 +1217,19 @@ class App extends Component {
                       console.log(`Accordian toggled ${event.currentTarget}`);
                     }}
                   >
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry. Lorem Ipsum has been the
-                    industry&apos;s standard dummy text ever since the 1500s,
-                    when an unknown printer took a galley of type and scrambled
-                    it to make a type specimen book. It has survived not only
-                    five centuries, but also the leap into electronic
-                    typesetting, remaining essentially unchanged. It was
-                    popularised in the 1960s with the release of Letraset sheets
-                    containing Lorem Ipsum passages, and more recently with
-                    desktop publishing software like Aldus PageMaker including
-                    versions of Lorem Ipsum.
+                    <Paragraph>
+                      Lorem Ipsum is simply dummy text of the printing and
+                      typesetting industry. Lorem Ipsum has been the
+                      industry&apos;s standard dummy text ever since the 1500s,
+                      when an unknown printer took a galley of type and
+                      scrambled it to make a type specimen book. It has survived
+                      not only five centuries, but also the leap into electronic
+                      typesetting, remaining essentially unchanged. It was
+                      popularised in the 1960s with the release of Letraset
+                      sheets containing Lorem Ipsum passages, and more recently
+                      with desktop publishing software like Aldus PageMaker
+                      including versions of Lorem Ipsum.
+                    </Paragraph>
                   </AccordionItem>
                   <AccordionItem
                     title="Why do we use it ?"
@@ -1175,17 +1237,21 @@ class App extends Component {
                       console.log(`Accordian toggled ${event.currentTarget}`);
                     }}
                   >
-                    It is a long established fact that a reader will be
-                    distracted by the readable content of a page when looking at
-                    its layout. The point of using Lorem Ipsum is that it has a
-                    more-or-less normal distribution of letters, as opposed to
-                    using &apos;Content here, content here&apos;, making it look
-                    like readable English. Many desktop publishing packages and
-                    web page editors now use Lorem Ipsum as their default model
-                    text, and a search for &apos;lorem ipsum&apos; will uncover
-                    many web sites still in their infancy. Various versions have
-                    evolved over the years, sometimes by accident, sometimes on
-                    purpose (injected humour and the like).
+                    It is a long
+                    <Paragraph>
+                      distracted by the readable content of a page when looking
+                      at its layout. The point of using Lorem Ipsum is that it
+                      has a more-or-less normal distribution of letters, as
+                      opposed to using &apos;Content here, content here&apos;,
+                      making it look like readable English. Many desktop
+                      publishing packages and web page editors now use Lorem
+                      Ipsum as their default model text, and a search for
+                      &apos;lorem ipsum&apos; will uncover many web sites still
+                      in their infancy. Various versions have evolved over the
+                      years, sometimes by accident, sometimes on purpose
+                      (injected humour and the like).
+                    </Paragraph>{' '}
+                    established fact that a reader will be
                   </AccordionItem>
                   <AccordionItem
                     title="Wher we can it ?"
@@ -1193,20 +1259,23 @@ class App extends Component {
                       console.log(`Accordian toggled ${event.currentTarget}`);
                     }}
                   >
-                    There are many variations of passages of Lorem Ipsum
-                    available, but the majority have suffered alteration in some
-                    form, by injected humour, or randomised words which
-                    don&apos;t look even slightly believable. If you are going
-                    to use a passage of Lorem Ipsum, you need to be sure there
-                    isn&apos;t anything embarrassing hidden in the middle of
-                    text. All the Lorem Ipsum generators on the Internet tend to
-                    repeat predefined chunks as necessary, making this the first
-                    true generator on the Internet. It uses a dictionary of over
-                    200 Latin words, combined with a handful of model sentence
-                    structures, to generate Lorem Ipsum which looks reasonable.
-                    The generated Lorem Ipsum is therefore always free from
-                    repetition, injected humour, or non-characteristic words
-                    etc.
+                    There are ma
+                    <Paragraph>
+                      available, but the majority have suffered alteration in
+                      some form, by injected humour, or randomised words which
+                      don&apos;t look even slightly believable. If you are going
+                      to use a passage of Lorem Ipsum, you need to be sure there
+                      isn&apos;t anything embarrassing hidden in the middle of
+                      text. All the Lorem Ipsum generators on the Internet tend
+                      to repeat predefined chunks as necessary, making this the
+                      first true generator on the Internet. It uses a dictionary
+                      of over 200 Latin words, combined with a handful of model
+                      sentence structures, to generate Lorem Ipsum which looks
+                      reasonable. The generated Lorem Ipsum is therefore always
+                      free from repetition, injected humour, or
+                      non-characteristic words etc.
+                    </Paragraph>
+                    ny variations of passages of Lorem Ipsum
                   </AccordionItem>
                 </Accordion>
                 {/* DatePicker */}
@@ -1218,7 +1287,7 @@ class App extends Component {
                       open="top"
                       format="mm/dd/yyyy"
                       onDateSelect={dateSelected => {
-                        console.log("Selected Date", dateSelected);
+                        console.log('Selected Date', dateSelected);
                       }}
                     />
                   </div>
@@ -1229,7 +1298,7 @@ class App extends Component {
                       open="bottom"
                       format="dd/mm/yyyy"
                       onDateSelect={dateSelected => {
-                        console.log("Selected Date", dateSelected);
+                        console.log('Selected Date', dateSelected);
                       }}
                     />
                   </div>
@@ -1269,7 +1338,7 @@ class App extends Component {
                     items={this.items}
                     label="Select Label"
                     onChange={selected => {
-                      console.log("selected item", selected);
+                      console.log('selected item', selected);
                     }}
                     id="hcl-select-id-1"
                   />
@@ -1277,10 +1346,10 @@ class App extends Component {
                 {/* TimePicker */}
                 <div className="hcl-col-12 mt-5 mb-5">
                   <TimePicker
-                    timeZones={["Time zone 1", "Time zone 2", "Time zone 3"]}
+                    timeZones={['Time zone 1', 'Time zone 2', 'Time zone 3']}
                     label="Select a time"
                     onChange={selected => {
-                      console.log("selected item", selected);
+                      console.log('selected item', selected);
                     }}
                   />
                 </div>

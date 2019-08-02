@@ -1,22 +1,25 @@
-import React from "react";
-import PropTypes from "prop-types";
-import prefix from "../../settings";
+import React from 'react';
+import PropTypes from 'prop-types';
+import prefix from '../../settings';
 
-const Tile = ({ children, type, id, href }) => {
+const Tile = ({ className, children, type, id, href }) => {
+  let classNames;
   const clickableTile = () => {
+    classNames = `${prefix}-tile-clickable ${className}`.trim();
     return (
-      <div className={`${prefix}-tile-clickable`} tabIndex="0">
+      <div className={classNames} tabIndex="0">
         <a href={href}>{children}</a>
       </div>
     );
   };
 
   const selectableTile = () => {
+    classNames = `${prefix}-tile-selectable ${className}`.trim();
     return (
       <div>
         <label
           htmlFor="tile-id"
-          className={`${prefix}-tile-selectable`}
+          className={classNames}
           tabIndex="0"
         >
           <input
@@ -43,8 +46,9 @@ const Tile = ({ children, type, id, href }) => {
   };
 
   const expandableTile = () => {
+    classNames = `${prefix}-tile-expandable ${className}`.trim();
     return (
-      <div className={`${prefix}-tile-expandable`} tabIndex="0">
+      <div className={classNames} tabIndex="0">
         <input
           id={`${id}`}
           className={`${prefix}-tile-input`}
@@ -66,17 +70,18 @@ const Tile = ({ children, type, id, href }) => {
   };
 
   const readableTile = () => {
-    return <div className={`${prefix}-tile`}>{children}</div>;
+    classNames = `${prefix}-tile ${className}`.trim();
+    return <div className={classNames}>{children}</div>;
   };
 
   return (
     <>
       {children
-        ? type === "clickable"
+        ? type === 'clickable'
           ? clickableTile()
-          : type === "selectable"
+          : type === 'selectable'
           ? selectableTile()
-          : type === "expandable"
+          : type === 'expandable'
           ? expandableTile()
           : readableTile()
         : null}
@@ -85,13 +90,14 @@ const Tile = ({ children, type, id, href }) => {
 };
 
 Tile.propTypes = {
-  type: PropTypes.oneOf(["clickable", "selectable", "expandable", "readable"]),
+  className: PropTypes.string,
+  type: PropTypes.oneOf(['clickable', 'selectable', 'expandable', 'readable']),
   children: PropTypes.node.isRequired,
   id: function(props, propName, componentName) {
     if (
-      props.hasOwnProperty("type") &&
-      props["type"] === "expandable" &&
-      typeof props[propName] === "undefined"
+      props.hasOwnProperty('type') &&
+      props['type'] === 'expandable' &&
+      typeof props[propName] === 'undefined'
     ) {
       return new Error(
         `The prop \`${propName}\` is marked as required in \`${componentName}\`, but its value is \`undefined\`.`
@@ -100,9 +106,9 @@ Tile.propTypes = {
   },
   href: function(props, propName, componentName) {
     if (
-      props.hasOwnProperty("type") &&
-      props["type"] === "clickable" &&
-      typeof props[propName] === "undefined"
+      props.hasOwnProperty('type') &&
+      props['type'] === 'clickable' &&
+      typeof props[propName] === 'undefined'
     ) {
       return new Error(
         `The prop \`${propName}\` is marked as required in \`${componentName}\`, but its value is \`undefined\`.`
@@ -112,7 +118,8 @@ Tile.propTypes = {
 };
 
 Tile.defaultProps = {
-  type: "readable"
+  className: '',
+  type: 'readable'
 };
 
 export default Tile;

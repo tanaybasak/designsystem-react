@@ -4,13 +4,12 @@ import prefix from "../../settings";
 import Paragraph from '../../atoms/Paragraph/Paragraph';
 
 export default function FileUploader({ id, className, label, children, description, disabled, multiple, fileType, tabIndex, onChange, ...restProps }) {
-    const classnames = `${prefix}-file-btn ${className}`.trim();
+    const classnames = `${prefix}-file-btn ${prefix}-btn ${className}`.trim();
 
     return (
         <div className={`${prefix}-form-item`}>
-            <span className={`${prefix}-label`}>{label}
-            </span>
-            <Paragraph className={`${prefix}-label-description`}>{description}</Paragraph>
+            {label && label.length ? <span className={`${prefix}-label`}>{label}</span> : null}
+            {description && description.length ? <Paragraph className={`${prefix}-label-description`}>{description}</Paragraph> : null}
             <div className={`${prefix}-file-uploader`} {...restProps}>
                 <input type="file" className={`${prefix}-file-input`} id={id} tabIndex={tabIndex}
                     onChange={onChange} disabled={disabled} multiple={multiple} accept={fileType}
@@ -25,10 +24,10 @@ export default function FileUploader({ id, className, label, children, descripti
 
 FileUploader.propTypes = {
     id: PropTypes.string.isRequired,
-    className: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired,
+    className: PropTypes.string,
+    label: PropTypes.string,
     children: PropTypes.any,
-    description: PropTypes.string.isRequired,
+    description: PropTypes.string,
     disabled: PropTypes.bool,
     multiple: PropTypes.bool,
     fileType: PropTypes.string,
