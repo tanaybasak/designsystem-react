@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 
-const Sidebar = ({ className, title, items, onClick, ...restProps }) => {
+const Sidebar = ({ className, title, items, icon, onClick, ...restProps }) => {
     const [expanded, setExpanded] = useState(false);
     const [expandedCategories, setExpandedCategories] = useState([]);
 
@@ -54,7 +54,7 @@ const Sidebar = ({ className, title, items, onClick, ...restProps }) => {
                 data-title={title}
                 onClick={expandSidebar}
             >
-                <span className={`${prefix}-sidebar-title-icon`} />
+                {icon}
                 <span className={`${prefix}-sidebar-title-text`}>
                     {title}
                 </span>
@@ -131,6 +131,7 @@ Sidebar.propTypes = {
     title: PropTypes.string,
     items: PropTypes.array,
     disabled: PropTypes.bool,
+    icon: PropTypes.object,
     onClick: PropTypes.func
 };
 
@@ -139,6 +140,7 @@ Sidebar.defaultProps = {
     title: '',
     items: [],
     disabled: false,
+    icon: null,
     onClick: () => { }
 };
 

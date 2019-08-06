@@ -42,6 +42,7 @@ import Sidebar from './molecules/Sidebar';
 import navigationData from './molecules/Sidebar/sidebar-navigation-data.json';
 import Header from './molecules/Header';
 import LoadingState from './atoms/LoadingState/LoadingState';
+import Icon from './atoms/Icon';
 
 class App extends Component {
   state = {
@@ -308,19 +309,36 @@ class App extends Component {
           ]}
         />
         <Sidebar
-          title="Components"
-          items={navigationData}
-          onClick={event => {
-            const { type, expanded, title } = event.currentTarget.dataset;
-            console.log(type, expanded, title);
-            const container = document.querySelector('[data-withsidenav]');
-            if (container) {
-              container.classList.toggle(
-                'sidebar-expanded',
-                expanded === 'true'
-              );
+            title="Components"
+            items={navigationData}
+            icon={
+                <Icon
+                    className={`hcl-sidebar-title-icon`}
+                    type="svg"
+                    alt="alt"
+                    title="title"
+                >
+                    <circle
+                        cx="12"
+                        cy="12"
+                        r="12"
+                        stroke="var(--blue)"
+                        strokeWidth="4"
+                        fill="var(--white)"
+                    />
+                </Icon>
             }
-          }}
+            onClick={event => {
+                const { type, expanded, title } = event.currentTarget.dataset;
+                console.log(type, expanded, title);
+                const container = document.querySelector('[data-withsidenav]');
+                if (container) {
+                    container.classList.toggle(
+                        'sidebar-expanded',
+                        expanded === 'true'
+                    );
+                }
+            }}
         />
         <div
           className="hcl-content"
