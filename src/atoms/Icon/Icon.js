@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Icon = ({ type, src, children, ...restProps }) => {
+export default function Icon({ type, src, children, ...restProps }) {
 
     return (
         type === "img"?
@@ -20,8 +20,7 @@ const Icon = ({ type, src, children, ...restProps }) => {
 const check = ({ type, children, src }, propName, componentName) => {
     if (propName === 'children' && type === 'svg' && !children) {
         return new Error(`The prop \`${propName}\` is marked as required in \`${componentName}\`, but its value is \`null\`.`);
-    }
-    if (propName === 'src' && type === 'img' && !src) {
+    } else if (propName === 'src' && type === 'img' && !src) {
         return new Error(`The prop \`${propName}\` is marked as required in \`${componentName}\`, but its value is \`null\`.`);
     }
 };
@@ -37,13 +36,8 @@ Icon.propTypes = {
 };
 
 Icon.defaultProps = {
-    type: 'img',
-    alt: null,
-    title: null,
     className: '',
     src: null,
     onClick: () => { },
     children: null,
 };
-
-export default Icon;
