@@ -6,7 +6,7 @@ import Checkbox from './Checkbox';
 
 describe('<Checkbox> component', () => {
     it('snapshots/renders Checkbox correctly', () => {
-        const tree = renderer.create(<Checkbox />).toJSON();
+        const tree = renderer.create(<Checkbox id="hellocheckbox" />).toJSON();
         expect(tree).toMatchSnapshot();
     });
 
