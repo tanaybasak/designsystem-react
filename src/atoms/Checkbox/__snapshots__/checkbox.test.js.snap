@@ -10,14 +10,14 @@ exports[`<Checkbox> component snapshots/renders Checkbox correctly 1`] = `
     checked={false}
     className="hcl-checkbox"
     disabled={false}
-    id=""
+    id={null}
     onChange={[Function]}
     title=""
     type="checkbox"
   />
   <label
     className="hcl-checkbox-label"
-    htmlFor=""
+    htmlFor={null}
   >
     
   </label>
