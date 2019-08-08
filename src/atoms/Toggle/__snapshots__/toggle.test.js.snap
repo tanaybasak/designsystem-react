@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Toggle> component snapshots/renders Toggle correctly 1`] = `
+<span
+  className="hcl-toggle "
+>
+  <input
+    checked={false}
+    disabled={false}
+    id="hellotoggle"
+    onChange={[Function]}
+    type="checkbox"
+  />
+  <label
+    className="hcl-toggle-label"
+    htmlFor="hellotoggle"
+  >
+    <span
+      className="hcl-switch"
+    />
+  </label>
+  <span
+    className="hcl-toggle-off"
+  >
+    Off
+  </span>
+  <span
+    className="hcl-toggle-on"
+  >
+    On
+  </span>
+</span>
+`;

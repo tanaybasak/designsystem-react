@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TextInput> component snapshots/renders TextInput correctly 1`] = `
+<input
+  className="hcl-form-control"
+  disabled={false}
+  onBlur={[Function]}
+  onChange={[Function]}
+  onClick={[Function]}
+  onFocus={[Function]}
+  type="text"
+  value=""
+/>
+`;

@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TextArea> component snapshots/renders TextArea correctly 1`] = `
+<textarea
+  className="hcl-textarea"
+  disabled={false}
+  onBlur={[Function]}
+  onChange={[Function]}
+  onClick={[Function]}
+  onFocus={[Function]}
+  value=""
+/>
+`;

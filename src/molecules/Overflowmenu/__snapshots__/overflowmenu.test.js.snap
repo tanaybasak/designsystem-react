@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Overflowmenu> component snapshots/renders Overflowmenu correctly 1`] = `
+<section
+  className="hcl-overflow-container"
+>
+  <div
+    className="hcl-ellipsis"
+    onClick={[Function]}
+  />
+</section>
+`;
