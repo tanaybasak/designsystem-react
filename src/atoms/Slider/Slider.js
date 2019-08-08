@@ -32,7 +32,10 @@ const Slider = ({ min, max, step, className, onChange: onChangeHandler, value: p
                     type="text"
                     value={value}
                     onChange={event => {
-                        setValue(Number(event.currentTarget.value));
+                        const newValue = Number(event.currentTarget.value);
+                        if (!isNaN(newValue) && newValue >= min && newValue <= max) {
+                            setValue(newValue);
+                        }
                     }}
                     onBlur={event => {
                         let val = Number(event.currentTarget.value);
