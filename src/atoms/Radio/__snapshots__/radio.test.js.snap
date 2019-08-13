@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Radio> component snapshots/renders Radio correctly 1`] = `
+<div
+  className="hcl-radio-item"
+>
+  <input
+    checked={false}
+    className="hcl-radio"
+    disabled={false}
+    onChange={[Function]}
+    type="radio"
+  />
+</div>
+`;

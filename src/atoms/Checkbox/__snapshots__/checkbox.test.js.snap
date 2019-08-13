@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Checkbox> component snapshots/renders Checkbox correctly 1`] = `
+<div
+  className="hcl-checkbox-item"
+>
+  <input
+    aria-checked={false}
+    aria-disabled={false}
+    checked={false}
+    className="hcl-checkbox"
+    disabled={false}
+    id="hellocheckbox"
+    onChange={[Function]}
+    title=""
+    type="checkbox"
+  />
+  <label
+    className="hcl-checkbox-label"
+    htmlFor="hellocheckbox"
+  >
+    
+  </label>
+</div>
+`;
