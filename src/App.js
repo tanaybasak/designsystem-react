@@ -1449,7 +1449,7 @@ class App extends Component {
                                                 content={tooltipContent}
                                                 direction="top"
                                                 type="interactive"
-                                            >
+                      >
                                                 {interactiveTooltipIcon}
                                             </Tooltip>
                                         </div>
@@ -1460,7 +1460,7 @@ class App extends Component {
                                                 content={tooltipContent}
                                                 direction="right"
                                                 type="interactive"
-                                            >
+                      >
                                                 {interactiveTooltipIcon}
                                             </Tooltip>
                                         </div>
@@ -1471,7 +1471,7 @@ class App extends Component {
                                                 content={tooltipContent}
                                                 direction="left"
                                                 type="interactive"
-                                            >
+                      >
                                                 {interactiveTooltipIcon}
                                             </Tooltip>
                                         </div>

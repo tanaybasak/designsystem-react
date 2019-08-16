@@ -12,7 +12,7 @@ describe('<Modal> component', () => {
     });
 
     it('heading & label given in Modal is rendered', () => {
-        const modal = mount(<Modal heading='Heading comes here.' label='optional label'><Paragraph>Danger Modal with save and close buttons</Paragraph></Modal>);
+        const modal = mount(<Modal heading="Heading comes here." label="optional label"><Paragraph>Danger Modal with save and close buttons</Paragraph></Modal>);
         expect(modal.exists(`.${prefix}-modal-header h5`)).toEqual(true);
         expect(modal.exists(`small.${prefix}-modal-label`)).toEqual(true);
     });
