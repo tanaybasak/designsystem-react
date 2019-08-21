@@ -11,7 +11,7 @@ describe('<Radio> component', () => {
     });
 
     it('renders radio with label', () => {
-        const radio = mount((<Radio labelText='defaultradio' />));
+        const radio = mount((<Radio labelText="defaultradio" />));
         expect(radio.text()).toBe('defaultradio');
     });
 

@@ -32,7 +32,7 @@ export { trackDocumentClick, positionComponent };
 export const isValidDate = (str, format) => {
   if (str) {
     let tempDate, month, year;
-    const regex = /^[0-9]{2}[\/][0-9]{2}[\/][0-9]{4}$/g;
+    const regex = /^[0-9]{2}[/][0-9]{2}[/][0-9]{4}$/g;
     str = str.split("/");
     if (str.length === 3 && (str[0].length === 1 || str[1].length === 1)) {
       str[0].length === 1 ? (str[0] = str[0].padStart(2, "0")) : null;
