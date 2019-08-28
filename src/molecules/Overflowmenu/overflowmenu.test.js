@@ -13,7 +13,7 @@ describe('<Overflowmenu> component', () => {
 
     it('triggers click event in Overflowmenu', () => {
         const mockonclick = jest.fn();
-        const overflowmenu = mount(<Overflowmenu listItems={overflowlist} onClick={mockonclick}/>);
+        const overflowmenu = mount(<Overflowmenu listItems={overflowlist} onClick={mockonclick} />);
         overflowmenu.find(`.${prefix}-ellipsis`).simulate('click');
         expect(mockonclick.mock.calls.length).toEqual(1);
     });
