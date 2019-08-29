@@ -15,7 +15,7 @@ const Tooltip = ({ type, content, direction, children }) => {
   const TooltipContainer = (content, type, tooltipContainerRef) => {
     return ReactDOM.createPortal(
       <div
-        className={`${prefix}-tooltip ${prefix}-tooltip-${type} show`}
+        className={`${prefix}-tooltip ${prefix}-tooltip-${type}`}
         data-focus-on-click={type === "interactive"}
         ref={tooltipContainerRef}
       >
@@ -28,7 +28,7 @@ const Tooltip = ({ type, content, direction, children }) => {
 
   const handleClick = e => {
     if (tooltipContainerRef.current) {
-      if (tooltipContainerRef.current.contains(e.target)) {
+      if (e && tooltipContainerRef.current.contains(e.target)) {
         return;
       }
       toggleTooltip(false);
@@ -63,19 +63,23 @@ const Tooltip = ({ type, content, direction, children }) => {
           },
           true
         );
-        EventManager.addEvent(
-          "scroll",
-          e => {
-            handleScroll(e);
-          },
-          true
-        );
       }
+      EventManager.addEvent(
+        "scroll",
+        e => {
+          handleScroll(e);
+        },
+        true
+      );
+      if (tooltipContainerRef.current)
+        tooltipContainerRef.current.classList.add("show");
     } else {
       if (type === "interactive") {
         EventManager.removeEvent("mousedown", true);
         EventManager.removeEvent("scroll", true);
       }
+      if (tooltipContainerRef.current)
+        tooltipContainerRef.current.classList.remove("show");
     }
   }, [showTooltip]);
 
@@ -426,13 +430,24 @@ const Tooltip = ({ type, content, direction, children }) => {
     toggleTooltip(false);
   };
 
+//   const showTooltipOnEnter = event => {
+//     if (event.charCode === 13) {
+//         closeAllTooltip();
+//         openTooltip();
+//     }
+//   };
+
   let element = null;
   if (typeof children !== "string") {
     element = React.Children.map(children, child => {
       return React.cloneElement(child, {
+        tabIndex: "0",
         onMouseEnter: type !== "interactive" ? openTooltip : null,
         onClick: type === "interactive" ? openTooltip : null,
         onMouseLeave: type !== "interactive" ? closeTooltip : null,
+        onFocus: type !== "interactive" ? openTooltip : null,
+        onBlur: type !== "interactive" ? closeTooltip : null,
+        // onKeyPress: type === "interactive" ? showTooltipOnEnter : null,
         ref: parentRef,
         className:
           showTooltip && type === "definition"
@@ -444,10 +459,14 @@ const Tooltip = ({ type, content, direction, children }) => {
 
   return typeof children === "string" ? (
     <span
+      tabIndex="0"
       ref={parentRef}
       onClick={type === "interactive" ? openTooltip : null}
       onMouseEnter={type !== "interactive" ? openTooltip : null}
       onMouseLeave={type !== "interactive" ? closeTooltip : null}
+      onFocus={type !== "interactive" ? openTooltip : null}
+      onBlur={type !== "interactive" ? closeTooltip : null}
+    //   onKeyPress={type === "interactive" ? showTooltipOnEnter : null}
       className={
         showTooltip && type === "definition"
           ? `${prefix}-tooltip-dottedline`
