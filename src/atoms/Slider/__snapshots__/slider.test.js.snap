@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Slider> component snapshots/renders Slider correctly 1`] = `
+<div
+  className="hcl-slider"
+>
+  <label
+    className="hcl-label hcl-slider-bottom-range"
+    htmlFor=""
+    onClick={[Function]}
+  >
+    0
+  </label>
+  <input
+    className="hcl-slider-input"
+    max={100}
+    min={0}
+    onChange={[Function]}
+    step={1}
+    type="range"
+    value={0}
+  />
+  <label
+    className="hcl-label hcl-slider-top-range"
+    htmlFor=""
+    onClick={[Function]}
+  >
+    100
+  </label>
+  <input
+    className="hcl-slider-text-input"
+    onBlur={[Function]}
+    onChange={[Function]}
+    type="text"
+    value={0}
+  />
+</div>
+`;

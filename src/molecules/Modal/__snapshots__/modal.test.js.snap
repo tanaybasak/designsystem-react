@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Modal> component snapshots/renders Modal correctly 1`] = `
+<section
+  className="hcl-modal"
+>
+  <div
+    className="hcl-modal-container hcl-modal-container-lg"
+  >
+    <button
+      className="hcl-modal-close"
+      onClick={[Function]}
+      type="button"
+    />
+    <div
+      className="hcl-modal-content"
+    >
+      <p
+        className=""
+      >
+        Danger Modal with save and close buttons
+      </p>
+    </div>
+  </div>
+</section>
+`;
