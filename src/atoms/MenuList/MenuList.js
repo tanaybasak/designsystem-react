@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 
-const MenuList = ({ items = [] }) => {
+const MenuList = ({ items, onClick: onClickGlobal }) => {
     return (
         <ul className={`${prefix}-overflow-list`}>
             {
                 items.map((item, index) => {
-                    const { onClick = () => { }, danger, disabled, separator, link, name, ...rest } = item;
+                    const { onClick, danger, disabled, separator, link, name, ...rest } = item;
                     const itemClassNames = [`${prefix}-overflow-option`];
 
                     danger && itemClassNames.push(`${prefix}-overflow-optiondanger`);
@@ -17,7 +17,11 @@ const MenuList = ({ items = [] }) => {
                     return (
                         <li
                             className={itemClassNames.join(' ')}
-                            onClick={onClick}
+                            onClick={event => {
+                                onClickGlobal(event);
+                                if (onClick) onClick(event);
+                            }}
+                            data-name={name}
                             {...rest}
                             key={`menulist-${name}-${index}`}
                         >
@@ -37,7 +41,13 @@ const MenuList = ({ items = [] }) => {
 };
 
 MenuList.propTypes = {
-    items: PropTypes.array.isRequired
+    items: PropTypes.array.isRequired,
+    onClick: PropTypes.func
+};
+
+MenuList.defaultProps = {
+    items: [],
+    onClick: () => { }
 };
 
 export default MenuList;

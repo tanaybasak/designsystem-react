@@ -63,7 +63,8 @@ class App extends Component {
       example2: 1,
       example3: 2,
       example4: 0
-    }
+    },
+    sidebarExpanded: false
   };
 
   items = [
@@ -357,18 +358,15 @@ class App extends Component {
                 const { type, expanded, title } = event.currentTarget.dataset;
                 console.log(type, expanded, title);
                 const container = document.querySelector('[data-withsidenav]');
-                if (container) {
-                    container.classList.toggle(
-                        'sidebar-expanded',
-                        expanded === 'true'
-                    );
+                if (container && type === 'toggle_sidebar') {
+                    this.setState({ sidebarExpanded: expanded === 'true' });
                 }
             }}
         />
         <div
-          className="hcl-content"
-          style={{ marginTop: '4rem' }}
-          data-withsidenav
+            className={`hcl-content${this.state.sidebarExpanded ? ' sidebar-expanded' : ''}`}
+            style={{ marginTop: '4rem' }}
+            data-withsidenav
         >
           <main className="hcl-content-main">
             <section className="hcl-container pt-5 mb-5">
@@ -1111,6 +1109,9 @@ class App extends Component {
                     onSort={event => {
                       console.log(event.currentTarget);
                     }}
+                    overflowMenu
+                    overflowMenuItems={overflowlist}
+                    overflowMenuOnClick={event => console.log(event.currentTarget)}
                   />
                 </div>
                 {/* Search Component */}

@@ -2,12 +2,19 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 import Checkbox from '../Checkbox';
+import Overflowmenu from '../../molecules/Overflowmenu';
 
-const DataTable = ({ id, tableData, selectable, className, onSort, ...restProps }) => {
+const DataTable = ({ id, tableData, selectable, className, onSort, overflowMenu, overflowMenuItems, overflowMenuOnClick, ...restProps }) => {
     const { heading, content } = tableData;
     const [selected, setSelected] = useState(new Array(content.length));
     const [allSelected, setAllSelected] = useState(false);
     const classnames = `${prefix}-data-table ${className}`.trim();
+
+    const _overflowMenuOnClick = (event, index) => {
+        const comp = event.currentTarget;
+        comp.dataset.index = index;
+        overflowMenuOnClick(event);
+    };
 
     const updateAllSelected = (selectedRows) => {
         let result = content.length ? true : false;
@@ -84,6 +91,11 @@ const DataTable = ({ id, tableData, selectable, className, onSort, ...restProps 
                             </th>
                         ))
                     }
+                    {
+                        overflowMenu ?
+                            <th />
+                            : null
+                    }
                 </tr>
             </thead>
             <tbody>
@@ -112,6 +124,17 @@ const DataTable = ({ id, tableData, selectable, className, onSort, ...restProps 
                                     </td>
                                 ))
                             }
+                            {
+                                overflowMenu ?
+                                    <td>
+                                        <Overflowmenu
+                                            listItems={overflowMenuItems}
+                                            onClick={event => _overflowMenuOnClick(event, index)}
+                                            ellipsisType="horizontal"
+                                        />
+                                    </td>
+                                    : null
+                            }
                         </tr>
                     ))
                 }
@@ -125,7 +148,10 @@ DataTable.propTypes = {
     tableData: PropTypes.any,
     selectable: PropTypes.bool,
     className: PropTypes.string,
-    onSort: PropTypes.func
+    onSort: PropTypes.func,
+    overflowMenu: PropTypes.bool,
+    overflowMenuItems: PropTypes.array,
+    overflowMenuOnClick: PropTypes.func
 };
 
 DataTable.defaultProps = {
@@ -133,7 +159,10 @@ DataTable.defaultProps = {
     tableData: {},
     selectable: false,
     className: '',
-    onSort: () => {}
+    onSort: () => { },
+    overflowMenu: false,
+    overflowMenuItems: [],
+    overflowMenuOnClick: () => { }
 };
 
 export default DataTable;
