@@ -42,12 +42,17 @@ import Sidebar from './molecules/Sidebar';
 import navigationData from './molecules/Sidebar/sidebar-navigation-data.json';
 import Header from './molecules/Header';
 import LoadingState from './atoms/LoadingState/LoadingState';
+import Icon from './atoms/Icon';
+import logo from './assets/images/logo.png';
 
 class App extends Component {
   state = {
     radio: {
       temperature: 45,
       city: 'Chennai'
+    },
+    notification: {
+      visible: false
     },
     toast: {
       visible: false
@@ -219,6 +224,22 @@ class App extends Component {
     this.setState({ modal: null });
   };
 
+  _showNotification = () => {
+    this.setState({
+      notification: {
+        visible: true
+      }
+    });
+  };
+
+  _hideNotification = () => {
+    this.setState({
+      notification: {
+        visible: false
+      }
+    });
+  };
+
   render() {
     const { contentSwitch = {} } = this.state;
 
@@ -281,9 +302,14 @@ class App extends Component {
     return (
       <>
         <Header
-          logo={<img src={require('./assets/images/logo.png')} alt="Logo" />}
+          logo={<img src={logo} alt="Logo" />}
           searchComponent={
-            <Search type="clickable" iconTheme="white" onChange={event => console.log(event)} onBlur={event => console.log(event)} />
+            <Search
+              type="clickable"
+              iconTheme="white"
+              onChange={event => console.log(event)}
+              onBlur={event => console.log(event)}
+            />
           }
           icons={[
             {
@@ -311,6 +337,23 @@ class App extends Component {
         <Sidebar
             title="Components"
             items={navigationData}
+            icon={
+                <Icon
+                    className={`hcl-sidebar-title-icon`}
+                    type="svg"
+                    alt="alt"
+                    title="title"
+                >
+                    <circle
+                        cx="12"
+                        cy="12"
+                        r="12"
+                        stroke="var(--blue)"
+                        strokeWidth="4"
+                        fill="var(--white)"
+                    />
+                </Icon>
+            }
             onClick={event => {
                 const { type, expanded, title } = event.currentTarget.dataset;
                 console.log(type, expanded, title);
@@ -349,22 +392,22 @@ class App extends Component {
                 </div>
                 {/* Password field */}
                 <div className="hcl-form-group hcl-col-12">
-                    <FormHelperText className="helper-text">
+                  <FormHelperText className="helper-text">
                     Enter Password
-                    </FormHelperText>
-                    <TextInput
+                  </FormHelperText>
+                  <TextInput
                     type="password"
                     placeholder="Password"
                     id="password"
                     data-invalid="false"
                     onChange={event => {
-                        console.log(event.currentTarget.value);
+                      console.log(event.currentTarget.value);
                     }}
-                    />
-                    <Label htmlFor="password">Password</Label>
-                    <FormHelperText className="error-msg">
+                  />
+                  <Label htmlFor="password">Password</Label>
+                  <FormHelperText className="error-msg">
                     Enter Password
-                    </FormHelperText>
+                  </FormHelperText>
                 </div>
                 <div className="hcl-form-group hcl-col-12">
                   <Label htmlFor="feedback">Feedback </Label>
@@ -471,11 +514,7 @@ class App extends Component {
                         console.log('Checked state is changed.');
                       }}
                     />
-                    <Checkbox
-                      id="checkbox3"
-                      label="3 (disabled)"
-                      disabled
-                    />
+                    <Checkbox id="checkbox3" label="3 (disabled)" disabled />
                   </div>
                 </div>
                 <div className="hcl-col-12 mt-5">
@@ -498,11 +537,7 @@ class App extends Component {
                         console.log('Checked state is changed.');
                       }}
                     />
-                    <Checkbox
-                      id="checkbox6"
-                      label="6 (disabled)"
-                      disabled
-                    />
+                    <Checkbox id="checkbox6" label="6 (disabled)" disabled />
                   </div>
                 </div>
                 {/* Radio */}
@@ -662,12 +697,15 @@ class App extends Component {
                   <Notification
                     title="Notification title"
                     subtitle="Lorem Ipsum is simply dummy text of the printing and typesetting industry."
-                    className="hcl-info"
+                    type="info"
                     closable
-                    onClose={() => {
-                      console.log('Notification Closed');
-                    }}
+                    visible={this.state.notification.visible}
+                    onClose={this._hideNotification}
                   />
+                  <br />
+                  <Button onClick={this._showNotification}>
+                    Show Notification
+                  </Button>
                 </div>
                 {/* Overflow */}
                 <div className="hcl-col-12 mt-5" id="overflow-menu-section">
