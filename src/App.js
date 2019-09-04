@@ -299,6 +299,33 @@ class App extends Component {
       </div>
     );
 
+    const navigationDataIcons = navigationData.map(data => {
+      return {
+        ...data,
+        icon: (
+          <Icon
+            className={`hcl-sidebar-icon`}
+            type={'svg'}
+            alt={'alt'}
+            title={'title'}
+          >
+            <rect
+              rx={3}
+              ry={3}
+              width={'100%'}
+              height={'100%'}
+              style={{
+                fill: '#fff',
+                stroke: 'black',
+                strokeWidth: 2,
+                opacity: 0.5
+              }}
+            />
+          </Icon>
+        )
+      };
+    });
+
     return (
       <>
         <Header
@@ -333,10 +360,11 @@ class App extends Component {
               icon: <span className={`hcl-icon-1 bg-white`} />
             }
           ]}
+          data-withsidenav
         />
         <Sidebar
             title="Components"
-            items={navigationData}
+            items={navigationDataIcons}
             icon={
                 <Icon
                     className={`hcl-sidebar-title-icon`}
