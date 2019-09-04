@@ -4,6 +4,7 @@ import prefix from '../../settings';
 
 const Sidebar = ({ className, title, items, icon, onClick, ...restProps }) => {
     const [expanded, setExpanded] = useState(false);
+    const [activeItem, setActiveItem] = useState(null);
     const [expandedCategories, setExpandedCategories] = useState([]);
 
     const classnames = `${prefix}-sidebar ${className}`.trim();
@@ -28,7 +29,26 @@ const Sidebar = ({ className, title, items, icon, onClick, ...restProps }) => {
     }
 
     const itemClicked = event => {
+        const key = event.currentTarget.dataset.key;
+        setActiveItem(key);
         onClick(event);
+    }
+
+    const getClass = (cls, active) => {
+        let newClass = cls;
+        if (active) {
+            newClass = `${newClass} ${prefix}-sidebar-item-active` 
+        }
+        return newClass;
+    }
+
+    const getCategoryClass = (isCategory, categoryTitle, categoryKey, className) => {
+        let cls = `${prefix}-sidebar-${isCategory ? 'category' : 'item'}`;
+        if (expandedCategories.indexOf(categoryTitle) >= 0) {
+            cls += ' expanded';
+        }
+        cls += className||'';
+        return getClass(cls, activeItem === categoryKey).trim();
     }
 
     return (
@@ -42,11 +62,9 @@ const Sidebar = ({ className, title, items, icon, onClick, ...restProps }) => {
                 data-title={title}
                 onClick={expandSidebar}
             >
-                <span className={`${prefix}-icon-2`}>
-                    <span />
-                    <span />
-                    <span />
-                </span>
+                <span />
+                <span />
+                <span />
             </button>
             <div
                 className={`${prefix}-sidebar-title`}
@@ -63,9 +81,9 @@ const Sidebar = ({ className, title, items, icon, onClick, ...restProps }) => {
             {items && items.length ?
                 <ul className={`${prefix}-sidebar-list`}>
                     {
-                        items.map(({ title: categoryTitle, href, className, childrens, ...extraProps }, categoryIndex) => (
+                        items.map(({ title: categoryTitle, icon, href, className, childrens, ...extraProps }, categoryIndex) => (
                             <li
-                                className={`${prefix}-sidebar-${childrens && childrens.length ? 'category' : 'item'}${expandedCategories.indexOf(categoryTitle) >= 0 ? ' expanded' : ''} ${className || ''}`.trim()}
+                                className={getCategoryClass(childrens && childrens.length, categoryTitle, `${categoryIndex}`, className)}
                                 key={`sidebar_category_${title}_${categoryIndex}`}
                                 {...extraProps}
                             >
@@ -79,22 +97,24 @@ const Sidebar = ({ className, title, items, icon, onClick, ...restProps }) => {
                                                     data-title={categoryTitle}
                                                     onClick={childrens && childrens.length ? expandSidebarCategory : itemClicked}
                                                 >
-                                                    <span className={`${prefix}-sidebar-icon`} />
+                                                    {icon}
                                                     <span className={`${prefix}-sidebar-link`}>
                                                         {categoryTitle}
                                                     </span>
                                                 </span>
                                                 <ul className={`${prefix}-sidebar-children`}>
-                                                    {childrens.map(({ title, href }, index) => (
+                                                    {childrens.map(({ title, href, icon }, index) => (
                                                         <li
-                                                            className={`${prefix}-sidebar-item`}
+                                                            className={getClass(`${prefix}-sidebar-item`, activeItem === `${categoryIndex}-${index}`)}
                                                             key={`sidebar_category_children_${categoryTitle}_${categoryIndex}_${index}`}
                                                         >
+                                                            {icon}
                                                             <a
                                                                 href={href}
                                                                 className={`${prefix}-sidebar-link`}
                                                                 data-type={'item_clicked'}
                                                                 data-title={title}
+                                                                data-key={`${categoryIndex}-${index}`}
                                                                 onClick={itemClicked}
                                                             >
                                                                 {title}
@@ -105,15 +125,19 @@ const Sidebar = ({ className, title, items, icon, onClick, ...restProps }) => {
                                             </>)
                                         :
                                         (
-                                            <a
-                                                href={href}
-                                                className={`${prefix}-sidebar-link`}
-                                                data-type={'item_clicked'}
-                                                data-title={categoryTitle}
-                                                onClick={itemClicked}
-                                            >
-                                                {categoryTitle}
-                                            </a>
+                                            <>
+                                                {icon}
+                                                <a
+                                                    href={href}
+                                                    className={`${prefix}-sidebar-link`}
+                                                    data-type={'item_clicked'}
+                                                    data-title={categoryTitle}
+                                                    data-key={categoryIndex}
+                                                    onClick={itemClicked}
+                                                >
+                                                    {categoryTitle}
+                                                </a>
+                                            </>
                                         )
 
                                 }
