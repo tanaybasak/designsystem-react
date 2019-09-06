@@ -44,6 +44,8 @@ import Header from './molecules/Header';
 import LoadingState from './atoms/LoadingState/LoadingState';
 import Icon from './atoms/Icon';
 import logo from './assets/images/logo.png';
+import ActionBar from './molecules/ActionBar';
+import ToolBar from './molecules/ToolBar';
 
 class App extends Component {
   state = {
@@ -366,38 +368,38 @@ class App extends Component {
           data-withsidenav
         />
         <Sidebar
-            title="Components"
-            items={navigationDataIcons}
-            icon={
-                <Icon
-                    className={`hcl-sidebar-title-icon`}
-                    type="svg"
-                    alt="alt"
-                    title="title"
-                >
-                    <circle
-                        cx="12"
-                        cy="12"
-                        r="12"
-                        stroke="var(--blue)"
-                        strokeWidth="4"
-                        fill="var(--white)"
-                    />
-                </Icon>
+          title="Components"
+          items={navigationDataIcons}
+          icon={
+            <Icon
+              className={`hcl-sidebar-title-icon`}
+              type="svg"
+              alt="alt"
+              title="title"
+            >
+              <circle
+                cx="12"
+                cy="12"
+                r="12"
+                stroke="var(--blue)"
+                strokeWidth="4"
+                fill="var(--white)"
+              />
+            </Icon>
+          }
+          onClick={event => {
+            const { type, expanded, title } = event.currentTarget.dataset;
+            console.log(type, expanded, title);
+            const container = document.querySelector('[data-withsidenav]');
+            if (container && type === 'toggle_sidebar') {
+              this.setState({ sidebarExpanded: expanded === 'true' });
             }
-            onClick={event => {
-                const { type, expanded, title } = event.currentTarget.dataset;
-                console.log(type, expanded, title);
-                const container = document.querySelector('[data-withsidenav]');
-                if (container && type === 'toggle_sidebar') {
-                    this.setState({ sidebarExpanded: expanded === 'true' });
-                }
-            }}
+          }}
         />
         <div
-            className={`hcl-content${this.state.sidebarExpanded ? ' sidebar-expanded' : ''}`}
-            style={{ marginTop: '4rem' }}
-            data-withsidenav
+          className={`hcl-content${this.state.sidebarExpanded ? ' sidebar-expanded' : ''}`}
+          style={{ marginTop: '4rem' }}
+          data-withsidenav
         >
           <main className="hcl-content-main">
             <section className="hcl-container pt-5 mb-5">
@@ -808,12 +810,12 @@ class App extends Component {
                 <div className="hcl-col-12 mt-5" id="list-section">
                   {/* Ordered */}
                   <Label>Ordered List</Label>
-                  <List listItems={listItems} type="ol" onClick={() => {}} />
+                  <List listItems={listItems} type="ol" onClick={() => { }} />
                   <br />
                   <br />
                   {/* Unordered */}
                   <Label>Unordered List</Label>
-                  <List listItems={listItems} type="ul" onClick={() => {}} />
+                  <List listItems={listItems} type="ul" onClick={() => { }} />
                 </div>
                 {/* Tag */}
                 <div className="hcl-col-12 mt-5" id="toast-section">
@@ -1423,9 +1425,9 @@ class App extends Component {
                 <div className="hcl-col-12">
                   <Paragraph className="p-2 m-1">
                     Pagination Example 1
-                    <button className="hcl-btn hcl-secondary" onClick={() => { let { totalItems } = this.state; totalItems+=50; this.setState({...this.state, 'totalItems': totalItems }); }}>Total Items</button>
-                    <button className="ml-2 hcl-btn hcl-secondary" onClick={() => { let { stepper } = this.state; stepper+=5; this.setState({...this.state, 'stepper': stepper }); }}>Change Stepper</button>
-                    <button className="ml-2 hcl-btn hcl-secondary" onClick={() => { let { stepperLimit } = this.state; stepperLimit+=50; this.setState({...this.state, 'stepperLimit': stepperLimit }); }}>Stepper Limit</button>
+                    <button className="hcl-btn hcl-secondary" onClick={() => { let { totalItems } = this.state; totalItems += 50; this.setState({ ...this.state, 'totalItems': totalItems }); }}>Total Items</button>
+                    <button className="ml-2 hcl-btn hcl-secondary" onClick={() => { let { stepper } = this.state; stepper += 5; this.setState({ ...this.state, 'stepper': stepper }); }}>Change Stepper</button>
+                    <button className="ml-2 hcl-btn hcl-secondary" onClick={() => { let { stepperLimit } = this.state; stepperLimit += 50; this.setState({ ...this.state, 'stepperLimit': stepperLimit }); }}>Stepper Limit</button>
                   </Paragraph>
                   <Pagination
                     totalItems={this.state.totalItems}
@@ -1436,8 +1438,8 @@ class App extends Component {
                       console.log(e);
                     }}
                     onItemsPerPageChange={e => {
-                        console.log(e);
-                      }}
+                      console.log(e);
+                    }}
                   />
                   <Paragraph className="p-2 m-1">
                     Pagination Example 2
@@ -1451,8 +1453,8 @@ class App extends Component {
                       console.log(e);
                     }}
                     onItemsPerPageChange={e => {
-                        console.log(e);
-                      }}
+                      console.log(e);
+                    }}
                   />
                 </div>
                 <div className="hcl-col-12">
@@ -1582,6 +1584,8 @@ class App extends Component {
                   <div className="hcl-col-6 mb-2">
                     <LoadingState />
                   </div>
+                  <ActionBar />
+                  <ToolBar />
                 </div>
               </div>
             </section>
