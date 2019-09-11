@@ -1584,7 +1584,37 @@ class App extends Component {
                   <div className="hcl-col-6 mb-2">
                     <LoadingState />
                   </div>
-                  <ActionBar />
+                  <ActionBar>
+                    <div actionitem className="hcl-actionbar-list">
+                      <button className="hcl-btn hcl-ghost hcl-sm"><span>Button</span>
+                        <svg className="hcl-btn-icon" width="16" height="16" viewBox="0 0 16 16"
+                          xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
+                        >
+                          <path d="M7 7H4v2h3v3h2V9h3V7H9V4H7v3zm1 9A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"
+                            fillRule="evenodd"
+                          />
+                        </svg>
+                      </button>
+                      <button className="hcl-btn hcl-ghost hcl-sm"><span>Button</span>
+                        <svg className="hcl-btn-icon" width="16" height="16" viewBox="0 0 16 16"
+                          xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
+                        >
+                          <path d="M7 7H4v2h3v3h2V9h3V7H9V4H7v3zm1 9A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"
+                            fillRule="evenodd"
+                          />
+                        </svg>
+                      </button>
+                      <button className="hcl-btn hcl-ghost hcl-sm"><span>Button</span>
+                        <svg className="hcl-btn-icon" width="16" height="16" viewBox="0 0 16 16"
+                          xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
+                        >
+                          <path d="M7 7H4v2h3v3h2V9h3V7H9V4H7v3zm1 9A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"
+                            fillRule="evenodd"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                  </ActionBar>
                   <ToolBar />
                 </div>
               </div>
