@@ -1584,9 +1584,9 @@ class App extends Component {
                   <div className="hcl-col-6 mb-2">
                     <LoadingState />
                   </div>
-                  <ActionBar>
-                    <div actionitem className="hcl-actionbar-list">
-                      <button className="hcl-btn hcl-ghost hcl-sm"><span>Button</span>
+                  <ActionBar itemsSelected="5">
+                    <div actionItem >
+                      <button className="hcl-btn hcl-ghost hcl-sm" onClick={()=>{console.log('actionBat')}} ><span>Button</span>
                         <svg className="hcl-btn-icon" width="16" height="16" viewBox="0 0 16 16"
                           xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
                         >
@@ -1613,6 +1613,9 @@ class App extends Component {
                           />
                         </svg>
                       </button>
+                    </div>
+                    <div itemSelected>
+                      5
                     </div>
                   </ActionBar>
                   <ToolBar />

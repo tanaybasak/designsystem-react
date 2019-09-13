@@ -2,29 +2,34 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import prefix from "../../settings";
 
-export default function ActionBar({ children, ...restProps }) {
-
-    console.log('children', children.querySelector());
-    React.Children.map(children, (child)=>{ console.log(child)})
+export default function ActionBar({ children, itemsSelected, ...restProps }) {
     return (
-        <section className="hcl-actionbar" aria-label="Table Action Bar">
-            {/* action items */}
-            {children.querySelector('[actionitem]')}
-            <div className="hcl-actionbar-summary">
-                <span className="mr-2 hcl-type-zeta">
-                    5
+        <section className={`${prefix}-actionbar`} aria-label="Table Action Bar" {...restProps}>
+            <div className={`${prefix}-actionbar-list`}>
+                {
+                    React.Children.map(children, child => {
+                        if (child.props.actionItem) {
+                            return child.props.children;
+                        }
+                    })
+                }
+            </div>
+            <div className={`${prefix}-actionbar-summary`}>
+                <span className={`mr-2 ${prefix}-type-zeta`}>
+                    {itemsSelected}
                 </span>
-                <span className="hcl-actionbar-text hcl-type-zeta">
+                <span className={`${prefix}-actionbar-text ${prefix}-type-zeta`}>
                     items selected
                 </span>
-                <button className="hcl-actionbar-cancel">Cancel</button>
+                <button className={`${prefix}-actionbar-cancel`}>Cancel</button>
             </div>
         </section>
     );
 }
 
 ActionBar.propTypes = {
-
+    children: PropTypes.node.isRequired,
+    itemsSelected: PropTypes.number.isRequired
 };
 
 ActionBar.defaultProps = {
