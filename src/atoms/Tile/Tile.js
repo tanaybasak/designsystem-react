@@ -2,8 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 
+let selectTileCount = 0;
+
 const Tile = ({ className, children, type, id, href }) => {
-  let classNames;
+  let classNames = null;
   const clickableTile = () => {
     classNames = `${prefix}-tile-clickable ${className}`.trim();
     return (
@@ -14,16 +16,17 @@ const Tile = ({ className, children, type, id, href }) => {
   };
 
   const selectableTile = () => {
+    selectTileCount += 1;
     classNames = `${prefix}-tile-selectable ${className}`.trim();
     return (
       <div>
         <label
-          htmlFor="tile-id"
+          htmlFor={`select-tile-${selectTileCount}`}
           className={classNames}
           tabIndex="0"
         >
           <input
-            id="tile-id"
+            id={`select-tile-${selectTileCount}`}
             className={`${prefix}-tile-input`}
             type="checkbox"
             title="tile"
@@ -80,10 +83,10 @@ const Tile = ({ className, children, type, id, href }) => {
         ? type === 'clickable'
           ? clickableTile()
           : type === 'selectable'
-          ? selectableTile()
-          : type === 'expandable'
-          ? expandableTile()
-          : readableTile()
+            ? selectableTile()
+            : type === 'expandable'
+              ? expandableTile()
+              : readableTile()
         : null}
     </>
   );
@@ -93,7 +96,7 @@ Tile.propTypes = {
   className: PropTypes.string,
   type: PropTypes.oneOf(['clickable', 'selectable', 'expandable', 'readable']),
   children: PropTypes.node.isRequired,
-  id: function(props, propName, componentName) {
+  id: function (props, propName, componentName) {
     if (
       props.hasOwnProperty('type') &&
       props['type'] === 'expandable' &&
@@ -104,7 +107,7 @@ Tile.propTypes = {
       );
     }
   },
-  href: function(props, propName, componentName) {
+  href: function (props, propName, componentName) {
     if (
       props.hasOwnProperty('type') &&
       props['type'] === 'clickable' &&
