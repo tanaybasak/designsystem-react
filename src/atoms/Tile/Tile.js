@@ -5,7 +5,7 @@ import prefix from '../../settings';
 let selectTileCount = 0;
 
 const Tile = ({ className, children, type, id, href }) => {
-  let classNames;
+  let classNames = null;
   const clickableTile = () => {
     classNames = `${prefix}-tile-clickable ${className}`.trim();
     return (
