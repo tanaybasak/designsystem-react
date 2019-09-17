@@ -45,6 +45,8 @@ import LoadingState from './atoms/LoadingState/LoadingState';
 import Icon from './atoms/Icon';
 import logo from './assets/images/logo.png';
 import ActionBar from './molecules/ActionBar';
+import ActionList from './molecules/ActionBar/ActionList';
+import ActionSummary from './molecules/ActionBar/ActionSummary';
 import ToolBar from './molecules/ToolBar';
 
 class App extends Component {
@@ -72,6 +74,8 @@ class App extends Component {
     sidebarExpanded: false
   };
 
+
+  itemsSelected = 5;
   items = [
     {
       id: 'option-1',
@@ -1584,9 +1588,9 @@ class App extends Component {
                   <div className="hcl-col-6 mb-2">
                     <LoadingState />
                   </div>
-                  <ActionBar itemsSelected="5">
-                    <div actionItem >
-                      <button className="hcl-btn hcl-ghost hcl-sm" onClick={()=>{console.log('actionBat')}} ><span>Button</span>
+                  <ActionBar>
+                    <ActionList>
+                      <button className="hcl-btn hcl-ghost hcl-sm" onClick={() => { console.log('actionBat') }} ><span>Button</span>
                         <svg className="hcl-btn-icon" width="16" height="16" viewBox="0 0 16 16"
                           xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
                         >
@@ -1613,10 +1617,16 @@ class App extends Component {
                           />
                         </svg>
                       </button>
-                    </div>
-                    <div itemSelected>
-                      5
-                    </div>
+                    </ActionList>
+                    <ActionSummary>
+                      <span className={`mr-2 hcl-type-zeta`}>
+                        {this.itemsSelected}
+                      </span>
+                      <span className={`hcl-actionbar-text hcl-type-zeta`}>
+                        items selected
+                      </span>
+                      <button className={`hcl-actionbar-cancel`}>Cancel</button>
+                    </ActionSummary>
                   </ActionBar>
                   <ToolBar />
                 </div>
