@@ -44,6 +44,7 @@ import Header from './molecules/Header';
 import LoadingState from './atoms/LoadingState/LoadingState';
 import Icon from './atoms/Icon';
 import logo from './assets/images/logo.png';
+import Footer from './molecules/Footer'
 import ActionBar from './molecules/ActionBar';
 import ActionList from './atoms/ActionList';
 import ActionSummary from './atoms/ActionSummary';
@@ -407,7 +408,7 @@ class App extends Component {
           style={{ marginTop: '4rem' }}
           data-withsidenav
         >
-          <main className="hcl-content-main">
+          <main className="hcl-content-main" style={{ marginTop: '4rem' }}>
             <section className="hcl-container pt-5 mb-5">
               <div className="hcl-row m-0">
                 {/* Input Field */}
@@ -1675,6 +1676,29 @@ class App extends Component {
                 </div>
               </div>
             </section>
+            <Footer
+                caption="Copyright © HCL Software. All rights reserved"
+                links={
+                    [
+                        {
+                            label: 'Legal'
+                        },
+                        {
+                            label: 'Disclaimer'
+                        },
+                        {
+                            label: 'Privacy'
+                        },
+                        {
+                            label: 'Terms of use'
+                        },
+                        {
+                            label: 'Contact Us'
+                        }
+                    ]
+                }
+                onClick={event => console.log(`Go to ${event.currentTarget.dataset.label}`)}
+            />
           </main>
         </div>
       </>
