@@ -1,10 +1,10 @@
 import React from 'react';
-// import prefix from '../../settings';
+import prefix from '../../settings';
 
 const ToolBarSearch = React.forwardRef(
     ({ ...props }, ref) => {
         return (
-            <div {...props} ref={ref} className="hcl-search hcl-search-sm hcl-bg-white hcl-toolbar-search" />
+            <div {...props} ref={ref} className={`${prefix}-search ${prefix}-search-sm ${prefix}-bg-white ${prefix}-toolbar-search`} />
         );
     },
 );

@@ -1630,7 +1630,7 @@ class App extends Component {
                       <button className={`hcl-actionbar-cancel`}>Cancel</button>
                     </ActionSummary>
                   </ActionBar>
-                  {/* <ToolBar /> */}
+                  
                   <ToolBar>
                     <ToolBarSearch>
                       <span className="hcl-search-btn" tabIndex="-1">

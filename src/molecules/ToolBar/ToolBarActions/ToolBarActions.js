@@ -1,10 +1,10 @@
 import React from 'react';
-// import prefix from '../../settings';
+import prefix from '../../settings';
 
 const ToolBarActions = React.forwardRef(
     ({ ...props }, ref) => {
         return (
-            <div {...props} ref={ref} className="hcl-toolbar-content" />
+            <div {...props} ref={ref} className={`${prefix}-toolbar-content`} />
         );
     },
 );

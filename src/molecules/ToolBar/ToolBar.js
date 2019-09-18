@@ -4,8 +4,8 @@ import prefix from '../../settings';
 const ToolBar = React.forwardRef(
     ({ ...props }, ref) => {
         return (
-            <div {...props} ref={ref} className="hcl-toolbar" />
-            );
+            <div {...props} ref={ref} className={`${prefix}-toolbar`} />
+        );
     },
 );
 
