@@ -1,6 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import prefix from "../../../settings";
+import prefix from '../../settings';
 
 const ActionSummary = React.forwardRef(
     ({ ...props }, ref) => {
@@ -10,13 +9,6 @@ const ActionSummary = React.forwardRef(
     },
 );
 
-ActionSummary.propTypes = {
-    children: PropTypes.node.isRequired,
-};
-
-ActionSummary.defaultProps = {
-
-};
-
 ActionSummary.displayName = 'ActionSummary';
+
 export default ActionSummary

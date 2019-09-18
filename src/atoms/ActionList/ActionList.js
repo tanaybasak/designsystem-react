@@ -1,6 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import prefix from "../../../settings";
+import prefix from '../../settings';
 
 const ActionList = React.forwardRef(
     ({ ...props }, ref) => {
@@ -10,13 +9,6 @@ const ActionList = React.forwardRef(
     },
 );
 
-ActionList.propTypes = {
-    children: PropTypes.node.isRequired,
-};
-
-ActionList.defaultProps = {
-
-};
-
 ActionList.displayName = 'ActionList';
+
 export default ActionList

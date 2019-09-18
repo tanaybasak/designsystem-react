@@ -45,8 +45,8 @@ import LoadingState from './atoms/LoadingState/LoadingState';
 import Icon from './atoms/Icon';
 import logo from './assets/images/logo.png';
 import ActionBar from './molecules/ActionBar';
-import ActionList from './molecules/ActionBar/ActionList';
-import ActionSummary from './molecules/ActionBar/ActionSummary';
+import ActionList from './atoms/ActionList';
+import ActionSummary from './atoms/ActionSummary';
 import ToolBar from './molecules/ToolBar';
 
 class App extends Component {
@@ -1588,7 +1588,7 @@ class App extends Component {
                   <div className="hcl-col-6 mb-2">
                     <LoadingState />
                   </div>
-                  <ActionBar>
+                  <ActionBar ref={React.createRef()}>
                     <ActionList>
                       <button className="hcl-btn hcl-ghost hcl-sm" onClick={() => { console.log('actionBat') }} ><span>Button</span>
                         <svg className="hcl-btn-icon" width="16" height="16" viewBox="0 0 16 16"
