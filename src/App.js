@@ -42,10 +42,15 @@ import Sidebar from './molecules/Sidebar';
 import navigationData from './molecules/Sidebar/sidebar-navigation-data.json';
 import Header from './molecules/Header';
 import LoadingState from './atoms/LoadingState/LoadingState';
+import Icon from './atoms/Icon';
 import logo from './assets/images/logo.png';
+import Footer from './molecules/Footer'
 
 class App extends Component {
   state = {
+    totalItems: 300,
+    stepper: 10,
+    stepperLimit: 100,
     radio: {
       temperature: 45,
       city: 'Chennai'
@@ -62,7 +67,8 @@ class App extends Component {
       example2: 1,
       example3: 2,
       example4: 0
-    }
+    },
+    sidebarExpanded: false
   };
 
   items = [
@@ -297,6 +303,33 @@ class App extends Component {
       </div>
     );
 
+    const navigationDataIcons = navigationData.map(data => {
+      return {
+        ...data,
+        icon: (
+          <Icon
+            className={`hcl-sidebar-icon`}
+            type={'svg'}
+            alt={'alt'}
+            title={'title'}
+          >
+            <rect
+              rx={3}
+              ry={3}
+              width={'100%'}
+              height={'100%'}
+              style={{
+                fill: '#fff',
+                stroke: 'black',
+                strokeWidth: 2,
+                opacity: 0.5
+              }}
+            />
+          </Icon>
+        )
+      };
+    });
+
     return (
       <>
         <Header
@@ -331,28 +364,43 @@ class App extends Component {
               icon: <span className={`hcl-icon-1 bg-white`} />
             }
           ]}
+          data-withsidenav
         />
         <Sidebar
-          title="Components"
-          items={navigationData}
-          onClick={event => {
-            const { type, expanded, title } = event.currentTarget.dataset;
-            console.log(type, expanded, title);
-            const container = document.querySelector('[data-withsidenav]');
-            if (container) {
-              container.classList.toggle(
-                'sidebar-expanded',
-                expanded === 'true'
-              );
+            title="Components"
+            items={navigationDataIcons}
+            icon={
+                <Icon
+                    className={`hcl-sidebar-title-icon`}
+                    type="svg"
+                    alt="alt"
+                    title="title"
+                >
+                    <circle
+                        cx="12"
+                        cy="12"
+                        r="12"
+                        stroke="var(--blue)"
+                        strokeWidth="4"
+                        fill="var(--white)"
+                    />
+                </Icon>
             }
-          }}
+            onClick={event => {
+                const { type, expanded, title } = event.currentTarget.dataset;
+                console.log(type, expanded, title);
+                const container = document.querySelector('[data-withsidenav]');
+                if (container && type === 'toggle_sidebar') {
+                    this.setState({ sidebarExpanded: expanded === 'true' });
+                }
+            }}
         />
         <div
-          className="hcl-content"
-          style={{ marginTop: '4rem' }}
-          data-withsidenav
+            className={`hcl-content${this.state.sidebarExpanded ? ' sidebar-expanded' : ''}`}
+            style={{ marginTop: '4rem' }}
+            data-withsidenav
         >
-          <main className="hcl-content-main">
+          <main className="hcl-content-main" style={{ marginTop: '4rem' }}>
             <section className="hcl-container pt-5 mb-5">
               <div className="hcl-row m-0">
                 {/* Input Field */}
@@ -1093,6 +1141,9 @@ class App extends Component {
                     onSort={event => {
                       console.log(event.currentTarget);
                     }}
+                    overflowMenu
+                    overflowMenuItems={overflowlist}
+                    overflowMenuOnClick={event => console.log(event.currentTarget)}
                   />
                 </div>
                 {/* Search Component */}
@@ -1373,25 +1424,36 @@ class App extends Component {
                 <div className="hcl-col-12">
                   <Paragraph className="p-2 m-1">
                     Pagination Example 1
+                    <button className="hcl-btn hcl-secondary" onClick={() => { let { totalItems } = this.state; totalItems+=50; this.setState({...this.state, 'totalItems': totalItems }); }}>Total Items</button>
+                    <button className="ml-2 hcl-btn hcl-secondary" onClick={() => { let { stepper } = this.state; stepper+=5; this.setState({...this.state, 'stepper': stepper }); }}>Change Stepper</button>
+                    <button className="ml-2 hcl-btn hcl-secondary" onClick={() => { let { stepperLimit } = this.state; stepperLimit+=50; this.setState({...this.state, 'stepperLimit': stepperLimit }); }}>Stepper Limit</button>
                   </Paragraph>
                   <Pagination
-                    totalItems={8}
-                    pageSizes={[10, 20, 30, 40, 50]}
-                    itemsPerPageText={'No. of Rows:'}
-                    onChange={e => {
+                    totalItems={this.state.totalItems}
+                    itemsPerPageStepper={this.state.stepper}
+                    itemsStepperLimit={this.state.stepperLimit}
+                    itemsPerPageText={"No. of Rows:"}
+                    onPageChange={e => {
                       console.log(e);
                     }}
+                    onItemsPerPageChange={e => {
+                        console.log(e);
+                      }}
                   />
                   <Paragraph className="p-2 m-1">
                     Pagination Example 2
                   </Paragraph>
                   <Pagination
-                    totalItems={110}
-                    pageSizes={[30, 40, 50]}
-                    itemsPerPageText={'Items per page:'}
-                    onChange={e => {
+                    totalItems={61302}
+                    itemsPerPageStepper={25}
+                    itemsStepperLimit={500}
+                    itemsPerPageText={"Items per page:"}
+                    onPageChange={e => {
                       console.log(e);
                     }}
+                    onItemsPerPageChange={e => {
+                        console.log(e);
+                      }}
                   />
                 </div>
                 <div className="hcl-col-12">
@@ -1524,6 +1586,29 @@ class App extends Component {
                 </div>
               </div>
             </section>
+            <Footer
+                caption="Copyright © HCL Software. All rights reserved"
+                links={
+                    [
+                        {
+                            label: 'Legal'
+                        },
+                        {
+                            label: 'Disclaimer'
+                        },
+                        {
+                            label: 'Privacy'
+                        },
+                        {
+                            label: 'Terms of use'
+                        },
+                        {
+                            label: 'Contact Us'
+                        }
+                    ]
+                }
+                onClick={event => console.log(`Go to ${event.currentTarget.dataset.label}`)}
+            />
           </main>
         </div>
       </>
