@@ -1,9 +1,11 @@
-import React, { useState, useRef, useEffect } from "react";
-import PropTypes from "prop-types";
-import ReactDOM from "react-dom";
-import prefix from "../../settings";
-import { getRem } from "../../util/utility";
-import EventManager from "../../util/eventManager";
+import React, { useState, useRef, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import ReactDOM from 'react-dom';
+import prefix from '../../settings';
+import { getRem } from '../../util/utility';
+import { addListener, removeListeners } from '../../util/eventManager';
+const tooltipAdjustment = 2;
+let tooltipElementRef = 1;
 
 const Tooltip = ({ type, content, direction, children }) => {
   const tooltipContainerRef = useRef(null);
@@ -11,12 +13,13 @@ const Tooltip = ({ type, content, direction, children }) => {
   const [showTooltip, toggleTooltip] = useState(false);
   let diff = 0;
   let positionDirection;
+  const [tooltipId] = useState(tooltipElementRef++);
 
   const TooltipContainer = (content, type, tooltipContainerRef) => {
     return ReactDOM.createPortal(
       <div
         className={`${prefix}-tooltip ${prefix}-tooltip-${type}`}
-        data-focus-on-click={type === "interactive"}
+        data-focus-on-click={type === 'interactive'}
         ref={tooltipContainerRef}
       >
         <div className={`${prefix}-tooltip-arrow`} />
@@ -48,85 +51,257 @@ const Tooltip = ({ type, content, direction, children }) => {
       diff = undefined;
       const newDirection = getDirection(parentPosition, 10, direction);
       tooltipContainerRef.current.children[0].setAttribute(
-        "data-direction",
+        'data-direction',
         newDirection
       );
       tooltipContainerRef.current.style.minWidth =
-        tooltipContainerRef.current.offsetWidth + "px";
+        tooltipContainerRef.current.offsetWidth + 'px';
       positionDirection = getDirectionPosition(parentPosition, newDirection);
       showTooltipMain(parentPosition, positionDirection, 10, type);
-      if (type === "interactive") {
-        EventManager.addEvent(
-          "mousedown",
+      if (type === 'interactive') {
+        addListener(
+          'id-' + tooltipId,
+          'click',
           e => {
             handleClick(e);
           },
           true
         );
+
+        addListener(
+          'id-' + tooltipId,
+          'keypress',
+          e => {
+            var key = e.which || e.keyCode;
+            if (key === 13) {
+              handleClick(e);
+            }
+          },
+          true
+        );
       }
-      EventManager.addEvent(
-        "scroll",
+
+      addListener(
+        'id-' + tooltipId,
+        'scroll',
         e => {
           handleScroll(e);
         },
         true
       );
+
       if (tooltipContainerRef.current)
-        tooltipContainerRef.current.classList.add("show");
+        tooltipContainerRef.current.classList.add('show');
     } else {
-      if (type === "interactive") {
-        EventManager.removeEvent("mousedown", true);
-        EventManager.removeEvent("scroll", true);
+      if (type === 'interactive') {
+        removeListeners('id-' + tooltipId, 'click');
+        removeListeners('id-' + tooltipId, 'keypress');
       }
+      removeListeners('id-' + tooltipId, 'scroll');
       if (tooltipContainerRef.current)
-        tooltipContainerRef.current.classList.remove("show");
+        tooltipContainerRef.current.classList.remove('show');
     }
-  }, [showTooltip]);
+  }, [showTooltip, tooltipId]);
 
   const updateIconPosition = (icon, position, value) => {
-    icon.removeAttribute("style");
+    icon.removeAttribute('style');
     icon.style[position] = getRem(value);
   };
 
+  const multiDirectionPositioning = (
+    type,
+    parentCoords,
+    icon,
+    arrowSize,
+    top,
+    bottom,
+    left,
+    right
+  ) => {
+    switch (type) {
+      case 'left': {
+        if (diff <= 0) {
+          diff = diff - tooltipAdjustment;
+
+          updateIconPosition(
+            icon,
+            'left',
+            parentCoords.left +
+              parentCoords.width / 2 -
+              arrowSize -
+              tooltipAdjustment
+          );
+        } else if (diff >= 1 && diff < tooltipAdjustment) {
+          diff = tooltipAdjustment - diff;
+
+          updateIconPosition(
+            icon,
+            'left',
+            parentCoords.left +
+              parentCoords.width / 2 -
+              arrowSize -
+              (tooltipAdjustment + diff)
+          );
+
+          diff = -tooltipAdjustment;
+        } else {
+          updateIconPosition(
+            icon,
+            'left',
+            parentCoords.left + parentCoords.width / 2 - arrowSize
+          );
+        }
+        break;
+      }
+      case 'right': {
+        if (right >= window.innerWidth) {
+          diff = right - window.innerWidth + tooltipAdjustment;
+          updateIconPosition(
+            icon,
+            'right',
+            window.innerWidth -
+              parentCoords.right +
+              parentCoords.width / 2 -
+              arrowSize -
+              tooltipAdjustment
+          );
+        } else if (
+          right < window.innerWidth &&
+          right >= window.innerWidth - tooltipAdjustment
+        ) {
+          updateIconPosition(
+            icon,
+            'right',
+            window.innerWidth -
+              parentCoords.right +
+              parentCoords.width / 2 -
+              arrowSize -
+              (tooltipAdjustment + (window.innerWidth - right))
+          );
+          diff = tooltipAdjustment;
+        } else {
+          diff = right - window.innerWidth;
+          updateIconPosition(
+            icon,
+            'right',
+            window.innerWidth -
+              parentCoords.right +
+              parentCoords.width / 2 -
+              arrowSize
+          );
+        }
+        break;
+      }
+      case 'top': {
+        if (diff <= 0) {
+          diff = diff - tooltipAdjustment;
+
+          updateIconPosition(
+            icon,
+            'top',
+            parentCoords.top +
+              parentCoords.height / 2 -
+              arrowSize -
+              tooltipAdjustment
+          );
+        } else if (diff >= 1 && diff < tooltipAdjustment) {
+          diff = tooltipAdjustment - diff;
+          updateIconPosition(
+            icon,
+            'top',
+            parentCoords.top +
+              parentCoords.height / 2 -
+              arrowSize -
+              tooltipAdjustment
+          );
+
+          diff = -diff;
+        } else {
+          updateIconPosition(
+            icon,
+            'top',
+            parentCoords.top + parentCoords.height / 2 - arrowSize
+          );
+        }
+        break;
+      }
+      case 'bottom': {
+        if (bottom >= window.innerHeight) {
+          diff = diff + tooltipAdjustment;
+          updateIconPosition(
+            icon,
+            'bottom',
+            window.innerHeight -
+              (parentCoords.bottom - parentCoords.height / 2) -
+              arrowSize -
+              tooltipAdjustment
+          );
+        } else if (
+          bottom < window.innerHeight &&
+          bottom >= window.innerHeight - tooltipAdjustment
+        ) {
+          updateIconPosition(
+            icon,
+            'bottom',
+            window.innerHeight -
+              (parentCoords.bottom - parentCoords.height / 2) -
+              arrowSize -
+              tooltipAdjustment -
+              (window.innerHeight - bottom)
+          );
+          diff = tooltipAdjustment;
+        } else {
+          diff = right - window.innerWidth;
+          updateIconPosition(
+            icon,
+            'bottom',
+            window.innerHeight -
+              (parentCoords.bottom - parentCoords.height / 2) -
+              arrowSize
+          );
+        }
+        break;
+      }
+    }
+  };
   const showTooltipMain = (parentCoords, posHorizontal, dist, type) => {
     const tooltip = tooltipContainerRef.current;
     const icon = tooltip.children[0];
-
     let left = 0;
     let top = 0;
     let bottom = 0;
     let right = 0;
-    let arrowSize = type === "icon" ? 2.5 : 5;
-    let offsetY = window.pageYOffset;
-    let offsetX = window.pageXOffset;
+    const arrowSize = type === 'icon' ? 2.5 : 5;
+    const offsetY = window.pageYOffset;
+    const offsetX = window.pageXOffset;
 
-    if (posHorizontal.startsWith("left")) {
+    if (posHorizontal.startsWith('left')) {
       left = parseInt(parentCoords.left) - dist - tooltip.offsetWidth;
       top =
         (parseInt(parentCoords.top) + parseInt(parentCoords.bottom)) / 2 -
         tooltip.offsetHeight / 2;
-      if (posHorizontal === "left") {
-        updateIconPosition(icon, "top", tooltip.offsetHeight / 2 - arrowSize);
+      if (posHorizontal === 'left') {
+        updateIconPosition(icon, 'top', tooltip.offsetHeight / 2 - arrowSize);
       } else {
         if (diff === undefined) {
-          if (posHorizontal === "left top") {
+          if (posHorizontal === 'left top') {
             diff = top;
-            updateIconPosition(
-              icon,
-              "top",
-              parentCoords.top + parentCoords.height / 2 - arrowSize
-            );
+            multiDirectionPositioning('top', parentCoords, icon, arrowSize);
           } else {
             bottom =
               (parseInt(parentCoords.top) + parseInt(parentCoords.bottom)) / 2 +
               tooltip.offsetHeight / 2;
             diff = bottom - window.innerHeight;
-            updateIconPosition(
+
+            multiDirectionPositioning(
+              'bottom',
+              parentCoords,
               icon,
-              "bottom",
-              window.innerHeight -
-                (parentCoords.bottom - parentCoords.height / 2) -
-                arrowSize
+              arrowSize,
+              top,
+              bottom,
+              left,
+              right
             );
           }
         }
@@ -134,34 +309,33 @@ const Tooltip = ({ type, content, direction, children }) => {
       }
       tooltip.style.left = getRem(left + offsetX);
       tooltip.style.top = getRem(top + offsetY);
-    } else if (posHorizontal.startsWith("right")) {
+    } else if (posHorizontal.startsWith('right')) {
       top =
         (parseInt(parentCoords.top) + parseInt(parentCoords.bottom)) / 2 -
         tooltip.offsetHeight / 2;
       left = parseInt(parentCoords.right) + dist;
-      if (posHorizontal === "right") {
-        updateIconPosition(icon, "top", tooltip.offsetHeight / 2 - arrowSize);
+      if (posHorizontal === 'right') {
+        updateIconPosition(icon, 'top', tooltip.offsetHeight / 2 - arrowSize);
       } else {
         if (diff === undefined) {
-          if (posHorizontal === "right top") {
+          if (posHorizontal === 'right top') {
             diff = top;
-            updateIconPosition(
-              icon,
-              "top",
-              parentCoords.top + parentCoords.height / 2 - arrowSize
-            );
+            multiDirectionPositioning('top', parentCoords, icon, arrowSize);
           } else {
             bottom =
               (parseInt(parentCoords.top) + parseInt(parentCoords.bottom)) / 2 +
               tooltip.offsetHeight / 2;
             diff = bottom - window.innerHeight;
-            updateIconPosition(
+
+            multiDirectionPositioning(
+              'bottom',
+              parentCoords,
               icon,
-              "bottom",
-              window.innerHeight -
-                parentCoords.bottom +
-                parentCoords.height / 2 -
-                arrowSize
+              arrowSize,
+              top,
+              bottom,
+              left,
+              right
             );
           }
         }
@@ -169,35 +343,43 @@ const Tooltip = ({ type, content, direction, children }) => {
       }
       tooltip.style.left = getRem(left + offsetX);
       tooltip.style.top = getRem(top + offsetY);
-    } else if (posHorizontal.startsWith("top")) {
+    } else if (posHorizontal.startsWith('top')) {
       left =
         parseInt(parentCoords.left) +
         (parentCoords.width - tooltip.offsetWidth) / 2;
       top = parseInt(parentCoords.top) - tooltip.offsetHeight - dist;
 
-      if (posHorizontal === "top") {
-        updateIconPosition(icon, "left", tooltip.offsetWidth / 2 - arrowSize);
+      if (posHorizontal === 'top') {
+        updateIconPosition(icon, 'left', tooltip.offsetWidth / 2 - arrowSize);
       } else {
         if (diff === undefined) {
-          if (posHorizontal === "top left") {
+          if (posHorizontal === 'top left') {
             diff = left;
-            updateIconPosition(
+
+            multiDirectionPositioning(
+              'left',
+              parentCoords,
               icon,
-              "left",
-              parentCoords.left + parentCoords.width / 2 - arrowSize
+              arrowSize,
+              top,
+              bottom,
+              left,
+              right
             );
           } else {
             right =
               parseInt(parentCoords.right) +
               (tooltip.offsetWidth - parentCoords.width) / 2;
-            diff = right - window.innerWidth;
-            updateIconPosition(
+
+            multiDirectionPositioning(
+              'right',
+              parentCoords,
               icon,
-              "right",
-              window.innerWidth -
-                parentCoords.right +
-                parentCoords.width / 2 -
-                arrowSize
+              arrowSize,
+              top,
+              bottom,
+              left,
+              right
             );
           }
         }
@@ -205,35 +387,42 @@ const Tooltip = ({ type, content, direction, children }) => {
       }
       tooltip.style.top = getRem(top + offsetY);
       tooltip.style.left = getRem(left + offsetX);
-    } else if (posHorizontal.startsWith("bottom")) {
+    } else if (posHorizontal.startsWith('bottom')) {
       left =
         parseInt(parentCoords.left) +
         (parentCoords.width - tooltip.offsetWidth) / 2;
       top = parseInt(parentCoords.bottom) + dist;
 
-      if (posHorizontal === "bottom") {
-        updateIconPosition(icon, "left", tooltip.offsetWidth / 2 - arrowSize);
+      if (posHorizontal === 'bottom') {
+        updateIconPosition(icon, 'left', tooltip.offsetWidth / 2 - arrowSize);
       } else {
         if (diff === undefined) {
-          if (posHorizontal === "bottom left") {
+          if (posHorizontal === 'bottom left') {
             diff = left;
-            updateIconPosition(
+            multiDirectionPositioning(
+              'left',
+              parentCoords,
               icon,
-              "left",
-              parentCoords.left + parentCoords.width / 2 - arrowSize
+              arrowSize,
+              top,
+              bottom,
+              left,
+              right
             );
           } else {
             right =
               parseInt(parentCoords.right) +
               (tooltip.offsetWidth - parentCoords.width) / 2;
-            diff = right - window.innerWidth;
-            updateIconPosition(
+
+            multiDirectionPositioning(
+              'right',
+              parentCoords,
               icon,
-              "right",
-              window.innerWidth -
-                parentCoords.right +
-                parentCoords.width / 2 -
-                arrowSize
+              arrowSize,
+              top,
+              bottom,
+              left,
+              right
             );
           }
         }
@@ -242,6 +431,7 @@ const Tooltip = ({ type, content, direction, children }) => {
       tooltip.style.left = getRem(left + offsetX);
       tooltip.style.top = getRem(top + offsetY);
     }
+    tooltip.classList.add('show');
   };
 
   const getDirectionPosition = (parentCoords, posHorizontal) => {
@@ -249,63 +439,63 @@ const Tooltip = ({ type, content, direction, children }) => {
     let top = 0;
     let bottom = 0;
     let right = 0;
-    const tooltip = tooltipContainerRef.current;
     let direction = posHorizontal;
+    const tooltip = tooltipContainerRef.current;
     switch (posHorizontal) {
-      case "left": {
+      case 'left': {
         top =
           (parseInt(parentCoords.top) + parseInt(parentCoords.bottom)) / 2 -
           tooltip.offsetHeight / 2;
         bottom =
           (parseInt(parentCoords.top) + parseInt(parentCoords.bottom)) / 2 +
           tooltip.offsetHeight / 2;
-        if (top < 0) {
-          direction = "left top";
-        } else if (bottom > window.innerHeight) {
-          direction = "left bottom";
+        if (top < tooltipAdjustment) {
+          direction = 'left top';
+        } else if (bottom > window.innerHeight - tooltipAdjustment) {
+          direction = 'left bottom';
         }
         break;
       }
-      case "right": {
+      case 'right': {
         top =
           (parseInt(parentCoords.top) + parseInt(parentCoords.bottom)) / 2 -
           tooltip.offsetHeight / 2;
         bottom =
           (parseInt(parentCoords.top) + parseInt(parentCoords.bottom)) / 2 +
           tooltip.offsetHeight / 2;
-        if (top < 0) {
-          direction = "right top";
-        } else if (bottom > window.innerHeight) {
-          direction = "right bottom";
+        if (top < tooltipAdjustment) {
+          direction = 'right top';
+        } else if (bottom > window.innerHeight - tooltipAdjustment) {
+          direction = 'right bottom';
         }
 
         break;
       }
-      case "top": {
+      case 'top': {
         left =
           parseInt(parentCoords.left) +
           (parentCoords.width - tooltip.offsetWidth) / 2;
         right =
           parseInt(parentCoords.right) +
           (tooltip.offsetWidth - parentCoords.width) / 2;
-        if (left < 0) {
-          direction = "top left";
-        } else if (right > window.innerWidth) {
-          direction = "top right";
+        if (left < tooltipAdjustment) {
+          direction = 'top left';
+        } else if (right > window.innerWidth - tooltipAdjustment) {
+          direction = 'top right';
         }
         break;
       }
-      case "bottom": {
+      case 'bottom': {
         left =
           parseInt(parentCoords.left) +
           (parentCoords.width - tooltip.offsetWidth) / 2;
         right =
           parseInt(parentCoords.right) +
           (tooltip.offsetWidth - parentCoords.width) / 2;
-        if (left < 0) {
-          direction = "bottom left";
-        } else if (right > window.innerWidth) {
-          direction = "bottom right";
+        if (left < tooltipAdjustment) {
+          direction = 'bottom left';
+        } else if (right > window.innerWidth - tooltipAdjustment) {
+          direction = 'bottom right';
         }
         break;
       }
@@ -317,38 +507,42 @@ const Tooltip = ({ type, content, direction, children }) => {
     let outOfBound = false;
     const tooltip = tooltipContainerRef.current;
     switch (posHorizontal) {
-      case "left": {
-        if (parentCoords.left - dist - tooltip.offsetWidth < 0) {
+      case 'left': {
+        if (
+          parseInt(parentCoords.left) - dist - tooltip.offsetWidth <
+          tooltipAdjustment
+        ) {
           outOfBound = true;
         }
         break;
       }
-      case "right": {
+      case 'right': {
         if (
           parentCoords.right + dist + tooltip.offsetWidth >
-          window.innerWidth
+          window.innerWidth - tooltipAdjustment
         ) {
           outOfBound = true;
         }
         break;
       }
-      case "top": {
-        if (parentCoords.top - tooltip.offsetHeight - dist < 0) {
-          outOfBound = true;
-        }
-        break;
-      }
-      case "bottom": {
+      case 'top': {
         if (
-          parentCoords.bottom + dist + tooltip.offsetHeight >
-          window.innerHeight
+          parseInt(parentCoords.top) - tooltip.offsetHeight - dist <
+          tooltipAdjustment
         ) {
           outOfBound = true;
         }
         break;
       }
-      default:
+      case 'bottom': {
+        if (
+          parseInt(parentCoords.bottom) + dist + tooltip.offsetHeight >
+          window.innerHeight - tooltipAdjustment
+        ) {
+          outOfBound = true;
+        }
         break;
+      }
     }
     return outOfBound;
   };
@@ -356,13 +550,13 @@ const Tooltip = ({ type, content, direction, children }) => {
   const getDirection = (parentCoords, dist, posHorizontal) => {
     let newDirection = posHorizontal;
     switch (posHorizontal) {
-      case "left": {
+      case 'left': {
         if (isOutofBound(parentCoords, dist, newDirection)) {
-          newDirection = "right";
+          newDirection = 'right';
           if (isOutofBound(parentCoords, dist, newDirection)) {
-            newDirection = "top";
+            newDirection = 'top';
             if (isOutofBound(parentCoords, dist, newDirection)) {
-              newDirection = "bottom";
+              newDirection = 'bottom';
               if (isOutofBound(parentCoords, dist, newDirection)) {
                 newDirection = posHorizontal;
               }
@@ -371,13 +565,13 @@ const Tooltip = ({ type, content, direction, children }) => {
         }
         break;
       }
-      case "right": {
+      case 'right': {
         if (isOutofBound(parentCoords, dist, newDirection)) {
-          newDirection = "left";
+          newDirection = 'left';
           if (isOutofBound(parentCoords, dist, newDirection)) {
-            newDirection = "top";
+            newDirection = 'top';
             if (isOutofBound(parentCoords, dist, newDirection)) {
-              newDirection = "bottom";
+              newDirection = 'bottom';
               if (isOutofBound(parentCoords, dist, newDirection)) {
                 newDirection = posHorizontal;
               }
@@ -386,13 +580,13 @@ const Tooltip = ({ type, content, direction, children }) => {
         }
         break;
       }
-      case "top": {
+      case 'top': {
         if (isOutofBound(parentCoords, dist, newDirection)) {
-          newDirection = "bottom";
+          newDirection = 'bottom';
           if (isOutofBound(parentCoords, dist, newDirection)) {
-            newDirection = "left";
+            newDirection = 'left';
             if (isOutofBound(parentCoords, dist, newDirection)) {
-              newDirection = "right";
+              newDirection = 'right';
               if (isOutofBound(parentCoords, dist, newDirection)) {
                 newDirection = posHorizontal;
               }
@@ -401,13 +595,13 @@ const Tooltip = ({ type, content, direction, children }) => {
         }
         break;
       }
-      case "bottom": {
+      case 'bottom': {
         if (isOutofBound(parentCoords, dist, newDirection)) {
-          newDirection = "top";
+          newDirection = 'top';
           if (isOutofBound(parentCoords, dist, newDirection)) {
-            newDirection = "left";
+            newDirection = 'left';
             if (isOutofBound(parentCoords, dist, newDirection)) {
-              newDirection = "right";
+              newDirection = 'right';
               if (isOutofBound(parentCoords, dist, newDirection)) {
                 newDirection = posHorizontal;
               }
@@ -430,45 +624,44 @@ const Tooltip = ({ type, content, direction, children }) => {
     toggleTooltip(false);
   };
 
-//   const showTooltipOnEnter = event => {
-//     if (event.charCode === 13) {
-//         closeAllTooltip();
-//         openTooltip();
-//     }
-//   };
+  const showTooltipOnEnter = event => {
+    if (event.charCode === 13) {
+      openTooltip();
+    }
+  };
 
   let element = null;
-  if (typeof children !== "string") {
+  if (typeof children !== 'string') {
     element = React.Children.map(children, child => {
       return React.cloneElement(child, {
-        tabIndex: "0",
-        onMouseEnter: type !== "interactive" ? openTooltip : null,
-        onClick: type === "interactive" ? openTooltip : null,
-        onMouseLeave: type !== "interactive" ? closeTooltip : null,
-        onFocus: type !== "interactive" ? openTooltip : null,
-        onBlur: type !== "interactive" ? closeTooltip : null,
-        // onKeyPress: type === "interactive" ? showTooltipOnEnter : null,
+        tabIndex: '0',
+        onMouseEnter: type !== 'interactive' ? openTooltip : null,
+        onClick: type === 'interactive' ? openTooltip : null,
+        onMouseLeave: type !== 'interactive' ? closeTooltip : null,
+        onFocus: type !== 'interactive' ? openTooltip : null,
+        onBlur: type !== 'interactive' ? closeTooltip : null,
+        onKeyPress: type === 'interactive' ? showTooltipOnEnter : null,
         ref: parentRef,
         className:
-          showTooltip && type === "definition"
+          showTooltip && type === 'definition'
             ? `${prefix}-tooltip-dottedline`
             : null
       });
     });
   }
 
-  return typeof children === "string" ? (
+  return typeof children === 'string' ? (
     <span
       tabIndex="0"
       ref={parentRef}
-      onClick={type === "interactive" ? openTooltip : null}
-      onMouseEnter={type !== "interactive" ? openTooltip : null}
-      onMouseLeave={type !== "interactive" ? closeTooltip : null}
-      onFocus={type !== "interactive" ? openTooltip : null}
-      onBlur={type !== "interactive" ? closeTooltip : null}
-    //   onKeyPress={type === "interactive" ? showTooltipOnEnter : null}
+      onClick={type === 'interactive' ? openTooltip : null}
+      onMouseEnter={type !== 'interactive' ? openTooltip : null}
+      onMouseLeave={type !== 'interactive' ? closeTooltip : null}
+      onFocus={type !== 'interactive' ? openTooltip : null}
+      onBlur={type !== 'interactive' ? closeTooltip : null}
+      onKeyPress={type === 'interactive' ? showTooltipOnEnter : null}
       className={
-        showTooltip && type === "definition"
+        showTooltip && type === 'definition'
           ? `${prefix}-tooltip-dottedline`
           : null
       }
@@ -489,15 +682,15 @@ const Tooltip = ({ type, content, direction, children }) => {
 };
 
 Tooltip.propTypes = {
-  type: PropTypes.oneOf(["icon", "definition", "interactive"]),
-  direction: PropTypes.oneOf(["top", "bottom", "left", "right"]),
+  type: PropTypes.oneOf(['icon', 'definition', 'interactive']),
+  direction: PropTypes.oneOf(['top', 'bottom', 'left', 'right']),
   content: PropTypes.oneOfType([PropTypes.string, PropTypes.node])
 };
 
 Tooltip.defaultProps = {
-  type: "definition",
-  direction: "bottom",
-  content: ""
+  type: 'definition',
+  direction: 'bottom',
+  content: ''
 };
 
 export default Tooltip;

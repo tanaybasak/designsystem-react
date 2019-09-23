@@ -3,9 +3,13 @@
 exports[`Tooltip renders correctly 1`] = `
 <span
   className={null}
+  onBlur={[Function]}
   onClick={null}
+  onFocus={[Function]}
+  onKeyPress={null}
   onMouseEnter={[Function]}
   onMouseLeave={[Function]}
+  tabIndex="0"
 >
   Content
 </span>
