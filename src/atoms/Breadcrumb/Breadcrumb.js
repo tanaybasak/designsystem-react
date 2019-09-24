@@ -1,69 +1,46 @@
-import React, { Component } from 'react';
+import React, { useState, cloneElement } from 'react';
 import PropTypes from 'prop-types';
-import Link from '../Link';
 import prefix from '../../settings';
 
-class Breadcrumb extends Component {
-    static defaultProps = {
-        id: '',
-        model: [],
-        style: null,
-        className: `${prefix}-breadcrumb`
-    };
+function Breadcrumb({ activeIndex, onSelection, id, className, children }) {
+    const [isActive, setActive] = useState(activeIndex);
 
-    static propTypes = {
-        id: PropTypes.string,
-        model: PropTypes.arrayOf(
-            PropTypes.shape({
-                label: PropTypes.string.isRequired,
-                url: PropTypes.string
-            })
-        ).isRequired,
-        style: PropTypes.object,
-        className: PropTypes.string
-    };
+    const modifiedChildren = React.Children.map(children, (child, index) => {
+        return cloneElement(child, {
+            onClick: e => {
+                setActive(index);
+                onSelection(Object.assign({}, e, { tabIndex: index }));
+            },
+            key: index,
+            children: child.props.children,
+            href: child.props.href,
+            itemClass: child.props.className,
+            active: isActive === index
+        });
+    });
 
-    constructor(props) {
-        super(props);
-        this.defaultStyle = {
-            breadcrumb: `${prefix}-breadcrumb`,
-            breadcrumbItem: `${prefix}-breadcrumb-item`,
-            breadcrumbLink: `${prefix}-link`
-        };
-    }
-
-    renderItems() {
-        if (this.props.model) {
-            return this.props.model.map((item, index) => (
-                <li
-                    className={`${this.defaultStyle.breadcrumbItem}`}
-                    key={`li-${item.label}-${index}`}
-                >
-                    <Link
-                        href={item.url || 'javascript:void(0);'}
-                        className={`${this.defaultStyle.breadcrumbLink}`}
-                    >
-                        {item.label}
-                    </Link>
-                </li>
-            ));
-        }
-    }
-
-    render() {
-        return (
-            <ul
-                id={this.props.id || ''}
-                className={`${this.defaultStyle.breadcrumb} ${
-                    this.props.className
-                    } || ''`}
-                style={this.props.style || {}}
-                aria-label="breadcrumb"
-            >
-                {this.renderItems()}
-            </ul>
-        );
-    }
+    return (
+        <ul
+            className={`${prefix}-breadcrumb ${className ? className : ''}`}
+            aria-label="breadcrumb"
+            id={id}
+        >
+            {modifiedChildren}
+        </ul>
+    );
 }
+
+Breadcrumb.propTypes = {
+    id: PropTypes.string,
+    activeIndex: PropTypes.number,
+    className: PropTypes.string,
+    onSelection: PropTypes.func,
+};
+Breadcrumb.defaultProps = {
+    id: "",
+    activeIndex: 0,
+    className: "",
+    onSelection: () => { }
+};
 
 export default Breadcrumb;

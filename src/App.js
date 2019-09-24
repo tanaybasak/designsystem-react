@@ -10,7 +10,7 @@ import Radio from './atoms/Radio';
 import TextArea from './atoms/TextArea';
 import Link from './atoms/Link';
 import Paragraph from './atoms/Paragraph';
-import Breadcrumb from './atoms/Breadcrumb';
+import { Breadcrumb, BreadcrumbItem } from './atoms/Breadcrumb';
 import Spinner from './atoms/Spinner';
 import Toggle from './atoms/Toggle';
 import Notification from './atoms/Notification';
@@ -654,18 +654,11 @@ class App extends Component {
                 </div>
                 {/* Breadcrumb */}
                 <div className="hcl-col-12 mt-5" id="breadcrumb-section">
-                  <Breadcrumb
-                    id="breadcrumb"
-                    className="custom-breadcrumb"
-                    model={[
-                      { label: 'Breadcrumb 1', url: '' },
-                      {
-                        label: 'Breadcrumb 2',
-                        url: 'https://google.co.in'
-                      },
-                      { label: 'Breadcrumb 3' }
-                    ]}
-                  />
+                  <Breadcrumb id="small-navigator" className="custom-breadcrumb-top" activeIndex={Math.floor(Math.random() * 3)} onSelection={(e) => console.log(e, e.tabIndex)}>
+                    <BreadcrumbItem className="custom-item" href="#">Breadcrumb 1</BreadcrumbItem>
+                    <BreadcrumbItem href="#">Breadcrumb 2</BreadcrumbItem>
+                    <BreadcrumbItem href="#tools">Breadcrumb 3</BreadcrumbItem>
+                  </Breadcrumb>
                 </div>
                 {/* Spinner */}
                 <div className="hcl-col-12 mt-5" id="spinner-section">
