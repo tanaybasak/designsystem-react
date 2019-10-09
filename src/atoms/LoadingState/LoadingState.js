@@ -65,14 +65,13 @@ const LoadingState = (
                     <thead>
                         <tr>
                             {
-                                restProps.tableData.heading.map(({ content, title, sortable }, index) => (
+                                restProps.tableData.rows.map(({ label, sortable, title }, index) => (
                                     <th
-                                        key={`heading-${index}`}
-                                        title={title}
-                                        className={sortable ? 'sortable' : ''}
-                                        data-column={content}
+                                      key={`heading-${index}`}
+                                      title={title}
+                                      className={sortable ? 'sortable' : ''}
                                     >
-                                        {content}
+                                      {label}
                                     </th>
                                 ))
                             }
@@ -84,7 +83,7 @@ const LoadingState = (
                                 <tr key={`row-${index}`}>
 
                                     {
-                                        restProps.tableData.heading.map((col, i) => (
+                                        restProps.tableData.rows.map((col, i) => (
                                             <td key={`col-${index}-${i}`}>
                                                 <span />
                                             </td>
