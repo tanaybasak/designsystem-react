@@ -1,34 +1,32 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
+import { Info, Success, Danger, Warning } from './icons';
 
-const Notification = ({
+const useIcon = kindProp =>
+  ({
+    danger: Danger,
+    success: Success,
+    warning: Warning,
+    info: Info
+  }[kindProp]);
+
+export default function Notification({
   title,
   type,
   subtitle,
   className,
+  icon,
   closable,
   onClose,
   visible
-}) => {
+}) {
   const classnames = `${prefix}-notification ${prefix}-${type} ${className}`.trim();
 
   return visible ? (
     <div className={classnames} role="alert">
       <div className={`${prefix}-notification-body`}>
-        <svg
-          focusable="false"
-          preserveAspectRatio="xMidYMid meet"
-          style={{ willChange: 'transform' }}
-          xmlns="http://www.w3.org/2000/svg"
-          className={`${prefix}-notification-icon`}
-          width="20"
-          height="20"
-          viewBox="0 0 32 32"
-          aria-hidden="true"
-        >
-          <path d="M16 2a14 14 0 1 0 14 14A14 14 0 0 0 16 2zm0 5a1.5 1.5 0 1 1-1.5 1.5A1.5 1.5 0 0 1 16 7zm4 17.12h-8v-2.24h2.88v-6.76H13v-2.24h4.13v9H20z" />
-        </svg>
+        {icon || useIcon(type)}
         <div className={`${prefix}-notification-text-wrapper`}>
           <p className={`${prefix}-notification-title`}>{title}</p>
           <p className={`${prefix}-notification-subtitle`}>{subtitle}</p>
@@ -44,13 +42,14 @@ const Notification = ({
       ) : null}
     </div>
   ) : null;
-};
+}
 
 Notification.propTypes = {
   title: PropTypes.string,
-  type: PropTypes.oneOf(['error', 'info', 'success', 'warning']).isRequired,
+  type: PropTypes.oneOf(['danger', 'info', 'success', 'warning']).isRequired,
   subtitle: PropTypes.string,
   className: PropTypes.string,
+  icon: PropTypes.element,
   closable: PropTypes.bool,
   visible: PropTypes.bool.isRequired,
   onClose: PropTypes.func
@@ -60,8 +59,7 @@ Notification.defaultProps = {
   title: '',
   subtitle: '',
   className: '',
+  icon: null,
   closable: true,
   onClose: () => {}
 };
-
-export default Notification;
