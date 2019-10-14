@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
-import { Info, Success, Danger, Warning } from './icons';
+import { Info, Success, Danger, Warning } from '../../util/icons';
 
 const useIcon = kindProp =>
   ({

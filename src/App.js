@@ -821,7 +821,7 @@ class App extends Component {
                 {/* Tag */}
                 <div className="hcl-col-12 mt-5" id="toast-section">
                   <Toast
-                    type="danger"
+                    type="success"
                     subtitle="Subtitle text goes here."
                     caption="Time stamp [00:00:00]"
                     closable
