@@ -1,4 +1,4 @@
-import React, { useState, cloneElement } from 'react';
+import React, { useState, cloneElement, Children } from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 
@@ -9,7 +9,9 @@ export default function Accordion({
   ...restProps
 }) {
   const [expanded, setExpanded] = useState(
-    children.map(child => child.props.expanded || false)
+    children
+      ? Children.toArray(children).map(child => child.props.expanded || false)
+      : []
   );
   const classnames = `${prefix}-accordion ${className}`.trim();
 
@@ -25,15 +27,17 @@ export default function Accordion({
 
   return (
     <ul className={classnames} {...restProps}>
-      {React.Children.map(children, (child, index) =>
-        cloneElement(child, {
-          onExpand: event => {
-            toggleContent(event);
-          },
-          expanded: expanded[index],
-          dataIndex: index
-        })
-      )}
+      {children
+        ? Children.toArray(children).map((child, index) =>
+            cloneElement(child, {
+              onExpand: event => {
+                toggleContent(event);
+              },
+              expanded: expanded[index],
+              dataIndex: index
+            })
+          )
+        : null}
     </ul>
   );
 }
