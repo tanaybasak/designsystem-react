@@ -2,24 +2,25 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { text, boolean } from '@storybook/addon-knobs';
-import Checkbox from './Checkbox';
+import TextArea from './TextArea';
 import '../../story.css';
 import 'patron-css/dist/patron-style.css';
 
-storiesOf('Checkbox', module).add(
+storiesOf('TextArea', module).add(
   'basic',
   () => (
-    <Checkbox
-      id="checkbox1"
-      value={text('Value', 'standard')}
-      label={text('Label', 'Checkbox Label')}
+    <TextArea
       disabled={boolean('Disabled', false)}
-      onChange={action(event)}
+      onBlur={action('onBlur')}
+      onChange={action('onChange')}
+      onClick={action('onClick')}
+      onFocus={action('onFocus')}
+      placeholder={text('Placeholder', 'Placeholder Text')}
     />
   ),
   {
     info: {
-      text: 'Description About Checkbox Component'
+      text: 'Description About TextArea Component'
     }
   }
 );

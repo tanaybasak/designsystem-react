@@ -116,6 +116,7 @@ const NumberInput = ({
           data-invalid={validationMessage !== '' ? true : false}
           id={id ? id : null}
           value={value}
+          {...restProps}
           onChange={event => {
             setValue(event.currentTarget.value);
             if (restProps.onChange) {
