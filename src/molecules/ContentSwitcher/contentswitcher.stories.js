@@ -2,14 +2,10 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { text, boolean } from '@storybook/addon-knobs';
-/*
- *@ModuleStart
- */
+//@update-path-build-start
 import ContentSwitcher from './ContentSwitcher';
 import Switch from './Switch';
-/*
- *@ModuleEnd
- */
+//@update-path-build-end
 import '../../story.css';
 import 'patron-css/dist/patron-style.css';
 

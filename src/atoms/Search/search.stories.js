@@ -2,13 +2,9 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { select, text } from '@storybook/addon-knobs';
-/*
- *@ModuleStart
- */
+//@update-path-build-start
 import Search from './Search';
-/*
- *@ModuleEnd
- */
+//@update-path-build-end
 import '../../story.css';
 import 'patron-css/dist/patron-style.css';
 

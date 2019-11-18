@@ -2,13 +2,9 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { object, text, boolean } from '@storybook/addon-knobs';
-/*
- *@ModuleStart
- */
+//@update-path-build-start
 import Footer from './Footer';
-/*
- *@ModuleEnd
- */
+//@update-path-build-end
 import '../../story.css';
 import 'patron-css/dist/patron-style.css';
 const links = [

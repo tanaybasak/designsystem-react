@@ -1,14 +1,10 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-/*
- *@ModuleStart
- */
+//@update-path-build-start
 import Header from './Header';
 import Search from '../../atoms/Search';
-/*
- *@ModuleEnd
- */
+//@update-path-build-end
 import '../../story.css';
 import 'patron-css/dist/patron-style.css';
 

@@ -1,13 +1,9 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { select, text } from '@storybook/addon-knobs';
-/*
- *@ModuleStart
- */
+//@update-path-build-start
 import Heading from './Heading';
-/*
- *@ModuleEnd
- */
+//@update-path-build-end
 import '../../story.css';
 import 'patron-css/dist/patron-style.css';
 
