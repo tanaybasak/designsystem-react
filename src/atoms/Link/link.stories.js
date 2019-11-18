@@ -1,7 +1,13 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { text } from '@storybook/addon-knobs';
+/*
+ *@ModuleStart
+ */
 import Link from './Link';
+/*
+ *@ModuleEnd
+ */
 import '../../story.css';
 import 'patron-css/dist/patron-style.css';
 

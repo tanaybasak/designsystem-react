@@ -1,6 +1,12 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
+/*
+ *@ModuleStart
+ */
 import Tile from './Tile';
+/*
+ *@ModuleEnd
+ */
 import '../../story.css';
 import 'patron-css/dist/patron-style.css';
 

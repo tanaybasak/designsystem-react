@@ -2,7 +2,13 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { text, number, object } from '@storybook/addon-knobs';
+/*
+ *@ModuleStart
+ */
 import Pagination from './Pagination';
+/*
+ *@ModuleEnd
+ */
 import '../../story.css';
 import 'patron-css/dist/patron-style.css';
 

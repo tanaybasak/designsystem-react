@@ -2,8 +2,14 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { select, text, boolean } from '@storybook/addon-knobs';
+/*
+ *@ModuleStart
+ */
 import Tab from './Tab';
 import Tabs from './Tabs';
+/*
+ *@ModuleEnd
+ */
 import '../../story.css';
 import 'patron-css/dist/patron-style.css';
 

@@ -2,7 +2,13 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { select, object, text, boolean, number } from '@storybook/addon-knobs';
+/*
+ *@ModuleStart
+ */
 import Dropdown from './Dropdown';
+/*
+ *@ModuleEnd
+ */
 import '../../story.css';
 import 'patron-css/dist/patron-style.css';
 

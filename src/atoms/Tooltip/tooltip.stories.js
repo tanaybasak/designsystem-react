@@ -2,10 +2,16 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { select, text, boolean } from '@storybook/addon-knobs';
+/*
+ *@ModuleStart
+ */
 import Tooltip from './Tooltip';
 import Paragraph from '../Paragraph/Paragraph';
 import Button from '../Button/Button';
 import Link from '../Link/Link'
+/*
+ *@ModuleEnd
+ */
 import '../../story.css';
 import 'patron-css/dist/patron-style.css';
 
