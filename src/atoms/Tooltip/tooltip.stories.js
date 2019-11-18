@@ -8,7 +8,7 @@ import { select, text, boolean } from '@storybook/addon-knobs';
 import Tooltip from './Tooltip';
 import Paragraph from '../Paragraph/Paragraph';
 import Button from '../Button/Button';
-import Link from '../Link/Link'
+import Link from '../Link/Link';
 /*
  *@ModuleEnd
  */
