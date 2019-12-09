@@ -29,6 +29,7 @@ storiesOf('TextInput', module).add(
       onFocus={action('onFocus')}
       placeholder={text('Placeholder', 'Placeholder Text')}
       type={select('Type', inputTypeOption, 'text')}
+      aria-label="text input"
     />
   ),
   {

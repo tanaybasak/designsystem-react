@@ -1,4 +1,3 @@
-
 th {
     background: rgb(250, 250, 250);
     text-transform: capitalize;
@@ -9,6 +8,11 @@ th {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.simplebar-content pre {
+    padding: 20px 5px;
+    font-weight: 500;
 }
 
 .hcl-modal {

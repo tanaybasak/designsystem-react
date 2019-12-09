@@ -130,6 +130,7 @@ const NumberInput = ({
             className="increment-btn"
             type="button"
             tabIndex="-1"
+            aria-label="increment button"
             onMouseDown={increment}
             disabled={disabled ? 'disabled' : null}
           >
@@ -147,6 +148,7 @@ const NumberInput = ({
             className="decrement-btn"
             type="button"
             tabIndex="-1"
+            aria-label="decrement button"
             onMouseDown={decrement}
             disabled={disabled ? 'disabled' : null}
           >

@@ -2,7 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 //@update-path-build-start
-import Header from './Header';
+import Header from './index';
 import Search from '../../atoms/Search';
 //@update-path-build-end
 import '../../story.css';

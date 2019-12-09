@@ -3,8 +3,7 @@ import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { select, text, number } from '@storybook/addon-knobs';
 //@update-path-build-start
-import Breadcrumb from './Breadcrumb';
-import BreadcrumbItem from './BreadcrumbItem';
+import { Breadcrumb, BreadcrumbItem } from './index';
 //@update-path-build-end
 import '../../story.css';
 import 'patron-css/dist/patron-style.css';

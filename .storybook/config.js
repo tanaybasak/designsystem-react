@@ -7,7 +7,8 @@ import { withA11y } from '@storybook/addon-a11y';
 addParameters({
   options: {
     theme: customTheme,
-    panelPosition: 'bottom'
+    panelPosition: 'bottom',
+    storySort: (a, b) => a[1].id.localeCompare(b[1].id)
   }
 });
 

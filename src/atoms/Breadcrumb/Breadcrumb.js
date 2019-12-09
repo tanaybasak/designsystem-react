@@ -31,6 +31,7 @@ function Breadcrumb({ activeIndex, onSelection, id, className, children }) {
 }
 
 Breadcrumb.propTypes = {
+    /** The size of the button */
     id: PropTypes.string,
     activeIndex: PropTypes.number,
     className: PropTypes.string,
