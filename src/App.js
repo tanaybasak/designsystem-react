@@ -173,7 +173,278 @@ class App extends Component {
         icon: 'fa fa-file-o',
         children: []
       }
-    ]
+    ],
+
+    treeData1 : [
+        {
+          name: 'Section 1',
+          showChildren: false,
+          expandIcon: 'fa fa-folder-o',
+          collapsedIcon: 'fa fa-folder-open-o',
+          children: [
+            {
+              name: 'Sub Section 1.1',
+              showChildren: false,
+              expandIcon: 'fa fa-folder-o',
+              collapsedIcon: 'fa fa-folder-open-o',
+              children: [
+                {
+                  name: 'Sub Section 1.1.1',
+                  showChildren: false,
+                  icon: 'fa fa-file-o',
+                  children: []
+                },
+                {
+                  name: 'Sub Section 1.1.2',
+                  showChildren: false,
+                  icon: 'fa fa-file-o',
+                  children: []
+                }
+              ]
+            },
+            {
+              name: 'Sub Section 1.2',
+              showChildren: false,
+              icon: 'fa fa-file-o',
+              children: []
+            }
+          ]
+        },
+        {
+          name: 'Section 2',
+          showChildren: false,
+          expandIcon: 'fa fa-folder-o',
+          collapsedIcon: 'fa fa-folder-open-o',
+          children: [
+            {
+              name: 'Sub Section 2.1',
+              showChildren: false,
+              expandIcon: 'fa fa-folder-o',
+              collapsedIcon: 'fa fa-folder-open-o',
+              children: [
+                {
+                  name: 'Sub Section 2.1.1',
+                  showChildren: false,
+                  children: [],
+                  icon: 'fa fa-file-o'
+                },
+                {
+                  name: 'Sub Section 2.1.2',
+                  showChildren: false,
+                  icon: 'fa fa-file-o',
+                  children: []
+                }
+              ]
+            },
+            {
+              name: 'Sub Section 2.2',
+              showChildren: false,
+              expandIcon: 'fa fa-folder-o',
+              collapsedIcon: 'fa fa-folder-open-o',
+              children: [
+                {
+                  name: 'Sub Section 2.2.1',
+                  showChildren: false,
+                  expandIcon: 'fa fa-folder-o',
+                  collapsedIcon: 'fa fa-folder-open-o',
+                  children: [
+                    {
+                      name: 'Sub Section 2.2.1.1',
+                      showChildren: false,
+                      icon: 'fa fa-file-o',
+                      children: []
+                    },
+                    {
+                      name: 'Sub Section 2.2.1.2',
+                      showChildren: false,
+                      icon: 'fa fa-file-o',
+                      children: []
+                    }
+                  ]
+                },
+                {
+                  name: 'Sub Section 2.2.2',
+                  showChildren: false,
+                  icon: 'fa fa-file-o',
+                  children: []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          name: 'Section 3',
+          showChildren: false,
+          icon: 'fa fa-file-o',
+          children: []
+        }
+      ],
+      treeData2 : [
+        {
+          name: 'Section 1',
+          showChildren: false,
+          children: [
+            {
+              name: 'Sub Section 1.1',
+              showChildren: false,
+              children: [
+                {
+                  name: 'Sub Section 1.1.1',
+                  showChildren: false,
+                  children: []
+                },
+                {
+                  name: 'Sub Section 1.1.2',
+                  showChildren: false,
+                  children: []
+                }
+              ]
+            },
+            {
+              name: 'Sub Section 1.2',
+              showChildren: false,
+              children: []
+            }
+          ]
+        },
+        {
+          name: 'Section 2',
+          showChildren: false,
+          children: [
+            {
+              name: 'Sub Section 2.1',
+              showChildren: false,
+              children: [
+                {
+                  name: 'Sub Section 2.1.1',
+                  showChildren: false,
+                  children: [],
+                },
+                {
+                  name: 'Sub Section 2.1.2',
+                  showChildren: false,
+                  children: []
+                }
+              ]
+            },
+            {
+              name: 'Sub Section 2.2',
+              showChildren: false,
+              children: [
+                {
+                  name: 'Sub Section 2.2.1',
+                  showChildren: false,
+                  children: [
+                    {
+                      name: 'Sub Section 2.2.1.1',
+                      showChildren: false,
+                      children: []
+                    },
+                    {
+                      name: 'Sub Section 2.2.1.2',
+                      showChildren: false,
+                      children: []
+                    }
+                  ]
+                },
+                {
+                  name: 'Sub Section 2.2.2',
+                  showChildren: false,
+                  children: []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          name: 'Section 3',
+          showChildren: false,
+          children: []
+        }
+      ],
+      treeData3 : [
+        {
+          name: 'Section 1',
+          showChildren: false,
+          children: [
+            {
+              name: 'Sub Section 1.1',
+              showChildren: false,
+              children: [
+                {
+                  name: 'Sub Section 1.1.1',
+                  showChildren: false,
+                  children: []
+                },
+                {
+                  name: 'Sub Section 1.1.2',
+                  showChildren: false,
+                  children: []
+                }
+              ]
+            },
+            {
+              name: 'Sub Section 1.2',
+              showChildren: false,
+              children: []
+            }
+          ]
+        },
+        {
+          name: 'Section 2',
+          showChildren: false,
+          children: [
+            {
+              name: 'Sub Section 2.1',
+              showChildren: false,
+              children: [
+                {
+                  name: 'Sub Section 2.1.1',
+                  showChildren: false,
+                  children: [],
+                },
+                {
+                  name: 'Sub Section 2.1.2',
+                  showChildren: false,
+                  children: []
+                }
+              ]
+            },
+            {
+              name: 'Sub Section 2.2',
+              showChildren: false,
+              children: [
+                {
+                  name: 'Sub Section 2.2.1',
+                  showChildren: false,
+                  children: [
+                    {
+                      name: 'Sub Section 2.2.1.1',
+                      showChildren: false,
+                      children: []
+                    },
+                    {
+                      name: 'Sub Section 2.2.1.2',
+                      showChildren: false,
+                      children: []
+                    }
+                  ]
+                },
+                {
+                  name: 'Sub Section 2.2.2',
+                  showChildren: false,
+                  children: []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          name: 'Section 3',
+          showChildren: false,
+          children: []
+        }
+      ]
   };
 
   items = [
@@ -1728,9 +1999,37 @@ class App extends Component {
                 </div>
 
                 <div className="hcl-row">
-                  <div className="hcl-col-6 mb-2">
+                  <div className="hcl-col-3 mb-2">
                     <TreeView
                       treeData={this.state.treeData}
+                      onChange={selected => {
+                        console.log('selected item', selected);
+                      }}
+                    />
+                  </div>
+                  <div className="hcl-col-3 mb-2">
+                    <TreeView
+                      treeData={this.state.treeData1}
+                      expandedIcon="fa fa-minus"
+                      collapsedIcon="fa fa-plus"
+                      onChange={selected => {
+                        console.log('selected item', selected);
+                      }}
+                    />
+                  </div>
+                  <div className="hcl-col-3 mb-2">
+                    <TreeView
+                      treeData={this.state.treeData2}
+                      onChange={selected => {
+                        console.log('selected item', selected);
+                      }}
+                    />
+                  </div>
+                  <div className="hcl-col-3 mb-2">
+                    <TreeView
+                      treeData={this.state.treeData3}
+                      expandedIcon="fa fa-minus"
+                      collapsedIcon="fa fa-plus"
                       onChange={selected => {
                         console.log('selected item', selected);
                       }}

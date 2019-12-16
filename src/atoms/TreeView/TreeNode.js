@@ -1,17 +1,26 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import prefix from '../../settings';
-import { findNextSiblingAncestor, findLastVisibleChildren } from '../../util/treeUtil';
+import {
+  findNextSiblingAncestor,
+  findLastVisibleChildren
+} from '../../util/treeUtil';
 
-const TreeNode = ({ node, expandedIcon, collapsedIcon, onSelectNode }) => {
+const TreeNode = ({
+  node,
+  expandedIcon,
+  collapsedIcon,
+  onSelectNode,
+  selectedNode
+}) => {
   const [showChildren, toggleNode] = useState(node.showChildren);
 
   const toggleTreeNode = () => {
     toggleNode(!showChildren);
   };
 
-  const selectNode = () => {
-    onSelectNode(node);
+  const selectNode = e => {
+    e.stopPropagation();
+    onSelectNode(node, e);
   };
 
   const focusNode = node => {
@@ -20,7 +29,7 @@ const TreeNode = ({ node, expandedIcon, collapsedIcon, onSelectNode }) => {
     }
   };
 
-  const keyDown = (e) => {
+  const keyDown = e => {
     var key = e.which || e.keyCode;
     const nodeElement = e.currentTarget;
     switch (key) {
@@ -66,7 +75,7 @@ const TreeNode = ({ node, expandedIcon, collapsedIcon, onSelectNode }) => {
           nodeElement.parentElement.hasAttribute('aria-expanded') &&
           nodeElement.parentElement.getAttribute('aria-expanded') === 'false'
         ) {
-            toggleNode(true);
+          toggleNode(true);
         }
         e.preventDefault();
         break;
@@ -76,7 +85,7 @@ const TreeNode = ({ node, expandedIcon, collapsedIcon, onSelectNode }) => {
           nodeElement.parentElement.hasAttribute('aria-expanded') &&
           nodeElement.parentElement.getAttribute('aria-expanded') === 'true'
         ) {
-            toggleNode(false);
+          toggleNode(false);
         } else {
           const parentNodeElement =
             nodeElement.parentElement.parentElement.parentElement;
@@ -87,17 +96,26 @@ const TreeNode = ({ node, expandedIcon, collapsedIcon, onSelectNode }) => {
         e.preventDefault();
         break;
       }
+      case 13: {
+        selectNode(e);
+        e.preventDefault();
+        break;
+      }
       default:
         break;
     }
-  }
+  };
 
   return (
     <li className="tree-item" role="treeitem" aria-expanded={showChildren}>
       {node.children && node.children.length != 0 ? (
-        <div className="tree-node" tabIndex="0" onKeyDown={keyDown}>
+        <div
+          className="tree-node"
+          tabIndex="0"
+          onKeyDown={keyDown}
+          onClick={toggleTreeNode}
+        >
           <i
-            onClick={toggleTreeNode}
             className={`toggle-icon ${
               showChildren ? expandedIcon : collapsedIcon
             }`}
@@ -107,18 +125,28 @@ const TreeNode = ({ node, expandedIcon, collapsedIcon, onSelectNode }) => {
             <i className={node.expandIcon} />
           ) : null}
 
-          {node.expandIcollapsedIconcon && showChildren ? (
+          {node.collapsedIcon && showChildren ? (
             <i className={node.collapsedIcon} />
           ) : null}
 
           {node.icon ? <i className={node.icon}> </i> : null}
 
-          <span onClick={selectNode}>{node.name}</span>
+          <span
+            onClick={selectNode}
+            className={selectedNode === node ? 'highlight' : ''}
+          >
+            {node.name}
+          </span>
         </div>
       ) : (
         <div className="tree-node pl-5" tabIndex="0" onKeyDown={keyDown}>
           {node.icon ? <i className={node.icon}> </i> : null}
-          <span onClick={selectNode}>{node.name}</span>
+          <span
+            onClick={selectNode}
+            className={selectedNode === node ? 'highlight' : ''}
+          >
+            {node.name}
+          </span>
         </div>
       )}
 
@@ -128,8 +156,11 @@ const TreeNode = ({ node, expandedIcon, collapsedIcon, onSelectNode }) => {
             return (
               <TreeNode
                 node={subnode}
-                key={`subnodeindex-${index}`}
+                key={`treeNodeIndex-${index}`}
+                expandedIcon={expandedIcon}
+                collapsedIcon={collapsedIcon}
                 onSelectNode={onSelectNode}
+                selectedNode={selectedNode}
               />
             );
           })}
@@ -141,16 +172,18 @@ const TreeNode = ({ node, expandedIcon, collapsedIcon, onSelectNode }) => {
 
 TreeNode.propTypes = {
   node: PropTypes.any,
+  selectedNode: PropTypes.any,
   expandedIcon: PropTypes.string,
   collapsedIcon: PropTypes.string,
   onSelectNode: PropTypes.func
 };
 
 TreeNode.defaultProps = {
-  node: [],
+  node: {},
   expandedIcon: 'caret caret-down',
   collapsedIcon: 'caret',
-  onSelectNode: () => {}
+  onSelectNode: () => {},
+  selectedNode: {}
 };
 
 export default TreeNode;
