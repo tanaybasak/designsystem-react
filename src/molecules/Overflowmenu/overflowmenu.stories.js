@@ -48,11 +48,13 @@ storiesOf('Overflowmenu', module).add(
       ellipsisType={select('ellipsisType', ellipsisType, 'vertical')}
       listItems={object('List Items', listItems)}
       onClick={action('Overflow-Click')}
+      aria-label
     />
   ),
   {
     info: {
-      text: 'Description About Overflowmenu Component'
+      text: `Description About Overflowmenu Component \n
+      import { Overflowmenu } from 'patron-react/overflowmenu'`
     }
   }
 );

@@ -33,7 +33,8 @@ storiesOf('Select', module).add(
   ),
   {
     info: {
-      text: 'Description About Select Component'
+      text: `Description About Select Component\n
+      import { Select } from 'patron-react/select'`
     }
   }
 );

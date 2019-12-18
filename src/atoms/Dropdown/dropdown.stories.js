@@ -8,11 +8,6 @@ import Dropdown from './Dropdown';
 import '../../story.css';
 import 'patron-css/dist/patron-style.css';
 
-const typeOptions = {
-  Top: 'top',
-  Bottom: 'bottom'
-};
-
 const items = [
   {
     id: 'option-1',
@@ -22,19 +17,19 @@ const items = [
 
 storiesOf('Dropdown', module)
   .add(
-    'basic',
+    'bottom',
     () => (
       <Dropdown
         type={'bottom'}
         items={object('Item', items)}
         label={text('Label', 'Dropdown Label')}
-        selectedIndex={number('Selected Index', 0)}
         onChange={action(event)}
       />
     ),
     {
       info: {
-        text: 'Description About Dropdown Component'
+        text: `Description About Dropdown Component \n
+        import { Dropdown } from 'patron-react/dropdown'`
       }
     }
   )
@@ -51,7 +46,8 @@ storiesOf('Dropdown', module)
     ),
     {
       info: {
-        text: 'Description About Dropdown Component'
+        text: `Description About Dropdown Component \n
+        import { Dropdown } from 'patron-react/dropdown'`
       }
     }
   );

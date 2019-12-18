@@ -18,7 +18,8 @@ storiesOf('Tile', module)
     ),
     {
       info: {
-        text: 'Description About Tile Component'
+        text: `Description About Tile Component \n
+        import { Tile } from 'patron-react/tile'`
       }
     }
   )
@@ -33,7 +34,8 @@ storiesOf('Tile', module)
     ),
     {
       info: {
-        text: 'Description About Tile Component'
+        text: `Description About Tile Component \n
+        import { Tile } from 'patron-react/tile'`
       }
     }
   )
@@ -48,7 +50,8 @@ storiesOf('Tile', module)
     ),
     {
       info: {
-        text: 'Description About Tile Component'
+        text: `Description About Tile Component \n
+        import { Tile } from 'patron-react/tile'`
       }
     }
   )
@@ -66,7 +69,8 @@ storiesOf('Tile', module)
     ),
     {
       info: {
-        text: 'Description About Tile Component'
+        text: `Description About Tile Component \n
+        import { Tile } from 'patron-react/tile'`
       }
     }
   );

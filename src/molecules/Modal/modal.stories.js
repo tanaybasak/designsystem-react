@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { select, text, boolean, object } from '@storybook/addon-knobs';
+import { select, text, object } from '@storybook/addon-knobs';
 //@update-path-build-start
 import Modal from './Modal';
 //@update-path-build-end
@@ -33,7 +33,8 @@ storiesOf('Modal', module).add(
   ),
   {
     info: {
-      text: 'Description About Modal Component'
+      text: `Description About Modal Component \n
+      import { Modal } from 'patron-react/modal'`
     }
   }
 );
