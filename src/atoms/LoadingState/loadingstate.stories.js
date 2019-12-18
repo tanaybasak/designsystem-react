@@ -1,7 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
-import { select, text, boolean } from '@storybook/addon-knobs';
+import { text } from '@storybook/addon-knobs';
 //@update-path-build-start
 import LoadingState from './LoadingState';
 //@update-path-build-end
@@ -20,30 +19,93 @@ storiesOf('LoadingState', module)
     ),
     {
       info: {
-        text: 'Description About LoadingState Component'
+        text: `Description About LoadingState Component \n
+        
+        import { LoadingState } from 'patron-react/loadingstate'
+        
+        `
       }
     }
   )
   .add('Breadcrumb', () => <LoadingState type="breadcrumb" />, {
     info: {
-      text: 'Description About Breadcrumb LoadingState Component'
+      text: `Description About Breadcrumb LoadingState Component \n
+      
+      import { LoadingState } from 'patron-react/loadingstate'
+
+      `
     }
-  }).add('Tab', () => <LoadingState type="tab" />, {
+  })
+  .add('Tab', () => <LoadingState type="tab" />, {
     info: {
-      text: 'Description About Tab LoadingState Component'
+      text: `Description About Tab LoadingState Component \n
+      
+      import { LoadingState } from 'patron-react/loadingstate'
+
+        `
     }
-  }).add('Accordion', () => <LoadingState type="accordion" />, {
+  })
+  .add('Accordion', () => <LoadingState type="accordion" />, {
     info: {
-      text: 'Description About Accordion LoadingState Component'
+      text: `Description About Accordion LoadingState Component\n
+      
+      import { LoadingState } from 'patron-react/loadingstate'
+
+        `
     }
   })
   .add('Slider', () => <LoadingState type="slider" />, {
     info: {
-      text: 'Description About Slider LoadingState Component'
+      text: `Description About Slider LoadingState Component\n
+      
+      import { LoadingState } from 'patron-react/loadingstate'
+
+        `
     }
   })
-//   .add('DataTable', () => <LoadingState type="dataTable" />, {
-//     info: {
-//       text: 'Description About Slider DataTable Component'
-//     }
-//   })
+  .add(
+    'DataTable',
+    () => (
+      <LoadingState
+        type="datatable"
+        tableData={{
+          columns: [
+            {
+              label: 'Name',
+              field: 'name'
+            },
+            {
+              label: 'Protocol',
+              field: 'protocol'
+            },
+            {
+              label: 'Port',
+              field: 'port'
+            },
+            {
+              label: 'Rule',
+              field: 'rule'
+            },
+            {
+              label: 'Attached Groups',
+              field: 'attachedGroups'
+            },
+            {
+              label: 'Status',
+              field: 'status'
+            }
+          ],
+          rows: []
+        }}
+      />
+    ),
+    {
+      info: {
+        text: `Description About Slider DataTable Component\n
+      
+      import { LoadingState } from 'patron-react/loadingstate'
+
+      `
+      }
+    }
+  );

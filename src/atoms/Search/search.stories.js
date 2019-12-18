@@ -29,12 +29,17 @@ storiesOf('Search', module)
         placeholder={text('Placeholder', 'Search...')}
         size={select('Size', sizeOption, 'default')}
         theme={select('Theme', themeOption, 'default')}
+        aria-label="Search"
         type="default"
       />
     ),
     {
       info: {
-        text: 'Description About Search Component'
+        text: `Description About Search Component \n
+        
+        import { Search } from 'patron-react/search'
+
+        `
       }
     }
   )
@@ -48,12 +53,17 @@ storiesOf('Search', module)
         placeholder={text('Placeholder', 'Search...')}
         size={select('Size', sizeOption, 'default')}
         theme={select('Theme', themeOption, 'default')}
+        aria-label="Search"
         type="clickable"
       />
     ),
     {
       info: {
-        text: 'Description About Search Component'
+        text: `Description About Search Component \n
+        
+        import { Search } from 'patron-react/search'
+
+        `
       }
     }
   );
