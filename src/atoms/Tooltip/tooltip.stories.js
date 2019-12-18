@@ -1,7 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
-import { select, text, boolean } from '@storybook/addon-knobs';
+import { select, text } from '@storybook/addon-knobs';
 //@update-path-build-start
 import Tooltip from './Tooltip';
 import Paragraph from '../Paragraph/Paragraph';
@@ -45,7 +44,11 @@ storiesOf('Tooltip', module)
     ),
     {
       info: {
-        text: 'Description About Icon Tooltip Component'
+        text: `Description About Icon Tooltip Component \n
+        
+        import { Tooltip } from 'patron-react/tooltip';
+        
+        `
       }
     }
   )
@@ -65,7 +68,11 @@ storiesOf('Tooltip', module)
     ),
     {
       info: {
-        text: 'Description About Definition Tooltip Component'
+        text: `Description About Definition Tooltip Component \n
+        
+        import { Tooltip } from 'patron-react/tooltip';
+        
+        `
       }
     }
   )
@@ -126,7 +133,14 @@ storiesOf('Tooltip', module)
     ),
     {
       info: {
-        text: 'Description About Icon Tooltip Component'
+        text: `Description About Icon Tooltip Component \n
+        
+    import { Tooltip } from 'patron-react/tooltip';
+    import { Paragraph } from 'patron-react/paragraph';
+    import { Button } from 'patron-react/button';
+    import { Link } from 'patron-react/link';
+        
+        `
       }
     }
   );
