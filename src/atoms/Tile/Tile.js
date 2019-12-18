@@ -4,12 +4,12 @@ import prefix from '../../settings';
 
 let selectTileCount = 0;
 
-const Tile = ({ className, children, type, id, href }) => {
+const Tile = ({ className, children, type, id, href, ...restProps }) => {
   let classNames = null;
   const clickableTile = () => {
     classNames = `${prefix}-tile-clickable ${className}`.trim();
     return (
-      <div className={classNames} tabIndex="0">
+      <div className={classNames} tabIndex="0" {...restProps}>
         <a href={href}>{children}</a>
       </div>
     );
@@ -19,7 +19,7 @@ const Tile = ({ className, children, type, id, href }) => {
     selectTileCount += 1;
     classNames = `${prefix}-tile-selectable ${className}`.trim();
     return (
-      <div>
+      <div {...restProps}>
         <label
           htmlFor={`select-tile-${selectTileCount}`}
           className={classNames}
@@ -51,7 +51,7 @@ const Tile = ({ className, children, type, id, href }) => {
   const expandableTile = () => {
     classNames = `${prefix}-tile-expandable ${className}`.trim();
     return (
-      <div className={classNames} tabIndex="0">
+      <div className={classNames} tabIndex="0" {...restProps}>
         <input
           id={`${id}`}
           className={`${prefix}-tile-input`}
@@ -74,7 +74,11 @@ const Tile = ({ className, children, type, id, href }) => {
 
   const readableTile = () => {
     classNames = `${prefix}-tile ${className}`.trim();
-    return <div className={classNames}>{children}</div>;
+    return (
+      <div className={classNames} {...restProps}>
+        {children}
+      </div>
+    );
   };
 
   return (
@@ -83,20 +87,33 @@ const Tile = ({ className, children, type, id, href }) => {
         ? type === 'clickable'
           ? clickableTile()
           : type === 'selectable'
-            ? selectableTile()
-            : type === 'expandable'
-              ? expandableTile()
-              : readableTile()
+          ? selectableTile()
+          : type === 'expandable'
+          ? expandableTile()
+          : readableTile()
         : null}
     </>
   );
 };
 
 Tile.propTypes = {
+  /** Class/clasess will be applied on the parent div of Tile */
   className: PropTypes.string,
+
+  /** Readable: This is for readable Tile. 
+  Clickable: This is for clickable Tile. 
+  Selectable: This is for selectable Tile. 
+  Expandable: This is for expandable Tile.  */
   type: PropTypes.oneOf(['clickable', 'selectable', 'expandable', 'readable']),
+
+  /** For Readable, Clickable & Selectable Tile:  
+  Content for tile. 
+  For Expandable: 
+  Two children are input. First will be shown prior expand and second will be shown after expand  */
   children: PropTypes.node.isRequired,
-  id: function (props, propName, componentName) {
+
+  /** Unique Identifier for Tile, applicable only for selectable tile.  */
+  id: function(props, propName, componentName) {
     if (
       props.hasOwnProperty('type') &&
       props['type'] === 'expandable' &&
@@ -107,7 +124,9 @@ Tile.propTypes = {
       );
     }
   },
-  href: function (props, propName, componentName) {
+
+  /** Hyperlink refernece which will be activated on click, applicable only for clickable tile.  */
+  href: function(props, propName, componentName) {
     if (
       props.hasOwnProperty('type') &&
       props['type'] === 'clickable' &&

@@ -10,11 +10,13 @@ import 'patron-css/dist/patron-style.css';
 storiesOf('Spinner', module)
   .add('basic', () => <Spinner title={text('Label', 'Loading')} />, {
     info: {
-      text: 'Description About Spinner Component'
+      text: `Description About Spinner Component \n
+      import { Spinner } from 'patron-react/spinner'`
     }
   })
   .add('small', () => <Spinner small title={text('Label', 'Loading')} />, {
     info: {
-      text: 'Description About Spinner Component'
+      text: `Description About Spinner Component \n
+      import { Spinner } from 'patron-react/spinner'`
     }
   });

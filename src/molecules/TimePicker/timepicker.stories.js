@@ -16,11 +16,13 @@ storiesOf('TimePicker', module).add(
       label={text('Label', 'Select Time')}
       onChange={action('Timepicker Onchange')}
       timeZones={object('Time Zones', timeZones)}
+      aria-label="Time Picker"
     />
   ),
   {
     info: {
-      text: 'Description About TimePicker Component'
+      text: `Description About TimePicker Component \n
+      import { TimePicker } from 'patron-react/timepicker'`
     }
   }
 );

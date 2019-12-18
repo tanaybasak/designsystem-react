@@ -1,14 +1,22 @@
-import React from "react";
-import PropTypes from "prop-types";
-import prefix from "../../settings";
-import {period} from "../../content";
+import React from 'react';
+import PropTypes from 'prop-types';
+import prefix from '../../settings';
+import { period } from '../../content';
 
-const TimePicker = ({ timeZones, label, onChange }) => {
+const TimePicker = ({
+  className,
+  timeZones,
+  label,
+  onChange,
+  ...restProps
+}) => {
   let timeObj = {
-    time: "00:00",
+    time: '00:00',
     period: period.am,
     timezone: timeZones[0]
   };
+
+  const classnames = `${prefix}-timepicker ${className}`.trim();
 
   const onSelectPeriod = event => {
     timeObj.period =
@@ -31,7 +39,7 @@ const TimePicker = ({ timeZones, label, onChange }) => {
   };
 
   return (
-    <div className={`${prefix}-timepicker`}>
+    <div className={classnames} {...restProps}>
       <div className={`${prefix}-timepicker-input`}>
         {label ? <label htmlFor="hcl-timepicker-1">{label}</label> : null}
         <input
@@ -69,14 +77,20 @@ const TimePicker = ({ timeZones, label, onChange }) => {
 };
 
 TimePicker.propTypes = {
+  /** Array of possible timezones */
   timeZones: PropTypes.array.isRequired,
+  /** Label for time picker, if not provided no label will be added.   */
   label: PropTypes.string,
-  onChange: PropTypes.func
+  /** Callback function which is executed when any change is made in time input.  */
+  onChange: PropTypes.func,
+  /** Class/clasess will be applied on the parent div of TimePicker */
+  className: PropTypes.string
 };
 
 TimePicker.defaultProps = {
   label: null,
-  onChange: () => {}
+  onChange: () => {},
+  className: ''
 };
 
 export default TimePicker;
