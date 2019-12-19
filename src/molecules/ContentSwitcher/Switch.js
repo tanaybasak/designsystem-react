@@ -28,10 +28,17 @@ function Switch({ label, onClick, active, isDisabled, iconClass, ...restProps })
 }
 
 Switch.propTypes = {
+    /** Text used to Differentiate Each Switches. */
     label: PropTypes.string,
+    /** Accepts event handler as prop/argument. */
     onClick: PropTypes.func,
+    //** Disable Switch */
     isDisabled: PropTypes.bool,
+    /** A class name used before the label text. */
     iconClass: PropTypes.string,
+    /** true – ‘active’ class is added the switch element 
+
+false – ‘active’ is removed from the switch element. */
     active: PropTypes.bool
 };
 
