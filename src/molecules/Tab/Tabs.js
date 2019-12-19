@@ -40,8 +40,11 @@ function Tabs({ activeIndex, onChange, children }) {
 }
 
 Tabs.propTypes = {
+    /** Index of the tab to be selected. */
     activeIndex: PropTypes.number,
+    /** Accepts event handler as prop/argument. */
     onChange: PropTypes.func,
+    /** self Children i.e Tab Component. */
     children: PropTypes.node.isRequired
 };
 
