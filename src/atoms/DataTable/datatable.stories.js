@@ -103,16 +103,16 @@ storiesOf('DataTable', module).add(
       selectable
       onSort={action(event)}
       className={select('Class Name', classOptions, 'hcl-data-table')}
-      // overflowMenu
-      // overflowMenuItems={overflowlist}
-      // overflowMenuOnClick={event =>
-      //   console.log(event.currentTarget)
-      // }
+     
     />
   ),
   {
     info: {
-      text: 'Description About DataTable Component'
+      text: `Description About DataTable Component
+
+      import { DataTable } from 'patron-react/datatable'
+      
+      `
     }
   }
 ).add(
@@ -132,7 +132,11 @@ storiesOf('DataTable', module).add(
     ),
     {
       info: {
-        text: 'Description About DataTable Component'
+        text: `Description About DataTable Component \n
+
+        import { DataTable } from 'patron-react/datatable'
+        
+        `
       }
     }
   );

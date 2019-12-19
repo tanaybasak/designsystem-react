@@ -43,8 +43,11 @@ export default function Accordion({
 }
 
 Accordion.propTypes = {
+  /** Boolean value to set if Accordion is controlled or uncontrolled */
   uncontrolled: PropTypes.bool,
+  /** Name of the custom class to apply to the accordion */
   className: PropTypes.string,
+  /** Accordion Items to be added in Accordion */
   children: PropTypes.any
 };
 

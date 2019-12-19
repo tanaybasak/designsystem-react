@@ -22,7 +22,11 @@ storiesOf('Toggle', module)
     ),
     {
       info: {
-        text: 'Description About Toggle Component'
+        text: `Description About Toggle Component
+
+        import { Toggle } from 'patron-react/toggle'
+
+        `
       }
     }
   )
@@ -40,7 +44,11 @@ storiesOf('Toggle', module)
     ),
     {
       info: {
-        text: 'Description About Toggle Component'
+        text: `Description About Toggle Component
+
+        import { Toggle } from 'patron-react/toggle'
+
+        `
       }
     }
   );

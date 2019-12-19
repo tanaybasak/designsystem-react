@@ -32,7 +32,11 @@ storiesOf('Toast', module).add(
   ),
   {
     info: {
-      text: 'Description About Toast Component'
+      text: `Description About Toast Component
+      
+      import { Toast } from 'patron-react/toast'
+
+      `
     }
   }
 );

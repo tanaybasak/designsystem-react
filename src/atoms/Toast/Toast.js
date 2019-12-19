@@ -50,15 +50,28 @@ export default function Toast({
 }
 
 Toast.propTypes = {
+  /** Custom class for Toast Component */
   className: PropTypes.string,
+  /** Type of Toast Component */
   type: PropTypes.oneOf(['danger', 'info', 'success', 'warning']).isRequired,
+  /** Title for Toast Component */
   title: PropTypes.string,
+  /** Subtitle for Toast Component */
   subtitle: PropTypes.string,
+  /** Caption for Toast Component */
   caption: PropTypes.string,
+  /** Icon for Toast Component */
   icon: PropTypes.element,
+  /** Icon description of Toast Component */
   iconDescription: PropTypes.string,
+  /** Callback function for on close of Toast Component
+   * 
+   *  Argument – event
+   */
   onClose: PropTypes.func,
+  /** Boolean value to show or hide Toast Component */
   visible: PropTypes.bool.isRequired,
+  /** Boolean value to show ot hide close icon from Toast Component */
   closable: PropTypes.bool
 };
 

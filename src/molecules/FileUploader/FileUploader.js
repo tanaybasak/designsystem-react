@@ -23,15 +23,35 @@ export default function FileUploader({ id, className, label, children, descripti
 }
 
 FileUploader.propTypes = {
+    /** Unique id for File Uploader */
     id: PropTypes.string.isRequired,
+    /** Name of the custom class to apply to the File Uploader Button
+     * eg:
+     * Primary: 'hcl-btn hcl-primary',
+     * Primary Danger: 'hcl-btn hcl-primary hcl-danger',
+     * Primary Danger Small: 'hcl-btn hcl-primary hcl-danger hcl-sm',
+     * Primary Small: 'hcl-btn hcl-primary hcl-sm',
+     * Secondary: 'hcl-btn hcl-secondary',
+     * Secondary Danger: 'hcl-btn hcl-secondary hcl-danger',
+     * Secondary Danger Small: 'hcl-btn hcl-secondary hcl-danger hcl-sm',
+     * Ghost: 'hcl-btn hcl-ghost'
+    */
     className: PropTypes.string,
+    /** Search component for Header */
     label: PropTypes.string,
+    /** Children of File Uploader button */
     children: PropTypes.any,
+    /** Description of File Uploader */
     description: PropTypes.string,
+    /** Boolean value to disable File Uploader */
     disabled: PropTypes.bool,
+    /** Boolean value to select Multiple files from File Uploader */
     multiple: PropTypes.bool,
+    /** File type for File Uploader */
     fileType: PropTypes.string,
+    /** Tab Index for File Uploader */
     tabIndex: PropTypes.number,
+    /** Call back function that is invoked when File Uploader is clicked */
     onChange: PropTypes.func
 };
 

@@ -128,7 +128,11 @@ storiesOf('UI Shell Sidebar', module).add(
   ),
   {
     info: {
-      text: 'Description About Sidebar Component'
+      text: `Description About Sidebar Component
+      
+      import { Sidebar } from 'patron-react/sidebar'
+
+      `
     }
   }
 );

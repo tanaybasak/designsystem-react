@@ -35,7 +35,11 @@ storiesOf('UI Shell Footer', module).add(
   ),
   {
     info: {
-      text: 'Description About Footer Component'
+      text: `Description About Footer Component
+
+      import { Footer } from 'patron-react/footer'
+      
+      `
     }
   }
 );

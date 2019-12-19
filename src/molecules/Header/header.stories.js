@@ -48,7 +48,11 @@ storiesOf('UI Shell Header', module).add(
   ),
   {
     info: {
-      text: 'Description About Header Component'
+      text: `Description About Header Component
+      
+      import { Header } from 'patron-react/header'
+
+      `
     }
   }
 );
