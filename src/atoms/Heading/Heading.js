@@ -13,7 +13,9 @@ const Heading = props => {
 };
 
 Heading.propTypes = {
+    /** Custom class on the Checkbox wrapper. */
     className: PropTypes.string,
+    /** Type of html elements : eg: h1, h2, h3, h4, h5, h6 */
     type: PropTypes.oneOf(['h1', 'h2', 'h3', 'h4', 'h5', 'h6'])
 };
 
