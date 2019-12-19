@@ -27,14 +27,21 @@ const Radio = ({ className, labelText, ...restProps }) => {
 }
 
 Radio.propTypes = {
+    /** Custom class on the Radio wrapper. */
     className: PropTypes.string,
+    /** Disable Radio */
     disabled: PropTypes.bool,
+    /** Text for Radio Label. */
     labelText: PropTypes.string,
+    /** Unique string for the Radio. */
     id: PropTypes.string,
+    /** Accepts event handler as prop/argument. */
     onChange: PropTypes.func,
+    /** Control Checked state for Radio */
     checked: PropTypes.bool,
+    /** Unique identifier used within forms. */
     name: PropTypes.string,
-    title: PropTypes.string,
+    /** Text value to be considered when submitting forms. */
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 };
 

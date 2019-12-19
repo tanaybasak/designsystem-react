@@ -9,19 +9,21 @@ import '../../story.css';
 import 'patron-css/dist/patron-style.css';
 
 storiesOf('Checkbox', module).add(
-  'basic',
-  () => (
-    <Checkbox
-      id="checkbox1"
-      value={text('Value', 'standard')}
-      label={text('Label', 'Checkbox Label')}
-      disabled={boolean('Disabled', false)}
-      onChange={action(event)}
-    />
-  ),
-  {
-    info: {
-      text: 'Description About Checkbox Component'
+    'basic',
+    () => (
+        <Checkbox
+            id="checkbox1"
+            value={text('Value', 'standard')}
+            label={text('Label', 'Checkbox Label')}
+            disabled={boolean('Disabled', false)}
+            onChange={action(event)}
+        />
+    ),
+    {
+        info: {
+            text: `Description About Checkbox Component \n
+
+      import { Checkbox } from 'patron-react/checkbox'`
+        }
     }
-  }
 );

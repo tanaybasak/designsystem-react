@@ -9,20 +9,23 @@ import '../../story.css';
 import 'patron-css/dist/patron-style.css';
 
 storiesOf('TextArea', module).add(
-  'basic',
-  () => (
-    <TextArea
-      disabled={boolean('Disabled', false)}
-      onBlur={action('onBlur')}
-      onChange={action('onChange')}
-      onClick={action('onClick')}
-      onFocus={action('onFocus')}
-      placeholder={text('Placeholder', 'Placeholder Text')}
-    />
-  ),
-  {
-    info: {
-      text: 'Description About TextArea Component'
+    'basic',
+    () => (
+        <TextArea
+            aria-label="comments"
+            disabled={boolean('Disabled', false)}
+            onBlur={action('onBlur')}
+            onChange={action('onChange')}
+            onClick={action('onClick')}
+            onFocus={action('onFocus')}
+            placeholder={text('Placeholder', 'Placeholder Text')}
+        />
+    ),
+    {
+        info: {
+            text: `Description About TextArea Component \n
+
+      import { TextArea } from 'patron-react/textarea'`
+        }
     }
-  }
 );
