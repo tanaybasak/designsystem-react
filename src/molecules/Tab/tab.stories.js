@@ -37,7 +37,7 @@ storiesOf('Tab', module).add(
         info: {
             text: `Description About Tab Component \n
 
-      import { TextArea } from 'patron-react/textarea'`
+      import { Tabs, Tab } from 'patron-react/tab'`
         }
     }
 );
