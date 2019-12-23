@@ -14,16 +14,16 @@ storiesOf('UI Shell Header', module).add(
     <Header
       icons={[
         {
-          icon: <span className="hcl-icon-1 bg-white" />
+          icon: <span tabIndex="0" className="hcl-icon-1 bg-white" />
         },
         {
-          icon: <span className="hcl-icon-1 bg-white" />
+          icon: <span tabIndex="0" className="hcl-icon-1 bg-white" />
         },
         {
-          icon: <span className="hcl-icon-1 bg-white" />
+          icon: <span tabIndex="0" className="hcl-icon-1 bg-white" />
         },
         {
-          icon: <span className="hcl-icon-1 bg-white" />
+          icon: <span tabIndex="0" className="hcl-icon-1 bg-white" />
         }
       ]}
       logo={
@@ -42,6 +42,7 @@ storiesOf('UI Shell Header', module).add(
           size="default"
           theme="default"
           type="clickable"
+          tabIndex="0"
         />
       }
     />

@@ -22,7 +22,11 @@ storiesOf('Slider', module).add(
   ),
   {
     info: {
-      text: 'Description About Slider Component'
+      text: `Description About Slider Component\n
+      
+      import { Slider } from 'patron-react/slider'
+      
+      `
     }
   }
 );

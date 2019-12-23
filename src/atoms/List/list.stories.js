@@ -60,12 +60,16 @@ storiesOf('List', module).add(
     <List
       type={select('Type', types, 'ol')}
       listItems={object('List Item', listItems)}
-      onClick={action(event)}
+      onClick={action('list event')}
     />
   ),
   {
     info: {
-      text: 'Description About List Component'
+      text: `Description About List Component\n
+      
+      import { List } from 'patron-react/list'
+
+      `
     }
   }
 );

@@ -12,7 +12,11 @@ storiesOf('Paragraph', module).add(
   () => <Paragraph>{text('Label', 'Hello Storybook')}</Paragraph>,
   {
     info: {
-      text: 'Description About Paragraph Component'
+      text: `Description About Paragraph Component \n
+      
+      import { Paragraph } from 'patron-react/paragraph'
+      
+      `
     }
   }
 );
