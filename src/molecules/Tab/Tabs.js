@@ -4,12 +4,10 @@ import prefix from '../../settings';
 
 function Tabs({ activeIndex, onChange, children }) {
     const [isActive, setActive] = useState(activeIndex);
-    let tabContent = null;
+
+    const genString = () => (Math.random().toString(16).substr(8));
 
     const modifiedChildren = React.Children.map(children, (child, index) => {
-        if (index === isActive) {
-            tabContent = child.props.children;
-        }
         const { isDisabled, label } = child.props;
         return cloneElement(child, {
             onClick: e => {
@@ -18,9 +16,17 @@ function Tabs({ activeIndex, onChange, children }) {
                     onChange(Object.assign({}, e, { label, tabIndex: index }));
                 }
             },
-            key: index,
+            key: genString,
             active: isActive === index
         });
+    });
+
+    const tabContentWithProps = React.Children.map(modifiedChildren, (child, index) => {
+        return (
+            <div role="tabpanel" className={`${prefix}-tabs-panel ${index === isActive ? 'active' : ''}`}>
+                {child.props.children}
+            </div>
+        );
     });
 
     return (
@@ -31,9 +37,7 @@ function Tabs({ activeIndex, onChange, children }) {
                 </ul>
             </nav>
             <div className={`${prefix}-tabcontent`}>
-                <div role="tabpanel" className={`${prefix}-tabs-panel active`}>
-                    {tabContent}
-                </div>
+                {tabContentWithProps}
             </div>
         </section>
     );
