@@ -9,7 +9,7 @@ import AccordionItem from './AccordionItem';
 
 storiesOf('Accordion', module)
   .add(
-    'basic',
+    'default',
     () => (
       <Accordion uncontrolled={false}>
         <AccordionItem
