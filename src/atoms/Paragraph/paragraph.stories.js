@@ -4,11 +4,9 @@ import { text } from '@storybook/addon-knobs';
 //@update-path-build-start
 import Paragraph from './Paragraph';
 //@update-path-build-end
-import '../../story.css';
-import 'patron-css/dist/patron-style.css';
 
 storiesOf('Paragraph', module).add(
-  'basic',
+  'default',
   () => <Paragraph>{text('Label', 'Hello Storybook')}</Paragraph>,
   {
     info: {

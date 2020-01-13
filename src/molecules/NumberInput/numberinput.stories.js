@@ -5,11 +5,9 @@ import { text, boolean, number } from '@storybook/addon-knobs';
 //@update-path-build-start
 import NumberInput from './NumberInput';
 //@update-path-build-end
-import '../../story.css';
-import 'patron-css/dist/patron-style.css';
 
 storiesOf('NumberInput', module).add(
-  'basic',
+  'default',
   () => (
     <NumberInput
       defaultValue={10}

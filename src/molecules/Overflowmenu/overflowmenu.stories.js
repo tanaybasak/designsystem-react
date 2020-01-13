@@ -1,12 +1,10 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { select, text, boolean, object } from '@storybook/addon-knobs';
+import { select, object } from '@storybook/addon-knobs';
 //@update-path-build-start
 import Overflowmenu from './Overflowmenu';
 //@update-path-build-end
-import '../../story.css';
-import 'patron-css/dist/patron-style.css';
 
 const typeOptions = {
   left: 'left',
@@ -41,11 +39,11 @@ const listItems = [
 ];
 
 storiesOf('Overflowmenu', module).add(
-  'basic',
+  'default',
   () => (
     <Overflowmenu
       direction={select('Direction', typeOptions, 'right')}
-      ellipsisType={select('ellipsisType', ellipsisType, 'vertical')}
+      ellipsisType={select('Ellipsis Type', ellipsisType, 'vertical')}
       listItems={object('List Items', listItems)}
       onClick={action('Overflow-Click')}
       aria-label

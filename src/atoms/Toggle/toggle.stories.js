@@ -1,16 +1,14 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { select, text, boolean } from '@storybook/addon-knobs';
+import { text, boolean } from '@storybook/addon-knobs';
 //@update-path-build-start
 import Toggle from './Toggle';
 //@update-path-build-end
-import '../../story.css';
-import 'patron-css/dist/patron-style.css';
 
 storiesOf('Toggle', module)
   .add(
-    'basic',
+    'default',
     () => (
       <Toggle
         disabled={boolean('Disabled', false)}

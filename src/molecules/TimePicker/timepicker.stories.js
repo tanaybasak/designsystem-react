@@ -5,12 +5,10 @@ import { text, object } from '@storybook/addon-knobs';
 //@update-path-build-start
 import TimePicker from './TimePicker';
 //@update-path-build-end
-import '../../story.css';
-import 'patron-css/dist/patron-style.css';
 
 const timeZones = ['Time zone 1', 'Time zone 2', 'Time zone 3'];
 storiesOf('TimePicker', module).add(
-  'basic',
+  'default',
   () => (
     <TimePicker
       label={text('Label', 'Select Time')}

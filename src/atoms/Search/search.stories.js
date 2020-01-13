@@ -5,8 +5,6 @@ import { select, text } from '@storybook/addon-knobs';
 //@update-path-build-start
 import Search from './Search';
 //@update-path-build-end
-import '../../story.css';
-import 'patron-css/dist/patron-style.css';
 
 const sizeOption = {
   Default: 'default',
@@ -20,7 +18,7 @@ const themeOption = {
 
 storiesOf('Search', module)
   .add(
-    'basic',
+    'default',
     () => (
       <Search
         iconTheme={select('Icon Theme', themeOption, 'default')}

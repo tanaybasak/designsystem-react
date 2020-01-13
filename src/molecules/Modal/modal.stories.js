@@ -5,8 +5,6 @@ import { select, text, object } from '@storybook/addon-knobs';
 //@update-path-build-start
 import Modal from './Modal';
 //@update-path-build-end
-import '../../story.css';
-import 'patron-css/dist/patron-style.css';
 
 const typeOptions = {
   Danger: 'danger',
@@ -19,7 +17,7 @@ const actions = [
 ];
 
 storiesOf('Modal', module).add(
-  'basic',
+  'default',
   () => (
     <Modal
       actions={object('Actions', actions)}

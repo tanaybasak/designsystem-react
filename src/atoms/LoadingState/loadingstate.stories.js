@@ -4,8 +4,6 @@ import { text } from '@storybook/addon-knobs';
 //@update-path-build-start
 import LoadingState from './LoadingState';
 //@update-path-build-end
-import '../../story.css';
-import 'patron-css/dist/patron-style.css';
 
 storiesOf('LoadingState', module)
   .add(

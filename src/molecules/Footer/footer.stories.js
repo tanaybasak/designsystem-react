@@ -1,35 +1,33 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { object, text, boolean } from '@storybook/addon-knobs';
+import { object, text } from '@storybook/addon-knobs';
 //@update-path-build-start
 import Footer from './Footer';
 //@update-path-build-end
-import '../../story.css';
-import 'patron-css/dist/patron-style.css';
 const links = [
-    {
-      label: 'Legal'
-    },
-    {
-      label: 'Disclaimer'
-    },
-    {
-      label: 'Privacy'
-    },
-    {
-      label: 'Terms of use'
-    },
-    {
-      label: 'Contact Us'
-    }
-  ]
+  {
+    label: 'Legal'
+  },
+  {
+    label: 'Disclaimer'
+  },
+  {
+    label: 'Privacy'
+  },
+  {
+    label: 'Terms of use'
+  },
+  {
+    label: 'Contact Us'
+  }
+];
 storiesOf('UI Shell Footer', module).add(
-  'basic',
+  'default',
   () => (
     <Footer
       caption={text('Caption', 'Copyright © HCL Software. All rights reserved')}
-      links={object('Links' , links)}
+      links={object('Links', links)}
       onClick={action('Footer OnClick')}
     />
   ),

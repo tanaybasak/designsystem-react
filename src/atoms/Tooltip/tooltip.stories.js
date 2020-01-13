@@ -7,8 +7,6 @@ import Paragraph from '../Paragraph/Paragraph';
 import Button from '../Button/Button';
 import Link from '../Link/Link';
 //@update-path-build-end
-import '../../story.css';
-import 'patron-css/dist/patron-style.css';
 
 const directionOption = {
   Top: 'top',

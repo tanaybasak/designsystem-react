@@ -3,12 +3,10 @@ import { storiesOf } from '@storybook/react';
 //@update-path-build-start
 import Tile from './Tile';
 //@update-path-build-end
-import '../../story.css';
-import 'patron-css/dist/patron-style.css';
 
 storiesOf('Tile', module)
   .add(
-    'basic',
+    'default',
     () => (
       <Tile type="readable">
         <div>

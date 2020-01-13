@@ -2,12 +2,9 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { select, text, boolean } from '@storybook/addon-knobs';
-
 //@update-path-build-start
 import Button from './Button';
 //@update-path-build-end
-import '../../story.css';
-import 'patron-css/dist/patron-style.css';
 
 const classOptions = {
   Primary: 'hcl-primary',
@@ -21,7 +18,7 @@ const classOptions = {
 };
 
 storiesOf('Button', module).add(
-  'basic',
+  'default',
   () => (
     <Button
       title="Default"
@@ -29,7 +26,7 @@ storiesOf('Button', module).add(
       disabled={boolean('Disabled', false)}
       onClick={action('button-click')}
     >
-      {text('Label', 'Hello Storybook')}
+      {text('Label', 'Click Me')}
     </Button>
   ),
   {

@@ -5,8 +5,6 @@ import { select, text, boolean } from '@storybook/addon-knobs';
 //@update-path-build-start
 import Notification from './Notification';
 //@update-path-build-end
-import '../../story.css';
-import 'patron-css/dist/patron-style.css';
 
 const notificationType = {
   Info: 'hcl-info',
@@ -16,7 +14,7 @@ const notificationType = {
 };
 
 storiesOf('Notification', module).add(
-  'basic',
+  'default',
   () => (
     <Notification
       className={select('Type', notificationType, 'hcl-info')}

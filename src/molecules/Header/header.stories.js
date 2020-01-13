@@ -5,11 +5,9 @@ import { action } from '@storybook/addon-actions';
 import Header from './index';
 import Search from '../../atoms/Search';
 //@update-path-build-end
-import '../../story.css';
-import 'patron-css/dist/patron-style.css';
 
 storiesOf('UI Shell Header', module).add(
-  'basic',
+  'default',
   () => (
     <Header
       icons={[

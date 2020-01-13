@@ -5,8 +5,6 @@ import { select, object } from '@storybook/addon-knobs';
 //@update-path-build-start
 import List from './List';
 //@update-path-build-end
-import '../../story.css';
-import 'patron-css/dist/patron-style.css';
 
 const listItems = [
   {
@@ -55,11 +53,11 @@ const listItems = [
 
 const types = { Ordered: 'ol', Unordered: 'ul' };
 storiesOf('List', module).add(
-  'basic',
+  'default',
   () => (
     <List
       type={select('Type', types, 'ol')}
-      listItems={object('List Item', listItems)}
+      listItems={object('List Items', listItems)}
       onClick={action('list event')}
     />
   ),

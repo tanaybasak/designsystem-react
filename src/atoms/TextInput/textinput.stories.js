@@ -5,8 +5,6 @@ import { select, text, boolean } from '@storybook/addon-knobs';
 //@update-path-build-start
 import TextInput from './TextInput';
 //@update-path-build-end
-import '../../story.css';
-import 'patron-css/dist/patron-style.css';
 
 const inputTypeOption = {
   text: 'text',
@@ -18,7 +16,7 @@ const inputTypeOption = {
 };
 
 storiesOf('TextInput', module).add(
-  'basic',
+  'default',
   () => (
     <TextInput
       className=""

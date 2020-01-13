@@ -1,15 +1,13 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { select, text, number } from '@storybook/addon-knobs';
+import { text } from '@storybook/addon-knobs';
 //@update-path-build-start
 import { Breadcrumb, BreadcrumbItem } from './index';
 //@update-path-build-end
-import '../../story.css';
-import 'patron-css/dist/patron-style.css';
 
 storiesOf('Breadcrumb', module).add(
-  'basic',
+  'default',
   () => {
     return (
       <Breadcrumb
@@ -19,13 +17,13 @@ storiesOf('Breadcrumb', module).add(
         onSelection={action('breadcrumb selection')}
       >
         <BreadcrumbItem className="custom-item" href="#">
-          {text('Breadcrumb 1 Label', 'Breadcrumb 1')}
+          {text('Label 1', 'Breadcrumb 1')}
         </BreadcrumbItem>
         <BreadcrumbItem href="#">
-          {text('Breadcrumb 2 Label', 'Breadcrumb 2')}
+          {text('Label 2', 'Breadcrumb 2')}
         </BreadcrumbItem>
         <BreadcrumbItem href="#tools">
-          {text('Breadcrumb 3 Label', 'Breadcrumb 3')}
+          {text('Label 3', 'Breadcrumb 3')}
         </BreadcrumbItem>
       </Breadcrumb>
     );

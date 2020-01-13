@@ -5,25 +5,23 @@ import { text, boolean } from '@storybook/addon-knobs';
 //@update-path-build-start
 import Checkbox from './Checkbox';
 //@update-path-build-end
-import '../../story.css';
-import 'patron-css/dist/patron-style.css';
 
 storiesOf('Checkbox', module).add(
-    'basic',
-    () => (
-        <Checkbox
-            id="checkbox1"
-            value={text('Value', 'standard')}
-            label={text('Label', 'Checkbox Label')}
-            disabled={boolean('Disabled', false)}
-            onChange={action(event)}
-        />
-    ),
-    {
-        info: {
-            text: `Description About Checkbox Component \n
+  'default',
+  () => (
+    <Checkbox
+      id="checkbox1"
+      value={text('Value', 'standard')}
+      label={text('Label', 'Checkbox Label')}
+      disabled={boolean('Disabled', false)}
+      onChange={action(event)}
+    />
+  ),
+  {
+    info: {
+      text: `Description About Checkbox Component \n
 
       import { Checkbox } from 'patron-react/checkbox'`
-        }
     }
+  }
 );

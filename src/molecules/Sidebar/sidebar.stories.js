@@ -6,8 +6,6 @@ import { text, object } from '@storybook/addon-knobs';
 import Sidebar from './Sidebar';
 import Icon from '../../atoms/Icon';
 //@update-path-build-end
-import '../../story.css';
-import 'patron-css/dist/patron-style.css';
 
 const items = [
   {
@@ -100,7 +98,7 @@ const items = [
   }
 ];
 storiesOf('UI Shell Sidebar', module).add(
-  'basic',
+  'default',
   () => (
     <Sidebar
       disabled={false}

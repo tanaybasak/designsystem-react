@@ -5,8 +5,6 @@ import { select, text, boolean } from '@storybook/addon-knobs';
 //@update-path-build-start
 import Toast from './Toast';
 //@update-path-build-end
-import '../../story.css';
-import 'patron-css/dist/patron-style.css';
 
 const typeOptions = {
   Info: 'info',
@@ -16,7 +14,7 @@ const typeOptions = {
 };
 
 storiesOf('Toast', module).add(
-  'basic',
+  'default',
   () => (
     <Toast
       caption={text('Caption', 'Time stamp [00:00:00]')}
@@ -24,8 +22,8 @@ storiesOf('Toast', module).add(
       icon={null}
       iconDescription={text('Icon Description', 'close')}
       onClose={action('notification-onclose')}
-      subtitle={text('Notification Subtitle', 'Subtitle text goes here.')}
-      title={text('Notification Title', 'Notification title')}
+      subtitle={text('Subtitle', 'Subtitle text goes here.')}
+      title={text('Title', 'Notification title')}
       type={select('Type', typeOptions, 'info')}
       visible={boolean('Visible', true)}
     />

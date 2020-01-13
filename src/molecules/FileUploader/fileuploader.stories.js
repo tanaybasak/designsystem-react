@@ -5,8 +5,6 @@ import { select, text, boolean } from '@storybook/addon-knobs';
 //@update-path-build-start
 import FileUploader from './FileUploader';
 //@update-path-build-end
-import '../../story.css';
-import 'patron-css/dist/patron-style.css';
 
 const classOptions = {
   Primary: 'hcl-btn hcl-primary',
@@ -20,7 +18,7 @@ const classOptions = {
 };
 
 storiesOf('FileUploader', module).add(
-  'basic',
+  'default',
   () => (
     <FileUploader
       className={select(

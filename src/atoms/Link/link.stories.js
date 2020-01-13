@@ -4,17 +4,11 @@ import { text } from '@storybook/addon-knobs';
 //@update-path-build-start
 import Link from './Link';
 //@update-path-build-end
-import '../../story.css';
-import 'patron-css/dist/patron-style.css';
 
 storiesOf('Link', module).add(
-  'basic',
+  'default',
   () => (
-    <Link
-      className=""
-      href={text('Link', '#')}
-      onClick={function noRefCheck() {}}
-    >
+    <Link href={text('URL', '#')}>
       {text('Label', 'Link')}
     </Link>
   ),

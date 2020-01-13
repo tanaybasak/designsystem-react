@@ -5,8 +5,6 @@ import { text, object } from '@storybook/addon-knobs';
 //@update-path-build-start
 import Select from './Select';
 //@update-path-build-end
-import '../../story.css';
-import 'patron-css/dist/patron-style.css';
 
 const items = [
   {
@@ -23,7 +21,7 @@ const items = [
   }
 ];
 storiesOf('Select', module).add(
-  'basic',
+  'default',
   () => (
     <Select
       items={object('Items', items)}

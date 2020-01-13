@@ -5,8 +5,6 @@ import { select } from '@storybook/addon-knobs';
 //@update-path-build-start
 import DatePicker from './DatePicker';
 //@update-path-build-end
-import '../../story.css';
-import 'patron-css/dist/patron-style.css';
 
 const typeOptions = {
   Top: 'top',
@@ -19,7 +17,7 @@ const formatOptions = {
 };
 
 storiesOf('Datepicker', module).add(
-  'basic',
+  'default',
   () => (
     <DatePicker
       format={select('Date Format', formatOptions, 'mm/dd/yyyy')}

@@ -1,12 +1,10 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { select, text, boolean, object } from '@storybook/addon-knobs';
+import { select, object, boolean } from '@storybook/addon-knobs';
 //@update-path-build-start
 import DataTable from './DataTable';
 //@update-path-build-end
-import '../../story.css';
-import 'patron-css/dist/patron-style.css';
 
 const tableData = {
   columns: [
@@ -65,27 +63,26 @@ const tableData = {
 };
 
 const overflowList = [
-    {
-        "name": "option 1"
-            
-    },
-    {
-        "name": "option 2",
-        "danger" : true   
-    },
-    {
-        "name": "option 3",
-        "separator" : true   
-    },
-    {
-        "name": "option 4",
-        "disabled" : true       
-    },
-    {
-        "name": "option 5",
-        "link" : "https://google.com"     
-    }
-]
+  {
+    name: 'option 1'
+  },
+  {
+    name: 'option 2',
+    danger: true
+  },
+  {
+    name: 'option 3',
+    separator: true
+  },
+  {
+    name: 'option 4',
+    disabled: true
+  },
+  {
+    name: 'option 5',
+    link: 'https://google.com'
+  }
+];
 
 const classOptions = {
   Default: 'hcl-data-table',
@@ -94,40 +91,40 @@ const classOptions = {
   Tall: 'hcl-data-table hcl-data-table-tall',
   Borderless: 'hcl-data-table hcl-data-table-borderless'
 };
-storiesOf('DataTable', module).add(
-  'basic',
-  () => (
-    <DataTable
-      id="sample_table_1"
-      tableData={object('Data', tableData)}
-      selectable
-      onSort={action(event)}
-      className={select('Class Name', classOptions, 'hcl-data-table')}
-     
-    />
-  ),
-  {
-    info: {
-      text: `Description About DataTable Component
+storiesOf('DataTable', module)
+  .add(
+    'default',
+    () => (
+      <DataTable
+        id="sample_table_1"
+        tableData={object('Table Data', tableData)}
+        selectable={boolean('Selectable', false)}
+        onSort={action(event)}
+        className={select('Type', classOptions, 'hcl-data-table')}
+      />
+    ),
+    {
+      info: {
+        text: `Description About DataTable Component
 
       import { DataTable } from 'patron-react/datatable'
       
       `
+      }
     }
-  }
-).add(
+  )
+  .add(
     'with overflow',
     () => (
       <DataTable
         className={select('Class Name', classOptions, 'hcl-data-table')}
         id="sample_table_1"
-        tableData={object('Data', tableData)}
-        selectable
+        tableData={object('Table Data', tableData)}
+        selectable={boolean('Selectable', false)}
         onSort={action(event)}
         overflowMenu
-        overflowMenuItems={object('Overflow Menu Content' , overflowList)}
-        overflowMenuOnClick={action(event)
-        }
+        overflowMenuItems={object('Overflow Menu Content', overflowList)}
+        overflowMenuOnClick={action(event)}
       />
     ),
     {
