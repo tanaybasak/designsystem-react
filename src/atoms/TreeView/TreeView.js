@@ -8,7 +8,10 @@ const TreeView = ({
   expandedIcon,
   onChange,
   collapsedIcon,
-  className
+  className,
+  config,
+  onToggle,
+  type
 }) => {
   let [selectedNode, updateSelectedNode] = useState({});
 
@@ -17,6 +20,21 @@ const TreeView = ({
     onChange(event);
   };
 
+  const onToggleNode = event => {
+    onToggle(event);
+  };
+
+  let defaultConfig = {
+    displayChildren: 'showChildren',
+    expandIcon: 'expandIcon',
+    collapsedIcon: 'collapsedIcon',
+    icon: 'icon',
+    children: 'children',
+    name: 'name',
+    hasChildren: 'hasChildren'
+  };
+
+  const configuration = { ...defaultConfig, ...config };
   const classnames = `${prefix}-tree ${className.trim()}`;
   return (
     <ul role="tree" className={classnames}>
@@ -27,8 +45,10 @@ const TreeView = ({
             key={`index-${index}`}
             expandedIcon={expandedIcon}
             collapsedIcon={collapsedIcon}
-            onSelectNode={onSelectNode}
-            selectedNode={selectedNode}
+            onSelectNode={type === 'single' ? onSelectNode : null}
+            selectedNode={type === 'single' ? selectedNode : null}
+            onToggleNode={onToggle ? onToggleNode : null}
+            configuration={configuration}
           />
         );
       })}
@@ -41,15 +61,21 @@ TreeView.propTypes = {
   expandedIcon: PropTypes.string,
   collapsedIcon: PropTypes.string,
   className: PropTypes.string,
-  onChange: PropTypes.func
+  onChange: PropTypes.func,
+  onToggle: PropTypes.func,
+  config: PropTypes.any,
+  type: PropTypes.oneOf(['default', 'single'])
 };
 
 TreeView.defaultProps = {
   treeData: [],
-  onChange: () => {},
+  onChange: null,
+  onToggle: null,
   expandedIcon: 'caret caret-down',
   collapsedIcon: 'caret',
-  className: ''
+  className: '',
+  type: 'default',
+  config: {}
 };
 
 export default TreeView;
