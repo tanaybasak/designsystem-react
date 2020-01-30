@@ -7,22 +7,22 @@ import Notification from './Notification';
 //@update-path-build-end
 
 const notificationType = {
-  Info: 'hcl-info',
-  Success: 'hcl-success',
-  Warning: 'hcl-warning',
-  Danger: 'hcl-danger'
+  Info: 'info',
+  Success: 'success',
+  Warning: 'warning',
+  Danger: 'danger'
 };
 
 storiesOf('Notification', module).add(
   'default',
   () => (
     <Notification
-      className={select('Type', notificationType, 'hcl-info')}
-      closable={boolean('Closable', false)}
-      onClose={action(event)}
-      subtitle={text('Subtitle', 'Notification Sub Title')}
       title={text('Title', 'Notification Title')}
+      subtitle={text('Subtitle', 'Notification Sub Title')}
+      type={select('Type', notificationType, 'info')}
+      closable={boolean('Closable', false)}
       visible={boolean('Visible', true)}
+      onClose={action(event)}
     />
   ),
   {

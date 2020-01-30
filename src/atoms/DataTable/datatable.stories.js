@@ -85,11 +85,11 @@ const overflowList = [
 ];
 
 const classOptions = {
-  Default: 'hcl-data-table',
-  Zebra: 'hcl-data-table hcl-data-table-zebra',
-  Compact: 'hcl-data-table hcl-data-table-compact',
-  Tall: 'hcl-data-table hcl-data-table-tall',
-  Borderless: 'hcl-data-table hcl-data-table-borderless'
+  Default: '',
+  Zebra: 'hcl-data-table-zebra',
+  Compact: 'hcl-data-table-compact',
+  Tall: 'hcl-data-table-tall',
+  Borderless: 'hcl-data-table-borderless'
 };
 storiesOf('DataTable', module)
   .add(
@@ -117,7 +117,7 @@ storiesOf('DataTable', module)
     'with overflow',
     () => (
       <DataTable
-        className={select('Class Name', classOptions, 'hcl-data-table')}
+        className={select('Class Name', classOptions, '')}
         id="sample_table_1"
         tableData={object('Table Data', tableData)}
         selectable={boolean('Selectable', false)}
