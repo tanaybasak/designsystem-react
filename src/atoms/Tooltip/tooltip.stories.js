@@ -51,7 +51,7 @@ storiesOf('Tooltip', module)
     }
   )
   .add(
-    'definition',
+    'default',
     () => (
       <Tooltip
         content={text(

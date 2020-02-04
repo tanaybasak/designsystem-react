@@ -7,7 +7,7 @@ import Paragraph from './Paragraph';
 
 storiesOf('Paragraph', module).add(
   'default',
-  () => <Paragraph>{text('Label', 'Hello Storybook')}</Paragraph>,
+  () => <Paragraph>{text('Label', 'Sample Paragraph')}</Paragraph>,
   {
     info: {
       text: `Description About Paragraph Component \n

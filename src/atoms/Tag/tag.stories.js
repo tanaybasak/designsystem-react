@@ -11,54 +11,28 @@ const typeOptions = {
   Secondary: 'secondary'
 };
 
-storiesOf('Tag', module)
-  .add(
-    'primary',
-    () => (
-      <Tag
-        closable={boolean('Closable', false)}
-        disabled={boolean('Disabled', false)}
-        onClose={action('OnClose')}
-        tabIndex={0}
-        thumbnailSrc={text('Thumbnail Src', '')}
-        title={text('Title', '')}
-        type={select('Type', typeOptions, 'primary')}
-      >
-        {text('Label', 'Sample Tag')}
-      </Tag>
-    ),
-    {
-      info: {
-        text: `Description About Tag Component
+storiesOf('Tag', module).add(
+  'default',
+  () => (
+    <Tag
+      closable={boolean('Closable', false)}
+      disabled={boolean('Disabled', false)}
+      onClose={action('OnClose')}
+      tabIndex={0}
+      thumbnailSrc={text('Thumbnail Src', '')}
+      title={text('Title', '')}
+      type={select('Type', typeOptions, 'primary')}
+    >
+      {text('Label', 'Sample Tag')}
+    </Tag>
+  ),
+  {
+    info: {
+      text: `Description About Tag Component
 
         import { Tag } from 'patron-react/tag'
 
         `
-      }
     }
-  )
-  .add(
-    'secondary',
-    () => (
-      <Tag
-        closable={boolean('Closable', false)}
-        disabled={boolean('Disabled', false)}
-        onClose={action('OnClose')}
-        tabIndex={0}
-        thumbnailSrc={text('Thumbnail Src', '')}
-        title={text('Title', '')}
-        type={select('Type', typeOptions, 'secondary')}
-      >
-        {text('Label', 'Sample Tag')}
-      </Tag>
-    ),
-    {
-      info: {
-        text: `Description About Tag Component
-
-        import { Tag } from 'patron-react/tag'
-
-        `
-      }
-    }
-  );
+  }
+);

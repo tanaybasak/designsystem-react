@@ -96,9 +96,9 @@ storiesOf('DataTable', module)
     'default',
     () => (
       <DataTable
-        id="sample_table_1"
+        id="data-table-one"
         tableData={object('Table Data', tableData)}
-        selectable={boolean('Selectable', false)}
+        selectable={boolean('Selectable', true)}
         onSort={action(event)}
         className={select('Type', classOptions, 'hcl-data-table')}
       />
@@ -118,7 +118,7 @@ storiesOf('DataTable', module)
     () => (
       <DataTable
         className={select('Class Name', classOptions, '')}
-        id="sample_table_1"
+        id="data-table-one"
         tableData={object('Table Data', tableData)}
         selectable={boolean('Selectable', false)}
         onSort={action(event)}

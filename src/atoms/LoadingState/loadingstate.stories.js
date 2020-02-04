@@ -25,7 +25,7 @@ storiesOf('LoadingState', module)
       }
     }
   )
-  .add('Breadcrumb', () => <LoadingState type="breadcrumb" />, {
+  .add('breadcrumb', () => <LoadingState type="breadcrumb" />, {
     info: {
       text: `Description About Breadcrumb LoadingState Component \n
       
@@ -34,7 +34,7 @@ storiesOf('LoadingState', module)
       `
     }
   })
-  .add('Tab', () => <LoadingState type="tab" />, {
+  .add('tab', () => <LoadingState type="tab" />, {
     info: {
       text: `Description About Tab LoadingState Component \n
       
@@ -43,7 +43,7 @@ storiesOf('LoadingState', module)
         `
     }
   })
-  .add('Accordion', () => <LoadingState type="accordion" />, {
+  .add('accordion', () => <LoadingState type="accordion" />, {
     info: {
       text: `Description About Accordion LoadingState Component\n
       
@@ -52,7 +52,7 @@ storiesOf('LoadingState', module)
         `
     }
   })
-  .add('Slider', () => <LoadingState type="slider" />, {
+  .add('slider', () => <LoadingState type="slider" />, {
     info: {
       text: `Description About Slider LoadingState Component\n
       
@@ -62,7 +62,7 @@ storiesOf('LoadingState', module)
     }
   })
   .add(
-    'DataTable',
+    'dataTable',
     () => (
       <LoadingState
         type="datatable"

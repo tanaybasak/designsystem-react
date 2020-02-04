@@ -15,10 +15,9 @@ const items = [
 
 storiesOf('Dropdown', module)
   .add(
-    'bottom',
+    'default',
     () => (
       <Dropdown
-        type={'bottom'}
         items={object('Items', items)}
         label={text('Label', 'Dropdown Label')}
         selectedIndex={number('Selected Index', 0)}

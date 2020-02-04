@@ -42,7 +42,7 @@ storiesOf('Overflowmenu', module).add(
   'default',
   () => (
     <Overflowmenu
-      direction={select('Direction', typeOptions, 'right')}
+      direction={select('Direction', typeOptions, 'left')}
       ellipsisType={select('Ellipsis Type', ellipsisType, 'vertical')}
       listItems={object('List Items', listItems)}
       onClick={action('Overflow-Click')}

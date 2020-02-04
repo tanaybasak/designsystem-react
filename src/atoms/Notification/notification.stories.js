@@ -20,7 +20,7 @@ storiesOf('Notification', module).add(
       title={text('Title', 'Notification Title')}
       subtitle={text('Subtitle', 'Notification Sub Title')}
       type={select('Type', notificationType, 'info')}
-      closable={boolean('Closable', false)}
+      closable={boolean('Closable', true)}
       visible={boolean('Visible', true)}
       onClose={action(event)}
     />

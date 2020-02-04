@@ -6,12 +6,11 @@ import { text, boolean } from '@storybook/addon-knobs';
 import Radio from './Radio';
 //@update-path-build-end
 
-storiesOf('Radio', module)
+storiesOf('RadioButton', module)
   .add(
-    'checked',
+    'default',
     () => (
       <Radio
-        checked
         disabled={boolean('Disabled', false)}
         id="radio1"
         labelText={text('Label', 'Radio Label')}
@@ -29,9 +28,10 @@ storiesOf('Radio', module)
     }
   )
   .add(
-    'un-checked',
+    'checked',
     () => (
       <Radio
+        checked
         disabled={boolean('Disabled', false)}
         id="radio1"
         labelText={text('Label', 'Radio Label')}
