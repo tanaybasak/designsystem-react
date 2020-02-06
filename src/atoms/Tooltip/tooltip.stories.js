@@ -61,7 +61,7 @@ storiesOf('Tooltip', module)
         direction={select('Direction', directionOption, 'bottom')}
         type="definition"
       >
-        Definition Tooltip
+        {text('Label', 'Definition Tooltip')}
       </Tooltip>
     ),
     {
