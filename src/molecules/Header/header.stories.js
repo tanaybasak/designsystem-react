@@ -6,7 +6,7 @@ import Header from './index';
 import Search from '../../atoms/Search';
 //@update-path-build-end
 
-storiesOf('UI Shell Header', module).add(
+storiesOf('UIShellHeader', module).add(
   'default',
   () => (
     <Header

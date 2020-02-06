@@ -97,7 +97,7 @@ const items = [
     title: 'Category Two'
   }
 ];
-storiesOf('UI Shell Sidebar', module).add(
+storiesOf('UIShellSidebar', module).add(
   'default',
   () => (
     <Sidebar
