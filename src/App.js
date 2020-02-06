@@ -45,6 +45,7 @@ import LoadingState from './atoms/LoadingState/LoadingState';
 import Icon from './atoms/Icon';
 import logo from './assets/images/logo.png';
 import Footer from './molecules/Footer';
+import TreeView from './atoms/TreeView/TreeView';
 
 class App extends Component {
   state = {
@@ -68,7 +69,174 @@ class App extends Component {
       example3: 2,
       example4: 0
     },
-    sidebarExpanded: false
+    sidebarExpanded: false,
+    treeData: [
+      {
+        name: 'Section 1',
+        showChildren: false,
+        children: [
+          {
+            name: 'Sub Section 1.1',
+            showChildren: false,
+            children: [
+              {
+                name: 'Sub Section 1.1.1',
+                showChildren: false,
+                children: []
+              },
+              {
+                name: 'Sub Section 1.1.2',
+                showChildren: false,
+                children: []
+              }
+            ]
+          },
+          {
+            name: 'Sub Section 1.2',
+            showChildren: false,
+            children: []
+          }
+        ]
+      },
+      {
+        name: 'Section 2',
+        showChildren: false,
+        children: [
+          {
+            name: 'Sub Section 2.1',
+            showChildren: false,
+            children: [
+              {
+                name: 'Sub Section 2.1.1',
+                showChildren: false,
+                children: []
+              },
+              {
+                name: 'Sub Section 2.1.2',
+                showChildren: false,
+                children: []
+              }
+            ]
+          },
+          {
+            name: 'Sub Section 2.2',
+            showChildren: false,
+            children: [
+              {
+                name: 'Sub Section 2.2.1',
+                showChildren: false,
+                children: [
+                  {
+                    name: 'Sub Section 2.2.1.1',
+                    showChildren: false,
+                    children: []
+                  },
+                  {
+                    name: 'Sub Section 2.2.1.2',
+                    showChildren: false,
+                    children: []
+                  }
+                ]
+              },
+              {
+                name: 'Sub Section 2.2.2',
+                showChildren: false,
+                children: []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        name: 'Section 3',
+        showChildren: false,
+        children: []
+      }
+    ],
+
+    treeData1: [
+      {
+        name: 'Section 1',
+        showChildren: false,
+        children: [
+          {
+            name: 'Sub Section 1.1',
+            showChildren: false,
+            children: [
+              {
+                name: 'Sub Section 1.1.1',
+                showChildren: false,
+                children: []
+              },
+              {
+                name: 'Sub Section 1.1.2',
+                showChildren: false,
+                children: []
+              }
+            ]
+          },
+          {
+            name: 'Sub Section 1.2',
+            showChildren: false,
+            children: []
+          }
+        ]
+      },
+      {
+        name: 'Section 2',
+        showChildren: false,
+        children: [
+          {
+            name: 'Sub Section 2.1',
+            showChildren: false,
+            children: [
+              {
+                name: 'Sub Section 2.1.1',
+                showChildren: false,
+                children: []
+              },
+              {
+                name: 'Sub Section 2.1.2',
+                showChildren: false,
+                children: []
+              }
+            ]
+          },
+          {
+            name: 'Sub Section 2.2',
+            showChildren: false,
+            children: [
+              {
+                name: 'Sub Section 2.2.1',
+                showChildren: false,
+                children: [
+                  {
+                    name: 'Sub Section 2.2.1.1',
+                    showChildren: false,
+                    children: []
+                  },
+                  {
+                    name: 'Sub Section 2.2.1.2',
+                    showChildren: false,
+                    children: []
+                  }
+                ]
+              },
+              {
+                name: 'Sub Section 2.2.2',
+                showChildren: false,
+                children: []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        name: 'Section 3',
+        showChildren: false,
+        children: []
+      }
+    ]
   };
 
   items = [
@@ -656,8 +824,15 @@ class App extends Component {
                 </div>
                 {/* Breadcrumb */}
                 <div className="hcl-col-12 mt-5" id="breadcrumb-section">
-                  <Breadcrumb id="small-navigator" className="custom-breadcrumb-top" activeIndex={Math.floor(Math.random() * 3)} onSelection={(e) => console.log(e, e.tabIndex)}>
-                    <BreadcrumbItem className="custom-item" href="#">Breadcrumb 1</BreadcrumbItem>
+                  <Breadcrumb
+                    id="small-navigator"
+                    className="custom-breadcrumb-top"
+                    activeIndex={Math.floor(Math.random() * 3)}
+                    onSelection={e => console.log(e, e.tabIndex)}
+                  >
+                    <BreadcrumbItem className="custom-item" href="#">
+                      Breadcrumb 1
+                    </BreadcrumbItem>
                     <BreadcrumbItem href="#">Breadcrumb 2</BreadcrumbItem>
                     <BreadcrumbItem href="#tools">Breadcrumb 3</BreadcrumbItem>
                   </Breadcrumb>
@@ -1614,8 +1789,32 @@ class App extends Component {
                     <LoadingState />
                   </div>
                 </div>
+
+                <div className="hcl-row">
+                  <div className="hcl-col-6 mb-2">
+                    <TreeView
+                      treeData={this.state.treeData}
+                      type="single"
+                      onChange={selected => {
+                        console.log('selected item', selected);
+                      }}
+                      onToggle={selected => {
+                        console.log('toggled item', selected);
+                      }}
+                    />
+                  </div>
+                  <div className="hcl-col-6 mb-2">
+                    <TreeView
+                      treeData={this.state.treeData1}
+                      onChange={selected => {
+                        console.log('selected item', selected);
+                      }}
+                    />
+                  </div>
+                </div>
               </div>
             </section>
+
             <Footer
               caption="Copyright © HCL Software. All rights reserved"
               links={[
