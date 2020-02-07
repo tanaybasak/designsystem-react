@@ -5,7 +5,7 @@ exports[`<Modal> component snapshots/renders Modal correctly 1`] = `
   className="hcl-modal"
 >
   <div
-    className="hcl-modal-container hcl-modal-container-lg"
+    className="hcl-modal-container hcl-modal-container-lg "
   >
     <button
       className="hcl-modal-close"
