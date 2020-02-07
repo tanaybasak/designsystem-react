@@ -53,3 +53,7 @@ pre button {
     position: relative !important;
     width: 100% !important;
 }
+
+.hcl-tree {
+    width: 100%;
+}

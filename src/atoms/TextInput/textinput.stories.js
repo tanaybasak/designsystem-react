@@ -34,7 +34,7 @@ storiesOf('TextInput', module).add(
     info: {
       text: `Description About TextInput Component \n
       
-      import { TextInput } from 'patron-react/textinput'`
+      import { TextInput } from '@patron/patron-react/textinput'`
     }
   }
 );

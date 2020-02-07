@@ -35,7 +35,7 @@ storiesOf('UIShellFooter', module).add(
     info: {
       text: `Description About Footer Component
 
-      import { Footer } from 'patron-react/footer'
+      import { Footer } from '@patron/patron-react/footer'
       
       `
     }

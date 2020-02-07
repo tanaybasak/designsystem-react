@@ -52,7 +52,7 @@ storiesOf('Overflowmenu', module).add(
   {
     info: {
       text: `Description About Overflowmenu Component \n
-      import { Overflowmenu } from 'patron-react/overflowmenu'`
+      import { Overflowmenu } from '@patron/patron-react/overflowmenu'`
     }
   }
 );

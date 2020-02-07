@@ -107,7 +107,7 @@ storiesOf('DataTable', module)
       info: {
         text: `Description About DataTable Component
 
-      import { DataTable } from 'patron-react/datatable'
+      import { DataTable } from '@patron/patron-react/datatable'
       
       `
       }
@@ -131,7 +131,7 @@ storiesOf('DataTable', module)
       info: {
         text: `Description About DataTable Component \n
 
-        import { DataTable } from 'patron-react/datatable'
+        import { DataTable } from '@patron/patron-react/datatable'
         
         `
       }

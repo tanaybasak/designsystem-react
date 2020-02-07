@@ -128,7 +128,7 @@ storiesOf('UIShellSidebar', module).add(
     info: {
       text: `Description About Sidebar Component
       
-      import { Sidebar } from 'patron-react/sidebar'
+      import { Sidebar } from '@patron/patron-react/sidebar'
 
       `
     }

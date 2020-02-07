@@ -29,7 +29,7 @@ storiesOf('Notification', module).add(
     info: {
       text: `Description About Notification Component\n
       
-      import { Notification } from 'patron-react/notification'
+      import { Notification } from '@patron/patron-react/notification'
       
       `
     }

@@ -49,7 +49,7 @@ storiesOf('UIShellHeader', module).add(
     info: {
       text: `Description About Header Component
       
-      import { Header } from 'patron-react/header'
+      import { Header } from '@patron/patron-react/header'
 
       `
     }

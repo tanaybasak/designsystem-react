@@ -7,6 +7,6 @@ import Label from './Label';
 storiesOf('Label', module).add('default', () => <Label>This is label</Label>, {
   info: {
     text: `Description About Label Component\n
-      import { Label } from 'patron-react/label'`
+      import { Label } from '@patron/patron-react/label'`
   }
 });

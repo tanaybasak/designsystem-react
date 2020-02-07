@@ -32,7 +32,7 @@ storiesOf('Breadcrumb', module).add(
     info: {
       text: `Description About Breadcrumb Component \n 
       
-      import { Breadcrumb , BreadcrumbItem } from 'patron-react/breadcrumb'
+      import { Breadcrumb , BreadcrumbItem } from '@patron/patron-react/breadcrumb'
 
       `
     }

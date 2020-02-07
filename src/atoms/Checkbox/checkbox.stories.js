@@ -22,7 +22,7 @@ storiesOf('Checkbox', module)
       info: {
         text: `Description About Checkbox Component \n
 
-      import { Checkbox } from 'patron-react/checkbox'`
+      import { Checkbox } from '@patron/patron-react/checkbox'`
       }
     }
   )
@@ -42,7 +42,7 @@ storiesOf('Checkbox', module)
       info: {
         text: `Description About Checkbox Component \n
   
-        import { Checkbox } from 'patron-react/checkbox'`
+        import { Checkbox } from '@patron/patron-react/checkbox'`
       }
     }
   );

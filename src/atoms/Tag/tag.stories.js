@@ -30,7 +30,7 @@ storiesOf('Tag', module).add(
     info: {
       text: `Description About Tag Component
 
-        import { Tag } from 'patron-react/tag'
+        import { Tag } from '@patron/patron-react/tag'
 
         `
     }

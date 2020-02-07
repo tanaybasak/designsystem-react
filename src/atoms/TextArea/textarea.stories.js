@@ -23,7 +23,7 @@ storiesOf('TextArea', module).add(
     info: {
       text: `Description About TextArea Component \n
 
-      import { TextArea } from 'patron-react/textarea'`
+      import { TextArea } from '@patron/patron-react/textarea'`
     }
   }
 );

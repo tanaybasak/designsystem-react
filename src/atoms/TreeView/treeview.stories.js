@@ -94,7 +94,7 @@ storiesOf('TreeView', module)
     info: {
       text: `Description About TreeView Component \n
         
-        import { TreeView } from 'patron-react/treeview';
+        import { TreeView } from '@patron/patron-react/treeview';
         
         `
     }
@@ -106,7 +106,7 @@ storiesOf('TreeView', module)
       info: {
         text: `Description About TreeView Component \n
         
-        import { TreeView } from 'patron-react/treeview';
+        import { TreeView } from '@patron/patron-react/treeview';
         
         `
       }

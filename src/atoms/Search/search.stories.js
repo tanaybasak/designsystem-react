@@ -35,7 +35,7 @@ storiesOf('Search', module)
       info: {
         text: `Description About Search Component \n
         
-        import { Search } from 'patron-react/search'
+        import { Search } from '@patron/patron-react/search'
 
         `
       }
@@ -59,7 +59,7 @@ storiesOf('Search', module)
       info: {
         text: `Description About Search Component \n
         
-        import { Search } from 'patron-react/search'
+        import { Search } from '@patron/patron-react/search'
 
         `
       }

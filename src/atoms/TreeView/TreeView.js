@@ -57,13 +57,34 @@ const TreeView = ({
 };
 
 TreeView.propTypes = {
+  /** Tree Data */
   treeData: PropTypes.any,
+  /** To Specify Expand Icon */
   expandedIcon: PropTypes.string,
+  /** To Specify Collapsed Icon */
   collapsedIcon: PropTypes.string,
+  /** Style class of the component */
   className: PropTypes.string,
+  /** Callback function on selecting tree node */
   onChange: PropTypes.func,
+  /** Callback function on expanding/collapsing tree node */
   onToggle: PropTypes.func,
+  /** Configuration Object for updating propery name in tree data
+ {
+  displayChildren: 'showChildren',
+  expandIcon: 'expandIcon',
+  collapsedIcon: 'collapsedIcon',
+  icon: 'icon',
+  children: 'children',
+  name: 'name',
+  hasChildren: 'hasChildren'
+}
+*/
   config: PropTypes.any,
+  /** Type of Treeview
+   * default : Component without any node selection
+   * single : Component with node selection
+   */
   type: PropTypes.oneOf(['default', 'single'])
 };
 

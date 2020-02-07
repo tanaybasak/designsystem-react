@@ -41,7 +41,7 @@ storiesOf('FileUploader', module).add(
     info: {
       text: `Description About FileUploader Component
 
-      import { FileUploader } from 'patron-react/fileuploader'
+      import { FileUploader } from '@patron/patron-react/fileuploader'
 
       `
     }

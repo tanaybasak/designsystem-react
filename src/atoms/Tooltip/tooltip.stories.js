@@ -44,7 +44,7 @@ storiesOf('Tooltip', module)
       info: {
         text: `Description About Icon Tooltip Component \n
         
-        import { Tooltip } from 'patron-react/tooltip';
+        import { Tooltip } from '@patron/patron-react/tooltip';
         
         `
       }
@@ -68,7 +68,7 @@ storiesOf('Tooltip', module)
       info: {
         text: `Description About Definition Tooltip Component \n
         
-        import { Tooltip } from 'patron-react/tooltip';
+        import { Tooltip } from '@patron/patron-react/tooltip';
         
         `
       }
@@ -133,10 +133,10 @@ storiesOf('Tooltip', module)
       info: {
         text: `Description About Icon Tooltip Component \n
         
-    import { Tooltip } from 'patron-react/tooltip';
-    import { Paragraph } from 'patron-react/paragraph';
-    import { Button } from 'patron-react/button';
-    import { Link } from 'patron-react/link';
+    import { Tooltip } from '@patron/patron-react/tooltip';
+    import { Paragraph } from '@patron/patron-react/paragraph';
+    import { Button } from '@patron/patron-react/button';
+    import { Link } from '@patron/patron-react/link';
         
         `
       }

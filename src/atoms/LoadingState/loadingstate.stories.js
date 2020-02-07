@@ -19,7 +19,7 @@ storiesOf('LoadingState', module)
       info: {
         text: `Description About LoadingState Component \n
         
-        import { LoadingState } from 'patron-react/loadingstate'
+        import { LoadingState } from '@patron/patron-react/loadingstate'
         
         `
       }
@@ -29,7 +29,7 @@ storiesOf('LoadingState', module)
     info: {
       text: `Description About Breadcrumb LoadingState Component \n
       
-      import { LoadingState } from 'patron-react/loadingstate'
+      import { LoadingState } from '@patron/patron-react/loadingstate'
 
       `
     }
@@ -38,7 +38,7 @@ storiesOf('LoadingState', module)
     info: {
       text: `Description About Tab LoadingState Component \n
       
-      import { LoadingState } from 'patron-react/loadingstate'
+      import { LoadingState } from '@patron/patron-react/loadingstate'
 
         `
     }
@@ -47,7 +47,7 @@ storiesOf('LoadingState', module)
     info: {
       text: `Description About Accordion LoadingState Component\n
       
-      import { LoadingState } from 'patron-react/loadingstate'
+      import { LoadingState } from '@patron/patron-react/loadingstate'
 
         `
     }
@@ -56,7 +56,7 @@ storiesOf('LoadingState', module)
     info: {
       text: `Description About Slider LoadingState Component\n
       
-      import { LoadingState } from 'patron-react/loadingstate'
+      import { LoadingState } from '@patron/patron-react/loadingstate'
 
         `
     }
@@ -101,7 +101,7 @@ storiesOf('LoadingState', module)
       info: {
         text: `Description About Slider DataTable Component\n
       
-      import { LoadingState } from 'patron-react/loadingstate'
+      import { LoadingState } from '@patron/patron-react/loadingstate'
 
       `
       }

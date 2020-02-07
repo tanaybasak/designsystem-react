@@ -23,7 +23,7 @@ storiesOf('RadioButton', module)
       info: {
         text: `Description About Radio Component \n
 
-                import { Radio } from 'patron-react/radio'`
+                import { Radio } from '@patron/patron-react/radio'`
       }
     }
   )
@@ -44,7 +44,7 @@ storiesOf('RadioButton', module)
       info: {
         text: `Description About Radio Component \n
 
-        import { Radio } from 'patron-react/radio'`
+        import { Radio } from '@patron/patron-react/radio'`
       }
     }
   );

@@ -25,7 +25,7 @@ storiesOf('NumberInput', module).add(
     info: {
       text: `Description About NumberInput Component \n 
       
-        import { NumberInput } from 'patron-react/numberinput'
+        import { NumberInput } from '@patron/patron-react/numberinput'
 
       `
     }

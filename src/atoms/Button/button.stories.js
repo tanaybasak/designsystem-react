@@ -33,7 +33,7 @@ storiesOf('Button', module).add(
     info: {
       text: `Description About Button Component \n
 
-    import { Button } from 'patron-react/button'
+    import { Button } from '@patron/patron-react/button'
       
       `
     }
