@@ -37,15 +37,28 @@ const Tag = ({
 }
 
 Tag.propTypes = {
+    /** Custom class for tag */
     className: PropTypes.string,
+    /** Text value for tag */
     children: PropTypes.string,
+    /** Text value for tag */
     text: PropTypes.string,
+    /** Type of Tag eg: 'primary', 'secondary' */
     type: PropTypes.oneOf(["primary", "secondary"]),
+    /** Title of Tag */
     title: PropTypes.string,
+    /** Tab index for Tag */
     tabIndex: PropTypes.number,
+    /** Boolean value to disable Tag */
     disabled: PropTypes.bool,
+    /** Boolean value to show or hide close button in Tag */
     closable: PropTypes.bool,
+    /** Callback function on close of Tag Component
+     * 
+     * Argument – event
+     */
     onClose: PropTypes.func,
+    /** Src of thumbnail for Tag Component */
     thumbnailSrc: PropTypes.string
 };
 

@@ -34,12 +34,21 @@ export default function AccordionItem({
 }
 
 AccordionItem.propTypes = {
+  /** Title for the Accordion Item */
   title: PropTypes.string.isRequired,
+  /** True: Accordion Item in expanded mode 
+  False: Accordion Item in collapsed mode */
   expanded: PropTypes.bool,
+  /** Callback function that is invoked when Accordion is expanded or closed.
+  Argument – event */
   onChange: PropTypes.func,
+  //ignore 
   onExpand: PropTypes.func,
+  /** Name of the custom class to apply to the Accordion Item */
   className: PropTypes.string,
+  /** Content for Accordion Item */
   children: PropTypes.any,
+  /** Internally used by Accordion */
   dataIndex: PropTypes.number
 };
 

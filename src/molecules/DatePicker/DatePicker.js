@@ -7,7 +7,15 @@ import WeekPanel from './WeekPanel';
 import prefix from '../../settings';
 import { positionComponent, isValidDate } from '../../util/utility';
 
-const DatePicker = ({ weekDays, months, open, format, onDateSelect }) => {
+const DatePicker = ({
+  weekDays,
+  months,
+  open,
+  format,
+  onDateSelect,
+  className,
+  ...restProps
+}) => {
   const date = new Date();
   const [currDateObj, setCurrDateObj] = useState({
     day: date.getDay(),
@@ -175,8 +183,10 @@ const DatePicker = ({ weekDays, months, open, format, onDateSelect }) => {
     return regex.test(str);
   };
 
+  const classnames = `${prefix}-datePicker ${className}`.trim();
+
   return (
-    <section className={`${prefix}-datePicker`} data-component="datepicker">
+    <section className={classnames} data-component="datepicker" {...restProps}>
       <div className={`${prefix}-datePicker-container`}>
         <DateInput
           dateSelected={dateSelected}
@@ -232,11 +242,26 @@ const DatePicker = ({ weekDays, months, open, format, onDateSelect }) => {
 };
 
 DatePicker.propTypes = {
+  /** Days in week.  Array input can be on the basis of language selected.  */
   weekDays: PropTypes.array,
+
+  /** Months in a year.  Array input can be on the basis of language selected.  */
   months: PropTypes.array,
+
+  /** Down: DatePicker pop up will come under input box.
+    Top: DatePicker pop up will come above input box.  */
   open: PropTypes.string,
+
+  /**
+   MM/DD/YYYY:  One of the format available.
+   DD/MM/YYYY: One of the format available. */
   format: PropTypes.string,
-  onDateSelect: PropTypes.func
+
+  /** Callback function which will be executed on date selection  */
+  onDateSelect: PropTypes.func,
+
+  /** Class/clasess will be applied on the parent div of DatePicker */
+  className: PropTypes.string
 };
 
 DatePicker.defaultProps = {
@@ -257,6 +282,7 @@ DatePicker.defaultProps = {
   ],
   open: 'down',
   format: 'MM/DD/YYYY',
-  onDateSelect: () => {}
+  onDateSelect: () => {},
+  className: ''
 };
 export default DatePicker;

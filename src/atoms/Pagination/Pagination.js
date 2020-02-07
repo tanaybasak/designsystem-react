@@ -276,11 +276,17 @@ const Pagination = ({ totalItems, itemsPerPageStepper, itemsStepperLimit, itemsP
 }
 
 Pagination.propTypes = {
+    /** Total number of items to be shown in Pagination Component. */
     totalItems: PropTypes.number.isRequired,
+    /** Stepper value which is incremented in multiples of 2 with the previous value. */
     itemsPerPageStepper: PropTypes.number.isRequired,
+    /** Number within which Step Numbers are generated. */
     itemsStepperLimit: PropTypes.number,
+    /** Text to display to the left of the No. of items Dropdown */
     itemsPerPageText: PropTypes.string,
+    /** Accepts Event handler as argument/prop which is triggered after Items Per Page Dropdown is changed. */
     onItemsPerPageChange: PropTypes.func,
+    /** Accepts Event handler as argument/prop which is triggered after Page Drop-down is changed. */
     onPageChange: PropTypes.func
 };
 

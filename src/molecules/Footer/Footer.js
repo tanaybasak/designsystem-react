@@ -34,9 +34,13 @@ const Footer = ({ className, caption, links, onClick, ...restProps }) => {
 };
 
 Footer.propTypes = {
+    /** Custom class for Footer Component */
     className: PropTypes.string,
+    /** Caption for Footer Component */
     caption: PropTypes.string,
+    /** List of links for Footer Component */
     links: PropTypes.array,
+    /** Callback function for on click of links in Footer Component */
     onClick: PropTypes.func
 };
 
