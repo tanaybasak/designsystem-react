@@ -27,7 +27,9 @@ export default function Notification({
   return visible ? (
     <div className={classnames} role="alert">
       <div className={`${prefix}-notification-body`}>
-        {icon || useIcon(type)}
+        <div className={`${prefix}-notification-icon-container`}>
+          {icon || useIcon(type)}
+        </div>
         <div className={`${prefix}-notification-text-wrapper`}>
           <p className={`${prefix}-notification-title`}>{title}</p>
           <p className={`${prefix}-notification-subtitle`}>{subtitle}</p>

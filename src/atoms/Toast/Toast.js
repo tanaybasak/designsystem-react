@@ -28,7 +28,9 @@ export default function Toast({
 
   return visible ? (
     <div className={classnames} role="alert" {...restProps}>
-      {icon || useIcon(type)}
+      <div className={`${prefix}-toast-icon-container`}>
+        {icon || useIcon(type)}
+      </div>
       <div className={`${prefix}-toast-details`}>
         <h3 className={`${prefix}-toast-title`}>{title}</h3>
         <p className={`${prefix}-toast-subtitle`}>{subtitle}</p>
@@ -65,7 +67,7 @@ Toast.propTypes = {
   /** Icon description of Toast Component */
   iconDescription: PropTypes.string,
   /** Callback function for on close of Toast Component
-   * 
+   *
    *  Argument – event
    */
   onClose: PropTypes.func,
