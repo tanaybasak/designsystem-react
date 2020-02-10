@@ -8,7 +8,7 @@ import Toast from './Toast';
 
 const typeOptions = {
   Info: 'info',
-  Error: 'error',
+  Danger: 'danger',
   Success: 'success',
   Warning: 'warning'
 };
