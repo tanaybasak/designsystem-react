@@ -73,74 +73,74 @@ class App extends Component {
     treeData: [
       {
         name: 'Section 1',
-        showChildren: false,
+        displayChildren: false,
         children: [
           {
             name: 'Sub Section 1.1',
-            showChildren: false,
+            displayChildren: false,
             children: [
               {
                 name: 'Sub Section 1.1.1',
-                showChildren: false,
+                displayChildren: false,
                 children: []
               },
               {
                 name: 'Sub Section 1.1.2',
-                showChildren: false,
+                displayChildren: false,
                 children: []
               }
             ]
           },
           {
             name: 'Sub Section 1.2',
-            showChildren: false,
+            displayChildren: false,
             children: []
           }
         ]
       },
       {
         name: 'Section 2',
-        showChildren: false,
+        displayChildren: false,
         children: [
           {
             name: 'Sub Section 2.1',
-            showChildren: false,
+            displayChildren: false,
             children: [
               {
                 name: 'Sub Section 2.1.1',
-                showChildren: false,
+                displayChildren: false,
                 children: []
               },
               {
                 name: 'Sub Section 2.1.2',
-                showChildren: false,
+                displayChildren: false,
                 children: []
               }
             ]
           },
           {
             name: 'Sub Section 2.2',
-            showChildren: false,
+            displayChildren: false,
             children: [
               {
                 name: 'Sub Section 2.2.1',
-                showChildren: false,
+                displayChildren: false,
                 children: [
                   {
                     name: 'Sub Section 2.2.1.1',
-                    showChildren: false,
+                    displayChildren: false,
                     children: []
                   },
                   {
                     name: 'Sub Section 2.2.1.2',
-                    showChildren: false,
+                    displayChildren: false,
                     children: []
                   }
                 ]
               },
               {
                 name: 'Sub Section 2.2.2',
-                showChildren: false,
+                displayChildren: false,
                 children: []
               }
             ]
@@ -149,7 +149,7 @@ class App extends Component {
       },
       {
         name: 'Section 3',
-        showChildren: false,
+        displayChildren: false,
         children: []
       }
     ],
@@ -157,74 +157,74 @@ class App extends Component {
     treeData1: [
       {
         name: 'Section 1',
-        showChildren: false,
+        displayChildren: false,
         children: [
           {
             name: 'Sub Section 1.1',
-            showChildren: false,
+            displayChildren: false,
             children: [
               {
                 name: 'Sub Section 1.1.1',
-                showChildren: false,
+                displayChildren: false,
                 children: []
               },
               {
                 name: 'Sub Section 1.1.2',
-                showChildren: false,
+                displayChildren: false,
                 children: []
               }
             ]
           },
           {
             name: 'Sub Section 1.2',
-            showChildren: false,
+            displayChildren: false,
             children: []
           }
         ]
       },
       {
         name: 'Section 2',
-        showChildren: false,
+        displayChildren: false,
         children: [
           {
             name: 'Sub Section 2.1',
-            showChildren: false,
+            displayChildren: false,
             children: [
               {
                 name: 'Sub Section 2.1.1',
-                showChildren: false,
+                displayChildren: false,
                 children: []
               },
               {
                 name: 'Sub Section 2.1.2',
-                showChildren: false,
+                displayChildren: false,
                 children: []
               }
             ]
           },
           {
             name: 'Sub Section 2.2',
-            showChildren: false,
+            displayChildren: false,
             children: [
               {
                 name: 'Sub Section 2.2.1',
-                showChildren: false,
+                displayChildren: false,
                 children: [
                   {
                     name: 'Sub Section 2.2.1.1',
-                    showChildren: false,
+                    displayChildren: false,
                     children: []
                   },
                   {
                     name: 'Sub Section 2.2.1.2',
-                    showChildren: false,
+                    displayChildren: false,
                     children: []
                   }
                 ]
               },
               {
                 name: 'Sub Section 2.2.2',
-                showChildren: false,
+                displayChildren: false,
                 children: []
               }
             ]
@@ -233,7 +233,7 @@ class App extends Component {
       },
       {
         name: 'Section 3',
-        showChildren: false,
+        displayChildren: false,
         children: []
       }
     ]

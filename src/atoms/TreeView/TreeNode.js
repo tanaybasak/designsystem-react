@@ -139,11 +139,11 @@ const TreeNode = ({
             }`}
           />
 
-          {node[configuration.expandIcon] && !showChildren ? (
+          {node[configuration.expandIcon] && showChildren ? (
             <i className={node[configuration.expandIcon]} />
           ) : null}
 
-          {node[configuration.collapsedIcon] && showChildren ? (
+          {node[configuration.collapsedIcon] && !showChildren ? (
             <i className={node[configuration.collapsedIcon]} />
           ) : null}
 

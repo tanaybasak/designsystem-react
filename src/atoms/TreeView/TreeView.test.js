@@ -6,28 +6,28 @@ import TreeView from './TreeView';
 const treeData = [
   {
     name: 'Section 1',
-    showChildren: false,
-    expandIcon: 'section1expand',
-    collapsedIcon: 'section1collapsed',
+    displayChildren: false,
+    collapsedIcon: 'section1expand',
+    expandIcon: 'section1collapsed',
     children: [
       {
         name: 'Sub Section 1.1',
         icon: 'subsection1.1icon',
-        showChildren: false
+        displayChildren: false
       },
       {
         name: 'Sub Section 1.2',
         icon: 'subsection1.2icon',
-        showChildren: false,
+        displayChildren: false,
         children: []
       }
     ]
   },
   {
     name: 'Section 2',
-    showChildren: false,
-    expandIcon: 'section1expand',
-    collapsedIcon: 'section1collapsed',
+    displayChildren: false,
+    collapsedIcon: 'section1expand',
+    expandIcon: 'section1collapsed',
     children: []
   }
 ];
@@ -48,16 +48,16 @@ it('Toggle Tree node using click', () => {
   );
   const firstTreeNode = treeData[0];
   expect(wrapper.find(`.tree-nested`).exists()).toBeFalsy();
-  expect(wrapper.find(`.${firstTreeNode.expandIcon}`).exists()).toBeTruthy();
-  expect(wrapper.find(`.${firstTreeNode.collapsedIcon}`).exists()).toBeFalsy();
+  expect(wrapper.find(`.${firstTreeNode.collapsedIcon}`).exists()).toBeTruthy();
+  expect(wrapper.find(`.${firstTreeNode.expandIcon}`).exists()).toBeFalsy();
 
   wrapper
     .find('.tree-node')
     .at(0)
     .simulate('click');
   expect(wrapper.find(`.tree-nested`).exists()).toBeTruthy();
-  expect(wrapper.find(`.${firstTreeNode.expandIcon}`).exists()).toBeFalsy();
-  expect(wrapper.find(`.${firstTreeNode.collapsedIcon}`).exists()).toBeTruthy();
+  expect(wrapper.find(`.${firstTreeNode.collapsedIcon}`).exists()).toBeFalsy();
+  expect(wrapper.find(`.${firstTreeNode.expandIcon}`).exists()).toBeTruthy();
   expect(mockCallBack.mock.calls.length).toBe(1);
 });
 
@@ -83,8 +83,8 @@ it('Select Tree on Key enter', () => {
   );
   const firstTreeNode = treeData[0];
   expect(wrapper.find(`.tree-nested`).exists()).toBeFalsy();
-  expect(wrapper.find(`.${firstTreeNode.expandIcon}`).exists()).toBeTruthy();
-  expect(wrapper.find(`.${firstTreeNode.collapsedIcon}`).exists()).toBeFalsy();
+  expect(wrapper.find(`.${firstTreeNode.collapsedIcon}`).exists()).toBeTruthy();
+  expect(wrapper.find(`.${firstTreeNode.expandIcon}`).exists()).toBeFalsy();
   wrapper
     .find('.tree-node')
     .at(0)
@@ -104,22 +104,22 @@ it('Toggle Tree Node on right Arrow and left arrow', () => {
   );
   const firstTreeNode = treeData[0];
   expect(wrapper.find(`.tree-nested`).exists()).toBeFalsy();
-  expect(wrapper.find(`.${firstTreeNode.expandIcon}`).exists()).toBeTruthy();
-  expect(wrapper.find(`.${firstTreeNode.collapsedIcon}`).exists()).toBeFalsy();
+  expect(wrapper.find(`.${firstTreeNode.collapsedIcon}`).exists()).toBeTruthy();
+  expect(wrapper.find(`.${firstTreeNode.expandIcon}`).exists()).toBeFalsy();
 
   const treeNode = wrapper.find('.tree-node').at(0);
   treeNode.simulate('focus');
   treeNode.simulate('keydown', { keyCode: 39 });
   expect(wrapper.find(`.tree-nested`).exists()).toBeTruthy();
-  expect(wrapper.find(`.${firstTreeNode.expandIcon}`).exists()).toBeFalsy();
-  expect(wrapper.find(`.${firstTreeNode.collapsedIcon}`).exists()).toBeTruthy();
+  expect(wrapper.find(`.${firstTreeNode.collapsedIcon}`).exists()).toBeFalsy();
+  expect(wrapper.find(`.${firstTreeNode.expandIcon}`).exists()).toBeTruthy();
   expect(mockCallBack.mock.calls.length).toBe(1);
 
   treeNode.simulate('focus');
   treeNode.simulate('keydown', { keyCode: 37 });
   expect(wrapper.find(`.tree-nested`).exists()).toBeFalsy();
-  expect(wrapper.find(`.${firstTreeNode.expandIcon}`).exists()).toBeTruthy();
-  expect(wrapper.find(`.${firstTreeNode.collapsedIcon}`).exists()).toBeFalsy();
+  expect(wrapper.find(`.${firstTreeNode.collapsedIcon}`).exists()).toBeTruthy();
+  expect(wrapper.find(`.${firstTreeNode.expandIcon}`).exists()).toBeFalsy();
 });
 
 it('Navigate Item using Arrow Down', () => {
@@ -129,15 +129,15 @@ it('Navigate Item using Arrow Down', () => {
   );
   const firstTreeNode = treeData[0];
   expect(wrapper.find(`.tree-nested`).exists()).toBeFalsy();
-  expect(wrapper.find(`.${firstTreeNode.expandIcon}`).exists()).toBeTruthy();
-  expect(wrapper.find(`.${firstTreeNode.collapsedIcon}`).exists()).toBeFalsy();
+  expect(wrapper.find(`.${firstTreeNode.collapsedIcon}`).exists()).toBeTruthy();
+  expect(wrapper.find(`.${firstTreeNode.expandIcon}`).exists()).toBeFalsy();
 
   const treeNode = wrapper.find('.tree-node').at(0);
   treeNode.simulate('focus');
   treeNode.simulate('keydown', { keyCode: 39 });
   expect(wrapper.find(`.tree-nested`).exists()).toBeTruthy();
-  expect(wrapper.find(`.${firstTreeNode.expandIcon}`).exists()).toBeFalsy();
-  expect(wrapper.find(`.${firstTreeNode.collapsedIcon}`).exists()).toBeTruthy();
+  expect(wrapper.find(`.${firstTreeNode.collapsedIcon}`).exists()).toBeFalsy();
+  expect(wrapper.find(`.${firstTreeNode.expandIcon}`).exists()).toBeTruthy();
   expect(mockCallBack.mock.calls.length).toBe(1);
   treeNode.simulate('keydown', { keyCode: 40 });
   expect(document.activeElement.textContent.trim()).toEqual(
@@ -161,16 +161,16 @@ it('Navigate Item using Arrow Up', () => {
   );
   const firstTreeNode = treeData[0];
   expect(wrapper.find(`.tree-nested`).exists()).toBeFalsy();
-  expect(wrapper.find(`.${firstTreeNode.expandIcon}`).exists()).toBeTruthy();
-  expect(wrapper.find(`.${firstTreeNode.collapsedIcon}`).exists()).toBeFalsy();
+  expect(wrapper.find(`.${firstTreeNode.collapsedIcon}`).exists()).toBeTruthy();
+  expect(wrapper.find(`.${firstTreeNode.expandIcon}`).exists()).toBeFalsy();
 
   const firstNode = wrapper.find('.tree-node').at(0);
   const secondNode = wrapper.find('.tree-node').at(1);
   firstNode.simulate('focus');
   firstNode.simulate('keydown', { keyCode: 39 });
   expect(wrapper.find(`.tree-nested`).exists()).toBeTruthy();
-  expect(wrapper.find(`.${firstTreeNode.expandIcon}`).exists()).toBeFalsy();
-  expect(wrapper.find(`.${firstTreeNode.collapsedIcon}`).exists()).toBeTruthy();
+  expect(wrapper.find(`.${firstTreeNode.collapsedIcon}`).exists()).toBeFalsy();
+  expect(wrapper.find(`.${firstTreeNode.expandIcon}`).exists()).toBeTruthy();
   expect(mockCallBack.mock.calls.length).toBe(1);
 
   secondNode.simulate('focus');

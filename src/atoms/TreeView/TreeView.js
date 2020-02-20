@@ -25,7 +25,7 @@ const TreeView = ({
   };
 
   let defaultConfig = {
-    displayChildren: 'showChildren',
+    displayChildren: 'displayChildren',
     expandIcon: 'expandIcon',
     collapsedIcon: 'collapsedIcon',
     icon: 'icon',
