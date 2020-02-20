@@ -14,6 +14,8 @@ const Tooltip = ({ type, content, direction, children }) => {
   let diff = 0;
   let positionDirection;
   const [tooltipId] = useState(tooltipElementRef++);
+  let mouseOut = false;
+  let contentIn = false;
 
   const TooltipContainer = (content, type, tooltipContainerRef) => {
     return ReactDOM.createPortal(
@@ -21,12 +23,27 @@ const Tooltip = ({ type, content, direction, children }) => {
         className={`${prefix}-tooltip ${prefix}-tooltip-${type}`}
         data-focus-on-click={type === 'interactive'}
         ref={tooltipContainerRef}
+        onMouseEnter={type !== 'interactive' ? tooltipContentMouseEnter : null}
+        onMouseLeave={type !== 'interactive' ? tooltipContentMouseLeave : null}
       >
         <div className={`${prefix}-tooltip-arrow`} />
         <div>{content}</div>
       </div>,
       document.body
     );
+  };
+
+  const tooltipContentMouseEnter = () => {
+    mouseOut = false;
+    contentIn = true;
+  };
+
+  const tooltipContentMouseLeave = () => {
+    mouseOut = true;
+    if (contentIn) {
+      contentIn = false;
+      toggleTooltip(false);
+    }
   };
 
   const handleClick = e => {
@@ -617,11 +634,29 @@ const Tooltip = ({ type, content, direction, children }) => {
   };
 
   const openTooltip = () => {
+    mouseOut = false;
     toggleTooltip(true);
   };
 
   const closeTooltip = () => {
-    toggleTooltip(false);
+    mouseOut = true;
+    setTimeout(() => {
+      if (mouseOut) {
+        mouseOut = false;
+        contentIn = false;
+        toggleTooltip(false);
+      }
+    }, 200);
+  };
+
+  const closeTooltipOnBlur = () => {
+    if (!contentIn) {
+      toggleTooltip(false);
+    }
+  };
+
+  const openInteractiveTooltip = () => {
+    toggleTooltip(true);
   };
 
   const showTooltipOnEnter = event => {
@@ -636,7 +671,7 @@ const Tooltip = ({ type, content, direction, children }) => {
       return React.cloneElement(child, {
         tabIndex: '0',
         onMouseEnter: type !== 'interactive' ? openTooltip : null,
-        onClick: type === 'interactive' ? openTooltip : null,
+        onClick: type === 'interactive' ? openInteractiveTooltip : null,
         onMouseLeave: type !== 'interactive' ? closeTooltip : null,
         onFocus: type !== 'interactive' ? openTooltip : null,
         onBlur: type !== 'interactive' ? closeTooltip : null,
@@ -654,11 +689,11 @@ const Tooltip = ({ type, content, direction, children }) => {
     <span
       tabIndex="0"
       ref={parentRef}
-      onClick={type === 'interactive' ? openTooltip : null}
+      onClick={type === 'interactive' ? openInteractiveTooltip : null}
       onMouseEnter={type !== 'interactive' ? openTooltip : null}
       onMouseLeave={type !== 'interactive' ? closeTooltip : null}
       onFocus={type !== 'interactive' ? openTooltip : null}
-      onBlur={type !== 'interactive' ? closeTooltip : null}
+      onBlur={type !== 'interactive' ? closeTooltipOnBlur : null}
       onKeyPress={type === 'interactive' ? showTooltipOnEnter : null}
       className={
         showTooltip && type === 'definition'
@@ -683,10 +718,10 @@ const Tooltip = ({ type, content, direction, children }) => {
 
 Tooltip.propTypes = {
   /** Type of Tooltip 
-Icon – An icon tooltip is used to clarify the action or name of an interactive icon button. 
-definition – The definition tooltip provides additional help or defines an item or term 
-Interactive - Interactive tooltips may contain rich text and other interactive elements like buttons or links 
-  */
+  Icon – An icon tooltip is used to clarify the action or name of an interactive icon button. 
+  definition – The definition tooltip provides additional help or defines an item or term 
+  Interactive - Interactive tooltips may contain rich text and other interactive elements like buttons or links 
+    */
   type: PropTypes.oneOf(['icon', 'definition', 'interactive']),
   /** Tooltip Direction eg: top, bottom, left, right */
   direction: PropTypes.oneOf(['top', 'bottom', 'left', 'right']),
