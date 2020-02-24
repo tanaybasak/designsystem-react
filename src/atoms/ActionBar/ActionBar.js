@@ -10,7 +10,8 @@ const ActionBar = ({ actions }) => {
         handler,
         primary = false,
         danger = false,
-        disabled = false
+        disabled = false,
+        ...restProps
       }) => {
         const classNames = [`${prefix}-btn ${prefix}-modal-btn`];
         classNames.push(`${prefix}-${primary ? `primary` : `secondary`}`);
@@ -25,6 +26,7 @@ const ActionBar = ({ actions }) => {
             key={label}
             disabled={disabled}
             className={classNames.join(' ')}
+            {...restProps}
             onClick={handler}
           >
             {label}
