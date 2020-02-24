@@ -71,7 +71,7 @@ TreeView.propTypes = {
   onToggle: PropTypes.func,
   /** Configuration Object for updating propery name in tree data
  {
-  displayChildren: 'showChildren',
+  displayChildren: 'displayChildren',
   expandIcon: 'expandIcon',
   collapsedIcon: 'collapsedIcon',
   icon: 'icon',

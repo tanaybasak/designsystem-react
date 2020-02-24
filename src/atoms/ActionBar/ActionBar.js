@@ -5,7 +5,14 @@ import prefix from '../../settings';
 const ActionBar = ({ actions }) => {
   const actionButtons = () => {
     return actions.map(
-      ({ label, handler, primary = false, danger = false }) => {
+      ({
+        label,
+        handler,
+        primary = false,
+        danger = false,
+        disabled = false,
+        ...restProps
+      }) => {
         const classNames = [`${prefix}-btn ${prefix}-modal-btn`];
         classNames.push(`${prefix}-${primary ? `primary` : `secondary`}`);
 
@@ -17,7 +24,9 @@ const ActionBar = ({ actions }) => {
           <button
             type="button"
             key={label}
+            disabled={disabled}
             className={classNames.join(' ')}
+            {...restProps}
             onClick={handler}
           >
             {label}
