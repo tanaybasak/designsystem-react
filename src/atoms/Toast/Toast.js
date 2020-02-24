@@ -33,9 +33,9 @@ export default function Toast({
       </div>
       <div className={`${prefix}-toast-details`}>
         <h3 className={`${prefix}-toast-title`}>{title}</h3>
-        <p className={`${prefix}-toast-subtitle`}>{subtitle}</p>
+        <div className={`${prefix}-toast-subtitle`}>{subtitle}</div>
         {caption ? (
-          <p className={`${prefix}-toast-caption`}>{caption}</p>
+          <div className={`${prefix}-toast-caption`}>{caption}</div>
         ) : null}
       </div>
       {closable ? (
@@ -59,7 +59,7 @@ Toast.propTypes = {
   /** Title for Toast Component */
   title: PropTypes.string,
   /** Subtitle for Toast Component */
-  subtitle: PropTypes.string,
+  subtitle: PropTypes.node,
   /** Caption for Toast Component */
   caption: PropTypes.string,
   /** Icon for Toast Component */
