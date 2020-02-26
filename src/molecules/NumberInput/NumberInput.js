@@ -17,6 +17,7 @@ const NumberInput = ({
   min,
   step,
   className,
+  helperText,
   ...restProps
 }) => {
   let [value, setValue] = useState(Number(defaultValue) || 0);
@@ -166,9 +167,9 @@ const NumberInput = ({
       </div>
 
       {label ? <Label htmlFor={id}>{label} </Label> : null}
-      {restProps.helperText ? (
+      {helperText ? (
         <FormHelperText className="helper-text">
-          {restProps.helperText}
+          {helperText}
         </FormHelperText>
       ) : null}
       {
@@ -196,7 +197,9 @@ NumberInput.propTypes = {
   /** Specifies the number intervals  */
   step: PropTypes.number,
   /** Class/clasess will be applied on the parent div of Number Input  */
-  className: PropTypes.string
+  className: PropTypes.string,
+  /** Helper Text  */
+  helperText: PropTypes.string
 };
 
 NumberInput.defaultProps = {
@@ -207,6 +210,7 @@ NumberInput.defaultProps = {
   max: null,
   min: null,
   step: null,
+  helperText:null,
   className: ''
 };
 

@@ -15,6 +15,8 @@ const TreeView = ({
 }) => {
   let [selectedNode, updateSelectedNode] = useState({});
 
+  let [treeInfo, updateTree] = useState(treeData);
+
   const onSelectNode = event => {
     updateSelectedNode(event);
     onChange(event);
@@ -34,21 +36,53 @@ const TreeView = ({
     hasChildren: 'hasChildren'
   };
 
+  const updateTreeData = (draggedNode, dropNode) => {
+    let draggedNodeArray = draggedNode.split('-');
+    let dropNodeArry = dropNode.split('-');
+    let treeInfoTemp = [...treeInfo];
+    let dropModel = treeInfoTemp[parseInt(dropNodeArry.splice(0, 1))];
+    dropNodeArry.map(arrayNumber => {
+      dropModel = dropModel.children[parseInt(arrayNumber)];
+    });
+    if (!dropModel.children) {
+      dropModel.children = [];
+    }
+    const spliceIndex = parseInt(draggedNodeArray.splice(0, 1));
+    let model = treeInfoTemp[spliceIndex];
+    if (draggedNodeArray.length > 0) {
+      draggedNodeArray.map((arrayNumber, index) => {
+        if (draggedNodeArray.length - 1 === index) {
+          let requestedModel = model.children[parseInt(arrayNumber)];
+          model.children.splice(parseInt(arrayNumber), 1);
+          model = requestedModel;
+        } else {
+          model = model.children[parseInt(arrayNumber)];
+        }
+      });
+    } else {
+      treeInfoTemp.splice(spliceIndex, 1);
+    }
+    dropModel.children.push(model);
+    updateTree(treeInfoTemp);
+  };
+
   const configuration = { ...defaultConfig, ...config };
   const classnames = `${prefix}-tree ${className.trim()}`;
   return (
     <ul role="tree" className={classnames}>
-      {treeData.map((node, index) => {
+      {treeInfo.map((node, index) => {
         return (
           <TreeNode
             node={node}
             key={`index-${index}`}
             expandedIcon={expandedIcon}
             collapsedIcon={collapsedIcon}
+            level={index + ''}
             onSelectNode={type === 'single' ? onSelectNode : null}
             selectedNode={type === 'single' ? selectedNode : null}
             onToggleNode={onToggle ? onToggleNode : null}
             configuration={configuration}
+            updateTreeData={updateTreeData}
           />
         );
       })}

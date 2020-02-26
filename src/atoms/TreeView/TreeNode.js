@@ -7,12 +7,14 @@ import {
 
 const TreeNode = ({
   node,
+  level,
   expandedIcon,
   collapsedIcon,
   onSelectNode,
   selectedNode,
   configuration,
-  onToggleNode
+  onToggleNode,
+  updateTreeData
 }) => {
   const [showChildren, toggleNode] = useState(
     node[configuration.displayChildren]
@@ -37,6 +39,24 @@ const TreeNode = ({
       node.children[0].focus();
     }
   };
+
+  const allowDrop = (ev) => {
+    ev.preventDefault();
+  }
+  
+  const drag = (data, ev) => {
+      console.log(level)
+    ev.dataTransfer.setData("text", level);
+  }
+  
+  const drop = (dropdata , ev) => {
+    ev.preventDefault();
+    var data = ev.dataTransfer.getData("text");
+
+    //dropdata.children.push(JSON.parse(data))
+
+    updateTreeData(data , level)
+  }
 
   const keyDown = e => {
     var key = e.which || e.keyCode;
@@ -130,8 +150,13 @@ const TreeNode = ({
         <div
           className="tree-node"
           tabIndex="0"
+          level={level}
           onKeyDown={keyDown}
           onClick={toggleTreeNode}
+          draggable="true"
+          onDragStart={drag.bind(this, node)}
+          onDrop={drop.bind(this , node)}
+          onDragOver={allowDrop}
         >
           <i
             className={`toggle-icon ${
@@ -162,7 +187,12 @@ const TreeNode = ({
         <div
           className="tree-node no-toggle-element"
           tabIndex="0"
+          level={level}
           onKeyDown={keyDown}
+          draggable="true"
+          onDragStart={drag.bind(this, node)}
+          onDrop={drop.bind(this , node)}
+          onDragOver={allowDrop}
         >
           {node[configuration.icon] ? (
             <i className={node[configuration.icon]}> </i>
@@ -180,17 +210,19 @@ const TreeNode = ({
       node[configuration.children].length > 0 &&
       showChildren ? (
         <ul role="group" className="tree-nested">
-          {node[configuration.children].map((subnode, index) => {
+          {node[configuration.children].map((subnode, subIndex) => {
             return (
               <TreeNode
                 node={subnode}
-                key={`treeNodeIndex-${index}`}
+                key={`treeNodeIndex-${subIndex}`}
                 expandedIcon={expandedIcon}
                 collapsedIcon={collapsedIcon}
                 onSelectNode={onSelectNode}
+                level={level+'-'+subIndex}
                 selectedNode={selectedNode}
                 onToggleNode={onToggleNode}
                 configuration={configuration}
+                updateTreeData={updateTreeData}
               />
             );
           })}
@@ -202,20 +234,24 @@ const TreeNode = ({
 
 TreeNode.propTypes = {
   node: PropTypes.any,
+  level: PropTypes.string,
   selectedNode: PropTypes.any,
   expandedIcon: PropTypes.string,
   collapsedIcon: PropTypes.string,
   onSelectNode: PropTypes.func,
   onToggleNode: PropTypes.func,
+  updateTreeData: PropTypes.func,
   configuration: PropTypes.any
 };
 
 TreeNode.defaultProps = {
   node: {},
+  level:0,
   expandedIcon: 'caret caret-down',
   collapsedIcon: 'caret',
   onSelectNode: () => {},
   onToggleNode: () => {},
+  updateTreeData: () => {},
   selectedNode: {},
   configuration: {}
 };

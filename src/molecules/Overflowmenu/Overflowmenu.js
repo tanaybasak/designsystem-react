@@ -22,7 +22,7 @@ const Overflowmenu = ({
   const classnames = `${prefix}-overflow-container ${className}`.trim();
 
   return (
-    <section className={classnames} {...restProps}>
+    <section className={classnames} >
       <div
         className={`${prefix}-ellipsis${
           ellipsisType === 'horizontal' ? ' horizontal-ellipsis' : ''
