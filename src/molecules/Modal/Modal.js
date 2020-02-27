@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import ActionBar from '../../atoms/ActionBar';
 import prefix from '../../settings';
@@ -21,8 +21,52 @@ const Modal = ({
     classNames.push(`${prefix}-modal-container-danger`);
   }
 
+  let modal = null;
+  useEffect(() => {
+    modal.focus();
+  });
+
+  const focusTrap = e => {
+    let focusableEls = modal.querySelectorAll(
+      'a[href]:not([disabled]), button:not([disabled]), textarea:not([disabled]), input[type="text"]:not([disabled]), input[type="radio"]:not([disabled]), input[type="checkbox"]:not([disabled]), select:not([disabled]), [tabindex]'
+    );
+    let firstFocusableEl = focusableEls[0];
+    let lastFocusableEl = focusableEls[focusableEls.length - 1];
+    
+    if (event.keyCode == 27) {
+      event.preventDefault();
+      onClose();
+    }
+
+    let isTabPressed = e.key === 'Tab' || e.keyCode === '9';
+
+    if (!isTabPressed) {
+      return;
+    }
+
+    if (e.shiftKey) {
+      if (document.activeElement === firstFocusableEl) {
+        lastFocusableEl.focus();
+        e.preventDefault();
+      }
+    } else {
+      if (document.activeElement === lastFocusableEl) {
+        firstFocusableEl.focus();
+        e.preventDefault();
+      }
+    }
+  };
+
   return (
-    <section className={`${prefix}-modal`} {...restProps}>
+    <section
+      className={`${prefix}-modal`}
+      {...restProps}
+      tabIndex="0"
+      ref={section => {
+        modal = section;
+      }}
+      onKeyDown={focusTrap}
+    >
       <div className={classNames.join(' ')}>
         <button
           type="button"
