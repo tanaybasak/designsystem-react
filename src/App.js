@@ -74,19 +74,24 @@ class App extends Component {
       {
         name: 'Section 1',
         displayChildren: false,
+        type: 'parent',
+        action: [],
         children: [
           {
             name: 'Sub Section 1.1',
             displayChildren: false,
+            type: 'parent',
             children: [
               {
                 name: 'Sub Section 1.1.1',
                 displayChildren: false,
+                type: 'children',
                 children: []
               },
               {
                 name: 'Sub Section 1.1.2',
                 displayChildren: false,
+                type: 'children',
                 children: []
               }
             ]
@@ -94,6 +99,7 @@ class App extends Component {
           {
             name: 'Sub Section 1.2',
             displayChildren: false,
+            type: 'parent',
             children: []
           }
         ]
@@ -105,15 +111,18 @@ class App extends Component {
           {
             name: 'Sub Section 2.1',
             displayChildren: false,
+            type: 'parent',
             children: [
               {
                 name: 'Sub Section 2.1.1',
                 displayChildren: false,
+                type: 'children',
                 children: []
               },
               {
                 name: 'Sub Section 2.1.2',
                 displayChildren: false,
+                type: 'children',
                 children: []
               }
             ]
@@ -121,19 +130,23 @@ class App extends Component {
           {
             name: 'Sub Section 2.2',
             displayChildren: false,
+            type: 'parent',
             children: [
               {
                 name: 'Sub Section 2.2.1',
                 displayChildren: false,
+                type: 'children',
                 children: [
                   {
                     name: 'Sub Section 2.2.1.1',
                     displayChildren: false,
+                    type: 'children',
                     children: []
                   },
                   {
                     name: 'Sub Section 2.2.1.2',
                     displayChildren: false,
+                    type: 'children',
                     children: []
                   }
                 ]
@@ -141,6 +154,7 @@ class App extends Component {
               {
                 name: 'Sub Section 2.2.2',
                 displayChildren: false,
+                type: 'children',
                 children: []
               }
             ]
@@ -150,6 +164,7 @@ class App extends Component {
       {
         name: 'Section 3',
         displayChildren: false,
+        type: 'parent',
         children: []
       }
     ],
@@ -339,6 +354,21 @@ class App extends Component {
         temperature: Number(e.currentTarget.value)
       }
     });
+  };
+
+  timeout = ms => {
+    console.log('Time out invoked');
+    const p1 = new Promise(resolve => setTimeout(resolve, ms));
+    return p1
+      .then(function() {
+        return true;
+      })
+      .catch(
+        // Log the rejection reason
+        () => {
+          return false;
+        }
+      );
   };
 
   _onCityRadioChange = e => {
@@ -1791,9 +1821,75 @@ class App extends Component {
                 </div>
 
                 <div className="hcl-row">
-                  <div className="hcl-col-6 mb-2">
+                  <div className="hcl-col-3 mb-2">
                     <TreeView
                       treeData={this.state.treeData}
+                      globalOverFlowAction={[
+                        {
+                          condition: 'all',
+                          values: [
+                            {
+                              name: 'Update',
+                              action: 'edit'
+                            },
+                            {
+                              name: 'Delete',
+                              action: 'delete'
+                            }
+                          ]
+                        },
+                        {
+                          condition: [
+                            {
+                              operator: 'type',
+                              operand: '=',
+                              value: 'parent'
+                            },
+                            {
+                              operator: 'name',
+                              operand: '=',
+                              value: 'Section 1'
+                            }
+                          ],
+                          values: [
+                            {
+                              name: 'Add Children',
+                              action: 'addChildren'
+                            }
+                          ]
+                        },
+                        {
+                          condition: [
+                            {
+                              operator: 'type',
+                              operand: '=',
+                              value: 'children'
+                            }
+                          ],
+                          values: [
+                            {
+                              name: 'Remove Children',
+                              action: 'removeChildren'
+                            }
+                          ]
+                        }
+                      ]}
+                      onOverflowAction={(action, model) => {
+                        console.log(action);
+                        console.log(model);
+                      }}
+                      onOverFlowActionChange={async (action, model) => {
+                        // console.log(action)
+                        // console.log(model)
+
+                        // await setTimeout(()=>{
+                        //     console.log("Updated")
+                        // } , 4000)
+                        return await this.timeout(3000);
+
+                        // console.log("Timeout invoked 3000")
+                        // return false;
+                      }}
                       type="single"
                       onChange={selected => {
                         console.log('selected item', selected);
@@ -1803,14 +1899,14 @@ class App extends Component {
                       }}
                     />
                   </div>
-                  <div className="hcl-col-6 mb-2">
+                  {/* <div className="hcl-col-6 mb-2">
                     <TreeView
                       treeData={this.state.treeData1}
                       onChange={selected => {
                         console.log('selected item', selected);
                       }}
                     />
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </section>

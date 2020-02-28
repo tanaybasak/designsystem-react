@@ -11,7 +11,10 @@ const TreeView = ({
   className,
   config,
   onToggle,
-  type
+  type,
+  globalOverFlowAction,
+  onOverflowAction,
+  onOverFlowActionChange
 }) => {
   let [selectedNode, updateSelectedNode] = useState({});
 
@@ -83,6 +86,9 @@ const TreeView = ({
             onToggleNode={onToggle ? onToggleNode : null}
             configuration={configuration}
             updateTreeData={updateTreeData}
+            globalOverFlowAction={globalOverFlowAction}
+            onOverflowAction={onOverflowAction}
+            onOverFlowActionChange={onOverFlowActionChange}
           />
         );
       })}
@@ -99,6 +105,12 @@ TreeView.propTypes = {
   collapsedIcon: PropTypes.string,
   /** Style class of the component */
   className: PropTypes.string,
+
+  globalOverFlowAction: PropTypes.any,
+
+  onOverflowAction:PropTypes.func,
+  onOverFlowActionChange:PropTypes.func,
+
   /** Callback function on selecting tree node */
   onChange: PropTypes.func,
   /** Callback function on expanding/collapsing tree node */
@@ -126,11 +138,14 @@ TreeView.defaultProps = {
   treeData: [],
   onChange: null,
   onToggle: null,
+  globalOverFlowAction: null,
   expandedIcon: 'caret caret-down',
   collapsedIcon: 'caret',
   className: '',
   type: 'default',
-  config: {}
+  config: {},
+  onOverflowAction : null,
+  onOverFlowActionChange : null
 };
 
 export default TreeView;

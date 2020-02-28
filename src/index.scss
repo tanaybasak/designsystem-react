@@ -7,3 +7,16 @@
     height: 100vh;
 }
 
+.tree-textbox{
+    width: calc( 100% - 60px);
+    height : 24px;
+}
+.treenode-overflow{
+    float: right;
+    padding: unset !important;
+    margin-left: unset !important;
+}
+
+.add-border {
+    border-top: 2px solid red;
+}

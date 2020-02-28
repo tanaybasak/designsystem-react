@@ -4,7 +4,8 @@ import {
   findNextSiblingAncestor,
   findLastVisibleChildren
 } from '../../util/treeUtil';
-
+import Overflowmenu from '../../molecules/Overflowmenu';
+import TextInput from '../TextInput';
 const TreeNode = ({
   node,
   level,
@@ -14,18 +15,53 @@ const TreeNode = ({
   selectedNode,
   configuration,
   onToggleNode,
-  updateTreeData
+  updateTreeData,
+  globalOverFlowAction,
+  onOverFlowActionChange,
+  onOverflowAction
 }) => {
   const [showChildren, toggleNode] = useState(
     node[configuration.displayChildren]
   );
 
+  const [showText, updateTextStatus] = useState(false);
+
+  const [nodeData, updateNodeData] = useState(node);
+
+  const [addBorder , updateBorderStatus] = useState('');
+
   const toggleTreeNode = () => {
     toggleNode(!showChildren);
     if (onToggleNode) {
-      onToggleNode(node);
+      onToggleNode(nodeData);
     }
   };
+
+  const nodeClicked = e => {
+    if (e.currentTarget.getAttribute('action')) {
+      if (e.currentTarget.getAttribute('action') === 'edit') {
+        updateTextStatus(true);
+      }
+      onOverflowAction(e.currentTarget.getAttribute('action'), nodeData);
+    }
+  };
+
+  const stopPropagation = e => {
+    e.stopPropagation();
+  };
+
+  const updateNodeNameOnBlur = async event => {
+    let nodeTemp = { ...nodeData };
+    nodeTemp[configuration.name] = event.currentTarget.value;
+    //console.log("onOverFlowActionChange('edit', nodeTemp)" , onOverFlowActionChange('edit', nodeTemp))
+    let flag = await onOverFlowActionChange('edit', nodeTemp);
+    if(flag){
+        updateTextStatus(false);
+        updateNodeData(nodeTemp);
+    }else{
+        updateTextStatus(false);
+    }
+  }
 
   const selectNode = e => {
     if (onSelectNode) {
@@ -40,23 +76,62 @@ const TreeNode = ({
     }
   };
 
-  const allowDrop = (ev) => {
+  const allowDrop = ev => {
     ev.preventDefault();
+    console.log("updateBorderStatus")
+    //updateBorderStatus('add-border')
+
+  };
+
+  const dragLeave = ev => {
+    updateBorderStatus('')
   }
-  
+
+  const dragEnter = ev => {
+    updateBorderStatus('add-border')
+  }
+
   const drag = (data, ev) => {
-      console.log(level)
-    ev.dataTransfer.setData("text", level);
-  }
-  
-  const drop = (dropdata , ev) => {
+    ev.dataTransfer.setData('text', level);
+  };
+
+  const drop = (dropdata, ev) => {
     ev.preventDefault();
-    var data = ev.dataTransfer.getData("text");
+    updateBorderStatus('')
+    var data = ev.dataTransfer.getData('text');
+    updateTreeData(data, level);
+  };
 
-    //dropdata.children.push(JSON.parse(data))
+  let overflowItem = [];
 
-    updateTreeData(data , level)
-  }
+  globalOverFlowAction.map( actionSet => {
+
+    if(actionSet.condition === "all"){
+        overflowItem = [...overflowItem , ...actionSet.values]
+    }else{
+        let conditionStatus = true;
+        actionSet.condition.map( condition => {
+            if(conditionStatus){
+                if(condition.operand === "="){
+                    if(nodeData[condition.operator] === condition.value){
+                        conditionStatus = true;
+                        
+                    }else{
+                        conditionStatus = false;
+                    }
+                }
+            }
+            
+            
+        })
+
+        if(conditionStatus){
+            overflowItem = [...overflowItem , ...actionSet.values]
+        }
+
+
+    }
+  })
 
   const keyDown = e => {
     var key = e.which || e.keyCode;
@@ -105,7 +180,7 @@ const TreeNode = ({
           nodeElement.parentElement.getAttribute('aria-expanded') === 'false'
         ) {
           if (onToggleNode) {
-            onToggleNode(node);
+            onToggleNode(nodeData);
           }
 
           toggleNode(true);
@@ -119,7 +194,7 @@ const TreeNode = ({
           nodeElement.parentElement.getAttribute('aria-expanded') === 'true'
         ) {
           if (onToggleNode) {
-            onToggleNode(node);
+            onToggleNode(nodeData);
           }
           toggleNode(false);
         } else {
@@ -144,18 +219,20 @@ const TreeNode = ({
 
   return (
     <li className="tree-item" role="treeitem" aria-expanded={`${showChildren}`}>
-      {(node[configuration.children] &&
-        node[configuration.children].length != 0) ||
-      node[configuration.hasChildren] ? (
+      {(nodeData[configuration.children] &&
+        nodeData[configuration.children].length != 0) ||
+      nodeData[configuration.hasChildren] ? (
         <div
-          className="tree-node"
+          className={`tree-node ${addBorder}`}
           tabIndex="0"
           level={level}
           onKeyDown={keyDown}
           onClick={toggleTreeNode}
           draggable="true"
-          onDragStart={drag.bind(this, node)}
-          onDrop={drop.bind(this , node)}
+          onDragStart={drag.bind(this, nodeData)}
+          onDragEnter={dragEnter}
+          onDragLeave={dragLeave}
+          onDrop={drop.bind(this, nodeData)}
           onDragOver={allowDrop}
         >
           <i
@@ -164,53 +241,96 @@ const TreeNode = ({
             }`}
           />
 
-          {node[configuration.expandIcon] && showChildren ? (
-            <i className={node[configuration.expandIcon]} />
+          {nodeData[configuration.expandIcon] && showChildren ? (
+            <i className={nodeData[configuration.expandIcon]} />
           ) : null}
 
-          {node[configuration.collapsedIcon] && !showChildren ? (
-            <i className={node[configuration.collapsedIcon]} />
+          {nodeData[configuration.collapsedIcon] && !showChildren ? (
+            <i className={nodeData[configuration.collapsedIcon]} />
           ) : null}
 
-          {node[configuration.icon] ? (
-            <i className={node[configuration.icon]}> </i>
+          {nodeData[configuration.icon] ? (
+            <i className={nodeData[configuration.icon]}> </i>
           ) : null}
 
-          <span
-            onClick={selectNode}
-            className={selectedNode === node ? 'highlight' : ''}
-          >
-            {node[configuration.name]}
-          </span>
+          {showText ? (
+            <TextInput
+              type="text"
+              autoFocus={true}
+              className="tree-textbox"
+              value={nodeData[configuration.name]}
+              onBlur={updateNodeNameOnBlur}
+              onClick={stopPropagation}
+            />
+          ) : (
+            <span
+              onClick={selectNode}
+              className={selectedNode === nodeData ? 'highlight' : ''}
+            >
+              {nodeData[configuration.name]}
+            </span>
+          )}
+
+          {globalOverFlowAction ? (
+            <span onClick={stopPropagation} className="treenode-overflow">
+              <Overflowmenu
+                listItems={overflowItem}
+                onClick={nodeClicked}
+                direction="right"
+              />
+            </span>
+          ) : null}
         </div>
       ) : (
         <div
-          className="tree-node no-toggle-element"
+          className={`tree-node no-toggle-element ${addBorder}`}
           tabIndex="0"
           level={level}
           onKeyDown={keyDown}
           draggable="true"
-          onDragStart={drag.bind(this, node)}
-          onDrop={drop.bind(this , node)}
+          onDragStart={drag.bind(this, nodeData)}
+          onDrop={drop.bind(this, nodeData)}
           onDragOver={allowDrop}
         >
-          {node[configuration.icon] ? (
-            <i className={node[configuration.icon]}> </i>
+          {nodeData[configuration.icon] ? (
+            <i className={nodeData[configuration.icon]}> </i>
           ) : null}
-          <span
-            onClick={selectNode}
-            className={selectedNode === node ? 'highlight' : ''}
-          >
-            {node[configuration.name]}
-          </span>
+
+          {showText ? (
+            <TextInput
+              type="text"
+              autoFocus={true}
+              className="tree-textbox"
+              value={nodeData[configuration.name]}
+              onBlur={updateNodeNameOnBlur}
+              onClick={stopPropagation}
+            />
+          ) : (
+            <span
+              onClick={selectNode}
+              className={selectedNode === nodeData ? 'highlight' : ''}
+            >
+              {nodeData[configuration.name]}
+            </span>
+          )}
+        {
+            globalOverFlowAction ? (<span onClick={stopPropagation} className="treenode-overflow">
+            <Overflowmenu
+              listItems={overflowItem}
+              onClick={nodeClicked}
+              direction="right"
+            />
+          </span>) : null
+        }
+          
         </div>
       )}
 
-      {node[configuration.children] &&
-      node[configuration.children].length > 0 &&
+      {nodeData[configuration.children] &&
+      nodeData[configuration.children].length > 0 &&
       showChildren ? (
         <ul role="group" className="tree-nested">
-          {node[configuration.children].map((subnode, subIndex) => {
+          {nodeData[configuration.children].map((subnode, subIndex) => {
             return (
               <TreeNode
                 node={subnode}
@@ -218,11 +338,14 @@ const TreeNode = ({
                 expandedIcon={expandedIcon}
                 collapsedIcon={collapsedIcon}
                 onSelectNode={onSelectNode}
-                level={level+'-'+subIndex}
+                level={level + '-' + subIndex}
                 selectedNode={selectedNode}
                 onToggleNode={onToggleNode}
                 configuration={configuration}
                 updateTreeData={updateTreeData}
+                globalOverFlowAction={globalOverFlowAction}
+                onOverflowAction={onOverflowAction}
+                onOverFlowActionChange={onOverFlowActionChange}
               />
             );
           })}
@@ -241,19 +364,25 @@ TreeNode.propTypes = {
   onSelectNode: PropTypes.func,
   onToggleNode: PropTypes.func,
   updateTreeData: PropTypes.func,
-  configuration: PropTypes.any
+  onOverFlowActionChange: PropTypes.func,
+  onOverflowAction: PropTypes.func,
+  configuration: PropTypes.any,
+  globalOverFlowAction: PropTypes.any
 };
 
 TreeNode.defaultProps = {
   node: {},
-  level:0,
+  level: 0,
+  globalOverFlowAction: null,
   expandedIcon: 'caret caret-down',
   collapsedIcon: 'caret',
   onSelectNode: () => {},
   onToggleNode: () => {},
   updateTreeData: () => {},
   selectedNode: {},
-  configuration: {}
+  configuration: {},
+  onOverFlowActionChange: () => {},
+  onOverflowAction: () => {}
 };
 
 export default TreeNode;
