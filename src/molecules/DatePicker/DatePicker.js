@@ -123,7 +123,7 @@ const DatePicker = ({
   const monthChangeHandler = event => {
     let tempDate;
     if (
-      event.target.parentElement.classList.contains(
+      event.currentTarget.classList.contains(
         `${prefix}-datePicker-month-next`
       )
     ) {
@@ -133,7 +133,7 @@ const DatePicker = ({
         15
       );
     } else if (
-      event.target.parentElement.classList.contains(
+      event.currentTarget.classList.contains(
         `${prefix}-datePicker-month-prev`
       )
     ) {
