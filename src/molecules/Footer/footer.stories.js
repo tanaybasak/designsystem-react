@@ -22,7 +22,7 @@ const links = [
     label: 'Contact Us'
   }
 ];
-storiesOf('UIShellFooter', module).add(
+storiesOf('Footer', module).add(
   'default',
   () => (
     <Footer
