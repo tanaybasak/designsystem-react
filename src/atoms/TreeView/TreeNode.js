@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   findNextSiblingAncestor,
-  findLastVisibleChildren
+  findLastVisibleChildren,
+  getConditionStatus
 } from '../../util/treeUtil';
 import Overflowmenu from '../../molecules/Overflowmenu';
 import TextInput from '../TextInput';
@@ -11,38 +12,78 @@ const TreeNode = ({
   level,
   expandedIcon,
   collapsedIcon,
+  iconClass,
   onSelectNode,
   selectedNode,
   configuration,
   onToggleNode,
   updateTreeData,
+  updateTreeDataPosition,
   globalOverFlowAction,
   onOverFlowActionChange,
-  onOverflowAction
+  onOverflowAction,
+  updateTreeNodeDataMain,
+  dragRules,
+  onDragNode,
+  draggedNode,
+  onDragOverTree,
+  parentNode
 }) => {
-  const [showChildren, toggleNode] = useState(
-    node[configuration.displayChildren]
-  );
+  //   const [showChildren, toggleNode] = useState(
+  //     node[configuration.displayChildren]
+  //   );
+
+  //   const [, updateState] = React.useState();
+  //   const forceUpdate = useCallback(() => updateState({}), []);
+
+  const updateNodeToggleStatus = status => {
+    //let node = { ...nodeData };
+    if (status !== undefined) {
+      node[configuration.displayChildren] = status;
+      //toggleNode(status);
+    } else {
+      node[configuration.displayChildren] = !node[
+        configuration.displayChildren
+      ];
+      //toggleNode(!node[configuration.displayChildren]);
+    }
+
+    //updateNodeData(node);
+
+    updateTreeNodeDataMain(node, level);
+  };
 
   const [showText, updateTextStatus] = useState(false);
 
-  const [nodeData, updateNodeData] = useState(node);
+  const [droppableNode, updateDroppableNode] = useState(false);
 
-  const [addBorder , updateBorderStatus] = useState('');
+  //   const [nodeData, updateNodeData] = useState(node);
+
+  const [addBorder, updateBorderStatus] = useState('');
+  const [highlightRow, updateHighlightRowStatus] = useState('');
 
   const toggleTreeNode = () => {
-    toggleNode(!showChildren);
+    updateNodeToggleStatus();
     if (onToggleNode) {
-      onToggleNode(nodeData);
+      onToggleNode(node);
     }
   };
 
-  const nodeClicked = e => {
+  //   useEffect(() => {
+  // }, [node]);
+
+  const nodeClicked = async e => {
     if (e.currentTarget.getAttribute('action')) {
       if (e.currentTarget.getAttribute('action') === 'edit') {
         updateTextStatus(true);
+        //onOverflowAction(e.currentTarget.getAttribute('action'), node);
+      } else {
+        let nodeData = await onOverflowAction(
+          e.currentTarget.getAttribute('action'),
+          node
+        );
+        updateTreeNodeDataMain(nodeData, level);
       }
-      onOverflowAction(e.currentTarget.getAttribute('action'), nodeData);
     }
   };
 
@@ -51,17 +92,18 @@ const TreeNode = ({
   };
 
   const updateNodeNameOnBlur = async event => {
-    let nodeTemp = { ...nodeData };
+    //event.stopPropagation()
+    let nodeTemp = { ...node };
     nodeTemp[configuration.name] = event.currentTarget.value;
-    //console.log("onOverFlowActionChange('edit', nodeTemp)" , onOverFlowActionChange('edit', nodeTemp))
     let flag = await onOverFlowActionChange('edit', nodeTemp);
-    if(flag){
-        updateTextStatus(false);
-        updateNodeData(nodeTemp);
-    }else{
-        updateTextStatus(false);
+    if (flag) {
+      updateTextStatus(false);
+      updateTreeNodeDataMain(nodeTemp, level);
+      //updateNodeData(nodeTemp);
+    } else {
+      updateTextStatus(false);
     }
-  }
+  };
 
   const selectNode = e => {
     if (onSelectNode) {
@@ -77,63 +119,165 @@ const TreeNode = ({
   };
 
   const allowDrop = ev => {
-    ev.preventDefault();
-    console.log("updateBorderStatus")
-    //updateBorderStatus('add-border')
+    if (draggedNode !== node && parentNode != null) {
+      let isDroppable = onDragOverTree(draggedNode, parentNode);
 
+      if (isDroppable) {
+        ev.preventDefault();
+        updateDroppableNode(true);
+      } else {
+        updateDroppableNode(false);
+      }
+    } else if (parentNode == null) {
+      ev.preventDefault();
+    }
+    // if(dropRuleMatching()){
+    //     ev.preventDefault();
+    // }
+    // ev.preventDefault();
+    // // ev.stopPropagation();
+    //updateBorderStatus('add-border')
+  };
+
+  const dragOverNode = ev => {
+    if (draggedNode !== node) {
+      let isDroppable = onDragOverTree(draggedNode, node);
+
+      if (isDroppable) {
+        ev.preventDefault();
+        updateDroppableNode(true);
+      } else {
+        updateDroppableNode(false);
+      }
+    } else {
+      updateDroppableNode(false);
+    }
+
+    // if (dropRuleMatching()) {
+    //   ev.preventDefault();
+    //   updateDroppableNode(false)
+    // }else{
+    //     updateDroppableNode(true)
+    // }
+    ev.stopPropagation();
+  };
+
+  const dropRuleMatching = () => {
+    let droppable = false;
+    if (dragRules) {
+      dragRules.map(rule => {
+        const conditionStatus = getConditionStatus(rule.condition, draggedNode);
+        if (conditionStatus) {
+          droppable = getConditionStatus(rule.dropRegion, node);
+        }
+      });
+    }
+    return droppable;
   };
 
   const dragLeave = ev => {
-    updateBorderStatus('')
-  }
+    updateBorderStatus('');
+  };
 
   const dragEnter = ev => {
-    updateBorderStatus('add-border')
-  }
+    if (draggedNode !== node && parentNode !== null) {
+      let isDroppable = onDragOverTree(draggedNode, parentNode);
+
+      if (isDroppable) {
+        ev.preventDefault();
+        updateBorderStatus('add-border');
+      }
+    } else if (parentNode === null) {
+      ev.preventDefault();
+      updateBorderStatus('add-border');
+    }
+  };
+
+  const highlightRowFn = ev => {
+    ev.stopPropagation();
+
+    if (draggedNode !== node) {
+      let isDroppable = onDragOverTree(draggedNode, node);
+
+      if (isDroppable) {
+        updateHighlightRowStatus('highlight-row');
+      }
+    }
+
+    // if(droppableNode){
+    //     updateHighlightRowStatus('highlight-row');
+    // }
+    //ev.preventDefault();
+  };
+
+  const cancelHighlightRow = ev => {
+    console.log('Leave Node');
+    ev.stopPropagation();
+    //ev.preventDefault();
+    updateHighlightRowStatus('');
+  };
 
   const drag = (data, ev) => {
     ev.dataTransfer.setData('text', level);
+    onDragNode(node);
   };
 
   const drop = (dropdata, ev) => {
     ev.preventDefault();
-    updateBorderStatus('')
+    ev.stopPropagation();
+    updateBorderStatus('');
+    updateHighlightRowStatus('');
     var data = ev.dataTransfer.getData('text');
     updateTreeData(data, level);
   };
 
+  const dropLevel = (dropdata, ev) => {
+    ev.preventDefault();
+    ev.stopPropagation();
+    updateBorderStatus('');
+    updateHighlightRowStatus('');
+    var data = ev.dataTransfer.getData('text');
+    updateTreeDataPosition(data, level);
+  };
+
   let overflowItem = [];
 
-  globalOverFlowAction.map( actionSet => {
-
-    if(actionSet.condition === "all"){
-        overflowItem = [...overflowItem , ...actionSet.values]
-    }else{
-        let conditionStatus = true;
-        actionSet.condition.map( condition => {
-            if(conditionStatus){
-                if(condition.operand === "="){
-                    if(nodeData[condition.operator] === condition.value){
-                        conditionStatus = true;
-                        
-                    }else{
-                        conditionStatus = false;
-                    }
-                }
-            }
-            
-            
-        })
-
-        if(conditionStatus){
-            overflowItem = [...overflowItem , ...actionSet.values]
-        }
-
-
+  globalOverFlowAction.map(actionSet => {
+    if (actionSet.condition === 'all') {
+      overflowItem = [...overflowItem, ...actionSet.values];
+    } else {
+      const conditionStatus = getConditionStatus(actionSet.condition, node);
+      if (conditionStatus) {
+        overflowItem = [...overflowItem, ...actionSet.values];
+      }
     }
-  })
+  });
+
+  let iconClassObj = {};
+  if (iconClass) {
+    iconClass.map(actionSet => {
+      if (actionSet.condition === 'all') {
+        iconClassObj = actionSet.values;
+      } else {
+        const conditionStatus = getConditionStatus(actionSet.condition, node);
+        if (conditionStatus) {
+          iconClassObj = actionSet.values;
+        }
+      }
+    });
+  }
+  let draggable = false;
+  if (dragRules) {
+    dragRules.map(rule => {
+      const conditionStatus = getConditionStatus(rule.condition, node);
+      if (conditionStatus) {
+        draggable = true;
+      }
+    });
+  }
 
   const keyDown = e => {
+    // e.preventDefault()
     var key = e.which || e.keyCode;
     const nodeElement = e.currentTarget;
     switch (key) {
@@ -180,10 +324,10 @@ const TreeNode = ({
           nodeElement.parentElement.getAttribute('aria-expanded') === 'false'
         ) {
           if (onToggleNode) {
-            onToggleNode(nodeData);
+            onToggleNode(node);
           }
-
-          toggleNode(true);
+          updateNodeToggleStatus(true);
+          //toggleNode(true);
         }
         e.preventDefault();
         break;
@@ -194,9 +338,10 @@ const TreeNode = ({
           nodeElement.parentElement.getAttribute('aria-expanded') === 'true'
         ) {
           if (onToggleNode) {
-            onToggleNode(nodeData);
+            onToggleNode(node);
           }
-          toggleNode(false);
+          updateNodeToggleStatus(false);
+          //toggleNode(false);
         } else {
           const parentNodeElement =
             nodeElement.parentElement.parentElement.parentElement;
@@ -218,39 +363,52 @@ const TreeNode = ({
   };
 
   return (
-    <li className="tree-item" role="treeitem" aria-expanded={`${showChildren}`}>
-      {(nodeData[configuration.children] &&
-        nodeData[configuration.children].length != 0) ||
-      nodeData[configuration.hasChildren] ? (
+    <li
+      className="tree-item"
+      role="treeitem"
+      aria-expanded={`${node[configuration.displayChildren]}`}
+    >
+      {(node[configuration.children] &&
+        node[configuration.children].length != 0) ||
+      node[configuration.hasChildren] ? (
         <div
           className={`tree-node ${addBorder}`}
           tabIndex="0"
           level={level}
           onKeyDown={keyDown}
           onClick={toggleTreeNode}
-          draggable="true"
-          onDragStart={drag.bind(this, nodeData)}
+          draggable={draggable}
+          onDragStart={drag.bind(this, node)}
           onDragEnter={dragEnter}
           onDragLeave={dragLeave}
-          onDrop={drop.bind(this, nodeData)}
+          onDrop={dropLevel.bind(this, node)}
           onDragOver={allowDrop}
         >
           <i
             className={`toggle-icon ${
-              showChildren ? expandedIcon : collapsedIcon
+              node[configuration.displayChildren] ? expandedIcon : collapsedIcon
             }`}
           />
 
-          {nodeData[configuration.expandIcon] && showChildren ? (
-            <i className={nodeData[configuration.expandIcon]} />
+          {node[configuration.expandIcon] &&
+          node[configuration.displayChildren] ? (
+            <i className={node[configuration.expandIcon]} />
+          ) : iconClassObj.expandIcon && node[configuration.displayChildren] ? (
+            <i className={iconClassObj.expandIcon} />
           ) : null}
 
-          {nodeData[configuration.collapsedIcon] && !showChildren ? (
-            <i className={nodeData[configuration.collapsedIcon]} />
+          {node[configuration.collapsedIcon] &&
+          !node[configuration.displayChildren] ? (
+            <i className={node[configuration.collapsedIcon]} />
+          ) : iconClassObj.collapsedIcon &&
+            !node[configuration.displayChildren] ? (
+            <i className={iconClassObj.collapsedIcon} />
           ) : null}
 
-          {nodeData[configuration.icon] ? (
-            <i className={nodeData[configuration.icon]}> </i>
+          {node[configuration.icon] ? (
+            <i className={node[configuration.icon]}> </i>
+          ) : iconClassObj.icon ? (
+            <i className={iconClassObj.icon} />
           ) : null}
 
           {showText ? (
@@ -258,16 +416,26 @@ const TreeNode = ({
               type="text"
               autoFocus={true}
               className="tree-textbox"
-              value={nodeData[configuration.name]}
+              value={node[configuration.name]}
               onBlur={updateNodeNameOnBlur}
               onClick={stopPropagation}
             />
           ) : (
             <span
               onClick={selectNode}
-              className={selectedNode === nodeData ? 'highlight' : ''}
+              className={`hcl-text-node${
+                selectedNode === node ? ' highlight' : ''
+              } ${highlightRow}`}
+              title={node[configuration.name]}
             >
-              {nodeData[configuration.name]}
+              <div
+                onDragEnter={highlightRowFn}
+                onDragLeave={cancelHighlightRow}
+                onDrop={drop.bind(this, node)}
+                onDragOver={dragOverNode}
+              >
+                {node[configuration.name]}
+              </div>
             </span>
           )}
 
@@ -287,13 +455,38 @@ const TreeNode = ({
           tabIndex="0"
           level={level}
           onKeyDown={keyDown}
-          draggable="true"
-          onDragStart={drag.bind(this, nodeData)}
-          onDrop={drop.bind(this, nodeData)}
+          draggable={draggable}
+          onDragStart={drag.bind(this, node)}
+          onDragEnter={dragEnter}
+          onDragLeave={dragLeave}
+          onDrop={dropLevel.bind(this, node)}
           onDragOver={allowDrop}
         >
-          {nodeData[configuration.icon] ? (
-            <i className={nodeData[configuration.icon]}> </i>
+          {/* {node[configuration.icon] ? (
+            <i className={node[configuration.icon]}> </i>
+          ) : iconClassObj.icon ? (
+            <i className={iconClassObj.icon} />
+          ) : null} */}
+
+          {node[configuration.expandIcon] &&
+          node[configuration.displayChildren] ? (
+            <i className={node[configuration.expandIcon]} />
+          ) : iconClassObj.expandIcon && node[configuration.displayChildren] ? (
+            <i className={iconClassObj.expandIcon} />
+          ) : null}
+
+          {node[configuration.collapsedIcon] &&
+          !node[configuration.displayChildren] ? (
+            <i className={node[configuration.collapsedIcon]} />
+          ) : iconClassObj.collapsedIcon &&
+            !node[configuration.displayChildren] ? (
+            <i className={iconClassObj.collapsedIcon} />
+          ) : null}
+
+          {node[configuration.icon] ? (
+            <i className={node[configuration.icon]}> </i>
+          ) : iconClassObj.icon ? (
+            <i className={iconClassObj.icon} />
           ) : null}
 
           {showText ? (
@@ -301,51 +494,68 @@ const TreeNode = ({
               type="text"
               autoFocus={true}
               className="tree-textbox"
-              value={nodeData[configuration.name]}
+              value={node[configuration.name]}
               onBlur={updateNodeNameOnBlur}
               onClick={stopPropagation}
             />
           ) : (
             <span
               onClick={selectNode}
-              className={selectedNode === nodeData ? 'highlight' : ''}
+              className={`hcl-text-node${
+                selectedNode === node ? ' highlight' : ''
+              } ${highlightRow}`}
+              title={node[configuration.name]}
             >
-              {nodeData[configuration.name]}
+              <div
+                onDragEnter={highlightRowFn}
+                onDragLeave={cancelHighlightRow}
+                onDrop={drop.bind(this, node)}
+                onDragOver={dragOverNode}
+              >
+                {node[configuration.name]}
+              </div>
             </span>
           )}
-        {
-            globalOverFlowAction ? (<span onClick={stopPropagation} className="treenode-overflow">
-            <Overflowmenu
-              listItems={overflowItem}
-              onClick={nodeClicked}
-              direction="right"
-            />
-          </span>) : null
-        }
-          
+          {globalOverFlowAction ? (
+            <span onClick={stopPropagation} className="treenode-overflow">
+              <Overflowmenu
+                listItems={overflowItem}
+                onClick={nodeClicked}
+                direction="right"
+              />
+            </span>
+          ) : null}
         </div>
       )}
 
-      {nodeData[configuration.children] &&
-      nodeData[configuration.children].length > 0 &&
-      showChildren ? (
+      {node[configuration.children] &&
+      node[configuration.children].length > 0 &&
+      node[configuration.displayChildren] ? (
         <ul role="group" className="tree-nested">
-          {nodeData[configuration.children].map((subnode, subIndex) => {
+          {node[configuration.children].map((subnode, subIndex) => {
             return (
               <TreeNode
                 node={subnode}
+                iconClass={iconClass}
+                parentNode={node}
                 key={`treeNodeIndex-${subIndex}`}
                 expandedIcon={expandedIcon}
+                onDragNode={onDragNode}
+                onDragOverTree={onDragOverTree}
+                dragRules={dragRules}
                 collapsedIcon={collapsedIcon}
                 onSelectNode={onSelectNode}
+                draggedNode={draggedNode}
                 level={level + '-' + subIndex}
                 selectedNode={selectedNode}
                 onToggleNode={onToggleNode}
                 configuration={configuration}
                 updateTreeData={updateTreeData}
+                updateTreeDataPosition={updateTreeDataPosition}
                 globalOverFlowAction={globalOverFlowAction}
                 onOverflowAction={onOverflowAction}
                 onOverFlowActionChange={onOverFlowActionChange}
+                updateTreeNodeDataMain={updateTreeNodeDataMain}
               />
             );
           })}
@@ -357,22 +567,32 @@ const TreeNode = ({
 
 TreeNode.propTypes = {
   node: PropTypes.any,
+  iconClass: PropTypes.any,
+  dragRules: PropTypes.any,
   level: PropTypes.string,
   selectedNode: PropTypes.any,
+  onDragNode: PropTypes.any,
   expandedIcon: PropTypes.string,
   collapsedIcon: PropTypes.string,
   onSelectNode: PropTypes.func,
   onToggleNode: PropTypes.func,
   updateTreeData: PropTypes.func,
+  updateTreeDataPosition: PropTypes.func,
   onOverFlowActionChange: PropTypes.func,
+  onDragOverTree: PropTypes.func,
   onOverflowAction: PropTypes.func,
+  updateTreeNodeDataMain: PropTypes.func,
   configuration: PropTypes.any,
-  globalOverFlowAction: PropTypes.any
+  globalOverFlowAction: PropTypes.any,
+  draggedNode: PropTypes.any,
+  parentNode: PropTypes.any
 };
 
 TreeNode.defaultProps = {
   node: {},
   level: 0,
+  iconClass: null,
+  dragRules: null,
   globalOverFlowAction: null,
   expandedIcon: 'caret caret-down',
   collapsedIcon: 'caret',
@@ -382,7 +602,13 @@ TreeNode.defaultProps = {
   selectedNode: {},
   configuration: {},
   onOverFlowActionChange: () => {},
-  onOverflowAction: () => {}
+  onOverflowAction: () => {},
+  updateTreeDataPosition: () => {},
+  updateTreeNodeDataMain: () => {},
+  onDragOverTree: () => {},
+  onDragNode: () => {},
+  draggedNode: null,
+  parentNode: null
 };
 
 export default TreeNode;

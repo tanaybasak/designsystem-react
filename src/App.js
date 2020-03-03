@@ -72,89 +72,90 @@ class App extends Component {
     sidebarExpanded: false,
     treeData: [
       {
-        name: 'Section 1',
+        name: 'Folder 1',
         displayChildren: false,
-        type: 'parent',
+        type: 'folder',
         action: [],
         children: [
           {
-            name: 'Sub Section 1.1',
+            name: 'Folder 1.1',
             displayChildren: false,
-            type: 'parent',
+            type: 'folder',
             children: [
               {
-                name: 'Sub Section 1.1.1',
+                name: 'File 1.1.1',
                 displayChildren: false,
-                type: 'children',
+                type: 'file',
                 children: []
               },
               {
-                name: 'Sub Section 1.1.2',
+                name: 'File 1.1.2',
                 displayChildren: false,
-                type: 'children',
+                type: 'file',
                 children: []
               }
             ]
           },
           {
-            name: 'Sub Section 1.2',
+            name: 'File 1.2',
             displayChildren: false,
-            type: 'parent',
+            type: 'file',
             children: []
           }
         ]
       },
       {
-        name: 'Section 2',
+        name: 'Folder 2',
         displayChildren: false,
+        type: 'folder',
         children: [
           {
-            name: 'Sub Section 2.1',
+            name: 'Folder 2.1',
             displayChildren: false,
-            type: 'parent',
+            type: 'folder',
             children: [
               {
-                name: 'Sub Section 2.1.1',
+                name: 'File 2.1.1',
                 displayChildren: false,
-                type: 'children',
+                type: 'file',
                 children: []
               },
               {
-                name: 'Sub Section 2.1.2',
+                name: 'Folder 2.1.2',
                 displayChildren: false,
-                type: 'children',
+                type: 'folder',
                 children: []
               }
             ]
           },
           {
-            name: 'Sub Section 2.2',
+            name: 'Folder 2.2',
             displayChildren: false,
-            type: 'parent',
+            type: 'folder',
             children: [
               {
-                name: 'Sub Section 2.2.1',
+                name: 'Folder 2.2.1',
                 displayChildren: false,
-                type: 'children',
+                type: 'folder',
                 children: [
                   {
-                    name: 'Sub Section 2.2.1.1',
+                    name: 'File 2.2.1.1',
                     displayChildren: false,
-                    type: 'children',
+                    type: 'file',
                     children: []
                   },
                   {
-                    name: 'Sub Section 2.2.1.2',
+                    name: 'File 2.2.1.2',
                     displayChildren: false,
-                    type: 'children',
+                    type: 'file',
                     children: []
                   }
                 ]
               },
               {
-                name: 'Sub Section 2.2.2',
+                name: 'File 2.2.2',
                 displayChildren: false,
-                type: 'children',
+                type: 'file',
                 children: []
               }
             ]
@@ -162,9 +163,9 @@ class App extends Component {
         ]
       },
       {
-        name: 'Section 3',
+        name: 'File 3',
         displayChildren: false,
-        type: 'parent',
+        type: 'file',
         children: []
       }
     ],
@@ -1823,7 +1824,70 @@ class App extends Component {
                 <div className="hcl-row">
                   <div className="hcl-col-3 mb-2">
                     <TreeView
+                      dragRules={[
+                        {
+                          condition: [
+                            {
+                              operator: 'type',
+                              operand: '=',
+                              value: 'folder'
+                            }
+                          ]
+                        },
+                        {
+                          condition: [
+                            {
+                              operator: 'type',
+                              operand: '=',
+                              value: 'file'
+                            }
+                          ]
+                        }
+                      ]}
+                      onDragOver={(dragModel, dropModel, treeData) => {
+                        
+
+                        if (
+                          dragModel.type === 'file' &&
+                          dropModel.type === 'folder'
+                        ) {
+                          return true;
+                        } else if (
+                          dragModel.type === 'folder' &&
+                          dropModel.type === 'folder'
+                        ) {
+                          return true;
+                        }
+                        return false;
+                      }}
                       treeData={this.state.treeData}
+                      iconClass={[
+                        {
+                          condition: [
+                            {
+                              operator: 'type',
+                              operand: '=',
+                              value: 'folder'
+                            }
+                          ],
+                          values: {
+                            expandIcon: 'fa fa-folder-open',
+                            collapsedIcon: 'fa fa-folder'
+                          }
+                        },
+                        {
+                          condition: [
+                            {
+                              operator: 'type',
+                              operand: '=',
+                              value: 'file'
+                            }
+                          ],
+                          values: {
+                            icon: 'fa fa-file'
+                          }
+                        }
+                      ]}
                       globalOverFlowAction={[
                         {
                           condition: 'all',
@@ -1843,12 +1907,7 @@ class App extends Component {
                             {
                               operator: 'type',
                               operand: '=',
-                              value: 'parent'
-                            },
-                            {
-                              operator: 'name',
-                              operand: '=',
-                              value: 'Section 1'
+                              value: 'folder'
                             }
                           ],
                           values: [
@@ -1863,28 +1922,28 @@ class App extends Component {
                             {
                               operator: 'type',
                               operand: '=',
-                              value: 'children'
+                              value: 'file'
                             }
                           ],
                           values: [
                             {
-                              name: 'Remove Children',
-                              action: 'removeChildren'
+                              name: 'Update Property',
+                              action: 'updateProperty'
                             }
                           ]
                         }
                       ]}
-                      onOverflowAction={(action, model) => {
-                        console.log(action);
-                        console.log(model);
+                      onOverflowAction={async (action, model) => {
+
+                        if (action === 'updateProperty') {
+                          model.type = 'folder';
+                          await this.timeout(3000);
+                          return model;
+                        } else {
+                          return model;
+                        }
                       }}
                       onOverFlowActionChange={async (action, model) => {
-                        // console.log(action)
-                        // console.log(model)
-
-                        // await setTimeout(()=>{
-                        //     console.log("Updated")
-                        // } , 4000)
                         return await this.timeout(3000);
 
                         // console.log("Timeout invoked 3000")
@@ -1892,10 +1951,8 @@ class App extends Component {
                       }}
                       type="single"
                       onChange={selected => {
-                        console.log('selected item', selected);
                       }}
                       onToggle={selected => {
-                        console.log('toggled item', selected);
                       }}
                     />
                   </div>

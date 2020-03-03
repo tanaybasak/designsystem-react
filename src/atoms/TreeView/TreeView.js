@@ -1,7 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 import TreeNode from './TreeNode';
+import {
+  moveTreeNodeToChildren,
+  updateTreeNode,
+  moveTreeNode
+} from '../../util/treeUtil';
 
 const TreeView = ({
   treeData,
@@ -14,11 +19,72 @@ const TreeView = ({
   type,
   globalOverFlowAction,
   onOverflowAction,
-  onOverFlowActionChange
+  onOverFlowActionChange,
+  iconClass,
+  dragRules,
+  onDragOver
 }) => {
   let [selectedNode, updateSelectedNode] = useState({});
 
+  let [draggedNode, updateDraggedNode] = useState({});
+
+  const onDragNode = event => {
+    updateDraggedNode(event);
+  };
+
   let [treeInfo, updateTree] = useState(treeData);
+
+  const [, updateState] = React.useState();
+  const forceUpdate = useCallback(() => updateState({}), []);
+
+  const onDragOverTree = (x , y) => {
+      
+    return onDragOver(x,y,treeInfo);
+  };
+
+
+  //   React.useEffect(() => {
+  //     if(!updateTimer.current) {
+  //       setUpdate();
+  //     }
+  //   }, [text]);
+
+  const updateTreeNodeDataMain = (node, level) => {
+
+    
+    //updateTree(updateTreeNode(treeInfo,node, level));
+    // updateTree([])
+    // setTimeout( () => {
+        updateTree(updateTreeNode(treeInfo,node, level));
+    //})
+    // let levelArray = level.split('-');
+
+    // let treeInfoTemp = [...treeInfo];
+
+    // let model = treeInfoTemp;
+
+    // if (levelArray.length === 1) {
+    //   treeInfoTemp[parseInt(levelArray.splice(0, 1))] = node;
+    // } else {
+    //   model = treeInfoTemp[parseInt(levelArray.splice(0, 1))];
+    //   levelArray.map((arrayNumber, index) => {
+    //     if (arrayNumber.length === index + 1) {
+    //       model.children[parseInt(arrayNumber)] = node;
+    //     } else {
+    //       model = model.children[parseInt(arrayNumber)];
+    //     }
+    //   });
+    // }
+
+    //model = node;
+
+
+    //treeInfoTemp[0].name = "temp";
+    //updateTree(treeInfoTemp);
+    // setTimeout(() => {
+    //   updateTree(treeInfoTemp);
+    // });
+  };
 
   const onSelectNode = event => {
     updateSelectedNode(event);
@@ -39,34 +105,19 @@ const TreeView = ({
     hasChildren: 'hasChildren'
   };
 
+  const updateTreeDataPosition = (draggedNode, dropNode) => {
+    //updateTree([])
+    //setTimeout( () => {
+        updateTree(moveTreeNode(treeInfo, draggedNode, dropNode));
+    //})
+   
+  };
+
   const updateTreeData = (draggedNode, dropNode) => {
-    let draggedNodeArray = draggedNode.split('-');
-    let dropNodeArry = dropNode.split('-');
-    let treeInfoTemp = [...treeInfo];
-    let dropModel = treeInfoTemp[parseInt(dropNodeArry.splice(0, 1))];
-    dropNodeArry.map(arrayNumber => {
-      dropModel = dropModel.children[parseInt(arrayNumber)];
-    });
-    if (!dropModel.children) {
-      dropModel.children = [];
-    }
-    const spliceIndex = parseInt(draggedNodeArray.splice(0, 1));
-    let model = treeInfoTemp[spliceIndex];
-    if (draggedNodeArray.length > 0) {
-      draggedNodeArray.map((arrayNumber, index) => {
-        if (draggedNodeArray.length - 1 === index) {
-          let requestedModel = model.children[parseInt(arrayNumber)];
-          model.children.splice(parseInt(arrayNumber), 1);
-          model = requestedModel;
-        } else {
-          model = model.children[parseInt(arrayNumber)];
-        }
-      });
-    } else {
-      treeInfoTemp.splice(spliceIndex, 1);
-    }
-    dropModel.children.push(model);
-    updateTree(treeInfoTemp);
+    //updateTree([])
+    //setTimeout( () => {
+        updateTree(moveTreeNodeToChildren(treeInfo, draggedNode, dropNode));
+    //})
   };
 
   const configuration = { ...defaultConfig, ...config };
@@ -80,15 +131,23 @@ const TreeView = ({
             key={`index-${index}`}
             expandedIcon={expandedIcon}
             collapsedIcon={collapsedIcon}
+            iconClass={iconClass}
+            dragRules={dragRules}
+            onDragNode={onDragNode}
+            onDragOverTree={onDragOverTree}
+            draggedNode={draggedNode}
             level={index + ''}
+            parentNode={null}
             onSelectNode={type === 'single' ? onSelectNode : null}
             selectedNode={type === 'single' ? selectedNode : null}
             onToggleNode={onToggle ? onToggleNode : null}
             configuration={configuration}
             updateTreeData={updateTreeData}
+            updateTreeDataPosition={updateTreeDataPosition}
             globalOverFlowAction={globalOverFlowAction}
             onOverflowAction={onOverflowAction}
             onOverFlowActionChange={onOverFlowActionChange}
+            updateTreeNodeDataMain={updateTreeNodeDataMain}
           />
         );
       })}
@@ -99,6 +158,10 @@ const TreeView = ({
 TreeView.propTypes = {
   /** Tree Data */
   treeData: PropTypes.any,
+
+  iconClass:PropTypes.any,
+
+  dragRules:PropTypes.any,
   /** To Specify Expand Icon */
   expandedIcon: PropTypes.string,
   /** To Specify Collapsed Icon */
@@ -108,9 +171,10 @@ TreeView.propTypes = {
 
   globalOverFlowAction: PropTypes.any,
 
-  onOverflowAction:PropTypes.func,
-  onOverFlowActionChange:PropTypes.func,
+  onOverflowAction: PropTypes.func,
+  onOverFlowActionChange: PropTypes.func,
 
+  onDragOver:PropTypes.func,
   /** Callback function on selecting tree node */
   onChange: PropTypes.func,
   /** Callback function on expanding/collapsing tree node */
@@ -136,7 +200,10 @@ TreeView.propTypes = {
 
 TreeView.defaultProps = {
   treeData: [],
+  iconClass:null,
+  dragRules:null,
   onChange: null,
+  onDragOver:null,
   onToggle: null,
   globalOverFlowAction: null,
   expandedIcon: 'caret caret-down',
@@ -144,8 +211,8 @@ TreeView.defaultProps = {
   className: '',
   type: 'default',
   config: {},
-  onOverflowAction : null,
-  onOverFlowActionChange : null
+  onOverflowAction: null,
+  onOverFlowActionChange: null
 };
 
 export default TreeView;
