@@ -27,9 +27,20 @@ const TreeView = ({
   let [selectedNode, updateSelectedNode] = useState({});
 
   let [draggedNode, updateDraggedNode] = useState({});
+  let [draggedNodeLevel, updateDraggedNodeLevel] = useState('');
 
-  const onDragNode = event => {
-    updateDraggedNode(event);
+
+  let [cutNode, updateCutNode] = useState({});
+  let [cutNodeLevel, updateCutNodeLevel] = useState('');
+
+  const onCutNode = (node , level) => {
+    updateCutNode(node);
+    updateCutNodeLevel(level)
+  }
+
+  const onDragNode = (node , level) => {
+    updateDraggedNode(node);
+    updateDraggedNodeLevel(level)
   };
 
   let [treeInfo, updateTree] = useState(treeData);
@@ -136,6 +147,7 @@ const TreeView = ({
             onDragNode={onDragNode}
             onDragOverTree={onDragOverTree}
             draggedNode={draggedNode}
+            draggedNodeLevel={draggedNodeLevel}
             level={index + ''}
             parentNode={null}
             onSelectNode={type === 'single' ? onSelectNode : null}
@@ -148,6 +160,10 @@ const TreeView = ({
             onOverflowAction={onOverflowAction}
             onOverFlowActionChange={onOverFlowActionChange}
             updateTreeNodeDataMain={updateTreeNodeDataMain}
+
+            onCutNode={onCutNode}
+            cutNode={cutNode}
+            cutNodeLevel={cutNodeLevel}
           />
         );
       })}

@@ -80,24 +80,25 @@ export const moveTreeNodeToChildren = (tree, dragLevel, dropLevel) => {
   return treeData;
 };
 
-const getPosition = (dragLevel, dropLevel) => {
-
-    let dragNumber = dragLevel.replace(/-/g, "");
-    let dropNumber = dropLevel.replace(/-/g, "");
-
-    if(dragNumber.length > dropNumber.length){
-
-    }
-}
+const compareVersion = (v1, v2) => {
+  if (typeof v1 !== 'string') return false;
+  if (typeof v2 !== 'string') return false;
+  v1 = v1.split('-');
+  v2 = v2.split('-');
+  const k = Math.min(v1.length, v2.length);
+  for (let i = 0; i < k; ++i) {
+    v1[i] = parseInt(v1[i], 10);
+    v2[i] = parseInt(v2[i], 10);
+    if (v1[i] > v2[i]) return 1;
+    if (v1[i] < v2[i]) return -1;
+  }
+  return v1.length == v2.length ? 0 : v1.length < v2.length ? -1 : 1;
+};
 export const moveTreeNode = (tree, dragLevel, dropLevel) => {
-
-    //const fromToptoBottom = getPosition(dragLevel, dropLevel) 
-
-   
+  const levelCompare = compareVersion(dragLevel, dropLevel);
   let treeData = JSON.parse(JSON.stringify(tree));
   let draggedNodeArray = dragLevel.split('-');
   let dropNodeArry = dropLevel.split('-');
-
   let dropModel = treeData;
   let dropModelIndex = parseInt(dropNodeArry.splice(-1, 1));
   if (dropNodeArry.length !== 0) {
@@ -106,18 +107,12 @@ export const moveTreeNode = (tree, dragLevel, dropLevel) => {
       dropModel = dropModel.children[parseInt(arrayNumber)];
     });
   }
-
-  let spliceModel = null;
-  let spliceModelIndex = null
   const spliceIndex = parseInt(draggedNodeArray.splice(0, 1));
   let model = treeData[spliceIndex];
   if (draggedNodeArray.length > 0) {
     draggedNodeArray.map((arrayNumber, index) => {
       if (draggedNodeArray.length - 1 === index) {
         let requestedModel = model.children[parseInt(arrayNumber)];
-
-        spliceModel = model.children;
-        spliceModelIndex = parseInt(arrayNumber)
         model.children.splice(parseInt(arrayNumber), 1);
         model = requestedModel;
       } else {
@@ -127,19 +122,20 @@ export const moveTreeNode = (tree, dragLevel, dropLevel) => {
   } else {
     treeData.splice(spliceIndex, 1);
   }
-
   if (Array.isArray(dropModel)) {
-      console.log("Inside IF LOOP")
+    if (levelCompare === -1) {
+      dropModelIndex = dropModelIndex - 1;
+    }
     dropModel.splice(dropModelIndex, 0, model);
   } else {
     if (!dropModel.children) {
       dropModel.children = [];
     }
+    if (levelCompare === -1) {
+      dropModelIndex = dropModelIndex - 1;
+    }
     dropModel.children.splice(dropModelIndex, 0, model);
-    console.log(spliceModelIndex)
-    //spliceModel.splice(spliceModelIndex , 1)
   }
-
   return treeData;
 };
 

@@ -26,9 +26,17 @@ const TreeNode = ({
   dragRules,
   onDragNode,
   draggedNode,
+  draggedNodeLevel,
   onDragOverTree,
-  parentNode
+  parentNode,
+
+  onCutNode,
+  cutNode,
+  cutNodeLevel
 }) => {
+
+
+    console.log(cutNode)
   //   const [showChildren, toggleNode] = useState(
   //     node[configuration.displayChildren]
   //   );
@@ -77,6 +85,13 @@ const TreeNode = ({
       if (e.currentTarget.getAttribute('action') === 'edit') {
         updateTextStatus(true);
         //onOverflowAction(e.currentTarget.getAttribute('action'), node);
+      }else if (e.currentTarget.getAttribute('action') === 'cut') {
+        onCutNode(node , level)
+        // overflowItem.push({
+        //     name: 'Paste',
+        //     action: 'paste'
+        //   })
+        //onOverflowAction(e.currentTarget.getAttribute('action'), node);
       } else {
         let nodeData = await onOverflowAction(
           e.currentTarget.getAttribute('action'),
@@ -119,6 +134,14 @@ const TreeNode = ({
   };
 
   const allowDrop = ev => {
+
+    console.log("Drag Enter " , ev.clientY , ev.currentTarget.getBoundingClientRect())
+
+
+    if(level.startsWith(draggedNodeLevel)){
+        console.log("RETURN")
+        return;
+    }
     if (draggedNode !== node && parentNode != null) {
       let isDroppable = onDragOverTree(draggedNode, parentNode);
 
@@ -140,6 +163,10 @@ const TreeNode = ({
   };
 
   const dragOverNode = ev => {
+
+    if(level.startsWith(draggedNodeLevel)){
+        return;
+    }
     if (draggedNode !== node) {
       let isDroppable = onDragOverTree(draggedNode, node);
 
@@ -180,6 +207,12 @@ const TreeNode = ({
   };
 
   const dragEnter = ev => {
+
+
+    
+    if(level.startsWith(draggedNodeLevel)){
+        return;
+    }
     if (draggedNode !== node && parentNode !== null) {
       let isDroppable = onDragOverTree(draggedNode, parentNode);
 
@@ -194,7 +227,11 @@ const TreeNode = ({
   };
 
   const highlightRowFn = ev => {
+      
     ev.stopPropagation();
+    if(level.startsWith(draggedNodeLevel)){
+        return;
+    }
 
     if (draggedNode !== node) {
       let isDroppable = onDragOverTree(draggedNode, node);
@@ -219,7 +256,7 @@ const TreeNode = ({
 
   const drag = (data, ev) => {
     ev.dataTransfer.setData('text', level);
-    onDragNode(node);
+    onDragNode(node , level);
   };
 
   const drop = (dropdata, ev) => {
@@ -368,6 +405,7 @@ const TreeNode = ({
       role="treeitem"
       aria-expanded={`${node[configuration.displayChildren]}`}
     >
+    
       {(node[configuration.children] &&
         node[configuration.children].length != 0) ||
       node[configuration.hasChildren] ? (
@@ -425,7 +463,7 @@ const TreeNode = ({
               onClick={selectNode}
               className={`hcl-text-node${
                 selectedNode === node ? ' highlight' : ''
-              } ${highlightRow}`}
+              } ${highlightRow}${cutNode === node ? ' hcl-cut-node' : ''}`}
               title={node[configuration.name]}
             >
               <div
@@ -503,7 +541,7 @@ const TreeNode = ({
               onClick={selectNode}
               className={`hcl-text-node${
                 selectedNode === node ? ' highlight' : ''
-              } ${highlightRow}`}
+              } ${highlightRow}${cutNode === node ? ' hcl-cut-node' : ''}`}
               title={node[configuration.name]}
             >
               <div
@@ -546,6 +584,7 @@ const TreeNode = ({
                 collapsedIcon={collapsedIcon}
                 onSelectNode={onSelectNode}
                 draggedNode={draggedNode}
+                draggedNodeLevel={draggedNodeLevel}
                 level={level + '-' + subIndex}
                 selectedNode={selectedNode}
                 onToggleNode={onToggleNode}
@@ -556,6 +595,9 @@ const TreeNode = ({
                 onOverflowAction={onOverflowAction}
                 onOverFlowActionChange={onOverFlowActionChange}
                 updateTreeNodeDataMain={updateTreeNodeDataMain}
+                onCutNode={onCutNode}
+                cutNode={cutNode}
+                cutNodeLevel={cutNodeLevel}
               />
             );
           })}
@@ -585,7 +627,12 @@ TreeNode.propTypes = {
   configuration: PropTypes.any,
   globalOverFlowAction: PropTypes.any,
   draggedNode: PropTypes.any,
-  parentNode: PropTypes.any
+  parentNode: PropTypes.any,
+  draggedNodeLevel:PropTypes.string,
+
+  onCutNode:PropTypes.func,
+  cutNode:PropTypes.any,
+  cutNodeLevel:PropTypes.string
 };
 
 TreeNode.defaultProps = {
@@ -608,7 +655,11 @@ TreeNode.defaultProps = {
   onDragOverTree: () => {},
   onDragNode: () => {},
   draggedNode: null,
-  parentNode: null
+  parentNode: null,
+  draggedNodeLevel:'',
+  onCutNode:() => {},
+  cutNode:null,
+  cutNodeLevel:''
 };
 
 export default TreeNode;

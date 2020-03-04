@@ -1822,7 +1822,7 @@ class App extends Component {
                 </div>
 
                 <div className="hcl-row">
-                  <div className="hcl-col-3 mb-2">
+                  <div className="hcl-col-6 mb-2">
                     <TreeView
                       dragRules={[
                         {
@@ -1845,8 +1845,6 @@ class App extends Component {
                         }
                       ]}
                       onDragOver={(dragModel, dropModel, treeData) => {
-                        
-
                         if (
                           dragModel.type === 'file' &&
                           dropModel.type === 'folder'
@@ -1900,6 +1898,7 @@ class App extends Component {
                               name: 'Delete',
                               action: 'delete'
                             }
+                            
                           ]
                         },
                         {
@@ -1929,12 +1928,21 @@ class App extends Component {
                             {
                               name: 'Update Property',
                               action: 'updateProperty'
-                            }
+                            },
+                            {
+                                name: 'Cut',
+                                action: 'cut'
+                              },
+                              {
+                                name: 'Paste',
+                                action: 'paste',
+                                "disabled": true
+                              }
                           ]
                         }
                       ]}
                       onOverflowAction={async (action, model) => {
-
+                          console.log(action)
                         if (action === 'updateProperty') {
                           model.type = 'folder';
                           await this.timeout(3000);
@@ -1950,10 +1958,8 @@ class App extends Component {
                         // return false;
                       }}
                       type="single"
-                      onChange={selected => {
-                      }}
-                      onToggle={selected => {
-                      }}
+                      onChange={selected => {}}
+                      onToggle={selected => {}}
                     />
                   </div>
                   {/* <div className="hcl-col-6 mb-2">
