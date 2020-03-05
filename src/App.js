@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 import React, { Component } from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
 import Label from './atoms/Label';
 import TextInput from './atoms/TextInput';
 import FormHelperText from './atoms/FormHelperText';
@@ -499,7 +500,7 @@ class App extends Component {
     });
 
     return (
-      <>
+      <Router>
         <Header
           logo={<img src={logo} alt="Logo" />}
           searchComponent={
@@ -1840,7 +1841,7 @@ class App extends Component {
             />
           </main>
         </div>
-      </>
+      </Router>
     );
   }
 }

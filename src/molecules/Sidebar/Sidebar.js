@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
+import { Link, withRouter } from "react-router-dom";
 
 const Sidebar = ({ className, title, items, icon, onClick, ...restProps }) => {
     const [expanded, setExpanded] = useState(false);
@@ -109,8 +110,8 @@ const Sidebar = ({ className, title, items, icon, onClick, ...restProps }) => {
                                                             key={`sidebar_category_children_${categoryTitle}_${categoryIndex}_${index}`}
                                                         >
                                                             {icon}
-                                                            <a
-                                                                href={href}
+                                                            <Link
+                                                                to={href}
                                                                 className={`${prefix}-sidebar-link`}
                                                                 data-type={'item_clicked'}
                                                                 data-title={title}
@@ -118,7 +119,7 @@ const Sidebar = ({ className, title, items, icon, onClick, ...restProps }) => {
                                                                 onClick={itemClicked}
                                                             >
                                                                 {title}
-                                                            </a>
+                                                            </Link>
                                                         </li>
                                                     ))}
                                                 </ul>
@@ -127,8 +128,8 @@ const Sidebar = ({ className, title, items, icon, onClick, ...restProps }) => {
                                         (
                                             <>
                                                 {icon}
-                                                <a
-                                                    href={href}
+                                                <Link
+                                                    to={href}
                                                     className={`${prefix}-sidebar-link`}
                                                     data-type={'item_clicked'}
                                                     data-title={categoryTitle}
@@ -136,7 +137,7 @@ const Sidebar = ({ className, title, items, icon, onClick, ...restProps }) => {
                                                     onClick={itemClicked}
                                                 >
                                                     {categoryTitle}
-                                                </a>
+                                                </Link>
                                             </>
                                         )
 
@@ -177,4 +178,4 @@ Sidebar.defaultProps = {
     onClick: () => { }
 };
 
-export default Sidebar;
+export default withRouter(Sidebar);
