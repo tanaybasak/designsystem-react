@@ -23,7 +23,8 @@ const TreeView = ({
   onOverFlowActionChange,
   iconClass,
   dragRules,
-  onDragOver
+  onDragOver,
+  getOverFlowItems
 }) => {
   let [selectedNode, updateSelectedNode] = useState({});
 
@@ -120,9 +121,6 @@ const TreeView = ({
     }else{
         dropNodeArray = dropNodeArray.join("-")
     }
-    console.log("draggedNode =>" , draggedNode)
-    console.log("dropNodeArray =>" ,dropNodeArray)
-    console.log("dropNodeIndex=>" , dropNodeIndex)
     updateTree(updateNodePosition(treeInfo, draggedNode, dropNodeArray , dropNodeIndex));
   };
 
@@ -164,6 +162,7 @@ const TreeView = ({
             updateTreeNodeDataMain={updateTreeNodeDataMain}
             onCutNode={onCutNode}
             cutNode={cutNode}
+            getOverFlowItems={getOverFlowItems}
             cutNodeLevel={cutNodeLevel}
           />
         );
@@ -196,6 +195,8 @@ TreeView.propTypes = {
   onChange: PropTypes.func,
   /** Callback function on expanding/collapsing tree node */
   onToggle: PropTypes.func,
+
+  getOverFlowItems:PropTypes.func,
   /** Configuration Object for updating propery name in tree data
  {
   displayChildren: 'displayChildren',
@@ -229,7 +230,8 @@ TreeView.defaultProps = {
   type: 'default',
   config: {},
   onOverflowAction: null,
-  onOverFlowActionChange: null
+  onOverFlowActionChange: null,
+  getOverFlowItems:null
 };
 
 export default TreeView;

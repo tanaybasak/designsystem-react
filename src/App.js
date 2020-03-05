@@ -1933,15 +1933,24 @@ class App extends Component {
                             {
                                 name: 'Cut',
                                 action: 'cut'
-                              },
-                              {
-                                name: 'Paste',
-                                action: 'paste',
-                                "disabled": true
                               }
+                            //   ,
+                            //   {
+                            //     name: 'Paste',
+                            //     action: 'paste',
+                            //     "disabled": true
+                            //   }
                           ]
                         }
                       ]}
+                      getOverFlowItems = { (model) => {
+                          return [
+                            {
+                                name: 'Update',
+                                action: 'edit'
+                              }
+                          ]
+                      }}
                       onOverflowAction={async (action, model) => {
                           console.log(action)
                         if (action === 'updateProperty') {

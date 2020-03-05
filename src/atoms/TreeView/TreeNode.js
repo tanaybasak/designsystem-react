@@ -30,7 +30,7 @@ const TreeNode = ({
   draggedNodeLevel,
   onDragOverTree,
   parentNode,
-
+  getOverFlowItems,
   onCutNode,
   cutNode,
   cutNodeLevel
@@ -85,6 +85,21 @@ const TreeNode = ({
         //onOverflowAction(e.currentTarget.getAttribute('action'), node);
       } else if (e.currentTarget.getAttribute('action') === 'cut') {
         onCutNode(node, level);
+
+        // const tempoverflowItem = [...overflowItem]
+        // tempoverflowItem.push({
+        //     name: 'Paste',
+        //     action: 'paste'
+        // })
+        // updateOverflowItem(tempoverflowItem)
+        // overflowItem.push({
+        //     name: 'Paste',
+        //     action: 'paste'
+        //   })
+        //onOverflowAction(e.currentTarget.getAttribute('action'), node);
+      } else if (e.currentTarget.getAttribute('action') === 'paste') {
+        updateTreeData(cutNodeLevel, level);
+        onCutNode({}, '');
         // overflowItem.push({
         //     name: 'Paste',
         //     action: 'paste'
@@ -454,18 +469,26 @@ const TreeNode = ({
     }
   };
 
-  let overflowItem = [];
+  let overflowItems = [];
+
+  
+
 
   globalOverFlowAction.map(actionSet => {
+
+    
     if (actionSet.condition === 'all') {
-      overflowItem = [...overflowItem, ...actionSet.values];
+      overflowItems = [...overflowItems, ...actionSet.values];
     } else {
       const conditionStatus = getConditionStatus(actionSet.condition, node);
       if (conditionStatus) {
-        overflowItem = [...overflowItem, ...actionSet.values];
+        overflowItems = [...overflowItems, ...actionSet.values];
       }
     }
   });
+
+  
+  const [overflowItem, updateOverflowItem] = useState(overflowItems);
 
   let iconClassObj = {};
   if (iconClass) {
@@ -780,6 +803,7 @@ const TreeNode = ({
                 onCutNode={onCutNode}
                 cutNode={cutNode}
                 cutNodeLevel={cutNodeLevel}
+                getOverFlowItems={getOverFlowItems}
               />
             );
           })}
@@ -811,7 +835,7 @@ TreeNode.propTypes = {
   draggedNode: PropTypes.any,
   parentNode: PropTypes.any,
   draggedNodeLevel: PropTypes.string,
-
+  getOverFlowItems:PropTypes.func,
   onCutNode: PropTypes.func,
   cutNode: PropTypes.any,
   cutNodeLevel: PropTypes.string
@@ -841,7 +865,8 @@ TreeNode.defaultProps = {
   draggedNodeLevel: '',
   onCutNode: () => {},
   cutNode: null,
-  cutNodeLevel: ''
+  cutNodeLevel: '',
+  getOverFlowItems:null
 };
 
 export default TreeNode;
