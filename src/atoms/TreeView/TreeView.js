@@ -5,7 +5,8 @@ import TreeNode from './TreeNode';
 import {
   moveTreeNodeToChildren,
   updateTreeNode,
-  moveTreeNode
+  moveTreeNode,
+  updateNodePosition
 } from '../../util/treeUtil';
 
 const TreeView = ({
@@ -29,18 +30,17 @@ const TreeView = ({
   let [draggedNode, updateDraggedNode] = useState({});
   let [draggedNodeLevel, updateDraggedNodeLevel] = useState('');
 
-
   let [cutNode, updateCutNode] = useState({});
   let [cutNodeLevel, updateCutNodeLevel] = useState('');
 
-  const onCutNode = (node , level) => {
+  const onCutNode = (node, level) => {
     updateCutNode(node);
-    updateCutNodeLevel(level)
-  }
+    updateCutNodeLevel(level);
+  };
 
-  const onDragNode = (node , level) => {
+  const onDragNode = (node, level) => {
     updateDraggedNode(node);
-    updateDraggedNodeLevel(level)
+    updateDraggedNodeLevel(level);
   };
 
   let [treeInfo, updateTree] = useState(treeData);
@@ -48,11 +48,9 @@ const TreeView = ({
   const [, updateState] = React.useState();
   const forceUpdate = useCallback(() => updateState({}), []);
 
-  const onDragOverTree = (x , y) => {
-      
-    return onDragOver(x,y,treeInfo);
+  const onDragOverTree = (x, y) => {
+    return onDragOver(x, y, treeInfo);
   };
-
 
   //   React.useEffect(() => {
   //     if(!updateTimer.current) {
@@ -61,12 +59,10 @@ const TreeView = ({
   //   }, [text]);
 
   const updateTreeNodeDataMain = (node, level) => {
-
-    
     //updateTree(updateTreeNode(treeInfo,node, level));
     // updateTree([])
     // setTimeout( () => {
-        updateTree(updateTreeNode(treeInfo,node, level));
+    updateTree(updateTreeNode(treeInfo, node, level));
     //})
     // let levelArray = level.split('-');
 
@@ -88,7 +84,6 @@ const TreeView = ({
     // }
 
     //model = node;
-
 
     //treeInfoTemp[0].name = "temp";
     //updateTree(treeInfoTemp);
@@ -117,18 +112,25 @@ const TreeView = ({
   };
 
   const updateTreeDataPosition = (draggedNode, dropNode) => {
-    //updateTree([])
-    //setTimeout( () => {
-        updateTree(moveTreeNode(treeInfo, draggedNode, dropNode));
-    //})
-   
+
+    let dropNodeArray = dropNode.split("-");
+    const dropNodeIndex = parseInt(dropNodeArray.splice(-1));
+    if(dropNodeArray.length === 0){
+        dropNodeArray = null;
+    }else{
+        dropNodeArray = dropNodeArray.join("-")
+    }
+    console.log("draggedNode =>" , draggedNode)
+    console.log("dropNodeArray =>" ,dropNodeArray)
+    console.log("dropNodeIndex=>" , dropNodeIndex)
+    updateTree(updateNodePosition(treeInfo, draggedNode, dropNodeArray , dropNodeIndex));
   };
 
   const updateTreeData = (draggedNode, dropNode) => {
-    //updateTree([])
-    //setTimeout( () => {
-        updateTree(moveTreeNodeToChildren(treeInfo, draggedNode, dropNode));
-    //})
+
+    
+
+    updateTree(updateNodePosition(treeInfo, draggedNode, dropNode));
   };
 
   const configuration = { ...defaultConfig, ...config };
@@ -160,7 +162,6 @@ const TreeView = ({
             onOverflowAction={onOverflowAction}
             onOverFlowActionChange={onOverFlowActionChange}
             updateTreeNodeDataMain={updateTreeNodeDataMain}
-
             onCutNode={onCutNode}
             cutNode={cutNode}
             cutNodeLevel={cutNodeLevel}
@@ -175,9 +176,9 @@ TreeView.propTypes = {
   /** Tree Data */
   treeData: PropTypes.any,
 
-  iconClass:PropTypes.any,
+  iconClass: PropTypes.any,
 
-  dragRules:PropTypes.any,
+  dragRules: PropTypes.any,
   /** To Specify Expand Icon */
   expandedIcon: PropTypes.string,
   /** To Specify Collapsed Icon */
@@ -190,7 +191,7 @@ TreeView.propTypes = {
   onOverflowAction: PropTypes.func,
   onOverFlowActionChange: PropTypes.func,
 
-  onDragOver:PropTypes.func,
+  onDragOver: PropTypes.func,
   /** Callback function on selecting tree node */
   onChange: PropTypes.func,
   /** Callback function on expanding/collapsing tree node */
@@ -216,10 +217,10 @@ TreeView.propTypes = {
 
 TreeView.defaultProps = {
   treeData: [],
-  iconClass:null,
-  dragRules:null,
+  iconClass: null,
+  dragRules: null,
   onChange: null,
-  onDragOver:null,
+  onDragOver: null,
   onToggle: null,
   globalOverFlowAction: null,
   expandedIcon: 'caret caret-down',

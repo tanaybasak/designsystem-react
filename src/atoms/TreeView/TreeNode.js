@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import {
   findNextSiblingAncestor,
   findLastVisibleChildren,
-  getConditionStatus
+  getConditionStatus,
+  isInSameLevel
 } from '../../util/treeUtil';
 import Overflowmenu from '../../molecules/Overflowmenu';
 import TextInput from '../TextInput';
@@ -34,9 +35,6 @@ const TreeNode = ({
   cutNode,
   cutNodeLevel
 }) => {
-
-
-    console.log(cutNode)
   //   const [showChildren, toggleNode] = useState(
   //     node[configuration.displayChildren]
   //   );
@@ -85,8 +83,8 @@ const TreeNode = ({
       if (e.currentTarget.getAttribute('action') === 'edit') {
         updateTextStatus(true);
         //onOverflowAction(e.currentTarget.getAttribute('action'), node);
-      }else if (e.currentTarget.getAttribute('action') === 'cut') {
-        onCutNode(node , level)
+      } else if (e.currentTarget.getAttribute('action') === 'cut') {
+        onCutNode(node, level);
         // overflowItem.push({
         //     name: 'Paste',
         //     action: 'paste'
@@ -133,39 +131,170 @@ const TreeNode = ({
     }
   };
 
-  const allowDrop = ev => {
-
-    console.log("Drag Enter " , ev.clientY , ev.currentTarget.getBoundingClientRect())
-
-
-    if(level.startsWith(draggedNodeLevel)){
-        console.log("RETURN")
-        return;
+  const dropRuleMatching = () => {
+    let droppable = false;
+    if (dragRules) {
+      dragRules.map(rule => {
+        const conditionStatus = getConditionStatus(rule.condition, draggedNode);
+        if (conditionStatus) {
+          droppable = getConditionStatus(rule.dropRegion, node);
+        }
+      });
     }
-    if (draggedNode !== node && parentNode != null) {
-      let isDroppable = onDragOverTree(draggedNode, parentNode);
+    return droppable;
+  };
 
-      if (isDroppable) {
-        ev.preventDefault();
-        updateDroppableNode(true);
-      } else {
-        updateDroppableNode(false);
-      }
-    } else if (parentNode == null) {
+  const dragLeave = ev => {
+    updateBorderStatus('');
+  };
+
+  const allowDropLevel = ev => {
+    if (level.startsWith(draggedNodeLevel)) {
+      return;
+    }
+
+    const position = getDropRegionPlaceholderPositionLevel(ev);
+    let isDroppable = true;
+    if (parentNode != null) {
+      isDroppable = onDragOverTree(draggedNode, parentNode);
+    }
+
+    if (isDroppable) {
       ev.preventDefault();
+      updateDroppableNode(true);
+      dropRegionPlaceholder(ev, position);
+    } else {
+      updateDroppableNode(false);
     }
-    // if(dropRuleMatching()){
+
+    // if (draggedNode !== node && parentNode != null) {
+    //   let isDroppable = onDragOverTree(draggedNode, parentNode);
+
+    //   if (isDroppable) {
     //     ev.preventDefault();
+    //     updateDroppableNode(true);
+    //     dropRegionPlaceholder(ev)
+
+    //   } else {
+    //     updateDroppableNode(false);
+    //   }
+    // } else if (parentNode == null) {
+    //   ev.preventDefault();
+    //   dropRegionPlaceholder(ev)
     // }
-    // ev.preventDefault();
-    // // ev.stopPropagation();
-    //updateBorderStatus('add-border')
+  };
+  const allowDrop = ev => {
+    ev.stopPropagation();
+
+    if (level.startsWith(draggedNodeLevel)) {
+      return;
+    }
+
+    const position = getDropRegionPlaceholderPosition(ev);
+    let isDroppable = false;
+    if (position === 'middle') {
+      isDroppable = onDragOverTree(draggedNode, node);
+    } else {
+      isDroppable = true;
+      if (parentNode != null) {
+        isDroppable = onDragOverTree(draggedNode, parentNode);
+      }
+    }
+
+    if (isDroppable) {
+      ev.preventDefault();
+      updateDroppableNode(true);
+      dropRegionPlaceholder(ev, position);
+    } else {
+      updateDroppableNode(false);
+      updateHighlightRowStatus('');
+      updateBorderStatus('');
+    }
+
+    // if (draggedNode !== node && parentNode != null) {
+    //     let isDroppable = onDragOverTree(draggedNode, parentNode);
+
+    //     if (isDroppable) {
+    //       ev.preventDefault();
+    //       updateDroppableNode(true);
+    //       dropRegionPlaceholder(ev)
+
+    //     } else {
+    //       updateDroppableNode(false);
+    //     }
+    //   } else if (parentNode == null) {
+    //     ev.preventDefault();
+    //     dropRegionPlaceholder(ev)
+    //   }
+    // if (draggedNode !== node && parentNode != null) {
+    //   let isDroppable = onDragOverTree(draggedNode, parentNode);
+
+    //   if (isDroppable) {
+    //     ev.preventDefault();
+    //     updateDroppableNode(true);
+    //     dropRegionPlaceholder(ev)
+
+    //   } else {
+    //     updateDroppableNode(false);
+    //   }
+    // } else if (parentNode == null) {
+    //   ev.preventDefault();
+    //   dropRegionPlaceholder(ev)
+    // }
+  };
+
+  const clearAll = ev => {
+    updateHighlightRowStatus('');
+    updateBorderStatus('');
+  };
+
+  const dropRegionPlaceholder = (ev, position) => {
+    //const position = getDropRegionPlaceholderPosition(ev);
+    if (position === 'top') {
+      updateBorderStatus('add-border');
+      updateHighlightRowStatus('');
+    } else if (position === 'middle') {
+      updateHighlightRowStatus('highlight-row');
+      updateBorderStatus('');
+    } else if (position === 'bottom') {
+      updateBorderStatus('add-border-bottom');
+      updateHighlightRowStatus('');
+    }
+  };
+
+  const getDropRegionPlaceholderPosition = ev => {
+    const element = ev.currentTarget.getBoundingClientRect();
+    const height = element.height;
+    if (ev.clientY >= element.y && ev.clientY < element.y + height / 4) {
+      return 'top';
+    } else if (
+      ev.clientY >= element.y + height / 4 &&
+      ev.clientY <= element.y + (height / 4) * 3
+    ) {
+      return 'middle';
+    } else if (
+      ev.clientY > element.y + (height / 4) * 3 &&
+      ev.clientY <= element.y + height
+    ) {
+      return 'bottom';
+    }
+  };
+  const getDropRegionPlaceholderPositionLevel = ev => {
+    const element = ev.currentTarget.getBoundingClientRect();
+    const height = element.height;
+    if (ev.clientY >= element.y && ev.clientY <= element.y + height / 2) {
+      return 'top';
+    } else if (
+      ev.clientY > element.y + height / 2 &&
+      ev.clientY <= element.y + height
+    ) {
+      return 'bottom';
+    }
   };
 
   const dragOverNode = ev => {
-
-    if(level.startsWith(draggedNodeLevel)){
-        return;
+    if (level.startsWith(draggedNodeLevel)) {
+      return;
     }
     if (draggedNode !== node) {
       let isDroppable = onDragOverTree(draggedNode, node);
@@ -188,30 +317,9 @@ const TreeNode = ({
     // }
     ev.stopPropagation();
   };
-
-  const dropRuleMatching = () => {
-    let droppable = false;
-    if (dragRules) {
-      dragRules.map(rule => {
-        const conditionStatus = getConditionStatus(rule.condition, draggedNode);
-        if (conditionStatus) {
-          droppable = getConditionStatus(rule.dropRegion, node);
-        }
-      });
-    }
-    return droppable;
-  };
-
-  const dragLeave = ev => {
-    updateBorderStatus('');
-  };
-
   const dragEnter = ev => {
-
-
-    
-    if(level.startsWith(draggedNodeLevel)){
-        return;
+    if (level.startsWith(draggedNodeLevel)) {
+      return;
     }
     if (draggedNode !== node && parentNode !== null) {
       let isDroppable = onDragOverTree(draggedNode, parentNode);
@@ -227,10 +335,9 @@ const TreeNode = ({
   };
 
   const highlightRowFn = ev => {
-      
     ev.stopPropagation();
-    if(level.startsWith(draggedNodeLevel)){
-        return;
+    if (level.startsWith(draggedNodeLevel)) {
+      return;
     }
 
     if (draggedNode !== node) {
@@ -248,7 +355,6 @@ const TreeNode = ({
   };
 
   const cancelHighlightRow = ev => {
-    console.log('Leave Node');
     ev.stopPropagation();
     //ev.preventDefault();
     updateHighlightRowStatus('');
@@ -256,12 +362,13 @@ const TreeNode = ({
 
   const drag = (data, ev) => {
     ev.dataTransfer.setData('text', level);
-    onDragNode(node , level);
+    onDragNode(node, level);
   };
 
   const drop = (dropdata, ev) => {
     ev.preventDefault();
     ev.stopPropagation();
+    const position = getDropRegionPlaceholderPosition(ev);
     updateBorderStatus('');
     updateHighlightRowStatus('');
     var data = ev.dataTransfer.getData('text');
@@ -271,10 +378,80 @@ const TreeNode = ({
   const dropLevel = (dropdata, ev) => {
     ev.preventDefault();
     ev.stopPropagation();
+    const position = getDropRegionPlaceholderPosition(ev);
     updateBorderStatus('');
     updateHighlightRowStatus('');
     var data = ev.dataTransfer.getData('text');
-    updateTreeDataPosition(data, level);
+    updateElementPosition(position, data);
+    // if (position === 'top') {
+    //   updateTreeDataPosition(data, level);
+    // } else if (position === 'bottom') {
+    //   let newLevel = level;
+    //   newLevel = newLevel.slice(0, -1) + (parseInt(newLevel.substr(-1)) + 1);
+    //   updateTreeDataPosition(data, newLevel);
+    // } else {
+    //   updateTreeData(data, level);
+    // }
+  };
+
+  const dropOnlyLevel = (dropdata, ev) => {
+    ev.preventDefault();
+    ev.stopPropagation();
+    const position = getDropRegionPlaceholderPositionLevel(ev);
+    updateBorderStatus('');
+    updateHighlightRowStatus('');
+    var data = ev.dataTransfer.getData('text');
+    updateElementPosition(position, data);
+  };
+
+  const updateElementPosition = (position, data) => {
+    if (position === 'top') {
+      if (isInSameLevel(data, level)) {
+        if (
+          parseInt(data.substr(data.lastIndexOf('-') + 1)) >
+          parseInt(level.substr(level.lastIndexOf('-') + 1))
+        ) {
+          updateTreeDataPosition(data, level);
+        } else {
+          let newLevel = level;
+          let topIndex =
+            parseInt(newLevel.substr(newLevel.lastIndexOf('-') + 1)) - 1;
+          if (topIndex < 0) {
+            topIndex = 0;
+          }
+          newLevel =
+            newLevel.substr(0, newLevel.lastIndexOf('-') + 1) + topIndex;
+          updateTreeDataPosition(data, newLevel);
+        }
+      } else {
+        updateTreeDataPosition(data, level);
+      }
+    } else if (position === 'bottom') {
+      if (isInSameLevel(data, level)) {
+        if (
+          parseInt(data.substr(data.lastIndexOf('-') + 1)) >
+          parseInt(level.substr(level.lastIndexOf('-') + 1))
+        ) {
+          let newLevel = level;
+          let bottomIndex =
+            parseInt(newLevel.substr(newLevel.lastIndexOf('-') + 1)) + 1;
+          newLevel =
+            newLevel.substr(0, newLevel.lastIndexOf('-') + 1) + bottomIndex;
+          updateTreeDataPosition(data, newLevel);
+        } else {
+          updateTreeDataPosition(data, level);
+        }
+      } else {
+        let newLevel = level;
+        let bottomIndex =
+          parseInt(newLevel.substr(newLevel.lastIndexOf('-') + 1)) + 1;
+        newLevel =
+          newLevel.substr(0, newLevel.lastIndexOf('-') + 1) + bottomIndex;
+        updateTreeDataPosition(data, newLevel);
+      }
+    } else {
+      updateTreeData(data, level);
+    }
   };
 
   let overflowItem = [];
@@ -405,7 +582,6 @@ const TreeNode = ({
       role="treeitem"
       aria-expanded={`${node[configuration.displayChildren]}`}
     >
-    
       {(node[configuration.children] &&
         node[configuration.children].length != 0) ||
       node[configuration.hasChildren] ? (
@@ -415,12 +591,11 @@ const TreeNode = ({
           level={level}
           onKeyDown={keyDown}
           onClick={toggleTreeNode}
-          draggable={draggable}
-          onDragStart={drag.bind(this, node)}
-          onDragEnter={dragEnter}
-          onDragLeave={dragLeave}
-          onDrop={dropLevel.bind(this, node)}
-          onDragOver={allowDrop}
+          onDrop={dropOnlyLevel.bind(this, node)}
+          onDragOver={allowDropLevel}
+          //   onDragEnter={dragEnter}
+          onDragLeave={clearAll}
+          onDragEnd={clearAll}
         >
           <i
             className={`toggle-icon ${
@@ -465,12 +640,16 @@ const TreeNode = ({
                 selectedNode === node ? ' highlight' : ''
               } ${highlightRow}${cutNode === node ? ' hcl-cut-node' : ''}`}
               title={node[configuration.name]}
+              draggable={draggable}
+              onDragStart={drag.bind(this, node)}
             >
               <div
-                onDragEnter={highlightRowFn}
-                onDragLeave={cancelHighlightRow}
-                onDrop={drop.bind(this, node)}
-                onDragOver={dragOverNode}
+                onDragOver={allowDrop}
+                onDrop={dropLevel.bind(this, node)}
+                //onDragEnter={highlightRowFn}
+                //onDragLeave={cancelHighlightRow}
+                // onDrop={drop.bind(this, node)}
+                // onDragOver={dragOverNode}
               >
                 {node[configuration.name]}
               </div>
@@ -493,12 +672,11 @@ const TreeNode = ({
           tabIndex="0"
           level={level}
           onKeyDown={keyDown}
-          draggable={draggable}
-          onDragStart={drag.bind(this, node)}
-          onDragEnter={dragEnter}
-          onDragLeave={dragLeave}
-          onDrop={dropLevel.bind(this, node)}
-          onDragOver={allowDrop}
+          //   onDragEnter={dragEnter}
+          onDragLeave={clearAll}
+          onDrop={dropOnlyLevel.bind(this, node)}
+          onDragOver={allowDropLevel}
+          onDragEnd={clearAll}
         >
           {/* {node[configuration.icon] ? (
             <i className={node[configuration.icon]}> </i>
@@ -543,12 +721,16 @@ const TreeNode = ({
                 selectedNode === node ? ' highlight' : ''
               } ${highlightRow}${cutNode === node ? ' hcl-cut-node' : ''}`}
               title={node[configuration.name]}
+              draggable={draggable}
+              onDragStart={drag.bind(this, node)}
             >
               <div
-                onDragEnter={highlightRowFn}
-                onDragLeave={cancelHighlightRow}
-                onDrop={drop.bind(this, node)}
-                onDragOver={dragOverNode}
+                onDragOver={allowDrop}
+                onDrop={dropLevel.bind(this, node)}
+                // onDragEnter={highlightRowFn}
+                //onDragLeave={cancelHighlightRow}
+                // onDrop={drop.bind(this, node)}
+                // onDragOver={dragOverNode}
               >
                 {node[configuration.name]}
               </div>
@@ -628,11 +810,11 @@ TreeNode.propTypes = {
   globalOverFlowAction: PropTypes.any,
   draggedNode: PropTypes.any,
   parentNode: PropTypes.any,
-  draggedNodeLevel:PropTypes.string,
+  draggedNodeLevel: PropTypes.string,
 
-  onCutNode:PropTypes.func,
-  cutNode:PropTypes.any,
-  cutNodeLevel:PropTypes.string
+  onCutNode: PropTypes.func,
+  cutNode: PropTypes.any,
+  cutNodeLevel: PropTypes.string
 };
 
 TreeNode.defaultProps = {
@@ -656,10 +838,10 @@ TreeNode.defaultProps = {
   onDragNode: () => {},
   draggedNode: null,
   parentNode: null,
-  draggedNodeLevel:'',
-  onCutNode:() => {},
-  cutNode:null,
-  cutNodeLevel:''
+  draggedNodeLevel: '',
+  onCutNode: () => {},
+  cutNode: null,
+  cutNodeLevel: ''
 };
 
 export default TreeNode;

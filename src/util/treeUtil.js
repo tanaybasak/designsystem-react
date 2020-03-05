@@ -154,3 +154,90 @@ export const getConditionStatus = (conditions, node) => {
   });
   return conditionStatus;
 };
+
+const moveElementInArray = (arr, old_index, new_index) => {
+    console.log(arr.length, old_index, new_index,new_index > arr.length)
+    // if(new_index >= arr.length){
+    //     new_index = arr.length-1
+    // }
+    console.log(old_index ,new_index )
+
+  if (new_index >= arr.length) {
+    var k = new_index - arr.length + 1;
+    while (k--) {
+      arr.push(undefined);
+    }
+  }
+  arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
+};
+export const updateNodePosition = (
+  tree,
+  dragLevel,
+  dropLevel,
+  dropModelIndex
+) => {
+  let treeData = JSON.parse(JSON.stringify(tree));
+  let draggedNodeArray = dragLevel.split('-');
+  let dropNodeArry = [];
+  let dropModel = treeData;
+
+  if (dropLevel) {
+    dropNodeArry = dropLevel.split('-');
+
+    dropModel = treeData[parseInt(dropNodeArry.splice(0, 1))];
+    dropNodeArry.map(arrayNumber => {
+      dropModel = dropModel.children[parseInt(arrayNumber)];
+    });
+  }
+
+  if (dropModelIndex === undefined) {
+    if (Array.isArray(dropModel)) {
+      dropModelIndex = dropModel.length;
+    } else {
+      dropModelIndex = dropModel.children.length;
+    }
+  }
+
+  let dragModelIndex = parseInt(draggedNodeArray.splice(-1, 1));
+  let dragModel = treeData;
+  if (draggedNodeArray.length > 0) {
+    dragModel = treeData[parseInt(draggedNodeArray.splice(0, 1))];
+    draggedNodeArray.map(arrayNumber => {
+      dragModel = dragModel.children[parseInt(arrayNumber)];
+    });
+  }
+
+  if (dragModel === dropModel) {
+    if (Array.isArray(dragModel)) {
+      moveElementInArray(dragModel, dragModelIndex, dropModelIndex);
+    } else {
+      moveElementInArray(
+        dragModel.children,
+        dragModelIndex,
+        dropModelIndex
+      );
+    }
+  } else {
+    if (Array.isArray(dropModel)) {
+      dropModel.splice(dropModelIndex, 0, dragModel.children[dragModelIndex]);
+      dragModel.children.splice(dragModelIndex, 1);
+    } else {
+      if (Array.isArray(dragModel)) {
+        dropModel.children.splice(dropModelIndex, 0, dragModel[dragModelIndex]);
+        dragModel.splice(dragModelIndex, 1);
+      } else {
+        dropModel.children.splice(
+          dropModelIndex,
+          0,
+          dragModel.children[dragModelIndex]
+        );
+        dragModel.children.splice(dragModelIndex, 1);
+      }
+    }
+  }
+  return treeData;
+};
+
+export const isInSameLevel = (level1 , level2) => {
+    return level1.substr(0 , level1.lastIndexOf("-")) === level2.substr(0 , level2.lastIndexOf("-"))
+}

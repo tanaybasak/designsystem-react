@@ -72,32 +72,33 @@ class App extends Component {
     sidebarExpanded: false,
     treeData: [
       {
-        name: 'Folder 1',
-        displayChildren: false,
+        name: 'Main',
+        displayChildren: true,
         type: 'folder',
         action: [],
         children: [
           {
-            name: 'Folder 1.1',
+            name: '1',
             displayChildren: false,
             type: 'folder',
             children: [
-              {
-                name: 'File 1.1.1',
-                displayChildren: false,
-                type: 'file',
-                children: []
-              },
-              {
-                name: 'File 1.1.2',
-                displayChildren: false,
-                type: 'file',
-                children: []
-              }
+              
             ]
           },
           {
-            name: 'File 1.2',
+            name: '2',
+            displayChildren: false,
+            type: 'file',
+            children: []
+          },
+          {
+            name: '3',
+            displayChildren: false,
+            type: 'file',
+            children: []
+          },
+          {
+            name: '4',
             displayChildren: false,
             type: 'file',
             children: []
