@@ -68,6 +68,8 @@ const TreeNode = ({
   const [addBorder, updateBorderStatus] = useState('');
   const [highlightRow, updateHighlightRowStatus] = useState('');
 
+  const [showOverflow, updateShowOverflowStatus] = useState(false);
+
   const toggleTreeNode = () => {
     updateNodeToggleStatus();
     if (onToggleNode) {
@@ -85,6 +87,7 @@ const TreeNode = ({
         //onOverflowAction(e.currentTarget.getAttribute('action'), node);
       } else if (e.currentTarget.getAttribute('action') === 'cut') {
         onCutNode(node, level);
+        onOverflowAction(e.currentTarget.getAttribute('action'), node);
 
         // const tempoverflowItem = [...overflowItem]
         // tempoverflowItem.push({
@@ -98,8 +101,13 @@ const TreeNode = ({
         //   })
         //onOverflowAction(e.currentTarget.getAttribute('action'), node);
       } else if (e.currentTarget.getAttribute('action') === 'paste') {
+        if (level.startsWith(cutNodeLevel)) {
+            return;
+          }
+
         updateTreeData(cutNodeLevel, level);
         onCutNode({}, '');
+        onOverflowAction('cut', null);
         // overflowItem.push({
         //     name: 'Paste',
         //     action: 'paste'
@@ -471,12 +479,7 @@ const TreeNode = ({
 
   let overflowItems = [];
 
-  
-
-
   globalOverFlowAction.map(actionSet => {
-
-    
     if (actionSet.condition === 'all') {
       overflowItems = [...overflowItems, ...actionSet.values];
     } else {
@@ -487,7 +490,6 @@ const TreeNode = ({
     }
   });
 
-  
   const [overflowItem, updateOverflowItem] = useState(overflowItems);
 
   let iconClassObj = {};
@@ -599,6 +601,14 @@ const TreeNode = ({
     }
   };
 
+  const showOverflowIcon = () => {
+    updateShowOverflowStatus(true);
+  };
+
+  const hideOverflowIcon = () => {
+    updateShowOverflowStatus(false);
+  };
+
   return (
     <li
       className="tree-item"
@@ -619,6 +629,8 @@ const TreeNode = ({
           //   onDragEnter={dragEnter}
           onDragLeave={clearAll}
           onDragEnd={clearAll}
+          //   onMouseEnter={showOverflowIcon}
+          //   onMouseOut={hideOverflowIcon}
         >
           <i
             className={`toggle-icon ${
@@ -682,7 +694,7 @@ const TreeNode = ({
           {globalOverFlowAction ? (
             <span onClick={stopPropagation} className="treenode-overflow">
               <Overflowmenu
-                listItems={overflowItem}
+                listItems={getOverFlowItems(node)}
                 onClick={nodeClicked}
                 direction="right"
               />
@@ -700,6 +712,8 @@ const TreeNode = ({
           onDrop={dropOnlyLevel.bind(this, node)}
           onDragOver={allowDropLevel}
           onDragEnd={clearAll}
+          //   onMouseEnter={showOverflowIcon}
+          //   onMouseOut={hideOverflowIcon}
         >
           {/* {node[configuration.icon] ? (
             <i className={node[configuration.icon]}> </i>
@@ -762,7 +776,7 @@ const TreeNode = ({
           {globalOverFlowAction ? (
             <span onClick={stopPropagation} className="treenode-overflow">
               <Overflowmenu
-                listItems={overflowItem}
+                listItems={getOverFlowItems(node)}
                 onClick={nodeClicked}
                 direction="right"
               />
@@ -835,7 +849,7 @@ TreeNode.propTypes = {
   draggedNode: PropTypes.any,
   parentNode: PropTypes.any,
   draggedNodeLevel: PropTypes.string,
-  getOverFlowItems:PropTypes.func,
+  getOverFlowItems: PropTypes.func,
   onCutNode: PropTypes.func,
   cutNode: PropTypes.any,
   cutNodeLevel: PropTypes.string
@@ -866,7 +880,7 @@ TreeNode.defaultProps = {
   onCutNode: () => {},
   cutNode: null,
   cutNodeLevel: '',
-  getOverFlowItems:null
+  getOverFlowItems: null
 };
 
 export default TreeNode;

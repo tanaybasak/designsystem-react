@@ -50,6 +50,7 @@ import TreeView from './atoms/TreeView/TreeView';
 class App extends Component {
   state = {
     totalItems: 300,
+    cutTreeModel:null,
     stepper: 10,
     stepperLimit: 100,
     radio: {
@@ -1944,20 +1945,55 @@ class App extends Component {
                         }
                       ]}
                       getOverFlowItems = { (model) => {
-                          return [
+
+                        let common = [
                             {
                                 name: 'Update',
                                 action: 'edit'
+                              },
+                              {
+                                name: 'Cut',
+                                action: 'cut'
+                              },
+                              {
+                                name: 'Update Property',
+                                action: 'updateProperty'
                               }
                           ]
+
+                          let folder = [...common]
+                        if(this.state.cutTreeModel && this.state.cutTreeModel.name){
+                            folder.push({
+                                name: 'Paste',
+                                action: 'paste'
+                            })
+                        }
+
+                        if(model.type === "folder"){
+                            return folder
+                        }else{
+                            return common
+                        }
+                          
                       }}
                       onOverflowAction={async (action, model) => {
                           console.log(action)
                         if (action === 'updateProperty') {
-                          model.type = 'folder';
+                            if(model.type === 'folder'){
+                                model.type = 'file';
+                            }else{
+                                model.type = 'folder';
+                            }
+
+                
+                          
                           await this.timeout(3000);
                           return model;
-                        } else {
+                        } else if(action === 'cut'){
+                            this.setState({
+                                cutTreeModel : model
+                            })
+                        }else {
                           return model;
                         }
                       }}
