@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
-import { Link, withRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Sidebar = ({ className, title, items, icon, onClick, ...restProps }) => {
     const [expanded, setExpanded] = useState(false);
@@ -178,4 +178,4 @@ Sidebar.defaultProps = {
     onClick: () => { }
 };
 
-export default withRouter(Sidebar);
+export default Sidebar;
