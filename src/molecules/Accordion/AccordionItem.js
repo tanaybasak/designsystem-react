@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 
@@ -16,19 +16,43 @@ export default function AccordionItem({
     expanded ? 'expanded' : ''
   }`.trim();
 
+  const [height, setHeight] = useState(0);
+  const elementRef = useRef(null);
+  useEffect(() => {
+    if (expanded && elementRef.current) {
+      setHeight(elementRef.current.clientHeight);
+    } else {
+      setHeight(0);
+    }
+  }, [expanded]);
+
   return (
     <li className={classnames} {...restProps}>
-      <div
+      <h4
         className={`${prefix}-accordion-title`}
         data-index={dataIndex}
+        tabIndex="0"
+        onKeyDown={event => {
+          if (event.keyCode === 13) {
+            onChange(event);
+            onExpand(event);
+          }
+        }}
         onClick={event => {
           onChange(event);
           onExpand(event);
         }}
       >
         {title}
+      </h4>
+      <div
+        className={`${prefix}-accordion-content-wrapper`}
+        style={{ height: height + 'px' }}
+      >
+        <div className={`${prefix}-accordion-content`} ref={elementRef}>
+          {children}
+        </div>
       </div>
-      <div className={`${prefix}-accordion-content`}>{children}</div>
     </li>
   );
 }
@@ -42,7 +66,7 @@ AccordionItem.propTypes = {
   /** Callback function that is invoked when Accordion is expanded or closed.
   Argument – event */
   onChange: PropTypes.func,
-  //ignore 
+  //ignore
   onExpand: PropTypes.func,
   /** Name of the custom class to apply to the Accordion Item */
   className: PropTypes.string,
