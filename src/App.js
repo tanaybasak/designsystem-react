@@ -913,10 +913,17 @@ class App extends Component {
                 <div className="hcl-col-12 mt-5" id="overflow-menu-section">
                   <h5>Overflow Menu</h5>
                   <div className="hcl-font-center">
-                    <Overflowmenu listItems={overflowlist} />
+                    <Overflowmenu
+                      listItems={overflowlist}
+                      ellipsisType="horizontal"
+                    >
+                    <div />
+                    </Overflowmenu>
                   </div>
                   <div className="hcl-font-center">
-                    <Overflowmenu listItems={overflowlist} direction="right" />
+                    <Overflowmenu listItems={overflowlist} direction="right" >
+                    <div />
+                    </Overflowmenu>
                   </div>
                 </div>
                 {/* Tag */}
