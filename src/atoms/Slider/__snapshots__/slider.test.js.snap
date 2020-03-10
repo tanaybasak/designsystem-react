@@ -17,6 +17,11 @@ exports[`<Slider> component snapshots/renders Slider correctly 1`] = `
     min={0}
     onChange={[Function]}
     step={1}
+    style={
+      Object {
+        "background": "linear-gradient(90deg, #0066b3 0%, #aaa 0.1%)",
+      }
+    }
     type="range"
     value={0}
   />
@@ -28,7 +33,7 @@ exports[`<Slider> component snapshots/renders Slider correctly 1`] = `
     100
   </label>
   <input
-    className="hcl-slider-text-input"
+    className="hcl-form-control hcl-slider-text-input"
     onBlur={[Function]}
     onChange={[Function]}
     type="text"
