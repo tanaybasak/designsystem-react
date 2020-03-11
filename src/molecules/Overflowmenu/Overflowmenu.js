@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import MenuList from '../../atoms/MenuList';
 import prefix from '../../settings';
+import { trackDocumentClick } from '../../util/utility';
 
 const Overflowmenu = ({
   className,
@@ -9,6 +10,7 @@ const Overflowmenu = ({
   children,
   ellipsisType,
   onClick,
+  listItems,
   ...restProps
 }) => {
   const [display, changeDisplay] = useState(false);
@@ -17,7 +19,6 @@ const Overflowmenu = ({
   useEffect(() => {
     const overflowMenu = overflow.current.children[1];
     if (overflowMenu) {
-      focusNode(overflowMenu.children[0].children[0]);
       const icon = overflow.current.children[0];
       const caret = overflowMenu.children[1];
       let outOfBound = false;
@@ -26,26 +27,30 @@ const Overflowmenu = ({
         outOfBound = true;
         updateOverflowMenuPos(overflowMenu, icon, caret, outOfBound);
       }
+      focusNode(overflowMenu.children[0].children[0]);
     }
   });
 
   const isInViewport = elem => {
     const bounding = elem.getBoundingClientRect();
     return (
-      bounding.top >= 0 &&
       bounding.left >= 0 &&
-      bounding.bottom <=
-        (window.innerHeight || document.documentElement.clientHeight) &&
       bounding.right <=
         (window.innerWidth || document.documentElement.clientWidth)
     );
   };
 
   const clickHandler = event => {
-    changeDisplay(!display);
     if (onClick) {
       onClick(event);
     }
+    event.stopPropagation();
+    changeDisplay(!display);
+    trackDocumentClick(overflow.current, () => {
+      if (changeDisplay(false)) {
+        changeDisplay(display);
+      }
+    });
   };
 
   const updateOverflowMenuPos = (overflowMenu, icon, caret, outOfBound) => {
@@ -134,10 +139,7 @@ const Overflowmenu = ({
       return React.cloneElement(child, {
         tabIndex: '0',
         onClick: clickHandler,
-        onKeyPress: toggleOverflow,
-        className: `${prefix}-ellipsis${
-          ellipsisType === 'horizontal' ? ' horizontal-ellipsis' : ''
-        }`
+        onKeyPress: toggleOverflow
       });
     });
   }
@@ -147,9 +149,20 @@ const Overflowmenu = ({
   return (
     <section className={classnames} {...restProps} ref={overflow}>
       {typeof children === 'string' ? (
-        <button tabIndex="0" onKeyPress={toggleOverflow} onClick={clickHandler}>
+        <span tabIndex="0" onKeyPress={toggleOverflow} onClick={clickHandler}>
           {children}
-        </button>
+        </span>
+      ) : children === null ? (
+        <span
+          tabIndex="0"
+          onKeyPress={toggleOverflow}
+          className={`${prefix}-ellipsis${
+            ellipsisType === 'horizontal' ? ' horizontal-ellipsis' : ''
+          }`}
+          onClick={clickHandler}
+        >
+          {children}
+        </span>
       ) : (
         element
       )}
@@ -160,7 +173,7 @@ const Overflowmenu = ({
           className={`${prefix}-overflow-menu ${prefix}-overflow-${direction}`}
         >
           <MenuList
-            items={restProps.listItems}
+            items={listItems}
             onClick={event => {
               changeDisplay(false);
               onClick(event);
