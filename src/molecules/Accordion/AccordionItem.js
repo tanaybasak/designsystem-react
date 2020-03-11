@@ -28,7 +28,7 @@ export default function AccordionItem({
 
   return (
     <li className={classnames} {...restProps}>
-      <h4
+      <div
         className={`${prefix}-accordion-title`}
         data-index={dataIndex}
         tabIndex="0"
@@ -44,7 +44,7 @@ export default function AccordionItem({
         }}
       >
         {title}
-      </h4>
+      </div>
       <div
         className={`${prefix}-accordion-content-wrapper`}
         style={{ height: height + 'px' }}
