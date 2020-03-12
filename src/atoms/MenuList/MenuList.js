@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 
-const MenuList = ({ items, onClick: onClickGlobal }) => {
+const MenuList = ({ items }) => {
   return (
     <ul className={`${prefix}-overflow-list`}>
       {items.map((item, index) => {
@@ -34,10 +34,8 @@ const MenuList = ({ items, onClick: onClickGlobal }) => {
               data-name={name}
               disabled={disabled}
               onClick={event => {
-                onClickGlobal(event);
                 if (onClick) onClick(event);
               }}
-              {...rest}
             >
               {link ? (
                 <a tabIndex="-1" href={link} title={name}>
