@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import ActionBar from '../../atoms/ActionBar';
 import prefix from '../../settings';
@@ -13,6 +13,7 @@ const Modal = ({
   className,
   ...restProps
 }) => {
+  const modal = useRef(null);
   const classNames = [
     `${prefix}-modal-container ${prefix}-modal-container-lg ${className}`
   ];
@@ -21,13 +22,12 @@ const Modal = ({
     classNames.push(`${prefix}-modal-container-danger`);
   }
 
-  let modal = null;
   useEffect(() => {
-    modal.focus();
+    modal.current.focus();
   });
 
   const focusTrap = e => {
-    const focusableEls = modal.querySelectorAll(
+    const focusableEls = modal.current.querySelectorAll(
       'a[href]:not([disabled]), button:not([disabled]), textarea:not([disabled]), input[type="text"]:not([disabled]), input[type="radio"]:not([disabled]), input[type="checkbox"]:not([disabled]), select:not([disabled]), [tabindex]'
     );
     const firstFocusableEl = focusableEls[0];
@@ -62,9 +62,7 @@ const Modal = ({
       className={`${prefix}-modal`}
       {...restProps}
       tabIndex="0"
-      ref={section => {
-        modal = section;
-      }}
+      ref={modal}
       onKeyDown={focusTrap}
     >
       <div className={classNames.join(' ')}>
