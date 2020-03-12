@@ -27,6 +27,7 @@ const Overflowmenu = ({
         outOfBound = true;
         updateOverflowMenuPos(overflowMenu, icon, caret, outOfBound);
       }
+      overflowMenu.style.display = 'block';
       focusNode(overflowMenu.children[0].children[0]);
     }
   });
@@ -169,7 +170,7 @@ const Overflowmenu = ({
 
       {display && (
         <div
-          onKeyDown={keyDownOnOverflow}
+          onKeyDown={keyDownOnOverflow} style = {{display : 'none'}}
           className={`${prefix}-overflow-menu ${prefix}-overflow-${direction}`}
         >
           <MenuList
