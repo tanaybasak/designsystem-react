@@ -1,13 +1,8 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 import TreeNode from './TreeNode';
-import {
-  moveTreeNodeToChildren,
-  updateTreeNode,
-  moveTreeNode,
-  updateNodePosition
-} from '../../util/treeUtil';
+import { updateTreeNode, updateNodePosition } from '../../util/treeUtil';
 
 const TreeView = ({
   treeData,
@@ -18,7 +13,6 @@ const TreeView = ({
   config,
   onToggle,
   type,
-  globalOverFlowAction,
   onOverflowAction,
   onOverFlowActionChange,
   iconClass,
@@ -26,6 +20,8 @@ const TreeView = ({
   onDragOver,
   getOverFlowItems
 }) => {
+  let [treeInfo, updateTree] = useState(treeData);
+
   let [selectedNode, updateSelectedNode] = useState({});
 
   let [draggedNode, updateDraggedNode] = useState({});
@@ -44,53 +40,12 @@ const TreeView = ({
     updateDraggedNodeLevel(level);
   };
 
-  let [treeInfo, updateTree] = useState(treeData);
-
-  const [, updateState] = React.useState();
-  const forceUpdate = useCallback(() => updateState({}), []);
-
   const onDragOverTree = (x, y) => {
     return onDragOver(x, y, treeInfo);
   };
 
-  //   React.useEffect(() => {
-  //     if(!updateTimer.current) {
-  //       setUpdate();
-  //     }
-  //   }, [text]);
-
   const updateTreeNodeDataMain = (node, level) => {
-    //updateTree(updateTreeNode(treeInfo,node, level));
-    // updateTree([])
-    // setTimeout( () => {
     updateTree(updateTreeNode(treeInfo, node, level));
-    //})
-    // let levelArray = level.split('-');
-
-    // let treeInfoTemp = [...treeInfo];
-
-    // let model = treeInfoTemp;
-
-    // if (levelArray.length === 1) {
-    //   treeInfoTemp[parseInt(levelArray.splice(0, 1))] = node;
-    // } else {
-    //   model = treeInfoTemp[parseInt(levelArray.splice(0, 1))];
-    //   levelArray.map((arrayNumber, index) => {
-    //     if (arrayNumber.length === index + 1) {
-    //       model.children[parseInt(arrayNumber)] = node;
-    //     } else {
-    //       model = model.children[parseInt(arrayNumber)];
-    //     }
-    //   });
-    // }
-
-    //model = node;
-
-    //treeInfoTemp[0].name = "temp";
-    //updateTree(treeInfoTemp);
-    // setTimeout(() => {
-    //   updateTree(treeInfoTemp);
-    // });
   };
 
   const onSelectNode = event => {
@@ -113,21 +68,19 @@ const TreeView = ({
   };
 
   const updateTreeDataPosition = (draggedNode, dropNode) => {
-
-    let dropNodeArray = dropNode.split("-");
+    let dropNodeArray = dropNode.split('-');
     const dropNodeIndex = parseInt(dropNodeArray.splice(-1));
-    if(dropNodeArray.length === 0){
-        dropNodeArray = null;
-    }else{
-        dropNodeArray = dropNodeArray.join("-")
+    if (dropNodeArray.length === 0) {
+      dropNodeArray = null;
+    } else {
+      dropNodeArray = dropNodeArray.join('-');
     }
-    updateTree(updateNodePosition(treeInfo, draggedNode, dropNodeArray , dropNodeIndex));
+    updateTree(
+      updateNodePosition(treeInfo, draggedNode, dropNodeArray, dropNodeIndex)
+    );
   };
 
   const updateTreeData = (draggedNode, dropNode) => {
-
-    
-
     updateTree(updateNodePosition(treeInfo, draggedNode, dropNode));
   };
 
@@ -156,7 +109,6 @@ const TreeView = ({
             configuration={configuration}
             updateTreeData={updateTreeData}
             updateTreeDataPosition={updateTreeDataPosition}
-            globalOverFlowAction={globalOverFlowAction}
             onOverflowAction={onOverflowAction}
             onOverFlowActionChange={onOverFlowActionChange}
             updateTreeNodeDataMain={updateTreeNodeDataMain}
@@ -185,8 +137,6 @@ TreeView.propTypes = {
   /** Style class of the component */
   className: PropTypes.string,
 
-  globalOverFlowAction: PropTypes.any,
-
   onOverflowAction: PropTypes.func,
   onOverFlowActionChange: PropTypes.func,
 
@@ -196,7 +146,7 @@ TreeView.propTypes = {
   /** Callback function on expanding/collapsing tree node */
   onToggle: PropTypes.func,
 
-  getOverFlowItems:PropTypes.func,
+  getOverFlowItems: PropTypes.func,
   /** Configuration Object for updating propery name in tree data
  {
   displayChildren: 'displayChildren',
@@ -223,7 +173,6 @@ TreeView.defaultProps = {
   onChange: null,
   onDragOver: null,
   onToggle: null,
-  globalOverFlowAction: null,
   expandedIcon: 'caret caret-down',
   collapsedIcon: 'caret',
   className: '',
@@ -231,7 +180,7 @@ TreeView.defaultProps = {
   config: {},
   onOverflowAction: null,
   onOverFlowActionChange: null,
-  getOverFlowItems:null
+  getOverFlowItems: null
 };
 
 export default TreeView;

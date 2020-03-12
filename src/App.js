@@ -668,61 +668,6 @@ class App extends Component {
                         }
                       }
                     ]}
-                    globalOverFlowAction={[
-                      {
-                        condition: 'all',
-                        values: [
-                          {
-                            name: 'Update',
-                            action: 'edit'
-                          },
-                          {
-                            name: 'Delete',
-                            action: 'delete'
-                          }
-                        ]
-                      },
-                      {
-                        condition: [
-                          {
-                            operator: 'type',
-                            operand: '=',
-                            value: 'folder'
-                          }
-                        ],
-                        values: [
-                          {
-                            name: 'Add Children',
-                            action: 'addChildren'
-                          }
-                        ]
-                      },
-                      {
-                        condition: [
-                          {
-                            operator: 'type',
-                            operand: '=',
-                            value: 'file'
-                          }
-                        ],
-                        values: [
-                          {
-                            name: 'Update Property',
-                            action: 'updateProperty'
-                          },
-                          {
-                            name: 'Cut',
-                            action: 'cut'
-                          }
-                          //   ,
-                          //   {
-                          //     name: 'Paste',
-                          //     action: 'paste',
-                          //     "disabled": true
-                          //   }
-                        ]
-                      }
-                    ]}
                     getOverFlowItems={model => {
                       let common = [
                         {
@@ -732,28 +677,23 @@ class App extends Component {
                         {
                           name: 'Cut',
                           action: 'cut'
-                        },
-                        {
-                          name: 'Update Property',
-                          action: 'updateProperty'
                         }
                       ];
 
-                      let folder = [...common];
-                    //   if (
-                    //     this.state.cutTreeModel &&
-                    //     this.state.cutTreeModel.name
-                    //   ) {
-                    //     folder.push({
-                    //       name: 'Paste',
-                    //       action: 'paste'
-                    //     });
-                    //   }
+                      let file = [
+                        ...common,
+                        ...[
+                          {
+                            name: 'Update Property',
+                            action: 'updateProperty'
+                          }
+                        ]
+                      ];
 
                       if (model.type === 'folder') {
-                        return folder;
-                      } else {
                         return common;
+                      } else {
+                        return file;
                       }
                     }}
                     onOverflowAction={async (action, model) => {

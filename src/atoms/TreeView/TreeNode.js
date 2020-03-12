@@ -8,6 +8,7 @@ import {
 } from '../../util/treeUtil';
 import Overflowmenu from '../../molecules/Overflowmenu';
 import TextInput from '../TextInput';
+let count = 0;
 const TreeNode = ({
   node,
   level,
@@ -20,7 +21,6 @@ const TreeNode = ({
   onToggleNode,
   updateTreeData,
   updateTreeDataPosition,
-  globalOverFlowAction,
   onOverFlowActionChange,
   onOverflowAction,
   updateTreeNodeDataMain,
@@ -35,52 +35,17 @@ const TreeNode = ({
   cutNode,
   cutNodeLevel
 }) => {
-  //   const [showChildren, toggleNode] = useState(
-  //     node[configuration.displayChildren]
-  //   );
-
-  //   const [, updateState] = React.useState();
-  //   const forceUpdate = useCallback(() => updateState({}), []);
-
+  // Toggle Tree Node Section
   const updateNodeToggleStatus = status => {
-    //let node = { ...nodeData };
     if (status !== undefined) {
       node[configuration.displayChildren] = status;
-      //toggleNode(status);
     } else {
       node[configuration.displayChildren] = !node[
         configuration.displayChildren
       ];
-      //toggleNode(!node[configuration.displayChildren]);
     }
-
-    //updateNodeData(node);
-
     updateTreeNodeDataMain(node, level);
   };
-
-  const [showText, updateTextStatus] = useState(false);
-
-  const [showOverflowMenu, updateOverflowMenuStatus] = useState(false);
-
-  const [overflowItemList, updateOverflowItemList] = useState([]);
-
-  const showOverflowMenuFunction = () => {
-    updateOverflowMenuStatus(true);
-  };
-
-  const hideOverflowMenuFunction = () => {
-    updateOverflowMenuStatus(false);
-  };
-
-  const [droppableNode, updateDroppableNode] = useState(false);
-
-  //   const [nodeData, updateNodeData] = useState(node);
-
-  const [addBorder, updateBorderStatus] = useState('');
-  const [highlightRow, updateHighlightRowStatus] = useState('');
-
-  const [showOverflow, updateShowOverflowStatus] = useState(false);
 
   const toggleTreeNode = () => {
     updateNodeToggleStatus();
@@ -89,58 +54,18 @@ const TreeNode = ({
     }
   };
 
-  //   useEffect(() => {
-  // }, [node]);
-
-  const nodeClicked = async e => {
-    if (e.currentTarget.getAttribute('action')) {
-      if (e.currentTarget.getAttribute('action') === 'edit') {
-        updateTextStatus(true);
-        //onOverflowAction(e.currentTarget.getAttribute('action'), node);
-      } else if (e.currentTarget.getAttribute('action') === 'cut') {
-        onCutNode(node, level);
-        onOverflowAction(e.currentTarget.getAttribute('action'), node);
-
-        // const tempoverflowItem = [...overflowItem]
-        // tempoverflowItem.push({
-        //     name: 'Paste',
-        //     action: 'paste'
-        // })
-        // updateOverflowItem(tempoverflowItem)
-        // overflowItem.push({
-        //     name: 'Paste',
-        //     action: 'paste'
-        //   })
-        //onOverflowAction(e.currentTarget.getAttribute('action'), node);
-      } else if (e.currentTarget.getAttribute('action') === 'paste') {
-        if (level.startsWith(cutNodeLevel)) {
-          return;
-        }
-
-        updateTreeData(cutNodeLevel, level);
-        onCutNode({}, '');
-        onOverflowAction('cut', null);
-        // overflowItem.push({
-        //     name: 'Paste',
-        //     action: 'paste'
-        //   })
-        //onOverflowAction(e.currentTarget.getAttribute('action'), node);
-      } else {
-        let nodeData = await onOverflowAction(
-          e.currentTarget.getAttribute('action'),
-          node
-        );
-        updateTreeNodeDataMain(nodeData, level);
-      }
-    }
-  };
+  // Overflow Menu Section
+  const [overflowItemList, updateOverflowItemList] = useState([]);
 
   const getOverflowMenuList = e => {
     e.stopPropagation();
-
     const overflowList = getOverFlowItems(node);
     if (!level.startsWith(cutNodeLevel)) {
-      if (cutNode && cutNode.name && onDragOverTree(cutNode, node)) {
+      if (
+        cutNode &&
+        cutNode[configuration.name] &&
+        onDragOverTree(cutNode, node)
+      ) {
         if (cutNodeLevel.substr(0, cutNodeLevel.lastIndexOf('-')) !== level) {
           overflowList.push({
             name: 'Paste',
@@ -149,45 +74,109 @@ const TreeNode = ({
         }
       }
     }
-
     updateOverflowItemList(overflowList);
+  };
+
+  const onOverflowItemSelect = async e => {
+    if (e.currentTarget.getAttribute('action')) {
+      const actionName = e.currentTarget.getAttribute('action');
+      if (actionName === 'edit') {
+        updateTextStatus(true);
+      } else if (actionName === 'cut') {
+        onCutNode(node, level);
+        onOverflowAction(actionName, node);
+      } else if (actionName === 'paste') {
+        // if (level.startsWith(cutNodeLevel)) {
+        //   return;
+        // }
+        updateTreeData(cutNodeLevel, level);
+        onCutNode({}, '');
+        //onOverflowAction('cut', null);
+      } else {
+        let nodeData = await onOverflowAction(actionName, node);
+        updateTreeNodeDataMain(nodeData, level);
+      }
+    }
+  };
+
+  // Overflow Menu Text Field Action Section
+
+  const [showText, updateTextStatus] = useState(false);
+  let updated = false;
+
+  const closeTextOnBlur = () => {
+    setTimeout(() => {
+      if (!updated) {
+        updateTextStatus(false);
+      }
+    }, 300);
   };
 
   const stopPropagation = e => {
     e.stopPropagation();
-    //console.log("Stop Prop")
   };
 
-  const removeTextUpdate = event => {
-   // updateTextStatus(false);
+  const getTextNode = () => {
+    return (
+      <div className="hcl-text-container">
+        <TextInput
+          type="text"
+          autoFocus
+          className="tree-textbox"
+          value={node[configuration.name]}
+          onBlur={closeTextOnBlur}
+          onKeyDown={updateTreenodeNameOnEnter}
+          onClick={stopPropagation}
+        />
+        <i className="fa fa-check-circle" onClick={updateNodeNameOnClick} />
+      </div>
+    );
   };
 
-  const updateTreeNodeValueTemp = async value => {
+  const updateTreeNodeName = async value => {
     let nodeTemp = { ...node };
     nodeTemp[configuration.name] = value;
     let flag = await onOverFlowActionChange('edit', nodeTemp);
     if (flag) {
       updateTextStatus(false);
       updateTreeNodeDataMain(nodeTemp, level);
-      //updateNodeData(nodeTemp);
     } else {
       updateTextStatus(false);
     }
+    updated = false;
   };
 
-  const updateOnEnter = event => {
+  const updateTreenodeNameOnEnter = event => {
     event.stopPropagation();
     if (event.key === 'Enter') {
-      updateTreeNodeValueTemp(event.currentTarget.value);
+      updateTreeNodeName(event.currentTarget.value);
     }
   };
-  const updateNodeNameOnBlur = async event => {
-    //event.stopPropagation()
+
+  const updateNodeNameOnClick = event => {
+    updated = true;
+    event.stopPropagation();
     event.preventDefault();
-    updateTreeNodeValueTemp(
-      event.currentTarget.parentElement.children[0].value
-    );
+    updateTreeNodeName(event.currentTarget.parentElement.children[0].value);
   };
+
+  // Node Icon Section
+
+  let iconClassObj = {};
+  if (iconClass) {
+    iconClass.map(actionSet => {
+      if (actionSet.condition === 'all') {
+        iconClassObj = actionSet.values;
+      } else {
+        const conditionStatus = getConditionStatus(actionSet.condition, node);
+        if (conditionStatus) {
+          iconClassObj = actionSet.values;
+        }
+      }
+    });
+  }
+
+  // On Node Selection Section
 
   const selectNode = e => {
     if (onSelectNode) {
@@ -196,149 +185,36 @@ const TreeNode = ({
     }
   };
 
+  // On Node Focus Section
+
   const focusNode = node => {
     if (node.classList.contains('tree-item')) {
       node.children[0].focus();
     }
   };
 
-  const dropRuleMatching = () => {
-    let droppable = false;
-    if (dragRules) {
-      dragRules.map(rule => {
-        const conditionStatus = getConditionStatus(rule.condition, draggedNode);
-        if (conditionStatus) {
-          droppable = getConditionStatus(rule.dropRegion, node);
-        }
-      });
-    }
-    return droppable;
-  };
+  // Drag Node Section
 
-  const dragLeave = ev => {
-    updateBorderStatus('');
-  };
-
-  const allowDropLevel = ev => {
-    if (level.startsWith(draggedNodeLevel)) {
-      return;
-    }
-
-    const position = getDropRegionPlaceholderPositionLevel(ev);
-    let isDroppable = true;
-    if (parentNode != null) {
-      isDroppable = onDragOverTree(draggedNode, parentNode);
-    }
-
-    if (isDroppable) {
-      ev.preventDefault();
-      updateDroppableNode(true);
-      dropRegionPlaceholder(ev, position);
-    } else {
-      updateDroppableNode(false);
-    }
-
-    // if (draggedNode !== node && parentNode != null) {
-    //   let isDroppable = onDragOverTree(draggedNode, parentNode);
-
-    //   if (isDroppable) {
-    //     ev.preventDefault();
-    //     updateDroppableNode(true);
-    //     dropRegionPlaceholder(ev)
-
-    //   } else {
-    //     updateDroppableNode(false);
-    //   }
-    // } else if (parentNode == null) {
-    //   ev.preventDefault();
-    //   dropRegionPlaceholder(ev)
-    // }
-  };
-  const allowDrop = ev => {
-    ev.stopPropagation();
-
-    if (level.startsWith(draggedNodeLevel)) {
-      return;
-    }
-    if (
-      draggedNodeLevel.substr(0, draggedNodeLevel.lastIndexOf('-')) === level
-    ) {
-      return;
-    }
-
-    const position = getDropRegionPlaceholderPosition(ev);
-    let isDroppable = false;
-    if (position === 'middle') {
-      isDroppable = onDragOverTree(draggedNode, node);
-    } else {
-      isDroppable = true;
-      if (parentNode != null) {
-        isDroppable = onDragOverTree(draggedNode, parentNode);
+  let draggable = false;
+  if (dragRules) {
+    dragRules.map(rule => {
+      const conditionStatus = getConditionStatus(rule.condition, node);
+      if (conditionStatus) {
+        draggable = true;
       }
-    }
+    });
+  }
 
-    if (isDroppable) {
-      ev.preventDefault();
-      updateDroppableNode(true);
-      dropRegionPlaceholder(ev, position);
-    } else {
-      updateDroppableNode(false);
-      updateHighlightRowStatus('');
-      updateBorderStatus('');
-    }
+  // Drag Start Node Section
 
-    // if (draggedNode !== node && parentNode != null) {
-    //     let isDroppable = onDragOverTree(draggedNode, parentNode);
-
-    //     if (isDroppable) {
-    //       ev.preventDefault();
-    //       updateDroppableNode(true);
-    //       dropRegionPlaceholder(ev)
-
-    //     } else {
-    //       updateDroppableNode(false);
-    //     }
-    //   } else if (parentNode == null) {
-    //     ev.preventDefault();
-    //     dropRegionPlaceholder(ev)
-    //   }
-    // if (draggedNode !== node && parentNode != null) {
-    //   let isDroppable = onDragOverTree(draggedNode, parentNode);
-
-    //   if (isDroppable) {
-    //     ev.preventDefault();
-    //     updateDroppableNode(true);
-    //     dropRegionPlaceholder(ev)
-
-    //   } else {
-    //     updateDroppableNode(false);
-    //   }
-    // } else if (parentNode == null) {
-    //   ev.preventDefault();
-    //   dropRegionPlaceholder(ev)
-    // }
+  const dragStart = ev => {
+    ev.dataTransfer.setData('text', level);
+    onDragNode(node, level);
   };
 
-  const clearAll = ev => {
-    updateHighlightRowStatus('');
-    updateBorderStatus('');
-  };
+  //Placeholder Utility Section
 
-  const dropRegionPlaceholder = (ev, position) => {
-    //const position = getDropRegionPlaceholderPosition(ev);
-    if (position === 'top') {
-      updateBorderStatus('add-border');
-      updateHighlightRowStatus('');
-    } else if (position === 'middle') {
-      updateHighlightRowStatus('highlight-row');
-      updateBorderStatus('');
-    } else if (position === 'bottom') {
-      updateBorderStatus('add-border-bottom');
-      updateHighlightRowStatus('');
-    }
-  };
-
-  const getDropRegionPlaceholderPosition = ev => {
+  const getDropRegionPlaceholderFromNode = ev => {
     const element = ev.currentTarget.getBoundingClientRect();
     const height = element.height;
     if (ev.clientY >= element.y && ev.clientY < element.y + height / 4) {
@@ -355,7 +231,8 @@ const TreeNode = ({
       return 'bottom';
     }
   };
-  const getDropRegionPlaceholderPositionLevel = ev => {
+
+  const getDropRegionPlaceholderOutsideNode = ev => {
     const element = ev.currentTarget.getBoundingClientRect();
     const height = element.height;
     if (ev.clientY >= element.y && ev.clientY <= element.y + height / 2) {
@@ -368,114 +245,94 @@ const TreeNode = ({
     }
   };
 
-  const dragOverNode = ev => {
-    if (level.startsWith(draggedNodeLevel)) {
-      return;
-    }
-    if (draggedNode !== node) {
-      let isDroppable = onDragOverTree(draggedNode, node);
+  //Highlight Drop Region Section
 
-      if (isDroppable) {
-        ev.preventDefault();
-        updateDroppableNode(true);
-      } else {
-        updateDroppableNode(false);
-      }
-    } else {
-      updateDroppableNode(false);
-    }
+  const [addBorder, updateBorderStatus] = useState('');
+  const [highlightRow, updateHighlightRowStatus] = useState('');
 
-    // if (dropRuleMatching()) {
-    //   ev.preventDefault();
-    //   updateDroppableNode(false)
-    // }else{
-    //     updateDroppableNode(true)
-    // }
-    ev.stopPropagation();
-  };
-  const dragEnter = ev => {
-    if (level.startsWith(draggedNodeLevel)) {
-      return;
-    }
-    if (draggedNode !== node && parentNode !== null) {
-      let isDroppable = onDragOverTree(draggedNode, parentNode);
-
-      if (isDroppable) {
-        ev.preventDefault();
-        updateBorderStatus('add-border');
-      }
-    } else if (parentNode === null) {
-      ev.preventDefault();
+  const dropRegionPlaceholder = (ev, position) => {
+    if (position === 'top') {
       updateBorderStatus('add-border');
+      updateHighlightRowStatus('');
+    } else if (position === 'middle') {
+      updateHighlightRowStatus('highlight-row');
+      updateBorderStatus('');
+    } else if (position === 'bottom') {
+      updateBorderStatus('add-border-bottom');
+      updateHighlightRowStatus('');
     }
   };
 
-  const highlightRowFn = ev => {
+  const clearAll = () => {
+    updateHighlightRowStatus('');
+    updateBorderStatus('');
+  };
+
+  // Drag Over Node Section
+
+  const onDragOverNode = ev => {
     ev.stopPropagation();
     if (level.startsWith(draggedNodeLevel)) {
       return;
     }
+    if (
+      draggedNodeLevel.substr(0, draggedNodeLevel.lastIndexOf('-')) === level
+    ) {
+      return;
+    }
 
-    if (draggedNode !== node) {
-      let isDroppable = onDragOverTree(draggedNode, node);
-
-      if (isDroppable) {
-        updateHighlightRowStatus('highlight-row');
+    const position = getDropRegionPlaceholderFromNode(ev);
+    let isDroppable = false;
+    if (position === 'middle') {
+      isDroppable = onDragOverTree(draggedNode, node);
+    } else {
+      isDroppable = true;
+      if (parentNode != null) {
+        isDroppable = onDragOverTree(draggedNode, parentNode);
       }
     }
 
-    // if(droppableNode){
-    //     updateHighlightRowStatus('highlight-row');
-    // }
-    //ev.preventDefault();
+    if (isDroppable) {
+      ev.preventDefault();
+      dropRegionPlaceholder(ev, position);
+    } else {
+      clearAll();
+    }
   };
 
-  const cancelHighlightRow = ev => {
-    ev.stopPropagation();
-    //ev.preventDefault();
-    updateHighlightRowStatus('');
+  const onDragOverOutsideNode = ev => {
+    if (level.startsWith(draggedNodeLevel)) {
+      return;
+    }
+
+    const position = getDropRegionPlaceholderOutsideNode(ev);
+    let isDroppable = true;
+    if (parentNode != null) {
+      isDroppable = onDragOverTree(draggedNode, parentNode);
+    }
+
+    if (isDroppable) {
+      ev.preventDefault();
+      dropRegionPlaceholder(ev, position);
+    }
   };
 
-  const drag = (data, ev) => {
-    ev.dataTransfer.setData('text', level);
-    onDragNode(node, level);
+  // On Drop Section
+
+  const onDropOverNode = ev => {
+    const position = getDropRegionPlaceholderFromNode(ev);
+    onDrop(ev, position);
   };
 
-  const drop = (dropdata, ev) => {
+  const onDropOutsideNode = ev => {
+    const position = getDropRegionPlaceholderOutsideNode(ev);
+    onDrop(ev, position);
+  };
+
+  const onDrop = (ev, position) => {
     ev.preventDefault();
     ev.stopPropagation();
-    const position = getDropRegionPlaceholderPosition(ev);
-    updateBorderStatus('');
-    updateHighlightRowStatus('');
-    var data = ev.dataTransfer.getData('text');
-    updateTreeData(data, level);
-  };
-
-  const dropLevel = (dropdata, ev) => {
-    ev.preventDefault();
-    ev.stopPropagation();
-    const position = getDropRegionPlaceholderPosition(ev);
-    updateBorderStatus('');
-    updateHighlightRowStatus('');
-    var data = ev.dataTransfer.getData('text');
-    updateElementPosition(position, data);
-    // if (position === 'top') {
-    //   updateTreeDataPosition(data, level);
-    // } else if (position === 'bottom') {
-    //   let newLevel = level;
-    //   newLevel = newLevel.slice(0, -1) + (parseInt(newLevel.substr(-1)) + 1);
-    //   updateTreeDataPosition(data, newLevel);
-    // } else {
-    //   updateTreeData(data, level);
-    // }
-  };
-
-  const dropOnlyLevel = (dropdata, ev) => {
-    ev.preventDefault();
-    ev.stopPropagation();
-    const position = getDropRegionPlaceholderPositionLevel(ev);
-    updateBorderStatus('');
-    updateHighlightRowStatus('');
+    clearAll();
     var data = ev.dataTransfer.getData('text');
     updateElementPosition(position, data);
   };
@@ -529,44 +386,6 @@ const TreeNode = ({
       updateTreeData(data, level);
     }
   };
-
-  let overflowItems = [];
-
-  globalOverFlowAction.map(actionSet => {
-    if (actionSet.condition === 'all') {
-      overflowItems = [...overflowItems, ...actionSet.values];
-    } else {
-      const conditionStatus = getConditionStatus(actionSet.condition, node);
-      if (conditionStatus) {
-        overflowItems = [...overflowItems, ...actionSet.values];
-      }
-    }
-  });
-
-  const [overflowItem, updateOverflowItem] = useState(overflowItems);
-
-  let iconClassObj = {};
-  if (iconClass) {
-    iconClass.map(actionSet => {
-      if (actionSet.condition === 'all') {
-        iconClassObj = actionSet.values;
-      } else {
-        const conditionStatus = getConditionStatus(actionSet.condition, node);
-        if (conditionStatus) {
-          iconClassObj = actionSet.values;
-        }
-      }
-    });
-  }
-  let draggable = false;
-  if (dragRules) {
-    dragRules.map(rule => {
-      const conditionStatus = getConditionStatus(rule.condition, node);
-      if (conditionStatus) {
-        draggable = true;
-      }
-    });
-  }
 
   const keyDown = e => {
     // e.preventDefault()
@@ -654,12 +473,34 @@ const TreeNode = ({
     }
   };
 
-  const showOverflowIcon = () => {
-    updateShowOverflowStatus(true);
+  const getTitleNode = () => {
+    return (
+      <span
+        onClick={selectNode}
+        className={`hcl-text-node${
+          selectedNode === node ? ' highlight' : ''
+        } ${highlightRow}${cutNode === node ? ' hcl-cut-node' : ''}`}
+        title={node[configuration.name]}
+        draggable={draggable}
+        onDragStart={dragStart}
+      >
+        <div onDragOver={onDragOverNode} onDrop={onDropOverNode}>
+          {node[configuration.name]}
+        </div>
+      </span>
+    );
   };
 
-  const hideOverflowIcon = () => {
-    updateShowOverflowStatus(false);
+  const getOverflowNode = () => {
+    return (
+      <span onClick={getOverflowMenuList} className="treenode-overflow">
+        <Overflowmenu
+          listItems={overflowItemList}
+          onClick={onOverflowItemSelect}
+          direction="right"
+        />
+      </span>
+    );
   };
 
   return (
@@ -677,15 +518,10 @@ const TreeNode = ({
           level={level}
           onKeyDown={keyDown}
           onClick={toggleTreeNode}
-          onDrop={dropOnlyLevel.bind(this, node)}
-          onDragOver={allowDropLevel}
-          //   onDragEnter={dragEnter}
+          onDrop={onDropOutsideNode}
+          onDragOver={onDragOverOutsideNode}
           onDragLeave={clearAll}
           onDragEnd={clearAll}
-          onMouseEnter={showOverflowMenuFunction}
-          onMouseLeave={hideOverflowMenuFunction}
-          //   onMouseEnter={showOverflowIcon}
-          //   onMouseOut={hideOverflowIcon}
         >
           <i
             className={`toggle-icon ${
@@ -714,54 +550,9 @@ const TreeNode = ({
             <i className={iconClassObj.icon} />
           ) : null}
 
-          {showText ? (
-            <div className="hcl-text-container">
-              <TextInput
-                type="text"
-                autoFocus={true}
-                className="tree-textbox"
-                value={node[configuration.name]}
-                onBlur={removeTextUpdate}
-                onKeyDown={updateOnEnter}
-                onClick={stopPropagation}
-              />
-              <i
-                className="fa fa-check-circle"
-                onMouseDown={updateNodeNameOnBlur}
-              ></i>
-            </div>
-          ) : (
-            <span
-              onClick={selectNode}
-              className={`hcl-text-node${
-                selectedNode === node ? ' highlight' : ''
-              } ${highlightRow}${cutNode === node ? ' hcl-cut-node' : ''}`}
-              title={node[configuration.name]}
-              draggable={draggable}
-              onDragStart={drag.bind(this, node)}
-            >
-              <div
-                onDragOver={allowDrop}
-                onDrop={dropLevel.bind(this, node)}
-                //onDragEnter={highlightRowFn}
-                //onDragLeave={cancelHighlightRow}
-                // onDrop={drop.bind(this, node)}
-                // onDragOver={dragOverNode}
-              >
-                {node[configuration.name]}
-              </div>
-            </span>
-          )}
+          {showText ? getTextNode() : getTitleNode()}
 
-          {globalOverFlowAction ? (
-            <span onClick={getOverflowMenuList} className="treenode-overflow">
-              <Overflowmenu
-                listItems={overflowItemList}
-                onClick={nodeClicked}
-                direction="right"
-              />
-            </span>
-          ) : null}
+          {getOverFlowItems ? getOverflowNode() : null}
         </div>
       ) : (
         <div
@@ -769,23 +560,11 @@ const TreeNode = ({
           tabIndex="0"
           level={level}
           onKeyDown={keyDown}
-          //   onDragEnter={dragEnter}
           onDragLeave={clearAll}
-          onDrop={dropOnlyLevel.bind(this, node)}
-          onDragOver={allowDropLevel}
+          onDrop={onDropOutsideNode}
+          onDragOver={onDragOverOutsideNode}
           onDragEnd={clearAll}
-          onMouseEnter={showOverflowMenuFunction}
-          onMouseLeave={hideOverflowMenuFunction}
-
-          //   onMouseEnter={showOverflowIcon}
-          //   onMouseOut={hideOverflowIcon}
         >
-          {/* {node[configuration.icon] ? (
-            <i className={node[configuration.icon]}> </i>
-          ) : iconClassObj.icon ? (
-            <i className={iconClassObj.icon} />
-          ) : null} */}
-
           {node[configuration.expandIcon] &&
           node[configuration.displayChildren] ? (
             <i className={node[configuration.expandIcon]} />
@@ -807,53 +586,8 @@ const TreeNode = ({
             <i className={iconClassObj.icon} />
           ) : null}
 
-          {showText ? (
-            <div className="hcl-text-container">
-              <TextInput
-                type="text"
-                autoFocus={true}
-                className="tree-textbox"
-                value={node[configuration.name]}
-                onBlur={removeTextUpdate}
-                onKeyDown={updateOnEnter}
-                onClick={stopPropagation}
-              />
-              <i
-                className="fa fa-check-circle"
-                onMouseDown={updateNodeNameOnBlur}
-              ></i>
-            </div>
-          ) : (
-            <span
-              onClick={selectNode}
-              className={`hcl-text-node${
-                selectedNode === node ? ' highlight' : ''
-              } ${highlightRow}${cutNode === node ? ' hcl-cut-node' : ''}`}
-              title={node[configuration.name]}
-              draggable={draggable}
-              onDragStart={drag.bind(this, node)}
-            >
-              <div
-                onDragOver={allowDrop}
-                onDrop={dropLevel.bind(this, node)}
-                // onDragEnter={highlightRowFn}
-                //onDragLeave={cancelHighlightRow}
-                // onDrop={drop.bind(this, node)}
-                // onDragOver={dragOverNode}
-              >
-                {node[configuration.name]}
-              </div>
-            </span>
-          )}
-          {globalOverFlowAction ? (
-            <span onClick={getOverflowMenuList} className="treenode-overflow">
-              <Overflowmenu
-                listItems={overflowItemList}
-                onClick={nodeClicked}
-                direction="right"
-              />
-            </span>
-          ) : null}
+          {showText ? getTextNode() : getTitleNode()}
+          {getOverFlowItems ? getOverflowNode() : null}
         </div>
       )}
 
@@ -882,7 +616,6 @@ const TreeNode = ({
                 configuration={configuration}
                 updateTreeData={updateTreeData}
                 updateTreeDataPosition={updateTreeDataPosition}
-                globalOverFlowAction={globalOverFlowAction}
                 onOverflowAction={onOverflowAction}
                 onOverFlowActionChange={onOverFlowActionChange}
                 updateTreeNodeDataMain={updateTreeNodeDataMain}
@@ -917,7 +650,6 @@ TreeNode.propTypes = {
   onOverflowAction: PropTypes.func,
   updateTreeNodeDataMain: PropTypes.func,
   configuration: PropTypes.any,
-  globalOverFlowAction: PropTypes.any,
   draggedNode: PropTypes.any,
   parentNode: PropTypes.any,
   draggedNodeLevel: PropTypes.string,
@@ -932,7 +664,6 @@ TreeNode.defaultProps = {
   level: 0,
   iconClass: null,
   dragRules: null,
-  globalOverFlowAction: null,
   expandedIcon: 'caret caret-down',
   collapsedIcon: 'caret',
   onSelectNode: () => {},
