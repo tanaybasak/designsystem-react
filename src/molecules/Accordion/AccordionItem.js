@@ -12,9 +12,9 @@ export default function AccordionItem({
   dataIndex,
   ...restProps
 }) {
-  const classnames = `${prefix}-accordion-item ${className} ${
-    expanded ? 'expanded' : ''
-  }`.trim();
+  const classnames = `${`${prefix}-accordion-item ${className}`.trim()}${
+    expanded ? ' expanded' : ''
+  }`;
 
   const [height, setHeight] = useState(0);
   const elementRef = useRef(null);
@@ -66,7 +66,7 @@ AccordionItem.propTypes = {
   /** Callback function that is invoked when Accordion is expanded or closed.
   Argument – event */
   onChange: PropTypes.func,
-  //ignore
+
   onExpand: PropTypes.func,
   /** Name of the custom class to apply to the Accordion Item */
   className: PropTypes.string,
