@@ -61,6 +61,18 @@ const TreeNode = ({
 
   const [showText, updateTextStatus] = useState(false);
 
+  const [showOverflowMenu, updateOverflowMenuStatus] = useState(false);
+
+  const [overflowItemList, updateOverflowItemList] = useState([]);
+
+  const showOverflowMenuFunction = () => {
+    updateOverflowMenuStatus(true);
+  };
+
+  const hideOverflowMenuFunction = () => {
+    updateOverflowMenuStatus(false);
+  };
+
   const [droppableNode, updateDroppableNode] = useState(false);
 
   //   const [nodeData, updateNodeData] = useState(node);
@@ -102,8 +114,8 @@ const TreeNode = ({
         //onOverflowAction(e.currentTarget.getAttribute('action'), node);
       } else if (e.currentTarget.getAttribute('action') === 'paste') {
         if (level.startsWith(cutNodeLevel)) {
-            return;
-          }
+          return;
+        }
 
         updateTreeData(cutNodeLevel, level);
         onCutNode({}, '');
@@ -123,14 +135,36 @@ const TreeNode = ({
     }
   };
 
-  const stopPropagation = e => {
+  const getOverflowMenuList = e => {
     e.stopPropagation();
+
+    const overflowList = getOverFlowItems(node);
+    if (!level.startsWith(cutNodeLevel)) {
+      if (cutNode && cutNode.name && onDragOverTree(cutNode, node)) {
+        if (cutNodeLevel.substr(0, cutNodeLevel.lastIndexOf('-')) !== level) {
+          overflowList.push({
+            name: 'Paste',
+            action: 'paste'
+          });
+        }
+      }
+    }
+
+    updateOverflowItemList(overflowList);
   };
 
-  const updateNodeNameOnBlur = async event => {
-    //event.stopPropagation()
+  const stopPropagation = e => {
+    e.stopPropagation();
+    //console.log("Stop Prop")
+  };
+
+  const removeTextUpdate = event => {
+   // updateTextStatus(false);
+  };
+
+  const updateTreeNodeValueTemp = async value => {
     let nodeTemp = { ...node };
-    nodeTemp[configuration.name] = event.currentTarget.value;
+    nodeTemp[configuration.name] = value;
     let flag = await onOverFlowActionChange('edit', nodeTemp);
     if (flag) {
       updateTextStatus(false);
@@ -139,6 +173,20 @@ const TreeNode = ({
     } else {
       updateTextStatus(false);
     }
+  };
+
+  const updateOnEnter = event => {
+    event.stopPropagation();
+    if (event.key === 'Enter') {
+      updateTreeNodeValueTemp(event.currentTarget.value);
+    }
+  };
+  const updateNodeNameOnBlur = async event => {
+    //event.stopPropagation()
+    event.preventDefault();
+    updateTreeNodeValueTemp(
+      event.currentTarget.parentElement.children[0].value
+    );
   };
 
   const selectNode = e => {
@@ -210,6 +258,11 @@ const TreeNode = ({
     ev.stopPropagation();
 
     if (level.startsWith(draggedNodeLevel)) {
+      return;
+    }
+    if (
+      draggedNodeLevel.substr(0, draggedNodeLevel.lastIndexOf('-')) === level
+    ) {
       return;
     }
 
@@ -629,6 +682,8 @@ const TreeNode = ({
           //   onDragEnter={dragEnter}
           onDragLeave={clearAll}
           onDragEnd={clearAll}
+          onMouseEnter={showOverflowMenuFunction}
+          onMouseLeave={hideOverflowMenuFunction}
           //   onMouseEnter={showOverflowIcon}
           //   onMouseOut={hideOverflowIcon}
         >
@@ -660,14 +715,21 @@ const TreeNode = ({
           ) : null}
 
           {showText ? (
-            <TextInput
-              type="text"
-              autoFocus={true}
-              className="tree-textbox"
-              value={node[configuration.name]}
-              onBlur={updateNodeNameOnBlur}
-              onClick={stopPropagation}
-            />
+            <div className="hcl-text-container">
+              <TextInput
+                type="text"
+                autoFocus={true}
+                className="tree-textbox"
+                value={node[configuration.name]}
+                onBlur={removeTextUpdate}
+                onKeyDown={updateOnEnter}
+                onClick={stopPropagation}
+              />
+              <i
+                className="fa fa-check-circle"
+                onMouseDown={updateNodeNameOnBlur}
+              ></i>
+            </div>
           ) : (
             <span
               onClick={selectNode}
@@ -692,9 +754,9 @@ const TreeNode = ({
           )}
 
           {globalOverFlowAction ? (
-            <span onClick={stopPropagation} className="treenode-overflow">
+            <span onClick={getOverflowMenuList} className="treenode-overflow">
               <Overflowmenu
-                listItems={getOverFlowItems(node)}
+                listItems={overflowItemList}
                 onClick={nodeClicked}
                 direction="right"
               />
@@ -712,6 +774,9 @@ const TreeNode = ({
           onDrop={dropOnlyLevel.bind(this, node)}
           onDragOver={allowDropLevel}
           onDragEnd={clearAll}
+          onMouseEnter={showOverflowMenuFunction}
+          onMouseLeave={hideOverflowMenuFunction}
+
           //   onMouseEnter={showOverflowIcon}
           //   onMouseOut={hideOverflowIcon}
         >
@@ -743,14 +808,21 @@ const TreeNode = ({
           ) : null}
 
           {showText ? (
-            <TextInput
-              type="text"
-              autoFocus={true}
-              className="tree-textbox"
-              value={node[configuration.name]}
-              onBlur={updateNodeNameOnBlur}
-              onClick={stopPropagation}
-            />
+            <div className="hcl-text-container">
+              <TextInput
+                type="text"
+                autoFocus={true}
+                className="tree-textbox"
+                value={node[configuration.name]}
+                onBlur={removeTextUpdate}
+                onKeyDown={updateOnEnter}
+                onClick={stopPropagation}
+              />
+              <i
+                className="fa fa-check-circle"
+                onMouseDown={updateNodeNameOnBlur}
+              ></i>
+            </div>
           ) : (
             <span
               onClick={selectNode}
@@ -774,9 +846,9 @@ const TreeNode = ({
             </span>
           )}
           {globalOverFlowAction ? (
-            <span onClick={stopPropagation} className="treenode-overflow">
+            <span onClick={getOverflowMenuList} className="treenode-overflow">
               <Overflowmenu
-                listItems={getOverFlowItems(node)}
+                listItems={overflowItemList}
                 onClick={nodeClicked}
                 direction="right"
               />

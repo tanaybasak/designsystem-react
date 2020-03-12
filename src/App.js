@@ -50,7 +50,7 @@ import TreeView from './atoms/TreeView/TreeView';
 class App extends Component {
   state = {
     totalItems: 300,
-    cutTreeModel:null,
+    cutTreeModel: null,
     stepper: 10,
     stepperLimit: 100,
     radio: {
@@ -82,9 +82,7 @@ class App extends Component {
             name: '1',
             displayChildren: false,
             type: 'folder',
-            children: [
-              
-            ]
+            children: []
           },
           {
             name: '2',
@@ -605,6 +603,199 @@ class App extends Component {
         >
           <main className="hcl-content-main" style={{ marginTop: '4rem' }}>
             <section className="hcl-container pt-5 mb-5">
+              <div className="hcl-row">
+                <div className="hcl-col-6 mb-2">
+                  <TreeView
+                    dragRules={[
+                      {
+                        condition: [
+                          {
+                            operator: 'type',
+                            operand: '=',
+                            value: 'folder'
+                          }
+                        ]
+                      },
+                      {
+                        condition: [
+                          {
+                            operator: 'type',
+                            operand: '=',
+                            value: 'file'
+                          }
+                        ]
+                      }
+                    ]}
+                    onDragOver={(dragModel, dropModel, treeData) => {
+                      if (
+                        dragModel.type === 'file' &&
+                        dropModel.type === 'folder'
+                      ) {
+                        return true;
+                      } else if (
+                        dragModel.type === 'folder' &&
+                        dropModel.type === 'folder'
+                      ) {
+                        return true;
+                      }
+                      return false;
+                    }}
+                    treeData={this.state.treeData}
+                    iconClass={[
+                      {
+                        condition: [
+                          {
+                            operator: 'type',
+                            operand: '=',
+                            value: 'folder'
+                          }
+                        ],
+                        values: {
+                          expandIcon: 'fa fa-folder-open',
+                          collapsedIcon: 'fa fa-folder'
+                        }
+                      },
+                      {
+                        condition: [
+                          {
+                            operator: 'type',
+                            operand: '=',
+                            value: 'file'
+                          }
+                        ],
+                        values: {
+                          icon: 'fa fa-file'
+                        }
+                      }
+                    ]}
+                    globalOverFlowAction={[
+                      {
+                        condition: 'all',
+                        values: [
+                          {
+                            name: 'Update',
+                            action: 'edit'
+                          },
+                          {
+                            name: 'Delete',
+                            action: 'delete'
+                          }
+                        ]
+                      },
+                      {
+                        condition: [
+                          {
+                            operator: 'type',
+                            operand: '=',
+                            value: 'folder'
+                          }
+                        ],
+                        values: [
+                          {
+                            name: 'Add Children',
+                            action: 'addChildren'
+                          }
+                        ]
+                      },
+                      {
+                        condition: [
+                          {
+                            operator: 'type',
+                            operand: '=',
+                            value: 'file'
+                          }
+                        ],
+                        values: [
+                          {
+                            name: 'Update Property',
+                            action: 'updateProperty'
+                          },
+                          {
+                            name: 'Cut',
+                            action: 'cut'
+                          }
+                          //   ,
+                          //   {
+                          //     name: 'Paste',
+                          //     action: 'paste',
+                          //     "disabled": true
+                          //   }
+                        ]
+                      }
+                    ]}
+                    getOverFlowItems={model => {
+                      let common = [
+                        {
+                          name: 'Update',
+                          action: 'edit'
+                        },
+                        {
+                          name: 'Cut',
+                          action: 'cut'
+                        },
+                        {
+                          name: 'Update Property',
+                          action: 'updateProperty'
+                        }
+                      ];
+
+                      let folder = [...common];
+                    //   if (
+                    //     this.state.cutTreeModel &&
+                    //     this.state.cutTreeModel.name
+                    //   ) {
+                    //     folder.push({
+                    //       name: 'Paste',
+                    //       action: 'paste'
+                    //     });
+                    //   }
+
+                      if (model.type === 'folder') {
+                        return folder;
+                      } else {
+                        return common;
+                      }
+                    }}
+                    onOverflowAction={async (action, model) => {
+                      console.log(action);
+                      if (action === 'updateProperty') {
+                        if (model.type === 'folder') {
+                          model.type = 'file';
+                        } else {
+                          model.type = 'folder';
+                        }
+
+                        await this.timeout(3000);
+                        return model;
+                      } else if (action === 'cut') {
+                        this.setState({
+                          cutTreeModel: model
+                        });
+                      } else {
+                        return model;
+                      }
+                    }}
+                    onOverFlowActionChange={async (action, model) => {
+                      return await this.timeout(3000);
+
+                      // console.log("Timeout invoked 3000")
+                      // return false;
+                    }}
+                    type="single"
+                    onChange={selected => {}}
+                    onToggle={selected => {}}
+                  />
+                </div>
+                {/* <div className="hcl-col-6 mb-2">
+                    <TreeView
+                      treeData={this.state.treeData1}
+                      onChange={selected => {
+                        console.log('selected item', selected);
+                      }}
+                    />
+                  </div> */}
+              </div>
+
               <div className="hcl-row m-0">
                 {/* Input Field */}
                 <div className="hcl-form-group hcl-col-12" id="form-section">
@@ -1821,201 +2012,6 @@ class App extends Component {
                   <div className="hcl-col-6 mb-2">
                     <LoadingState />
                   </div>
-                </div>
-
-                <div className="hcl-row">
-                  <div className="hcl-col-6 mb-2">
-                    <TreeView
-                      dragRules={[
-                        {
-                          condition: [
-                            {
-                              operator: 'type',
-                              operand: '=',
-                              value: 'folder'
-                            }
-                          ]
-                        },
-                        {
-                          condition: [
-                            {
-                              operator: 'type',
-                              operand: '=',
-                              value: 'file'
-                            }
-                          ]
-                        }
-                      ]}
-                      onDragOver={(dragModel, dropModel, treeData) => {
-                        if (
-                          dragModel.type === 'file' &&
-                          dropModel.type === 'folder'
-                        ) {
-                          return true;
-                        } else if (
-                          dragModel.type === 'folder' &&
-                          dropModel.type === 'folder'
-                        ) {
-                          return true;
-                        }
-                        return false;
-                      }}
-                      treeData={this.state.treeData}
-                      iconClass={[
-                        {
-                          condition: [
-                            {
-                              operator: 'type',
-                              operand: '=',
-                              value: 'folder'
-                            }
-                          ],
-                          values: {
-                            expandIcon: 'fa fa-folder-open',
-                            collapsedIcon: 'fa fa-folder'
-                          }
-                        },
-                        {
-                          condition: [
-                            {
-                              operator: 'type',
-                              operand: '=',
-                              value: 'file'
-                            }
-                          ],
-                          values: {
-                            icon: 'fa fa-file'
-                          }
-                        }
-                      ]}
-                      globalOverFlowAction={[
-                        {
-                          condition: 'all',
-                          values: [
-                            {
-                              name: 'Update',
-                              action: 'edit'
-                            },
-                            {
-                              name: 'Delete',
-                              action: 'delete'
-                            }
-                            
-                          ]
-                        },
-                        {
-                          condition: [
-                            {
-                              operator: 'type',
-                              operand: '=',
-                              value: 'folder'
-                            }
-                          ],
-                          values: [
-                            {
-                              name: 'Add Children',
-                              action: 'addChildren'
-                            }
-                          ]
-                        },
-                        {
-                          condition: [
-                            {
-                              operator: 'type',
-                              operand: '=',
-                              value: 'file'
-                            }
-                          ],
-                          values: [
-                            {
-                              name: 'Update Property',
-                              action: 'updateProperty'
-                            },
-                            {
-                                name: 'Cut',
-                                action: 'cut'
-                              }
-                            //   ,
-                            //   {
-                            //     name: 'Paste',
-                            //     action: 'paste',
-                            //     "disabled": true
-                            //   }
-                          ]
-                        }
-                      ]}
-                      getOverFlowItems = { (model) => {
-
-                        let common = [
-                            {
-                                name: 'Update',
-                                action: 'edit'
-                              },
-                              {
-                                name: 'Cut',
-                                action: 'cut'
-                              },
-                              {
-                                name: 'Update Property',
-                                action: 'updateProperty'
-                              }
-                          ]
-
-                          let folder = [...common]
-                        if(this.state.cutTreeModel && this.state.cutTreeModel.name){
-                            folder.push({
-                                name: 'Paste',
-                                action: 'paste'
-                            })
-                        }
-
-                        if(model.type === "folder"){
-                            return folder
-                        }else{
-                            return common
-                        }
-                          
-                      }}
-                      onOverflowAction={async (action, model) => {
-                          console.log(action)
-                        if (action === 'updateProperty') {
-                            if(model.type === 'folder'){
-                                model.type = 'file';
-                            }else{
-                                model.type = 'folder';
-                            }
-
-                
-                          
-                          await this.timeout(3000);
-                          return model;
-                        } else if(action === 'cut'){
-                            this.setState({
-                                cutTreeModel : model
-                            })
-                        }else {
-                          return model;
-                        }
-                      }}
-                      onOverFlowActionChange={async (action, model) => {
-                        return await this.timeout(3000);
-
-                        // console.log("Timeout invoked 3000")
-                        // return false;
-                      }}
-                      type="single"
-                      onChange={selected => {}}
-                      onToggle={selected => {}}
-                    />
-                  </div>
-                  {/* <div className="hcl-col-6 mb-2">
-                    <TreeView
-                      treeData={this.state.treeData1}
-                      onChange={selected => {
-                        console.log('selected item', selected);
-                      }}
-                    />
-                  </div> */}
                 </div>
               </div>
             </section>
