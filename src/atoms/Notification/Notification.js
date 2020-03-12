@@ -32,7 +32,7 @@ export default function Notification({
         </div>
         <div className={`${prefix}-notification-text-wrapper`}>
           <p className={`${prefix}-notification-title`}>{title}</p>
-          <p className={`${prefix}-notification-subtitle`}>{subtitle}</p>
+          <div className={`${prefix}-notification-subtitle`}>{subtitle}</div>
         </div>
       </div>
       {closable ? (
@@ -53,7 +53,7 @@ Notification.propTypes = {
   /** Notification Type. eg :  danger, info, success, warning*/
   type: PropTypes.oneOf(['danger', 'info', 'success', 'warning']).isRequired,
   /** Notification Sub Title */
-  subtitle: PropTypes.string,
+  subtitle: PropTypes.node,
   /** Class/clasess will be applied on the parent div of Notification  */
   className: PropTypes.string,
   /** Notification Icon */
