@@ -36,6 +36,20 @@ export default function AccordionItem({
           if (event.keyCode === 13) {
             onChange(event);
             onExpand(event);
+          } else if (event.keyCode === 38) {
+            event.preventDefault();
+            if (event.currentTarget.parentElement.previousElementSibling) {
+              event.currentTarget.parentElement.previousElementSibling.firstChild.focus();
+            } else {
+              event.currentTarget.parentElement.parentElement.lastChild.firstChild.focus();
+            }
+          } else if (event.keyCode === 40) {
+            if (event.currentTarget.parentElement.nextElementSibling) {
+              event.currentTarget.parentElement.nextElementSibling.firstChild.focus();
+            } else {
+              event.currentTarget.parentElement.parentElement.firstChild.firstChild.focus();
+            }
+            event.preventDefault();
           }
         }}
         onClick={event => {
