@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Label from '../Label';
 import prefix from '../../settings';
-
+import colors from '../../util/colors';
 const Slider = ({
   min,
   max,
@@ -18,8 +18,9 @@ const Slider = ({
 
   const getBackground = () => {
     const percentage = (100 * (value - min)) / (max - min);
-    return `linear-gradient(90deg, #0066b3 ${percentage}%, #aaa ${percentage +
-      0.1}%)`;
+    return `linear-gradient(90deg, ${colors.blue} ${percentage}%, ${
+      colors.light60
+    } ${percentage + 0.1}%)`;
   };
 
   return (
