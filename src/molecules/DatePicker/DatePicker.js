@@ -129,6 +129,8 @@ const DatePicker = ({
   };
 
   const monthChangeHandler = event => {
+    event.stopPropagation();
+    event.preventDefault();
     let tempDate;
     if (
       event.currentTarget.classList.contains(`${prefix}-datePicker-month-next`)
@@ -157,6 +159,8 @@ const DatePicker = ({
   };
 
   const yearChangeHandler = event => {
+    event.stopPropagation();
+    event.preventDefault();
     let tempDate;
     if (event.target.classList.contains(`${prefix}-datePicker-up`)) {
       tempDate = new Date(currDateObj.year + 1, currDateObj.month, 15);
@@ -188,6 +192,11 @@ const DatePicker = ({
   };
 
   const classnames = `${prefix}-datePicker ${className}`.trim();
+  
+  const datePanelClickHandler = event => {
+    event.stopPropagation();
+    event.preventDefault();
+  };
 
   return (
     <section className={classnames} data-component="datepicker" {...restProps}>
@@ -212,6 +221,7 @@ const DatePicker = ({
                 ? `${prefix}-datePicker-panel-above`
                 : `${prefix}-datePicker-panel-below`
               }`}
+            onClick={datePanelClickHandler}
             ref={datePickerContainer}
           >
             <YearMonthPanel

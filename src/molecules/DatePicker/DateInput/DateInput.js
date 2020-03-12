@@ -37,7 +37,10 @@ const DateInput = ({
         width="14"
         height="16"
         viewBox="0 0 14 16"
-        onClick={toggleDateContainer}
+        onClick={()=>{
+          event.stopPropagation();
+          toggleDateContainer();
+        }}
       >
         <path
           d=" M0 5h14v1H0V5zm3-5h1v4H3V0zm7 0h1v4h-1V0zM0 2.5A1.5 1.5 0 0 1 1.5 1h11A1.5 1.5 0 0 1 14
