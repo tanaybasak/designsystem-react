@@ -38,12 +38,7 @@ import NumberInput from './molecules/NumberInput';
 import Select from './atoms/Select/Select';
 import TimePicker from './molecules/TimePicker/TimePicker';
 import Tooltip from './atoms/Tooltip/Tooltip';
-// import Sidebar from './molecules/Sidebar';
-// import navigationData from './molecules/Sidebar/sidebar-navigation-data.json';
-// import Header from './molecules/Header';
 import LoadingState from './atoms/LoadingState/LoadingState';
-// import Icon from './atoms/Icon';
-// import logo from './assets/images/logo.png';
 import Footer from './molecules/Footer';
 import TreeView from './atoms/TreeView/TreeView';
 

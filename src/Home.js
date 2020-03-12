@@ -121,9 +121,9 @@ class Home extends Component {
                 cx="12"
                 cy="12"
                 r="12"
-                stroke="var(--blue)"
+                stroke="blue"
                 strokeWidth="4"
-                fill="var(--white)"
+                fill="white"
               />
             </Icon>
           }
