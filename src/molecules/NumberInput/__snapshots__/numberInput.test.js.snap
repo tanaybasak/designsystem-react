@@ -13,6 +13,7 @@ exports[`Number Input renders correctly 1`] = `
       className="hcl-form-control"
       data-invalid={false}
       disabled={null}
+      helperText="Optional Helper text goes here (max 100 and min 10)"
       id="numberInput2"
       max={null}
       min={null}
@@ -25,6 +26,7 @@ exports[`Number Input renders correctly 1`] = `
       className="hcl-number-input-control"
     >
       <button
+        aria-label="increment button"
         className="increment-btn"
         disabled={null}
         onMouseDown={[Function]}
@@ -44,6 +46,7 @@ exports[`Number Input renders correctly 1`] = `
         </svg>
       </button>
       <button
+        aria-label="decrement button"
         className="decrement-btn"
         disabled={null}
         onMouseDown={[Function]}

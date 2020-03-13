@@ -74,16 +74,15 @@ const DatePanel = ({ currDateObj, dateSelected, selectDate, format }) => {
     const date = `${month}/${day}/${year}`;
     return (
       <span
-        className={`${DOMstrings.dateUnSelected} ${
-          type !== 'current' ? DOMstrings.fade : ''
-        } ${
+        className={`${DOMstrings.dateUnSelected}${
+          type !== 'current' ? ' ' + DOMstrings.fade : ''
+        }${
           year === todayDate.getFullYear() &&
           currDateObj.month === todayDate.getMonth() &&
           Number(day) === todayDate.getDate()
-            ? DOMstrings.todayHighlight
+            ? ' ' + DOMstrings.todayHighlight
             : ''
-        }
-                    ${date === dateSelected ? DOMstrings.datePicked : ''}`}
+        }${date === dateSelected ? ' ' + DOMstrings.datePicked : ''}`}
         date={getFormattedDate(month, day, year)}
         key={getFormattedDate(month, day, year)}
         onClick={selectDate}

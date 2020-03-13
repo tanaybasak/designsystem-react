@@ -21,15 +21,18 @@ export default function Notification({
   onClose,
   visible
 }) {
-  const classnames = `${prefix}-notification ${prefix}-${type} ${className}`.trim();
-
+  const classnames = `${prefix}-notification ${
+    type ? prefix + '-' + type : ''
+  } ${className}`.trim();
   return visible ? (
     <div className={classnames} role="alert">
       <div className={`${prefix}-notification-body`}>
-        {icon || useIcon(type)}
+        <div className={`${prefix}-notification-icon-container`}>
+          {icon || useIcon(type)}
+        </div>
         <div className={`${prefix}-notification-text-wrapper`}>
           <p className={`${prefix}-notification-title`}>{title}</p>
-          <p className={`${prefix}-notification-subtitle`}>{subtitle}</p>
+          <div className={`${prefix}-notification-subtitle`}>{subtitle}</div>
         </div>
       </div>
       {closable ? (
@@ -45,13 +48,21 @@ export default function Notification({
 }
 
 Notification.propTypes = {
+  /** Notification Title */
   title: PropTypes.string,
+  /** Notification Type. eg :  danger, info, success, warning*/
   type: PropTypes.oneOf(['danger', 'info', 'success', 'warning']).isRequired,
-  subtitle: PropTypes.string,
+  /** Notification Sub Title */
+  subtitle: PropTypes.node,
+  /** Class/clasess will be applied on the parent div of Notification  */
   className: PropTypes.string,
+  /** Notification Icon */
   icon: PropTypes.element,
+  /** to show close icon in notification */
   closable: PropTypes.bool,
+  /** to show notification */
   visible: PropTypes.bool.isRequired,
+  /** Callback to invoke when a notification is closed. */
   onClose: PropTypes.func
 };
 

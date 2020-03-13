@@ -40,13 +40,24 @@ const Toggle = ({
 }
 
 Toggle.propTypes = {
+    /** Boolean value to change toggle to small */
     small: PropTypes.bool,
+    /** Off label for Toggle */
     labelOff: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    /** On label for Toggle */
     labelOn: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    /** Call back function that is invoked when Toggle is clicked
+     * 
+     * Argument – event
+     */
     onChange: PropTypes.func,
+    /** Name of the custom class to apply to the Toggle */
     className: PropTypes.string,
+    /** Unique id for Toggle */
     id: PropTypes.string.isRequired,
+    /** Boolean value representing state of Toggle Component */
     toggled: PropTypes.bool,
+    /** Boolean value to disable Toggle */
     disabled: PropTypes.bool
 };
 

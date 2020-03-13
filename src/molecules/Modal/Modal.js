@@ -10,7 +10,8 @@ const Modal = ({
   children,
   onClose,
   actions,
-  className
+  className,
+  ...restProps
 }) => {
   const classNames = [
     `${prefix}-modal-container ${prefix}-modal-container-lg ${className}`
@@ -21,7 +22,7 @@ const Modal = ({
   }
 
   return (
-    <section className={`${prefix}-modal`}>
+    <section className={`${prefix}-modal`} {...restProps}>
       <div className={classNames.join(' ')}>
         <button
           type="button"
@@ -50,12 +51,26 @@ const Modal = ({
 };
 
 Modal.propTypes = {
+  /** Default: To create success modal. 
+Danger: : To create danger modal. */
   type: PropTypes.string,
+
+  /** To create label of the modal. */
   label: PropTypes.string,
+
+  /** To create heading of the modal. */
   heading: PropTypes.string,
+
+  /** A callback function which will be executed once modal is closed. */
   onClose: PropTypes.func,
+
+  /** To create action items associated with modal. */
   actions: PropTypes.array,
+
+  /** To pass content to modal. */
   children: PropTypes.node.isRequired,
+
+  /** Class/clasess will be applied on the parent div of Modal */
   className: PropTypes.string
 };
 

@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import prefix from '../../settings';
-import Checkbox from '../Checkbox';
-import Overflowmenu from '../../molecules/Overflowmenu';
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import prefix from "../../settings";
+import Checkbox from "../Checkbox";
+import Overflowmenu from "../../molecules/Overflowmenu";
 
 const DataTable = ({
   id,
@@ -61,12 +61,12 @@ const DataTable = ({
 
   const sort = event => {
     const col = event.currentTarget;
-    if (col.classList.contains('desc')) {
-      col.classList.remove('desc');
-      col.dataset.order = 'asc';
+    if (col.classList.contains("desc")) {
+      col.classList.remove("desc");
+      col.dataset.order = "asc";
     } else {
-      col.classList.add('desc');
-      col.dataset.order = 'desc';
+      col.classList.add("desc");
+      col.dataset.order = "desc";
     }
     onSort(event);
   };
@@ -90,7 +90,7 @@ const DataTable = ({
               <th
                 key={`heading-${index}`}
                 title={title}
-                className={sortable ? 'sortable' : ''}
+                className={sortable ? "sortable" : ""}
                 data-column={label}
                 onClick={sortable ? sort : null}
               >
@@ -136,13 +136,25 @@ const DataTable = ({
 };
 
 DataTable.propTypes = {
+  /** Unique id for Table */
   id: PropTypes.string.isRequired,
+  /** Data for table  */
   tableData: PropTypes.any,
+  /** Boolean value to make records selectable in Data Table */
   selectable: PropTypes.bool,
+  /** Name of the custom class to apply to the Data Table
+   * eg: hcl-data-table-zebra, hcl-data-table-compact, hcl-data-table-tall, hcl-data-table-borderless */
   className: PropTypes.string,
+  /** Call back function to sort table data
+   * 
+   * Argument – event
+   */
   onSort: PropTypes.func,
+  /** Boolean value to enable overflow menu */
   overflowMenu: PropTypes.bool,
+  /** Items for overflow menu  */
   overflowMenuItems: PropTypes.array,
+  /** Call back function to be called on click of overflow menu */
   overflowMenuOnClick: PropTypes.func
 };
 
@@ -150,7 +162,7 @@ DataTable.defaultProps = {
   id: null,
   tableData: {},
   selectable: false,
-  className: '',
+  className: "",
   onSort: () => {},
   overflowMenu: false,
   overflowMenuItems: [],

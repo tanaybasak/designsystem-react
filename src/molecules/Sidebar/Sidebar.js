@@ -151,11 +151,20 @@ const Sidebar = ({ className, title, items, icon, onClick, ...restProps }) => {
 };
 
 Sidebar.propTypes = {
+    /** Name of the custom class to apply to the Sidebar */
     className: PropTypes.string,
+    /** Title for the Sidebar */
     title: PropTypes.string,
+    /** Content for Sidebar */
     items: PropTypes.array,
+    /** Boolean value to disable Sidebar */
     disabled: PropTypes.bool,
+    /** Icon for Sidebar */
     icon: PropTypes.object,
+    /** Call back function that is invoked when Sidebar is clicked
+     * 
+     * Argument – event
+     */
     onClick: PropTypes.func
 };
 

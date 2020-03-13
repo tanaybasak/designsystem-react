@@ -116,6 +116,7 @@ const NumberInput = ({
           data-invalid={validationMessage !== '' ? true : false}
           id={id ? id : null}
           value={value}
+          {...restProps}
           onChange={event => {
             setValue(event.currentTarget.value);
             if (restProps.onChange) {
@@ -129,6 +130,7 @@ const NumberInput = ({
             className="increment-btn"
             type="button"
             tabIndex="-1"
+            aria-label="increment button"
             onMouseDown={increment}
             disabled={disabled ? 'disabled' : null}
           >
@@ -146,6 +148,7 @@ const NumberInput = ({
             className="decrement-btn"
             type="button"
             tabIndex="-1"
+            aria-label="decrement button"
             onMouseDown={decrement}
             disabled={disabled ? 'disabled' : null}
           >
@@ -178,13 +181,21 @@ const NumberInput = ({
 };
 
 NumberInput.propTypes = {
+  /** Specifies the default value */
   defaultValue: PropTypes.number,
+  /** Unique Id */
   id: PropTypes.string.isRequired,
+  /** Title for the Number Input */
   label: PropTypes.string.isRequired,
+  /** True : Disable the  Number Input  */
   disabled: PropTypes.bool,
+  /** Specifies the maximum value allowed  */
   max: PropTypes.number,
+  /** Specifies the minimum value allowed */
   min: PropTypes.number,
+  /** Specifies the number intervals  */
   step: PropTypes.number,
+  /** Class/clasess will be applied on the parent div of Number Input  */
   className: PropTypes.string
 };
 

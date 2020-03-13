@@ -1,8 +1,8 @@
-import React, { useRef } from "react";
-import PropTypes from "prop-types";
-import prefix from "../../settings";
+import React, { useRef } from 'react';
+import PropTypes from 'prop-types';
+import prefix from '../../settings';
 
-const Select = ({ items, label, onChange, id }) => {
+const Select = ({ items, label, onChange, id, className, ...restProps }) => {
   const select = useRef(null);
   const onSelect = event => {
     const itemSelected = {
@@ -13,10 +13,12 @@ const Select = ({ items, label, onChange, id }) => {
     onChange(itemSelected);
   };
 
+  const classnames = `${prefix}-select ${className}`.trim();
+
   return (
     <>
       {label ? <label htmlFor={id}>{label}</label> : null}
-      <select id={id} className={`${prefix}-select`} onChange={onSelect}>
+      <select id={id} className={classnames} onChange={onSelect} {...restProps}>
         {items.map(item => {
           return (
             <option
@@ -35,15 +37,26 @@ const Select = ({ items, label, onChange, id }) => {
 };
 
 Select.propTypes = {
+  /** Items which should be available options. */
   items: PropTypes.array.isRequired,
+
+  /** Label for select, if this props is not passed no label will appear. */
   label: PropTypes.string,
+
+  /** Call back which will be invoked when selection is made.  */
   onChange: PropTypes.func,
-  id: PropTypes.string.isRequired
+
+  /** Unique identifier for select component.  */
+  id: PropTypes.string.isRequired,
+
+  /** Class/clasess will be applied on the parent div of Select */
+  className: PropTypes.string
 };
 
 Select.defaultProps = {
   label: null,
-  onChange: () => {}
+  onChange: () => {},
+  className: ''
 };
 
 export default Select;
