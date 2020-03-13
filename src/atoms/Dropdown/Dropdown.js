@@ -34,7 +34,16 @@ const Dropdown = ({
       type,
       dropDown.current.getElementsByTagName('ul')[0]
     );
+    if(dropDown.current.children[1]){
+     focusNode(dropDown.current.children[1].children[0])
+    }
   });
+
+  const focusNode = node => {
+    if (node.classList.contains(`${prefix}-dropdown-item`)) {
+      node.children[0].focus();
+    }
+  };
 
   const onSelect = event => {
     event.stopPropagation();
@@ -42,6 +51,51 @@ const Dropdown = ({
     const itemSelected = { id: event.target.id, text: event.target.innerText };
     setSelected(itemSelected);
     onChange(itemSelected);
+  };
+
+  const keyDownOnDropdown = e => {
+    const key = e.which || e.keyCode;
+    const listItem = e.target.parentElement;
+      switch (key) {
+        case 40: {
+          if (!listItem.nextElementSibling) {
+            focusNode(listItem.parentElement.firstElementChild);
+          } else if (listItem.nextElementSibling.disabled === true) {
+            focusNode(listItem.nextElementSibling.nextElementSibling);
+          } else {
+            focusNode(listItem.nextElementSibling);
+          }
+          e.preventDefault();
+          break;
+        }
+        case 38: {
+          if (!listItem.previousElementSibling) {
+            focusNode(listItem.parentElement.lastElementChild);
+          } else if (listItem.previousElementSibling.disabled === true) {
+            focusNode(
+              listItem.previousElementSibling.previousElementSibling
+            );
+          } else {
+            focusNode(listItem.previousElementSibling);
+          }
+          e.preventDefault();
+          break;
+        }
+        case 13: {
+          e.preventDefault();
+          e.target.click();
+          break;
+        }
+        default:
+          break;
+      }
+  };
+
+  const toggleDropdown = e => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      dropDown.current.children[0].click();
+    }
   };
 
   const classnames = `${prefix}-dropdown ${
@@ -56,11 +110,14 @@ const Dropdown = ({
       <button
         className={`${prefix}-btn ${prefix}-dropdown-toggle`}
         data-toggle="dropdown"
+        onKeyPress={toggleDropdown}
         onClick={event => {
           event.stopPropagation();
-          setIsOpen(true);
+          setIsOpen(!isOpen);
           trackDocumentClick(dropDown.current, () => {
-            setIsOpen(false);
+            if (setIsOpen(false)) {
+              setIsOpen(isOpen);
+            }
           });
         }}
       >
@@ -68,6 +125,8 @@ const Dropdown = ({
       </button>
       {isOpen ? (
         <ul
+          onKeyDown={keyDownOnDropdown}
+          role="dropdownMenu" 
           className={`${prefix}-dropdown-container`}
           aria-labelledby="dropdownMenuButton"
         >
@@ -79,7 +138,9 @@ const Dropdown = ({
                 onClick={onSelect}
                 id={item.id}
               >
+                <a tabIndex="0" href="#" className={`${prefix}-dropdown-wrapper`}>
                 {item.text}
+                </a>
               </li>
             );
           })}
