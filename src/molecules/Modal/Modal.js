@@ -72,7 +72,7 @@ const Modal = ({
           onClick={onClose}
         />
         {(heading !== '' || label !== '') && (
-          <header className={`${prefix}-modal-header`}>
+          <header className={`${prefix}-modal-header ${prefix}-modal-header-lg`}>
             {label !== '' ? (
               <small className={`${prefix}-modal-label`}>{label}</small>
             ) : null}
@@ -80,10 +80,10 @@ const Modal = ({
           </header>
         )}
         {children && (
-          <div className={`${prefix}-modal-content`}>{children}</div>
+          <div className={`${prefix}-modal-content ${prefix}-modal-content-lg`}>{children}</div>
         )}
         {actions.length > 0 && (
-          <footer className={`${prefix}-modal-footer`}>
+          <footer className={`${prefix}-modal-footer ${prefix}-modal-footer-lg`}>
             <ActionBar actions={actions} />
           </footer>
         )}
