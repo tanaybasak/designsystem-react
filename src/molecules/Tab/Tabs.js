@@ -5,20 +5,20 @@ import prefix from '../../settings';
 function Tabs({ activeIndex, onChange, children }) {
     const [isActive, setActive] = useState(activeIndex);
 
-    const genString = () => (Math.random().toString(16).substr(8));
-
     const modifiedChildren = React.Children.map(children, (child, index) => {
-        const { isDisabled, label } = child.props;
-        return cloneElement(child, {
-            onClick: e => {
-                if (!isDisabled) {
-                    setActive(index);
-                    onChange(Object.assign({}, e, { label, tabIndex: index }));
-                }
-            },
-            key: genString,
-            active: isActive === index
-        });
+        if (child) {
+            const { isDisabled, label } = child.props;
+            return cloneElement(child, {
+                onClick: e => {
+                    if (!isDisabled) {
+                        setActive(index);
+                        onChange(Object.assign({}, e, { label, tabIndex: index }));
+                    }
+                },
+                key: 'tab' + index,
+                active: isActive === index
+            });
+        }
     });
 
     const tabContentWithProps = React.Children.map(modifiedChildren, (child, index) => {
