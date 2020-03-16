@@ -10,6 +10,7 @@ const Modal = ({
   children,
   onClose,
   actions,
+  datakeyboard,
   className,
   ...restProps
 }) => {
@@ -32,10 +33,12 @@ const Modal = ({
     );
     const firstFocusableEl = focusableEls[0];
     const lastFocusableEl = focusableEls[focusableEls.length - 1];
-
+   
     if (event.keyCode == 27) {
-      event.preventDefault();
-      onClose();
+      if(datakeyboard){
+        event.preventDefault();
+        onClose();
+      }
     }
 
     const isTabPressed = e.key === 'Tab' || e.keyCode === '9';
@@ -113,7 +116,9 @@ Danger: : To create danger modal. */
   children: PropTypes.node.isRequired,
 
   /** Class/clasess will be applied on the parent div of Modal */
-  className: PropTypes.string
+  className: PropTypes.string,
+
+  datakeyboard: PropTypes.bool
 };
 
 Modal.defaultProps = {
@@ -122,7 +127,8 @@ Modal.defaultProps = {
   heading: '',
   onClose: () => {},
   actions: [],
-  className: ''
+  className: '',
+  datakeyboard : true
 };
 
 export default Modal;

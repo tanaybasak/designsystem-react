@@ -1071,6 +1071,7 @@ class App extends Component {
                     <Modal
                       type="danger"
                       label="optional label"
+                      datakeyboard
                       heading="Heading comes here."
                       onClose={this.onModalClose}
                       actions={this.modalActions1}
@@ -1094,6 +1095,7 @@ class App extends Component {
                     <Modal
                       type="danger"
                       heading="Heading comes here."
+                      datakeyboard
                       onClose={this.onModalClose}
                       actions={this.modalActions3}
                     >
