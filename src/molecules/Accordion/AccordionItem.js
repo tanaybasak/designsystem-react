@@ -16,13 +16,17 @@ export default function AccordionItem({
     expanded ? ' expanded' : ''
   }`;
 
-  const [height, setHeight] = useState(0);
+  const [height, setHeight] = useState('0px');
   const elementRef = useRef(null);
   useEffect(() => {
     if (expanded && elementRef.current) {
-      setHeight(elementRef.current.clientHeight);
+      if (elementRef.current.clientHeight) {
+        setHeight(elementRef.current.clientHeight + 'px');
+      } else {
+        setHeight('auto');
+      }
     } else {
-      setHeight(0);
+      setHeight('0px');
     }
   }, [expanded]);
 
@@ -61,7 +65,7 @@ export default function AccordionItem({
       </div>
       <div
         className={`${prefix}-accordion-content-wrapper`}
-        style={{ height: height + 'px' }}
+        style={{ height: height }}
       >
         <div className={`${prefix}-accordion-content`} ref={elementRef}>
           {children}
