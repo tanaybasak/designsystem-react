@@ -10,7 +10,7 @@ const Modal = ({
   children,
   onClose,
   actions,
-  datakeyboard,
+  keyboard,
   className,
   ...restProps
 }) => {
@@ -35,7 +35,7 @@ const Modal = ({
     const lastFocusableEl = focusableEls[focusableEls.length - 1];
    
     if (event.keyCode == 27) {
-      if(datakeyboard){
+      if(keyboard){
         event.preventDefault();
         onClose();
       }
@@ -118,7 +118,7 @@ Danger: : To create danger modal. */
   /** Class/clasess will be applied on the parent div of Modal */
   className: PropTypes.string,
 
-  datakeyboard: PropTypes.bool
+  keyboard: PropTypes.bool
 };
 
 Modal.defaultProps = {
@@ -128,7 +128,7 @@ Modal.defaultProps = {
   onClose: () => {},
   actions: [],
   className: '',
-  datakeyboard : true
+  keyboard : true
 };
 
 export default Modal;
