@@ -56,7 +56,8 @@ Select.propTypes = {
 Select.defaultProps = {
   label: null,
   onChange: () => {},
-  className: ''
+  className: '',
+  id:null
 };
 
 export default Select;

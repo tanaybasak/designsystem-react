@@ -5,6 +5,7 @@ import { text, object } from '@storybook/addon-knobs';
 //@update-path-build-start
 import Sidebar from './Sidebar';
 import Icon from '../../atoms/Icon';
+import { BrowserRouter as Router} from "react-router-dom"
 //@update-path-build-end
 
 const items = [
@@ -100,6 +101,7 @@ const items = [
 storiesOf('Sidebar', module).add(
   'default',
   () => (
+    <Router>
     <Sidebar
       disabled={false}
       icon={
@@ -123,6 +125,7 @@ storiesOf('Sidebar', module).add(
       onClick={action('Sidebar Click')}
       title={text('Title', 'Default')}
     />
+    </Router>
   ),
   {
     info: {
