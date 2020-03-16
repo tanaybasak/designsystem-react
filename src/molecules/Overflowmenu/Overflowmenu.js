@@ -22,13 +22,19 @@ const Overflowmenu = ({
       const icon = overflow.current.children[0];
       const caret = overflowMenu.children[1];
       let outOfBound = false;
+      const parentHeight = (
+        overflowMenu.parentElement.offsetHeight +
+        8 -
+        parseInt(getComputedStyle(icon).marginBottom)
+      ).toString();
+      focusNode(overflowMenu.children[0].children[0]);
+      overflowMenu.style.top = parentHeight.concat('px');
+      overflowMenu.style.display = 'block';
       updateOverflowMenuPos(overflowMenu, icon, caret, outOfBound);
       if (!isInViewport(overflowMenu)) {
         outOfBound = true;
         updateOverflowMenuPos(overflowMenu, icon, caret, outOfBound);
       }
-      overflowMenu.style.display = 'block';
-      focusNode(overflowMenu.children[0].children[0]);
     }
   });
 
@@ -170,7 +176,8 @@ const Overflowmenu = ({
 
       {display && (
         <div
-          onKeyDown={keyDownOnOverflow} style = {{display : 'none'}}
+          onKeyDown={keyDownOnOverflow}
+          style={{ display: 'none' }}
           className={`${prefix}-overflow-menu ${prefix}-overflow-${direction}`}
         >
           <MenuList
