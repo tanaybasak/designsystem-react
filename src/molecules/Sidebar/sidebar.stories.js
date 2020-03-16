@@ -2,10 +2,10 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { text, object } from '@storybook/addon-knobs';
+import { BrowserRouter as Router} from "react-router-dom"
 //@update-path-build-start
 import Sidebar from './Sidebar';
 import Icon from '../../atoms/Icon';
-import { BrowserRouter as Router} from "react-router-dom"
 //@update-path-build-end
 
 const items = [
