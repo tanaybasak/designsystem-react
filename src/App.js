@@ -38,12 +38,7 @@ import NumberInput from './molecules/NumberInput';
 import Select from './atoms/Select/Select';
 import TimePicker from './molecules/TimePicker/TimePicker';
 import Tooltip from './atoms/Tooltip/Tooltip';
-import Sidebar from './molecules/Sidebar';
-import navigationData from './molecules/Sidebar/sidebar-navigation-data.json';
-import Header from './molecules/Header';
 import LoadingState from './atoms/LoadingState/LoadingState';
-import Icon from './atoms/Icon';
-import logo from './assets/images/logo.png';
 import Footer from './molecules/Footer';
 import TreeView from './atoms/TreeView/TreeView';
 
@@ -471,106 +466,9 @@ class App extends Component {
       </div>
     );
 
-    const navigationDataIcons = navigationData.map(data => {
-      return {
-        ...data,
-        icon: (
-          <Icon
-            className={`hcl-sidebar-icon`}
-            type={'svg'}
-            alt={'alt'}
-            title={'title'}
-          >
-            <rect
-              rx={3}
-              ry={3}
-              width={'100%'}
-              height={'100%'}
-              style={{
-                fill: '#fff',
-                stroke: 'black',
-                strokeWidth: 2,
-                opacity: 0.5
-              }}
-            />
-          </Icon>
-        )
-      };
-    });
-
     return (
       <>
-        <Header
-          logo={<img src={logo} alt="Logo" />}
-          searchComponent={
-            <Search
-              type="clickable"
-              iconTheme="white"
-              onChange={event => console.log(event)}
-              onBlur={event => console.log(event)}
-            />
-          }
-          icons={[
-            {
-              onClick: event => console.log(event.currentTarget),
-              icon: <span className={`hcl-icon-1 bg-white`} />
-            },
-            {
-              onClick: event => console.log(event.currentTarget),
-              icon: <span className={`hcl-icon-1 bg-white`} />
-            },
-            {
-              onClick: event => console.log(event.currentTarget),
-              icon: <span className={`hcl-icon-1 bg-white`} />
-            },
-            {
-              onClick: event => console.log(event.currentTarget),
-              icon: <span className={`hcl-icon-1 bg-white`} />
-            },
-            {
-              onClick: event => console.log(event.currentTarget),
-              icon: <span className={`hcl-icon-1 bg-white`} />
-            }
-          ]}
-          data-withsidenav
-        />
-        <Sidebar
-          title="Components"
-          items={navigationDataIcons}
-          icon={
-            <Icon
-              className={`hcl-sidebar-title-icon`}
-              type="svg"
-              alt="alt"
-              title="title"
-            >
-              <circle
-                cx="12"
-                cy="12"
-                r="12"
-                stroke="var(--blue)"
-                strokeWidth="4"
-                fill="var(--white)"
-              />
-            </Icon>
-          }
-          onClick={event => {
-            const { type, expanded, title } = event.currentTarget.dataset;
-            console.log(type, expanded, title);
-            const container = document.querySelector('[data-withsidenav]');
-            if (container && type === 'toggle_sidebar') {
-              this.setState({ sidebarExpanded: expanded === 'true' });
-            }
-          }}
-        />
-        <div
-          className={`hcl-content${
-            this.state.sidebarExpanded ? ' sidebar-expanded' : ''
-          }`}
-          style={{ marginTop: '4rem' }}
-          data-withsidenav
-        >
-          <main className="hcl-content-main" style={{ marginTop: '4rem' }}>
+        <main className="hcl-content-main">
             <section className="hcl-container pt-5 mb-5">
               <div className="hcl-row m-0">
                 {/* Input Field */}
@@ -1074,6 +972,7 @@ class App extends Component {
                     <Modal
                       type="danger"
                       label="optional label"
+                      keyboard
                       heading="Heading comes here."
                       onClose={this.onModalClose}
                       actions={this.modalActions1}
@@ -1097,6 +996,7 @@ class App extends Component {
                     <Modal
                       type="danger"
                       heading="Heading comes here."
+                      keyboard
                       onClose={this.onModalClose}
                       actions={this.modalActions3}
                     >
@@ -1842,7 +1742,6 @@ class App extends Component {
               }
             />
           </main>
-        </div>
       </>
     );
   }

@@ -17,6 +17,7 @@ const NumberInput = ({
   min,
   step,
   className,
+  helperText,
   ...restProps
 }) => {
   let [value, setValue] = useState(Number(defaultValue) || 0);
@@ -166,9 +167,9 @@ const NumberInput = ({
       </div>
 
       {label ? <Label htmlFor={id}>{label} </Label> : null}
-      {restProps.helperText ? (
+      {helperText ? (
         <FormHelperText className="helper-text">
-          {restProps.helperText}
+          {helperText}
         </FormHelperText>
       ) : null}
       {
@@ -183,6 +184,8 @@ const NumberInput = ({
 NumberInput.propTypes = {
   /** Specifies the default value */
   defaultValue: PropTypes.number,
+  /** Specifies helper text */
+  helperText: PropTypes.string,
   /** Unique Id */
   id: PropTypes.string.isRequired,
   /** Title for the Number Input */
@@ -207,6 +210,7 @@ NumberInput.defaultProps = {
   max: null,
   min: null,
   step: null,
+  helperText:null,
   className: ''
 };
 
