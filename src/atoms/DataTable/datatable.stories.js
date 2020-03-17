@@ -100,7 +100,7 @@ storiesOf('DataTable', module)
         tableData={object('Table Data', tableData)}
         selectable={boolean('Selectable', true)}
         onSort={action(event)}
-        className={select('Type', classOptions, 'hcl-data-table')}
+        className={select('Type', classOptions)}
       />
     ),
     {
