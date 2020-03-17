@@ -27,14 +27,15 @@ const Overflowmenu = ({
         8 -
         parseInt(getComputedStyle(icon).marginBottom)
       ).toString();
-      focusNode(overflowMenu.children[0].children[0]);
-      overflowMenu.style.top = parentHeight.concat('px');
+      
       overflowMenu.style.display = 'block';
       updateOverflowMenuPos(overflowMenu, icon, caret, outOfBound);
       if (!isInViewport(overflowMenu)) {
         outOfBound = true;
         updateOverflowMenuPos(overflowMenu, icon, caret, outOfBound);
       }
+      focusNode(overflowMenu.children[0].children[0]);
+      overflowMenu.style.top = parentHeight.concat('px');
     }
   });
 
