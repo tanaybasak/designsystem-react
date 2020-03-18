@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import React, { Component } from "react";
 import Tag from "../../atoms/Tag";
+import Icon from "../../atoms/Icon";
 
 class TagExample extends Component {
   render() {
@@ -25,7 +26,23 @@ class TagExample extends Component {
         <Tag
           className="ml-3"
           title="Primary Tag With Thumbnail"
-          thumbnailSrc="https://image.flaticon.com/icons/png/512/862/862358.png"
+          thumbnail={
+            <Icon
+              className="hcl-tag-thumbnail"
+              type="svg"
+              alt="alt"
+              title="title"
+            >
+              <circle
+                cx="11"
+                cy="11"
+                r="11"
+                stroke="red"
+                strokeWidth="3"
+                fill="white"
+              />
+            </Icon>
+          }
         >
           Primary Tag With Thumbnail
         </Tag>
@@ -55,7 +72,23 @@ class TagExample extends Component {
           className="ml-3"
           title="Secondary Tag With Thumbnail"
           type="secondary"
-          thumbnailSrc="https://image.flaticon.com/icons/png/512/862/862358.png"
+          thumbnail={
+            <Icon
+              className="hcl-tag-thumbnail"
+              type="svg"
+              alt="alt"
+              title="title"
+            >
+              <circle
+                cx="11"
+                cy="11"
+                r="11"
+                stroke="red"
+                strokeWidth="3"
+                fill="white"
+              />
+            </Icon>
+          }
         >
           Secondary Tag With Thumbnail
         </Tag>
