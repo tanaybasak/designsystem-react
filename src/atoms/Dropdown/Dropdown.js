@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
-import { trackDocumentClick, positionComponent } from '../../util/utility';
+import { addListener, removeListeners } from '../../util/eventManager';
+import { positionComponent } from '../../util/utility';
 
+let dropdownIdRef = 0;
 const Dropdown = ({
   type,
   items,
@@ -18,6 +20,7 @@ const Dropdown = ({
   );
   const [typeState, setTypeState] = useState(type);
   const dropDown = useRef(null);
+  const [dropDownId] = useState(dropdownIdRef++)
 
   useEffect(() => {
     setSelected(selectedIndex !== null ? items[selectedIndex] : null);
@@ -38,6 +41,31 @@ const Dropdown = ({
      focusNode(dropDown.current.children[1].children[0])
     }
   });
+
+  useEffect(() => {
+    if (!isOpen) {
+      removeListeners('dropdown-' + dropDownId, 'click');
+    } else {
+      addListener(
+        'dropdown-' + dropDownId,
+        'click',
+        e => {
+          handleClick(e);
+        },
+        true
+      );
+    }
+  }, [isOpen]);
+
+  const handleClick = e => {
+    if (dropDown.current) {
+      if (e && dropDown.current.contains(e.target)) {
+        return;
+      }
+      setIsOpen(false);
+    }
+  };
+
 
   const focusNode = node => {
     if (node.classList.contains(`${prefix}-dropdown-item`)) {
@@ -114,11 +142,6 @@ const Dropdown = ({
         onClick={event => {
           event.stopPropagation();
           setIsOpen(!isOpen);
-          trackDocumentClick(dropDown.current, () => {
-            if (setIsOpen(false)) {
-              setIsOpen(isOpen);
-            }
-          });
         }}
       >
         {selected ? selected.text : label}
