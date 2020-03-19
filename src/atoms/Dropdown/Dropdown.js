@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 import { addListener, removeListeners } from '../../util/eventManager';
-import { positionComponent } from '../../util/utility';
 
 let dropdownIdRef = 0;
 const Dropdown = ({
@@ -18,29 +17,41 @@ const Dropdown = ({
   const [selected, setSelected] = useState(
     selectedIndex !== null ? items[selectedIndex] : null
   );
-  const [typeState, setTypeState] = useState(type);
+  const [typeState] = useState(type);
   const dropDown = useRef(null);
-  const [dropDownId] = useState(dropdownIdRef++)
+  const [dropDownId] = useState(dropdownIdRef++);
 
   useEffect(() => {
     setSelected(selectedIndex !== null ? items[selectedIndex] : null);
   }, [selectedIndex]);
 
   useEffect(() => {
-    positionComponent(
-      () => {
-        setTypeState('top');
-      },
-      () => {
-        setTypeState('bottom');
-      },
-      type,
-      dropDown.current.getElementsByTagName('ul')[0]
-    );
-    if(dropDown.current.children[1]){
-     focusNode(dropDown.current.children[1].children[0])
-    }
+    const dropdownMenu = dropDown.current.getElementsByTagName('ul')[0];
+    if (dropdownMenu) {
+      if (!isInViewport(dropdownMenu)) {
+        if (typeState === 'bottom') {
+          dropDown.current.classList.remove(`${prefix}-dropdown-bottom`);
+          dropDown.current.classList.add(`${prefix}-dropdown-top`);
+        }
+        if (typeState === 'top') {
+          dropDown.current.classList.remove(`${prefix}-dropdown-top`);
+          dropDown.current.classList.add(`${prefix}-dropdown-bottom`);
+        }
+      }
+      focusNode(dropDown.current.children[1].children[0])
+    }    
   });
+  const isInViewport = elem => {
+    const bounding = elem.getBoundingClientRect();
+    return (
+      bounding.top >= 0 &&
+      bounding.left >= 0 &&
+      bounding.bottom <=
+        (window.innerHeight || document.documentElement.clientHeight) &&
+      bounding.right <=
+        (window.innerWidth || document.documentElement.clientWidth)
+    );
+  };
 
   useEffect(() => {
     if (!isOpen) {
@@ -66,7 +77,6 @@ const Dropdown = ({
     }
   };
 
-
   const focusNode = node => {
     if (node.classList.contains(`${prefix}-dropdown-item`)) {
       node.children[0].focus();
@@ -84,39 +94,37 @@ const Dropdown = ({
   const keyDownOnDropdown = e => {
     const key = e.which || e.keyCode;
     const listItem = e.target.parentElement;
-      switch (key) {
-        case 40: {
-          if (!listItem.nextElementSibling) {
-            focusNode(listItem.parentElement.firstElementChild);
-          } else if (listItem.nextElementSibling.disabled === true) {
-            focusNode(listItem.nextElementSibling.nextElementSibling);
-          } else {
-            focusNode(listItem.nextElementSibling);
-          }
-          e.preventDefault();
-          break;
+    switch (key) {
+      case 40: {
+        if (!listItem.nextElementSibling) {
+          focusNode(listItem.parentElement.firstElementChild);
+        } else if (listItem.nextElementSibling.disabled === true) {
+          focusNode(listItem.nextElementSibling.nextElementSibling);
+        } else {
+          focusNode(listItem.nextElementSibling);
         }
-        case 38: {
-          if (!listItem.previousElementSibling) {
-            focusNode(listItem.parentElement.lastElementChild);
-          } else if (listItem.previousElementSibling.disabled === true) {
-            focusNode(
-              listItem.previousElementSibling.previousElementSibling
-            );
-          } else {
-            focusNode(listItem.previousElementSibling);
-          }
-          e.preventDefault();
-          break;
-        }
-        case 13: {
-          e.preventDefault();
-          e.target.click();
-          break;
-        }
-        default:
-          break;
+        e.preventDefault();
+        break;
       }
+      case 38: {
+        if (!listItem.previousElementSibling) {
+          focusNode(listItem.parentElement.lastElementChild);
+        } else if (listItem.previousElementSibling.disabled === true) {
+          focusNode(listItem.previousElementSibling.previousElementSibling);
+        } else {
+          focusNode(listItem.previousElementSibling);
+        }
+        e.preventDefault();
+        break;
+      }
+      case 13: {
+        e.preventDefault();
+        e.target.click();
+        break;
+      }
+      default:
+        break;
+    }
   };
 
   const toggleDropdown = e => {
@@ -146,10 +154,10 @@ const Dropdown = ({
       >
         {selected ? selected.text : label}
       </button>
-      {isOpen ? (
+      {isOpen && Array.isArray(items) && items.length > 0 ? (
         <ul
           onKeyDown={keyDownOnDropdown}
-          role="dropdownMenu" 
+          role="dropdownMenu"
           className={`${prefix}-dropdown-container`}
           aria-labelledby="dropdownMenuButton"
         >
@@ -161,8 +169,12 @@ const Dropdown = ({
                 onClick={onSelect}
                 id={item.id}
               >
-                <a tabIndex="0" href="#" className={`${prefix}-dropdown-wrapper`}>
-                {item.text}
+                <a
+                  tabIndex="0"
+                  href="#"
+                  className={`${prefix}-dropdown-wrapper`}
+                >
+                  {item.text}
                 </a>
               </li>
             );
