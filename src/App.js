@@ -814,7 +814,7 @@ class App extends Component {
                   <Overflowmenu
                     listItems={overflowlist}
                     ellipsisType="horizontal"
-                    onClicked={e => {
+                    onClick={e => {
                       console.log(e);
                     }}
                   />
@@ -823,7 +823,7 @@ class App extends Component {
                   <Overflowmenu
                     listItems={overflowlist}
                     direction="right"
-                    onClicked={e => {
+                    onClick={e => {
                       console.log(e);
                     }}
                   />

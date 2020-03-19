@@ -10,7 +10,7 @@ const Overflowmenu = ({
   direction,
   children,
   ellipsisType,
-  onClicked,
+  onClick,
   listItems,
   ...restProps
 }) => {
@@ -202,7 +202,7 @@ const Overflowmenu = ({
             items={listItems}
             onSelect={event => {
               changeDisplay(false);
-              onClicked(event);
+              onClick(event);
             }}
           />
           <div
@@ -221,7 +221,7 @@ Overflowmenu.defaultProps = {
   listItems: null,
   children: null,
   ellipsisType: 'vertical',
-  onClicked: () => {},
+  onClick: () => {},
   className: ''
 };
 
@@ -240,7 +240,7 @@ Overflowmenu.propTypes = {
   ellipsisType: PropTypes.oneOf(['vertical', 'horizontal']),
 
   /** Callback function on selecting item*/
-  onClicked: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired,
 
   /** Class/clasess will be applied on the parent div of OverflowMenu */
   className: PropTypes.string
