@@ -36,7 +36,7 @@ const Overflowmenu = ({
         outOfBound = true;
         updateOverflowMenuPos(overflowMenu, icon, caret, outOfBound);
       }
-      focusNode(overflowMenu.children[0].children[0]);
+        focusNode(overflowMenu.children[0].children[0]);
       overflowMenu.style.top = parentHeight.concat('px');
     }
   });
@@ -192,7 +192,7 @@ const Overflowmenu = ({
         element
       )}
 
-      {display && (
+      {display && (listItems.length > 0) && (Array.isArray(listItems)) && (
         <div
           onKeyDown={keyDownOnOverflow}
           style={{ display: 'none' }}
