@@ -811,13 +811,22 @@ class App extends Component {
                 <div className="hcl-col-12 mt-5" id="overflow-menu-section">
                   <h5>Overflow Menu</h5>
                   <div className="hcl-font-center">
-                    <Overflowmenu
-                      listItems={overflowlist}
-                      ellipsisType="horizontal"
-                    />
+                  <Overflowmenu
+                    listItems={overflowlist}
+                    ellipsisType="horizontal"
+                    onClick={e => {
+                      console.log(e);
+                    }}
+                  />
                   </div>
                   <div className="hcl-font-center">
-                    <Overflowmenu listItems={overflowlist} direction="right" />
+                  <Overflowmenu
+                    listItems={overflowlist}
+                    direction="right"
+                    onClick={e => {
+                      console.log(e);
+                    }}
+                  />
                   </div>
                 </div>
                 {/* Tag */}
