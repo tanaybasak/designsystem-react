@@ -748,8 +748,8 @@ class App extends Component {
                   <Toggle
                     id="simple-toggle"
                     className="ml-3"
-                    onChange={() => {
-                      console.log('Toggled');
+                    onChange={(checked, e) => {
+                      console.log('Toggled',checked, e);
                     }}
                   />
                   <Toggle
@@ -772,8 +772,8 @@ class App extends Component {
                     small
                     id="simple-small-toggle"
                     className="ml-3"
-                    onChange={() => {
-                      console.log('Toggled');
+                    onChange={(checked, e) => {
+                      console.log('Toggled',checked, e);
                     }}
                   />
                   <Toggle

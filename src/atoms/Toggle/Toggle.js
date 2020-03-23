@@ -17,10 +17,12 @@ const Toggle = ({
     const key = e.which || e.keyCode;
     if (key === 39) {
       e.preventDefault();
-      e.target.checked = true;
+      setChecked(true);
+      onChange(true, event);
     } else if (key === 37) {
       e.preventDefault();
-      e.target.checked = false;
+      setChecked(false);
+      onChange(false, event);
     }
   };
 
@@ -32,7 +34,7 @@ const Toggle = ({
         type="checkbox"
         onChange={event => {
           setChecked(!checked);
-          onChange(event);
+          onChange(!checked, event);
         }}
         onKeyDown={keyDownOnToggle}
         checked={checked}
