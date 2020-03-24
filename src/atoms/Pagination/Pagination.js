@@ -71,7 +71,7 @@ const Pagination = ({ totalItems, itemsPerPageStepper, itemsStepperLimit, itemsP
 
     //itemsPerPageDropDown selected, nItems change effect
     useEffect(() => {
-        if (itemsPerPageSelected != -1) {
+        if (itemsPerPageSelected && parseInt(itemsPerPageSelected, 10) != -1) {
             resetRange();
             calculatePages();
         }
@@ -79,24 +79,23 @@ const Pagination = ({ totalItems, itemsPerPageStepper, itemsStepperLimit, itemsP
 
     //total pages useEffect
     useEffect(() => {
-        //if (totalPages != 0) {
         setPageItems(Array.from({ length: totalPages }, (v, k) => k + 1));
-        //}
     }, [totalPages]);
 
     // pages Dropdown creation useEffect
     useEffect(() => {
         if (JSON.stringify(pagesDropDown) !== JSON.stringify([]) && pagesDropDown.length > 0) {
-            setPagesSelected(pagesDropDown[0]);
+            setPagesSelected(parseInt(pagesDropDown[0], 10));
+            toggleNavButtons();
         }
     }, [pagesDropDown]);
 
     // pages DropDown selected useEffect
     useEffect(() => {
         if (pagesSelected != -1) {
-            toggleNavButtons();
             adjustRange();
             togglePageDisplay();
+            toggleNavButtons();
         }
     }, [pagesSelected]);
 

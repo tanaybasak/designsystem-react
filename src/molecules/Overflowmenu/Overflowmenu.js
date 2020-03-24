@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import MenuList from '../../atoms/MenuList';
+import { addListener, removeListeners } from '../../util/eventManager';
 import prefix from '../../settings';
-import { trackDocumentClick } from '../../util/utility';
 
+let overflowIdRef = 0;
 const Overflowmenu = ({
   className,
   direction,
@@ -15,6 +16,7 @@ const Overflowmenu = ({
 }) => {
   const [display, changeDisplay] = useState(false);
   const overflow = useRef(null);
+  const [overflowId] = useState(overflowIdRef++);
 
   useEffect(() => {
     const overflowMenu = overflow.current.children[1];
@@ -27,7 +29,7 @@ const Overflowmenu = ({
         8 -
         parseInt(getComputedStyle(icon).marginBottom)
       ).toString();
-      
+
       overflowMenu.style.display = 'block';
       updateOverflowMenuPos(overflowMenu, icon, caret, outOfBound);
       if (!isInViewport(overflowMenu)) {
@@ -39,6 +41,34 @@ const Overflowmenu = ({
     }
   });
 
+  useEffect(() => {
+    if (!display) {
+      removeListeners('overflow-' + overflowId, 'click');
+    } else {
+      addListener(
+        'overflow-' + overflowId,
+        'click',
+        e => {
+          handleClick(e);
+        },
+        true
+      );
+    }
+  }, [display]);
+
+  const handleClick = e => {
+    if (overflow.current) {
+      if (e && overflow.current.contains(e.target)) {
+        return;
+      }
+      changeDisplay(false);
+    }
+  };
+
+  const clickHandler = () => {
+    changeDisplay(!display);
+  };
+
   const isInViewport = elem => {
     const bounding = elem.getBoundingClientRect();
     return (
@@ -46,19 +76,6 @@ const Overflowmenu = ({
       bounding.right <=
         (window.innerWidth || document.documentElement.clientWidth)
     );
-  };
-
-  const clickHandler = event => {
-    if (onClick) {
-      onClick(event);
-    }
-    event.stopPropagation();
-    changeDisplay(!display);
-    trackDocumentClick(overflow.current, () => {
-      if (changeDisplay(false)) {
-        changeDisplay(display);
-      }
-    });
   };
 
   const updateOverflowMenuPos = (overflowMenu, icon, caret, outOfBound) => {
@@ -175,7 +192,7 @@ const Overflowmenu = ({
         element
       )}
 
-      {display && (
+      {display && Array.isArray(listItems) && listItems.length > 0 && (
         <div
           onKeyDown={keyDownOnOverflow}
           style={{ display: 'none' }}
@@ -183,7 +200,7 @@ const Overflowmenu = ({
         >
           <MenuList
             items={listItems}
-            onClick={event => {
+            onSelect={event => {
               changeDisplay(false);
               onClick(event);
             }}
