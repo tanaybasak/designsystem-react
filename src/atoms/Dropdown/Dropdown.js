@@ -28,6 +28,7 @@ const Dropdown = ({
   useEffect(() => {
     const dropdownMenu = dropDown.current.getElementsByTagName('ul')[0];
     if (dropdownMenu) {
+      dropdownMenu.style.display = 'block';
       if (!isInViewport(dropdownMenu)) {
         if (typeState === 'bottom') {
           dropDown.current.classList.remove(`${prefix}-dropdown-bottom`);
@@ -38,8 +39,7 @@ const Dropdown = ({
           dropDown.current.classList.add(`${prefix}-dropdown-bottom`);
         }
       }
-      focusNode(dropDown.current.children[1].children[0])
-    }    
+    }
   });
   const isInViewport = elem => {
     const bounding = elem.getBoundingClientRect();
@@ -83,12 +83,10 @@ const Dropdown = ({
     }
   };
 
-  const onSelect = event => {
-    event.stopPropagation();
+  const onSelect = item => {
     setIsOpen(false);
-    const itemSelected = { id: event.target.id, text: event.target.innerText };
-    setSelected(itemSelected);
-    onChange(itemSelected);
+    setSelected(item);
+    onChange(item);
   };
 
   const keyDownOnDropdown = e => {
@@ -134,6 +132,18 @@ const Dropdown = ({
     }
   };
 
+  const keydownButton = e => {
+    const key = e.which || e.keyCode;
+    const listItems = e.target.nextElementSibling;
+    if (key === 40) {
+      e.preventDefault();
+      focusNode(listItems.firstElementChild);
+    } else if (key === 38) {
+      e.preventDefault();
+      focusNode(listItems.lastElementChild);
+    }
+  };
+
   const classnames = `${prefix}-dropdown ${
     typeState === 'bottom'
       ? `${prefix}-dropdown-bottom`
@@ -147,9 +157,11 @@ const Dropdown = ({
         className={`${prefix}-btn ${prefix}-dropdown-toggle`}
         data-toggle="dropdown"
         onKeyPress={toggleDropdown}
+        onKeyDown={keydownButton}
         onClick={event => {
           event.stopPropagation();
           setIsOpen(!isOpen);
+          event.target.focus();
         }}
       >
         {selected ? selected.text : label}
@@ -160,14 +172,14 @@ const Dropdown = ({
           role="dropdownMenu"
           className={`${prefix}-dropdown-container`}
           aria-labelledby="dropdownMenuButton"
+          style={{ display: 'none' }}
         >
           {items.map(item => {
             return (
               <li
                 className={`${prefix}-dropdown-item`}
                 key={item.id}
-                onClick={onSelect}
-                id={item.id}
+                onClick={onSelect.bind(this, item)}
               >
                 <a
                   tabIndex="0"
