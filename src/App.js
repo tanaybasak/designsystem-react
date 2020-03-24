@@ -38,12 +38,7 @@ import NumberInput from './molecules/NumberInput';
 import Select from './atoms/Select/Select';
 import TimePicker from './molecules/TimePicker/TimePicker';
 import Tooltip from './atoms/Tooltip/Tooltip';
-import Sidebar from './molecules/Sidebar';
-import navigationData from './molecules/Sidebar/sidebar-navigation-data.json';
-import Header from './molecules/Header';
 import LoadingState from './atoms/LoadingState/LoadingState';
-import Icon from './atoms/Icon';
-import logo from './assets/images/logo.png';
 import Footer from './molecules/Footer';
 import TreeView from './atoms/TreeView/TreeView';
 
@@ -502,106 +497,9 @@ class App extends Component {
       </div>
     );
 
-    const navigationDataIcons = navigationData.map(data => {
-      return {
-        ...data,
-        icon: (
-          <Icon
-            className={`hcl-sidebar-icon`}
-            type={'svg'}
-            alt={'alt'}
-            title={'title'}
-          >
-            <rect
-              rx={3}
-              ry={3}
-              width={'100%'}
-              height={'100%'}
-              style={{
-                fill: '#fff',
-                stroke: 'black',
-                strokeWidth: 2,
-                opacity: 0.5
-              }}
-            />
-          </Icon>
-        )
-      };
-    });
-
     return (
       <>
-        <Header
-          logo={<img src={logo} alt="Logo" />}
-          searchComponent={
-            <Search
-              type="clickable"
-              iconTheme="white"
-              onChange={event => console.log(event)}
-              onBlur={event => console.log(event)}
-            />
-          }
-          icons={[
-            {
-              onClick: event => console.log(event.currentTarget),
-              icon: <span className={`hcl-icon-1 bg-white`} />
-            },
-            {
-              onClick: event => console.log(event.currentTarget),
-              icon: <span className={`hcl-icon-1 bg-white`} />
-            },
-            {
-              onClick: event => console.log(event.currentTarget),
-              icon: <span className={`hcl-icon-1 bg-white`} />
-            },
-            {
-              onClick: event => console.log(event.currentTarget),
-              icon: <span className={`hcl-icon-1 bg-white`} />
-            },
-            {
-              onClick: event => console.log(event.currentTarget),
-              icon: <span className={`hcl-icon-1 bg-white`} />
-            }
-          ]}
-          data-withsidenav
-        />
-        <Sidebar
-          title="Components"
-          items={navigationDataIcons}
-          icon={
-            <Icon
-              className={`hcl-sidebar-title-icon`}
-              type="svg"
-              alt="alt"
-              title="title"
-            >
-              <circle
-                cx="12"
-                cy="12"
-                r="12"
-                stroke="var(--blue)"
-                strokeWidth="4"
-                fill="var(--white)"
-              />
-            </Icon>
-          }
-          onClick={event => {
-            const { type, expanded, title } = event.currentTarget.dataset;
-            console.log(type, expanded, title);
-            const container = document.querySelector('[data-withsidenav]');
-            if (container && type === 'toggle_sidebar') {
-              this.setState({ sidebarExpanded: expanded === 'true' });
-            }
-          }}
-        />
-        <div
-          className={`hcl-content${
-            this.state.sidebarExpanded ? ' sidebar-expanded' : ''
-          }`}
-          style={{ marginTop: '4rem' }}
-          data-withsidenav
-        >
-          <main className="hcl-content-main" style={{ marginTop: '4rem' }}>
+        <main className="hcl-content-main">
             <section className="hcl-container pt-5 mb-5">
               <div className="hcl-row">
                 <div className="hcl-col-6 mb-2">
@@ -1077,67 +975,23 @@ class App extends Component {
                 <div className="hcl-col-12 mt-5" id="overflow-menu-section">
                   <h5>Overflow Menu</h5>
                   <div className="hcl-font-center">
-                    <Overflowmenu listItems={overflowlist} />
+                  <Overflowmenu
+                    listItems={overflowlist}
+                    ellipsisType="horizontal"
+                    onClick={e => {
+                      console.log(e);
+                    }}
+                  />
                   </div>
                   <div className="hcl-font-center">
-                    <Overflowmenu listItems={overflowlist} direction="right" />
+                  <Overflowmenu
+                    listItems={overflowlist}
+                    direction="right"
+                    onClick={e => {
+                      console.log(e);
+                    }}
+                  />
                   </div>
-                </div>
-                {/* Tag */}
-                <div className="hcl-col-12 mt-5" id="tags-section">
-                  <Tag className="ml-3" title="Primary Tag">
-                    Primary Tag
-                  </Tag>
-                  <Tag className="ml-3" title="Primary Disabled" disabled>
-                    Primary Disabled
-                  </Tag>
-                  <Tag
-                    className="ml-3"
-                    title="Primary Closable"
-                    closable
-                    onClose={() => {
-                      alert('Closing Tag');
-                    }}
-                  >
-                    Primary Closable
-                  </Tag>
-                  <Tag
-                    className="ml-3"
-                    title="Primary Tag With Thumbnail"
-                    thumbnailSrc="https://image.flaticon.com/icons/png/512/862/862358.png"
-                  >
-                    Primary Tag With Thumbnail
-                  </Tag>
-                  <Tag className="ml-3" title="Secondary Tag" type="secondary">
-                    Secondary Tag
-                  </Tag>
-                  <Tag
-                    className="ml-3"
-                    title="Secondary Disabled Tag"
-                    disabled
-                    type="secondary"
-                  >
-                    Secondary Disabled Tag
-                  </Tag>
-                  <Tag
-                    className="ml-3"
-                    title="Secondary Closable"
-                    type="secondary"
-                    closable
-                    onClose={() => {
-                      alert('Closing Tag');
-                    }}
-                  >
-                    Secondary Closable
-                  </Tag>
-                  <Tag
-                    className="ml-3"
-                    title="Secondary Tag With Thumbnail"
-                    type="secondary"
-                    thumbnailSrc="https://image.flaticon.com/icons/png/512/862/862358.png"
-                  >
-                    Secondary Tag With Thumbnail
-                  </Tag>
                 </div>
                 {/* List */}
                 <div className="hcl-col-12 mt-5" id="list-section">
@@ -1235,6 +1089,7 @@ class App extends Component {
                     <Modal
                       type="danger"
                       label="optional label"
+                      keyboard
                       heading="Heading comes here."
                       onClose={this.onModalClose}
                       actions={this.modalActions1}
@@ -1258,6 +1113,7 @@ class App extends Component {
                     <Modal
                       type="danger"
                       heading="Heading comes here."
+                      keyboard
                       onClose={this.onModalClose}
                       actions={this.modalActions3}
                     >
@@ -1980,7 +1836,6 @@ class App extends Component {
               }
             />
           </main>
-        </div>
       </>
     );
   }

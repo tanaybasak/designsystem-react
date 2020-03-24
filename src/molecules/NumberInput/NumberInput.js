@@ -184,6 +184,8 @@ const NumberInput = ({
 NumberInput.propTypes = {
   /** Specifies the default value */
   defaultValue: PropTypes.number,
+  /** Specifies helper text */
+  helperText: PropTypes.string,
   /** Unique Id */
   id: PropTypes.string.isRequired,
   /** Title for the Number Input */

@@ -4,6 +4,7 @@ import { action } from '@storybook/addon-actions';
 import { select, object } from '@storybook/addon-knobs';
 //@update-path-build-start
 import Overflowmenu from './Overflowmenu';
+import Button from '../../atoms/Button';
 //@update-path-build-end
 
 const typeOptions = {
@@ -38,21 +39,42 @@ const listItems = [
   }
 ];
 
-storiesOf('Overflowmenu', module).add(
-  'default',
-  () => (
-    <Overflowmenu
-      direction={select('Direction', typeOptions, 'left')}
-      ellipsisType={select('Ellipsis Type', ellipsisType, 'vertical')}
-      listItems={object('List Items', listItems)}
-      onClick={action('Overflow-Click')}
-      aria-label
-    />
-  ),
-  {
-    info: {
-      text: `Description About Overflowmenu Component \n
+storiesOf('Overflowmenu', module)
+  .add(
+    'default',
+    () => (
+      <Overflowmenu
+        direction={select('Direction', typeOptions, 'left')}
+        ellipsisType={select('Ellipsis Type', ellipsisType, 'vertical')}
+        listItems={object('List Items', listItems)}
+        onClick={action('Overflow-Click')}
+        aria-label
+      />
+    ),
+    {
+      info: {
+        text: `Description About Overflowmenu Component \n
       import { Overflowmenu } from '@patron/patron-react/overflowmenu'`
+      }
     }
-  }
-);
+  )
+  .add(
+    'custom',
+    () => (
+      <Overflowmenu
+        direction={select('Direction', typeOptions, 'left')}
+        listItems={object('List Items', listItems)}
+        onClick={action('Overflow-Click')}
+        aria-label
+      >
+        <Button>overflow button</Button>
+      </Overflowmenu>
+    ),
+    {
+      info: {
+        text: `Description About Overflowmenu Component \n
+    import { Overflowmenu } from '@patron/patron-react/overflowmenu' \n
+    import { Button } from '@patron/patron-react/button'`
+      }
+    }
+  );
