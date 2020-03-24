@@ -502,7 +502,7 @@ class App extends Component {
         <main className="hcl-content-main">
             <section className="hcl-container pt-5 mb-5">
               <div className="hcl-row">
-                <div className="hcl-col-6 mb-2">
+                <div className="hcl-col-2 mb-2">
                   <TreeView
                     dragRules={[
                       {

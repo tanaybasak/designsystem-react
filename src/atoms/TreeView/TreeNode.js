@@ -77,9 +77,10 @@ const TreeNode = ({
     updateOverflowItemList(overflowList);
   };
 
-  const onOverflowItemSelect = async e => {
-    if (e.currentTarget.getAttribute('action')) {
-      const actionName = e.currentTarget.getAttribute('action');
+  const onOverflowItemSelect = async action => {
+      
+    if (action.action) {
+      const actionName = action.action;
       if (actionName === 'edit') {
         updateTextStatus(true);
       } else if (actionName === 'cut') {

@@ -35,6 +35,8 @@
     padding: 0 !important;
     margin-left: .25rem;
     display: inline-flex;
+
+    max-width: calc(100% - 50px);
 }
 
 .hcl-text-node div {
@@ -82,4 +84,8 @@
     height: 24px !important;
     margin-right: unset !important;
     width: 20px !important;
+}
+
+.hcl-overflow-container{
+    position: absolute;
 }
