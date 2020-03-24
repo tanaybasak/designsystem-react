@@ -172,16 +172,6 @@ const Overflowmenu = ({
   const classnames = `${prefix}-overflow-container ${className}`.trim();
 
   return (
-<<<<<<< HEAD
-    <section className={classnames} >
-      <div
-        className={`${prefix}-ellipsis${
-          ellipsisType === 'horizontal' ? ' horizontal-ellipsis' : ''
-        }`}
-        onClick={clickHandler}
-      />
-      {display && (
-=======
     <section className={classnames} {...restProps} ref={overflow}>
       {typeof children === 'string' ? (
         <span tabIndex="0" onKeyPress={toggleOverflow} onClick={clickHandler}>
@@ -203,7 +193,6 @@ const Overflowmenu = ({
       )}
 
       {display && Array.isArray(listItems) && listItems.length > 0 && (
->>>>>>> 13f7a64f237f68b0521bbafb9ca5566d6a91368c
         <div
           onKeyDown={keyDownOnOverflow}
           style={{ display: 'none' }}
