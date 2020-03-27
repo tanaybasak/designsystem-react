@@ -13,7 +13,7 @@
 }
 
 .treenode-overflow {
-    float: right;
+    //float: right;
     padding: unset !important;
     margin-left: unset !important;
 }
@@ -36,7 +36,9 @@
     margin-left: .25rem;
     display: inline-flex;
 
-    max-width: calc(100% - 50px);
+    max-width: calc( 100% - 30px);
+
+    //max-width: calc(100% - 50px);
 }
 
 .hcl-text-node div {
@@ -72,7 +74,8 @@
 
 .hcl-text-container {
     display: inline-flex;
-    width: calc(100% - 80px);
+    //width: calc(100% - 80px);
+    width: 100%;
     position: relative;
 }
 
@@ -86,6 +89,125 @@
     width: 20px !important;
 }
 
-.hcl-overflow-container{
+.hcl-overflow-container {
+    //position: absolute;
+}
+
+.tree-node {
+    display: flex;
+    flex-direction: row;
+    align-items: center
+}
+
+.treenode-action-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width:100%;
+}
+
+.treenode-action-wrapper-width{
+    width: calc(100% - 22px)
+}
+
+.treenode-content-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    width: calc( 100% - 10px);
+}
+
+
+
+
+
+.hcl-tree-temp {
+    font-size: .875rem;
+    font-weight: 400;
+    line-height: 1.5rem;
+    letter-spacing: .16px
+}
+
+.hcl-tree-temp .tree-item {
+    width: 100%;
+    display: block;
+    color: var(--dark-blue);
+    position: relative;
+    padding: .3125rem 0 0
+}
+
+.hcl-tree-temp .tree-item .tree-node {
+    cursor: pointer;
+    line-height: unset !important
+}
+
+.hcl-tree-temp .tree-item .tree-node:hover {
+    background-color: rgba(70, 150, 210, .1)
+}
+
+.hcl-tree-temp .tree-item .tree-node i {
+    margin-right: .5rem;
+    width: .875rem;
+    height: .875rem
+}
+
+.hcl-tree-temp .tree-item .tree-node .caret {
+    display: inline-block
+}
+
+.hcl-tree-temp .tree-item .tree-node .caret:before {
+    content: " ";
     position: absolute;
+    height: .5rem;
+    width: .5rem;
+    margin-top: 2px;
+    border-right: .0625rem solid #555;
+    border-bottom: .0625rem solid #555;
+    -webkit-transform: scale(1) rotate(-45deg);
+    transform: scale(1) rotate(-45deg);
+    -webkit-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+    margin-left: .3125rem
+}
+
+.hcl-tree-temp .tree-item .tree-node .caret-down:before {
+    -webkit-transform: scale(1) rotate(45deg);
+    transform: scale(1) rotate(45deg);
+    margin-top: 0;
+}
+
+.hcl-tree-temp .tree-item .tree-node .treenode-content-wrapper span {
+    padding: .25rem .5rem;
+    margin-left: -.25rem
+}
+
+.hcl-tree-temp .tree-item .tree-node span.highlight {
+    background-color: #0066b3;
+    color: #fff
+}
+
+.hcl-tree-temp .tree-item .tree-node.no-toggle-element {
+    padding-left: 1.375rem
+}
+
+.hcl-tree-temp .tree-item:not([aria-expanded])>div .expanded,
+.hcl-tree-temp .tree-item>ul,
+.hcl-tree-temp .tree-item[aria-expanded=false]>ul {
+    display: none
+}
+
+.hcl-tree-temp .tree-item[aria-expanded=true]>ul {
+    display: block
+}
+
+.hcl-tree-temp .tree-item[aria-expanded=false]>div .expanded,
+.hcl-tree-temp .tree-item[aria-expanded=true]>div .collapsed {
+    display: none
+}
+
+.hcl-tree-temp .tree-item .tree-nested {
+    margin-bottom: .25rem;
+    margin-left: 1.25rem;
+    font-size: .875rem
 }

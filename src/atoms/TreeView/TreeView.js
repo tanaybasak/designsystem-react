@@ -85,7 +85,7 @@ const TreeView = ({
   };
 
   const configuration = { ...defaultConfig, ...config };
-  const classnames = `${prefix}-tree ${className.trim()}`;
+  const classnames = `${prefix}-tree-temp ${className.trim()}`;
   return (
     <ul role="tree" className={classnames}>
       {treeInfo.map((node, index) => {
