@@ -1180,7 +1180,7 @@ class App extends Component {
                   id="search-section"
                 >
                   <h5 className="p-2">Normal Search</h5>
-                  <Search onBlur={event => console.log(event)} />
+                  <Search defaultValue="search..." onBlur={event => console.log(event)} />
                 </section>
 
                 <section className="hcl-col-12 mt-5 colBorder p-5">
@@ -1190,7 +1190,7 @@ class App extends Component {
 
                 <section className="hcl-col-12 mt-5 colBorder p-5">
                   <h5 className="p-2">Small Search</h5>
-                  <Search size="small" />
+                  <Search defaultValue="small search..." size="small" />
                 </section>
 
                 <section className="hcl-col-12 mt-5 colBorder p-5">
