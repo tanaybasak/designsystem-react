@@ -532,7 +532,7 @@ class App extends Component {
                 <div className="hcl-col-12" id="buttons-section">
                   <Button
                     title="Default"
-                    className="mr-2"
+                    className = "mr-2"
                     onClick={() => {
                       console.log('Button Clicked');
                     }}
@@ -540,7 +540,8 @@ class App extends Component {
                     Default
                   </Button>
                   <Button
-                    className="mr-2 hcl-primary"
+                    type="Primary"
+                    className = "mr-2"
                     onClick={() => {
                       console.log('Button Clicked');
                     }}
@@ -548,7 +549,8 @@ class App extends Component {
                     Primary
                   </Button>
                   <Button
-                    className="mr-2 hcl-secondary"
+                    type="Secondary"
+                    className = "mr-2"
                     onClick={() => {
                       console.log('Button Clicked');
                     }}
@@ -556,16 +558,19 @@ class App extends Component {
                     Secondary
                   </Button>
                   <Button
-                    className="mr-2 hcl-primary hcl-ghost"
+                    type="Ghost"
+                    className = "mr-2"
                     onClick={() => {
                       console.log('Button Clicked');
                     }}
                   >
-                    Primary ghost
+                    Ghost
                   </Button>
 
                   <Button
-                    className="mr-2 hcl-primary hcl-sm"
+                    type="Primary"
+                    className = "mr-2"
+                    small
                     onClick={() => {
                       console.log('Button Clicked');
                     }}
@@ -573,7 +578,8 @@ class App extends Component {
                     Primary small
                   </Button>
                   <Button
-                    className="mr-2 hcl-primary hcl-danger"
+                    type="Primary Danger"
+                    className = "mr-2"
                     onClick={() => {
                       console.log('Button Clicked');
                     }}
@@ -581,7 +587,8 @@ class App extends Component {
                     Danger outline
                   </Button>
                   <Button
-                    className="mr-2 hcl-primary hcl-danger hcl-secondary"
+                    type="Secondary Danger"
+                    className="mr-2"
                     onClick={() => {
                       console.log('Button Clicked');
                     }}
