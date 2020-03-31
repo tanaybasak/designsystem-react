@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 
@@ -6,11 +6,53 @@ let selectTileCount = 0;
 
 const Tile = ({ className, children, type, id, href, ...restProps }) => {
   let classNames = null;
+  const clickableElement = useRef(null);
+  const expandableElement = useRef(null);
+  const selectableElement = useRef(null);
+
+  const [checked, setChecked] = useState(false);
+
+  const toggle = () => {
+    setChecked(!checked);
+  };
+
+  const keyDownOnTile = e => {
+    const input = expandableElement.current
+      ? expandableElement.current.querySelector('input[type="checkbox"]')
+      : selectableElement.current.querySelector('input[type="checkbox"]');
+
+    const key = e.which || e.keyCode;
+    if (key === 13 || key === 32) {
+      if (input) {
+        setChecked(!checked);
+      }
+    }
+  };
+
   const clickableTile = () => {
     classNames = `${prefix}-tile-clickable ${className}`.trim();
     return (
-      <div className={classNames} tabIndex="0" {...restProps}>
-        <a href={href}>{children}</a>
+      <div
+        className={classNames}
+        onKeyDown={event => {
+          event.stopPropagation();
+          const key = event.which || event.keyCode;
+          const clickTag = clickableElement.current.querySelector(
+            `#${prefix}-tile-clickTag`
+          );
+          if (key === 13 || key === 32) {
+            if (clickTag) {
+              clickTag.click();
+            }
+          }
+        }}
+        tabIndex="0"
+        ref={clickableElement}
+        {...restProps}
+      >
+        <a id={`${prefix}-tile-clickTag`} tabIndex="-1" href={href}>
+          {children}
+        </a>
       </div>
     );
   };
@@ -19,17 +61,21 @@ const Tile = ({ className, children, type, id, href, ...restProps }) => {
     selectTileCount += 1;
     classNames = `${prefix}-tile-selectable ${className}`.trim();
     return (
-      <div {...restProps}>
-        <label
-          htmlFor={`select-tile-${selectTileCount}`}
-          className={classNames}
-          tabIndex="0"
-        >
+      <div
+        className={classNames}
+        onKeyDown={keyDownOnTile}
+        ref={selectableElement}
+        tabIndex="0"
+        {...restProps}
+      >
+        <label htmlFor={`select-tile-${selectTileCount}`}>
           <input
             id={`select-tile-${selectTileCount}`}
             className={`${prefix}-tile-input`}
             type="checkbox"
+            onChange={toggle}
             title="tile"
+            checked={checked}
           />
           <svg
             className={`${prefix}-tile-checkbox`}
@@ -51,12 +97,20 @@ const Tile = ({ className, children, type, id, href, ...restProps }) => {
   const expandableTile = () => {
     classNames = `${prefix}-tile-expandable ${className}`.trim();
     return (
-      <div className={classNames} tabIndex="0" {...restProps}>
+      <div
+        className={classNames}
+        onKeyDown={keyDownOnTile}
+        tabIndex="0"
+        ref={expandableElement}
+        {...restProps}
+      >
         <input
           id={`${id}`}
           className={`${prefix}-tile-input`}
           type="checkbox"
+          onChange={toggle}
           title="tile"
+          checked={checked}
         />
         <label htmlFor={`${id}`} className={`${prefix}-tile-arrow`}>
           <svg width="12" height="7" viewBox="0 0 12 7">
