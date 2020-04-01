@@ -1,8 +1,8 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 
-const Search = ({ type, size, theme, className, iconTheme, ...restProps }) => {
+const Search = ({ type, size, defaultValue, theme, className, iconTheme, ...restProps }) => {
   let [value, setValue] = useState('');
   let [clickableContent, setClickableContent] = useState('');
   const inputRef = useRef(null);
@@ -12,6 +12,10 @@ const Search = ({ type, size, theme, className, iconTheme, ...restProps }) => {
         ${size === 'small' ? `${prefix}-search-sm` : ''} 
         ${theme === 'white' ? `${prefix}-bg-white` : ''} 
         ${className.trim()}`;
+
+  useEffect(() => {
+    setValue(defaultValue);
+  }, [defaultValue]);
 
   const icon = `${prefix}-search-icon
         ${iconTheme === 'white' ? 'white' : ''}`;
@@ -117,6 +121,8 @@ Search.propTypes = {
   iconTheme: PropTypes.oneOf(['white', 'default']),
   /** Class/clasess will be applied on the parent div of Search  */
   className: PropTypes.string,
+  /* Default values */
+  defaultValue: PropTypes.string,
   /** Placeholder for the search text field  */
   placeholder: PropTypes.string,
   /** call back function which will return the entered character  */
@@ -129,6 +135,7 @@ Search.defaultProps = {
   type: 'default',
   size: 'default',
   theme: 'default',
+  defaultValue: '',
   iconTheme: 'default',
   className: '',
   placeholder: 'Search...',
