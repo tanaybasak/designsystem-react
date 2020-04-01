@@ -540,7 +540,7 @@ class App extends Component {
                     Default
                   </Button>
                   <Button
-                    type="Primary"
+                    type="primary"
                     className = "mr-2"
                     onClick={() => {
                       console.log('Button Clicked');
@@ -549,7 +549,7 @@ class App extends Component {
                     Primary
                   </Button>
                   <Button
-                    type="Secondary"
+                    type="secondary"
                     className = "mr-2"
                     onClick={() => {
                       console.log('Button Clicked');
@@ -558,7 +558,7 @@ class App extends Component {
                     Secondary
                   </Button>
                   <Button
-                    type="Ghost"
+                    type="ghost"
                     className = "mr-2"
                     onClick={() => {
                       console.log('Button Clicked');
@@ -568,7 +568,7 @@ class App extends Component {
                   </Button>
 
                   <Button
-                    type="Primary"
+                    type="primary"
                     className = "mr-2"
                     small
                     onClick={() => {
@@ -578,7 +578,7 @@ class App extends Component {
                     Primary small
                   </Button>
                   <Button
-                    type="Primary Danger"
+                    type="primary-danger"
                     className = "mr-2"
                     onClick={() => {
                       console.log('Button Clicked');
@@ -587,7 +587,7 @@ class App extends Component {
                     Danger outline
                   </Button>
                   <Button
-                    type="Secondary Danger"
+                    type="secondary-danger"
                     className="mr-2"
                     onClick={() => {
                       console.log('Button Clicked');

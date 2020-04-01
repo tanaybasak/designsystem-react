@@ -4,11 +4,11 @@ import prefix from '../../settings';
 
 const Button = ({ type, small, className, children, onClick, ...restProps }) => {
   const classNameOptions = {
-    'Primary' : 'hcl-primary',
-    'Primary Danger' : 'hcl-primary hcl-danger',
-    'Secondary' : 'hcl-secondary',
-    'Secondary Danger' : 'hcl-secondary hcl-danger',
-    'Ghost' : 'hcl-ghost'
+    'primary' : 'hcl-primary',
+    'primary-danger' : 'hcl-primary hcl-danger',
+    'secondary' : 'hcl-secondary',
+    'secondary-danger' : 'hcl-secondary hcl-danger',
+    'ghost' : 'hcl-ghost'
   };
 
   const classNameType = classNameOptions[type] ? classNameOptions[type] : '';
@@ -30,9 +30,9 @@ const Button = ({ type, small, className, children, onClick, ...restProps }) => 
 Button.propTypes = {
   /** button content */
   children: PropTypes.any,
-  /** type of button eg : hcl-primary , hcl-danger , hcl-sm , hcl-secondary, hcl-ghost  */
+  /** type of button eg : primary , primary-danger , secondary-danger , secondary, ghost  */
   type: PropTypes.string,
-  /** type of button eg : hcl-primary , hcl-danger , hcl-sm , hcl-secondary, hcl-ghost  */
+  /** Style class of the component */
   className: PropTypes.string,
   /** small button  */
   small: PropTypes.bool,
