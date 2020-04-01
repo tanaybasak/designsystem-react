@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Label from '../Label';
 import prefix from '../../settings';
-
+import colors from '../../util/colors';
 const Slider = ({
   min,
   max,
@@ -16,6 +16,13 @@ const Slider = ({
   const [value, setValue] = useState(propsVal || 0);
   const classnames = `${prefix}-slider ${className}`.trim();
 
+  const getBackground = () => {
+    const percentage = (100 * (value - min)) / (max - min);
+    return `linear-gradient(90deg, ${colors.blue} ${percentage}%, ${
+      colors.light60
+    } ${percentage + 0.1}%)`;
+  };
+
   return (
     <div className={classnames}>
       <Label className={`${prefix}-slider-bottom-range`}>{min}</Label>
@@ -26,6 +33,7 @@ const Slider = ({
         max={max}
         step={step}
         value={value}
+        style={{ background: getBackground() }}
         {...restProps}
         onChange={event => {
           setValue(event.currentTarget.value);
@@ -37,7 +45,7 @@ const Slider = ({
       <Label className={`${prefix}-slider-top-range`}>{max}</Label>
       {withInputBox ? (
         <input
-          className={`${prefix}-slider-text-input`}
+          className={`${prefix}-form-control ${prefix}-slider-text-input`}
           type="text"
           value={value}
           onChange={event => {
