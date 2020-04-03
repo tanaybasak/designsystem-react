@@ -6,7 +6,7 @@ const SelectItem = ({ value, disabled, hidden, text, ...restProps }) => {
   return (
     <option
       {...restProps}
-      className={`${prefix}--select-option`}
+      className={`${prefix}-select-option`}
       value={value}
       disabled={disabled}
       hidden={hidden}
