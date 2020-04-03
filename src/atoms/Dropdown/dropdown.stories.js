@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { object, text, number } from '@storybook/addon-knobs';
+import { object, text } from '@storybook/addon-knobs';
 //@update-path-build-start
 import Dropdown from './Dropdown';
 //@update-path-build-end
@@ -20,7 +20,7 @@ storiesOf('Dropdown', module)
       <Dropdown
         items={object('Items', items)}
         label={text('Label', 'Dropdown Label')}
-        selectedIndex={number('Selected Index', 0)}
+        selectedItem={text('Selected Index')}
         onChange={action(event)}
       />
     ),
@@ -38,7 +38,7 @@ storiesOf('Dropdown', module)
         type={'top'}
         items={object('Items', items)}
         label={text('Label', 'Dropdown Label')}
-        selectedIndex={number('Selected Index', 0)}
+        selectedIndex={text('Selected Index')}
         onChange={action(event)}
       />
     ),

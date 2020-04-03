@@ -1250,7 +1250,7 @@ class App extends Component {
                       type="top"
                       items={this.items}
                       label="Top DropDown"
-                      selectedIndex={1}
+                      selectedItem="option-3"
                       onChange={selected => {
                         console.log('selected item', selected);
                       }}

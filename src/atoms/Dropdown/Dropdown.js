@@ -9,32 +9,43 @@ const Dropdown = ({
   items,
   label,
   onChange,
-  selectedIndex,
+  config,
+  selectedItem,
   className,
   ...restProps
 }) => {
+
+  const defaultConfig = { text: 'text', id: 'id' };
+  const configuration = { ...defaultConfig, ...config };
+
   const [isOpen, setIsOpen] = useState(false);
+  const selectedOption = items.find(item => {
+    if (item[configuration.id] === selectedItem) {
+      return item;
+    }
+  });
+
   const [selected, setSelected] = useState(
-    selectedIndex !== null ? items[selectedIndex] : null
+    selectedItem ? selectedOption : null
   );
-  const [typeState] = useState(type);
+  
   const dropDown = useRef(null);
   const [dropDownId] = useState(dropdownIdRef++);
 
   useEffect(() => {
-    setSelected(selectedIndex !== null ? items[selectedIndex] : null);
-  }, [selectedIndex]);
+    setSelected(selectedItem ? selectedOption : null);
+  }, [selectedItem]);
 
   useEffect(() => {
     const dropdownMenu = dropDown.current.getElementsByTagName('ul')[0];
     if (dropdownMenu) {
       dropdownMenu.style.display = 'block';
       if (!isInViewport(dropdownMenu)) {
-        if (typeState === 'bottom') {
+        if (type === 'bottom') {
           dropDown.current.classList.remove(`${prefix}-dropdown-bottom`);
           dropDown.current.classList.add(`${prefix}-dropdown-top`);
         }
-        if (typeState === 'top') {
+        if (type === 'top') {
           dropDown.current.classList.remove(`${prefix}-dropdown-top`);
           dropDown.current.classList.add(`${prefix}-dropdown-bottom`);
         }
@@ -87,6 +98,7 @@ const Dropdown = ({
     setIsOpen(false);
     setSelected(item);
     onChange(item);
+    dropDown.current.children[0].focus();
   };
 
   const keyDownOnDropdown = e => {
@@ -96,8 +108,6 @@ const Dropdown = ({
       case 40: {
         if (!listItem.nextElementSibling) {
           focusNode(listItem.parentElement.firstElementChild);
-        } else if (listItem.nextElementSibling.disabled === true) {
-          focusNode(listItem.nextElementSibling.nextElementSibling);
         } else {
           focusNode(listItem.nextElementSibling);
         }
@@ -107,8 +117,6 @@ const Dropdown = ({
       case 38: {
         if (!listItem.previousElementSibling) {
           focusNode(listItem.parentElement.lastElementChild);
-        } else if (listItem.previousElementSibling.disabled === true) {
-          focusNode(listItem.previousElementSibling.previousElementSibling);
         } else {
           focusNode(listItem.previousElementSibling);
         }
@@ -145,7 +153,7 @@ const Dropdown = ({
   };
 
   const classnames = `${prefix}-dropdown ${
-    typeState === 'bottom'
+    type=== 'bottom'
       ? `${prefix}-dropdown-bottom`
       : `${prefix}-dropdown-top`
   } ${className}
@@ -164,7 +172,7 @@ const Dropdown = ({
           event.target.focus();
         }}
       >
-        {selected ? selected.text : label}
+        {selected ? selected[configuration.text] : label}
       </button>
       {isOpen && Array.isArray(items) && items.length > 0 ? (
         <ul
@@ -178,7 +186,7 @@ const Dropdown = ({
             return (
               <li
                 className={`${prefix}-dropdown-item`}
-                key={item.id}
+                key={item[configuration.id]}
                 onClick={onSelect.bind(this, item)}
               >
                 <a
@@ -186,7 +194,7 @@ const Dropdown = ({
                   href="#"
                   className={`${prefix}-dropdown-wrapper`}
                 >
-                  {item.text}
+                  {item[configuration.text]}
                 </a>
               </li>
             );
@@ -212,19 +220,23 @@ Dropdown.propTypes = {
   /** Callback function on selecting item*/
   onChange: PropTypes.func,
 
-  /** index number of item for default selection */
-  selectedIndex: PropTypes.number,
+  /** id of item for default selection */
+  selectedItem: PropTypes.string,
 
   /** Class/clasess will be applied on the parent div of Dropdown */
-  className: PropTypes.string
+  className: PropTypes.string,
+
+  /** Configuration Object for updating propery name in items data */
+  config: PropTypes.any
 };
 
 Dropdown.defaultProps = {
   type: 'bottom',
   label: 'Select Option',
   onChange: () => {},
-  selectedIndex: null,
-  className: ''
+  selectedItem: '',
+  className: '',
+  config: {}
 };
 
 export default Dropdown;
