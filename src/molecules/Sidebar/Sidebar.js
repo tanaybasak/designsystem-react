@@ -2,15 +2,15 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 
-const Sidebar = ({ className, title, items, icon, onClick, sidebarLinkTemplate, ...restProps }) => {
-    const [expanded, setExpanded] = useState(false);
+const Sidebar = ({ className, title, items, icon, onClick, sidebarLinkTemplate, expanded, ...restProps }) => {
+    const [expnd, setExpanded] = useState(expanded);
     const [activeItem, setActiveItem] = useState(null);
     const [expandedCategories, setExpandedCategories] = useState([]);
 
     const classnames = `${prefix}-sidebar ${className}`.trim();
 
     const expandSidebar = event => {
-        let ex = !expanded;
+        let ex = !expnd;
         setExpanded(ex);
         event.currentTarget.dataset.expanded = ex;
         onClick(event);
@@ -81,7 +81,7 @@ const Sidebar = ({ className, title, items, icon, onClick, sidebarLinkTemplate, 
 
     return (
         <nav
-            className={`${classnames}${expanded ? ` expanded` : ''}`}
+            className={`${classnames}${expnd ? ` expanded` : ''}`}
             {...restProps}
         >
             <button
@@ -98,6 +98,7 @@ const Sidebar = ({ className, title, items, icon, onClick, sidebarLinkTemplate, 
                 className={`${prefix}-sidebar-title`}
                 data-type={'toggle_sidebar'}
                 data-title={title}
+                data-expanded={expnd}
                 onClick={expandSidebar}
             >
                 {icon}
@@ -184,6 +185,8 @@ Sidebar.propTypes = {
     className: PropTypes.string,
     /** used to pass custom template in sidebar link */
     sidebarLinkTemplate: PropTypes.any,
+    /** boolean value  */
+    expanded: PropTypes.bool,
     /** Title for the Sidebar */
     title: PropTypes.string,
     /** Content for Sidebar */
@@ -202,6 +205,7 @@ Sidebar.propTypes = {
 Sidebar.defaultProps = {
     className: '',
     sidebarLinkTemplate: null,
+    expanded: false,
     title: '',
     items: [],
     disabled: false,
