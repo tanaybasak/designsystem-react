@@ -1,9 +1,12 @@
 * {
-  margin: 0;
-  padding: 0;
+    margin: 0;
+    padding: 0;
 }
 
 #root {
     height: 100vh;
 }
 
+.hcl-tag-text:first-child{
+    padding: unset;
+}
