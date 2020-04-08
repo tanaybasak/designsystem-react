@@ -91,36 +91,34 @@ const DataTable = ({
   const selectAll = event => {
     let tempRows = getTableData(rows);
     let tempselectedRow = null;
-    if(uniqueKey){
-        tempselectedRow = { ...selectedRows };
-        if (event.currentTarget.checked) {
-          tempRows.map(row => {
-            tempselectedRow[row[uniqueKey]] = row;
-          });
-        } else {
-          tempRows.map(row => {
-            delete tempselectedRow[row[uniqueKey]];
-          });
-        }
-        
-    }else{
-        tempselectedRow = [ ...selectedRows ];
+    if (uniqueKey) {
+      tempselectedRow = { ...selectedRows };
+      if (event.currentTarget.checked) {
+        tempRows.map(row => {
+          tempselectedRow[row[uniqueKey]] = row;
+        });
+      } else {
+        tempRows.map(row => {
+          delete tempselectedRow[row[uniqueKey]];
+        });
+      }
+    } else {
+      tempselectedRow = [...selectedRows];
 
-        if (event.currentTarget.checked) {
-            tempRows.map(row => {
-              if(!tempselectedRow.find(i => i == row)){
-                tempselectedRow.push(row);
-              }
-            });
-          } else {
-            tempRows.map(row => {
-                let index = tempselectedRow.findIndex(i => i == row);
-                if(index !== undefined){
-                    tempselectedRow.splice(index,1)
-                }
-                
-            });
+      if (event.currentTarget.checked) {
+        tempRows.map(row => {
+          if (!tempselectedRow.find(i => i == row)) {
+            tempselectedRow.push(row);
           }
+        });
+      } else {
+        tempRows.map(row => {
+          let index = tempselectedRow.findIndex(i => i == row);
+          if (index !== undefined) {
+            tempselectedRow.splice(index, 1);
+          }
+        });
+      }
     }
     updateSelectedRow(tempselectedRow);
     setAllSelected(event.currentTarget.checked);
@@ -142,23 +140,23 @@ const DataTable = ({
 
   const setSelection = row => {
     let tempselectedRow = null;
-    if(uniqueKey){
-         tempselectedRow = { ...selectedRows };
-        if (tempselectedRow[row[uniqueKey]]) {
-          delete tempselectedRow[row[uniqueKey]];
-        } else {
-          tempselectedRow[row[uniqueKey]] = row;
-        }
-    }else{
-        tempselectedRow = [ ...selectedRows ];
+    if (uniqueKey) {
+      tempselectedRow = { ...selectedRows };
+      if (tempselectedRow[row[uniqueKey]]) {
+        delete tempselectedRow[row[uniqueKey]];
+      } else {
+        tempselectedRow[row[uniqueKey]] = row;
+      }
+    } else {
+      tempselectedRow = [...selectedRows];
 
-        if(tempselectedRow.find(i => i == row)){
-            tempselectedRow.splice(tempselectedRow.findIndex(i => i == row),1)
-        }else{
-            tempselectedRow.push(row)
-        }
+      if (tempselectedRow.find(i => i == row)) {
+        tempselectedRow.splice(tempselectedRow.findIndex(i => i == row), 1);
+      } else {
+        tempselectedRow.push(row);
+      }
     }
-    
+
     updateSelectedRow(tempselectedRow);
     updateAllSelected(tempselectedRow);
 
@@ -419,7 +417,7 @@ const DataTable = ({
                         left: marginLeft,
                         right: marginRight
                       }}
-                      title={title + ''}
+                      title={title ? title.toString() : ''}
                       data-column={label}
                       className={`${
                         pinned === 'left' ? 'sticky-div sticky-left-div' : ''
@@ -474,7 +472,9 @@ const DataTable = ({
                   {tableConfig.map((column, i) => (
                     <td
                       key={`col-${index}-${i}`}
-                      title={row[column.field] + ''}
+                      title={
+                        row[column.field] ? row[column.field].toString() : ''
+                      }
                       data-label={column.field}
                       className={`${
                         column.pinned === 'left'
@@ -491,42 +491,42 @@ const DataTable = ({
                         right: column.marginRight
                       }}
                       tabIndex={-1}
-                    //   onKeyDown={e => {
-                    //     if (e.key === 'ArrowLeft') {
-                    //       e.preventDefault();
-                    //       if (e.currentTarget.previousElementSibling) {
-                    //         e.currentTarget.previousElementSibling.focus();
-                    //       }
-                    //     } else if (e.key === 'ArrowRight') {
-                    //       e.preventDefault();
-                    //       if (e.currentTarget.nextElementSibling) {
-                    //         e.currentTarget.nextElementSibling.focus();
-                    //       }
-                    //     } else if (e.key === 'ArrowDown') {
-                    //       e.preventDefault();
-                    //       if (
-                    //         e.currentTarget.parentElement.nextElementSibling &&
-                    //         e.currentTarget.parentElement.nextElementSibling
-                    //           .children[i]
-                    //       ) {
-                    //         e.currentTarget.parentElement.nextElementSibling.children[
-                    //           i
-                    //         ].focus();
-                    //       }
-                    //     } else if (e.key === 'ArrowUp') {
-                    //       e.preventDefault();
-                    //       if (
-                    //         e.currentTarget.parentElement
-                    //           .previousElementSibling &&
-                    //         e.currentTarget.parentElement.previousElementSibling
-                    //           .children[i]
-                    //       ) {
-                    //         e.currentTarget.parentElement.previousElementSibling.children[
-                    //           i
-                    //         ].focus();
-                    //       }
-                    //     }
-                    //   }}
+                      //   onKeyDown={e => {
+                      //     if (e.key === 'ArrowLeft') {
+                      //       e.preventDefault();
+                      //       if (e.currentTarget.previousElementSibling) {
+                      //         e.currentTarget.previousElementSibling.focus();
+                      //       }
+                      //     } else if (e.key === 'ArrowRight') {
+                      //       e.preventDefault();
+                      //       if (e.currentTarget.nextElementSibling) {
+                      //         e.currentTarget.nextElementSibling.focus();
+                      //       }
+                      //     } else if (e.key === 'ArrowDown') {
+                      //       e.preventDefault();
+                      //       if (
+                      //         e.currentTarget.parentElement.nextElementSibling &&
+                      //         e.currentTarget.parentElement.nextElementSibling
+                      //           .children[i]
+                      //       ) {
+                      //         e.currentTarget.parentElement.nextElementSibling.children[
+                      //           i
+                      //         ].focus();
+                      //       }
+                      //     } else if (e.key === 'ArrowUp') {
+                      //       e.preventDefault();
+                      //       if (
+                      //         e.currentTarget.parentElement
+                      //           .previousElementSibling &&
+                      //         e.currentTarget.parentElement.previousElementSibling
+                      //           .children[i]
+                      //       ) {
+                      //         e.currentTarget.parentElement.previousElementSibling.children[
+                      //           i
+                      //         ].focus();
+                      //       }
+                      //     }
+                      //   }}
                     >
                       {column.field === 'checkbox' ? (
                         <div className="checkbox-wrapper">
@@ -534,7 +534,13 @@ const DataTable = ({
                             id={`${id}_checkbox_${index}`}
                             name="testcheck"
                             data-index={index}
-                            checked={getCheckboxStatus.bind(this, row)}
+                            checked={
+                              uniqueKey && selectedRows[row[uniqueKey]]
+                                ? true
+                                : !uniqueKey && selectedRows.find(i => i == row)
+                                ? true
+                                : false
+                            }
                             onChange={setSelection.bind(this, row)}
                           />
                         </div>
@@ -607,7 +613,7 @@ const DataTable = ({
 DataTable.propTypes = {
   /** Unique id for Table */
   id: PropTypes.string.isRequired,
-  uniqueKey: PropTypes.string.isRequired,
+  uniqueKey: PropTypes.string,
   /** Data for table  */
   tableData: PropTypes.any,
   /** Column Configuration  */
