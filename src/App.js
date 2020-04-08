@@ -281,6 +281,7 @@ class App extends Component {
 
             return (
                 <Toggle
+                    id={model.id+'--'}
                   disabled
                   small
                   labelOff=" "
@@ -1309,7 +1310,7 @@ class App extends Component {
               <div className="hcl-col-12 mt-5 mb-5" id="dataTableElement">
                 <DataTable
                   id="sample_table_1"
-                  uniqueKey="id"
+                  //uniqueKey="id"
                   tableData={this.state.dataTableData}
                   tableConfig={this.state.dataTableConfig}
                   selectable

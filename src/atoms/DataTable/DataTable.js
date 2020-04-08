@@ -40,7 +40,7 @@ const DataTable = ({
 
   const [rows, updateTableRowData] = useState(tableData);
 
-  const [selectedRows, updateSelectedRow] = useState({});
+  const [selectedRows, updateSelectedRow] = useState(uniqueKey ? {} : []);
 
   const tableRef = useRef(null);
 
@@ -75,8 +75,14 @@ const DataTable = ({
     let resultStatus = Object.keys(tempselectedRow).length === 0 ? false : true;
 
     tempRows.map(row => {
-      if (!tempselectedRow[row[uniqueKey]]) {
-        resultStatus = false;
+      if (uniqueKey) {
+        if (!tempselectedRow[row[uniqueKey]]) {
+          resultStatus = false;
+        }
+      } else {
+        if (!tempselectedRow.find(i => i == row)) {
+          resultStatus = false;
+        }
       }
     });
     setAllSelected(resultStatus);
@@ -84,15 +90,37 @@ const DataTable = ({
 
   const selectAll = event => {
     let tempRows = getTableData(rows);
-    let tempselectedRow = { ...selectedRows };
-    if (event.currentTarget.checked) {
-      tempRows.map(row => {
-        tempselectedRow[row[uniqueKey]] = row;
-      });
-    } else {
-      tempRows.map(row => {
-        delete tempselectedRow[row[uniqueKey]];
-      });
+    let tempselectedRow = null;
+    if(uniqueKey){
+        tempselectedRow = { ...selectedRows };
+        if (event.currentTarget.checked) {
+          tempRows.map(row => {
+            tempselectedRow[row[uniqueKey]] = row;
+          });
+        } else {
+          tempRows.map(row => {
+            delete tempselectedRow[row[uniqueKey]];
+          });
+        }
+        
+    }else{
+        tempselectedRow = [ ...selectedRows ];
+
+        if (event.currentTarget.checked) {
+            tempRows.map(row => {
+              if(!tempselectedRow.find(i => i == row)){
+                tempselectedRow.push(row);
+              }
+            });
+          } else {
+            tempRows.map(row => {
+                let index = tempselectedRow.findIndex(i => i == row);
+                if(index !== undefined){
+                    tempselectedRow.splice(index,1)
+                }
+                
+            });
+          }
     }
     updateSelectedRow(tempselectedRow);
     setAllSelected(event.currentTarget.checked);
@@ -102,25 +130,35 @@ const DataTable = ({
   };
 
   const getTableData = tableData => {
-
-    if(pagination){
-        return tableData.slice(
-            (pageNo - 1) * pageItemCount,
-            pageNo * pageItemCount
-          );
-    }else{
-        return tableData;
+    if (pagination) {
+      return tableData.slice(
+        (pageNo - 1) * pageItemCount,
+        pageNo * pageItemCount
+      );
+    } else {
+      return tableData;
     }
-    
   };
 
   const setSelection = row => {
-    let tempselectedRow = { ...selectedRows };
-    if (tempselectedRow[row[uniqueKey]]) {
-      delete tempselectedRow[row[uniqueKey]];
-    } else {
-      tempselectedRow[row[uniqueKey]] = row;
+    let tempselectedRow = null;
+    if(uniqueKey){
+         tempselectedRow = { ...selectedRows };
+        if (tempselectedRow[row[uniqueKey]]) {
+          delete tempselectedRow[row[uniqueKey]];
+        } else {
+          tempselectedRow[row[uniqueKey]] = row;
+        }
+    }else{
+        tempselectedRow = [ ...selectedRows ];
+
+        if(tempselectedRow.find(i => i == row)){
+            tempselectedRow.splice(tempselectedRow.findIndex(i => i == row),1)
+        }else{
+            tempselectedRow.push(row)
+        }
     }
+    
     updateSelectedRow(tempselectedRow);
     updateAllSelected(tempselectedRow);
 
@@ -200,28 +238,28 @@ const DataTable = ({
   };
 
   tableConfig = [];
-  if(expandRowTemplate){
-    tableConfig.push(expandColumn)
+  if (expandRowTemplate) {
+    tableConfig.push(expandColumn);
   }
-  tableConfig = [...tableConfig , ...columnInfo['left']]
+  tableConfig = [...tableConfig, ...columnInfo['left']];
 
-  if(selectable){
-    tableConfig.push(selectColumn)
+  if (selectable) {
+    tableConfig.push(selectColumn);
   }
-  tableConfig = [...tableConfig , ...columnInfo['main'] , ...columnInfo['right']]
+  tableConfig = [...tableConfig, ...columnInfo['main'], ...columnInfo['right']];
 
-  if(overflowMenu){
-    tableConfig.push(overflowColumn)
+  if (overflowMenu) {
+    tableConfig.push(overflowColumn);
   }
 
-//   tableConfig = [
-//     //expandRowTemplate ? expandColumn : null,
-//     ...columnInfo['left'],
-//     selectable ? selectColumn : null,
-//     ...columnInfo['main'],
-//     ...columnInfo['right'],
-//     overflowMenu ? overflowColumn : null
-//   ];
+  //   tableConfig = [
+  //     //expandRowTemplate ? expandColumn : null,
+  //     ...columnInfo['left'],
+  //     selectable ? selectColumn : null,
+  //     ...columnInfo['main'],
+  //     ...columnInfo['right'],
+  //     overflowMenu ? overflowColumn : null
+  //   ];
 
   let allocatedWidth = 0;
   let totalItemsWithoutWidth = tableConfig.length;
@@ -339,6 +377,14 @@ const DataTable = ({
     updateTableRowData([...tempData]);
   };
 
+  const getCheckboxStatus = row => {
+    if (uniqueKey) {
+      return selectedRows[row[uniqueKey]] ? true : false;
+    } else {
+      return selectedRows.find(i => i == row) ? true : false;
+    }
+  };
+
   return (
     <div className="hcl-data-grid" {...restProps}>
       <div className="hcl-table-wrapper">
@@ -445,43 +491,42 @@ const DataTable = ({
                         right: column.marginRight
                       }}
                       tabIndex={-1}
-                      onKeyDown={e => {
-                        if (e.key === 'ArrowLeft') {
-                          e.preventDefault();
-                          if (e.currentTarget.previousElementSibling) {
-                            e.currentTarget.previousElementSibling.focus();
-                          }
-                        } else if (e.key === 'ArrowRight') {
-                          e.preventDefault();
-                          if (e.currentTarget.nextElementSibling) {
-                            e.currentTarget.nextElementSibling.focus();
-                          }
-                        } else if (e.key === 'ArrowDown') {
-                          e.preventDefault();
-                          if (
-                            e.currentTarget.parentElement.nextElementSibling &&
-                            e.currentTarget.parentElement.nextElementSibling
-                              .children[i]
-                          ) {
-                            e.currentTarget.parentElement.nextElementSibling.children[
-                              i
-                            ].focus();
-                          }
-                        } else if (e.key === 'ArrowUp') {
-                          e.preventDefault();
-                          if (
-                            e.currentTarget.parentElement
-                              .previousElementSibling &&
-                            e.currentTarget.parentElement.previousElementSibling
-                              .children[i]
-                          ) {
-                            e.currentTarget.parentElement.previousElementSibling.children[
-                              i
-                            ].focus();
-                          }
-                        }
-                        //console.log(e, e.key, e.currentTarget, e.target);
-                      }}
+                    //   onKeyDown={e => {
+                    //     if (e.key === 'ArrowLeft') {
+                    //       e.preventDefault();
+                    //       if (e.currentTarget.previousElementSibling) {
+                    //         e.currentTarget.previousElementSibling.focus();
+                    //       }
+                    //     } else if (e.key === 'ArrowRight') {
+                    //       e.preventDefault();
+                    //       if (e.currentTarget.nextElementSibling) {
+                    //         e.currentTarget.nextElementSibling.focus();
+                    //       }
+                    //     } else if (e.key === 'ArrowDown') {
+                    //       e.preventDefault();
+                    //       if (
+                    //         e.currentTarget.parentElement.nextElementSibling &&
+                    //         e.currentTarget.parentElement.nextElementSibling
+                    //           .children[i]
+                    //       ) {
+                    //         e.currentTarget.parentElement.nextElementSibling.children[
+                    //           i
+                    //         ].focus();
+                    //       }
+                    //     } else if (e.key === 'ArrowUp') {
+                    //       e.preventDefault();
+                    //       if (
+                    //         e.currentTarget.parentElement
+                    //           .previousElementSibling &&
+                    //         e.currentTarget.parentElement.previousElementSibling
+                    //           .children[i]
+                    //       ) {
+                    //         e.currentTarget.parentElement.previousElementSibling.children[
+                    //           i
+                    //         ].focus();
+                    //       }
+                    //     }
+                    //   }}
                     >
                       {column.field === 'checkbox' ? (
                         <div className="checkbox-wrapper">
@@ -489,9 +534,7 @@ const DataTable = ({
                             id={`${id}_checkbox_${index}`}
                             name="testcheck"
                             data-index={index}
-                            checked={
-                              selectedRows[row[uniqueKey]] ? true : false
-                            }
+                            checked={getCheckboxStatus.bind(this, row)}
                             onChange={setSelection.bind(this, row)}
                           />
                         </div>
