@@ -2,8 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 
-const Button = ({ className, children, onClick, ...restProps }) => {
-  const classnames = `${prefix}-btn ${className}`.trim();
+const Button = ({ type, small, className, children, onClick, ...restProps }) => {
+  const classNameOptions = {
+    'primary' : 'hcl-primary',
+    'primary-danger' : 'hcl-primary hcl-danger',
+    'secondary' : 'hcl-secondary',
+    'secondary-danger' : 'hcl-secondary hcl-danger',
+    'ghost' : 'hcl-ghost'
+  };
+
+  const classNameType = classNameOptions[type] ? classNameOptions[type] : '';
+  const smallBtn = small ? 'hcl-sm' : '';
+  const classnames = `${prefix}-btn ${className} ${classNameType} ${smallBtn}`.trim();
 
   return (
     <button
@@ -20,10 +30,12 @@ const Button = ({ className, children, onClick, ...restProps }) => {
 Button.propTypes = {
   /** button content */
   children: PropTypes.any,
-  /** type of button eg : hcl-primary , hcl-danger , hcl-sm , hcl-secondary, hcl-ghost  */
+  /** type of button eg : primary , primary-danger , secondary-danger , secondary, ghost  */
+  type: PropTypes.string,
+  /** Style class of the component */
   className: PropTypes.string,
-  /** Disable button  */
-  disabled: PropTypes.bool,
+  /** small button  */
+  small: PropTypes.bool,
   /** call back function on click  */
   onClick: PropTypes.func
 };
@@ -31,6 +43,8 @@ Button.propTypes = {
 Button.defaultProps = {
   children: 'Click Me',
   className: '',
+  type: '',
+  small: false,
   disabled: false,
   onClick: () => {}
 };

@@ -6,24 +6,22 @@ import { select, text, boolean } from '@storybook/addon-knobs';
 import Button from './Button';
 //@update-path-build-end
 
-const classOptions = {
-  Primary: 'hcl-primary',
-  'Primary Danger': 'hcl-primary hcl-danger',
-  'Primary Danger Small': 'hcl-primary hcl-danger hcl-sm',
-  'Primary Small': 'hcl-primary hcl-sm',
-  Secondary: 'hcl-secondary',
-  'Secondary Danger': 'hcl-secondary hcl-danger',
-  'Secondary Danger Small': 'hcl-secondary hcl-danger hcl-sm',
-  Ghost: 'hcl-ghost'
-};
+const classOptions = [
+  'primary',
+  'primary-danger',
+  'secondary',
+  'secondary-danger',
+  'ghost'
+];
 
 storiesOf('Button', module).add(
   'default',
   () => (
     <Button
+      type={select('Type', classOptions, 'primary')}
       title="Default"
-      className={select('Type', classOptions, 'hcl-primary')}
       disabled={boolean('Disabled', false)}
+      small={boolean('Small', false)}
       onClick={action('button-click')}
     >
       {text('Label', 'Click Me')}

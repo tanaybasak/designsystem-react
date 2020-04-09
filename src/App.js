@@ -38,12 +38,7 @@ import NumberInput from './molecules/NumberInput';
 import Select from './atoms/Select/Select';
 import TimePicker from './molecules/TimePicker/TimePicker';
 import Tooltip from './atoms/Tooltip/Tooltip';
-import Sidebar from './molecules/Sidebar';
-import navigationData from './molecules/Sidebar/sidebar-navigation-data.json';
-import Header from './molecules/Header';
 import LoadingState from './atoms/LoadingState/LoadingState';
-import Icon from './atoms/Icon';
-import logo from './assets/images/logo.png';
 import Footer from './molecules/Footer';
 import TreeView from './atoms/TreeView/TreeView';
 
@@ -471,106 +466,9 @@ class App extends Component {
       </div>
     );
 
-    const navigationDataIcons = navigationData.map(data => {
-      return {
-        ...data,
-        icon: (
-          <Icon
-            className={`hcl-sidebar-icon`}
-            type={'svg'}
-            alt={'alt'}
-            title={'title'}
-          >
-            <rect
-              rx={3}
-              ry={3}
-              width={'100%'}
-              height={'100%'}
-              style={{
-                fill: '#fff',
-                stroke: 'black',
-                strokeWidth: 2,
-                opacity: 0.5
-              }}
-            />
-          </Icon>
-        )
-      };
-    });
-
     return (
       <>
-        <Header
-          logo={<img src={logo} alt="Logo" />}
-          searchComponent={
-            <Search
-              type="clickable"
-              iconTheme="white"
-              onChange={event => console.log(event)}
-              onBlur={event => console.log(event)}
-            />
-          }
-          icons={[
-            {
-              onClick: event => console.log(event.currentTarget),
-              icon: <span className={`hcl-icon-1 bg-white`} />
-            },
-            {
-              onClick: event => console.log(event.currentTarget),
-              icon: <span className={`hcl-icon-1 bg-white`} />
-            },
-            {
-              onClick: event => console.log(event.currentTarget),
-              icon: <span className={`hcl-icon-1 bg-white`} />
-            },
-            {
-              onClick: event => console.log(event.currentTarget),
-              icon: <span className={`hcl-icon-1 bg-white`} />
-            },
-            {
-              onClick: event => console.log(event.currentTarget),
-              icon: <span className={`hcl-icon-1 bg-white`} />
-            }
-          ]}
-          data-withsidenav
-        />
-        <Sidebar
-          title="Components"
-          items={navigationDataIcons}
-          icon={
-            <Icon
-              className={`hcl-sidebar-title-icon`}
-              type="svg"
-              alt="alt"
-              title="title"
-            >
-              <circle
-                cx="12"
-                cy="12"
-                r="12"
-                stroke="var(--blue)"
-                strokeWidth="4"
-                fill="var(--white)"
-              />
-            </Icon>
-          }
-          onClick={event => {
-            const { type, expanded, title } = event.currentTarget.dataset;
-            console.log(type, expanded, title);
-            const container = document.querySelector('[data-withsidenav]');
-            if (container && type === 'toggle_sidebar') {
-              this.setState({ sidebarExpanded: expanded === 'true' });
-            }
-          }}
-        />
-        <div
-          className={`hcl-content${
-            this.state.sidebarExpanded ? ' sidebar-expanded' : ''
-          }`}
-          style={{ marginTop: '4rem' }}
-          data-withsidenav
-        >
-          <main className="hcl-content-main" style={{ marginTop: '4rem' }}>
+        <main className="hcl-content-main">
             <section className="hcl-container pt-5 mb-5">
               <div className="hcl-row m-0">
                 {/* Input Field */}
@@ -634,7 +532,7 @@ class App extends Component {
                 <div className="hcl-col-12" id="buttons-section">
                   <Button
                     title="Default"
-                    className="mr-2"
+                    className = "mr-2"
                     onClick={() => {
                       console.log('Button Clicked');
                     }}
@@ -642,7 +540,8 @@ class App extends Component {
                     Default
                   </Button>
                   <Button
-                    className="mr-2 hcl-primary"
+                    type="primary"
+                    className = "mr-2"
                     onClick={() => {
                       console.log('Button Clicked');
                     }}
@@ -650,7 +549,8 @@ class App extends Component {
                     Primary
                   </Button>
                   <Button
-                    className="mr-2 hcl-secondary"
+                    type="secondary"
+                    className = "mr-2"
                     onClick={() => {
                       console.log('Button Clicked');
                     }}
@@ -658,16 +558,19 @@ class App extends Component {
                     Secondary
                   </Button>
                   <Button
-                    className="mr-2 hcl-primary hcl-ghost"
+                    type="ghost"
+                    className = "mr-2"
                     onClick={() => {
                       console.log('Button Clicked');
                     }}
                   >
-                    Primary ghost
+                    Ghost
                   </Button>
 
                   <Button
-                    className="mr-2 hcl-primary hcl-sm"
+                    type="primary"
+                    className = "mr-2"
+                    small
                     onClick={() => {
                       console.log('Button Clicked');
                     }}
@@ -675,7 +578,8 @@ class App extends Component {
                     Primary small
                   </Button>
                   <Button
-                    className="mr-2 hcl-primary hcl-danger"
+                    type="primary-danger"
+                    className = "mr-2"
                     onClick={() => {
                       console.log('Button Clicked');
                     }}
@@ -683,7 +587,8 @@ class App extends Component {
                     Danger outline
                   </Button>
                   <Button
-                    className="mr-2 hcl-primary hcl-danger hcl-secondary"
+                    type="secondary-danger"
+                    className="mr-2"
                     onClick={() => {
                       console.log('Button Clicked');
                     }}
@@ -850,8 +755,8 @@ class App extends Component {
                   <Toggle
                     id="simple-toggle"
                     className="ml-3"
-                    onChange={() => {
-                      console.log('Toggled');
+                    onChange={(checked, e) => {
+                      console.log('Toggled',checked, e);
                     }}
                   />
                   <Toggle
@@ -874,8 +779,8 @@ class App extends Component {
                     small
                     id="simple-small-toggle"
                     className="ml-3"
-                    onChange={() => {
-                      console.log('Toggled');
+                    onChange={(checked, e) => {
+                      console.log('Toggled',checked, e);
                     }}
                   />
                   <Toggle
@@ -913,67 +818,23 @@ class App extends Component {
                 <div className="hcl-col-12 mt-5" id="overflow-menu-section">
                   <h5>Overflow Menu</h5>
                   <div className="hcl-font-center">
-                    <Overflowmenu listItems={overflowlist} />
+                  <Overflowmenu
+                    listItems={overflowlist}
+                    ellipsisType="horizontal"
+                    onClick={e => {
+                      console.log(e);
+                    }}
+                  />
                   </div>
                   <div className="hcl-font-center">
-                    <Overflowmenu listItems={overflowlist} direction="right" />
+                  <Overflowmenu
+                    listItems={overflowlist}
+                    direction="right"
+                    onClick={e => {
+                      console.log(e);
+                    }}
+                  />
                   </div>
-                </div>
-                {/* Tag */}
-                <div className="hcl-col-12 mt-5" id="tags-section">
-                  <Tag className="ml-3" title="Primary Tag">
-                    Primary Tag
-                  </Tag>
-                  <Tag className="ml-3" title="Primary Disabled" disabled>
-                    Primary Disabled
-                  </Tag>
-                  <Tag
-                    className="ml-3"
-                    title="Primary Closable"
-                    closable
-                    onClose={() => {
-                      alert('Closing Tag');
-                    }}
-                  >
-                    Primary Closable
-                  </Tag>
-                  <Tag
-                    className="ml-3"
-                    title="Primary Tag With Thumbnail"
-                    thumbnailSrc="https://image.flaticon.com/icons/png/512/862/862358.png"
-                  >
-                    Primary Tag With Thumbnail
-                  </Tag>
-                  <Tag className="ml-3" title="Secondary Tag" type="secondary">
-                    Secondary Tag
-                  </Tag>
-                  <Tag
-                    className="ml-3"
-                    title="Secondary Disabled Tag"
-                    disabled
-                    type="secondary"
-                  >
-                    Secondary Disabled Tag
-                  </Tag>
-                  <Tag
-                    className="ml-3"
-                    title="Secondary Closable"
-                    type="secondary"
-                    closable
-                    onClose={() => {
-                      alert('Closing Tag');
-                    }}
-                  >
-                    Secondary Closable
-                  </Tag>
-                  <Tag
-                    className="ml-3"
-                    title="Secondary Tag With Thumbnail"
-                    type="secondary"
-                    thumbnailSrc="https://image.flaticon.com/icons/png/512/862/862358.png"
-                  >
-                    Secondary Tag With Thumbnail
-                  </Tag>
                 </div>
                 {/* List */}
                 <div className="hcl-col-12 mt-5" id="list-section">
@@ -1071,6 +932,7 @@ class App extends Component {
                     <Modal
                       type="danger"
                       label="optional label"
+                      keyboard
                       heading="Heading comes here."
                       onClose={this.onModalClose}
                       actions={this.modalActions1}
@@ -1094,6 +956,7 @@ class App extends Component {
                     <Modal
                       type="danger"
                       heading="Heading comes here."
+                      keyboard
                       onClose={this.onModalClose}
                       actions={this.modalActions3}
                     >
@@ -1324,7 +1187,7 @@ class App extends Component {
                   id="search-section"
                 >
                   <h5 className="p-2">Normal Search</h5>
-                  <Search onBlur={event => console.log(event)} />
+                  <Search defaultValue="search..." onBlur={event => console.log(event)} />
                 </section>
 
                 <section className="hcl-col-12 mt-5 colBorder p-5">
@@ -1334,7 +1197,7 @@ class App extends Component {
 
                 <section className="hcl-col-12 mt-5 colBorder p-5">
                   <h5 className="p-2">Small Search</h5>
-                  <Search size="small" />
+                  <Search defaultValue="small search..." size="small" />
                 </section>
 
                 <section className="hcl-col-12 mt-5 colBorder p-5">
@@ -1394,7 +1257,7 @@ class App extends Component {
                       type="top"
                       items={this.items}
                       label="Top DropDown"
-                      selectedIndex={1}
+                      selectedItem="option-3"
                       onChange={selected => {
                         console.log('selected item', selected);
                       }}
@@ -1839,7 +1702,6 @@ class App extends Component {
               }
             />
           </main>
-        </div>
       </>
     );
   }

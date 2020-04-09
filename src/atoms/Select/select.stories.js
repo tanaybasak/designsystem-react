@@ -25,6 +25,7 @@ storiesOf('Select', module).add(
   () => (
     <Select
       items={object('Items', items)}
+      id="selct-id"
       label={text('Label', 'Select Option')}
       onChange={action('onChange')}
     />

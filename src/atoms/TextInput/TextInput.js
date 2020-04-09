@@ -26,6 +26,12 @@ const TextInput = ({ className, type, ...restProps }) => {
     );
 
     useEffect(() => {
+        if (restProps.value || restProps.value === '') {
+            setValue(restProps.value);
+        }
+    }, [restProps.value]);
+
+    useEffect(() => {
         if (isIconVisible) {
             setType("text");
         } else {
