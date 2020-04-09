@@ -5,7 +5,11 @@ import DatePanel from './DatePanel/DatePanel';
 import DateInput from './DateInput';
 import WeekPanel from './WeekPanel';
 import prefix from '../../settings';
-import { positionComponent, isValidDate } from '../../util/utility';
+import {
+  positionComponent,
+  isValidDate,
+  trackDocumentClick
+} from '../../util/utility';
 
 const DatePicker = ({
   weekDays,
@@ -30,6 +34,7 @@ const DatePicker = ({
   const [isValidYear, setIsValidYear] = useState(true);
   const [direction, setDirection] = useState(open);
   const datePickerContainer = useRef(null);
+  const datepickerInput = useRef(null);
 
   useEffect(() => {
     positionComponent(
@@ -118,14 +123,17 @@ const DatePicker = ({
     setIsValidYear(true);
     setYearSelected(String(currDateObj.year));
     setShowDateContainer(!showDateContainer);
+    trackDocumentClick(datepickerInput.current, () => {
+      setShowDateContainer(false);
+    });
   };
 
   const monthChangeHandler = event => {
+    event.stopPropagation();
+    event.preventDefault();
     let tempDate;
     if (
-      event.target.parentElement.classList.contains(
-        `${prefix}-datePicker-month-next`
-      )
+      event.currentTarget.classList.contains(`${prefix}-datePicker-month-next`)
     ) {
       tempDate = new Date(
         currDateObj.month === 11 ? currDateObj.year + 1 : currDateObj.year,
@@ -133,9 +141,7 @@ const DatePicker = ({
         15
       );
     } else if (
-      event.target.parentElement.classList.contains(
-        `${prefix}-datePicker-month-prev`
-      )
+      event.currentTarget.classList.contains(`${prefix}-datePicker-month-prev`)
     ) {
       tempDate = new Date(
         currDateObj.month === 0 ? currDateObj.year - 1 : currDateObj.year,
@@ -153,6 +159,8 @@ const DatePicker = ({
   };
 
   const yearChangeHandler = event => {
+    event.stopPropagation();
+    event.preventDefault();
     let tempDate;
     if (event.target.classList.contains(`${prefix}-datePicker-up`)) {
       tempDate = new Date(currDateObj.year + 1, currDateObj.month, 15);
@@ -184,6 +192,11 @@ const DatePicker = ({
   };
 
   const classnames = `${prefix}-datePicker ${className}`.trim();
+  
+  const datePanelClickHandler = event => {
+    event.stopPropagation();
+    event.preventDefault();
+  };
 
   return (
     <section className={classnames} data-component="datepicker" {...restProps}>
@@ -199,6 +212,7 @@ const DatePicker = ({
           isValidYear={isValidYear}
           format={format}
           onEnterPressInputDate={onEnterPressInputDate}
+          datepickerInput={datepickerInput}
         />
         {showDateContainer ? (
           <div
@@ -206,7 +220,8 @@ const DatePicker = ({
               direction === 'top'
                 ? `${prefix}-datePicker-panel-above`
                 : `${prefix}-datePicker-panel-below`
-            }`}
+              }`}
+            onClick={datePanelClickHandler}
             ref={datePickerContainer}
           >
             <YearMonthPanel
@@ -282,7 +297,7 @@ DatePicker.defaultProps = {
   ],
   open: 'down',
   format: 'MM/DD/YYYY',
-  onDateSelect: () => {},
+  onDateSelect: () => { },
   className: ''
 };
 export default DatePicker;
