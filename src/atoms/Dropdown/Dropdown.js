@@ -80,6 +80,7 @@ const Dropdown = ({
   }, [isOpen]);
 
   const handleClick = e => {
+    e.preventDefault();
     if (dropDown.current) {
       if (e && dropDown.current.contains(e.target)) {
         return;
