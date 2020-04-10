@@ -122,7 +122,6 @@ const TreeNode = ({
         <TextInput
           type="text"
           autoFocus
-          className="tree-textbox"
           value={node[configuration.name]}
           onBlur={closeTextOnBlur}
           onKeyDown={updateTreenodeNameOnEnter}
@@ -477,7 +476,7 @@ const TreeNode = ({
     return (
       <span
         onClick={selectNode}
-        className={`hcl-text-node${
+        className={`tree-text-node${
           selectedNode === node ? ' highlight' : ''
         } ${highlightRow}${cutNode === node ? ' hcl-cut-node' : ''}`}
         title={node[configuration.name]}
@@ -528,38 +527,42 @@ const TreeNode = ({
               node[configuration.displayChildren] ? expandedIcon : collapsedIcon
             }`}
           />
-<div className="treenode-action-wrapper treenode-action-wrapper-width">
-<div className="treenode-content-wrapper">
-          {node[configuration.expandIcon] &&
-          node[configuration.displayChildren] ? (
-            <i className={node[configuration.expandIcon]} />
-          ) : iconClassObj.expandIcon && node[configuration.displayChildren] ? (
-            <i className={iconClassObj.expandIcon} />
-          ) : null}
+          <div className="treenode-action-wrapper">
+            <div
+              className={`treenode-content-wrapper${
+                getOverFlowItems ? ' with-overflow' : ''
+              }`}
+            >
+              {node[configuration.expandIcon] &&
+              node[configuration.displayChildren] ? (
+                <i className={node[configuration.expandIcon]} />
+              ) : iconClassObj.expandIcon &&
+                node[configuration.displayChildren] ? (
+                <i className={iconClassObj.expandIcon} />
+              ) : null}
 
-          {node[configuration.collapsedIcon] &&
-          !node[configuration.displayChildren] ? (
-            <i className={node[configuration.collapsedIcon]} />
-          ) : iconClassObj.collapsedIcon &&
-            !node[configuration.displayChildren] ? (
-            <i className={iconClassObj.collapsedIcon} />
-          ) : null}
+              {node[configuration.collapsedIcon] &&
+              !node[configuration.displayChildren] ? (
+                <i className={node[configuration.collapsedIcon]} />
+              ) : iconClassObj.collapsedIcon &&
+                !node[configuration.displayChildren] ? (
+                <i className={iconClassObj.collapsedIcon} />
+              ) : null}
 
-          
-            {node[configuration.icon] ? (
-              <i className={node[configuration.icon]}> </i>
-            ) : iconClassObj.icon ? (
-              <i className={iconClassObj.icon} />
-            ) : null}
+              {node[configuration.icon] ? (
+                <i className={node[configuration.icon]}> </i>
+              ) : iconClassObj.icon ? (
+                <i className={iconClassObj.icon} />
+              ) : null}
 
-            {showText ? getTextNode() : getTitleNode()}
+              {showText ? getTextNode() : getTitleNode()}
+            </div>
+            {getOverFlowItems ? getOverflowNode() : null}
           </div>
-          {getOverFlowItems ? getOverflowNode() : null}
-        </div>
         </div>
       ) : (
         <div
-          className={`tree-node no-toggle-element ${addBorder}`}
+          className={`tree-node no-children-exist ${addBorder}`}
           tabIndex="0"
           level={level}
           onKeyDown={keyDown}
@@ -568,34 +571,38 @@ const TreeNode = ({
           onDragOver={onDragOverOutsideNode}
           onDragEnd={clearAll}
         >
-        <div className="treenode-action-wrapper">
-        <div className="treenode-content-wrapper">
-          {node[configuration.expandIcon] &&
-          node[configuration.displayChildren] ? (
-            <i className={node[configuration.expandIcon]} />
-          ) : iconClassObj.expandIcon && node[configuration.displayChildren] ? (
-            <i className={iconClassObj.expandIcon} />
-          ) : null}
+          <div className="treenode-action-wrapper">
+            <div
+              className={`treenode-content-wrapper${
+                getOverFlowItems ? ' with-overflow' : ''
+              }`}
+            >
+              {node[configuration.expandIcon] &&
+              node[configuration.displayChildren] ? (
+                <i className={node[configuration.expandIcon]} />
+              ) : iconClassObj.expandIcon &&
+                node[configuration.displayChildren] ? (
+                <i className={iconClassObj.expandIcon} />
+              ) : null}
 
-          {node[configuration.collapsedIcon] &&
-          !node[configuration.displayChildren] ? (
-            <i className={node[configuration.collapsedIcon]} />
-          ) : iconClassObj.collapsedIcon &&
-            !node[configuration.displayChildren] ? (
-            <i className={iconClassObj.collapsedIcon} />
-          ) : null}
+              {node[configuration.collapsedIcon] &&
+              !node[configuration.displayChildren] ? (
+                <i className={node[configuration.collapsedIcon]} />
+              ) : iconClassObj.collapsedIcon &&
+                !node[configuration.displayChildren] ? (
+                <i className={iconClassObj.collapsedIcon} />
+              ) : null}
 
-          
-            {node[configuration.icon] ? (
-              <i className={node[configuration.icon]}> </i>
-            ) : iconClassObj.icon ? (
-              <i className={iconClassObj.icon} />
-            ) : null}
+              {node[configuration.icon] ? (
+                <i className={node[configuration.icon]}> </i>
+              ) : iconClassObj.icon ? (
+                <i className={iconClassObj.icon} />
+              ) : null}
 
-            {showText ? getTextNode() : getTitleNode()}
+              {showText ? getTextNode() : getTitleNode()}
+            </div>
+            {getOverFlowItems ? getOverflowNode() : null}
           </div>
-          {getOverFlowItems ? getOverflowNode() : null}
-        </div>
         </div>
       )}
 
