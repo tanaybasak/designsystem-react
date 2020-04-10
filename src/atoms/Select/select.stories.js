@@ -3,9 +3,7 @@ import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { text, boolean } from '@storybook/addon-knobs';
 //@update-path-build-start
-import Select from './Select';
-import SelectItemGroup from './SelectItemGroup';
-import SelectItem from './SelectItem';
+import { Select, SelectItem, SelectItemGroup } from './index';
 //@update-path-build-end
 
 const props = {
@@ -39,9 +37,7 @@ storiesOf('Select', module).add(
   {
     info: {
       text: `Description About Select Component\n
-      import { Select } from '@patron/patron-react/select'\n
-      import { SelectItem } from '@patron/patron-react/selectItem'\n
-      import { SelectItemGroup } from '@patron/patron-react/selectItemGroup'
+      import { Select, SelectItem, SelectItemGroup } from '@patron/patron-react/select'
       `
     }
   }

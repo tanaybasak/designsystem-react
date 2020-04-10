@@ -36,7 +36,7 @@ Select.propTypes = {
   onChange: PropTypes.func,
 
   /** Unique identifier for select component.  */
-  id: PropTypes.string.isRequired,
+  id: PropTypes.string,
 
   /** Class/clasess will be applied on the parent div of Select */
   className: PropTypes.string

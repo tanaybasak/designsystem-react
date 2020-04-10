@@ -31,7 +31,7 @@ SelectItemGroup.propTypes = {
 
 SelectItemGroup.defaultProps = {
   disabled: false,
-  label: 'Provide label'
+  label: ''
 };
 
 export default SelectItemGroup;
