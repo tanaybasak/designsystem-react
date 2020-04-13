@@ -8,7 +8,6 @@ import {
 } from '../../util/treeUtil';
 import Overflowmenu from '../../molecules/Overflowmenu';
 import TextInput from '../TextInput';
-let count = 0;
 const TreeNode = ({
   node,
   level,
@@ -208,6 +207,7 @@ const TreeNode = ({
 
   const dragStart = ev => {
     ev.dataTransfer.setData('text', level);
+    //ev.dataTransfer.dropEffect = "move"
     onDragNode(node, level);
   };
 
@@ -271,12 +271,19 @@ const TreeNode = ({
 
   const onDragOverNode = ev => {
     ev.stopPropagation();
+    //ev.dataTransfer.dropEffect = "none"
+
+    
+    //console.log(ev.currentTarget.style.cursor = "no-drop")
+
     if (level.startsWith(draggedNodeLevel)) {
+        //ev.currentTarget.style.cursor = "no-drop"
       return;
     }
     if (
       draggedNodeLevel.substr(0, draggedNodeLevel.lastIndexOf('-')) === level
     ) {
+        //ev.currentTarget.style.cursor = "no-drop"
       return;
     }
 
@@ -292,15 +299,21 @@ const TreeNode = ({
     }
 
     if (isDroppable) {
+        //ev.currentTarget.style.cursor = "pointer"
       ev.preventDefault();
       dropRegionPlaceholder(ev, position);
     } else {
+        //ev.currentTarget.style.cursor = "no-drop"
       clearAll();
     }
   };
 
   const onDragOverOutsideNode = ev => {
+
+    //ev.dataTransfer.dropEffect = "none"
+
     if (level.startsWith(draggedNodeLevel)) {
+        //ev.currentTarget.style.cursor = "no-drop"
       return;
     }
 
@@ -311,6 +324,7 @@ const TreeNode = ({
     }
 
     if (isDroppable) {
+        //ev.currentTarget.style.cursor = "pointer";
       ev.preventDefault();
       dropRegionPlaceholder(ev, position);
     }

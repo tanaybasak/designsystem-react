@@ -26,7 +26,8 @@ export const findLastVisibleChildren = nodeElement => {
 };
 
 export const updateTreeNode = (tree, node, level) => {
-  let treeData = JSON.parse(JSON.stringify(tree));
+  //let treeData = JSON.parse(JSON.stringify(tree));
+  let treeData = [...tree]
   let levelArray = level.split('-');
 
   if (levelArray.length === 1) {
@@ -47,7 +48,8 @@ export const updateTreeNode = (tree, node, level) => {
 };
 
 export const moveTreeNodeToChildren = (tree, dragLevel, dropLevel) => {
-  let treeData = JSON.parse(JSON.stringify(tree));
+  //let treeData = JSON.parse(JSON.stringify(tree));
+  let treeData = [...tree]
   let draggedNodeArray = dragLevel.split('-');
   let dropNodeArry = dropLevel.split('-');
 
@@ -96,7 +98,8 @@ const compareVersion = (v1, v2) => {
 };
 export const moveTreeNode = (tree, dragLevel, dropLevel) => {
   const levelCompare = compareVersion(dragLevel, dropLevel);
-  let treeData = JSON.parse(JSON.stringify(tree));
+  //let treeData = JSON.parse(JSON.stringify(tree));
+  let treeData = [...tree]
   let draggedNodeArray = dragLevel.split('-');
   let dropNodeArry = dropLevel.split('-');
   let dropModel = treeData;
@@ -176,7 +179,8 @@ export const updateNodePosition = (
   dropLevel,
   dropModelIndex
 ) => {
-  let treeData = JSON.parse(JSON.stringify(tree));
+  //let treeData = JSON.parse(JSON.stringify(tree));
+  let treeData = [...tree]
   let draggedNodeArray = dragLevel.split('-');
   let dropNodeArry = [];
   let dropModel = treeData;
