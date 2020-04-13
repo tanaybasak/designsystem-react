@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import ActionBar from '../../atoms/ActionBar';
 import prefix from '../../settings';
@@ -10,9 +10,11 @@ const Modal = ({
   children,
   onClose,
   actions,
+  keyboard,
   className,
   ...restProps
 }) => {
+  const modal = useRef(null);
   const classNames = [
     `${prefix}-modal-container ${prefix}-modal-container-lg ${className}`
   ];
@@ -21,8 +23,51 @@ const Modal = ({
     classNames.push(`${prefix}-modal-container-danger`);
   }
 
+  useEffect(() => {
+    modal.current.focus();
+  });
+
+  const focusTrap = e => {
+    const focusableEls = modal.current.querySelectorAll(
+      'a[href]:not([disabled]), button:not([disabled]), textarea:not([disabled]), input[type="text"]:not([disabled]), input[type="radio"]:not([disabled]), input[type="checkbox"]:not([disabled]), select:not([disabled]), [tabindex]'
+    );
+    const firstFocusableEl = focusableEls[0];
+    const lastFocusableEl = focusableEls[focusableEls.length - 1];
+   
+    if (event.keyCode == 27) {
+      if(keyboard){
+        event.preventDefault();
+        onClose();
+      }
+    }
+
+    const isTabPressed = e.key === 'Tab' || e.keyCode === '9';
+
+    if (!isTabPressed) {
+      return;
+    }
+
+    if (e.shiftKey) {
+      if (document.activeElement === firstFocusableEl) {
+        lastFocusableEl.focus();
+        e.preventDefault();
+      }
+    } else {
+      if (document.activeElement === lastFocusableEl) {
+        firstFocusableEl.focus();
+        e.preventDefault();
+      }
+    }
+  };
+
   return (
-    <section className={`${prefix}-modal`} {...restProps}>
+    <section
+      className={`${prefix}-modal`}
+      {...restProps}
+      tabIndex="0"
+      ref={modal}
+      onKeyDown={focusTrap}
+    >
       <div className={classNames.join(' ')}>
         <button
           type="button"
@@ -30,7 +75,7 @@ const Modal = ({
           onClick={onClose}
         />
         {(heading !== '' || label !== '') && (
-          <header className={`${prefix}-modal-header`}>
+          <header className={`${prefix}-modal-header ${prefix}-modal-header-lg`}>
             {label !== '' ? (
               <small className={`${prefix}-modal-label`}>{label}</small>
             ) : null}
@@ -38,10 +83,10 @@ const Modal = ({
           </header>
         )}
         {children && (
-          <div className={`${prefix}-modal-content`}>{children}</div>
+          <div className={`${prefix}-modal-content ${prefix}-modal-content-lg`}>{children}</div>
         )}
         {actions.length > 0 && (
-          <footer className={`${prefix}-modal-footer`}>
+          <footer className={`${prefix}-modal-footer ${prefix}-modal-footer-lg`}>
             <ActionBar actions={actions} />
           </footer>
         )}
@@ -71,7 +116,9 @@ Danger: : To create danger modal. */
   children: PropTypes.node.isRequired,
 
   /** Class/clasess will be applied on the parent div of Modal */
-  className: PropTypes.string
+  className: PropTypes.string,
+
+  keyboard: PropTypes.bool
 };
 
 Modal.defaultProps = {
@@ -80,7 +127,8 @@ Modal.defaultProps = {
   heading: '',
   onClose: () => {},
   actions: [],
-  className: ''
+  className: '',
+  keyboard : true
 };
 
 export default Modal;

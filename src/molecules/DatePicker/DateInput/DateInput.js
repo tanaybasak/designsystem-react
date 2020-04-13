@@ -9,7 +9,8 @@ const DateInput = ({
   isDateSelectedValid,
   isValidYear,
   onEnterPressInputDate,
-  format
+  format,
+  datepickerInput
 }) => {
   return (
     <>
@@ -23,16 +24,23 @@ const DateInput = ({
         placeholder={format}
         autoComplete="off"
         value={dateSelected ? dateSelected : ''}
-        onClick={toggleDateContainer}
+        onClick={()=>{
+          event.stopPropagation();
+          toggleDateContainer();
+        }}
         onChange={onChangeInputDate}
         onKeyPress={onEnterPressInputDate}
+        ref={datepickerInput}
       />
       <svg
         className={`${prefix}-datePicker-container-svg`}
         width="14"
         height="16"
         viewBox="0 0 14 16"
-        onClick={toggleDateContainer}
+        onClick={()=>{
+          event.stopPropagation();
+          toggleDateContainer();
+        }}
       >
         <path
           d=" M0 5h14v1H0V5zm3-5h1v4H3V0zm7 0h1v4h-1V0zM0 2.5A1.5 1.5 0 0 1 1.5 1h11A1.5 1.5 0 0 1 14
@@ -52,6 +60,7 @@ DateInput.propTypes = {
   isDateSelectedValid: PropTypes.bool.isRequired,
   isValidYear: PropTypes.bool.isRequired,
   format: PropTypes.string.isRequired,
-  onEnterPressInputDate: PropTypes.func.isRequired
+  onEnterPressInputDate: PropTypes.func.isRequired,
+  datepickerInput: PropTypes.object.isRequired
 };
 export default DateInput;

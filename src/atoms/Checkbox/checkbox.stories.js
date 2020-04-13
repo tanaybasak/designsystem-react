@@ -31,7 +31,7 @@ storiesOf('Checkbox', module)
     () => (
       <Checkbox
         id="checkbox1"
-        checked="true"
+        checked
         value={text('Value', 'standard')}
         label={text('Label', 'Checkbox Label')}
         disabled={boolean('Disabled', false)}
