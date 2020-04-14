@@ -1,9 +1,8 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 
 const Select = ({ label, onChange, id, className, ...restProps }) => {
-  const select = useRef(null);
   const onSelect = event => {
     const itemSelected = {
       value: event.currentTarget.options[event.currentTarget.selectedIndex].value,
