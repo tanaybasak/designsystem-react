@@ -1,12 +1,11 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 
-const Select = ({ items, label, onChange, id, className, ...restProps }) => {
-  const select = useRef(null);
+const Select = ({ label, onChange, id, className, ...restProps }) => {
   const onSelect = event => {
     const itemSelected = {
-      id: event.currentTarget.options[event.currentTarget.selectedIndex].id,
+      value: event.currentTarget.options[event.currentTarget.selectedIndex].value,
       text:
         event.currentTarget.options[event.currentTarget.selectedIndex].innerText
     };
@@ -18,28 +17,17 @@ const Select = ({ items, label, onChange, id, className, ...restProps }) => {
   return (
     <>
       {label ? <label htmlFor={id}>{label}</label> : null}
-      <select id={id} className={classnames} onChange={onSelect} {...restProps}>
-        {items.map(item => {
-          return (
-            <option
-              className={`${prefix}-select-option`}
-              value={item.text}
-              key={item.id}
-              id={item.id}
-            >
-              {item.text}
-            </option>
-          );
-        })}
-      </select>
+      <select
+        id={id}
+        className={classnames}
+        onChange={onSelect}
+        {...restProps}
+      />
     </>
   );
 };
 
 Select.propTypes = {
-  /** Items which should be available options. */
-  items: PropTypes.array.isRequired,
-
   /** Label for select, if this props is not passed no label will appear. */
   label: PropTypes.string,
 
@@ -47,7 +35,7 @@ Select.propTypes = {
   onChange: PropTypes.func,
 
   /** Unique identifier for select component.  */
-  id: PropTypes.string.isRequired,
+  id: PropTypes.string,
 
   /** Class/clasess will be applied on the parent div of Select */
   className: PropTypes.string
@@ -57,7 +45,7 @@ Select.defaultProps = {
   label: null,
   onChange: () => {},
   className: '',
-  id:null
+  id: null
 };
 
 export default Select;

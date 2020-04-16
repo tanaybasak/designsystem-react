@@ -1,39 +1,44 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { text, object } from '@storybook/addon-knobs';
+import { text, boolean } from '@storybook/addon-knobs';
 //@update-path-build-start
-import Select from './Select';
+import { Select, SelectItem, SelectItemGroup } from './index';
 //@update-path-build-end
 
-const items = [
-  {
-    id: 'option-1',
-    text: 'Option 1'
-  },
-  {
-    id: 'option-2',
-    text: 'Option 2'
-  },
-  {
-    id: 'option-3',
-    text: 'Option 3'
-  }
-];
+const props = {
+  select: () => ({
+    label: text('Label', 'Select Option'),
+    onChange: action('onChange')
+  }),
+  group: () => ({
+    disabled: boolean('Disabled (disabled in <SelectItemGroup>)', false)
+  })
+};
+
 storiesOf('Select', module).add(
   'default',
   () => (
-    <Select
-      items={object('Items', items)}
-      id="selct-id"
-      label={text('Label', 'Select Option')}
-      onChange={action('onChange')}
-    />
+    <Select {...props.select()} id="selct-id">
+      <SelectItem
+        value="placeholder-item"
+        text="Choose an option"
+      />
+      <SelectItemGroup label="Category 1" {...props.group()}>
+        <SelectItem value="option-1" text="Option 1" />
+        <SelectItem value="option-2" text="Option 2" />
+      </SelectItemGroup>
+      <SelectItemGroup label="Category 2" {...props.group()}>
+        <SelectItem value="option-3" text="Option 3" />
+        <SelectItem value="option-4" text="Option 4" />
+      </SelectItemGroup>
+    </Select>
   ),
   {
     info: {
       text: `Description About Select Component\n
-      import { Select } from '@patron/patron-react/select'`
+      import { Select, SelectItem, SelectItemGroup } from '@patron/patron-react/select'
+      `
     }
   }
 );
