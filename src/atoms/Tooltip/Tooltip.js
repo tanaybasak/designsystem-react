@@ -17,6 +17,8 @@ const Tooltip = ({ type, content, direction, children }) => {
   let mouseOut = false;
   let contentIn = false;
 
+  let focusTootlip = false;
+
   const TooltipContainer = (content, type, tooltipContainerRef) => {
     return ReactDOM.createPortal(
       <div
@@ -77,7 +79,7 @@ const Tooltip = ({ type, content, direction, children }) => {
       showTooltipMain(parentPosition, positionDirection, 10, type);
       if (type === 'interactive') {
         addListener(
-          'id-' + tooltipId,
+          'tooltipId-' + tooltipId,
           'click',
           e => {
             handleClick(e);
@@ -86,7 +88,7 @@ const Tooltip = ({ type, content, direction, children }) => {
         );
 
         addListener(
-          'id-' + tooltipId,
+          'tooltipId-' + tooltipId,
           'keypress',
           e => {
             var key = e.which || e.keyCode;
@@ -99,7 +101,7 @@ const Tooltip = ({ type, content, direction, children }) => {
       }
 
       addListener(
-        'id-' + tooltipId,
+        'tooltipId-' + tooltipId,
         'scroll',
         e => {
           handleScroll(e);
@@ -111,10 +113,10 @@ const Tooltip = ({ type, content, direction, children }) => {
         tooltipContainerRef.current.classList.add('show');
     } else {
       if (type === 'interactive') {
-        removeListeners('id-' + tooltipId, 'click');
-        removeListeners('id-' + tooltipId, 'keypress');
+        removeListeners('tooltipId-' + tooltipId, 'click');
+        removeListeners('tooltipId-' + tooltipId, 'keypress');
       }
-      removeListeners('id-' + tooltipId, 'scroll');
+      removeListeners('tooltipId-' + tooltipId, 'scroll');
       if (tooltipContainerRef.current)
         tooltipContainerRef.current.classList.remove('show');
     }
@@ -634,22 +636,33 @@ const Tooltip = ({ type, content, direction, children }) => {
   };
 
   const openTooltip = () => {
+    if (!focusTootlip) {
+      mouseOut = false;
+      toggleTooltip(true);
+    }
+  };
+
+  const openTooltipFocus = () => {
+    focusTootlip = true;
     mouseOut = false;
     toggleTooltip(true);
   };
 
   const closeTooltip = () => {
-    mouseOut = true;
-    setTimeout(() => {
-      if (mouseOut) {
-        mouseOut = false;
-        contentIn = false;
-        toggleTooltip(false);
-      }
-    }, 200);
+    if (!focusTootlip) {
+      mouseOut = true;
+      setTimeout(() => {
+        if (mouseOut) {
+          mouseOut = false;
+          contentIn = false;
+          toggleTooltip(false);
+        }
+      }, 200);
+    }
   };
 
   const closeTooltipOnBlur = () => {
+    focusTootlip = false;
     if (!contentIn) {
       toggleTooltip(false);
     }
@@ -673,8 +686,8 @@ const Tooltip = ({ type, content, direction, children }) => {
         onMouseEnter: type !== 'interactive' ? openTooltip : null,
         onClick: type === 'interactive' ? openInteractiveTooltip : null,
         onMouseLeave: type !== 'interactive' ? closeTooltip : null,
-        onFocus: type !== 'interactive' ? openTooltip : null,
-        onBlur: type !== 'interactive' ? closeTooltip : null,
+        onFocus: type !== 'interactive' ? openTooltipFocus : null,
+        onBlur: type !== 'interactive' ? closeTooltipOnBlur : null,
         onKeyPress: type === 'interactive' ? showTooltipOnEnter : null,
         ref: parentRef,
         className:
@@ -692,7 +705,7 @@ const Tooltip = ({ type, content, direction, children }) => {
       onClick={type === 'interactive' ? openInteractiveTooltip : null}
       onMouseEnter={type !== 'interactive' ? openTooltip : null}
       onMouseLeave={type !== 'interactive' ? closeTooltip : null}
-      onFocus={type !== 'interactive' ? openTooltip : null}
+      onFocus={type !== 'interactive' ? openTooltipFocus : null}
       onBlur={type !== 'interactive' ? closeTooltipOnBlur : null}
       onKeyPress={type === 'interactive' ? showTooltipOnEnter : null}
       className={
