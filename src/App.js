@@ -35,7 +35,7 @@ import DatePicker from './molecules/DatePicker';
 import { weekDays, months } from './content';
 import Pagination from './atoms/Pagination';
 import NumberInput from './molecules/NumberInput';
-import Select from './atoms/Select/Select';
+import { Select, SelectItem, SelectItemGroup } from './atoms/Select';
 import TimePicker from './molecules/TimePicker/TimePicker';
 import Tooltip from './atoms/Tooltip/Tooltip';
 import LoadingState from './atoms/LoadingState/LoadingState';
@@ -1438,13 +1438,25 @@ class App extends Component {
                 {/* Select */}
                 <div className="hcl-col-12 mt-5 mb-5">
                   <Select
-                    items={this.items}
                     label="Select Label"
                     onChange={selected => {
                       console.log('selected item', selected);
                     }}
                     id="hcl-select-id-1"
-                  />
+                  >
+                    <SelectItem
+                      text="Choose an option"
+                      value="placeholder-item"
+                    />
+                    <SelectItemGroup label="Category 1">
+                      <SelectItem text="Option 1" value="option-1" />
+                      <SelectItem text="Option 2" value="option-2" />
+                    </SelectItemGroup>
+                    <SelectItemGroup label="Category 2">
+                      <SelectItem text="Option 3" value="option-3" />
+                      <SelectItem text="Option 4" value="option-4" />
+                    </SelectItemGroup>
+                  </Select>
                 </div>
                 {/* TimePicker */}
                 <div className="hcl-col-12 mt-5 mb-5">

@@ -1,3 +1,5 @@
-import Select from "./Select";
+import Select from './Select';
+import SelectItem from './SelectItem';
+import SelectItemGroup from './SelectItemGroup';
 
-export default Select;
+export { Select, SelectItem, SelectItemGroup };
