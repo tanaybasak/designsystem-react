@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import React, { Component } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Header from './molecules/Header';
 import Icon from "./atoms/Icon";
 import Search from './atoms/Search';
@@ -11,7 +11,7 @@ import logo from './assets/images/logo.png';
 
 class Home extends Component {
   state = {
-    sidebarExpanded: false
+    sidebarExpanded: true
   };
   navigationData = [
     {
@@ -110,6 +110,7 @@ class Home extends Component {
         <Sidebar
           title="Patronus"
           items={this.navigationData}
+          expanded={this.state.sidebarExpanded}
           icon={
             <Icon
               className={`hcl-sidebar-title-icon`}
@@ -127,6 +128,11 @@ class Home extends Component {
               />
             </Icon>
           }
+          sidebarLinkTemplate={link => {
+            return (
+              <Link to={link.href}>{link.title}</Link>
+            );
+          }}
           onClick={event => {
             const { type, expanded, title } = event.currentTarget.dataset;
             console.log(type, expanded, title);

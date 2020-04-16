@@ -1,10 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 
 const TextArea = ({ className, ...restProps }) => {
     const [value, setValue] = useState(restProps.value || "");
     const classnames = `${prefix}-textarea ${className}`.trim();
+
+    useEffect(() => {
+        if (restProps.value || restProps.value === '') {
+            setValue(restProps.value);
+        }
+    }, [restProps.value]);
 
     return (
         <textarea

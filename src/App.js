@@ -532,7 +532,7 @@ class App extends Component {
                 <div className="hcl-col-12" id="buttons-section">
                   <Button
                     title="Default"
-                    className="mr-2"
+                    className = "mr-2"
                     onClick={() => {
                       console.log('Button Clicked');
                     }}
@@ -540,7 +540,8 @@ class App extends Component {
                     Default
                   </Button>
                   <Button
-                    className="mr-2 hcl-primary"
+                    type="primary"
+                    className = "mr-2"
                     onClick={() => {
                       console.log('Button Clicked');
                     }}
@@ -548,7 +549,8 @@ class App extends Component {
                     Primary
                   </Button>
                   <Button
-                    className="mr-2 hcl-secondary"
+                    type="secondary"
+                    className = "mr-2"
                     onClick={() => {
                       console.log('Button Clicked');
                     }}
@@ -556,16 +558,19 @@ class App extends Component {
                     Secondary
                   </Button>
                   <Button
-                    className="mr-2 hcl-primary hcl-ghost"
+                    type="ghost"
+                    className = "mr-2"
                     onClick={() => {
                       console.log('Button Clicked');
                     }}
                   >
-                    Primary ghost
+                    Ghost
                   </Button>
 
                   <Button
-                    className="mr-2 hcl-primary hcl-sm"
+                    type="primary"
+                    className = "mr-2"
+                    small
                     onClick={() => {
                       console.log('Button Clicked');
                     }}
@@ -573,7 +578,8 @@ class App extends Component {
                     Primary small
                   </Button>
                   <Button
-                    className="mr-2 hcl-primary hcl-danger"
+                    type="primary-danger"
+                    className = "mr-2"
                     onClick={() => {
                       console.log('Button Clicked');
                     }}
@@ -581,7 +587,8 @@ class App extends Component {
                     Danger outline
                   </Button>
                   <Button
-                    className="mr-2 hcl-primary hcl-danger hcl-secondary"
+                    type="secondary-danger"
+                    className="mr-2"
                     onClick={() => {
                       console.log('Button Clicked');
                     }}
@@ -748,8 +755,8 @@ class App extends Component {
                   <Toggle
                     id="simple-toggle"
                     className="ml-3"
-                    onChange={() => {
-                      console.log('Toggled');
+                    onChange={(checked, e) => {
+                      console.log('Toggled',checked, e);
                     }}
                   />
                   <Toggle
@@ -772,8 +779,8 @@ class App extends Component {
                     small
                     id="simple-small-toggle"
                     className="ml-3"
-                    onChange={() => {
-                      console.log('Toggled');
+                    onChange={(checked, e) => {
+                      console.log('Toggled',checked, e);
                     }}
                   />
                   <Toggle
@@ -811,70 +818,23 @@ class App extends Component {
                 <div className="hcl-col-12 mt-5" id="overflow-menu-section">
                   <h5>Overflow Menu</h5>
                   <div className="hcl-font-center">
-                    <Overflowmenu
-                      listItems={overflowlist}
-                      ellipsisType="horizontal"
-                    />
+                  <Overflowmenu
+                    listItems={overflowlist}
+                    ellipsisType="horizontal"
+                    onClick={e => {
+                      console.log(e);
+                    }}
+                  />
                   </div>
                   <div className="hcl-font-center">
-                    <Overflowmenu listItems={overflowlist} direction="right" />
+                  <Overflowmenu
+                    listItems={overflowlist}
+                    direction="right"
+                    onClick={e => {
+                      console.log(e);
+                    }}
+                  />
                   </div>
-                </div>
-                {/* Tag */}
-                <div className="hcl-col-12 mt-5" id="tags-section">
-                  <Tag className="ml-3" title="Primary Tag">
-                    Primary Tag
-                  </Tag>
-                  <Tag className="ml-3" title="Primary Disabled" disabled>
-                    Primary Disabled
-                  </Tag>
-                  <Tag
-                    className="ml-3"
-                    title="Primary Closable"
-                    closable
-                    onClose={() => {
-                      alert('Closing Tag');
-                    }}
-                  >
-                    Primary Closable
-                  </Tag>
-                  <Tag
-                    className="ml-3"
-                    title="Primary Tag With Thumbnail"
-                    thumbnailSrc="https://image.flaticon.com/icons/png/512/862/862358.png"
-                  >
-                    Primary Tag With Thumbnail
-                  </Tag>
-                  <Tag className="ml-3" title="Secondary Tag" type="secondary">
-                    Secondary Tag
-                  </Tag>
-                  <Tag
-                    className="ml-3"
-                    title="Secondary Disabled Tag"
-                    disabled
-                    type="secondary"
-                  >
-                    Secondary Disabled Tag
-                  </Tag>
-                  <Tag
-                    className="ml-3"
-                    title="Secondary Closable"
-                    type="secondary"
-                    closable
-                    onClose={() => {
-                      alert('Closing Tag');
-                    }}
-                  >
-                    Secondary Closable
-                  </Tag>
-                  <Tag
-                    className="ml-3"
-                    title="Secondary Tag With Thumbnail"
-                    type="secondary"
-                    thumbnailSrc="https://image.flaticon.com/icons/png/512/862/862358.png"
-                  >
-                    Secondary Tag With Thumbnail
-                  </Tag>
                 </div>
                 {/* List */}
                 <div className="hcl-col-12 mt-5" id="list-section">
@@ -1227,7 +1187,7 @@ class App extends Component {
                   id="search-section"
                 >
                   <h5 className="p-2">Normal Search</h5>
-                  <Search onBlur={event => console.log(event)} />
+                  <Search defaultValue="search..." onBlur={event => console.log(event)} />
                 </section>
 
                 <section className="hcl-col-12 mt-5 colBorder p-5">
@@ -1237,7 +1197,7 @@ class App extends Component {
 
                 <section className="hcl-col-12 mt-5 colBorder p-5">
                   <h5 className="p-2">Small Search</h5>
-                  <Search size="small" />
+                  <Search defaultValue="small search..." size="small" />
                 </section>
 
                 <section className="hcl-col-12 mt-5 colBorder p-5">
@@ -1297,7 +1257,7 @@ class App extends Component {
                       type="top"
                       items={this.items}
                       label="Top DropDown"
-                      selectedIndex={1}
+                      selectedItem="option-3"
                       onChange={selected => {
                         console.log('selected item', selected);
                       }}

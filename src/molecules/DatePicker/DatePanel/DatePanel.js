@@ -78,7 +78,7 @@ const DatePanel = ({ currDateObj, dateSelected, selectDate, format }) => {
           type !== 'current' ? ' ' + DOMstrings.fade : ''
         }${
           year === todayDate.getFullYear() &&
-          currDateObj.month === todayDate.getMonth() &&
+          Number(month) === todayDate.getMonth()+1 &&
           Number(day) === todayDate.getDate()
             ? ' ' + DOMstrings.todayHighlight
             : ''
