@@ -35,7 +35,7 @@ import DatePicker from './molecules/DatePicker';
 import { weekDays, months } from './content';
 import Pagination from './atoms/Pagination';
 import NumberInput from './molecules/NumberInput';
-import Select from './atoms/Select/Select';
+import { Select, SelectItem, SelectItemGroup } from './atoms/Select';
 import TimePicker from './molecules/TimePicker/TimePicker';
 import Tooltip from './atoms/Tooltip/Tooltip';
 import LoadingState from './atoms/LoadingState/LoadingState';
@@ -532,7 +532,7 @@ class App extends Component {
                 <div className="hcl-col-12" id="buttons-section">
                   <Button
                     title="Default"
-                    className="mr-2"
+                    className = "mr-2"
                     onClick={() => {
                       console.log('Button Clicked');
                     }}
@@ -540,7 +540,8 @@ class App extends Component {
                     Default
                   </Button>
                   <Button
-                    className="mr-2 hcl-primary"
+                    type="primary"
+                    className = "mr-2"
                     onClick={() => {
                       console.log('Button Clicked');
                     }}
@@ -548,7 +549,8 @@ class App extends Component {
                     Primary
                   </Button>
                   <Button
-                    className="mr-2 hcl-secondary"
+                    type="secondary"
+                    className = "mr-2"
                     onClick={() => {
                       console.log('Button Clicked');
                     }}
@@ -556,16 +558,19 @@ class App extends Component {
                     Secondary
                   </Button>
                   <Button
-                    className="mr-2 hcl-primary hcl-ghost"
+                    type="ghost"
+                    className = "mr-2"
                     onClick={() => {
                       console.log('Button Clicked');
                     }}
                   >
-                    Primary ghost
+                    Ghost
                   </Button>
 
                   <Button
-                    className="mr-2 hcl-primary hcl-sm"
+                    type="primary"
+                    className = "mr-2"
+                    small
                     onClick={() => {
                       console.log('Button Clicked');
                     }}
@@ -573,7 +578,8 @@ class App extends Component {
                     Primary small
                   </Button>
                   <Button
-                    className="mr-2 hcl-primary hcl-danger"
+                    type="primary-danger"
+                    className = "mr-2"
                     onClick={() => {
                       console.log('Button Clicked');
                     }}
@@ -581,7 +587,8 @@ class App extends Component {
                     Danger outline
                   </Button>
                   <Button
-                    className="mr-2 hcl-primary hcl-danger hcl-secondary"
+                    type="secondary-danger"
+                    className="mr-2"
                     onClick={() => {
                       console.log('Button Clicked');
                     }}
@@ -748,8 +755,8 @@ class App extends Component {
                   <Toggle
                     id="simple-toggle"
                     className="ml-3"
-                    onChange={() => {
-                      console.log('Toggled');
+                    onChange={(checked, e) => {
+                      console.log('Toggled',checked, e);
                     }}
                   />
                   <Toggle
@@ -772,8 +779,8 @@ class App extends Component {
                     small
                     id="simple-small-toggle"
                     className="ml-3"
-                    onChange={() => {
-                      console.log('Toggled');
+                    onChange={(checked, e) => {
+                      console.log('Toggled',checked, e);
                     }}
                   />
                   <Toggle
@@ -1005,9 +1012,148 @@ class App extends Component {
                       console.log(`Label => ${e.label} Index => ${e.tabIndex}`);
                     }}
                   >
-                    <Tab label="Tab List 1">Content 1</Tab>
-                    <Tab label="Tab List 2" isDisabled>
+                    <Tab label="Tab List 1">Content 1
+                    <Accordion>
+                  <AccordionItem
+                    title="What is Lorem Ipsum ?"
+                    expanded
+                    onChange={event => {
+                      console.log(`Accordian toggled ${event.currentTarget}`);
+                    }}
+                  >
+                    <Paragraph>
+                      Lorem Ipsum is simply dummy text of the printing and
+                      typesetting industry. Lorem Ipsum has been the
+                      industry&apos;s standard dummy text ever since the 1500s,
+                      when an unknown printer took a galley of type and
+                      scrambled it to make a type specimen book. It has survived
+                      not only five centuries, but also the leap into electronic
+                      typesetting, remaining essentially unchanged. It was
+                      popularised in the 1960s with the release of Letraset
+                      sheets containing Lorem Ipsum passages, and more recently
+                      with desktop publishing software like Aldus PageMaker
+                      including versions of Lorem Ipsum.
+                    </Paragraph>
+                  </AccordionItem>
+                  <AccordionItem
+                    title="Why do we use it ?"
+                    onChange={event => {
+                      console.log(`Accordian toggled ${event.currentTarget}`);
+                    }}
+                  >
+                    It is a long
+                    <Paragraph>
+                      distracted by the readable content of a page when looking
+                      at its layout. The point of using Lorem Ipsum is that it
+                      has a more-or-less normal distribution of letters, as
+                      opposed to using &apos;Content here, content here&apos;,
+                      making it look like readable English. Many desktop
+                      publishing packages and web page editors now use Lorem
+                      Ipsum as their default model text, and a search for
+                      &apos;lorem ipsum&apos; will uncover many web sites still
+                      in their infancy. Various versions have evolved over the
+                      years, sometimes by accident, sometimes on purpose
+                      (injected humour and the like).
+                    </Paragraph>{' '}
+                    established fact that a reader will be
+                  </AccordionItem>
+                  <AccordionItem
+                    title="Wher we can it ?"
+                    onChange={event => {
+                      console.log(`Accordian toggled ${event.currentTarget}`);
+                    }}
+                  >
+                    There are ma
+                    <Paragraph>
+                      available, but the majority have suffered alteration in
+                      some form, by injected humour, or randomised words which
+                      don&apos;t look even slightly believable. If you are going
+                      to use a passage of Lorem Ipsum, you need to be sure there
+                      isn&apos;t anything embarrassing hidden in the middle of
+                      text. All the Lorem Ipsum generators on the Internet tend
+                      to repeat predefined chunks as necessary, making this the
+                      first true generator on the Internet. It uses a dictionary
+                      of over 200 Latin words, combined with a handful of model
+                      sentence structures, to generate Lorem Ipsum which looks
+                      reasonable. The generated Lorem Ipsum is therefore always
+                      free from repetition, injected humour, or
+                      non-characteristic words etc.
+                    </Paragraph>
+                    ny variations of passages of Lorem Ipsum
+                  </AccordionItem>
+                </Accordion>
+                    </Tab>
+                    <Tab label="Tab List 2">
                       Content 2
+                      <Accordion>
+                  <AccordionItem
+                    title="What is Lorem Ipsum ?"
+                    expanded
+                    onChange={event => {
+                      console.log(`Accordian toggled ${event.currentTarget}`);
+                    }}
+                  >
+                    <Paragraph>
+                      Lorem Ipsum is simply dummy text of the printing and
+                      typesetting industry. Lorem Ipsum has been the
+                      industry&apos;s standard dummy text ever since the 1500s,
+                      when an unknown printer took a galley of type and
+                      scrambled it to make a type specimen book. It has survived
+                      not only five centuries, but also the leap into electronic
+                      typesetting, remaining essentially unchanged. It was
+                      popularised in the 1960s with the release of Letraset
+                      sheets containing Lorem Ipsum passages, and more recently
+                      with desktop publishing software like Aldus PageMaker
+                      including versions of Lorem Ipsum.
+                    </Paragraph>
+                  </AccordionItem>
+                  <AccordionItem
+                    title="Why do we use it ?"
+                    onChange={event => {
+                      console.log(`Accordian toggled ${event.currentTarget}`);
+                    }}
+                  >
+                    It is a long
+                    <Paragraph>
+                      distracted by the readable content of a page when looking
+                      at its layout. The point of using Lorem Ipsum is that it
+                      has a more-or-less normal distribution of letters, as
+                      opposed to using &apos;Content here, content here&apos;,
+                      making it look like readable English. Many desktop
+                      publishing packages and web page editors now use Lorem
+                      Ipsum as their default model text, and a search for
+                      &apos;lorem ipsum&apos; will uncover many web sites still
+                      in their infancy. Various versions have evolved over the
+                      years, sometimes by accident, sometimes on purpose
+                      (injected humour and the like).
+                    </Paragraph>{' '}
+                    established fact that a reader will be
+                  </AccordionItem>
+                  <AccordionItem
+                    title="Wher we can it ?"
+                    onChange={event => {
+                      console.log(`Accordian toggled ${event.currentTarget}`);
+                    }}
+                  >
+                    There are ma
+                    <Paragraph>
+                      available, but the majority have suffered alteration in
+                      some form, by injected humour, or randomised words which
+                      don&apos;t look even slightly believable. If you are going
+                      to use a passage of Lorem Ipsum, you need to be sure there
+                      isn&apos;t anything embarrassing hidden in the middle of
+                      text. All the Lorem Ipsum generators on the Internet tend
+                      to repeat predefined chunks as necessary, making this the
+                      first true generator on the Internet. It uses a dictionary
+                      of over 200 Latin words, combined with a handful of model
+                      sentence structures, to generate Lorem Ipsum which looks
+                      reasonable. The generated Lorem Ipsum is therefore always
+                      free from repetition, injected humour, or
+                      non-characteristic words etc.
+                    </Paragraph>
+                    ny variations of passages of Lorem Ipsum
+                  </AccordionItem>
+                </Accordion>
                     </Tab>
                     <Tab label="Tab List 3">Content 3</Tab>
                   </Tabs>
@@ -1180,7 +1326,7 @@ class App extends Component {
                   id="search-section"
                 >
                   <h5 className="p-2">Normal Search</h5>
-                  <Search onBlur={event => console.log(event)} />
+                  <Search defaultValue="search..." onBlur={event => console.log(event)} />
                 </section>
 
                 <section className="hcl-col-12 mt-5 colBorder p-5">
@@ -1190,7 +1336,7 @@ class App extends Component {
 
                 <section className="hcl-col-12 mt-5 colBorder p-5">
                   <h5 className="p-2">Small Search</h5>
-                  <Search size="small" />
+                  <Search defaultValue="small search..." size="small" />
                 </section>
 
                 <section className="hcl-col-12 mt-5 colBorder p-5">
@@ -1250,7 +1396,7 @@ class App extends Component {
                       type="top"
                       items={this.items}
                       label="Top DropDown"
-                      selectedIndex={1}
+                      selectedItem="option-3"
                       onChange={selected => {
                         console.log('selected item', selected);
                       }}
@@ -1431,13 +1577,25 @@ class App extends Component {
                 {/* Select */}
                 <div className="hcl-col-12 mt-5 mb-5">
                   <Select
-                    items={this.items}
                     label="Select Label"
                     onChange={selected => {
                       console.log('selected item', selected);
                     }}
                     id="hcl-select-id-1"
-                  />
+                  >
+                    <SelectItem
+                      text="Choose an option"
+                      value="placeholder-item"
+                    />
+                    <SelectItemGroup label="Category 1">
+                      <SelectItem text="Option 1" value="option-1" />
+                      <SelectItem text="Option 2" value="option-2" />
+                    </SelectItemGroup>
+                    <SelectItemGroup label="Category 2">
+                      <SelectItem text="Option 3" value="option-3" />
+                      <SelectItem text="Option 4" value="option-4" />
+                    </SelectItemGroup>
+                  </Select>
                 </div>
                 {/* TimePicker */}
                 <div className="hcl-col-12 mt-5 mb-5">
