@@ -17,6 +17,7 @@ const Tile = ({ className, children, type, id, href, ...restProps }) => {
   };
 
   const keyDownOnTile = e => {
+    e.preventDefault();
     const input = expandableElement.current
       ? expandableElement.current.querySelector('input[type="checkbox"]')
       : selectableElement.current.querySelector('input[type="checkbox"]');
@@ -62,13 +63,11 @@ const Tile = ({ className, children, type, id, href, ...restProps }) => {
     classNames = `${prefix}-tile-selectable ${className}`.trim();
     return (
       <div
-        className={classNames}
         onKeyDown={keyDownOnTile}
         ref={selectableElement}
-        tabIndex="0"
         {...restProps}
       >
-        <label htmlFor={`select-tile-${selectTileCount}`}>
+        <label tabIndex="0" className={classNames} htmlFor={`select-tile-${selectTileCount}`}>
           <input
             id={`select-tile-${selectTileCount}`}
             className={`${prefix}-tile-input`}
