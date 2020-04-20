@@ -19,11 +19,11 @@ function Tab({ label, onClick, active, isDisabled }) {
 Tab.propTypes = {
     /** Text used to Differentiate Each Tab. */
     label: PropTypes.string,
-    /** Disable Tab */
+    /** Disables Tab if 'true'*/
     isDisabled: PropTypes.bool,
-    /** true – ‘active’ class is added the switch element 
+    /** true – ‘active’ class is added to the current element 
 
-false – ‘active’ is removed from the switch element.  */
+false – ‘active’ is removed from the current element.  */
     active: PropTypes.bool,
     /** Accepts Click handler as prop/Argument. */
     onClick: PropTypes.func,
