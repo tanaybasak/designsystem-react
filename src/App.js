@@ -234,6 +234,17 @@ class App extends Component {
     ]
   };
 
+  itemList = [
+    {
+      id: 'option-1',
+      text: 'Option 1'
+    },
+    {
+      id: 'option-2',
+      text: 'Option 2'
+    }
+  ]
+
   items = [
     {
       id: 'option-1',
@@ -1407,6 +1418,18 @@ class App extends Component {
                       type="bottom"
                       items={this.items}
                       label="Bottom DropDown"
+                      onChange={selected => {
+                        console.log('selected item', selected);
+                      }}
+                    />
+                  </div>
+                  <div className="hcl-col-6">
+                    <Dropdown
+                      dropdownType="multiSelect"
+                      type="bottom"
+                      items={this.items}
+                      checkedInput={this.itemList}
+                      label="MultiSelect DropDown"
                       onChange={selected => {
                         console.log('selected item', selected);
                       }}

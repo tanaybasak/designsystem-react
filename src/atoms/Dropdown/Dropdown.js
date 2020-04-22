@@ -8,18 +8,19 @@ const Dropdown = ({
   type,
   items,
   label,
+  dropdownType,
   onChange,
+  checkedInput,
   config,
   selectedItem,
   className,
   ...restProps
 }) => {
-
   const defaultConfig = { text: 'text', id: 'id' };
   const configuration = { ...defaultConfig, ...config };
-
   const [isOpen, setIsOpen] = useState(false);
-  const selectedOption = items.find(item => {
+  const [lists, setLists] = useState(checkedInput);
+  const selectedOption = items.find((item) => {
     if (item[configuration.id] === selectedItem) {
       return item;
     }
@@ -28,7 +29,7 @@ const Dropdown = ({
   const [selected, setSelected] = useState(
     selectedItem ? selectedOption : null
   );
-  
+
   const dropDown = useRef(null);
   const [dropDownId] = useState(dropdownIdRef++);
 
@@ -52,7 +53,7 @@ const Dropdown = ({
       }
     }
   });
-  const isInViewport = elem => {
+  const isInViewport = (elem) => {
     const bounding = elem.getBoundingClientRect();
     return (
       bounding.top >= 0 &&
@@ -68,10 +69,23 @@ const Dropdown = ({
     if (!isOpen) {
       removeListeners('dropdown-' + dropDownId, 'click');
     } else {
+      if (dropdownType === 'multiSelect') {
+        setMultiSelectVal(lists.length);
+        const inputs = dropDown.current
+          .getElementsByTagName('ul')[0]
+          .querySelectorAll('input');
+        inputs.forEach((o) =>
+          lists.find((o2) => {
+            if (o.id === o2.id) {
+              o.checked = true;
+            }
+          })
+        );
+      }
       addListener(
         'dropdown-' + dropDownId,
         'click',
-        e => {
+        (e) => {
           handleClick(e);
         },
         true
@@ -79,7 +93,7 @@ const Dropdown = ({
     }
   }, [isOpen]);
 
-  const handleClick = e => {
+  const handleClick = (e) => {
     e.preventDefault();
     if (dropDown.current) {
       if (e && dropDown.current.contains(e.target)) {
@@ -89,20 +103,51 @@ const Dropdown = ({
     }
   };
 
-  const focusNode = node => {
+  const focusNode = (node) => {
     if (node.classList.contains(`${prefix}-dropdown-item`)) {
       node.children[0].focus();
     }
   };
 
-  const onSelect = item => {
+  const setMultiSelectVal = (value) => {
+    if (value > 0) {
+      dropDown.current.querySelector(`.${prefix}-tag-text`).innerText = value;
+      dropDown.current
+        .querySelector(`.${prefix}-tag-primary`)
+        .classList.remove(`hidden`);
+    } else {
+      dropDown.current
+        .querySelector(`.${prefix}-tag-primary`)
+        .classList.add(`hidden`);
+    }
+  };
+
+  const removeArray = (item) => {
+    const index = lists.findIndex((x) => x.id === item.id);
+    if (index > -1) {
+      lists.splice(index, 1);
+      setLists(lists);
+    }
+  };
+
+  const onSelect = (item) => {
+    setSelected(item);
+    onChange(item);
     setIsOpen(false);
+  };
+
+  const onMultiSelect = (event, item) => {
     setSelected(item);
     onChange(item);
     dropDown.current.children[0].focus();
+    const input = event.currentTarget.querySelector('input');
+    input.checked = !input.checked;
+    const list = dropDown.current.querySelectorAll('input:checked');
+    input.checked ? setLists([...lists, item]) : removeArray(item);
+    setMultiSelectVal(list.length);
   };
 
-  const keyDownOnDropdown = e => {
+  const keyDownOnDropdown = (e) => {
     const key = e.which || e.keyCode;
     const listItem = e.target.parentElement;
     switch (key) {
@@ -134,14 +179,14 @@ const Dropdown = ({
     }
   };
 
-  const toggleDropdown = e => {
+  const toggleDropdown = (e) => {
     if (e.key === 'Enter') {
       e.preventDefault();
       dropDown.current.children[0].click();
     }
   };
 
-  const keydownButton = e => {
+  const keydownButton = (e) => {
     const key = e.which || e.keyCode;
     const listItems = e.target.nextElementSibling;
     if (key === 40) {
@@ -154,27 +199,68 @@ const Dropdown = ({
   };
 
   const classnames = `${prefix}-dropdown ${
-    type=== 'bottom'
-      ? `${prefix}-dropdown-bottom`
-      : `${prefix}-dropdown-top`
+    type === 'bottom' ? `${prefix}-dropdown-bottom` : `${prefix}-dropdown-top`
   } ${className}
   ${isOpen ? `${prefix}-dropdown-open` : ''}`.trim();
 
   return (
     <section className={classnames} ref={dropDown} {...restProps}>
-      <button
-        className={`${prefix}-btn ${prefix}-dropdown-toggle`}
-        data-toggle="dropdown"
-        onKeyPress={toggleDropdown}
-        onKeyDown={keydownButton}
-        onClick={event => {
-          event.stopPropagation();
-          setIsOpen(!isOpen);
-          event.target.focus();
-        }}
-      >
-        {selected ? selected[configuration.text] : label}
-      </button>
+      {dropdownType === 'multiSelect' ? (
+        <div
+          className={`${prefix}-btn ${prefix}-dropdown-toggle`}
+          data-toggle="dropdown"
+          tabIndex="0"
+          onKeyPress={toggleDropdown}
+          onKeyDown={keydownButton}
+          onClick={(event) => {
+            event.stopPropagation();
+            setIsOpen(!isOpen);
+            event.target.focus();
+          }}
+        >
+          <button
+            className={`${prefix}-tag ${prefix}-tag-primary hidden`}
+            title="primary-closeable"
+          >
+            <span className="hcl-tag-text" />
+            <span
+              className="hcl-close"
+              onClick={(event) => {
+                event.stopPropagation();
+                const dropdownMenu = dropDown.current.getElementsByTagName(
+                  'ul'
+                )[0];
+                if(dropdownMenu){
+                  const items = dropdownMenu.querySelectorAll('input:checked');
+                  items.forEach((item) => {
+                    item.checked = false;
+                  });
+                }
+                setLists([]);
+                setMultiSelectVal(0);
+              }}
+              aria-hidden="true"
+              tabIndex="0"
+            />
+          </button>
+          {label}
+        </div>
+      ) : (
+        <button
+          className={`${prefix}-btn ${prefix}-dropdown-toggle`}
+          data-toggle="dropdown"
+          onKeyPress={toggleDropdown}
+          onKeyDown={keydownButton}
+          onClick={(event) => {
+            event.stopPropagation();
+            setIsOpen(!isOpen);
+            event.target.focus();
+          }}
+        >
+          {selected ? selected[configuration.text] : label}
+        </button>
+      )}
+
       {isOpen && Array.isArray(items) && items.length > 0 ? (
         <ul
           onKeyDown={keyDownOnDropdown}
@@ -183,8 +269,30 @@ const Dropdown = ({
           aria-labelledby="dropdownMenuButton"
           style={{ display: 'none' }}
         >
-          {items.map(item => {
-            return (
+          {items.map((item) => {
+            return dropdownType === 'multiSelect' ? (
+              <li
+                className={`${prefix}-dropdown-item ${prefix}-dropdown-option`}
+                key={item[configuration.id]}
+                onClick={(e) => {
+                  onMultiSelect(e, item);
+                }}
+              >
+                <div className="hcl-checkbox-item">
+                  <input
+                    className="hcl-checkbox"
+                    id={item[configuration.id]}
+                    type="checkbox"
+                  />
+                  <label
+                    className="hcl-checkbox-label"
+                    htmlFor={item[configuration.id]}
+                  >
+                    {item[configuration.text]}
+                  </label>
+                </div>
+              </li>
+            ) : (
               <li
                 className={`${prefix}-dropdown-item`}
                 key={item[configuration.id]}
@@ -215,6 +323,9 @@ Dropdown.propTypes = {
    {id: 'option-2', text: 'Option 2'}]*/
   items: PropTypes.array.isRequired,
 
+  /** Type of dropdown eg : multiselect, singleselect */
+  dropdownType: PropTypes.string,
+
   /** Label for Dropdown */
   label: PropTypes.string,
 
@@ -227,8 +338,11 @@ Dropdown.propTypes = {
   /** Class/clasess will be applied on the parent div of Dropdown */
   className: PropTypes.string,
 
+  /** default checked options for multiselect dropdown */
+  checkedInput: PropTypes.array,
+
   /** Configuration Object for updating propery name in items data */
-  config: PropTypes.any
+  config: PropTypes.any,
 };
 
 Dropdown.defaultProps = {
@@ -237,7 +351,9 @@ Dropdown.defaultProps = {
   onChange: () => {},
   selectedItem: '',
   className: '',
-  config: {}
+  checkedInput: [],
+  dropdownType: '',
+  config: {},
 };
 
 export default Dropdown;
