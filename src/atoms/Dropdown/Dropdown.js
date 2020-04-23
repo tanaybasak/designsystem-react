@@ -222,9 +222,9 @@ const Dropdown = ({
             className={`${prefix}-tag ${prefix}-tag-primary hidden`}
             title="primary-closeable"
           >
-            <span className="hcl-tag-text" />
+            <span className={`${prefix}-tag-text`} />
             <span
-              className="hcl-close"
+              className={`${prefix}-close`}
               onClick={(event) => {
                 event.stopPropagation();
                 const dropdownMenu = dropDown.current.getElementsByTagName(
@@ -278,14 +278,14 @@ const Dropdown = ({
                   onMultiSelect(e, item);
                 }}
               >
-                <div className="hcl-checkbox-item">
+                <div className={`${prefix}-checkbox-item`} >
                   <input
-                    className="hcl-checkbox"
+                    className={`${prefix}-checkbox`}
                     id={item[configuration.id]}
                     type="checkbox"
                   />
                   <label
-                    className="hcl-checkbox-label"
+                    className={`${prefix}-checkbox-label`}
                     htmlFor={item[configuration.id]}
                   >
                     {item[configuration.text]}
