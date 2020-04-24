@@ -11,32 +11,17 @@ import logo from './assets/images/logo.png';
 
 class Home extends Component {
   state = {
-    sidebarExpanded: true
+    sidebarExpanded: false
   };
   navigationData = [
     {
       title: 'Home',
       href: '/',
-      icon: (
-        <Icon type={'svg'} alt={'alt'} title={'title'}>
-          <rect
-            rx={3}
-            ry={3}
-            width={'100%'}
-            height={'100%'}
-            style={{
-              fill: '#fff',
-              stroke: 'black',
-              strokeWidth: 2,
-              opacity: 0.5
-            }}
-          />
-        </Icon>
-      )
+      icon: <i className="pi pi-home" />
     },
     {
       title: 'Components',
-      icon: <Icon type={'img'} alt={'alt'} title={'title'} src={logo} />,
+      icon: <i className="pi pi-new-relases" />,
       childrens: [
         {
           href: '/Tag',
@@ -86,14 +71,8 @@ class Home extends Component {
           title="Patronus"
           items={this.navigationData}
           expanded={this.state.sidebarExpanded}
-          icon={
-            <Icon
-              type="img"
-              alt="alt"
-              title="title"
-              src="https://randomuser.me/api/portraits/women/44.jpg"
-            />
-          }
+          activeLink="/Tag"
+          icon={<i className="pi pi-users_active" />}
           sidebarLinkTemplate={link => {
             return <Link to={link.href}>{link.title}</Link>;
           }}

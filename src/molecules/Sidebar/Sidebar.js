@@ -17,6 +17,7 @@ const Sidebar = ({
   toggleSidebar,
   sidebarLinkTemplate,
   expanded,
+  activeLink,
   ...restProps
 }) => {
   const [expnd, setExpanded] = useState(expanded);
@@ -47,6 +48,31 @@ const Sidebar = ({
   }, [expanded]);
 
   useEffect(() => {
+    if (activeLink) {
+      let activeItem = sidebarList.find(link => {
+        return link.href === activeLink;
+      });
+      if (activeItem) {
+        setActiveItem(activeItem);
+      } else {
+        sidebarList.map((link, index) => {
+          if (link.childrens && link.childrens.length > 0) {
+            activeItem = link.childrens.find(sublink => {
+              return sublink.href === activeLink;
+            });
+            if (activeItem) {
+              let tempItem = [...sidebarList];
+              tempItem[index].expanded = !tempItem[index].expanded;
+              updateSidebarList([...tempItem]);
+              setActiveItem(activeItem);
+            }
+          }
+        });
+      }
+    }
+  }, [activeLink]);
+
+  useEffect(() => {
     if (window.innerWidth < 992 && expnd) {
       addListener(
         'sidebarId-' + sidebarId,
@@ -70,6 +96,9 @@ const Sidebar = ({
   const itemClicked = (item, event) => {
     setActiveItem(item);
     onClick(item, event);
+    if (window.innerWidth < 992) {
+      setExpanded(false);
+    }
   };
 
   const getSidebarLink = (item, categoryIndex) => {
@@ -322,6 +351,8 @@ const Sidebar = ({
 Sidebar.propTypes = {
   /** Name of the custom class to apply to the Sidebar */
   className: PropTypes.string,
+  /** used to set default active link */
+  activeLink: PropTypes.string,
   /** used to pass custom template in sidebar link */
   sidebarLinkTemplate: PropTypes.any,
   /** boolean value  */
@@ -349,6 +380,7 @@ Sidebar.propTypes = {
 Sidebar.defaultProps = {
   className: '',
   sidebarLinkTemplate: null,
+  activeLink: null,
   expanded: false,
   title: '',
   items: [],
