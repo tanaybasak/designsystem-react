@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 import { addListener, removeListeners } from '../../util/eventManager';
+import Checkbox from '../Checkbox';
 
 let dropdownIdRef = 0;
 const Dropdown = ({
@@ -19,7 +20,7 @@ const Dropdown = ({
   const defaultConfig = { text: 'text', id: 'id' };
   const configuration = { ...defaultConfig, ...config };
   const [isOpen, setIsOpen] = useState(false);
-  const [lists, setLists] = useState(checkedInput);
+  const [selectedObj, setSelectedObj] = useState({});
   const selectedOption = items.find((item) => {
     if (item[configuration.id] === selectedItem) {
       return item;
@@ -35,6 +36,12 @@ const Dropdown = ({
 
   useEffect(() => {
     setSelected(selectedItem ? selectedOption : null);
+    if (dropdownType === 'multiSelect') {
+      checkedInput.forEach((defaultInput) => {
+        selectedObj[defaultInput[configuration.id]] = true;
+      });
+      setMultiSelectVal(Object.keys(selectedObj).length);
+    }
   }, [selectedItem]);
 
   useEffect(() => {
@@ -53,6 +60,7 @@ const Dropdown = ({
       }
     }
   });
+
   const isInViewport = (elem) => {
     const bounding = elem.getBoundingClientRect();
     return (
@@ -68,20 +76,8 @@ const Dropdown = ({
   useEffect(() => {
     if (!isOpen) {
       removeListeners('dropdown-' + dropDownId, 'click');
+      dropDown.current.children[0].focus();
     } else {
-      if (dropdownType === 'multiSelect') {
-        setMultiSelectVal(lists.length);
-        const inputs = dropDown.current
-          .getElementsByTagName('ul')[0]
-          .querySelectorAll('input');
-        inputs.forEach((o) =>
-          lists.find((o2) => {
-            if (o.id === o2.id) {
-              o.checked = true;
-            }
-          })
-        );
-      }
       addListener(
         'dropdown-' + dropDownId,
         'click',
@@ -122,29 +118,52 @@ const Dropdown = ({
     }
   };
 
-  const removeArray = (item) => {
-    const index = lists.findIndex((x) => x.id === item.id);
-    if (index > -1) {
-      lists.splice(index, 1);
-      setLists(lists);
-    }
-  };
-
   const onSelect = (item) => {
     setSelected(item);
     onChange(item);
     setIsOpen(false);
+    dropDown.current.children[0].focus();
   };
 
   const onMultiSelect = (event, item) => {
-    setSelected(item);
-    onChange(item);
-    dropDown.current.children[0].focus();
+    event.stopPropagation();
+    event.preventDefault();
     const input = event.currentTarget.querySelector('input');
     input.checked = !input.checked;
-    const list = dropDown.current.querySelectorAll('input:checked');
-    input.checked ? setLists([...lists, item]) : removeArray(item);
-    setMultiSelectVal(list.length);
+    if (input.checked) {
+      onChange(item);
+      selectedObj[item[defaultConfig.id]] = true;
+    } else {
+      delete selectedObj[item[defaultConfig.id]];
+    }
+    setMultiSelectVal(Object.keys(selectedObj).length);
+  };
+
+  const keyDownOnMultiSelect = (e) => {
+    const key = e.which || e.keyCode;
+    const listItem = e.target;
+    switch (key) {
+      case 40: {
+        if (!listItem.nextElementSibling) {
+          listItem.parentElement.firstElementChild.focus();
+        } else {
+          listItem.nextElementSibling.focus();
+        }
+        e.preventDefault();
+        break;
+      }
+      case 38: {
+        if (!listItem.previousElementSibling) {
+          listItem.parentElement.lastElementChild.focus();
+        } else {
+          listItem.previousElementSibling.focus();
+        }
+        e.preventDefault();
+        break;
+      }
+      default:
+        break;
+    }
   };
 
   const keyDownOnDropdown = (e) => {
@@ -169,11 +188,6 @@ const Dropdown = ({
         e.preventDefault();
         break;
       }
-      case 13: {
-        e.preventDefault();
-        e.target.click();
-        break;
-      }
       default:
         break;
     }
@@ -191,10 +205,10 @@ const Dropdown = ({
     const listItems = e.target.nextElementSibling;
     if (key === 40) {
       e.preventDefault();
-      focusNode(listItems.firstElementChild);
+      dropdownType === 'multiSelect' ? listItems.firstElementChild.focus() : focusNode(listItems.firstElementChild);
     } else if (key === 38) {
       e.preventDefault();
-      focusNode(listItems.lastElementChild);
+      dropdownType === 'multiSelect' ? listItems.lastElementChild.focus() : focusNode(listItems.lastElementChild);
     }
   };
 
@@ -221,22 +235,14 @@ const Dropdown = ({
           <button
             className={`${prefix}-tag ${prefix}-tag-primary hidden`}
             title="primary-closeable"
+            tabIndex="-1"
           >
             <span className={`${prefix}-tag-text`} />
             <span
               className={`${prefix}-close`}
               onClick={(event) => {
                 event.stopPropagation();
-                const dropdownMenu = dropDown.current.getElementsByTagName(
-                  'ul'
-                )[0];
-                if(dropdownMenu){
-                  const items = dropdownMenu.querySelectorAll('input:checked');
-                  items.forEach((item) => {
-                    item.checked = false;
-                  });
-                }
-                setLists([]);
+                setSelectedObj({});
                 setMultiSelectVal(0);
               }}
               aria-hidden="true"
@@ -261,9 +267,9 @@ const Dropdown = ({
         </button>
       )}
 
-      {isOpen && Array.isArray(items) && items.length > 0 ? (
+      {isOpen && Array.isArray(items) && items.length ? (
         <ul
-          onKeyDown={keyDownOnDropdown}
+          onKeyDown={dropdownType === 'multiSelect' ?  keyDownOnMultiSelect : keyDownOnDropdown}
           role="dropdownMenu"
           className={`${prefix}-dropdown-container`}
           aria-labelledby="dropdownMenuButton"
@@ -277,20 +283,14 @@ const Dropdown = ({
                 onClick={(e) => {
                   onMultiSelect(e, item);
                 }}
+                tabIndex="0"
               >
-                <div className={`${prefix}-checkbox-item`} >
-                  <input
-                    className={`${prefix}-checkbox`}
-                    id={item[configuration.id]}
-                    type="checkbox"
-                  />
-                  <label
-                    className={`${prefix}-checkbox-label`}
-                    htmlFor={item[configuration.id]}
-                  >
-                    {item[configuration.text]}
-                  </label>
-                </div>
+                <Checkbox
+                  id={item[configuration.id]}
+                  label={item[configuration.text]}
+                  checked={selectedObj[item[defaultConfig.id]]}
+                  tabIndex="-1"
+                />
               </li>
             ) : (
               <li
@@ -299,9 +299,9 @@ const Dropdown = ({
                 onClick={onSelect.bind(this, item)}
               >
                 <a
-                  tabIndex="0"
                   href="#"
                   className={`${prefix}-dropdown-wrapper`}
+                  tabIndex="-1"
                 >
                   {item[configuration.text]}
                 </a>

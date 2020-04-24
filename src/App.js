@@ -237,11 +237,9 @@ class App extends Component {
   itemList = [
     {
       id: 'option-1',
-      text: 'Option 1'
     },
     {
       id: 'option-2',
-      text: 'Option 2'
     }
   ]
 
