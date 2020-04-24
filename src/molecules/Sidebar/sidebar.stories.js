@@ -10,7 +10,7 @@ import Icon from '../../atoms/Icon';
 
 const items = [
   {
-    childrens: [
+    children: [
       {
         href: '#',
         title: 'Child Item 1'
@@ -32,7 +32,7 @@ const items = [
     title: 'Category One'
   },
   {
-    childrens: [
+    children: [
       {
         href: '#',
         title: 'Child Item 1'

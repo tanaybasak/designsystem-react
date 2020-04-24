@@ -56,8 +56,8 @@ const Sidebar = ({
         setActiveItem(activeItem);
       } else {
         sidebarList.map((link, index) => {
-          if (link.childrens && link.childrens.length > 0) {
-            activeItem = link.childrens.find(sublink => {
+          if (link.children && link.children.length > 0) {
+            activeItem = link.children.find(sublink => {
               return sublink.href === activeLink;
             });
             if (activeItem) {
@@ -102,11 +102,11 @@ const Sidebar = ({
   };
 
   const getSidebarLink = (item, categoryIndex) => {
-    if ((item.childrens && item.childrens.length) || !sidebarLinkTemplate) {
+    if ((item.children && item.children.length) || !sidebarLinkTemplate) {
       return (
         <a
           onClick={
-            item.childrens && item.childrens.length
+            item.children && item.children.length
               ? expandSidebarCategory.bind(this, categoryIndex)
               : itemClicked.bind(this, item)
           }
@@ -133,7 +133,7 @@ const Sidebar = ({
             {item.title}
           </span>
 
-          {item.childrens && item.childrens.length ? (
+          {item.children && item.children.length ? (
             <Icon
               type="svg"
               viewBox="0 0 512 512"
@@ -190,7 +190,7 @@ const Sidebar = ({
     const nodeElement = e.currentTarget;
     switch (key) {
       case 13: {
-        if (item.childrens && item.childrens.length && categoryIndex) {
+        if (item.children && item.children.length && categoryIndex) {
           expandSidebarCategory(categoryIndex, e);
         } else {
           setActiveItem(item);
@@ -242,7 +242,7 @@ const Sidebar = ({
           nodeElement.parentElement.hasAttribute('aria-expanded') &&
           nodeElement.parentElement.getAttribute('aria-expanded') === 'false'
         ) {
-          if (item.childrens && item.childrens.length && categoryIndex) {
+          if (item.children && item.children.length && categoryIndex) {
             expandSidebarCategory(categoryIndex, e);
           }
         }
@@ -254,7 +254,7 @@ const Sidebar = ({
           nodeElement.parentElement.hasAttribute('aria-expanded') &&
           nodeElement.parentElement.getAttribute('aria-expanded') === 'true'
         ) {
-          if (item.childrens && item.childrens.length && categoryIndex) {
+          if (item.children && item.children.length && categoryIndex) {
             expandSidebarCategory(categoryIndex, e);
           }
         } else {
@@ -323,9 +323,9 @@ const Sidebar = ({
                 aria-expanded={`${item.expanded ? 'true' : 'false'}`}
               >
                 {getSidebarLink(item, categoryIndex)}
-                {item.childrens && item.childrens.length ? (
+                {item.children && item.children.length ? (
                   <ul className="hcl-sidebar-children">
-                    {item.childrens.map((subItem, subItemIndex) => {
+                    {item.children.map((subItem, subItemIndex) => {
                       return (
                         <li
                           className={`hcl-sidebar-category${

@@ -22,7 +22,7 @@ class Home extends Component {
     {
       title: 'Components',
       icon: <i className="pi pi-new-relases" />,
-      childrens: [
+      children: [
         {
           href: '/Tag',
           title: 'Tag'
