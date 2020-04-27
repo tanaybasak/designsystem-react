@@ -49,8 +49,12 @@ const TreeNode = ({
   // Overflow Menu Section
   const [overflowItemList, updateOverflowItemList] = useState([]);
 
-  const getOverflowMenuList = e => {
+  const tiggerOverflowMenu = e => {
     e.stopPropagation();
+    e.preventDefault();
+    getOverflowMenuList();
+  };
+  const getOverflowMenuList = () => {
     const overflowList = getOverFlowItems(node);
     if (!level.startsWith(cutNodeLevel)) {
       if (
@@ -72,6 +76,16 @@ const TreeNode = ({
       }
     }
     updateOverflowItemList(overflowList);
+  };
+
+  const overflowListOnEnter = e => {
+    e.stopPropagation();
+    var key = e.which || e.keyCode;
+    if (key === 13) {
+      getOverflowMenuList();
+      e.currentTarget.querySelector('.hcl-ellipsis').click();
+      e.preventDefault();
+    }
   };
 
   const onOverflowItemSelect = async action => {
@@ -450,6 +464,7 @@ const TreeNode = ({
   };
 
   const keyDown = e => {
+    console.log(e.currentTarget);
     // e.preventDefault()
     var key = e.which || e.keyCode;
     const nodeElement = e.currentTarget;
@@ -549,7 +564,11 @@ const TreeNode = ({
 
   const getOverflowNode = () => {
     return (
-      <div onClick={getOverflowMenuList} className="treenode-overflow">
+      <div
+        onClick={tiggerOverflowMenu}
+        onKeyDown={overflowListOnEnter}
+        className="treenode-overflow"
+      >
         <Overflowmenu
           listItems={overflowItemList}
           onClick={onOverflowItemSelect}
