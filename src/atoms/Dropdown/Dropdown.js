@@ -36,7 +36,7 @@ const Dropdown = ({
 
   useEffect(() => {
     setSelected(selectedItem ? selectedOption : null);
-    if (dropdownType === 'multiSelect') {
+    if (dropdownType === 'multi') {
       checkedInput.forEach((defaultInput) => {
         selectedObj[defaultInput[configuration.id]] = true;
       });
@@ -161,6 +161,11 @@ const Dropdown = ({
         e.preventDefault();
         break;
       }
+      case 13: {
+        e.preventDefault();
+        e.target.click();
+        break;
+      }
       default:
         break;
     }
@@ -205,10 +210,10 @@ const Dropdown = ({
     const listItems = e.target.nextElementSibling;
     if (key === 40) {
       e.preventDefault();
-      dropdownType === 'multiSelect' ? listItems.firstElementChild.focus() : focusNode(listItems.firstElementChild);
+      dropdownType === 'multi' ? listItems.firstElementChild.focus() : focusNode(listItems.firstElementChild);
     } else if (key === 38) {
       e.preventDefault();
-      dropdownType === 'multiSelect' ? listItems.lastElementChild.focus() : focusNode(listItems.lastElementChild);
+      dropdownType === 'multi' ? listItems.lastElementChild.focus() : focusNode(listItems.lastElementChild);
     }
   };
 
@@ -219,7 +224,7 @@ const Dropdown = ({
 
   return (
     <section className={classnames} ref={dropDown} {...restProps}>
-      {dropdownType === 'multiSelect' ? (
+      {dropdownType === 'multi' ? (
         <div
           className={`${prefix}-btn ${prefix}-dropdown-toggle`}
           data-toggle="dropdown"
@@ -269,14 +274,14 @@ const Dropdown = ({
 
       {isOpen && Array.isArray(items) && items.length ? (
         <ul
-          onKeyDown={dropdownType === 'multiSelect' ?  keyDownOnMultiSelect : keyDownOnDropdown}
+          onKeyDown={dropdownType === 'multi' ? keyDownOnMultiSelect : keyDownOnDropdown}
           role="dropdownMenu"
           className={`${prefix}-dropdown-container`}
           aria-labelledby="dropdownMenuButton"
           style={{ display: 'none' }}
         >
           {items.map((item) => {
-            return dropdownType === 'multiSelect' ? (
+            return dropdownType === 'multi' ? (
               <li
                 className={`${prefix}-dropdown-item ${prefix}-dropdown-option`}
                 key={item[configuration.id]}

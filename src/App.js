@@ -1423,7 +1423,7 @@ class App extends Component {
                   </div>
                   <div className="hcl-col-6">
                     <Dropdown
-                      dropdownType="multiSelect"
+                      dropdownType="multi"
                       type="bottom"
                       items={this.items}
                       checkedInput={this.itemList}
