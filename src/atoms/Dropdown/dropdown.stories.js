@@ -67,7 +67,6 @@ storiesOf('Dropdown', module)
         dropdownType="multi"
         items={object('Items', items)}
         label={text('Label', 'MultiSelect Label')}
-        selectedIndex={text('Selected Index')}
         onChange={action(event)}
       />
     ),
