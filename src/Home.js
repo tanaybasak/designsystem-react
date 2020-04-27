@@ -8,6 +8,7 @@ import Sidebar from "./molecules/Sidebar";
 import App from "./app";
 import TagExample from "./example/Tag";
 import logo from './assets/images/logo.png';
+import TreeExample from "./example/Tree";
 
 class Home extends Component {
   state = {
@@ -64,9 +65,13 @@ class Home extends Component {
       ),
       childrens: [
         {
-          href: "/Tag",
+          href: "/tag",
           title: "Tag"
-        }
+        },
+        {
+            href: "/tree",
+            title: "Tree"
+          }
       ]
     }
   ];
@@ -152,6 +157,7 @@ class Home extends Component {
           <Switch>
             <Route exact path="/" component={App} />
             <Route exact path="/tag" component={TagExample} />
+            <Route exact path="/tree" component={TreeExample} />
           </Switch>
         </div>
       </Router>

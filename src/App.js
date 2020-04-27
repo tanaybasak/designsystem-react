@@ -14,7 +14,6 @@ import { Breadcrumb, BreadcrumbItem } from './atoms/Breadcrumb';
 import Spinner from './atoms/Spinner';
 import Toggle from './atoms/Toggle';
 import Notification from './atoms/Notification';
-import Tag from './atoms/Tag';
 import List from './atoms/List';
 import listItems from './atoms/List/sample-list-data.json';
 import Toast from './atoms/Toast';
@@ -40,7 +39,6 @@ import TimePicker from './molecules/TimePicker/TimePicker';
 import Tooltip from './atoms/Tooltip/Tooltip';
 import LoadingState from './atoms/LoadingState/LoadingState';
 import Footer from './molecules/Footer';
-import TreeView from './atoms/TreeView/TreeView';
 
 class App extends Component {
   state = {
@@ -64,174 +62,7 @@ class App extends Component {
       example3: 2,
       example4: 0
     },
-    sidebarExpanded: false,
-    treeData: [
-      {
-        name: 'Section 1',
-        displayChildren: false,
-        children: [
-          {
-            name: 'Sub Section 1.1',
-            displayChildren: false,
-            children: [
-              {
-                name: 'Sub Section 1.1.1',
-                displayChildren: false,
-                children: []
-              },
-              {
-                name: 'Sub Section 1.1.2',
-                displayChildren: false,
-                children: []
-              }
-            ]
-          },
-          {
-            name: 'Sub Section 1.2',
-            displayChildren: false,
-            children: []
-          }
-        ]
-      },
-      {
-        name: 'Section 2',
-        displayChildren: false,
-        children: [
-          {
-            name: 'Sub Section 2.1',
-            displayChildren: false,
-            children: [
-              {
-                name: 'Sub Section 2.1.1',
-                displayChildren: false,
-                children: []
-              },
-              {
-                name: 'Sub Section 2.1.2',
-                displayChildren: false,
-                children: []
-              }
-            ]
-          },
-          {
-            name: 'Sub Section 2.2',
-            displayChildren: false,
-            children: [
-              {
-                name: 'Sub Section 2.2.1',
-                displayChildren: false,
-                children: [
-                  {
-                    name: 'Sub Section 2.2.1.1',
-                    displayChildren: false,
-                    children: []
-                  },
-                  {
-                    name: 'Sub Section 2.2.1.2',
-                    displayChildren: false,
-                    children: []
-                  }
-                ]
-              },
-              {
-                name: 'Sub Section 2.2.2',
-                displayChildren: false,
-                children: []
-              }
-            ]
-          }
-        ]
-      },
-      {
-        name: 'Section 3',
-        displayChildren: false,
-        children: []
-      }
-    ],
-
-    treeData1: [
-      {
-        name: 'Section 1',
-        displayChildren: false,
-        children: [
-          {
-            name: 'Sub Section 1.1',
-            displayChildren: false,
-            children: [
-              {
-                name: 'Sub Section 1.1.1',
-                displayChildren: false,
-                children: []
-              },
-              {
-                name: 'Sub Section 1.1.2',
-                displayChildren: false,
-                children: []
-              }
-            ]
-          },
-          {
-            name: 'Sub Section 1.2',
-            displayChildren: false,
-            children: []
-          }
-        ]
-      },
-      {
-        name: 'Section 2',
-        displayChildren: false,
-        children: [
-          {
-            name: 'Sub Section 2.1',
-            displayChildren: false,
-            children: [
-              {
-                name: 'Sub Section 2.1.1',
-                displayChildren: false,
-                children: []
-              },
-              {
-                name: 'Sub Section 2.1.2',
-                displayChildren: false,
-                children: []
-              }
-            ]
-          },
-          {
-            name: 'Sub Section 2.2',
-            displayChildren: false,
-            children: [
-              {
-                name: 'Sub Section 2.2.1',
-                displayChildren: false,
-                children: [
-                  {
-                    name: 'Sub Section 2.2.1.1',
-                    displayChildren: false,
-                    children: []
-                  },
-                  {
-                    name: 'Sub Section 2.2.1.2',
-                    displayChildren: false,
-                    children: []
-                  }
-                ]
-              },
-              {
-                name: 'Sub Section 2.2.2',
-                displayChildren: false,
-                children: []
-              }
-            ]
-          }
-        ]
-      },
-      {
-        name: 'Section 3',
-        displayChildren: false,
-        children: []
-      }
-    ]
+    sidebarExpanded: false
   };
 
   items = [
@@ -1815,29 +1646,6 @@ class App extends Component {
                 </div>
                 <div className="hcl-col-6 mb-2">
                   <LoadingState />
-                </div>
-              </div>
-
-              <div className="hcl-row">
-                <div className="hcl-col-6 mb-2">
-                  <TreeView
-                    treeData={this.state.treeData}
-                    type="single"
-                    onChange={selected => {
-                      console.log('selected item', selected);
-                    }}
-                    onToggle={selected => {
-                      console.log('toggled item', selected);
-                    }}
-                  />
-                </div>
-                <div className="hcl-col-6 mb-2">
-                  <TreeView
-                    treeData={this.state.treeData1}
-                    onChange={selected => {
-                      console.log('selected item', selected);
-                    }}
-                  />
                 </div>
               </div>
             </div>
