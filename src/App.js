@@ -35,7 +35,7 @@ import DatePicker from './molecules/DatePicker';
 import { weekDays, months } from './content';
 import Pagination from './atoms/Pagination';
 import NumberInput from './molecules/NumberInput';
-import Select from './atoms/Select/Select';
+import { Select, SelectItem, SelectItemGroup } from './atoms/Select';
 import TimePicker from './molecules/TimePicker/TimePicker';
 import Tooltip from './atoms/Tooltip/Tooltip';
 import LoadingState from './atoms/LoadingState/LoadingState';
@@ -45,7 +45,6 @@ import TreeView from './atoms/TreeView/TreeView';
 class App extends Component {
   state = {
     totalItems: 300,
-    cutTreeModel: null,
     stepper: 10,
     stepperLimit: 100,
     radio: {
@@ -68,89 +67,75 @@ class App extends Component {
     sidebarExpanded: false,
     treeData: [
       {
-        name: 'Main',
-        displayChildren: true,
-        type: 'folder',
-        action: [],
-        children: [
-          {
-            name: '1',
-            displayChildren: false,
-            type: 'folder',
-            children: []
-          },
-          {
-            name: '2',
-            displayChildren: false,
-            type: 'file',
-            children: []
-          },
-          {
-            name: '3',
-            displayChildren: false,
-            type: 'file',
-            children: []
-          },
-          {
-            name: '4',
-            displayChildren: false,
-            type: 'file',
-            children: []
-          }
-        ]
-      },
-      {
-        name: 'Folder 2',
+        name: 'Section 1',
         displayChildren: false,
-        type: 'folder',
         children: [
           {
-            name: 'Folder 2.1',
+            name: 'Sub Section 1.1',
             displayChildren: false,
-            type: 'folder',
             children: [
               {
-                name: 'File 2.1.1',
+                name: 'Sub Section 1.1.1',
                 displayChildren: false,
-                type: 'file',
                 children: []
               },
               {
-                name: 'Folder 2.1.2',
+                name: 'Sub Section 1.1.2',
                 displayChildren: false,
-                type: 'folder',
                 children: []
               }
             ]
           },
           {
-            name: 'Folder 2.2',
+            name: 'Sub Section 1.2',
             displayChildren: false,
-            type: 'folder',
+            children: []
+          }
+        ]
+      },
+      {
+        name: 'Section 2',
+        displayChildren: false,
+        children: [
+          {
+            name: 'Sub Section 2.1',
+            displayChildren: false,
             children: [
               {
-                name: 'Folder 2.2.1',
+                name: 'Sub Section 2.1.1',
                 displayChildren: false,
-                type: 'folder',
+                children: []
+              },
+              {
+                name: 'Sub Section 2.1.2',
+                displayChildren: false,
+                children: []
+              }
+            ]
+          },
+          {
+            name: 'Sub Section 2.2',
+            displayChildren: false,
+            children: [
+              {
+                name: 'Sub Section 2.2.1',
+                displayChildren: false,
                 children: [
                   {
-                    name: 'File 2.2.1.1',
+                    name: 'Sub Section 2.2.1.1',
                     displayChildren: false,
-                    type: 'file',
                     children: []
                   },
                   {
-                    name: 'File 2.2.1.2',
+                    name: 'Sub Section 2.2.1.2',
                     displayChildren: false,
-                    type: 'file',
                     children: []
                   }
                 ]
               },
               {
-                name: 'File 2.2.2',
+                name: 'Sub Section 2.2.2',
                 displayChildren: false,
-                type: 'file',
                 children: []
               }
             ]
@@ -158,9 +143,8 @@ class App extends Component {
         ]
       },
       {
-        name: 'File 3',
+        name: 'Section 3',
         displayChildren: false,
-        type: 'file',
         children: []
       }
     ],
@@ -352,21 +336,6 @@ class App extends Component {
     });
   };
 
-  timeout = ms => {
-    console.log('Time out invoked');
-    const p1 = new Promise(resolve => setTimeout(resolve, ms));
-    return p1
-      .then(function() {
-        return true;
-      })
-      .catch(
-        // Log the rejection reason
-        () => {
-          return false;
-        }
-      );
-  };
-
   _onCityRadioChange = e => {
     this.setState({
       radio: {
@@ -501,179 +470,6 @@ class App extends Component {
       <>
         <main className="hcl-content-main">
           <section className="hcl-container pt-5 mb-5">
-            <div className="hcl-row">
-              <div className="hcl-col-2 mb-2">
-                <TreeView
-                  dragRules={[
-                    {
-                      condition: [
-                        {
-                          operator: 'type',
-                          operand: '=',
-                          value: 'folder'
-                        }
-                      ]
-                    },
-                    {
-                      condition: [
-                        {
-                          operator: 'type',
-                          operand: '=',
-                          value: 'file'
-                        }
-                      ]
-                    }
-                  ]}
-                  isMoveNodeAllowed={(dragModel, dropModel, treeData) => {
-                    if (
-                      dragModel.type === 'file' &&
-                      dropModel.type === 'folder'
-                    ) {
-                      return true;
-                    } else if (
-                      dragModel.type === 'folder' &&
-                      dropModel.type === 'folder'
-                    ) {
-                      return true;
-                    }
-                    return false;
-                  }}
-                  isCopyAllowed={(dragModel, dropModel, treeData) => {
-                    if (
-                      dragModel.type === 'file' &&
-                      dropModel.type === 'folder'
-                    ) {
-                      return true;
-                    } else if (
-                      dragModel.type === 'folder' &&
-                      dropModel.type === 'folder'
-                    ) {
-                      return true;
-                    }
-                    return false;
-                  }}
-                  treeData={this.state.treeData}
-                  iconClass={[
-                    {
-                      condition: [
-                        {
-                          operator: 'type',
-                          operand: '=',
-                          value: 'folder'
-                        }
-                      ],
-                      values: {
-                        expandIcon: 'pi pi-export',
-                        collapsedIcon: 'pi pi-folder'
-                      }
-                    },
-                    {
-                      condition: [
-                        {
-                          operator: 'type',
-                          operand: '=',
-                          value: 'file'
-                        }
-                      ],
-                      values: {
-                        icon: 'pi pi-document'
-                      }
-                    }
-                  ]}
-                  getOverFlowItems={model => {
-                    let common = [
-                      {
-                        name: 'Update',
-                        action: 'edit'
-                      },
-                      {
-                        name: 'Cut',
-                        action: 'cut'
-                      },
-                      {
-                        name: 'Copy',
-                        action: 'copy'
-                      },
-                      {
-                        name: 'Delete',
-                        action: 'delete'
-                      }
-                    ];
-
-                    let file = [
-                      ...common,
-                      ...[
-                        {
-                          name: 'Update Property',
-                          action: 'updateProperty'
-                        }
-                      ]
-                    ];
-
-                    if (model.type === 'folder') {
-                      return common;
-                    } else {
-                      return file;
-                    }
-                  }}
-                  onOverflowAction={async (action, model) => {
-                    console.log(action);
-                    if (action === 'updateProperty') {
-                      if (model.type === 'folder') {
-                        model.type = 'file';
-                      } else {
-                        model.type = 'folder';
-                      }
-
-                      await this.timeout(3000);
-                      return model;
-                    } 
-                    // else if (action === 'cut') {
-                    //   this.setState({
-                    //     cutTreeModel: model
-                    //   });
-                    // } 
-                    else {
-                      return model;
-                    }
-                  }}
-                  onOverFlowActionChange={async (action, model) => {
-
-                    console.log(action , model)
-                    return await this.timeout(3000);
-
-                    // console.log("Timeout invoked 3000")
-                    // return false;
-                  }}
-                  onDeleteNode = {async (model) => {
-                    console.log(model)
-                    return await this.timeout(3000);
-                  }}
-                  onRenamingNode = {async (model) => {
-                    console.log(model)
-                    return await this.timeout(3000);
-                  }}
-                  type="single"
-                  onChange={selected => {
-                      console.log("Selected Node" , selected)
-                  }}
-                  onToggle={node => {
-                      console.log("On Toggle" , node);
-
-                  }}
-                />
-              </div>
-              <div className="hcl-col-6 mb-2">
-                <TreeView
-                  treeData={this.state.treeData1}
-                  type="single"
-                  onChange={selected => {
-                    console.log('selected item', selected);
-                  }}
-                />
-              </div>
-            </div>
-
             <div className="hcl-row m-0">
               {/* Input Field */}
               <div className="hcl-form-group hcl-col-12" id="form-section">
@@ -1213,9 +1009,167 @@ class App extends Component {
                     console.log(`Label => ${e.label} Index => ${e.tabIndex}`);
                   }}
                 >
-                  <Tab label="Tab List 1">Content 1</Tab>
-                  <Tab label="Tab List 2" isDisabled>
+                  <Tab label="Tab List 1">
+                    Content 1
+                    <Accordion>
+                      <AccordionItem
+                        title="What is Lorem Ipsum ?"
+                        expanded
+                        onChange={event => {
+                          console.log(
+                            `Accordian toggled ${event.currentTarget}`
+                          );
+                        }}
+                      >
+                        <Paragraph>
+                          Lorem Ipsum is simply dummy text of the printing and
+                          typesetting industry. Lorem Ipsum has been the
+                          industry&apos;s standard dummy text ever since the
+                          1500s, when an unknown printer took a galley of type
+                          and scrambled it to make a type specimen book. It has
+                          survived not only five centuries, but also the leap
+                          into electronic typesetting, remaining essentially
+                          unchanged. It was popularised in the 1960s with the
+                          release of Letraset sheets containing Lorem Ipsum
+                          passages, and more recently with desktop publishing
+                          software like Aldus PageMaker including versions of
+                          Lorem Ipsum.
+                        </Paragraph>
+                      </AccordionItem>
+                      <AccordionItem
+                        title="Why do we use it ?"
+                        onChange={event => {
+                          console.log(
+                            `Accordian toggled ${event.currentTarget}`
+                          );
+                        }}
+                      >
+                        It is a long
+                        <Paragraph>
+                          distracted by the readable content of a page when
+                          looking at its layout. The point of using Lorem Ipsum
+                          is that it has a more-or-less normal distribution of
+                          letters, as opposed to using &apos;Content here,
+                          content here&apos;, making it look like readable
+                          English. Many desktop publishing packages and web page
+                          editors now use Lorem Ipsum as their default model
+                          text, and a search for &apos;lorem ipsum&apos; will
+                          uncover many web sites still in their infancy. Various
+                          versions have evolved over the years, sometimes by
+                          accident, sometimes on purpose (injected humour and
+                          the like).
+                        </Paragraph>{' '}
+                        established fact that a reader will be
+                      </AccordionItem>
+                      <AccordionItem
+                        title="Wher we can it ?"
+                        onChange={event => {
+                          console.log(
+                            `Accordian toggled ${event.currentTarget}`
+                          );
+                        }}
+                      >
+                        There are ma
+                        <Paragraph>
+                          available, but the majority have suffered alteration
+                          in some form, by injected humour, or randomised words
+                          which don&apos;t look even slightly believable. If you
+                          are going to use a passage of Lorem Ipsum, you need to
+                          be sure there isn&apos;t anything embarrassing hidden
+                          in the middle of text. All the Lorem Ipsum generators
+                          on the Internet tend to repeat predefined chunks as
+                          necessary, making this the first true generator on the
+                          Internet. It uses a dictionary of over 200 Latin
+                          words, combined with a handful of model sentence
+                          structures, to generate Lorem Ipsum which looks
+                          reasonable. The generated Lorem Ipsum is therefore
+                          always free from repetition, injected humour, or
+                          non-characteristic words etc.
+                        </Paragraph>
+                        ny variations of passages of Lorem Ipsum
+                      </AccordionItem>
+                    </Accordion>
+                  </Tab>
+                  <Tab label="Tab List 2">
                     Content 2
+                    <Accordion>
+                      <AccordionItem
+                        title="What is Lorem Ipsum ?"
+                        expanded
+                        onChange={event => {
+                          console.log(
+                            `Accordian toggled ${event.currentTarget}`
+                          );
+                        }}
+                      >
+                        <Paragraph>
+                          Lorem Ipsum is simply dummy text of the printing and
+                          typesetting industry. Lorem Ipsum has been the
+                          industry&apos;s standard dummy text ever since the
+                          1500s, when an unknown printer took a galley of type
+                          and scrambled it to make a type specimen book. It has
+                          survived not only five centuries, but also the leap
+                          into electronic typesetting, remaining essentially
+                          unchanged. It was popularised in the 1960s with the
+                          release of Letraset sheets containing Lorem Ipsum
+                          passages, and more recently with desktop publishing
+                          software like Aldus PageMaker including versions of
+                          Lorem Ipsum.
+                        </Paragraph>
+                      </AccordionItem>
+                      <AccordionItem
+                        title="Why do we use it ?"
+                        onChange={event => {
+                          console.log(
+                            `Accordian toggled ${event.currentTarget}`
+                          );
+                        }}
+                      >
+                        It is a long
+                        <Paragraph>
+                          distracted by the readable content of a page when
+                          looking at its layout. The point of using Lorem Ipsum
+                          is that it has a more-or-less normal distribution of
+                          letters, as opposed to using &apos;Content here,
+                          content here&apos;, making it look like readable
+                          English. Many desktop publishing packages and web page
+                          editors now use Lorem Ipsum as their default model
+                          text, and a search for &apos;lorem ipsum&apos; will
+                          uncover many web sites still in their infancy. Various
+                          versions have evolved over the years, sometimes by
+                          accident, sometimes on purpose (injected humour and
+                          the like).
+                        </Paragraph>{' '}
+                        established fact that a reader will be
+                      </AccordionItem>
+                      <AccordionItem
+                        title="Wher we can it ?"
+                        onChange={event => {
+                          console.log(
+                            `Accordian toggled ${event.currentTarget}`
+                          );
+                        }}
+                      >
+                        There are ma
+                        <Paragraph>
+                          available, but the majority have suffered alteration
+                          in some form, by injected humour, or randomised words
+                          which don&apos;t look even slightly believable. If you
+                          are going to use a passage of Lorem Ipsum, you need to
+                          be sure there isn&apos;t anything embarrassing hidden
+                          in the middle of text. All the Lorem Ipsum generators
+                          on the Internet tend to repeat predefined chunks as
+                          necessary, making this the first true generator on the
+                          Internet. It uses a dictionary of over 200 Latin
+                          words, combined with a handful of model sentence
+                          structures, to generate Lorem Ipsum which looks
+                          reasonable. The generated Lorem Ipsum is therefore
+                          always free from repetition, injected humour, or
+                          non-characteristic words etc.
+                        </Paragraph>
+                        ny variations of passages of Lorem Ipsum
+                      </AccordionItem>
+                    </Accordion>
                   </Tab>
                   <Tab label="Tab List 3">Content 3</Tab>
                 </Tabs>
@@ -1359,7 +1313,7 @@ class App extends Component {
                   min={0}
                   max={100}
                   step={2}
-                  value={null}
+                  value={44}
                   title="Slider"
                   onChange={event => {
                     console.log(event.currentTarget.value);
@@ -1639,13 +1593,25 @@ class App extends Component {
               {/* Select */}
               <div className="hcl-col-12 mt-5 mb-5">
                 <Select
-                  items={this.items}
                   label="Select Label"
                   onChange={selected => {
                     console.log('selected item', selected);
                   }}
                   id="hcl-select-id-1"
-                />
+                >
+                  <SelectItem
+                    text="Choose an option"
+                    value="placeholder-item"
+                  />
+                  <SelectItemGroup label="Category 1">
+                    <SelectItem text="Option 1" value="option-1" />
+                    <SelectItem text="Option 2" value="option-2" />
+                  </SelectItemGroup>
+                  <SelectItemGroup label="Category 2">
+                    <SelectItem text="Option 3" value="option-3" />
+                    <SelectItem text="Option 4" value="option-4" />
+                  </SelectItemGroup>
+                </Select>
               </div>
               {/* TimePicker */}
               <div className="hcl-col-12 mt-5 mb-5">
@@ -1849,6 +1815,29 @@ class App extends Component {
                 </div>
                 <div className="hcl-col-6 mb-2">
                   <LoadingState />
+                </div>
+              </div>
+
+              <div className="hcl-row">
+                <div className="hcl-col-6 mb-2">
+                  <TreeView
+                    treeData={this.state.treeData}
+                    type="single"
+                    onChange={selected => {
+                      console.log('selected item', selected);
+                    }}
+                    onToggle={selected => {
+                      console.log('toggled item', selected);
+                    }}
+                  />
+                </div>
+                <div className="hcl-col-6 mb-2">
+                  <TreeView
+                    treeData={this.state.treeData1}
+                    onChange={selected => {
+                      console.log('selected item', selected);
+                    }}
+                  />
                 </div>
               </div>
             </div>
