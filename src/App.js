@@ -524,7 +524,21 @@ class App extends Component {
                       ]
                     }
                   ]}
-                  onDragOver={(dragModel, dropModel, treeData) => {
+                  isMoveNodeAllowed={(dragModel, dropModel, treeData) => {
+                    if (
+                      dragModel.type === 'file' &&
+                      dropModel.type === 'folder'
+                    ) {
+                      return true;
+                    } else if (
+                      dragModel.type === 'folder' &&
+                      dropModel.type === 'folder'
+                    ) {
+                      return true;
+                    }
+                    return false;
+                  }}
+                  isCopyAllowed={(dragModel, dropModel, treeData) => {
                     if (
                       dragModel.type === 'file' &&
                       dropModel.type === 'folder'
@@ -575,6 +589,14 @@ class App extends Component {
                       {
                         name: 'Cut',
                         action: 'cut'
+                      },
+                      {
+                        name: 'Copy',
+                        action: 'copy'
+                      },
+                      {
+                        name: 'Delete',
+                        action: 'delete'
                       }
                     ];
 
@@ -605,23 +627,40 @@ class App extends Component {
 
                       await this.timeout(3000);
                       return model;
-                    } else if (action === 'cut') {
-                      this.setState({
-                        cutTreeModel: model
-                      });
-                    } else {
+                    } 
+                    // else if (action === 'cut') {
+                    //   this.setState({
+                    //     cutTreeModel: model
+                    //   });
+                    // } 
+                    else {
                       return model;
                     }
                   }}
                   onOverFlowActionChange={async (action, model) => {
+
+                    console.log(action , model)
                     return await this.timeout(3000);
 
                     // console.log("Timeout invoked 3000")
                     // return false;
                   }}
+                  onDeleteNode = {async (model) => {
+                    console.log(model)
+                    return await this.timeout(3000);
+                  }}
+                  onRenamingNode = {async (model) => {
+                    console.log(model)
+                    return await this.timeout(3000);
+                  }}
                   type="single"
-                  onChange={selected => {}}
-                  onToggle={selected => {}}
+                  onChange={selected => {
+                      console.log("Selected Node" , selected)
+                  }}
+                  onToggle={node => {
+                      console.log("On Toggle" , node);
+
+                  }}
                 />
               </div>
               <div className="hcl-col-6 mb-2">

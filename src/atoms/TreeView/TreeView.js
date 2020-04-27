@@ -2,7 +2,12 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 import TreeNode from './TreeNode';
-import { updateTreeNode, updateNodePosition } from '../../util/treeUtil';
+import {
+  updateTreeNode,
+  updateNodePosition,
+  deleteNode,
+  copyNode
+} from '../../util/treeUtil';
 
 const TreeView = ({
   treeData,
@@ -14,11 +19,13 @@ const TreeView = ({
   onToggle,
   type,
   onOverflowAction,
-  onOverFlowActionChange,
   iconClass,
   dragRules,
-  onDragOver,
-  getOverFlowItems
+  isMoveNodeAllowed,
+  isCopyAllowed,
+  getOverFlowItems,
+  onDeleteNode,
+  onRenamingNode
 }) => {
   let [treeInfo, updateTree] = useState(treeData);
 
@@ -30,31 +37,25 @@ const TreeView = ({
   let [cutNode, updateCutNode] = useState({});
   let [cutNodeLevel, updateCutNodeLevel] = useState('');
 
-  const onCutNode = (node, level) => {
-    updateCutNode(node);
-    updateCutNodeLevel(level);
+  let [copiedNode, updateCopyNode] = useState({});
+
+  const isMoveNodeAllowedMain = (x, y) => {
+    return isMoveNodeAllowed(x, y, treeInfo);
   };
 
-  const onDragNode = (node, level) => {
-    updateDraggedNode(node);
-    updateDraggedNodeLevel(level);
+  const isCopyAllowedMain = (x, y) => {
+    return isCopyAllowed(x, y, treeInfo);
   };
 
-  const onDragOverTree = (x, y) => {
-    return onDragOver(x, y, treeInfo);
-  };
-
-  const updateTreeNodeDataMain = (node, level) => {
-    updateTree(updateTreeNode(treeInfo, node, level));
-  };
-
-  const onSelectNode = event => {
-    updateSelectedNode(event);
-    onChange(event);
+  const onSelectNode = node => {
+    updateSelectedNode(node);
+    onChange(node);
   };
 
   const onToggleNode = event => {
-    onToggle(event);
+    if (onToggle) {
+      onToggle(event);
+    }
   };
 
   let defaultConfig = {
@@ -67,26 +68,73 @@ const TreeView = ({
     hasChildren: 'hasChildren'
   };
 
-  const updateTreeDataPosition = (draggedNode, dropNode) => {
-    let dropNodeArray = dropNode.split('-');
-    const dropNodeIndex = parseInt(dropNodeArray.splice(-1));
-    if (dropNodeArray.length === 0) {
-      dropNodeArray = null;
-    } else {
-      dropNodeArray = dropNodeArray.join('-');
+  const updateTreeState = (action, config) => {
+    if (action === 'draggedNode') {
+      updateDraggedNode(config.node);
+      updateDraggedNodeLevel(config.level);
+    } else if (action === 'cutNode') {
+      updateCutNode(config.node);
+      updateCopyNode(null);
+      updateCutNodeLevel(config.level);
+    } else if (action === 'copyNode') {
+      updateCutNode(config.node);
+      updateCopyNode(null);
+      updateCutNodeLevel(config.level);
     }
-    updateTree(
-      updateNodePosition(treeInfo, draggedNode, dropNodeArray, dropNodeIndex)
-    );
   };
 
-  const updateTreeData = (draggedNode, dropNode) => {
-    updateTree(updateNodePosition(treeInfo, draggedNode, dropNode));
+  const updateTreeDataBasedOnAction = async (action, config) => {
+    console.log(action, config);
+    if (action === 'delete') {
+      let flag = await onDeleteNode(config.node);
+      if (flag) {
+        updateTree(deleteNode(treeInfo, config.level));
+      }
+    } else if (action === 'copy-paste') {
+      updateTree(copyNode(treeInfo, config.level, config.copyNode));
+    } else if (action === 'cut-paste') {
+      updateTree(
+        updateNodePosition(treeInfo, config.cutNodeLevel, config.level)
+      );
+      updateTreeState('cutNode', { node: null, level: '' });
+    } else if (action === 'toggle-node') {
+      updateTree(updateTreeNode(treeInfo, config.node, config.level));
+      if (onToggleNode) {
+        onToggleNode(config.node);
+      }
+    } else if (action === 'node-update') {
+      updateTree(updateTreeNode(treeInfo, config.node, config.level));
+    } else if (action === 'edit') {
+      let flag = await onRenamingNode(config.node);
+      if (flag) {
+        updateTree(updateTreeNode(treeInfo, config.node, config.level));
+      }
+
+      return flag;
+    } else if (action === 'move-node') {
+      let dropNodeArray = config.dropNode.split('-');
+      const dropNodeIndex = parseInt(dropNodeArray.splice(-1));
+      if (dropNodeArray.length === 0) {
+        dropNodeArray = null;
+      } else {
+        dropNodeArray = dropNodeArray.join('-');
+      }
+      updateTree(
+        updateNodePosition(
+          treeInfo,
+          config.draggedNode,
+          dropNodeArray,
+          dropNodeIndex
+        )
+      );
+    }
   };
 
   const configuration = { ...defaultConfig, ...config };
   const classnames = `${prefix}-tree ${className.trim()}`;
   return (
+      <div className="tree-container">
+          <div className="overlay" />
     <ul role="tree" className={classnames}>
       {treeInfo.map((node, index) => {
         return (
@@ -97,29 +145,27 @@ const TreeView = ({
             collapsedIcon={collapsedIcon}
             iconClass={iconClass}
             dragRules={dragRules}
-            onDragNode={onDragNode}
-            onDragOverTree={onDragOverTree}
+            isMoveNodeAllowed={isMoveNodeAllowedMain}
+            isCopyAllowed={isCopyAllowedMain}
             draggedNode={draggedNode}
             draggedNodeLevel={draggedNodeLevel}
             level={index + ''}
             parentNode={null}
             onSelectNode={type === 'single' ? onSelectNode : null}
             selectedNode={type === 'single' ? selectedNode : null}
-            onToggleNode={onToggle ? onToggleNode : null}
             configuration={configuration}
-            updateTreeData={updateTreeData}
-            updateTreeDataPosition={updateTreeDataPosition}
             onOverflowAction={onOverflowAction}
-            onOverFlowActionChange={onOverFlowActionChange}
-            updateTreeNodeDataMain={updateTreeNodeDataMain}
-            onCutNode={onCutNode}
+            copiedNode={copiedNode}
             cutNode={cutNode}
             getOverFlowItems={getOverFlowItems}
             cutNodeLevel={cutNodeLevel}
+            updateTreeDataBasedOnAction={updateTreeDataBasedOnAction}
+            updateTreeState={updateTreeState}
           />
         );
       })}
     </ul>
+    </div>
   );
 };
 
@@ -138,15 +184,16 @@ TreeView.propTypes = {
   className: PropTypes.string,
 
   onOverflowAction: PropTypes.func,
-  onOverFlowActionChange: PropTypes.func,
 
-  onDragOver: PropTypes.func,
+  isMoveNodeAllowed: PropTypes.func,
+  isCopyAllowed: PropTypes.func,
   /** Callback function on selecting tree node */
   onChange: PropTypes.func,
   /** Callback function on expanding/collapsing tree node */
   onToggle: PropTypes.func,
-
+  onDeleteNode: PropTypes.func,
   getOverFlowItems: PropTypes.func,
+  onRenamingNode: PropTypes.func,
   /** Configuration Object for updating propery name in tree data
  {
   displayChildren: 'displayChildren',
@@ -171,15 +218,16 @@ TreeView.defaultProps = {
   iconClass: null,
   dragRules: null,
   onChange: null,
-  onDragOver: null,
-  onToggle: null,
+  isMoveNodeAllowed: () => {},
+  isCopyAllowed: () => {},
+  onDeleteNode: null,
+  onRenamingNode: null,
   expandedIcon: 'caret caret-down',
   collapsedIcon: 'caret',
   className: '',
   type: 'default',
   config: {},
   onOverflowAction: null,
-  onOverFlowActionChange: null,
   getOverFlowItems: null
 };
 

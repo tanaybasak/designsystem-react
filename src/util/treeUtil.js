@@ -27,7 +27,7 @@ export const findLastVisibleChildren = nodeElement => {
 
 export const updateTreeNode = (tree, node, level) => {
   //let treeData = JSON.parse(JSON.stringify(tree));
-  let treeData = [...tree]
+  let treeData = [...tree];
   let levelArray = level.split('-');
 
   if (levelArray.length === 1) {
@@ -49,7 +49,7 @@ export const updateTreeNode = (tree, node, level) => {
 
 export const moveTreeNodeToChildren = (tree, dragLevel, dropLevel) => {
   //let treeData = JSON.parse(JSON.stringify(tree));
-  let treeData = [...tree]
+  let treeData = [...tree];
   let draggedNodeArray = dragLevel.split('-');
   let dropNodeArry = dropLevel.split('-');
 
@@ -99,7 +99,7 @@ const compareVersion = (v1, v2) => {
 export const moveTreeNode = (tree, dragLevel, dropLevel) => {
   const levelCompare = compareVersion(dragLevel, dropLevel);
   //let treeData = JSON.parse(JSON.stringify(tree));
-  let treeData = [...tree]
+  let treeData = [...tree];
   let draggedNodeArray = dragLevel.split('-');
   let dropNodeArry = dropLevel.split('-');
   let dropModel = treeData;
@@ -159,11 +159,11 @@ export const getConditionStatus = (conditions, node) => {
 };
 
 const moveElementInArray = (arr, old_index, new_index) => {
-    console.log(arr.length, old_index, new_index,new_index > arr.length)
-    // if(new_index >= arr.length){
-    //     new_index = arr.length-1
-    // }
-    console.log(old_index ,new_index )
+  console.log(arr.length, old_index, new_index, new_index > arr.length);
+  // if(new_index >= arr.length){
+  //     new_index = arr.length-1
+  // }
+  console.log(old_index, new_index);
 
   if (new_index >= arr.length) {
     var k = new_index - arr.length + 1;
@@ -180,7 +180,7 @@ export const updateNodePosition = (
   dropModelIndex
 ) => {
   //let treeData = JSON.parse(JSON.stringify(tree));
-  let treeData = [...tree]
+  let treeData = [...tree];
   let draggedNodeArray = dragLevel.split('-');
   let dropNodeArry = [];
   let dropModel = treeData;
@@ -215,11 +215,7 @@ export const updateNodePosition = (
     if (Array.isArray(dragModel)) {
       moveElementInArray(dragModel, dragModelIndex, dropModelIndex);
     } else {
-      moveElementInArray(
-        dragModel.children,
-        dragModelIndex,
-        dropModelIndex
-      );
+      moveElementInArray(dragModel.children, dragModelIndex, dropModelIndex);
     }
   } else {
     if (Array.isArray(dropModel)) {
@@ -242,6 +238,46 @@ export const updateNodePosition = (
   return treeData;
 };
 
-export const isInSameLevel = (level1 , level2) => {
-    return level1.substr(0 , level1.lastIndexOf("-")) === level2.substr(0 , level2.lastIndexOf("-"))
-}
+export const isInSameLevel = (level1, level2) => {
+  return (
+    level1.substr(0, level1.lastIndexOf('-')) ===
+    level2.substr(0, level2.lastIndexOf('-'))
+  );
+};
+
+export const deleteNode = (tree, level) => {
+  let deleteLevel = level.split('-');
+  let tempTreeInfo = [...tree];
+  if (deleteLevel.length === 1) {
+    tempTreeInfo.splice(parseInt(deleteLevel[0]), 1);
+  } else {
+    let model = tempTreeInfo[parseInt(deleteLevel.splice(0, 1))];
+    deleteLevel.map((arrayNumber, index) => {
+      if (deleteLevel.length === index + 1) {
+        model.children.splice(parseInt(arrayNumber), 1);
+      } else {
+        model = model.children[parseInt(arrayNumber)];
+      }
+    });
+  }
+  return tempTreeInfo;
+};
+
+export const copyNode = (tree, level, node) => {
+  let pasteNodeLevel = level.split('-');
+  let tempTreeInfo = [...tree];
+
+  if (pasteNodeLevel.length === 1) {
+    tempTreeInfo[parseInt(pasteNodeLevel[0])].children.push(
+      JSON.parse(JSON.stringify(node))
+    );
+  } else {
+    let model = tempTreeInfo[parseInt(pasteNodeLevel.splice(0, 1))];
+    pasteNodeLevel.map(arrayNumber => {
+      model = model.children[parseInt(arrayNumber)];
+    });
+
+    model.children.push(JSON.parse(JSON.stringify(node)));
+  }
+  return tempTreeInfo;
+};

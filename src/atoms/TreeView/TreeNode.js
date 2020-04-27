@@ -17,40 +17,33 @@ const TreeNode = ({
   onSelectNode,
   selectedNode,
   configuration,
-  onToggleNode,
-  updateTreeData,
-  updateTreeDataPosition,
-  onOverFlowActionChange,
   onOverflowAction,
-  updateTreeNodeDataMain,
   dragRules,
-  onDragNode,
   draggedNode,
   draggedNodeLevel,
-  onDragOverTree,
+  isMoveNodeAllowed,
+  isCopyAllowed,
   parentNode,
   getOverFlowItems,
-  onCutNode,
   cutNode,
-  cutNodeLevel
+  copiedNode,
+  cutNodeLevel,
+  updateTreeDataBasedOnAction,
+  updateTreeState
 }) => {
   // Toggle Tree Node Section
   const updateNodeToggleStatus = status => {
-    if (status !== undefined) {
+    if (typeof status === 'boolean') {
       node[configuration.displayChildren] = status;
     } else {
       node[configuration.displayChildren] = !node[
         configuration.displayChildren
       ];
     }
-    updateTreeNodeDataMain(node, level);
-  };
-
-  const toggleTreeNode = () => {
-    updateNodeToggleStatus();
-    if (onToggleNode) {
-      onToggleNode(node);
-    }
+    updateTreeDataBasedOnAction('toggle-node', {
+      node: node,
+      level: level
+    });
   };
 
   // Overflow Menu Section
@@ -63,7 +56,7 @@ const TreeNode = ({
       if (
         cutNode &&
         cutNode[configuration.name] &&
-        onDragOverTree(cutNode, node)
+        isMoveNodeAllowed(cutNode, node)
       ) {
         if (cutNodeLevel.substr(0, cutNodeLevel.lastIndexOf('-')) !== level) {
           overflowList.push({
@@ -71,6 +64,11 @@ const TreeNode = ({
             action: 'paste'
           });
         }
+      } else if (copiedNode && isCopyAllowed(copiedNode, node)) {
+        overflowList.push({
+          name: 'Paste',
+          action: 'paste'
+        });
       }
     }
     updateOverflowItemList(overflowList);
@@ -82,18 +80,41 @@ const TreeNode = ({
       if (actionName === 'edit') {
         updateTextStatus(true);
       } else if (actionName === 'cut') {
-        onCutNode(node, level);
+        updateTreeState('cutNode', {
+          node: node,
+          level: level
+        });
+        onOverflowAction(actionName, node);
+      } else if (actionName === 'copy') {
+        updateTreeState('copyNode', {
+          node: node,
+          level: level
+        });
         onOverflowAction(actionName, node);
       } else if (actionName === 'paste') {
-        // if (level.startsWith(cutNodeLevel)) {
-        //   return;
-        // }
-        updateTreeData(cutNodeLevel, level);
-        onCutNode({}, '');
-        //onOverflowAction('cut', null);
+        if (cutNodeLevel) {
+          updateTreeDataBasedOnAction('cut-paste', {
+            cutNodeLevel: cutNodeLevel,
+            level: level
+          });
+        } else {
+          updateTreeDataBasedOnAction('copy-paste', {
+            node: node,
+            level: level,
+            copyNode: copiedNode
+          });
+        }
+      } else if (actionName === 'delete') {
+        updateTreeDataBasedOnAction('delete', {
+          level: level,
+          node: node
+        });
       } else {
         let nodeData = await onOverflowAction(actionName, node);
-        updateTreeNodeDataMain(nodeData, level);
+        updateTreeDataBasedOnAction('node-update', {
+          node: nodeData,
+          level: level
+        });
       }
     }
   };
@@ -103,7 +124,7 @@ const TreeNode = ({
   const [showText, updateTextStatus] = useState(false);
   let updated = false;
 
-  const closeTextOnBlur = () => {
+  const closeTextOnBlur = e => {
     setTimeout(() => {
       if (!updated) {
         updateTextStatus(false);
@@ -126,7 +147,7 @@ const TreeNode = ({
           onKeyDown={updateTreenodeNameOnEnter}
           onClick={stopPropagation}
         />
-        <i className="fa fa-check-circle" onClick={updateNodeNameOnClick} />
+        <i className="pi pi-View" onClick={updateNodeNameOnClick} />
       </div>
     );
   };
@@ -134,10 +155,13 @@ const TreeNode = ({
   const updateTreeNodeName = async value => {
     let nodeTemp = { ...node };
     nodeTemp[configuration.name] = value;
-    let flag = await onOverFlowActionChange('edit', nodeTemp);
+
+    let flag = await updateTreeDataBasedOnAction('edit', {
+      level: level,
+      node: nodeTemp
+    });
     if (flag) {
       updateTextStatus(false);
-      updateTreeNodeDataMain(nodeTemp, level);
     } else {
       updateTextStatus(false);
     }
@@ -148,6 +172,8 @@ const TreeNode = ({
     event.stopPropagation();
     if (event.key === 'Enter') {
       updateTreeNodeName(event.currentTarget.value);
+    } else if (event.key === 'Escape') {
+      updateTextStatus(false);
     }
   };
 
@@ -208,7 +234,11 @@ const TreeNode = ({
   const dragStart = ev => {
     ev.dataTransfer.setData('text', level);
     //ev.dataTransfer.dropEffect = "move"
-    onDragNode(node, level);
+
+    updateTreeState('draggedNode', {
+      node: node,
+      level: level
+    });
   };
 
   //Placeholder Utility Section
@@ -273,58 +303,56 @@ const TreeNode = ({
     ev.stopPropagation();
     //ev.dataTransfer.dropEffect = "none"
 
-    
     //console.log(ev.currentTarget.style.cursor = "no-drop")
 
     if (level.startsWith(draggedNodeLevel)) {
-        //ev.currentTarget.style.cursor = "no-drop"
+      //ev.currentTarget.style.cursor = "no-drop"
       return;
     }
     if (
       draggedNodeLevel.substr(0, draggedNodeLevel.lastIndexOf('-')) === level
     ) {
-        //ev.currentTarget.style.cursor = "no-drop"
+      //ev.currentTarget.style.cursor = "no-drop"
       return;
     }
 
     const position = getDropRegionPlaceholderFromNode(ev);
     let isDroppable = false;
     if (position === 'middle') {
-      isDroppable = onDragOverTree(draggedNode, node);
+      isDroppable = isMoveNodeAllowed(draggedNode, node);
     } else {
       isDroppable = true;
       if (parentNode != null) {
-        isDroppable = onDragOverTree(draggedNode, parentNode);
+        isDroppable = isMoveNodeAllowed(draggedNode, parentNode);
       }
     }
 
     if (isDroppable) {
-        //ev.currentTarget.style.cursor = "pointer"
+      //ev.currentTarget.style.cursor = "pointer"
       ev.preventDefault();
       dropRegionPlaceholder(ev, position);
     } else {
-        //ev.currentTarget.style.cursor = "no-drop"
+      //ev.currentTarget.style.cursor = "no-drop"
       clearAll();
     }
   };
 
   const onDragOverOutsideNode = ev => {
-
     //ev.dataTransfer.dropEffect = "none"
 
     if (level.startsWith(draggedNodeLevel)) {
-        //ev.currentTarget.style.cursor = "no-drop"
+      //ev.currentTarget.style.cursor = "no-drop"
       return;
     }
 
     const position = getDropRegionPlaceholderOutsideNode(ev);
     let isDroppable = true;
     if (parentNode != null) {
-      isDroppable = onDragOverTree(draggedNode, parentNode);
+      isDroppable = isMoveNodeAllowed(draggedNode, parentNode);
     }
 
     if (isDroppable) {
-        //ev.currentTarget.style.cursor = "pointer";
+      //ev.currentTarget.style.cursor = "pointer";
       ev.preventDefault();
       dropRegionPlaceholder(ev, position);
     }
@@ -357,7 +385,10 @@ const TreeNode = ({
           parseInt(data.substr(data.lastIndexOf('-') + 1)) >
           parseInt(level.substr(level.lastIndexOf('-') + 1))
         ) {
-          updateTreeDataPosition(data, level);
+          updateTreeDataBasedOnAction('move-node', {
+            draggedNode: data,
+            dropNode: level
+          });
         } else {
           let newLevel = level;
           let topIndex =
@@ -367,10 +398,16 @@ const TreeNode = ({
           }
           newLevel =
             newLevel.substr(0, newLevel.lastIndexOf('-') + 1) + topIndex;
-          updateTreeDataPosition(data, newLevel);
+          updateTreeDataBasedOnAction('move-node', {
+            draggedNode: data,
+            dropNode: newLevel
+          });
         }
       } else {
-        updateTreeDataPosition(data, level);
+        updateTreeDataBasedOnAction('move-node', {
+          draggedNode: data,
+          dropNode: level
+        });
       }
     } else if (position === 'bottom') {
       if (isInSameLevel(data, level)) {
@@ -383,9 +420,15 @@ const TreeNode = ({
             parseInt(newLevel.substr(newLevel.lastIndexOf('-') + 1)) + 1;
           newLevel =
             newLevel.substr(0, newLevel.lastIndexOf('-') + 1) + bottomIndex;
-          updateTreeDataPosition(data, newLevel);
+          updateTreeDataBasedOnAction('move-node', {
+            draggedNode: data,
+            dropNode: newLevel
+          });
         } else {
-          updateTreeDataPosition(data, level);
+          updateTreeDataBasedOnAction('move-node', {
+            draggedNode: data,
+            dropNode: level
+          });
         }
       } else {
         let newLevel = level;
@@ -393,10 +436,16 @@ const TreeNode = ({
           parseInt(newLevel.substr(newLevel.lastIndexOf('-') + 1)) + 1;
         newLevel =
           newLevel.substr(0, newLevel.lastIndexOf('-') + 1) + bottomIndex;
-        updateTreeDataPosition(data, newLevel);
+        updateTreeDataBasedOnAction('move-node', {
+          draggedNode: data,
+          dropNode: newLevel
+        });
       }
     } else {
-      updateTreeData(data, level);
+      updateTreeDataBasedOnAction('cut-paste', {
+        cutNodeLevel: data,
+        level: level
+      });
     }
   };
 
@@ -447,9 +496,6 @@ const TreeNode = ({
           nodeElement.parentElement.hasAttribute('aria-expanded') &&
           nodeElement.parentElement.getAttribute('aria-expanded') === 'false'
         ) {
-          if (onToggleNode) {
-            onToggleNode(node);
-          }
           updateNodeToggleStatus(true);
           //toggleNode(true);
         }
@@ -461,9 +507,6 @@ const TreeNode = ({
           nodeElement.parentElement.hasAttribute('aria-expanded') &&
           nodeElement.parentElement.getAttribute('aria-expanded') === 'true'
         ) {
-          if (onToggleNode) {
-            onToggleNode(node);
-          }
           updateNodeToggleStatus(false);
           //toggleNode(false);
         } else {
@@ -530,7 +573,7 @@ const TreeNode = ({
           tabIndex="0"
           level={level}
           onKeyDown={keyDown}
-          onClick={toggleTreeNode}
+          onClick={updateNodeToggleStatus}
           onDrop={onDropOutsideNode}
           onDragOver={onDragOverOutsideNode}
           onDragLeave={clearAll}
@@ -632,8 +675,8 @@ const TreeNode = ({
                 parentNode={node}
                 key={`treeNodeIndex-${subIndex}`}
                 expandedIcon={expandedIcon}
-                onDragNode={onDragNode}
-                onDragOverTree={onDragOverTree}
+                isMoveNodeAllowed={isMoveNodeAllowed}
+                isCopyAllowed={isCopyAllowed}
                 dragRules={dragRules}
                 collapsedIcon={collapsedIcon}
                 onSelectNode={onSelectNode}
@@ -641,17 +684,14 @@ const TreeNode = ({
                 draggedNodeLevel={draggedNodeLevel}
                 level={level + '-' + subIndex}
                 selectedNode={selectedNode}
-                onToggleNode={onToggleNode}
                 configuration={configuration}
-                updateTreeData={updateTreeData}
-                updateTreeDataPosition={updateTreeDataPosition}
                 onOverflowAction={onOverflowAction}
-                onOverFlowActionChange={onOverFlowActionChange}
-                updateTreeNodeDataMain={updateTreeNodeDataMain}
-                onCutNode={onCutNode}
                 cutNode={cutNode}
                 cutNodeLevel={cutNodeLevel}
+                copiedNode={copiedNode}
                 getOverFlowItems={getOverFlowItems}
+                updateTreeDataBasedOnAction={updateTreeDataBasedOnAction}
+                updateTreeState={updateTreeState}
               />
             );
           })}
@@ -667,25 +707,22 @@ TreeNode.propTypes = {
   dragRules: PropTypes.any,
   level: PropTypes.string,
   selectedNode: PropTypes.any,
-  onDragNode: PropTypes.any,
   expandedIcon: PropTypes.string,
   collapsedIcon: PropTypes.string,
   onSelectNode: PropTypes.func,
-  onToggleNode: PropTypes.func,
-  updateTreeData: PropTypes.func,
-  updateTreeDataPosition: PropTypes.func,
-  onOverFlowActionChange: PropTypes.func,
-  onDragOverTree: PropTypes.func,
+  isMoveNodeAllowed: PropTypes.func,
+  isCopyAllowed: PropTypes.func,
   onOverflowAction: PropTypes.func,
-  updateTreeNodeDataMain: PropTypes.func,
   configuration: PropTypes.any,
   draggedNode: PropTypes.any,
   parentNode: PropTypes.any,
   draggedNodeLevel: PropTypes.string,
   getOverFlowItems: PropTypes.func,
-  onCutNode: PropTypes.func,
   cutNode: PropTypes.any,
-  cutNodeLevel: PropTypes.string
+  cutNodeLevel: PropTypes.string,
+  copiedNode: PropTypes.any,
+  updateTreeDataBasedOnAction: PropTypes.func,
+  updateTreeState: PropTypes.func
 };
 
 TreeNode.defaultProps = {
@@ -696,23 +733,20 @@ TreeNode.defaultProps = {
   expandedIcon: 'caret caret-down',
   collapsedIcon: 'caret',
   onSelectNode: () => {},
-  onToggleNode: () => {},
-  updateTreeData: () => {},
   selectedNode: {},
   configuration: {},
-  onOverFlowActionChange: () => {},
   onOverflowAction: () => {},
-  updateTreeDataPosition: () => {},
-  updateTreeNodeDataMain: () => {},
-  onDragOverTree: () => {},
-  onDragNode: () => {},
+  isMoveNodeAllowed: () => {},
+  isCopyAllowed: () => {},
   draggedNode: null,
   parentNode: null,
   draggedNodeLevel: '',
-  onCutNode: () => {},
   cutNode: null,
+  copiedNode: null,
   cutNodeLevel: '',
-  getOverFlowItems: null
+  getOverFlowItems: null,
+  updateTreeDataBasedOnAction: () => {},
+  updateTreeState: () => {}
 };
 
 export default TreeNode;
