@@ -7,6 +7,7 @@ import Pagination from '../Pagination';
 
 const DataTable = ({
   id,
+  type,
   tableData,
   tableConfig,
   selectable,
@@ -383,13 +384,27 @@ const DataTable = ({
     }
   };
 
+  let classNameNew = '';
+  let tableClass = '';
+  if (type.includes('borderless')) {
+    classNameNew += 'borderless';
+  }
+
+  if (type.includes('compact')) {
+    tableClass += 'hcl-data-table-compact';
+  } else if (type.includes('tall')) {
+    tableClass += 'hcl-data-table-tall';
+  } else if (type.includes('zebra')) {
+    tableClass += 'hcl-data-table-zebra';
+  }
+
   return (
-    <div className="hcl-data-grid" {...restProps}>
+    <div className={`hcl-data-grid ${classNameNew}`} {...restProps}>
       <div className="hcl-table-wrapper">
         <table
           id={id}
           ref={tableRef}
-          className={classnames}
+          className={`${classnames} ${tableClass}`}
           role="grid"
           aria-rowcount={totalItems}
         >
@@ -491,42 +506,56 @@ const DataTable = ({
                         right: column.marginRight
                       }}
                       tabIndex={-1}
-                      //   onKeyDown={e => {
-                      //     if (e.key === 'ArrowLeft') {
-                      //       e.preventDefault();
-                      //       if (e.currentTarget.previousElementSibling) {
-                      //         e.currentTarget.previousElementSibling.focus();
-                      //       }
-                      //     } else if (e.key === 'ArrowRight') {
-                      //       e.preventDefault();
-                      //       if (e.currentTarget.nextElementSibling) {
-                      //         e.currentTarget.nextElementSibling.focus();
-                      //       }
-                      //     } else if (e.key === 'ArrowDown') {
-                      //       e.preventDefault();
-                      //       if (
-                      //         e.currentTarget.parentElement.nextElementSibling &&
-                      //         e.currentTarget.parentElement.nextElementSibling
-                      //           .children[i]
-                      //       ) {
-                      //         e.currentTarget.parentElement.nextElementSibling.children[
-                      //           i
-                      //         ].focus();
-                      //       }
-                      //     } else if (e.key === 'ArrowUp') {
-                      //       e.preventDefault();
-                      //       if (
-                      //         e.currentTarget.parentElement
-                      //           .previousElementSibling &&
-                      //         e.currentTarget.parentElement.previousElementSibling
-                      //           .children[i]
-                      //       ) {
-                      //         e.currentTarget.parentElement.previousElementSibling.children[
-                      //           i
-                      //         ].focus();
-                      //       }
-                      //     }
-                      //   }}
+                      onKeyDown={e => {
+                        if (
+                          e.currentTarget.getAttribute('data-label') ===
+                            'overflow' &&
+                          [
+                            'ArrowLeft',
+                            'ArrowRight',
+                            'ArrowDown',
+                            'ArrowUp'
+                          ].includes(e.key) &&
+                          e.currentTarget !== e.target
+                        ) {
+                          return;
+                        }
+
+                        if (e.key === 'ArrowLeft') {
+                          e.preventDefault();
+                          if (e.currentTarget.previousElementSibling) {
+                            e.currentTarget.previousElementSibling.focus();
+                          }
+                        } else if (e.key === 'ArrowRight') {
+                          e.preventDefault();
+                          if (e.currentTarget.nextElementSibling) {
+                            e.currentTarget.nextElementSibling.focus();
+                          }
+                        } else if (e.key === 'ArrowDown') {
+                          e.preventDefault();
+                          if (
+                            e.currentTarget.parentElement.nextElementSibling &&
+                            e.currentTarget.parentElement.nextElementSibling
+                              .children[i]
+                          ) {
+                            e.currentTarget.parentElement.nextElementSibling.children[
+                              i
+                            ].focus();
+                          }
+                        } else if (e.key === 'ArrowUp') {
+                          e.preventDefault();
+                          if (
+                            e.currentTarget.parentElement
+                              .previousElementSibling &&
+                            e.currentTarget.parentElement.previousElementSibling
+                              .children[i]
+                          ) {
+                            e.currentTarget.parentElement.previousElementSibling.children[
+                              i
+                            ].focus();
+                          }
+                        }
+                      }}
                     >
                       {column.field === 'checkbox' ? (
                         <div className="checkbox-wrapper">
@@ -624,6 +653,7 @@ DataTable.propTypes = {
   /** Name of the custom class to apply to the Data Table
    * eg: hcl-data-table-zebra, hcl-data-table-compact, hcl-data-table-tall, hcl-data-table-borderless */
   className: PropTypes.string,
+  type: PropTypes.string,
   /** Call back function to sort table data
    *
    * Argument – event
@@ -653,6 +683,7 @@ DataTable.defaultProps = {
   tableConfig: [],
   selectable: false,
   className: '',
+  type: '',
   pagination: false,
   onSort: () => {},
   overflowMenu: false,
