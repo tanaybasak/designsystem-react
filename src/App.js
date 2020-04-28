@@ -34,7 +34,7 @@ import DatePicker from './molecules/DatePicker';
 import { weekDays, months } from './content';
 import Pagination from './atoms/Pagination';
 import NumberInput from './molecules/NumberInput';
-import Select from './atoms/Select/Select';
+import { Select, SelectItem, SelectItemGroup } from './atoms/Select';
 import TimePicker from './molecules/TimePicker/TimePicker';
 import Tooltip from './atoms/Tooltip/Tooltip';
 import LoadingState from './atoms/LoadingState/LoadingState';
@@ -627,15 +627,233 @@ class App extends Component {
                       console.log('Default Checkbox.');
                     }}
                   />
-                  <Checkbox
-                    id="checkbox5"
-                    label="5"
-                    checked
-                    onChange={() => {
-                      console.log('Checked state is changed.');
+                  <FormHelperText className="error-msg">
+                    Validation message
+                  </FormHelperText>
+                </div>
+
+                <hr />
+                {/* Button */}
+                <div className="hcl-col-12" id="buttons-section">
+                  <Button
+                    title="Default"
+                    className = "mr-2"
+                    onClick={() => {
+                      console.log('Button Clicked');
                     }}
-                  />
-                  <Checkbox id="checkbox6" label="6 (disabled)" disabled />
+                  >
+                    Default
+                  </Button>
+                  <Button
+                    type="primary"
+                    className = "mr-2"
+                    onClick={() => {
+                      console.log('Button Clicked');
+                    }}
+                  >
+                    Primary
+                  </Button>
+                  <Button
+                    type="secondary"
+                    className = "mr-2"
+                    onClick={() => {
+                      console.log('Button Clicked');
+                    }}
+                  >
+                    Secondary
+                  </Button>
+                  <Button
+                    type="ghost"
+                    className = "mr-2"
+                    onClick={() => {
+                      console.log('Button Clicked');
+                    }}
+                  >
+                    Ghost
+                  </Button>
+
+                  <Button
+                    type="primary"
+                    className = "mr-2"
+                    small
+                    onClick={() => {
+                      console.log('Button Clicked');
+                    }}
+                  >
+                    Primary small
+                  </Button>
+                  <Button
+                    type="primary-danger"
+                    className = "mr-2"
+                    onClick={() => {
+                      console.log('Button Clicked');
+                    }}
+                  >
+                    Danger outline
+                  </Button>
+                  <Button
+                    type="secondary-danger"
+                    className="mr-2"
+                    onClick={() => {
+                      console.log('Button Clicked');
+                    }}
+                  >
+                    Danger outline
+                  </Button>
+                </div>
+                {/* Heading */}
+                <div className="hcl-col-12" id="heading-section">
+                  <Heading type="h2">Heading h2</Heading>
+                </div>
+                {/* Checkbox */}
+                <div className="hcl-col-12 mt-5" id="checkbox-section">
+                  <legend className="hcl-legend">
+                    Checkbox - Horizontally arranged (default)
+                  </legend>
+                  <div className="hcl-checkbox-group">
+                    <Checkbox
+                      id="checkbox1"
+                      label="1 (default)"
+                      onChange={() => {
+                        console.log('Default Checkbox.');
+                      }}
+                    />
+                    <Checkbox
+                      id="checkbox2"
+                      label="2"
+                      checked
+                      onChange={() => {
+                        console.log('Checked state is changed.');
+                      }}
+                    />
+                    <Checkbox id="checkbox3" label="3 (disabled)" disabled />
+                  </div>
+                </div>
+                <div className="hcl-col-12 mt-5">
+                  <legend className="hcl-legend">
+                    Checkbox - Vertically arranged
+                  </legend>
+                  <div className="hcl-checkbox-group hcl-stack-vertical">
+                    <Checkbox
+                      id="checkbox4"
+                      label="4 (default)"
+                      onChange={() => {
+                        console.log('Default Checkbox.');
+                      }}
+                    />
+                    <Checkbox
+                      id="checkbox5"
+                      label="5"
+                      checked
+                      onChange={() => {
+                        console.log('Checked state is changed.');
+                      }}
+                    />
+                    <Checkbox id="checkbox6" label="6 (disabled)" disabled />
+                  </div>
+                </div>
+                {/* Radio */}
+                <div className="hcl-col-12 mt-5" id="radio-section">
+                  <legend className="hcl-legend">
+                    Radio - Horizontally arranged (default)
+                  </legend>
+                  <div className="hcl-radio-group">
+                    <Radio
+                      id="Radio1"
+                      labelText="1 (default)"
+                      value="37"
+                      name="temperature"
+                      onChange={this._onTemperatureRadioChange}
+                      checked={this.state.radio.temperature === 37}
+                    />
+                    <Radio
+                      id="Radio2"
+                      labelText="2"
+                      name="temperature"
+                      value="45"
+                      onChange={this._onTemperatureRadioChange}
+                      checked={this.state.radio.temperature === 45}
+                    />
+                    <Radio
+                      id="Radio3"
+                      labelText="3 (disabled)"
+                      value="30"
+                      name="temperature"
+                      disabled
+                      onChange={this._onTemperatureRadioChange}
+                      checked={this.state.radio.temperature === 30}
+                    />
+                  </div>
+                </div>
+                <div className="hcl-col-12 mt-5">
+                  <legend className="hcl-legend">
+                    Radio - Vertically arranged
+                  </legend>
+                  <div className="hcl-radio-group hcl-stack-vertical">
+                    <Radio
+                      id="Radio4"
+                      labelText="4 (default)"
+                      value="Bangalore"
+                      name="city"
+                      onChange={this._onCityRadioChange}
+                      checked={this.state.radio.city === 'Bangalore'}
+                    />
+                    <Radio
+                      id="Radio5"
+                      labelText="5"
+                      value="Chennai"
+                      name="city"
+                      onChange={this._onCityRadioChange}
+                      checked={this.state.radio.city === 'Chennai'}
+                    />
+                    <Radio
+                      id="Radio6"
+                      labelText="6 (disabled)"
+                      value="Mumbai"
+                      name="city"
+                      disabled
+                      onChange={this._onCityRadioChange}
+                      checked={this.state.radio.city === 'Mumbai'}
+                    />
+                  </div>
+                </div>
+                {/* Link */}
+                <div className="hcl-col-12 mt-5" id="link-section">
+                  <Link href="https://www.google.com" target="_blank">
+                    Google
+                  </Link>
+                </div>
+                {/* Paragraphs */}
+                <div className="hcl-col-12 mt-5" id="paragraph-section">
+                  <Paragraph>
+                    There are many variations of passages of Lorem Ipsum
+                    available, but the majority have suffered alteration in some
+                    form, by injected humour, or randomised words which
+                    don&lsquo;t look even slightly believable.
+                  </Paragraph>
+                </div>
+                {/* Breadcrumb */}
+                <div className="hcl-col-12 mt-5" id="breadcrumb-section">
+                  <Breadcrumb
+                    id="small-navigator"
+                    className="custom-breadcrumb-top"
+                    activeIndex={Math.floor(Math.random() * 3)}
+                    onSelection={e => console.log(e, e.tabIndex)}
+                  >
+                    <BreadcrumbItem className="custom-item" href="#">
+                      Breadcrumb 1
+                    </BreadcrumbItem>
+                    <BreadcrumbItem href="#">Breadcrumb 2</BreadcrumbItem>
+                    <BreadcrumbItem href="#tools">Breadcrumb 3</BreadcrumbItem>
+                  </Breadcrumb>
+                </div>
+                {/* Spinner */}
+                <div className="hcl-col-12 mt-5" id="spinner-section">
+                  <Spinner />
+                </div>
+                {/* Small Spinner */}
+                <div className="hcl-col-12 mt-5">
+                  <Spinner small />
                 </div>
               </div>
               {/* Radio */}
@@ -1069,6 +1287,258 @@ class App extends Component {
                       <List listItems={[this.switchAll[1]]} type="ol" />
                     </div>
                   )}
+                </div>
+                <div
+                  className="hcl-col-12 mt-5 colBorder p-5"
+                  id="tabs-section"
+                >
+                  {/* Tab Component */}
+                  <Tabs
+                    activeIndex={0}
+                    onChange={e => {
+                      console.log(`Label => ${e.label} Index => ${e.tabIndex}`);
+                    }}
+                  >
+                    <Tab label="Tab List 1">Content 1
+                    <Accordion>
+                  <AccordionItem
+                    title="What is Lorem Ipsum ?"
+                    expanded
+                    onChange={event => {
+                      console.log(`Accordian toggled ${event.currentTarget}`);
+                    }}
+                  >
+                    <Paragraph>
+                      Lorem Ipsum is simply dummy text of the printing and
+                      typesetting industry. Lorem Ipsum has been the
+                      industry&apos;s standard dummy text ever since the 1500s,
+                      when an unknown printer took a galley of type and
+                      scrambled it to make a type specimen book. It has survived
+                      not only five centuries, but also the leap into electronic
+                      typesetting, remaining essentially unchanged. It was
+                      popularised in the 1960s with the release of Letraset
+                      sheets containing Lorem Ipsum passages, and more recently
+                      with desktop publishing software like Aldus PageMaker
+                      including versions of Lorem Ipsum.
+                    </Paragraph>
+                  </AccordionItem>
+                  <AccordionItem
+                    title="Why do we use it ?"
+                    onChange={event => {
+                      console.log(`Accordian toggled ${event.currentTarget}`);
+                    }}
+                  >
+                    It is a long
+                    <Paragraph>
+                      distracted by the readable content of a page when looking
+                      at its layout. The point of using Lorem Ipsum is that it
+                      has a more-or-less normal distribution of letters, as
+                      opposed to using &apos;Content here, content here&apos;,
+                      making it look like readable English. Many desktop
+                      publishing packages and web page editors now use Lorem
+                      Ipsum as their default model text, and a search for
+                      &apos;lorem ipsum&apos; will uncover many web sites still
+                      in their infancy. Various versions have evolved over the
+                      years, sometimes by accident, sometimes on purpose
+                      (injected humour and the like).
+                    </Paragraph>{' '}
+                    established fact that a reader will be
+                  </AccordionItem>
+                  <AccordionItem
+                    title="Wher we can it ?"
+                    onChange={event => {
+                      console.log(`Accordian toggled ${event.currentTarget}`);
+                    }}
+                  >
+                    There are ma
+                    <Paragraph>
+                      available, but the majority have suffered alteration in
+                      some form, by injected humour, or randomised words which
+                      don&apos;t look even slightly believable. If you are going
+                      to use a passage of Lorem Ipsum, you need to be sure there
+                      isn&apos;t anything embarrassing hidden in the middle of
+                      text. All the Lorem Ipsum generators on the Internet tend
+                      to repeat predefined chunks as necessary, making this the
+                      first true generator on the Internet. It uses a dictionary
+                      of over 200 Latin words, combined with a handful of model
+                      sentence structures, to generate Lorem Ipsum which looks
+                      reasonable. The generated Lorem Ipsum is therefore always
+                      free from repetition, injected humour, or
+                      non-characteristic words etc.
+                    </Paragraph>
+                    ny variations of passages of Lorem Ipsum
+                  </AccordionItem>
+                </Accordion>
+                    </Tab>
+                    <Tab label="Tab List 2">
+                      Content 2
+                      <Accordion>
+                  <AccordionItem
+                    title="What is Lorem Ipsum ?"
+                    expanded
+                    onChange={event => {
+                      console.log(`Accordian toggled ${event.currentTarget}`);
+                    }}
+                  >
+                    <Paragraph>
+                      Lorem Ipsum is simply dummy text of the printing and
+                      typesetting industry. Lorem Ipsum has been the
+                      industry&apos;s standard dummy text ever since the 1500s,
+                      when an unknown printer took a galley of type and
+                      scrambled it to make a type specimen book. It has survived
+                      not only five centuries, but also the leap into electronic
+                      typesetting, remaining essentially unchanged. It was
+                      popularised in the 1960s with the release of Letraset
+                      sheets containing Lorem Ipsum passages, and more recently
+                      with desktop publishing software like Aldus PageMaker
+                      including versions of Lorem Ipsum.
+                    </Paragraph>
+                  </AccordionItem>
+                  <AccordionItem
+                    title="Why do we use it ?"
+                    onChange={event => {
+                      console.log(`Accordian toggled ${event.currentTarget}`);
+                    }}
+                  >
+                    It is a long
+                    <Paragraph>
+                      distracted by the readable content of a page when looking
+                      at its layout. The point of using Lorem Ipsum is that it
+                      has a more-or-less normal distribution of letters, as
+                      opposed to using &apos;Content here, content here&apos;,
+                      making it look like readable English. Many desktop
+                      publishing packages and web page editors now use Lorem
+                      Ipsum as their default model text, and a search for
+                      &apos;lorem ipsum&apos; will uncover many web sites still
+                      in their infancy. Various versions have evolved over the
+                      years, sometimes by accident, sometimes on purpose
+                      (injected humour and the like).
+                    </Paragraph>{' '}
+                    established fact that a reader will be
+                  </AccordionItem>
+                  <AccordionItem
+                    title="Wher we can it ?"
+                    onChange={event => {
+                      console.log(`Accordian toggled ${event.currentTarget}`);
+                    }}
+                  >
+                    There are ma
+                    <Paragraph>
+                      available, but the majority have suffered alteration in
+                      some form, by injected humour, or randomised words which
+                      don&apos;t look even slightly believable. If you are going
+                      to use a passage of Lorem Ipsum, you need to be sure there
+                      isn&apos;t anything embarrassing hidden in the middle of
+                      text. All the Lorem Ipsum generators on the Internet tend
+                      to repeat predefined chunks as necessary, making this the
+                      first true generator on the Internet. It uses a dictionary
+                      of over 200 Latin words, combined with a handful of model
+                      sentence structures, to generate Lorem Ipsum which looks
+                      reasonable. The generated Lorem Ipsum is therefore always
+                      free from repetition, injected humour, or
+                      non-characteristic words etc.
+                    </Paragraph>
+                    ny variations of passages of Lorem Ipsum
+                  </AccordionItem>
+                </Accordion>
+                    </Tab>
+                    <Tab label="Tab List 3">Content 3</Tab>
+                  </Tabs>
+                </div>
+                <section
+                  className="hcl-col-12 mt-5 colBorder p-5"
+                  id="content-swi-section"
+                >
+                  {/* Content Switcher Component */}
+                  <h5 className="p-2">Content Switcher - (default)</h5>
+                  <ContentSwitcher
+                    activeIndex={contentSwitch.example1}
+                    onChange={e => this.onSwitchChange(e, 'example1')}
+                  >
+                    <Switch label="All" />
+                    <Switch label="Cybernetics" />
+                    <Switch label="Information &amp; Communication" />
+                  </ContentSwitcher>
+                  <section className="mt-1 p-2">
+                    {contentSwitch.example1 === 0 && (
+                      <div className="colBorder p-2">
+                        <List
+                          listItems={this.switchAll}
+                          type="ol"
+                          onClick={e => console.log(e)}
+                        />
+                      </div>
+                    )}
+                    {contentSwitch.example1 === 1 && (
+                      <div className="colBorder p-2">
+                        <List listItems={[this.switchAll[0]]} type="ol" />
+                      </div>
+                    )}
+                    {contentSwitch.example1 === 2 && (
+                      <div className="colBorder p-2">
+                        <List listItems={[this.switchAll[1]]} type="ol" />
+                      </div>
+                    )}
+                  </section>
+                </section>
+                <section className="hcl-col-12 mt-5 colBorder p-5">
+                  <h5 className="p-2">Content Switcher - (disabled)</h5>
+                  <ContentSwitcher
+                    activeIndex={contentSwitch.example2}
+                    onChange={e => this.onSwitchChange(e, 'example2')}
+                  >
+                    <Switch label="All" />
+                    <Switch label="Cybernetics" isDisabled />
+                    <Switch label="Information &amp; Communication" />
+                  </ContentSwitcher>
+                  <section className="mt-1 p-2">
+                    {contentSwitch.example2 === 0 && (
+                      <div className="colBorder p-2">
+                        <List listItems={this.switchAll} type="ol" />
+                      </div>
+                    )}
+                    {contentSwitch.example2 === 1 && (
+                      <div className="colBorder p-2">
+                        <List listItems={[this.switchAll[0]]} type="ol" />
+                      </div>
+                    )}
+                    {contentSwitch.example2 === 2 && (
+                      <div className="colBorder p-2">
+                        <List listItems={[this.switchAll[1]]} type="ol" />
+                      </div>
+                    )}
+                  </section>
+                </section>
+                <section className="hcl-col-12 mt-5 colBorder p-5">
+                  <h5 className="p-2">Content Switcher - (with icons)</h5>
+                  <ContentSwitcher
+                    activeIndex={contentSwitch.example3}
+                    onChange={e => this.onSwitchChange(e, 'example3')}
+                  >
+                    <Switch label="All" iconClass="fa fa-center" />
+                    <Switch label="Cybernetics" iconClass="fa fa-center" />
+                    <Switch
+                      label="Information &amp; Communication"
+                      iconClass="fa fa-right"
+                    />
+                  </ContentSwitcher>
+                  <section className="mt-1 p-2">
+                    {contentSwitch.example3 === 0 && (
+                      <div className="colBorder p-2">
+                        <List listItems={this.switchAll} type="ol" />
+                      </div>
+                    )}
+                    {contentSwitch.example3 === 1 && (
+                      <div className="colBorder p-2">
+                        <List listItems={[this.switchAll[0]]} type="ol" />
+                      </div>
+                    )}
+                    {contentSwitch.example3 === 2 && (
+                      <div className="colBorder p-2">
+                        <List listItems={[this.switchAll[1]]} type="ol" />
+                      </div>
+                    )}
+                  </section>
                 </section>
               </section>
               <section className="hcl-col-12 mt-5 colBorder p-5">
@@ -1221,21 +1691,230 @@ class App extends Component {
                   fileType=".jpg"
                   className="hcl-secondary hcl-sml"
                 >
-                  Add file
-                </FileUploader>
+                  <h5 className="p-2">
+                    Small Header Search (White background)
+                  </h5>
+                  <Search size="small" type="clickable" theme="white" />
+                </section>
+                {/* File Uploader Component */}
+                <div className="hcl-col-12 mt-5" id="file-uploader-section">
+                  <FileUploader
+                    id="file_uploader"
+                    label="Account photo"
+                    description="only .jpg and .png files. 500kb max file size."
+                    fileType=".jpg"
+                    className="hcl-secondary hcl-sml"
+                  >
+                    Add file
+                  </FileUploader>
+                </div>
+                {/* Dropdown Component */}
+                <div className="hcl-row m-3 hcl-col-12">
+                  <div className="hcl-col-6">
+                    <Dropdown
+                      type="top"
+                      items={this.items}
+                      label="Top DropDown"
+                      selectedItem="option-3"
+                      onChange={selected => {
+                        console.log('selected item', selected);
+                      }}
+                    />
+                  </div>
+                  <div className="hcl-col-6">
+                    <Dropdown
+                      type="bottom"
+                      items={this.items}
+                      label="Bottom DropDown"
+                      onChange={selected => {
+                        console.log('selected item', selected);
+                      }}
+                    />
+                  </div>
+                </div>
+                {/* Tile Component */}
+                <section>
+                  <div className="hcl-col-12 mt-5 mb-5">
+                    {/* default tile */}
+                    <Tile>
+                      <p>This is read only tile</p>
+                    </Tile>
+                  </div>
+                  <div className="hcl-col-12 mt-5 mb-5">
+                    {/* clickable tile */}
+                    <Tile type="clickable" href="">
+                      <p>This is clickable tile</p>
+                    </Tile>
+                  </div>
+                  <div className="hcl-col-12 mt-5 mb-5">
+                    {/* selectable tile */}
+                    <Tile type="selectable">
+                      <p>This is selectable tile</p>
+                    </Tile>
+                  </div>
+                  <div className="hcl-col-12 mt-5 mb-5">
+                    {/* expandable tile */}
+                    <Tile type="expandable" id="expandable-tile-1">
+                      {/* container for default content */}
+                      <div>
+                        <p>Content shown prior expand </p>
+                      </div>
+                      {/* container for content which will be added once expanded */}
+                      <div>
+                        <p>Content shown after expand </p>
+                      </div>
+                    </Tile>
+                  </div>
+                </section>
               </div>
-              {/* Dropdown Component */}
-              <div className="hcl-row m-3 hcl-col-12">
-                <div className="hcl-col-6">
-                  <Dropdown
-                    type="top"
-                    items={this.items}
-                    label="Top DropDown"
-                    selectedIndex={1}
+
+              {/* Accordion Component */}
+              <div className="hcl-col-12 mt-5 mb-5">
+                <Accordion>
+                  <AccordionItem
+                    title="What is Lorem Ipsum ?"
+                    expanded
+                    onChange={event => {
+                      console.log(`Accordian toggled ${event.currentTarget}`);
+                    }}
+                  >
+                    <Paragraph>
+                      Lorem Ipsum is simply dummy text of the printing and
+                      typesetting industry. Lorem Ipsum has been the
+                      industry&apos;s standard dummy text ever since the 1500s,
+                      when an unknown printer took a galley of type and
+                      scrambled it to make a type specimen book. It has survived
+                      not only five centuries, but also the leap into electronic
+                      typesetting, remaining essentially unchanged. It was
+                      popularised in the 1960s with the release of Letraset
+                      sheets containing Lorem Ipsum passages, and more recently
+                      with desktop publishing software like Aldus PageMaker
+                      including versions of Lorem Ipsum.
+                    </Paragraph>
+                  </AccordionItem>
+                  <AccordionItem
+                    title="Why do we use it ?"
+                    onChange={event => {
+                      console.log(`Accordian toggled ${event.currentTarget}`);
+                    }}
+                  >
+                    It is a long
+                    <Paragraph>
+                      distracted by the readable content of a page when looking
+                      at its layout. The point of using Lorem Ipsum is that it
+                      has a more-or-less normal distribution of letters, as
+                      opposed to using &apos;Content here, content here&apos;,
+                      making it look like readable English. Many desktop
+                      publishing packages and web page editors now use Lorem
+                      Ipsum as their default model text, and a search for
+                      &apos;lorem ipsum&apos; will uncover many web sites still
+                      in their infancy. Various versions have evolved over the
+                      years, sometimes by accident, sometimes on purpose
+                      (injected humour and the like).
+                    </Paragraph>{' '}
+                    established fact that a reader will be
+                  </AccordionItem>
+                  <AccordionItem
+                    title="Wher we can it ?"
+                    onChange={event => {
+                      console.log(`Accordian toggled ${event.currentTarget}`);
+                    }}
+                  >
+                    There are ma
+                    <Paragraph>
+                      available, but the majority have suffered alteration in
+                      some form, by injected humour, or randomised words which
+                      don&apos;t look even slightly believable. If you are going
+                      to use a passage of Lorem Ipsum, you need to be sure there
+                      isn&apos;t anything embarrassing hidden in the middle of
+                      text. All the Lorem Ipsum generators on the Internet tend
+                      to repeat predefined chunks as necessary, making this the
+                      first true generator on the Internet. It uses a dictionary
+                      of over 200 Latin words, combined with a handful of model
+                      sentence structures, to generate Lorem Ipsum which looks
+                      reasonable. The generated Lorem Ipsum is therefore always
+                      free from repetition, injected humour, or
+                      non-characteristic words etc.
+                    </Paragraph>
+                    ny variations of passages of Lorem Ipsum
+                  </AccordionItem>
+                </Accordion>
+                {/* DatePicker */}
+                <div className="hcl-row m-3 hcl-col-12">
+                  <div className="hcl-col-6">
+                    <DatePicker
+                      weekDays={weekDays}
+                      months={months}
+                      open="top"
+                      format="mm/dd/yyyy"
+                      onDateSelect={dateSelected => {
+                        console.log('Selected Date', dateSelected);
+                      }}
+                    />
+                  </div>
+                  <div className="hcl-col-6">
+                    <DatePicker
+                      weekDays={weekDays}
+                      months={months}
+                      open="bottom"
+                      format="dd/mm/yyyy"
+                      onDateSelect={dateSelected => {
+                        console.log('Selected Date', dateSelected);
+                      }}
+                    />
+                  </div>
+                </div>
+
+                {/* Number Input */}
+                <div className="hcl-col-12 mt-5 mb-5">
+                  <NumberInput
+                    defaultValue={0}
+                    step={2}
+                    id="numberInput2"
+                    label="Number Input"
+                  />
+                  <NumberInput
+                    defaultValue={10}
+                    onChange={value => {
+                      console.log(value);
+                    }}
+                    required
+                    max={100}
+                    min={10}
+                    id="numberInput1"
+                    label="Number Input validation"
+                    helperText="Optional Helper text goes here (max 100 and min 10)"
+                  />
+                  <NumberInput
+                    defaultValue={0}
+                    id="numberInput3"
+                    helperText="Optional Helper text goes here"
+                    label="Number Input validation"
+                    disabled
+                  />
+                </div>
+                {/* Select */}
+                <div className="hcl-col-12 mt-5 mb-5">
+                  <Select
+                    label="Select Label"
                     onChange={selected => {
                       console.log('selected item', selected);
                     }}
-                  />
+                    id="hcl-select-id-1"
+                  >
+                    <SelectItem
+                      text="Choose an option"
+                      value="placeholder-item"
+                    />
+                    <SelectItemGroup label="Category 1">
+                      <SelectItem text="Option 1" value="option-1" />
+                      <SelectItem text="Option 2" value="option-2" />
+                    </SelectItemGroup>
+                    <SelectItemGroup label="Category 2">
+                      <SelectItem text="Option 3" value="option-3" />
+                      <SelectItem text="Option 4" value="option-4" />
+                    </SelectItemGroup>
+                  </Select>
                 </div>
                 <div className="hcl-col-6">
                   <Dropdown

@@ -12,7 +12,7 @@ import TableExample from './example/Table';
 
 class Home extends Component {
   state = {
-    sidebarExpanded: false
+    sidebarExpanded: true
   };
   navigationData = [
     {
@@ -115,6 +115,7 @@ class Home extends Component {
         <Sidebar
           title="Patronus"
           items={this.navigationData}
+          expanded={this.state.sidebarExpanded}
           icon={
             <Icon
               className={`hcl-sidebar-title-icon`}

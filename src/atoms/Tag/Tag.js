@@ -10,13 +10,14 @@ const Tag = ({
   closable,
   onClose,
   thumbnail,
+  thumbnailSrc,
   ...restProps
 }) => {
   const classnames = `${prefix}-tag hcl-tag-${type} ${className}`.trim();
 
   return (
     <button type="button" className={classnames} {...restProps}>
-      {thumbnail}
+      {thumbnail? thumbnail: thumbnailSrc? <img src={thumbnailSrc} className={`${prefix}-tag-thumbnail`} />: null}
       <span className={`${prefix}-tag-text`}>{children || text}</span>
       {closable ? (
         <span
@@ -52,7 +53,9 @@ Tag.propTypes = {
    */
   onClose: PropTypes.func,
   /** Thumbnail for Tag Component */
-  thumbnail: PropTypes.object
+  thumbnail: PropTypes.object,
+  /** Source of thumbnail for Tag Component */
+  thumbnailSrc: PropTypes.object
 };
 
 Tag.defaultProps = {
@@ -65,7 +68,8 @@ Tag.defaultProps = {
   disabled: false,
   closable: false,
   onClose: null,
-  thumbnail: null
+  thumbnail: null,
+  thumbnailSrc: null
 };
 
 export default Tag;
