@@ -229,7 +229,6 @@ const Pagination = ({ totalItems, itemsPerPageStepper, itemsStepperLimit, itemsP
             e.preventDefault();
             const selIndex = target.selectedIndex;
             if (selIndex === 0) { // FIRST ELEMENT
-                target.selectedIndex = optionsLen - 1;
             } else { // OTHERS
                 target.selectedIndex--;
             }
@@ -239,7 +238,6 @@ const Pagination = ({ totalItems, itemsPerPageStepper, itemsStepperLimit, itemsP
             if (target.options) {
                 const selIndex = target.selectedIndex;
                 if ((optionsLen - 1) === selIndex) { // LAST ELEMENT
-                    target.selectedIndex = 0;
                 } else { // OTHERS
                     target.selectedIndex++;
                 }
