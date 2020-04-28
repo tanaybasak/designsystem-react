@@ -6,23 +6,3 @@
 #root {
     height: 100vh;
 }
-
-.hcl-tag-text:first-child {
-    padding: unset;
-}
-
-
-.borderless {
-    .hcl-table-wrapper {
-        border: none;
-    }
-
-    .hcl-table-wrapper .hcl-data-table.hcl-data-table-zebra tr {
-        border-bottom-color: transparent;
-    }
-
-    .hcl-table-wrapper .hcl-data-table.hcl-data-table-zebra tbody tr:hover {
-        border-bottom-color: #0066b3;
-    }
-
-}

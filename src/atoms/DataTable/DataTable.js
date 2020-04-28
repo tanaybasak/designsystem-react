@@ -25,24 +25,15 @@ const DataTable = ({
   totalItems,
   overflowMenuEllipsisDirection,
   onPageChange,
-  onItemsPerPageChange,
   expandRowTemplate,
-
   ...restProps
 }) => {
-  //const { columns, rows } = tableData;
-  //const [selected, setSelected] = useState(new Array(rows.length));
   const [allSelected, setAllSelected] = useState(false);
   const classnames = `${prefix}-data-table ${className}`.trim();
-  //const fields = new Array(rows.length);
-
   const [pageNo, setPageNo] = useState(1);
   const [pageItemCount, setPageItemCount] = useState(itemsPerPageStepper);
-
   const [rows, updateTableRowData] = useState(tableData);
-
   const [selectedRows, updateSelectedRow] = useState(uniqueKey ? {} : []);
-
   const tableRef = useRef(null);
 
   useEffect(() => {
@@ -66,8 +57,6 @@ const DataTable = ({
   }, [tableRef]);
 
   const _overflowMenuOnClick = (event, node) => {
-    // const comp = event.currentTarget;
-    // comp.dataset.index = index;
     overflowMenuOnClick(event, node);
   };
 
@@ -164,11 +153,6 @@ const DataTable = ({
     if (onSelection) {
       onSelection(row, Object.values(tempselectedRow));
     }
-
-    // row.expanded = event.currentTarget.checked;
-    // let tempRows = [...rows];
-    // tempRows[1].expanded = true;
-    //updateTableRowData([...tempRows]);
   };
 
   const sort = async (field, event) => {
@@ -220,19 +204,16 @@ const DataTable = ({
 
   let selectColumn = {
     field: 'checkbox',
-    //pinned:'left',
     width: selectCheckBoxWidth
   };
 
   let expandColumn = {
     field: 'expand',
-    //pinned:'left',
     width: '50px'
   };
 
   let overflowColumn = {
     field: 'overflow',
-    //pinned: 'right',
     width: overflowContentWidth
   };
 
@@ -251,19 +232,9 @@ const DataTable = ({
     tableConfig.push(overflowColumn);
   }
 
-  //   tableConfig = [
-  //     //expandRowTemplate ? expandColumn : null,
-  //     ...columnInfo['left'],
-  //     selectable ? selectColumn : null,
-  //     ...columnInfo['main'],
-  //     ...columnInfo['right'],
-  //     overflowMenu ? overflowColumn : null
-  //   ];
-
   let allocatedWidth = 0;
   let totalItemsWithoutWidth = tableConfig.length;
 
-  console.log(tableConfig);
   tableConfig.map(column => {
     if (column.width) {
       if (column.pinned !== 'left' && column.pinned !== 'right') {
@@ -273,10 +244,6 @@ const DataTable = ({
       totalItemsWithoutWidth--;
     }
   });
-
-  let marginLeftRootLevel = 0;
-  let marginRightRootLevel = 0;
-
   const getMarginLeft = index => {
     let width = tableConfig[index - 1].width.includes('calc')
       ? tableConfig[index - 1].width
@@ -328,7 +295,6 @@ const DataTable = ({
     } else {
       if (leftPinned) {
         leftPinned = false;
-        marginLeftRootLevel = getMarginLeft(index);
       }
     }
   });
@@ -344,7 +310,6 @@ const DataTable = ({
     } else {
       if (rightPinned) {
         rightPinned = false;
-        marginRightRootLevel = getMarginRight(i);
       }
     }
   }
@@ -376,35 +341,23 @@ const DataTable = ({
     updateTableRowData([...tempData]);
   };
 
-  const getCheckboxStatus = row => {
-    if (uniqueKey) {
-      return selectedRows[row[uniqueKey]] ? true : false;
-    } else {
-      return selectedRows.find(i => i == row) ? true : false;
-    }
-  };
-
-  let classNameNew = '';
   let tableClass = '';
-  if (type.includes('borderless')) {
-    classNameNew += 'borderless';
-  }
-
   if (type.includes('compact')) {
-    tableClass += 'hcl-data-table-compact';
+    tableClass += ' hcl-data-table-compact';
   } else if (type.includes('tall')) {
-    tableClass += 'hcl-data-table-tall';
-  } else if (type.includes('zebra')) {
-    tableClass += 'hcl-data-table-zebra';
+    tableClass += ' hcl-data-table-tall';
+  }
+  if (type.includes('zebra')) {
+    tableClass += ' hcl-data-table-zebra';
   }
 
   return (
-    <div className={`hcl-data-grid ${classNameNew}`} {...restProps}>
-      <div className="hcl-table-wrapper">
+    <div className={`hcl-data-grid`} {...restProps}>
+      <div className={`hcl-table-wrapper${type.includes('borderless') ? ' hcl-data-table-borderless' : ''}`}>
         <table
           id={id}
           ref={tableRef}
-          className={`${classnames} ${tableClass}`}
+          className={`${classnames}${tableClass}`}
           role="grid"
           aria-rowcount={totalItems}
         >
@@ -672,7 +625,6 @@ DataTable.propTypes = {
   itemsStepperLimit: PropTypes.number,
   totalItems: PropTypes.number,
   onPageChange: PropTypes.func,
-  onItemsPerPageChange: PropTypes.func,
   onSelection: PropTypes.func,
   expandRowTemplate: PropTypes.func
 };
@@ -697,7 +649,6 @@ DataTable.defaultProps = {
   totalItems: 0,
   overflowMenuEllipsisDirection: 'horizontal',
   onPageChange: () => {},
-  onItemsPerPageChange: () => {},
   onSelection: () => {}
 };
 

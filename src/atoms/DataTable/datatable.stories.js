@@ -6,62 +6,32 @@ import { select, object, boolean } from '@storybook/addon-knobs';
 import DataTable from './DataTable';
 //@update-path-build-end
 
-const tableData = {
-  columns: [
-    {
-      label: 'Name',
-      field: 'name',
-      sortable: true
-    },
-    {
-      label: 'Protocol',
-      field: 'protocol'
-    },
-    {
-      label: 'Port',
-      field: 'port'
-    },
-    {
-      label: 'Rule',
-      field: 'rule'
-    },
-    {
-      label: 'Attached Groups',
-      field: 'attachedGroups'
-    },
-    {
-      label: 'Status',
-      field: 'status'
-    }
-  ],
-  rows: [
-    {
-      name: 'Load Balancer 1',
-      protocol: 'HTTP',
-      port: '80',
-      rule: 'Round Robin',
-      attachedGroups: "Maureen's VM Groups",
-      status: 'Active'
-    },
-    {
-      name: 'Load Balancer 2',
-      protocol: 'HTTP',
-      port: '80',
-      rule: 'Round Robin',
-      attachedGroups: "Maureen's VM Groups",
-      status: 'Active'
-    },
-    {
-      name: 'Load Balancer 3',
-      protocol: 'HTTP',
-      port: '80',
-      rule: 'Round Robin',
-      attachedGroups: "Maureen's VM Groups",
-      status: 'Active'
-    }
-  ]
-};
-
+const tableData = [
+  {
+    name: 'Load Balancer 1',
+    protocol: 'HTTP',
+    port: '80',
+    rule: 'Round Robin',
+    attachedGroups: "Maureen's VM Groups",
+    status: 'Active'
+  },
+  {
+    name: 'Load Balancer 2',
+    protocol: 'HTTP',
+    port: '80',
+    rule: 'Round Robin',
+    attachedGroups: "Maureen's VM Groups",
+    status: 'Active'
+  },
+  {
+    name: 'Load Balancer 3',
+    protocol: 'HTTP',
+    port: '80',
+    rule: 'Round Robin',
+    attachedGroups: "Maureen's VM Groups",
+    status: 'Active'
+  }
+];
 const overflowList = [
   {
     name: 'option 1'
@@ -84,23 +54,54 @@ const overflowList = [
   }
 ];
 
+const tableConfig = [
+  {
+    label: 'Name',
+    field: 'name',
+    sortable: true
+  },
+  {
+    label: 'Protocol',
+    field: 'protocol'
+  },
+  {
+    label: 'Port',
+    field: 'port'
+  },
+  {
+    label: 'Rule',
+    field: 'rule'
+  },
+  {
+    label: 'Attached Groups',
+    field: 'attachedGroups'
+  },
+  {
+    label: 'Status',
+    field: 'status'
+  }
+];
+
 const classOptions = {
-  Default: '',
-  Zebra: 'hcl-data-table-zebra',
-  Compact: 'hcl-data-table-compact',
-  Tall: 'hcl-data-table-tall',
-  Borderless: 'hcl-data-table-borderless'
+  Compact: ' compact',
+  Tall: ' tall',
+  Default: ''
 };
 storiesOf('DataTable', module)
   .add(
     'default',
     () => (
       <DataTable
-        id="data-table-one"
-        tableData={object('Table Data', tableData)}
-        selectable={boolean('Selectable', true)}
-        onSort={action(event)}
-        className={select('Type', classOptions)}
+        id="sample_table_1"
+        type={`${boolean('Border', true) ? '' : 'borderless'}${
+          boolean('Zebra', false) ? ' zebra' : ''
+        }${select('Class Name', classOptions, '')}`}
+        tableData={tableData}
+        tableConfig={tableConfig}
+        selectable={boolean('Selectable', false)}
+        onSort={action('Sort Action')}
+        onSelection={action('On Selection')}
+        totalItems={tableData.length}
       />
     ),
     {
@@ -117,14 +118,94 @@ storiesOf('DataTable', module)
     'with overflow',
     () => (
       <DataTable
-        className={select('Class Name', classOptions, '')}
-        id="data-table-one"
-        tableData={object('Table Data', tableData)}
+        id="sample_table_2"
+        type={`${boolean('Border', true) ? '' : 'borderless'}${
+          boolean('Zebra', false) ? ' zebra' : ''
+        }${select('Class Name', classOptions, '')}`}
+        tableData={tableData}
+        tableConfig={tableConfig}
         selectable={boolean('Selectable', false)}
-        onSort={action(event)}
+        onSort={action('Sort Action')}
+        onSelection={action('On Selection')}
+        totalItems={tableData.length}
+        overflowMenuEllipsisDirection={select(
+          'Class Name',
+          {
+            Vertical: 'vertical',
+            Horizontal: 'horizontal'
+          },
+          'vertical'
+        )}
         overflowMenu
-        overflowMenuItems={object('Overflow Menu Content', overflowList)}
-        overflowMenuOnClick={action(event)}
+        overflowMenuItems={overflowList}
+        overflowMenuOnClick={action('On Overflow Action')}
+      />
+    ),
+    {
+      info: {
+        text: `Description About DataTable Component \n
+
+        import { DataTable } from '@patron/patron-react/datatable'
+        
+        `
+      }
+    }
+  )
+  .add(
+    'with pagination',
+    () => (
+      <DataTable
+        id="sample_table_3"
+        type={`${boolean('Border', true) ? '' : 'borderless'}${
+          boolean('Zebra', false) ? ' zebra' : ''
+        }${select('Class Name', classOptions, '')}`}
+        tableData={tableData}
+        tableConfig={tableConfig}
+        selectable={boolean('Selectable', false)}
+        onSort={action('Sort Action')}
+        onSelection={action('On Selection')}
+        totalItems={30}
+        pagination
+        itemsPerPageStepper={3}
+        itemsStepperLimit={100}
+        onPageChange={action('On Page Change')}
+      />
+    ),
+    {
+      info: {
+        text: `Description About DataTable Component \n
+
+        import { DataTable } from '@patron/patron-react/datatable'
+        
+        `
+      }
+    }
+  )
+  .add(
+    'with expand row',
+    () => (
+      <DataTable
+        id="sample_table_3"
+        type={`${boolean('Border', true) ? '' : 'borderless'}${
+          boolean('Zebra', false) ? ' zebra' : ''
+        }${select('Class Name', classOptions, '')}`}
+        tableData={tableData}
+        tableConfig={tableConfig}
+        selectable={boolean('Selectable', false)}
+        onSort={action('Sort Action')}
+        onSelection={action('On Selection')}
+        totalItems={tableData.length}
+        expandRowTemplate={data => {
+          return (
+            <div>
+              <div>
+                <p>Name : {data.name}</p>
+                <p>Protocol : {data.protocol}</p>
+                <p>Port : {data.port}</p>
+              </div>
+            </div>
+          );
+        }}
       />
     ),
     {
