@@ -124,17 +124,15 @@ storiesOf('DataTable', module)
         }${select('Class Name', classOptions, '')}`}
         tableData={tableData}
         tableConfig={tableConfig}
-        selectable={boolean('Selectable', false)}
         onSort={action('Sort Action')}
-        onSelection={action('On Selection')}
         totalItems={tableData.length}
         overflowMenuEllipsisDirection={select(
           'Class Name',
           {
-            Vertical: 'vertical',
-            Horizontal: 'horizontal'
+            vertical: 'vertical',
+            horizontal: 'horizontal'
           },
-          'vertical'
+          'horizontal'
         )}
         overflowMenu
         overflowMenuItems={overflowList}
@@ -206,6 +204,32 @@ storiesOf('DataTable', module)
             </div>
           );
         }}
+      />
+    ),
+    {
+      info: {
+        text: `Description About DataTable Component \n
+
+        import { DataTable } from '@patron/patron-react/datatable'
+        
+        `
+      }
+    }
+  )
+  .add(
+    'with Selectable',
+    () => (
+      <DataTable
+        id="sample_table_4"
+        type={`${boolean('Border', true) ? '' : 'borderless'}${
+          boolean('Zebra', false) ? ' zebra' : ''
+        }${select('Class Name', classOptions, '')}`}
+        tableData={tableData}
+        tableConfig={tableConfig}
+        selectable
+        onSort={action('Sort Action')}
+        onSelection={action('On Selection')}
+        totalItems={tableData.length}
       />
     ),
     {

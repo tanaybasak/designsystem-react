@@ -35,6 +35,7 @@ const DataTable = ({
   const [rows, updateTableRowData] = useState(tableData);
   const [selectedRows, updateSelectedRow] = useState(uniqueKey ? {} : []);
   const tableRef = useRef(null);
+  const [tableConfigTemp, setTableConfigTemp] = useState(tableConfig)
 
   useEffect(() => {
     updateTableRowData(tableData);
@@ -47,6 +48,143 @@ const DataTable = ({
   useEffect(() => {
     updateAllSelected(selectedRows);
   }, [rows]);
+
+  useEffect(() => {
+    let tempConfig = [...tableConfigTemp];
+    let columnInfo = {
+        left: [],
+        main: [],
+        right: []
+      };
+    
+      let unitUsed = 'px';
+      let selectCheckBoxWidth = '100px';
+      let overflowContentWidth = '80px';
+    
+      tempConfig.map(column => {
+        if (column.pinned === 'left') {
+          columnInfo['left'].push(column);
+        } else if (column.pinned === 'right') {
+          columnInfo['right'].push(column);
+        } else {
+          columnInfo['main'].push(column);
+        }
+      });
+    
+      let selectColumn = {
+        field: 'checkbox',
+        width: selectCheckBoxWidth
+      };
+    
+      let expandColumn = {
+        field: 'expand',
+        width: '50px'
+      };
+    
+      let overflowColumn = {
+        field: 'overflow',
+        width: overflowContentWidth
+      };
+    
+      tempConfig = [];
+      if (expandRowTemplate) {
+        tempConfig.push(expandColumn);
+      }
+      tempConfig = [...tempConfig, ...columnInfo['left']];
+    
+      if (selectable) {
+        tempConfig.push(selectColumn);
+      }
+      tempConfig = [...tempConfig, ...columnInfo['main'], ...columnInfo['right']];
+    
+      if (overflowMenu) {
+        tempConfig.push(overflowColumn);
+      }
+    
+      let allocatedWidth = 0;
+      let totalItemsWithoutWidth = tempConfig.length;
+    
+      tempConfig.map(column => {
+        if (column.width) {
+          if (column.pinned !== 'left' && column.pinned !== 'right') {
+            allocatedWidth += parseInt(column.width);
+          }
+          unitUsed = column.width.replace(/[0-9]/g, '');
+          totalItemsWithoutWidth--;
+        }
+      });
+      const getMarginLeft = index => {
+        let width = tempConfig[index - 1].width.includes('calc')
+          ? tempConfig[index - 1].width
+              .substr(0, tempConfig[index - 1].width.length - 1)
+              .replace('calc(', '')
+          : tempConfig[index - 1].width;
+    
+        let marginLeft = tempConfig[index - 1].marginLeft
+          ? tempConfig[index - 1].marginLeft.includes('calc')
+            ? tempConfig[index - 1].marginLeft
+                .substr(0, tempConfig[index - 1].marginLeft.length - 1)
+                .replace('calc(', '')
+            : tempConfig[index - 1].marginLeft
+          : '0px';
+    
+        return `calc( ${width} + ${marginLeft})`;
+      };
+    
+      const getMarginRight = index => {
+        let width = tempConfig[index + 1].width.includes('calc')
+          ? tempConfig[index + 1].width
+              .substr(0, tempConfig[index + 1].width.length - 1)
+              .replace('calc(', '')
+          : tempConfig[index + 1].width;
+    
+        let marginRight = tempConfig[index + 1].marginRight
+          ? tempConfig[index + 1].marginRight.includes('calc')
+            ? tempConfig[index + 1].marginRight
+                .substr(0, tempConfig[index + 1].marginRight.length - 1)
+                .replace('calc(', '')
+            : tempConfig[index + 1].marginRight
+          : '0px';
+    
+        return `calc( ${width} + ${marginRight})`;
+      };
+    
+      let leftPinned = false;
+      tempConfig.map((column, index) => {
+        if (!column.width) {
+          column.width = `calc((100% - ${allocatedWidth +
+            unitUsed}) / ${totalItemsWithoutWidth})`;
+        }
+    
+        if (column.pinned === 'left') {
+          leftPinned = true;
+          if (index !== 0) {
+            column.marginLeft = getMarginLeft(index);
+          }
+        } else {
+          if (leftPinned) {
+            leftPinned = false;
+          }
+        }
+      });
+    
+      let rightPinned = false;
+      for (let i = tempConfig.length - 1; i >= 0; i--) {
+        let column = tempConfig[i];
+        if (column.pinned === 'right') {
+          rightPinned = true;
+          if (i !== tempConfig.length - 1) {
+            column.marginRight = getMarginRight(i);
+          }
+        } else {
+          if (rightPinned) {
+            rightPinned = false;
+          }
+        }
+      }
+
+      setTableConfigTemp(tempConfig)
+  }, [tableConfig]);
 
   useEffect(() => {
     if (
@@ -182,138 +320,6 @@ const DataTable = ({
     }
   };
 
-  let columnInfo = {
-    left: [],
-    main: [],
-    right: []
-  };
-
-  let unitUsed = 'px';
-  let selectCheckBoxWidth = '100px';
-  let overflowContentWidth = '80px';
-
-  tableConfig.map(column => {
-    if (column.pinned === 'left') {
-      columnInfo['left'].push(column);
-    } else if (column.pinned === 'right') {
-      columnInfo['right'].push(column);
-    } else {
-      columnInfo['main'].push(column);
-    }
-  });
-
-  let selectColumn = {
-    field: 'checkbox',
-    width: selectCheckBoxWidth
-  };
-
-  let expandColumn = {
-    field: 'expand',
-    width: '50px'
-  };
-
-  let overflowColumn = {
-    field: 'overflow',
-    width: overflowContentWidth
-  };
-
-  tableConfig = [];
-  if (expandRowTemplate) {
-    tableConfig.push(expandColumn);
-  }
-  tableConfig = [...tableConfig, ...columnInfo['left']];
-
-  if (selectable) {
-    tableConfig.push(selectColumn);
-  }
-  tableConfig = [...tableConfig, ...columnInfo['main'], ...columnInfo['right']];
-
-  if (overflowMenu) {
-    tableConfig.push(overflowColumn);
-  }
-
-  let allocatedWidth = 0;
-  let totalItemsWithoutWidth = tableConfig.length;
-
-  tableConfig.map(column => {
-    if (column.width) {
-      if (column.pinned !== 'left' && column.pinned !== 'right') {
-        allocatedWidth += parseInt(column.width);
-      }
-      unitUsed = column.width.replace(/[0-9]/g, '');
-      totalItemsWithoutWidth--;
-    }
-  });
-  const getMarginLeft = index => {
-    let width = tableConfig[index - 1].width.includes('calc')
-      ? tableConfig[index - 1].width
-          .substr(0, tableConfig[index - 1].width.length - 1)
-          .replace('calc(', '')
-      : tableConfig[index - 1].width;
-
-    let marginLeft = tableConfig[index - 1].marginLeft
-      ? tableConfig[index - 1].marginLeft.includes('calc')
-        ? tableConfig[index - 1].marginLeft
-            .substr(0, tableConfig[index - 1].marginLeft.length - 1)
-            .replace('calc(', '')
-        : tableConfig[index - 1].marginLeft
-      : '0px';
-
-    return `calc( ${width} + ${marginLeft})`;
-  };
-
-  const getMarginRight = index => {
-    let width = tableConfig[index + 1].width.includes('calc')
-      ? tableConfig[index + 1].width
-          .substr(0, tableConfig[index + 1].width.length - 1)
-          .replace('calc(', '')
-      : tableConfig[index + 1].width;
-
-    let marginRight = tableConfig[index + 1].marginRight
-      ? tableConfig[index + 1].marginRight.includes('calc')
-        ? tableConfig[index + 1].marginRight
-            .substr(0, tableConfig[index + 1].marginRight.length - 1)
-            .replace('calc(', '')
-        : tableConfig[index + 1].marginRight
-      : '0px';
-
-    return `calc( ${width} + ${marginRight})`;
-  };
-
-  let leftPinned = false;
-  tableConfig.map((column, index) => {
-    if (!column.width) {
-      column.width = `calc((100% - ${allocatedWidth +
-        unitUsed}) / ${totalItemsWithoutWidth})`;
-    }
-
-    if (column.pinned === 'left') {
-      leftPinned = true;
-      if (index !== 0) {
-        column.marginLeft = getMarginLeft(index);
-      }
-    } else {
-      if (leftPinned) {
-        leftPinned = false;
-      }
-    }
-  });
-
-  let rightPinned = false;
-  for (let i = tableConfig.length - 1; i >= 0; i--) {
-    let column = tableConfig[i];
-    if (column.pinned === 'right') {
-      rightPinned = true;
-      if (i !== tableConfig.length - 1) {
-        column.marginRight = getMarginRight(i);
-      }
-    } else {
-      if (rightPinned) {
-        rightPinned = false;
-      }
-    }
-  }
-
   const onPageNumberChange = async pageNo => {
     if (rows.length < pageNo * pageItemCount && rows.length != totalItems) {
       let newData = await onPageChange(pageNo, pageItemCount);
@@ -363,7 +369,7 @@ const DataTable = ({
         >
           <thead>
             <tr>
-              {tableConfig.map(
+              {tableConfigTemp.map(
                 (
                   {
                     label,
@@ -437,7 +443,7 @@ const DataTable = ({
             {getTableData(rows).map((row, index) => (
               <React.Fragment key={`row-${index}`}>
                 <tr>
-                  {tableConfig.map((column, i) => (
+                  {tableConfigTemp.map((column, i) => (
                     <td
                       key={`col-${index}-${i}`}
                       title={
@@ -647,7 +653,7 @@ DataTable.defaultProps = {
   itemsPerPageText: 'Items per Page:',
   itemsStepperLimit: 100,
   totalItems: 0,
-  overflowMenuEllipsisDirection: 'horizontal',
+  overflowMenuEllipsisDirection: 'vertical',
   onPageChange: () => {},
   onSelection: () => {}
 };

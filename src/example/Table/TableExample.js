@@ -185,7 +185,6 @@ class TableExample extends Component {
                 itemsPerPageStepper={10}
                 itemsStepperLimit={100}
                 onPageChange={this.onPageChangeDatatable}
-                onItemsPerPageChange={this.onItemsPerPageChangeDatatable}
                 totalItems={this.state.totalItemsPage}
                 overflowMenuEllipsisDirection="vertical"
                 overflowMenu
@@ -218,7 +217,6 @@ class TableExample extends Component {
                 itemsPerPageStepper={10}
                 itemsStepperLimit={100}
                 onPageChange={this.onPageChangeDatatable}
-                onItemsPerPageChange={this.onItemsPerPageChangeDatatable}
                 totalItems={this.state.totalItemsPage2}
                 overflowMenuEllipsisDirection="vertical"
                 overflowMenu
