@@ -102,34 +102,36 @@ const LoadingState = ({ type, className, ...restProps }) => {
   const tableLoadingState = () => {
     const num = Array.from(Array(4).keys());
     return (
-      <table className={`${prefix}-data-table ${classnames}`}>
-        <thead>
-          <tr>
-            {restProps.tableData.columns.map(
-              ({ label, sortable, title }, index) => (
-                <th
-                  key={`heading-${index}`}
-                  title={title}
-                  className={sortable ? 'sortable' : ''}
-                >
-                  {label}
-                </th>
-              )
-            )}
-          </tr>
-        </thead>
-        <tbody>
-          {num.map((row, index) => (
-            <tr key={`row-${index}`}>
-              {restProps.tableData.columns.map((col, i) => (
-                <td key={`col-${index}-${i}`}>
-                  <span />
-                </td>
-              ))}
+      <div className={`${prefix}-table-wrapper`}>
+        <table className={`${prefix}-data-table ${classnames}`}>
+          <thead>
+            <tr>
+              {restProps.tableConfig.map(
+                ({ label, sortable, title }, index) => (
+                  <th
+                    key={`heading-${index}`}
+                    title={title}
+                    className={sortable ? 'sortable' : ''}
+                  >
+                    <div className="header-text-wrapper">{label}</div>
+                  </th>
+                )
+              )}
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {num.map((row, index) => (
+              <tr key={`row-${index}`}>
+                {restProps.tableConfig.map((col, i) => (
+                  <td key={`col-${index}-${i}`}>
+                    <div className="table-body-content-wrapper" style={{width : '100%'}}><span /></div>
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     );
   };
 
