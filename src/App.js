@@ -851,7 +851,7 @@ class App extends Component {
                 {/* Tag */}
                 <div className="hcl-col-12 mt-5" id="tags-section">	
                   <Tag className="ml-3" title="Primary Tag">	
-                    Primary Tag	
+                    Primary Tag
                   </Tag>	
                   <Tag className="ml-3" title="Primary Disabled" disabled>	
                     Primary Disabled	

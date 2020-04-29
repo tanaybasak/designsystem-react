@@ -52,7 +52,7 @@ Tag.propTypes = {
    * Argument – event
    */
   onClose: PropTypes.func,
-  /** Thumbnail for Tag Component */
+  /** Thumbnail for Tag Component as an Object */
   thumbnail: PropTypes.object,
   /** Source of thumbnail for Tag Component */
   thumbnailSrc: PropTypes.string
