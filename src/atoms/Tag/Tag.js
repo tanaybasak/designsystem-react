@@ -39,7 +39,7 @@ Tag.propTypes = {
   text: PropTypes.string,
   /** Type of Tag eg: 'primary', 'secondary' */
   type: PropTypes.oneOf(["primary", "secondary"]),
-  /** Title of Tag */
+  /** Title to be displayed on hovering Tag */
   title: PropTypes.string,
   /** Tab index for Tag */
   tabIndex: PropTypes.number,
@@ -54,7 +54,7 @@ Tag.propTypes = {
   onClose: PropTypes.func,
   /** Thumbnail for Tag Component as an Object */
   thumbnail: PropTypes.object,
-  /** Source of thumbnail for Tag Component */
+  /** Relative path of file as PNG/IMG/data-URIs */
   thumbnailSrc: PropTypes.string
 };
 
