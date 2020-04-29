@@ -41,6 +41,7 @@ import Tooltip from './atoms/Tooltip/Tooltip';
 import LoadingState from './atoms/LoadingState/LoadingState';
 import Footer from './molecules/Footer';
 import TreeView from './atoms/TreeView/TreeView';
+import Icon from './atoms/Icon';
 
 class App extends Component {
   state = {
@@ -848,6 +849,85 @@ class App extends Component {
                   <List listItems={listItems} type="ul" onClick={() => {}} />
                 </div>
                 {/* Tag */}
+                <div className="hcl-col-12 mt-5" id="tags-section">	
+                  <Tag className="ml-3" title="Primary Tag">	
+                    Primary Tag	
+                  </Tag>	
+                  <Tag className="ml-3" title="Primary Disabled" disabled>	
+                    Primary Disabled	
+                  </Tag>	
+                  <Tag	
+                    className="ml-3"	
+                    title="Primary Closable"	
+                    closable	
+                    onClose={() => {	
+                      alert('Closing Tag');	
+                    }}	
+                  >	
+                    Primary Closable	
+                  </Tag>	
+                  <Tag	
+                    className="ml-3"	
+                    title="Primary Tag With Thumbnail"	
+                    thumbnailSrc="https://image.flaticon.com/icons/png/512/862/862358.png"	
+                  >	
+                    Primary Tag With Thumbnail	
+                  </Tag>	
+                  <Tag className="ml-3" title="Secondary Tag" type="secondary">	
+                    Secondary Tag	
+                  </Tag>	
+                  <Tag	
+                    className="ml-3"	
+                    title="Secondary Disabled Tag"	
+                    disabled	
+                    type="secondary"	
+                  >	
+                    Secondary Disabled Tag	
+                  </Tag>	
+                  <Tag	
+                    className="ml-3"	
+                    title="Secondary Closable"	
+                    type="secondary"	
+                    closable	
+                    onClose={() => {	
+                      alert('Closing Tag');	
+                    }}	
+                  >	
+                    Secondary Closable	
+                  </Tag>	
+                  <Tag	
+                    className="ml-3"	
+                    title="Secondary Tag With Thumbnail"	
+                    type="secondary"	
+                    thumbnailSrc="https://image.flaticon.com/icons/png/512/862/862358.png"	
+                  >	
+                    Secondary Tag With Thumbnail	
+                  </Tag>
+                  <Tag
+                    className="ml-3"
+                    title="Primary Tag With Thumbnail"
+                    thumbnail={
+                    <Icon
+                        className="hcl-tag-thumbnail"
+                        type="svg"
+                        alt="alt"
+                        title="title"
+                    >
+                    <circle
+                        cx="11"
+                        cy="11"
+                        r="11"
+                        stroke="red"
+                        strokeWidth="3"
+                        fill="white"
+                    />
+                    </Icon>
+                    }
+                  >
+                    Hello
+                </Tag>	
+                </div>
+                {/* Toast */}
                 <div className="hcl-col-12 mt-5" id="toast-section">
                   <Toast
                     type="success"

@@ -55,7 +55,7 @@ Tag.propTypes = {
   /** Thumbnail for Tag Component */
   thumbnail: PropTypes.object,
   /** Source of thumbnail for Tag Component */
-  thumbnailSrc: PropTypes.object
+  thumbnailSrc: PropTypes.string
 };
 
 Tag.defaultProps = {
