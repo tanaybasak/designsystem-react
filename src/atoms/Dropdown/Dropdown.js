@@ -283,7 +283,7 @@ const Dropdown = ({
           {items.map((item) => {
             return dropdownType === 'multi' ? (
               <li
-                className={`${prefix}-dropdown-item ${prefix}-dropdown-option`}
+                className={`${prefix}-dropdown-item`}
                 key={item[configuration.id]}
                 onClick={(e) => {
                   onMultiSelect(e, item);
