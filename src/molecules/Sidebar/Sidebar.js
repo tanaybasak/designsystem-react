@@ -62,7 +62,7 @@ const Sidebar = ({
             });
             if (activeItem) {
               let tempItem = [...sidebarList];
-              tempItem[index].expanded = !tempItem[index].expanded;
+              tempItem[index].expanded = true;
               updateSidebarList([...tempItem]);
               setActiveItem(activeItem);
             }
