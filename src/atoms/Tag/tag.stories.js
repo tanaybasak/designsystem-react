@@ -7,6 +7,8 @@ import Tag from './Tag';
 import Icon from '../../atoms/Icon';
 //@update-path-build-end
 
+import {logo} from '../../assets/images/sample_tag_icon.svg';
+
 const typeOptions = {
   Primary: 'primary',
   Secondary: 'secondary'
@@ -55,7 +57,7 @@ storiesOf('Tag', module).add(
         disabled={boolean('Disabled', false)}
         onClose={action('OnClose')}
         tabIndex={0}
-        thumbnailSrc={require('../../assets/images/sample_tag_icon.svg')}
+        thumbnailSrc={logo}
         title={text("Title", "")}
         type={select("Type", typeOptions, "primary")}
       >

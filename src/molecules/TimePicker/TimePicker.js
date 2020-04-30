@@ -40,8 +40,8 @@ const TimePicker = ({
 
   return (
     <div className={classnames} {...restProps}>
+      {label ? <label htmlFor="hcl-timepicker-1">{label}</label> : null}
       <div className={`${prefix}-timepicker-input`}>
-        {label ? <label htmlFor="hcl-timepicker-1">{label}</label> : null}
         <input
           id="hcl-timepicker-1"
           type="text"
@@ -50,28 +50,28 @@ const TimePicker = ({
           maxLength="5"
           onChange={onChangeTime}
         />
+        <select className={`${prefix}-select`} onChange={onSelectPeriod}>
+          <option className={`${prefix}-select-option`} value={period.am}>
+            {period.am}
+          </option>
+          <option className={`${prefix}-select-option`} value={period.pm}>
+            {period.pm}
+          </option>
+        </select>
+        <select className={`${prefix}-select`} onChange={onSelectTimezone}>
+          {timeZones.map(timezone => {
+            return (
+              <option
+                className={`${prefix}-select-option`}
+                value={timezone}
+                key={timezone}
+              >
+                {timezone}
+              </option>
+            );
+          })}
+        </select>
       </div>
-      <select className={`${prefix}-select`} onChange={onSelectPeriod}>
-        <option className={`${prefix}-select-option`} value={period.am}>
-          {period.am}
-        </option>
-        <option className={`${prefix}-select-option`} value={period.pm}>
-          {period.pm}
-        </option>
-      </select>
-      <select className={`${prefix}-select`} onChange={onSelectTimezone}>
-        {timeZones.map(timezone => {
-          return (
-            <option
-              className={`${prefix}-select-option`}
-              value={timezone}
-              key={timezone}
-            >
-              {timezone}
-            </option>
-          );
-        })}
-      </select>
     </div>
   );
 };

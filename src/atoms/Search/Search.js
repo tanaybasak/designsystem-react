@@ -2,7 +2,16 @@ import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 
-const Search = ({ type, size, defaultValue, theme, className, iconTheme, ...restProps }) => {
+const Search = ({
+  type,
+  size,
+  defaultValue,
+  theme,
+  className,
+  iconTheme,
+  disabled,
+  ...restProps
+}) => {
   let [value, setValue] = useState('');
   let [clickableContent, setClickableContent] = useState('');
   const inputRef = useRef(null);
@@ -67,7 +76,11 @@ const Search = ({ type, size, defaultValue, theme, className, iconTheme, ...rest
     <div className={classnames}>
       {clickableContent === '' ? (
         type === 'clickable' ? (
-          <button className={`${prefix}-search-btn`} onClick={showSearch}>
+          <button
+            className={`${prefix}-search-btn`}
+            disabled={disabled}
+            onClick={showSearch}
+          >
             {searchIcon}
           </button>
         ) : (
@@ -80,6 +93,7 @@ const Search = ({ type, size, defaultValue, theme, className, iconTheme, ...rest
         placeholder={restProps.placeholder}
         ref={inputRef}
         value={value}
+        disabled={disabled}
         {...restProps}
         onChange={event => {
           setValue(event.currentTarget.value);
@@ -91,6 +105,7 @@ const Search = ({ type, size, defaultValue, theme, className, iconTheme, ...rest
       />
       <button
         className={`${prefix}-search-reset ${value !== '' ? `show` : ``}`}
+        disabled={disabled}
         onMouseDown={clearSearch}
         tabIndex="-1"
       />
@@ -128,7 +143,9 @@ Search.propTypes = {
   /** call back function which will return the entered character  */
   onChange: PropTypes.func,
   /** call back function triggered on focus out */
-  onBlur: PropTypes.func
+  onBlur: PropTypes.func,
+  /** Specifying the component is disabled or not. */
+  disabled: PropTypes.bool
 };
 
 Search.defaultProps = {
@@ -136,6 +153,7 @@ Search.defaultProps = {
   size: 'default',
   theme: 'default',
   defaultValue: '',
+  disabled: false,
   iconTheme: 'default',
   className: '',
   placeholder: 'Search...',

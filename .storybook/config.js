@@ -5,6 +5,7 @@ import { withInfo } from '@storybook/addon-info';
 import { withA11y } from '@storybook/addon-a11y';
 import '../src/story.css';
 import 'patron-css/patron/index.css';
+import 'patron-icon/dist/patron-font.css'
 
 addParameters({
   options: {
