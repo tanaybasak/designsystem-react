@@ -756,6 +756,8 @@ class App extends Component {
                     <BreadcrumbItem href="#">Breadcrumb 2</BreadcrumbItem>
                     <BreadcrumbItem href="#tools">Breadcrumb 3</BreadcrumbItem>
                     <BreadcrumbItem href="#hammer">Breadcrumb 4</BreadcrumbItem>
+                    <BreadcrumbItem href="#hammer">Breadcrumb 5</BreadcrumbItem>
+                    <BreadcrumbItem href="#hammer">Breadcrumb 6</BreadcrumbItem>
                   </Breadcrumb>
                 </div>
                 {/* Spinner */}

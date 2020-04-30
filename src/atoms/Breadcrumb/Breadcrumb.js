@@ -8,14 +8,27 @@ function Breadcrumb({ activeIndex, onSelection, id, className, children }) {
 
     const childCount = React.Children.count(children);
     let renderedOverflowMenu = false;
-
+    let propChildren = children;
 
     const modifiedChildren = React.Children.map(children, (child, index) => {
         if (child) {
-            if (childCount > 3 && index !== 0 && (index < childCount - 2) && !renderedOverflowMenu) {
-                renderedOverflowMenu = true;
-                return (<Overflowmenu listItems={[]} ellipsisType="horizontal" />)
-            } else {
+            if (index > 0 && (index < childCount - 2) && !renderedOverflowMenu) {
+                renderedOverflowMenu = true; let _listItems = [];
+                propChildren = propChildren.slice(1, -2);
+                React.Children.forEach(propChildren, (innerChild) => {
+                    _listItems.push({ name: innerChild.props.children, link: innerChild.props.href });
+                });
+                return (
+                <Overflowmenu
+                    listItems={_listItems}
+                    direction="right"
+                    ellipsisType="horizontal"
+                    onClick={(e) => {
+                        setActive(index + 1);
+                        onSelection(Object.assign({}, e, { tabIndex: index + 1 }));
+                    }}
+                />)
+            } else if (index === 0 || !(index < (childCount - 2))) {
                 return cloneElement(child, {
                     onClick: e => {
                         setActive(index);
