@@ -12,65 +12,21 @@ import TableExample from './example/Table';
 
 class Home extends Component {
   state = {
-    sidebarExpanded: true
+    sidebarExpanded: false
   };
   navigationData = [
     {
       title: 'Home',
       href: '/',
-      icon: (
-        <Icon
-          className={`hcl-sidebar-icon`}
-          type={'svg'}
-          alt={'alt'}
-          title={'title'}
-        >
-          <rect
-            rx={3}
-            ry={3}
-            width={'100%'}
-            height={'100%'}
-            style={{
-              fill: '#fff',
-              stroke: 'black',
-              strokeWidth: 2,
-              opacity: 0.5
-            }}
-          />
-        </Icon>
-      )
+      icon: <i className="pi pi-home" />
     },
     {
       title: 'Components',
-      icon: (
-        <Icon
-          className={`hcl-sidebar-icon`}
-          type={'svg'}
-          alt={'alt'}
-          title={'title'}
-        >
-          <rect
-            rx={3}
-            ry={3}
-            width={'100%'}
-            height={'100%'}
-            style={{
-              fill: '#fff',
-              stroke: 'black',
-              strokeWidth: 2,
-              opacity: 0.5
-            }}
-          />
-        </Icon>
-      ),
-      childrens: [
+      icon: <i className="pi pi-new-relases" />,
+      children: [
         {
           href: '/Tag',
           title: 'Tag'
-        },
-        {
-          href: '/table',
-          title: 'Table'
         }
       ]
     }
@@ -116,33 +72,19 @@ class Home extends Component {
           title="Patronus"
           items={this.navigationData}
           expanded={this.state.sidebarExpanded}
-          icon={
-            <Icon
-              className={`hcl-sidebar-title-icon`}
-              type="svg"
-              alt="alt"
-              title="title"
-            >
-              <circle
-                cx="12"
-                cy="12"
-                r="12"
-                stroke="blue"
-                strokeWidth="4"
-                fill="white"
-              />
-            </Icon>
-          }
+          activeLink="/Tag"
+          icon={<i className="pi pi-users_active" />}
           sidebarLinkTemplate={link => {
             return <Link to={link.href}>{link.title}</Link>;
           }}
-          onClick={event => {
-            const { type, expanded, title } = event.currentTarget.dataset;
-            console.log(type, expanded, title);
+          toggleSidebar={status => {
             const container = document.querySelector('[data-withsidenav]');
-            if (container && type === 'toggle_sidebar') {
-              this.setState({ sidebarExpanded: expanded === 'true' });
+            if (container) {
+              this.setState({ sidebarExpanded: status });
             }
+          }}
+          onClick={item => {
+            console.log(item);
           }}
         />
         <div
