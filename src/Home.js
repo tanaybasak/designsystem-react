@@ -27,7 +27,11 @@ class Home extends Component {
         {
           href: '/Tag',
           title: 'Tag'
-        }
+        },
+        {
+            href: '/table',
+            title: 'Table'
+          }
       ]
     }
   ];
