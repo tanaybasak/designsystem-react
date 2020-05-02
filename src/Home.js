@@ -9,6 +9,7 @@ import App from './app';
 import TagExample from './example/Tag';
 import logo from './assets/images/logo.png';
 import TableExample from './example/Table';
+import TablePattern from './example/TablePattern';
 
 class Home extends Component {
   state = {
@@ -31,6 +32,10 @@ class Home extends Component {
         {
             href: '/table',
             title: 'Table'
+          },
+          {
+            href: '/table-pattern',
+            title: 'Pattern'
           }
       ]
     }
@@ -102,6 +107,8 @@ class Home extends Component {
             <Route exact path="/" component={App} />
             <Route exact path="/tag" component={TagExample} />
             <Route exact path="/table" component={TableExample} />
+            <Route exact path="/table-pattern" component={TablePattern} />
+            
           </Switch>
         </div>
       </Router>

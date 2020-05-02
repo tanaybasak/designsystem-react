@@ -6,3 +6,13 @@
 #root {
     height: 100vh;
 }
+
+.hcl-table-wrapper .hcl-data-table td, .hcl-table-wrapper .hcl-data-table th{
+    overflow: hidden;
+    flex: 1 1 auto;
+}
+
+.hcl-table-wrapper .hcl-data-table .overflow-container{
+    width: 100%;
+    justify-content: center
+}
