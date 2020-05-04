@@ -21,7 +21,7 @@ const tableData = [
     port: '80',
     rule: 'Round Robin',
     attachedGroups: "Maureen's VM Groups",
-    status: 'Active'
+    status: 'InActive'
   },
   {
     name: 'Load Balancer 3',
@@ -98,9 +98,7 @@ storiesOf('DataTable', module)
         }${select('Class Name', classOptions, '')}`}
         tableData={tableData}
         tableConfig={tableConfig}
-        selectable={boolean('Selectable', false)}
         onSort={action('Sort Action')}
-        onSelection={action('On Selection')}
         totalItems={tableData.length}
       />
     ),
@@ -114,131 +112,4 @@ storiesOf('DataTable', module)
       }
     }
   )
-  .add(
-    'with overflow',
-    () => (
-      <DataTable
-        id="sample_table_2"
-        type={`${boolean('Border', true) ? '' : 'borderless'}${
-          boolean('Zebra', false) ? ' zebra' : ''
-        }${select('Class Name', classOptions, '')}`}
-        tableData={tableData}
-        tableConfig={tableConfig}
-        onSort={action('Sort Action')}
-        totalItems={tableData.length}
-        overflowMenuEllipsisDirection={select(
-          'Class Name',
-          {
-            vertical: 'vertical',
-            horizontal: 'horizontal'
-          },
-          'horizontal'
-        )}
-        overflowMenu
-        overflowMenuItems={overflowList}
-        overflowMenuOnClick={action('On Overflow Action')}
-      />
-    ),
-    {
-      info: {
-        text: `Description About DataTable Component \n
-
-        import { DataTable } from '@patron/patron-react/datatable'
-        
-        `
-      }
-    }
-  )
-  .add(
-    'with pagination',
-    () => (
-      <DataTable
-        id="sample_table_3"
-        type={`${boolean('Border', true) ? '' : 'borderless'}${
-          boolean('Zebra', false) ? ' zebra' : ''
-        }${select('Class Name', classOptions, '')}`}
-        tableData={tableData}
-        tableConfig={tableConfig}
-        selectable={boolean('Selectable', false)}
-        onSort={action('Sort Action')}
-        onSelection={action('On Selection')}
-        totalItems={30}
-        pagination
-        itemsPerPageStepper={3}
-        itemsStepperLimit={100}
-        onPageChange={action('On Page Change')}
-      />
-    ),
-    {
-      info: {
-        text: `Description About DataTable Component \n
-
-        import { DataTable } from '@patron/patron-react/datatable'
-        
-        `
-      }
-    }
-  )
-  .add(
-    'with expand row',
-    () => (
-      <DataTable
-        id="sample_table_3"
-        type={`${boolean('Border', true) ? '' : 'borderless'}${
-          boolean('Zebra', false) ? ' zebra' : ''
-        }${select('Class Name', classOptions, '')}`}
-        tableData={tableData}
-        tableConfig={tableConfig}
-        selectable={boolean('Selectable', false)}
-        onSort={action('Sort Action')}
-        onSelection={action('On Selection')}
-        totalItems={tableData.length}
-        expandRowTemplate={data => {
-          return (
-            <div>
-              <div>
-                <p>Name : {data.name}</p>
-                <p>Protocol : {data.protocol}</p>
-                <p>Port : {data.port}</p>
-              </div>
-            </div>
-          );
-        }}
-      />
-    ),
-    {
-      info: {
-        text: `Description About DataTable Component \n
-
-        import { DataTable } from '@patron/patron-react/datatable'
-        
-        `
-      }
-    }
-  )
-  .add(
-    'with Selectable',
-    () => (
-      <DataTable
-        id="sample_table_4"
-        type={`${boolean('Border', true) ? '' : 'borderless'}${
-          boolean('Zebra', false) ? ' zebra' : ''
-        }${select('Class Name', classOptions, '')}`}
-        tableData={tableData}
-        tableConfig={tableConfig}
-        selectable
-        onSort={action('Sort Action')}
-        onSelection={action('On Selection')}
-        totalItems={tableData.length}
-      />
-    ),
-    {
-      info: {
-        text: `Description About DataTable Component \n
-
-        import { DataTable } from '@patron/patron-react/datatable'
-        
-        `
-      }
-    }
-  );
+  
