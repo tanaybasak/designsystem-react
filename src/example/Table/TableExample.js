@@ -77,7 +77,8 @@ class TableExample extends Component {
       {
         label: 'Language',
         field: 'owner.login',
-        width:'160px'
+        
+        width:'10%'
       },
       {
         label: 'Has Issues',
@@ -87,7 +88,7 @@ class TableExample extends Component {
             <Toggle
               id={model.id + '--'}
               disabled
-              small
+              
               labelOff=" "
               labelOn=" "
               toggled={model.has_issues}
@@ -104,6 +105,7 @@ class TableExample extends Component {
       {
         label: 'Branch',
         field: 'default_branch',
+        sortable: true,
         width:'10%'
       },
       {
@@ -246,13 +248,20 @@ class TableExample extends Component {
                 tableData={this.state.rows}
                 tableConfig={this.state.dataTableConfig2}
                 type="borderless zebra"
-                onSort={(field, order, subList, fullList) => {
-                  let newData = fullList.sort((a, b) => {
-                    if (a[field] > b[field]) return order === 'desc' ? 1 : -1;
-                    if (b[field] > a[field]) return order === 'desc' ? -1 : 1;
-                    return 0;
-                  });
-                  return newData;
+                onSort={(field, order, fullList) => {
+                    console.log(field, order, fullList)
+
+                    if(order === null){
+                        return this.state.rows;
+                    }else{
+                        let newData = fullList.sort((a, b) => {
+                            if (a[field] > b[field]) return order === 'desc' ? 1 : -1;
+                            if (b[field] > a[field]) return order === 'desc' ? -1 : 1;
+                            return 0;
+                          });
+                          return newData;
+                    }
+                  
                 }}
                 
                 headerSelection={
@@ -262,7 +271,6 @@ class TableExample extends Component {
                     onChange={this.allSelected}
                   />
                 }
-                totalItems={this.state.totalItemsPage2}
               />
 
               <Pagination

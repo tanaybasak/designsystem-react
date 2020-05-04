@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
+import { getColumnStructure } from '../../util/tableUtil';
 
 const DataTable = ({
   id,
@@ -9,136 +10,24 @@ const DataTable = ({
   tableConfig,
   className,
   onSort,
-  totalItems,
   expandRowTemplate,
   headerSelection,
   ...restProps
 }) => {
-  
   const [rows, updateTableRowData] = useState(tableData);
   const tableRef = useRef(null);
   const [tableConfiguration, setTableConfiguration] = useState(tableConfig);
+  const [sortedColumn, updateSortedColumn] = useState({});
 
   useEffect(() => {
     updateTableRowData(tableData);
   }, [tableData]);
 
   useEffect(() => {
-    let tempConfig = [...tableConfiguration];
-    let columnInfo = {
-      left: [],
-      main: [],
-      right: []
-    };
-
-    let unitUsed = 'px';
-
-    tempConfig.map(column => {
-      if (column.pinned === 'left') {
-        columnInfo['left'].push(column);
-      } else if (column.pinned === 'right') {
-        columnInfo['right'].push(column);
-      } else {
-        columnInfo['main'].push(column);
-      }
-    });
-
-    let expandColumn = {
-      field: 'expand',
-      width: '50px'
-    };
-
-    tempConfig = [];
-    if (expandRowTemplate) {
-      tempConfig.push(expandColumn);
-    }
-    tempConfig = [...tempConfig, ...columnInfo['left']];
-
-    tempConfig = [...tempConfig, ...columnInfo['main'], ...columnInfo['right']];
-
-    let allocatedWidth = 0;
-    let totalItemsWithoutWidth = tempConfig.length;
-
-    tempConfig.map(column => {
-      if (column.width) {
-        if (column.pinned !== 'left' && column.pinned !== 'right') {
-          allocatedWidth += parseInt(column.width);
-        }
-        unitUsed = column.width.replace(/[0-9]/g, '');
-        totalItemsWithoutWidth--;
-      }
-    });
-    const getMarginLeft = index => {
-      let width = tempConfig[index - 1].width.includes('calc')
-        ? tempConfig[index - 1].width
-            .substr(0, tempConfig[index - 1].width.length - 1)
-            .replace('calc(', '')
-        : tempConfig[index - 1].width;
-
-      let marginLeft = tempConfig[index - 1].marginLeft
-        ? tempConfig[index - 1].marginLeft.includes('calc')
-          ? tempConfig[index - 1].marginLeft
-              .substr(0, tempConfig[index - 1].marginLeft.length - 1)
-              .replace('calc(', '')
-          : tempConfig[index - 1].marginLeft
-        : '0px';
-
-      return `calc( ${width} + ${marginLeft})`;
-    };
-
-    const getMarginRight = index => {
-      let width = tempConfig[index + 1].width.includes('calc')
-        ? tempConfig[index + 1].width
-            .substr(0, tempConfig[index + 1].width.length - 1)
-            .replace('calc(', '')
-        : tempConfig[index + 1].width;
-
-      let marginRight = tempConfig[index + 1].marginRight
-        ? tempConfig[index + 1].marginRight.includes('calc')
-          ? tempConfig[index + 1].marginRight
-              .substr(0, tempConfig[index + 1].marginRight.length - 1)
-              .replace('calc(', '')
-          : tempConfig[index + 1].marginRight
-        : '0px';
-
-      return `calc( ${width} + ${marginRight})`;
-    };
-
-    if (allocatedWidth) {
-      let leftPinned = false;
-      tempConfig.map((column, index) => {
-        if (!column.width) {
-          column.width = `calc((100% - ${allocatedWidth +
-            unitUsed}) / ${totalItemsWithoutWidth})`;
-        }
-
-        if (column.pinned === 'left') {
-          leftPinned = true;
-          if (index !== 0) {
-            column.marginLeft = getMarginLeft(index);
-          }
-        } else {
-          if (leftPinned) {
-            leftPinned = false;
-          }
-        }
-      });
-
-      let rightPinned = false;
-      for (let i = tempConfig.length - 1; i >= 0; i--) {
-        let column = tempConfig[i];
-        if (column.pinned === 'right') {
-          rightPinned = true;
-          if (i !== tempConfig.length - 1) {
-            column.marginRight = getMarginRight(i);
-          }
-        } else {
-          if (rightPinned) {
-            rightPinned = false;
-          }
-        }
-      }
-    }
+    let tempConfig = getColumnStructure(
+      [...tableConfiguration],
+      expandRowTemplate ? true : false
+    );
     setTableConfiguration(tempConfig);
   }, [tableConfig]);
 
@@ -150,19 +39,25 @@ const DataTable = ({
     }
   }, [tableRef]);
 
-  const sort = async (field, event) => {
-    const col = event.currentTarget;
-    if (col.classList.contains('desc')) {
-      col.classList.remove('desc');
-      col.dataset.order = 'asc';
+  const sort = async field => {
+    let tempSortedColumn = { ...sortedColumn };
+    if (tempSortedColumn.name === field.field) {
+      if (tempSortedColumn.order === 'asc') {
+        tempSortedColumn.order = 'desc';
+      } else if (tempSortedColumn.order === 'desc') {
+        tempSortedColumn.order = null;
+      } else {
+        tempSortedColumn.order = 'asc';
+      }
     } else {
-      col.classList.add('desc');
-      col.dataset.order = 'desc';
+      tempSortedColumn.order = 'asc';
+      tempSortedColumn.name = field.field;
     }
-    let sortedData = await onSort(field, col.dataset.order, rows);
+    let sortedData = await onSort(field.field, tempSortedColumn.order, rows);
     if (sortedData) {
       updateTableRowData([...sortedData]);
     }
+    updateSortedColumn(tempSortedColumn);
   };
 
   const getValue = (row, key) => {
@@ -170,7 +65,6 @@ const DataTable = ({
     key.split('.').map(f => {
       value = value[f];
     });
-
     return value;
   };
 
@@ -178,6 +72,46 @@ const DataTable = ({
     let tempData = rows;
     tempData[index].expanded = !tempData[index].expanded;
     updateTableRowData([...tempData]);
+  };
+
+  const onKeyDownOnTable = (i, e) => {
+    if (
+      e.currentTarget.getAttribute('data-label') === 'overflow' &&
+      ['ArrowLeft', 'ArrowRight', 'ArrowDown', 'ArrowUp'].includes(e.key) &&
+      e.currentTarget !== e.target
+    ) {
+      return;
+    }
+
+    if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      if (e.currentTarget.previousElementSibling) {
+        e.currentTarget.previousElementSibling.focus();
+      }
+    } else if (e.key === 'ArrowRight') {
+      e.preventDefault();
+      if (e.currentTarget.nextElementSibling) {
+        e.currentTarget.nextElementSibling.focus();
+      }
+    } else if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      if (
+        e.currentTarget.parentElement.nextElementSibling &&
+        e.currentTarget.parentElement.nextElementSibling.children[i]
+      ) {
+        e.currentTarget.parentElement.nextElementSibling.children[i].focus();
+      }
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      if (
+        e.currentTarget.parentElement.previousElementSibling &&
+        e.currentTarget.parentElement.previousElementSibling.children[i]
+      ) {
+        e.currentTarget.parentElement.previousElementSibling.children[
+          i
+        ].focus();
+      }
+    }
   };
 
   let tableClass = `${prefix}-data-table`;
@@ -190,93 +124,87 @@ const DataTable = ({
     tableClass += ` ${prefix}-data-table-zebra`;
   }
 
-  const classnames = `${prefix}-table-wrapper${
+  const classnames = `${prefix}-data-table-wrapper${
     type.includes('borderless') ? ` ${prefix}-data-table-borderless` : ''
   } ${className}`.trim();
 
   return (
-    <div
-      className={classnames}
-      {...restProps}
-    >
+    <div className={classnames}>
       <table
         id={id}
         ref={tableRef}
         className={tableClass}
         role="grid"
-        aria-rowcount={totalItems}
+        {...restProps}
       >
         <thead>
           <tr>
-            {tableConfiguration.map(
-              (
-                {
-                  label,
-                  field,
-                  sortable,
-                  title,
-                  width,
-                  pinned,
-                  marginLeft,
-                  marginRight
-                },
-                index
-              ) => {
-                return (
-                  <th
-                    key={`heading-${index}`}
-                    style={{
-                      width: width,
-                      left: marginLeft,
-                      right: marginRight
-                    }}
-                    title={title ? title.toString() : ''}
-                    data-column={label}
-                    className={`${
-                      pinned === 'left' ? 'sticky-div sticky-left-div' : ''
-                    }${
-                      pinned === 'right' ? 'sticky-div sticky-right-div' : ''
-                    }`}
-                  >
-                    {field !== 'checkbox' &&
-                    field !== 'overflow' &&
-                    field !== 'expand' ? (
-                      <div
-                        className="header-text-wrapper"
-                        onClick={sortable ? sort.bind(this, field) : null}
-                      >
-                        <span>{label}</span>
-                        {sortable ? (
+            {tableConfiguration.map((column, index) => {
+              return (
+                <th
+                  key={`heading-${index}`}
+                  style={{
+                    width: column.width,
+                    left: column.marginLeft,
+                    right: column.marginRight
+                  }}
+                  title={column.title ? column.title.toString() : ''}
+                  data-column={column.label}
+                  className={`${
+                    column.pinned === 'left' ? 'sticky-div sticky-left-div' : ''
+                  }${
+                    column.pinned === 'right'
+                      ? 'sticky-div sticky-right-div'
+                      : ''
+                  }`}
+                >
+                  {column.field !== 'checkbox' &&
+                  column.field !== 'overflow' &&
+                  column.field !== 'expand' ? (
+                    <div
+                      className={`header-text-wrapper${
+                        column.sortable ? ' sortable' : ''
+                      }`}
+                      onClick={column.sortable ? sort.bind(this, column) : null}
+                    >
+                      <span>{column.label}</span>
+                      {column.sortable ? (
+                        sortedColumn.name === column.field &&
+                        sortedColumn.order ? (
                           <svg
-                            className={`${prefix}-sorting`}
+                            className={`${prefix}-sorting${
+                              sortedColumn.order === 'desc' ? ' desc' : ''
+                            }`}
                             width="10"
                             height="5"
                             viewBox="0 0 10 5"
                           >
                             <path d="M0 0l5 4.998L10 0z" fillRule="evenodd" />
                           </svg>
-                        ) : null}
-                      </div>
-                    ) : null}
+                        ) : (
+                          <svg
+                            className={`${prefix}-sorting`}
+                            height="16px"
+                            viewBox="0 0 1024 1024"
+                            version="1.1"
+                          >
+                            <path d="M512.578 192.991l-256 255.52 512 0L512.578 192.991zM512.578 832.511l256-255.52-512 0L512.578 832.511z" />
+                          </svg>
+                        )
+                      ) : null}
+                    </div>
+                  ) : null}
 
-                    {field === 'checkbox' ? (
-                      <div className="checkbox-wrapper">
-                        {headerSelection}
-                        {/* <Checkbox
-                            id={`${id}_checkbox_all`}
-                            checked={allSelected}
-                            onChange={selectAll}
-                          /> */}
-                      </div>
-                    ) : null}
+                  {column.field === 'checkbox' ? (
+                    <div className="checkbox-wrapper">{headerSelection}</div>
+                  ) : null}
 
-                    {field === 'overflow' || field === 'expand' ? (
-                      <div className="header-text-wrapper" />
-                    ) : null}
-                  </th>
-                );
-              }
-            )}
+                  {column.field === 'overflow' || column.field === 'expand' ? (
+                    <div className="header-text-wrapper" />
+                  ) : null}
+                </th>
+              );
+            })}
           </tr>
         </thead>
         <tbody>
@@ -305,85 +233,21 @@ const DataTable = ({
                       right: column.marginRight
                     }}
                     tabIndex={-1}
-                    onKeyDown={e => {
-                      if (
-                        e.currentTarget.getAttribute('data-label') ===
-                          'overflow' &&
-                        [
-                          'ArrowLeft',
-                          'ArrowRight',
-                          'ArrowDown',
-                          'ArrowUp'
-                        ].includes(e.key) &&
-                        e.currentTarget !== e.target
-                      ) {
-                        return;
-                      }
-
-                      if (e.key === 'ArrowLeft') {
-                        e.preventDefault();
-                        if (e.currentTarget.previousElementSibling) {
-                          e.currentTarget.previousElementSibling.focus();
-                        }
-                      } else if (e.key === 'ArrowRight') {
-                        e.preventDefault();
-                        if (e.currentTarget.nextElementSibling) {
-                          e.currentTarget.nextElementSibling.focus();
-                        }
-                      } else if (e.key === 'ArrowDown') {
-                        e.preventDefault();
-                        if (
-                          e.currentTarget.parentElement.nextElementSibling &&
-                          e.currentTarget.parentElement.nextElementSibling
-                            .children[i]
-                        ) {
-                          e.currentTarget.parentElement.nextElementSibling.children[
-                            i
-                          ].focus();
-                        }
-                      } else if (e.key === 'ArrowUp') {
-                        e.preventDefault();
-                        if (
-                          e.currentTarget.parentElement
-                            .previousElementSibling &&
-                          e.currentTarget.parentElement.previousElementSibling
-                            .children[i]
-                        ) {
-                          e.currentTarget.parentElement.previousElementSibling.children[
-                            i
-                          ].focus();
-                        }
-                      }
-                    }}
+                    onKeyDown={onKeyDownOnTable.bind(this, i)}
                   >
                     {column.field === 'checkbox' ? (
                       <div className="checkbox-wrapper">
-                        {/* {selectionTemplate(row)} */}
                         {column.renderHtml(row)}
-                        {/* <Checkbox
-                            id={`${id}_checkbox_${index}`}
-                            name="testcheck"
-                            data-index={index}
-                          /> */}
-                        {/* <Checkbox
-                            id={`${id}_checkbox_${index}`}
-                            name="testcheck"
-                            data-index={index}
-                            checked={
-                              uniqueKey && selectedRows[row[uniqueKey]]
-                                ? true
-                                : !uniqueKey && selectedRows.find(i => i == row)
-                                ? true
-                                : false
-                            }
-                            onChange={setSelection.bind(this, row)}
-                          /> */}
                       </div>
                     ) : null}
                     {column.field !== 'checkbox' &&
                     column.field !== 'overflow' &&
                     column.field !== 'expand' ? (
-                      <div className="table-body-content-wrapper">
+                      <div
+                        className={`body-content-wrapper${
+                          column.renderHtml ? ' body-content-html-wrapper' : ''
+                        }`}
+                      >
                         {column.renderHtml
                           ? column.renderHtml(row)
                           : column.field.split('.').length > 1
@@ -393,24 +257,8 @@ const DataTable = ({
                     ) : null}
 
                     {column.field === 'overflow' ? (
-                      <div className="header-text-wrapper overflow-container">
-                        {/* {
-                            React.cloneElement(overflowTemplate, {
-                                onClick : {e => {
-                                    console.log(e);
-                                    return e;
-                                  }}
-                              })
-
-                           
-                        } */}
+                      <div className="header-text-wrapper overflow-wrapper">
                         {column.renderHtml(row)}
-                        {/* {overflowTemplate(row)} */}
-                        {/* <Overflowmenu
-                            listItems={overflowMenuItems}
-                            ellipsisType={overflowMenuEllipsisDirection}
-                            onClick={event => _overflowMenuOnClick(event, row)}
-                          /> */}
                       </div>
                     ) : null}
                     {column.field === 'expand' ? (
@@ -420,7 +268,9 @@ const DataTable = ({
                       >
                         <svg
                           className={`${
-                            row.expanded ? `${prefix}-collapse-row` : `${prefix}-expand-row`
+                            row.expanded
+                              ? `${prefix}-collapse-row`
+                              : `${prefix}-expand-row`
                           }`}
                           width="10"
                           height="5"
@@ -452,7 +302,15 @@ DataTable.propTypes = {
   type: PropTypes.string,
   /** Data for table  */
   tableData: PropTypes.any,
-  /** Column Configuration  */
+  /** Column Configuration eg:
+   * [ {
+   *    label : 'Name',
+   *    field : 'name',
+   *    sortable:true,
+   *    width:'100px',
+   *    renderHtml: (model)=> {return <span>{model.name}</span>}
+   *
+   * }] */
   tableConfig: PropTypes.any,
   /** Name of the custom class to apply to the Data Table
    * eg: hcl-data-table-zebra, hcl-data-table-compact, hcl-data-table-tall, hcl-data-table-borderless */
@@ -463,8 +321,9 @@ DataTable.propTypes = {
    * Argument – event
    */
   onSort: PropTypes.func,
-  totalItems: PropTypes.number,
+  /** Used for passing expand row template  */
   expandRowTemplate: PropTypes.func,
+  /** Used for passing template for Table header  */
   headerSelection: PropTypes.node
 };
 
@@ -476,8 +335,7 @@ DataTable.defaultProps = {
   type: '',
   headerSelection: null,
   onSort: () => {},
-  expandRowTemplate: null,
-  totalItems: 0
+  expandRowTemplate: null
 };
 
 export default DataTable;
