@@ -222,7 +222,7 @@ const treeDataWithDragandDropOverflow = [
     action: [],
     children: [
       {
-        name: '1',
+        name: 'Folder 1',
         displayChildren: false,
         type: 'folder',
         draggable: true,
@@ -231,7 +231,7 @@ const treeDataWithDragandDropOverflow = [
         children: []
       },
       {
-        name: '2',
+        name: 'File 2',
         displayChildren: false,
         type: 'file',
         draggable: true,
@@ -239,7 +239,7 @@ const treeDataWithDragandDropOverflow = [
         children: []
       },
       {
-        name: '3',
+        name: 'File 3',
         displayChildren: false,
         type: 'file',
         draggable: true,
@@ -247,7 +247,7 @@ const treeDataWithDragandDropOverflow = [
         children: []
       },
       {
-        name: '4',
+        name: 'File 4',
         displayChildren: false,
         type: 'file',
         draggable: true,
@@ -338,7 +338,7 @@ const treeDataWithDragandDropOverflow = [
     ]
   },
   {
-    name: 'File 3',
+    name: 'File 8',
     displayChildren: false,
     type: 'file',
     draggable: true,

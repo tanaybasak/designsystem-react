@@ -178,11 +178,11 @@ const TreeView = ({
 TreeView.propTypes = {
   /** Tree Data */
   treeData: PropTypes.any,
-
+  /** Used to pass icon classname for each node */
   iconClass: PropTypes.any,
-
+  /** Used to specify draggable node */
   dragRules: PropTypes.any,
-
+  /** Used to set selected node */
   nodeSelected: PropTypes.any,
   /** To Specify Expand Icon */
   expandedIcon: PropTypes.string,
@@ -190,17 +190,30 @@ TreeView.propTypes = {
   collapsedIcon: PropTypes.string,
   /** Style class of the component */
   className: PropTypes.string,
-
+  /** Callback function on selecting overflow menu item */
   onOverflowAction: PropTypes.func,
-
+  /** Callback function used for specifying rules on drag and drop or cut and paste */
   isMoveNodeAllowed: PropTypes.func,
+  /** Callback function used for specifying rules on copy and paste */
   isCopyAllowed: PropTypes.func,
   /** Callback function on selecting tree node */
   onChange: PropTypes.func,
   /** Callback function on expanding/collapsing tree node */
   onToggle: PropTypes.func,
+  /** Callback function on deleting tree node from overflow menu */
   onDeleteNode: PropTypes.func,
+  /** Callback function for setting overflow menu actions
+   *  eg:
+   * [
+   * {name: 'Rename',action: 'edit'}
+   * {name: 'Cut',action: 'cut'}
+   * {name: 'Copy',action: 'copy'}
+   * {name: 'Delete',action: 'delete'}
+   * ]
+   *
+   */
   getOverFlowItems: PropTypes.func,
+  /** Callback function on renaming tree node from overflow menu */
   onRenamingNode: PropTypes.func,
   /** Configuration Object for updating propery name in tree data
  {
