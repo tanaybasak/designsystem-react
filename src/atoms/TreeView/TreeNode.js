@@ -138,12 +138,8 @@ const TreeNode = ({
   const [showText, updateTextStatus] = useState(false);
   let updated = false;
 
-  const closeTextOnBlur = e => {
-    setTimeout(() => {
-      if (!updated) {
-        updateTextStatus(false);
-      }
-    }, 300);
+  const updateTextNodeOnBlur = e => {
+    updateTreeNodeName(e.currentTarget.value);
   };
 
   const stopPropagation = e => {
@@ -157,11 +153,11 @@ const TreeNode = ({
           type="text"
           autoFocus
           value={node[configuration.name]}
-          onBlur={closeTextOnBlur}
+          onBlur={updateTextNodeOnBlur}
           onKeyDown={updateTreenodeNameOnEnter}
           onClick={stopPropagation}
         />
-        <i className="pi pi-View" onClick={updateNodeNameOnClick} />
+        <button onClick={closeTextField}>X</button>
       </div>
     );
   };
@@ -191,11 +187,13 @@ const TreeNode = ({
     }
   };
 
-  const updateNodeNameOnClick = event => {
-    updated = true;
+  const closeTextField = event => {
+    //updated = true;
     event.stopPropagation();
     event.preventDefault();
-    updateTreeNodeName(event.currentTarget.parentElement.children[0].value);
+    updateTextStatus(false);
+    //updateTreeNodeName('');
+    //updateTreeNodeName(event.currentTarget.parentElement.children[0].value);
   };
 
   // Node Icon Section
@@ -234,13 +232,19 @@ const TreeNode = ({
   // Drag Node Section
 
   let draggable = false;
-  if (dragRules) {
-    dragRules.map(rule => {
-      const conditionStatus = getConditionStatus(rule.condition, node);
-      if (conditionStatus) {
-        draggable = true;
+  if (isMoveNodeAllowed) {
+    if (node[configuration.draggable] === true || node[configuration.draggable] === false) {
+      draggable = node[configuration.draggable];
+    } else {
+      if (dragRules) {
+        dragRules.map(rule => {
+          const conditionStatus = getConditionStatus(rule.condition, node);
+          if (conditionStatus) {
+            draggable = true;
+          }
+        });
       }
-    });
+    }
   }
 
   // Drag Start Node Section

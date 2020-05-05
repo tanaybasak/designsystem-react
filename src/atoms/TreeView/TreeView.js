@@ -65,7 +65,8 @@ const TreeView = ({
     icon: 'icon',
     children: 'children',
     name: 'name',
-    hasChildren: 'hasChildren'
+    hasChildren: 'hasChildren',
+    draggable:'draggable'
   };
 
   const updateTreeState = (action, config) => {
@@ -77,14 +78,13 @@ const TreeView = ({
       updateCopyNode(null);
       updateCutNodeLevel(config.level);
     } else if (action === 'copyNode') {
-      updateCutNode(config.node);
-      updateCopyNode(null);
-      updateCutNodeLevel(config.level);
+      updateCutNode(null);
+      updateCopyNode(config.node);
+      updateCutNodeLevel(null);
     }
   };
 
   const updateTreeDataBasedOnAction = async (action, config) => {
-    console.log(action, config);
     if (action === 'delete') {
       let flag = await onDeleteNode(config.node);
       if (flag) {
@@ -133,8 +133,6 @@ const TreeView = ({
   const configuration = { ...defaultConfig, ...config };
   const classnames = `${prefix}-tree ${className.trim()}`;
   return (
-      <div className="tree-container">
-          <div className="overlay" />
     <ul role="tree" className={classnames}>
       {treeInfo.map((node, index) => {
         return (
@@ -165,7 +163,6 @@ const TreeView = ({
         );
       })}
     </ul>
-    </div>
   );
 };
 

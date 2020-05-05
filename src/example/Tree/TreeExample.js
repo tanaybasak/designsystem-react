@@ -9,6 +9,7 @@ class TreeExample extends Component {
         name: 'Main',
         displayChildren: true,
         type: 'folder',
+        expandIcon:'pi pi-View',
         action: [],
         children: [
           {
@@ -21,18 +22,21 @@ class TreeExample extends Component {
             name: '2',
             displayChildren: false,
             type: 'file',
+            draggable:true,
             children: []
           },
           {
             name: '3',
             displayChildren: false,
             type: 'file',
+            draggable:true,
             children: []
           },
           {
             name: '4',
             displayChildren: false,
             type: 'file',
+            draggable:true,
             children: []
           }
         ]
@@ -51,6 +55,7 @@ class TreeExample extends Component {
                 name: 'File 2.1.1',
                 displayChildren: false,
                 type: 'file',
+                draggable:true,
                 children: []
               },
               {
@@ -75,12 +80,14 @@ class TreeExample extends Component {
                     name: 'File 2.2.1.1',
                     displayChildren: false,
                     type: 'file',
+                    draggable:true,
                     children: []
                   },
                   {
                     name: 'File 2.2.1.2',
                     displayChildren: false,
                     type: 'file',
+                    draggable:true,
                     children: []
                   }
                 ]
@@ -89,6 +96,7 @@ class TreeExample extends Component {
                 name: 'File 2.2.2',
                 displayChildren: false,
                 type: 'file',
+                draggable:true,
                 children: []
               }
             ]
@@ -99,6 +107,7 @@ class TreeExample extends Component {
         name: 'File 3',
         displayChildren: false,
         type: 'file',
+        draggable:false,
         children: []
       }
     ],
@@ -332,11 +341,6 @@ class TreeExample extends Component {
                     await this.timeout(3000);
                     return model;
                   }
-                  // else if (action === 'cut') {
-                  //   this.setState({
-                  //     cutTreeModel: model
-                  //   });
-                  // }
                   else {
                     return model;
                   }
@@ -344,9 +348,6 @@ class TreeExample extends Component {
                 onOverFlowActionChange={async (action, model) => {
                   console.log(action, model);
                   return await this.timeout(3000);
-
-                  // console.log("Timeout invoked 3000")
-                  // return false;
                 }}
                 onDeleteNode={async model => {
                   console.log(model);
