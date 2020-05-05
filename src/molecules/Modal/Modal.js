@@ -25,7 +25,7 @@ const Modal = ({
 
   useEffect(() => {
     modal.current.focus();
-  });
+  },[]);
 
   const focusTrap = e => {
     const focusableEls = modal.current.querySelectorAll(

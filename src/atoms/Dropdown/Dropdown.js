@@ -164,6 +164,7 @@ const Dropdown = ({
     <section className={classnames} ref={dropDown} {...restProps}>
       <button
         className={`${prefix}-btn ${prefix}-dropdown-toggle`}
+        type="button"
         data-toggle="dropdown"
         onKeyPress={toggleDropdown}
         onKeyDown={keydownButton}
