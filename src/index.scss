@@ -1,8 +1,21 @@
 * {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 #root {
-    height: 100vh;
+  height: 100vh;
+}
+
+.pi-folder,
+.pi-export {
+  color: sandybrown;
+}
+
+.pi-document {
+  color: skyblue;
+}
+
+.nodrop-cursor {
+  cursor: no-drop;
 }

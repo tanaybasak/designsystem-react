@@ -8,6 +8,7 @@ import App from './app';
 import TagExample from './example/Tag';
 import logo from './assets/images/logo.png';
 import TableExample from './example/Table';
+import TreeExample from './example/Tree';
 
 class Home extends Component {
   state = {
@@ -24,7 +25,7 @@ class Home extends Component {
       icon: <i className="pi pi-new-relases" />,
       children: [
         {
-          href: '/Tag',
+          href: '/tag',
           title: 'Tag'
         },
         {
@@ -34,7 +35,10 @@ class Home extends Component {
           {
             href: '/table-pattern',
             title: 'Pattern'
-          }
+          },{
+          href: '/tree',
+          title: 'Tree'
+        }
       ]
     }
   ];
@@ -105,6 +109,7 @@ class Home extends Component {
             <Route exact path="/" component={App} />
             <Route exact path="/tag" component={TagExample} />
             <Route exact path="/table" component={TableExample} />
+            <Route exact path="/tree" component={TreeExample} />
           </Switch>
         </div>
       </Router>
