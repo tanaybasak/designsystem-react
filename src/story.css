@@ -54,6 +54,15 @@ pre button {
     width: 100% !important;
 }
 
+.pi-folder,
+.pi-export {
+    color: sandybrown;
+}
+
+.pi-document {
+    color: skyblue;
+}
+
 .hcl-tree {
-    width: 100%;
+    width: 400px;
 }

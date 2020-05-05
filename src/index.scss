@@ -4,6 +4,18 @@
 }
 
 #root {
-    height: 100vh;
+  height: 100vh;
 }
 
+.pi-folder,
+.pi-export {
+  color: sandybrown;
+}
+
+.pi-document {
+  color: skyblue;
+}
+
+.nodrop-cursor{
+    cursor: no-drop;
+}
