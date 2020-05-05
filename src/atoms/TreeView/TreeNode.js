@@ -217,7 +217,11 @@ const TreeNode = ({
   const selectNode = e => {
     if (onSelectNode) {
       e.stopPropagation();
-      onSelectNode(node, e);
+      if (e.metaKey) {
+        onSelectNode(null, e);
+      } else {
+        onSelectNode(node, e);
+      }
     }
   };
 
@@ -233,7 +237,10 @@ const TreeNode = ({
 
   let draggable = false;
   if (isMoveNodeAllowed) {
-    if (node[configuration.draggable] === true || node[configuration.draggable] === false) {
+    if (
+      node[configuration.draggable] === true ||
+      node[configuration.draggable] === false
+    ) {
       draggable = node[configuration.draggable];
     } else {
       if (dragRules) {
@@ -468,7 +475,6 @@ const TreeNode = ({
   };
 
   const keyDown = e => {
-    console.log(e.currentTarget);
     // e.preventDefault()
     var key = e.which || e.keyCode;
     const nodeElement = e.currentTarget;

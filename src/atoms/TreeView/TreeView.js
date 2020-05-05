@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 import TreeNode from './TreeNode';
@@ -11,6 +11,7 @@ import {
 
 const TreeView = ({
   treeData,
+  nodeSelected,
   expandedIcon,
   onChange,
   collapsedIcon,
@@ -39,6 +40,14 @@ const TreeView = ({
 
   let [copiedNode, updateCopyNode] = useState({});
 
+  useEffect(() => {
+    updateTree(treeData);
+  }, [treeData]);
+
+  useEffect(() => {
+    updateSelectedNode(nodeSelected);
+  }, [nodeSelected]);
+
   const isMoveNodeAllowedMain = (x, y) => {
     return isMoveNodeAllowed(x, y, treeInfo);
   };
@@ -66,7 +75,7 @@ const TreeView = ({
     children: 'children',
     name: 'name',
     hasChildren: 'hasChildren',
-    draggable:'draggable'
+    draggable: 'draggable'
   };
 
   const updateTreeState = (action, config) => {
@@ -173,6 +182,8 @@ TreeView.propTypes = {
   iconClass: PropTypes.any,
 
   dragRules: PropTypes.any,
+
+  nodeSelected: PropTypes.any,
   /** To Specify Expand Icon */
   expandedIcon: PropTypes.string,
   /** To Specify Collapsed Icon */
@@ -225,7 +236,8 @@ TreeView.defaultProps = {
   type: 'default',
   config: {},
   onOverflowAction: null,
-  getOverFlowItems: null
+  getOverFlowItems: null,
+  nodeSelected: null
 };
 
 export default TreeView;

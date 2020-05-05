@@ -58,3 +58,11 @@ pre button {
     width: 100%;
 }
 
+.pi-folder,
+.pi-export {
+    color: sandybrown;
+}
+
+.pi-document {
+    color: skyblue;
+}

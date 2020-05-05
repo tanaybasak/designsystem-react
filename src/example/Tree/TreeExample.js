@@ -4,12 +4,13 @@ import TreeView from '../../atoms/TreeView/TreeView';
 
 class TreeExample extends Component {
   state = {
+    nodeSelected: null,
     treeData: [
       {
         name: 'Main',
         displayChildren: true,
         type: 'folder',
-        expandIcon:'pi pi-View',
+        expandIcon: 'pi pi-View',
         action: [],
         children: [
           {
@@ -22,21 +23,21 @@ class TreeExample extends Component {
             name: '2',
             displayChildren: false,
             type: 'file',
-            draggable:true,
+            draggable: true,
             children: []
           },
           {
             name: '3',
             displayChildren: false,
             type: 'file',
-            draggable:true,
+            draggable: true,
             children: []
           },
           {
             name: '4',
             displayChildren: false,
             type: 'file',
-            draggable:true,
+            draggable: true,
             children: []
           }
         ]
@@ -55,7 +56,7 @@ class TreeExample extends Component {
                 name: 'File 2.1.1',
                 displayChildren: false,
                 type: 'file',
-                draggable:true,
+                draggable: true,
                 children: []
               },
               {
@@ -80,14 +81,14 @@ class TreeExample extends Component {
                     name: 'File 2.2.1.1',
                     displayChildren: false,
                     type: 'file',
-                    draggable:true,
+                    draggable: true,
                     children: []
                   },
                   {
                     name: 'File 2.2.1.2',
                     displayChildren: false,
                     type: 'file',
-                    draggable:true,
+                    draggable: true,
                     children: []
                   }
                 ]
@@ -96,7 +97,7 @@ class TreeExample extends Component {
                 name: 'File 2.2.2',
                 displayChildren: false,
                 type: 'file',
-                draggable:true,
+                draggable: true,
                 children: []
               }
             ]
@@ -107,7 +108,7 @@ class TreeExample extends Component {
         name: 'File 3',
         displayChildren: false,
         type: 'file',
-        draggable:false,
+        draggable: false,
         children: []
       }
     ],
@@ -340,8 +341,7 @@ class TreeExample extends Component {
 
                     await this.timeout(3000);
                     return model;
-                  }
-                  else {
+                  } else {
                     return model;
                   }
                 }}
@@ -360,10 +360,14 @@ class TreeExample extends Component {
                 type="single"
                 onChange={selected => {
                   console.log('Selected Node', selected);
+                  this.setState({
+                    nodeSelected: selected
+                  });
                 }}
                 onToggle={node => {
                   console.log('On Toggle', node);
                 }}
+                nodeSelected={this.state.nodeSelected}
               />
             </div>
             <div className="hcl-col-6 mb-2">
@@ -376,6 +380,15 @@ class TreeExample extends Component {
               />
             </div>
           </div>
+          <button
+            onClick={() => {
+              this.setState({
+                nodeSelected: ''
+              });
+            }}
+          >
+            Clear Selection
+          </button>
         </section>
       </main>
     );
