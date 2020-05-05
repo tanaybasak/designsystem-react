@@ -39,7 +39,7 @@ const DataTable = ({
     }
   }, [tableRef]);
 
-  const sort = async field => {
+  const sort = field => {
     let tempSortedColumn = { ...sortedColumn };
     if (tempSortedColumn.name === field.field) {
       if (tempSortedColumn.order === 'asc') {
@@ -53,11 +53,13 @@ const DataTable = ({
       tempSortedColumn.order = 'asc';
       tempSortedColumn.name = field.field;
     }
-    let sortedData = await onSort(field.field, tempSortedColumn.order, rows);
-    if (sortedData) {
-      updateTableRowData([...sortedData]);
-    }
+    onSort(field.field, tempSortedColumn.order, rows);
     updateSortedColumn(tempSortedColumn);
+    // let sortedData = await onSort(field.field, tempSortedColumn.order, rows);
+    // if (sortedData) {
+    //   updateTableRowData([...sortedData]);
+    // }
+    // updateSortedColumn(tempSortedColumn);
   };
 
   const getValue = (row, key) => {

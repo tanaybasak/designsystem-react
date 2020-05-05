@@ -218,6 +218,7 @@ class TableExample extends Component {
     );
     this.setState({
       rows: currentData,
+
       pageNo: pageNo,
       headerCheckbox: this.isAllSelected(this.state.selectedItems, currentData)
     });
@@ -252,14 +253,21 @@ class TableExample extends Component {
                     console.log(field, order, fullList)
 
                     if(order === null){
-                        return this.state.rows;
+
+                        this.setState({
+                            rows : this.getTableData([...this.state.dataTableData2], this.state.pageNo, this.state.pageItemCount) 
+                        })
+                        //return this.state.rows;
                     }else{
-                        let newData = fullList.sort((a, b) => {
+                        let newData = [...this.state.rows].sort((a, b) => {
                             if (a[field] > b[field]) return order === 'desc' ? 1 : -1;
                             if (b[field] > a[field]) return order === 'desc' ? -1 : 1;
                             return 0;
                           });
-                          return newData;
+                          this.setState({
+                            rows : newData
+                        })
+                          //return newData;
                     }
                   
                 }}
