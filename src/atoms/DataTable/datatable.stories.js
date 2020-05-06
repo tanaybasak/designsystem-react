@@ -13,7 +13,8 @@ import Tag from '../Tag';
 const tableData = [
   {
     id: 1,
-    name: 'Load Balancer 1Load Balancer 1Load Balancer 1Load Balancer 1Load Balancer 1Load Balancer 1Load Balancer 1Load Balancer 1Load Balancer 1Load Balancer 1Load Balancer 1Load Balancer 1Load Balancer 1Load Balancer 1Load Balancer 1Load Balancer 1Load Balancer 1Load Balancer 1',
+    name:
+      'Load Balancer 1Load Balancer 1Load Balancer 1Load Balancer 1Load Balancer 1Load Balancer 1Load Balancer 1Load Balancer 1Load Balancer 1Load Balancer 1Load Balancer 1Load Balancer 1Load Balancer 1Load Balancer 1Load Balancer 1Load Balancer 1Load Balancer 1Load Balancer 1',
     protocol: 'HTTP',
     port: '80',
     rule: 'Round Robin',
@@ -96,13 +97,13 @@ const tableConfigWithCustomTemplate = [
     renderHtml: row => {
       return <Checkbox id={`${row.id}_checkbox_`} />;
     },
-    width: '100px'
+    width: '40px'
   },
   {
     label: 'Name',
     field: 'name',
     sortable: true,
-    //width: '300px'
+    width: '200px'
   },
   {
     label: 'Protocol',
@@ -115,22 +116,22 @@ const tableConfigWithCustomTemplate = [
       }
       return <Tag type={classname}>{model.protocol}</Tag>;
     },
-    //width: '150px'
+    width: '150px'
   },
   {
     label: 'Port',
     field: 'port',
-    //width: '100px'
+    width: '100px'
   },
   {
     label: 'Rule',
     field: 'rule',
-    //width: '200px'
+    width: '200px'
   },
   {
     label: 'Attached Groups',
     field: 'attachedGroups',
-   // width: '200px'
+    width: '200px'
   },
   {
     label: 'Status',
@@ -148,7 +149,7 @@ const tableConfigWithCustomTemplate = [
         />
       );
     },
-   // width: '200px'
+    width: '200px'
   },
   {
     field: 'overflow',

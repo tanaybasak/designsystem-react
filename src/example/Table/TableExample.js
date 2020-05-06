@@ -17,13 +17,13 @@ class TableExample extends Component {
         renderHtml: row => {
           return <Checkbox id={`${row.id}_checkbox_`} name="testcheck" />;
         },
-        width: '100px'
+        width: '40px'
         //pinned:'left'
       },
       {
         label: 'ID',
         field: 'id',
-        // width: '10%'
+        width: '160px'
       },
 
       {
@@ -36,13 +36,18 @@ class TableExample extends Component {
             />
           );
         },
-        // width: '10%'
+        width: '60px'
       },
       {
         label: 'Full Name',
         field: 'name',
         sortable: true,
-        // width: '10%'
+        // renderHtml: model => {
+        //     return (
+        //       <span>{model.name} {model.name} {model.name} {model.name}{model.name} {model.name} {model.name} {model.name} {model.name} {model.name}</span>
+        //     );
+        //   },
+        width: '200px'
       },
       {
         label: 'Private',
@@ -57,13 +62,13 @@ class TableExample extends Component {
             }`}</Tag>
           );
         },
-        // width: '10%'
+        width: '120px'
       },
       {
         label: 'Language',
         field: 'owner.login',
 
-        // width: '10%'
+        width: '120px'
       },
       {
         label: 'Has Issues',
@@ -79,23 +84,23 @@ class TableExample extends Component {
             />
           );
         },
-        // width: '10%'
+        width: '150px'
       },
       {
         label: 'Forks Count',
         field: 'forks_count',
-        // width: '10%'
+        width: '120px'
       },
       {
         label: 'Branch',
         field: 'default_branch',
         sortable: true,
-        // width: '10%'
+        width: '120px'
       },
       {
         label: 'Issues Count',
         field: 'open_issues_count',
-        // width: '10%'
+        width: '120px'
       },
       {
         field: 'overflow',
@@ -126,6 +131,9 @@ class TableExample extends Component {
       .then(response => response.json())
       .then(response => {
         console.log(response);
+
+        response[1].name =
+          'Testing longer string Testing longer string Testing longer string Testing longer string Testing longer string Testing longer string Testing longer stringTesting longer string Testing longer string Testing longer string Testing longer string Testing longer string Testing longer string Testing longer stringTesting longer string Testing longer string Testing longer string Testing longer string Testing longer string Testing longer string Testing longer stringTesting longer string Testing longer string Testing longer string Testing longer string Testing longer string Testing longer string Testing longer stringTesting longer string Testing longer string Testing longer string Testing longer string Testing longer string Testing longer string Testing longer stringTesting longer string Testing longer string Testing longer string Testing longer string Testing longer string Testing longer string Testing longer stringTesting longer string Testing longer string Testing longer string Testing longer string Testing longer string Testing longer string Testing longer stringTesting longer string Testing longer string Testing longer string Testing longer string Testing longer string Testing longer string Testing longer stringTesting longer string Testing longer string Testing longer string Testing longer string Testing longer string Testing longer string Testing longer stringTesting longer string Testing longer string Testing longer string Testing longer string Testing longer string Testing longer string Testing longer stringTesting longer string Testing longer string Testing longer string Testing longer string Testing longer string Testing longer string Testing longer stringTesting longer string Testing longer string Testing longer string Testing longer string Testing longer string Testing longer string Testing longer stringTesting longer string Testing longer string Testing longer string Testing longer string Testing longer string Testing longer string Testing longer string';
         this.setState({
           tableData: response,
           totalItems: response.length,

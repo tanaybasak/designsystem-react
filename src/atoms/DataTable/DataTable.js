@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 import { getColumnStructure } from '../../util/tableUtil';
@@ -16,7 +16,6 @@ const DataTable = ({
 }) => {
   const [rows, updateTableRowData] = useState(tableData);
   const tableRef = useRef(null);
-  const tableContainerRef = useRef(null);
   const [tableConfiguration, setTableConfiguration] = useState(tableConfig);
   const [sortedColumn, updateSortedColumn] = useState({});
 
@@ -40,23 +39,6 @@ const DataTable = ({
     }
   }, [tableRef]);
 
-  //const [offsetWidth, updateOffsetWidth] = useState(0);
-  //let offsetWidth = 0;
-  useLayoutEffect(() => {
-
-    setTimeout(()=>{
-        console.log("useLayoutEffect",tableContainerRef.current.offsetWidth)
-    },220)
-    
-    // setTimeout(()=>{
-    //     updateOffsetWidth(tableContainerRef.current.offsetWidth);
-
-    //     console.log("Previous Offset" , offsetWidth)
-    //     console.log("Current Offset" , tableContainerRef.current.offsetWidth)
-    // },220)
-    
-  });
-
   const sort = field => {
     let tempSortedColumn = { ...sortedColumn };
     if (tempSortedColumn.name === field.field) {
@@ -73,11 +55,6 @@ const DataTable = ({
     }
     onSort(field.field, tempSortedColumn.order, rows);
     updateSortedColumn(tempSortedColumn);
-    // let sortedData = await onSort(field.field, tempSortedColumn.order, rows);
-    // if (sortedData) {
-    //   updateTableRowData([...sortedData]);
-    // }
-    // updateSortedColumn(tempSortedColumn);
   };
 
   const getValue = (row, key) => {
@@ -149,7 +126,7 @@ const DataTable = ({
   } ${className}`.trim();
 
   return (
-    <div className={classnames} ref={tableContainerRef}>
+    <div className={classnames}>
       <table
         id={id}
         ref={tableRef}
@@ -324,11 +301,11 @@ DataTable.propTypes = {
   tableData: PropTypes.any,
   /** Column Configuration eg:
    * [ {
-   *    label : 'Name',
-   *    field : 'name',
-   *    sortable:true,
-   *    width:'100px',
-   *    renderHtml: (model)=> {return <span>{model.name}</span>}
+   *    label : 'Name', // Column Header
+   *    field : 'name',// Column key
+   *    sortable:true,// Is column Sortable
+   *    width:'100px',// Minimum width for the column
+   *    renderHtml: (model)=> {return <span>{model.name}</span>} // For passing Custom Html
    *
    * }] */
   tableConfig: PropTypes.any,
