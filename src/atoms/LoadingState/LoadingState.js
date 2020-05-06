@@ -102,7 +102,7 @@ const LoadingState = ({ type, className, ...restProps }) => {
   const tableLoadingState = () => {
     const num = Array.from(Array(4).keys());
     return (
-      <div className={`${prefix}-table-wrapper`}>
+      <div className={`${prefix}-data-table-wrapper`}>
         <table className={`${prefix}-data-table ${classnames}`}>
           <thead>
             <tr>

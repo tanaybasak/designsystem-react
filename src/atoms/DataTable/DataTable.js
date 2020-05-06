@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 import { getColumnStructure } from '../../util/tableUtil';
@@ -16,6 +16,7 @@ const DataTable = ({
 }) => {
   const [rows, updateTableRowData] = useState(tableData);
   const tableRef = useRef(null);
+  const tableContainerRef = useRef(null);
   const [tableConfiguration, setTableConfiguration] = useState(tableConfig);
   const [sortedColumn, updateSortedColumn] = useState({});
 
@@ -38,6 +39,23 @@ const DataTable = ({
       tableRef.current.parentElement.style.overflow = 'auto';
     }
   }, [tableRef]);
+
+  //const [offsetWidth, updateOffsetWidth] = useState(0);
+  //let offsetWidth = 0;
+  useLayoutEffect(() => {
+
+    setTimeout(()=>{
+        console.log("useLayoutEffect",tableContainerRef.current.offsetWidth)
+    },220)
+    
+    // setTimeout(()=>{
+    //     updateOffsetWidth(tableContainerRef.current.offsetWidth);
+
+    //     console.log("Previous Offset" , offsetWidth)
+    //     console.log("Current Offset" , tableContainerRef.current.offsetWidth)
+    // },220)
+    
+  });
 
   const sort = field => {
     let tempSortedColumn = { ...sortedColumn };
@@ -131,7 +149,7 @@ const DataTable = ({
   } ${className}`.trim();
 
   return (
-    <div className={classnames}>
+    <div className={classnames} ref={tableContainerRef}>
       <table
         id={id}
         ref={tableRef}

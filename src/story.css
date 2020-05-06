@@ -75,3 +75,10 @@ pre button {
   width: 100%;
   width: 400px;
 }
+
+
+
+.checkbox-wrapper{
+    justify-content: unset !important;
+    padding-left: .75rem;
+}

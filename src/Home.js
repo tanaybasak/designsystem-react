@@ -29,13 +29,10 @@ class Home extends Component {
           title: 'Tag'
         },
         {
-            href: '/table',
-            title: 'Table'
-          },
-          {
-            href: '/table-pattern',
-            title: 'Pattern'
-          },{
+          href: '/table',
+          title: 'Table'
+        },
+        {
           href: '/tree',
           title: 'Tree'
         }

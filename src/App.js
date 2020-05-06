@@ -23,7 +23,6 @@ import Slider from './atoms/Slider';
 import Overflowmenu from './molecules/Overflowmenu';
 import overflowlist from './molecules/Overflowmenu/sample-overflow-list.json';
 import { ContentSwitcher, Switch } from './molecules/ContentSwitcher';
-import tableData from './atoms/DataTable/sample-table-data.json';
 import Search from './atoms/Search';
 import FileUploader from './molecules/FileUploader';
 import { Accordion, AccordionItem } from './molecules/Accordion';
@@ -1622,7 +1621,20 @@ class App extends Component {
                   <LoadingState type="accordion" />
                 </div>
                 <div className="hcl-col-6 mb-2">
-                  <LoadingState type="datatable" tableData={tableData} />
+                  <LoadingState
+                    type="datatable"
+                    tableConfig={
+                      [{
+                        label: 'ID'
+                      },
+                      {
+                        label: 'Name'
+                      },
+                      {
+                        label: 'Description'
+                      }]
+                    }
+                  />
                 </div>
                 <div className="hcl-col-6 mb-2">
                   <LoadingState type="slider" />
