@@ -64,21 +64,6 @@ pre button {
 }
 
 .hcl-tree {
-  width: 100%;
-}
-
-.hcl-data-grid {
-  width: 100%;
-}
-
-.hcl-table-wrapper {
-  width: 100%;
   width: 400px;
 }
 
-
-
-.checkbox-wrapper{
-    justify-content: unset !important;
-    padding-left: .75rem;
-}

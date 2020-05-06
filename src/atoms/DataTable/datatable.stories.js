@@ -13,8 +13,7 @@ import Tag from '../Tag';
 const tableData = [
   {
     id: 1,
-    name:
-      'Load Balancer 1Load Balancer 1Load Balancer 1Load Balancer 1Load Balancer 1Load Balancer 1Load Balancer 1Load Balancer 1Load Balancer 1Load Balancer 1Load Balancer 1Load Balancer 1Load Balancer 1Load Balancer 1Load Balancer 1Load Balancer 1Load Balancer 1Load Balancer 1',
+    name: 'Load Balancer 1',
     protocol: 'HTTP',
     port: '80',
     rule: 'Round Robin',
@@ -204,6 +203,7 @@ storiesOf('DataTable', module)
           boolean('Zebra', false) ? ' zebra' : ''
         }${select('Class Name', classOptions, '')}`}
         tableData={tableData}
+        headerSelection={<Checkbox id={`header_checkbox`} />}
         tableConfig={tableConfigWithCustomTemplate}
         onSort={action('Sort Action')}
       />
