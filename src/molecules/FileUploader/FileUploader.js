@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 import Paragraph from '../../atoms/Paragraph/Paragraph';
@@ -18,6 +18,8 @@ export default function FileUploader({
 }) {
   const classnames = `${prefix}-file-btn ${prefix}-btn ${className}`.trim();
 
+  const [fileNames, setFileName] = useState([]);
+
   const fileContainer = useRef(null);
 
   const keyListener = (event) => {
@@ -27,34 +29,24 @@ export default function FileUploader({
     }
   };
 
-  const fileNameHTML = (name) => {
-    return `<div class="${prefix}-file-container-item">
-        <span  class="${prefix}-file-selected-file">
-          <p class="${prefix}-file-filename">${name}</p>
-        </span>
-        <button type='button' class='${prefix}-file-close'></button>
-        </div>
-        `;
-  };
-
   const getFileList = (event) => {
     const files = event.target.files;
     const length = event.target.files.length;
     if (files) {
       for (let i = 0; i < length; i++) {
-        const string = fileNameHTML(files[i].name);
-        fileContainer.current
-          .querySelector(`.${prefix}-file-container`)
-          .insertAdjacentHTML('beforeend', string);
+        fileNames.push(files[i].name);
       }
+      setFileName([...new Set(fileNames)]);
     }
-    onChange(files);
   };
 
-  const removeFile = (event) => {
-    fileContainer.current
-      .querySelector(`.${prefix}-file-container`)
-      .removeChild(event.target.parentNode);
+  const removeFile = (event, name) => {
+    event.preventDefault();
+    var index = fileNames.indexOf(name);
+    if (index !== -1) {
+      fileNames.splice(index, 1);
+      setFileName([...fileNames]);
+    }
   };
 
   return (
@@ -67,7 +59,11 @@ export default function FileUploader({
           {description}
         </Paragraph>
       ) : null}
-      <div className={`${prefix}-file-uploader`} ref={fileContainer} {...restProps}>
+      <div
+        className={`${prefix}-file-uploader`}
+        ref={fileContainer}
+        {...restProps}
+      >
         <input
           type="file"
           className={`${prefix}-file-input`}
@@ -78,13 +74,31 @@ export default function FileUploader({
           multiple={multiple}
           accept={fileType}
         />
-        <label htmlFor={id} className={classnames} onKeyPress={keyListener} tabIndex="0" role="button">
+        <label
+          htmlFor={id}
+          className={classnames}
+          onKeyPress={keyListener}
+          tabIndex="0"
+          role="button"
+        >
           {children}
         </label>
-        <div
-          className={`${prefix}-file-container`}
-           onClick={removeFile}
-        />
+        <div className={`${prefix}-file-container`} onClick={removeFile}>
+          {fileNames.length
+            ? fileNames.map((name, index) => (
+                <div key={index} className={`${prefix}-file-container-item`}>
+                  <span className={`${prefix}-file-selected-file`}>
+                    <p className={`${prefix}-file-filename`}>{name}</p>
+                  </span>
+                  <button
+                    onClick={(e) => removeFile(e, name)}
+                    type="button"
+                    className={`${prefix}-file-close`}
+                  />
+                </div>
+              ))
+            : null}
+        </div>
       </div>
     </div>
   );
@@ -93,7 +107,7 @@ export default function FileUploader({
 FileUploader.propTypes = {
   /** Unique id for File Uploader */
   id: PropTypes.string.isRequired,
-  /** Name of the custom class to apply to the File Uploader Button
+  /** Name of the custom class to apply to the File Uploader Button
    * eg:
    * Primary: 'hcl-btn hcl-primary',
    * Primary Danger: 'hcl-btn hcl-primary hcl-danger',
