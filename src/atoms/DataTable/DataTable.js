@@ -12,6 +12,7 @@ const DataTable = ({
   onSort,
   expandRowTemplate,
   headerSelection,
+  onRowSelect,
   ...restProps
 }) => {
   const [rows, updateTableRowData] = useState(tableData);
@@ -207,7 +208,7 @@ const DataTable = ({
         <tbody>
           {rows.map((row, index) => (
             <React.Fragment key={`row-${index}`}>
-              <tr>
+              <tr onClick={onRowSelect ? onRowSelect.bind(this, row) : null}>
                 {tableConfiguration.map((column, i) => (
                   <td
                     key={`col-${index}-${i}`}
@@ -318,6 +319,11 @@ DataTable.propTypes = {
    * Argument – event
    */
   onSort: PropTypes.func,
+  /** Call back function on selecting row
+   *
+   * Argument – row data
+   */
+  onRowSelect: PropTypes.func,
   /** Used for passing expand row template  */
   expandRowTemplate: PropTypes.func,
   /** Used for passing template for Table header  */
@@ -332,6 +338,7 @@ DataTable.defaultProps = {
   type: '',
   headerSelection: null,
   onSort: () => {},
+  onRowSelect: () => {},
   expandRowTemplate: null
 };
 
