@@ -23,8 +23,6 @@ import Slider from './atoms/Slider';
 import Overflowmenu from './molecules/Overflowmenu';
 import overflowlist from './molecules/Overflowmenu/sample-overflow-list.json';
 import { ContentSwitcher, Switch } from './molecules/ContentSwitcher';
-import DataTable from './atoms/DataTable';
-import tableData from './atoms/DataTable/sample-table-data.json';
 import Search from './atoms/Search';
 import FileUploader from './molecules/FileUploader';
 import { Accordion, AccordionItem } from './molecules/Accordion';
@@ -1151,22 +1149,6 @@ class App extends Component {
                   }}
                 />
               </div>
-              {/* Table Component */}
-              <div className="hcl-col-12 mt-5 mb-5">
-                <DataTable
-                  id="sample_table_1"
-                  tableData={tableData}
-                  selectable
-                  onSort={event => {
-                    console.log(event.currentTarget);
-                  }}
-                  overflowMenu
-                  overflowMenuItems={overflowlist}
-                  overflowMenuOnClick={event =>
-                    console.log(event.currentTarget)
-                  }
-                />
-              </div>
               {/* Search Component */}
               <section
                 className="hcl-col-12 mt-5 colBorder p-5"
@@ -1639,7 +1621,20 @@ class App extends Component {
                   <LoadingState type="accordion" />
                 </div>
                 <div className="hcl-col-6 mb-2">
-                  <LoadingState type="datatable" tableData={tableData} />
+                  <LoadingState
+                    type="datatable"
+                    tableConfig={
+                      [{
+                        label: 'ID'
+                      },
+                      {
+                        label: 'Name'
+                      },
+                      {
+                        label: 'Description'
+                      }]
+                    }
+                  />
                 </div>
                 <div className="hcl-col-6 mb-2">
                   <LoadingState type="slider" />
