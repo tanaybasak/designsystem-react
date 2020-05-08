@@ -43,7 +43,7 @@ export default function FileUploader({
 
   const removeFile = (event, name) => {
     event.preventDefault();
-    var index = fileNames.indexOf(name);
+    const index = fileNames.indexOf(name);
     if (index !== -1) {
       fileNames.splice(index, 1);
       setFileName([...fileNames]);
