@@ -40,6 +40,11 @@ const DataTable = ({
     }
   }, [tableRef]);
 
+  const sortOnEnter = (field, e) => {
+    if (e.key === 'Enter') {
+      sort(field);
+    }
+  };
   const sort = field => {
     let tempSortedColumn = { ...sortedColumn };
     if (tempSortedColumn.name === field.field) {
@@ -163,7 +168,11 @@ const DataTable = ({
                       className={`header-text-wrapper${
                         column.sortable ? ' sortable' : ''
                       }`}
+                      tabIndex={column.sortable ? '0' : null}
                       onClick={column.sortable ? sort.bind(this, column) : null}
+                      onKeyDown={
+                        column.sortable ? sortOnEnter.bind(this, column) : null
+                      }
                     >
                       <span>{column.label}</span>
                       {column.sortable ? (

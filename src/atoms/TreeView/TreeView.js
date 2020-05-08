@@ -26,7 +26,10 @@ const TreeView = ({
   isCopyAllowed,
   getOverFlowItems,
   onDeleteNode,
-  onRenamingNode
+  onRenamingNode,
+  onMoveNode,
+  onCopyNode,
+  onActionCompletes
 }) => {
   let [treeInfo, updateTree] = useState(treeData);
 
@@ -95,17 +98,26 @@ const TreeView = ({
 
   const updateTreeDataBasedOnAction = async (action, config) => {
     if (action === 'delete') {
-      let flag = await onDeleteNode(config.node);
+      let flag = onDeleteNode ? await onDeleteNode(config.node) : true;
       if (flag) {
         updateTree(deleteNode(treeInfo, config.level));
+        onActionCompletes(action, config.node);
       }
     } else if (action === 'copy-paste') {
-      updateTree(copyNode(treeInfo, config.level, config.copyNode));
+      let flag = onCopyNode ? await onCopyNode(copiedNode, config.node) : true;
+      if (flag) {
+        updateTree(copyNode(treeInfo, config.level, config.copyNode));
+        onActionCompletes('copy', config.copyNode, config.node);
+      }
     } else if (action === 'cut-paste') {
-      updateTree(
-        updateNodePosition(treeInfo, config.cutNodeLevel, config.level)
-      );
-      updateTreeState('cutNode', { node: null, level: '' });
+      let flag = onMoveNode ? await onMoveNode(cutNode, config.node) : true;
+      if (flag) {
+        updateTree(
+          updateNodePosition(treeInfo, config.cutNodeLevel, config.level)
+        );
+        onActionCompletes('cut', cutNode, config.node);
+        updateTreeState('cutNode', { node: null, level: '' });
+      }
     } else if (action === 'toggle-node') {
       updateTree(updateTreeNode(treeInfo, config.node, config.level));
       if (onToggleNode) {
@@ -117,25 +129,31 @@ const TreeView = ({
       let flag = await onRenamingNode(config.node);
       if (flag) {
         updateTree(updateTreeNode(treeInfo, config.node, config.level));
+        onActionCompletes(action, config.node);
       }
 
       return flag;
     } else if (action === 'move-node') {
-      let dropNodeArray = config.dropNode.split('-');
-      const dropNodeIndex = parseInt(dropNodeArray.splice(-1));
-      if (dropNodeArray.length === 0) {
-        dropNodeArray = null;
-      } else {
-        dropNodeArray = dropNodeArray.join('-');
+      let flag = onMoveNode ? await onMoveNode(draggedNode, config.node) : true;
+      if (flag) {
+        let dropNodeArray = config.dropNode.split('-');
+        const dropNodeIndex = parseInt(dropNodeArray.splice(-1));
+        if (dropNodeArray.length === 0) {
+          dropNodeArray = null;
+        } else {
+          dropNodeArray = dropNodeArray.join('-');
+        }
+        updateTree(
+          updateNodePosition(
+            treeInfo,
+            config.draggedNode,
+            dropNodeArray,
+            dropNodeIndex
+          )
+        );
+
+        onActionCompletes('drop', draggedNode, config.node);
       }
-      updateTree(
-        updateNodePosition(
-          treeInfo,
-          config.draggedNode,
-          dropNodeArray,
-          dropNodeIndex
-        )
-      );
     }
   };
 
@@ -231,7 +249,13 @@ TreeView.propTypes = {
    * default : Component without any node selection
    * single : Component with node selection
    */
-  type: PropTypes.oneOf(['default', 'single'])
+  type: PropTypes.oneOf(['default', 'single']),
+  /** Callback function on moving node  */
+  onMoveNode: PropTypes.func,
+  /** Callback function on pasting node  */
+  onCopyNode: PropTypes.func,
+  /** Callback function after completing the overflow action  */
+  onActionCompletes: PropTypes.func
 };
 
 TreeView.defaultProps = {
@@ -241,7 +265,6 @@ TreeView.defaultProps = {
   onChange: null,
   isMoveNodeAllowed: () => {},
   isCopyAllowed: () => {},
-  onDeleteNode: null,
   onRenamingNode: null,
   expandedIcon: 'caret caret-down',
   collapsedIcon: 'caret',
@@ -250,7 +273,11 @@ TreeView.defaultProps = {
   config: {},
   onOverflowAction: null,
   getOverFlowItems: null,
-  nodeSelected: null
+  nodeSelected: null,
+  onMoveNode: null,
+  onCopyNode: null,
+  onDeleteNode: null,
+  onActionCompletes: null
 };
 
 export default TreeView;

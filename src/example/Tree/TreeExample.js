@@ -1,10 +1,16 @@
 /* eslint-disable no-console */
 import React, { Component } from 'react';
 import TreeView from '../../atoms/TreeView/TreeView';
+import Modal from '../../molecules/Modal';
+import Toast from '../../atoms/Toast';
 
 class TreeExample extends Component {
   state = {
     nodeSelected: null,
+    toast: {
+      visible: false,
+      type: 'success'
+    },
     treeData: [
       {
         name: 'Main',
@@ -195,11 +201,71 @@ class TreeExample extends Component {
         displayChildren: false,
         children: []
       }
-    ]
+    ],
+
+    selectedNode: {},
+    showModal: false
   };
+
+  showToast = message => {
+    if (!this.state.toast.visible) {
+      this.setState(
+        {
+          toast: {
+            visible: true,
+            title: message
+          }
+        },
+        () => {
+          setTimeout(() => {
+            this.hideToast();
+          }, 5000);
+        }
+      );
+    }
+  };
+
+  hideToast = () => {
+    if (this.state.toast.visible) {
+      this.setState({
+        toast: {
+          visible: false
+        }
+      });
+    }
+  };
+
   timeout = ms => {
     const p1 = new Promise(resolve => setTimeout(resolve, ms));
     return p1
+      .then(function() {
+        return true;
+      })
+      .catch(
+        // Log the rejection reason
+        () => {
+          return false;
+        }
+      );
+  };
+
+  //   onclick = () => {
+  //       console.log("On Click")
+  //   }
+
+  confirmDelete = ms => {
+    // var p = new Promise(function(resolve, reject){
+    //     resolve()
+    // });
+
+    const p = new Promise(
+      function(resolve, reject) {
+        this.onAccept = resolve;
+        this.onReject = reject;
+      }.bind(this)
+    );
+
+    return p
       .then(function() {
         return true;
       })
@@ -216,7 +282,7 @@ class TreeExample extends Component {
       <main className="hcl-content-main">
         <section className="hcl-container pt-5 mb-5">
           <div className="hcl-row">
-            <div className="hcl-col-2 mb-2">
+            <div className="hcl-col-4 mb-2">
               <TreeView
                 dragRules={[
                   {
@@ -297,7 +363,7 @@ class TreeExample extends Component {
                 getOverFlowItems={model => {
                   let common = [
                     {
-                      name: 'Update',
+                      name: 'Rename',
                       action: 'edit'
                     },
                     {
@@ -331,7 +397,7 @@ class TreeExample extends Component {
                   }
                 }}
                 onOverflowAction={async (action, model) => {
-                  console.log(action);
+                  console.log('action', action);
                   if (action === 'updateProperty') {
                     if (model.type === 'folder') {
                       model.type = 'file';
@@ -345,16 +411,29 @@ class TreeExample extends Component {
                     return model;
                   }
                 }}
-                onOverFlowActionChange={async (action, model) => {
-                  console.log(action, model);
-                  return await this.timeout(3000);
-                }}
                 onDeleteNode={async model => {
-                  console.log(model);
-                  return await this.timeout(3000);
+                  //console.log(model);
+
+                  this.setState({
+                    showModal: true,
+                    selectedNode: model
+                  });
+                  return await this.confirmDelete();
                 }}
                 onRenamingNode={async model => {
                   console.log(model);
+
+                  let textStatus = /^([a-z0-9]{5,})$/.test(model.name);
+                  console.log('textStatus', textStatus);
+
+                  return await textStatus;
+                }}
+                onMoveNode={async (dragModel, dropModel) => {
+                  console.log(dragModel, dropModel);
+                  return await this.timeout(3000);
+                }}
+                onCopyNode={async (dragModel, dropModel) => {
+                  console.log(dragModel, dropModel);
                   return await this.timeout(3000);
                 }}
                 type="single"
@@ -366,6 +445,21 @@ class TreeExample extends Component {
                 }}
                 onToggle={node => {
                   console.log('On Toggle', node);
+                }}
+                onActionCompletes={(action, node1, node2) => {
+                  console.log('onActionCompletes', action);
+                  console.log('node1', node1);
+                  console.log('node2', node2);
+
+                  if (action === 'edit') {
+                    this.showToast(`${node1.name} renamed successfully`);
+                  } else if (action === 'copy') {
+                    this.showToast(`node pasted successfully`);
+                  } else if (action === 'cut') {
+                    this.showToast(`node moved successfully`);
+                  } else if (action === 'delete') {
+                    this.showToast(`node deleted successfully`);
+                  }
                 }}
                 nodeSelected={this.state.nodeSelected}
               />
@@ -389,6 +483,50 @@ class TreeExample extends Component {
           >
             Clear Selection
           </button>
+
+          {this.state.showModal ? (
+            <Modal
+              actions={[
+                {
+                  label: 'Yes',
+                  primary: true,
+                  handler: () => {
+                    this.setState({
+                      showModal: false
+                    });
+
+                    this.onAccept();
+                  }
+                },
+                {
+                  label: 'No',
+                  primary: false,
+                  handler: () => {
+                    this.setState({
+                      showModal: false
+                    });
+                    this.onReject();
+                  }
+                }
+              ]}
+              heading="Delete Confirmation"
+              type="danger"
+            >
+              <h5>
+                Are you sure want to delete{' '}
+                <span style={{ fontWeight: 'bold' }}>
+                  {this.state.selectedNode.name}
+                </span>{' '}
+                ?
+              </h5>
+            </Modal>
+          ) : null}
+
+          <Toast
+            type="success"
+            subtitle={this.state.toast.title}
+            visible={this.state.toast.visible}
+          />
         </section>
       </main>
     );
