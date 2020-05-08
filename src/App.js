@@ -1216,7 +1216,7 @@ class App extends Component {
                   fileType=".jpg,.png"
                   className="hcl-secondary hcl-sml"
                   onChange={FileList => {
-                    console.log('FileList:  ', FileList);
+                    console.log('FileList:  ',FileList);
                   }}
                 >
                   Add file

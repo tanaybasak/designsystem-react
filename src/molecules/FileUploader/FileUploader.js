@@ -38,6 +38,7 @@ export default function FileUploader({
       }
       setFileName([...new Set(fileNames)]);
     }
+    onChange(fileNames);
   };
 
   const removeFile = (event, name) => {
@@ -47,6 +48,7 @@ export default function FileUploader({
       fileNames.splice(index, 1);
       setFileName([...fileNames]);
     }
+    onChange(fileNames);
   };
 
   return (
@@ -83,7 +85,7 @@ export default function FileUploader({
         >
           {children}
         </label>
-        <div className={`${prefix}-file-container`} onClick={removeFile}>
+        <div className={`${prefix}-file-container`}>
           {fileNames.length
             ? fileNames.map((name, index) => (
                 <div key={index} className={`${prefix}-file-container-item`}>
@@ -134,7 +136,7 @@ FileUploader.propTypes = {
   /** Tab Index for File Uploader */
   tabIndex: PropTypes.number,
   /** Call back function that is invoked when File Uploader is clicked */
-  onChange: PropTypes.func,
+  onChange: PropTypes.func
 };
 
 FileUploader.defaultProps = {
@@ -147,5 +149,5 @@ FileUploader.defaultProps = {
   multiple: true,
   fileType: '',
   tabIndex: 0,
-  onChange: () => {},
+  onChange: () => {}
 };
