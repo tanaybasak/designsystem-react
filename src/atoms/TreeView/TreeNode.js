@@ -109,7 +109,8 @@ const TreeNode = ({
         if (cutNodeLevel) {
           updateTreeDataBasedOnAction('cut-paste', {
             cutNodeLevel: cutNodeLevel,
-            level: level
+            level: level,
+            node: node
           });
         } else {
           updateTreeDataBasedOnAction('copy-paste', {
@@ -136,7 +137,7 @@ const TreeNode = ({
   // Overflow Menu Text Field Action Section
 
   const [showText, updateTextStatus] = useState(false);
-  let updated = false;
+  const [formStatus, updateFormStaus] = useState(false);
 
   const updateTextNodeOnBlur = e => {
     updateTreeNodeName(e.currentTarget.value);
@@ -148,13 +149,14 @@ const TreeNode = ({
 
   const getTextNode = () => {
     return (
-      <div className="hcl-text-container">
+      <div className="hcl-form-group hcl-text-container">
         <TextInput
           type="text"
           autoFocus
           value={node[configuration.name]}
           onBlur={updateTextNodeOnBlur}
           onKeyDown={updateTreenodeNameOnEnter}
+          data-invalid={formStatus}
           onClick={stopPropagation}
         />
         <button onClick={closeTextField}>X</button>
@@ -164,18 +166,23 @@ const TreeNode = ({
 
   const updateTreeNodeName = async value => {
     let nodeTemp = { ...node };
-    nodeTemp[configuration.name] = value;
+    if(nodeTemp[configuration.name] !== value){
+        nodeTemp[configuration.name] = value;
 
-    let flag = await updateTreeDataBasedOnAction('edit', {
-      level: level,
-      node: nodeTemp
-    });
-    if (flag) {
-      updateTextStatus(false);
-    } else {
-      updateTextStatus(false);
+        let flag = await updateTreeDataBasedOnAction('edit', {
+          level: level,
+          node: nodeTemp
+        });
+        if (flag) {
+          updateTextStatus(false);
+          updateFormStaus(false);
+        } else {
+          updateFormStaus(true);
+        }
+    }else{
+        updateTextStatus(false);
+        updateFormStaus(false);  
     }
-    updated = false;
   };
 
   const updateTreenodeNameOnEnter = event => {
@@ -184,14 +191,15 @@ const TreeNode = ({
       updateTreeNodeName(event.currentTarget.value);
     } else if (event.key === 'Escape') {
       updateTextStatus(false);
+      updateFormStaus(false);
     }
   };
 
   const closeTextField = event => {
-    //updated = true;
     event.stopPropagation();
     event.preventDefault();
     updateTextStatus(false);
+    updateFormStaus(false);
     //updateTreeNodeName('');
     //updateTreeNodeName(event.currentTarget.parentElement.children[0].value);
   };
@@ -326,18 +334,12 @@ const TreeNode = ({
 
   const onDragOverNode = ev => {
     ev.stopPropagation();
-    //ev.dataTransfer.dropEffect = "none"
-
-    //console.log(ev.currentTarget.style.cursor = "no-drop")
-
     if (level.startsWith(draggedNodeLevel)) {
-      //ev.currentTarget.style.cursor = "no-drop"
       return;
     }
     if (
       draggedNodeLevel.substr(0, draggedNodeLevel.lastIndexOf('-')) === level
     ) {
-      //ev.currentTarget.style.cursor = "no-drop"
       return;
     }
 
@@ -412,7 +414,8 @@ const TreeNode = ({
         ) {
           updateTreeDataBasedOnAction('move-node', {
             draggedNode: data,
-            dropNode: level
+            dropNode: level,
+            node: node
           });
         } else {
           let newLevel = level;
@@ -425,13 +428,15 @@ const TreeNode = ({
             newLevel.substr(0, newLevel.lastIndexOf('-') + 1) + topIndex;
           updateTreeDataBasedOnAction('move-node', {
             draggedNode: data,
-            dropNode: newLevel
+            dropNode: newLevel,
+            node: node
           });
         }
       } else {
         updateTreeDataBasedOnAction('move-node', {
           draggedNode: data,
-          dropNode: level
+          dropNode: level,
+          node: node
         });
       }
     } else if (position === 'bottom') {
@@ -447,12 +452,14 @@ const TreeNode = ({
             newLevel.substr(0, newLevel.lastIndexOf('-') + 1) + bottomIndex;
           updateTreeDataBasedOnAction('move-node', {
             draggedNode: data,
-            dropNode: newLevel
+            dropNode: newLevel,
+            node: node
           });
         } else {
           updateTreeDataBasedOnAction('move-node', {
             draggedNode: data,
-            dropNode: level
+            dropNode: level,
+            node: node
           });
         }
       } else {
@@ -463,7 +470,8 @@ const TreeNode = ({
           newLevel.substr(0, newLevel.lastIndexOf('-') + 1) + bottomIndex;
         updateTreeDataBasedOnAction('move-node', {
           draggedNode: data,
-          dropNode: newLevel
+          dropNode: newLevel,
+          node: node
         });
       }
     } else {

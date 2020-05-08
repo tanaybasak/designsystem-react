@@ -162,9 +162,9 @@ class TableExample extends Component {
                   } else {
                     let newData = [...this.state.displayData].sort((a, b) => {
                       if (a[field].toLowerCase() > b[field].toLowerCase())
-                        return order === 'desc' ? 1 : -1;
+                        return order === 'asc' ? 1 : -1;
                       if (b[field].toLowerCase() > a[field].toLowerCase())
-                        return order === 'desc' ? -1 : 1;
+                        return order === 'asc' ? -1 : 1;
                       return 0;
                     });
                     this.setState({

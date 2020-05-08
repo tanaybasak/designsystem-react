@@ -35,7 +35,6 @@ export const updateTreeNode = (tree, node, level) => {
   } else {
     let model = treeData[parseInt(levelArray.splice(0, 1))];
     levelArray.map((arrayNumber, index) => {
-      console.log(arrayNumber, index);
       if (levelArray.length === index + 1) {
         model.children[parseInt(arrayNumber)] = node;
       } else {
@@ -159,12 +158,6 @@ export const getConditionStatus = (conditions, node) => {
 };
 
 const moveElementInArray = (arr, old_index, new_index) => {
-  console.log(arr.length, old_index, new_index, new_index > arr.length);
-  // if(new_index >= arr.length){
-  //     new_index = arr.length-1
-  // }
-  console.log(old_index, new_index);
-
   if (new_index >= arr.length) {
     var k = new_index - arr.length + 1;
     while (k--) {
