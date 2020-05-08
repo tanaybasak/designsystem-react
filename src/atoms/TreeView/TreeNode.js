@@ -334,18 +334,12 @@ const TreeNode = ({
 
   const onDragOverNode = ev => {
     ev.stopPropagation();
-    //ev.dataTransfer.dropEffect = "none"
-
-    //console.log(ev.currentTarget.style.cursor = "no-drop")
-
     if (level.startsWith(draggedNodeLevel)) {
-      //ev.currentTarget.style.cursor = "no-drop"
       return;
     }
     if (
       draggedNodeLevel.substr(0, draggedNodeLevel.lastIndexOf('-')) === level
     ) {
-      //ev.currentTarget.style.cursor = "no-drop"
       return;
     }
 

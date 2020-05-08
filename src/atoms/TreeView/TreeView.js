@@ -52,16 +52,18 @@ const TreeView = ({
   }, [nodeSelected]);
 
   const isMoveNodeAllowedMain = (x, y) => {
-    return isMoveNodeAllowed(x, y, treeInfo);
+    return isMoveNodeAllowed ? isMoveNodeAllowed(x, y, treeInfo) : true;
   };
 
   const isCopyAllowedMain = (x, y) => {
-    return isCopyAllowed(x, y, treeInfo);
+    return isCopyAllowed ? isCopyAllowed(x, y, treeInfo) : true;
   };
 
   const onSelectNode = node => {
     updateSelectedNode(node);
-    onChange(node);
+    if (onChange) {
+      onChange(node);
+    }
   };
 
   const onToggleNode = event => {
@@ -101,13 +103,17 @@ const TreeView = ({
       let flag = onDeleteNode ? await onDeleteNode(config.node) : true;
       if (flag) {
         updateTree(deleteNode(treeInfo, config.level));
-        onActionCompletes(action, config.node);
+        if (onActionCompletes) {
+          onActionCompletes(action, config.node);
+        }
       }
     } else if (action === 'copy-paste') {
       let flag = onCopyNode ? await onCopyNode(copiedNode, config.node) : true;
       if (flag) {
         updateTree(copyNode(treeInfo, config.level, config.copyNode));
-        onActionCompletes('copy', config.copyNode, config.node);
+        if (onActionCompletes) {
+          onActionCompletes('copy', config.copyNode, config.node);
+        }
       }
     } else if (action === 'cut-paste') {
       let flag = onMoveNode ? await onMoveNode(cutNode, config.node) : true;
@@ -115,7 +121,9 @@ const TreeView = ({
         updateTree(
           updateNodePosition(treeInfo, config.cutNodeLevel, config.level)
         );
-        onActionCompletes('cut', cutNode, config.node);
+        if (onActionCompletes) {
+          onActionCompletes('cut', cutNode, config.node);
+        }
         updateTreeState('cutNode', { node: null, level: '' });
       }
     } else if (action === 'toggle-node') {
@@ -129,7 +137,9 @@ const TreeView = ({
       let flag = await onRenamingNode(config.node);
       if (flag) {
         updateTree(updateTreeNode(treeInfo, config.node, config.level));
-        onActionCompletes(action, config.node);
+        if (onActionCompletes) {
+          onActionCompletes(action, config.node);
+        }
       }
 
       return flag;
@@ -151,8 +161,9 @@ const TreeView = ({
             dropNodeIndex
           )
         );
-
-        onActionCompletes('drop', draggedNode, config.node);
+        if (onActionCompletes) {
+          onActionCompletes('drop', draggedNode, config.node);
+        }
       }
     }
   };
@@ -263,8 +274,9 @@ TreeView.defaultProps = {
   iconClass: null,
   dragRules: null,
   onChange: null,
-  isMoveNodeAllowed: () => {},
-  isCopyAllowed: () => {},
+  onToggle: null,
+  isMoveNodeAllowed: null,
+  isCopyAllowed: null,
   onRenamingNode: null,
   expandedIcon: 'caret caret-down',
   collapsedIcon: 'caret',
