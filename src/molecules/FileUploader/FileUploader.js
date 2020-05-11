@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 import Paragraph from '../../atoms/Paragraph/Paragraph';
@@ -18,7 +18,7 @@ export default function FileUploader({
 }) {
   const classnames = `${prefix}-file-btn ${prefix}-btn ${className}`.trim();
 
-  const [fileNames, setFileName] = useState([]);
+  const [fileLists, setFileList] = useState([]);
 
   const fileContainer = useRef(null);
 
@@ -29,26 +29,23 @@ export default function FileUploader({
     }
   };
 
+  useEffect(() => {
+    onChange(fileLists);
+  });
+
   const getFileList = (event) => {
     const files = event.target.files;
-    const length = event.target.files.length;
-    if (files) {
-      for (let i = 0; i < length; i++) {
-        fileNames.push(files[i].name);
-      }
-      setFileName([...new Set(fileNames)]);
-    }
-    onChange(fileNames);
+    const filelist = Object.keys(files).map((i) => files[i]);
+    setFileList([...new Set(filelist)]);
   };
 
   const removeFile = (event, name) => {
     event.preventDefault();
-    const index = fileNames.indexOf(name);
+    const index = fileLists.findIndex((file) => file.name === name);
     if (index !== -1) {
-      fileNames.splice(index, 1);
-      setFileName([...fileNames]);
+      fileLists.splice(index, 1);
+      setFileList([...fileLists]);
     }
-    onChange(fileNames);
   };
 
   return (
@@ -86,14 +83,14 @@ export default function FileUploader({
           {children}
         </label>
         <div className={`${prefix}-file-container`}>
-          {fileNames.length
-            ? fileNames.map((name, index) => (
+          {fileLists.length
+            ? fileLists.map((fileList, index) => (
                 <div key={index} className={`${prefix}-file-container-item`}>
                   <span className={`${prefix}-file-selected-file`}>
-                    <p className={`${prefix}-file-filename`}>{name}</p>
+                    <p className={`${prefix}-file-filename`}>{fileList.name}</p>
                   </span>
                   <button
-                    onClick={(e) => removeFile(e, name)}
+                    onClick={(e) => removeFile(e, fileList.name)}
                     type="button"
                     className={`${prefix}-file-close`}
                   />
@@ -136,7 +133,7 @@ FileUploader.propTypes = {
   /** Tab Index for File Uploader */
   tabIndex: PropTypes.number,
   /** Call back function that is invoked when File Uploader is clicked */
-  onChange: PropTypes.func
+  onChange: PropTypes.func,
 };
 
 FileUploader.defaultProps = {
@@ -149,5 +146,5 @@ FileUploader.defaultProps = {
   multiple: true,
   fileType: '',
   tabIndex: 0,
-  onChange: () => {}
+  onChange: () => {},
 };
