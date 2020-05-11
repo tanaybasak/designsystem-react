@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { select, text } from '@storybook/addon-knobs';
+import { select, text, boolean } from '@storybook/addon-knobs';
 //@update-path-build-start
 import Search from './Search';
 //@update-path-build-end
@@ -27,6 +27,7 @@ storiesOf('Search', module)
         placeholder={text('Placeholder', 'Search...')}
         size={select('Size', sizeOption, 'default')}
         theme={select('Theme', themeOption, 'default')}
+        disabled={boolean('Disabled' , false)}
         aria-label="Search"
         type="default"
       />
@@ -51,6 +52,7 @@ storiesOf('Search', module)
         placeholder={text('Placeholder', 'Search...')}
         size={select('Size', sizeOption, 'default')}
         theme={select('Theme', themeOption, 'default')}
+        disabled={boolean('Disabled' , false)}
         aria-label="Search"
         type="clickable"
       />

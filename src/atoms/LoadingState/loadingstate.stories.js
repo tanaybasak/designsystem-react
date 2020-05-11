@@ -66,8 +66,7 @@ storiesOf('LoadingState', module)
     () => (
       <LoadingState
         type="datatable"
-        tableData={{
-          columns: [
+        tableConfig={[
             {
               label: 'Name',
               field: 'name'
@@ -92,9 +91,7 @@ storiesOf('LoadingState', module)
               label: 'Status',
               field: 'status'
             }
-          ],
-          rows: []
-        }}
+          ]}
       />
     ),
     {
