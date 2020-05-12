@@ -19,6 +19,7 @@ storiesOf('NumberInput', module).add(
       min={number('Min', 0)}
       onChange={action('Number Change')}
       step={number('Step', 1)}
+      required={boolean('Required', false)}
     />
   ),
   {
