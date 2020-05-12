@@ -221,6 +221,29 @@ const Pagination = ({ totalItems, itemsPerPageStepper, itemsStepperLimit, itemsP
         }
     }
 
+    const _onKeyDown = (e) => {
+        const { target } = e;
+        const keycode = e.keycode || e.which;
+        const optionsLen = target.options.length;
+        if (keycode === 37) { // PREVIOUS
+            e.preventDefault();
+            const selIndex = target.selectedIndex;
+            if (selIndex > 0) { // OTHER THAN FIRST ELEMENT
+                target.selectedIndex--;
+            }
+            target === pagesRef.current ? _onPagesChange() : _onItemsChange();
+        } else if (keycode === 39) { // NEXT
+            e.preventDefault();
+            if (target.options) {
+                const selIndex = target.selectedIndex;
+                if ((optionsLen - 1) !== selIndex) { // OTHER THAN LAST ELEMENT
+                    target.selectedIndex++;
+                }
+                target === pagesRef.current ? _onPagesChange() : _onItemsChange();
+            }
+        }
+    }
+
     return (
         <div className={`${prefix}-pagination`}>
             <div className={`${prefix}-pagination-left`}>
@@ -228,7 +251,7 @@ const Pagination = ({ totalItems, itemsPerPageStepper, itemsStepperLimit, itemsP
                     {perPageText}
                 </div>
                 <div className={`${prefix}-pagination-select-wrapper`}>
-                    <Pager ref={pageItemsSelectedRef} value={itemsPerPageSelected} onChange={_onItemsChange} options={itemsPerPageDropDown} className={`${prefix}-pagination-select ${prefix}-page-items`} />
+                    <Pager ref={pageItemsSelectedRef} value={itemsPerPageSelected} onKeyDown={_onKeyDown} onChange={_onItemsChange} options={itemsPerPageDropDown} className={`${prefix}-pagination-select ${prefix}-page-items`} />
                 </div>
                 <span className={`${prefix}-pagination-text`}>
                     <span className={`${prefix}-pagination-range`}>
@@ -256,7 +279,7 @@ const Pagination = ({ totalItems, itemsPerPageStepper, itemsStepperLimit, itemsP
                     </svg>
                 </button>
                 <div className={`${prefix}-pagination-select-wrapper`}>
-                    <Pager ref={pagesRef} value={pagesSelected} onChange={_onPagesChange} options={pagesDropDown} className={`${prefix}-pagination-select ${prefix}-page-number`} />
+                    <Pager ref={pagesRef} value={pagesSelected} onKeyDown={_onKeyDown} onChange={_onPagesChange} options={pagesDropDown} className={`${prefix}-pagination-select ${prefix}-page-number`} />
                 </div>
                 <button className={`${prefix}-pagination-button-next`}
                     aria-label="Next page"

@@ -199,7 +199,9 @@ NumberInput.propTypes = {
   /** Specifies the number intervals  */
   step: PropTypes.number,
   /** Class/clasess will be applied on the parent div of Number Input  */
-  className: PropTypes.string
+  className: PropTypes.string,
+  /** Helper Text  */
+  helperText: PropTypes.string
 };
 
 NumberInput.defaultProps = {
