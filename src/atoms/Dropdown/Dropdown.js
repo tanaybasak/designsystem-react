@@ -77,7 +77,6 @@ const Dropdown = ({
   useEffect(() => {
     if (!isOpen) {
       removeListeners('dropdown-' + dropDownId, 'click');
-      dropDown.current.children[0].focus();
     } else {
       addListener(
         'dropdown-' + dropDownId,
