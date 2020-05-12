@@ -19,6 +19,7 @@ const Dropdown = ({
 }) => {
   const defaultConfig = { text: 'text', id: 'id' };
   const configuration = { ...defaultConfig, ...config };
+  const [selectedCount,setSelectedCount] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
   const [selectedObj, setSelectedObj] = useState({});
   const selectedOption = items.find((item) => {
@@ -40,7 +41,7 @@ const Dropdown = ({
       checkedInput.forEach((defaultInput) => {
         selectedObj[defaultInput[configuration.id]] = true;
       });
-      setMultiSelectVal(Object.keys(selectedObj).length);
+      setSelectedCount(checkedInput.length)
     }
   }, [selectedItem]);
 
@@ -105,19 +106,6 @@ const Dropdown = ({
     }
   };
 
-  const setMultiSelectVal = (value) => {
-    if (value > 0) {
-      dropDown.current.querySelector(`.${prefix}-tag-text`).innerText = value;
-      dropDown.current
-        .querySelector(`.${prefix}-tag-primary`)
-        .classList.remove(`hidden`);
-    } else {
-      dropDown.current
-        .querySelector(`.${prefix}-tag-primary`)
-        .classList.add(`hidden`);
-    }
-  };
-
   const onSelect = (item) => {
     setSelected(item);
     onChange(item);
@@ -129,14 +117,15 @@ const Dropdown = ({
     event.stopPropagation();
     event.preventDefault();
     const input = event.currentTarget.querySelector('input');
-    input.checked = !input.checked;
-    if (input.checked) {
+    const tempSelectedObj = {...selectedObj};
+    if (!input.checked) {
       onChange(item);
-      selectedObj[item[defaultConfig.id]] = true;
+      tempSelectedObj[item[defaultConfig.id]] = true;
     } else {
-      delete selectedObj[item[defaultConfig.id]];
+      delete tempSelectedObj[item[defaultConfig.id]];
     }
-    setMultiSelectVal(Object.keys(selectedObj).length);
+    setSelectedObj(tempSelectedObj);
+    setSelectedCount(Object.keys(tempSelectedObj).length);
   };
 
   const keyDownOnMultiSelect = (e) => {
@@ -237,23 +226,24 @@ const Dropdown = ({
             event.target.focus();
           }}
         >
+          {selectedCount > 0 ? (
           <button
-            className={`${prefix}-tag ${prefix}-tag-primary hidden`}
+            className={`${prefix}-tag ${prefix}-tag-primary`}
             title="primary-closeable"
             tabIndex="-1"
           >
-            <span className={`${prefix}-tag-text`} />
+            <span className={`${prefix}-tag-text`}>{selectedCount}</span>
             <span
               className={`${prefix}-close`}
               onClick={(event) => {
                 event.stopPropagation();
                 setSelectedObj({});
-                setMultiSelectVal(0);
+                setSelectedCount(0);
               }}
               aria-hidden="true"
               tabIndex="0"
             />
-          </button>
+          </button>) : null}
           {label}
         </div>
       ) : (
