@@ -339,9 +339,6 @@ Dropdown.propTypes = {
   /** Class/clasess will be applied on the parent div of Dropdown */
   className: PropTypes.string,
 
-  /** default checked options for multiselect dropdown */
-  //checkedInput: PropTypes.array,
-
   /** Configuration Object for updating propery name in items data */
   config: PropTypes.any,
 };
