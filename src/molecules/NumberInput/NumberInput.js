@@ -18,6 +18,8 @@ const NumberInput = ({
   step,
   className,
   helperText,
+  required,
+  errorMessage,
   ...restProps
 }) => {
   let [value, setValue] = useState(Number(defaultValue) || 0);
@@ -27,19 +29,31 @@ const NumberInput = ({
 
   useEffect(() => {
     let newValue = Number(value);
-    if (restProps.required && value === '') {
-      setValidationMessage(numberInputInvalid);
+    if (required && value === '') {
+      setValidationMessage(
+        errorMessage && errorMessage.required
+          ? errorMessage.required
+          : numberInputInvalid
+      );
       return;
     } else if (value !== '') {
       if (max != null) {
         if (newValue > max) {
-          setValidationMessage(`${numberInputMaxValidation} ${max}`);
+          setValidationMessage(
+            errorMessage && errorMessage.max
+              ? errorMessage.max
+              : `${numberInputMaxValidation} ${max}`
+          );
           return;
         }
       }
       if (min != null) {
         if (newValue < min) {
-          setValidationMessage(`${numberInputMinValidation} ${min}`);
+          setValidationMessage(
+            errorMessage && errorMessage.min
+              ? errorMessage.min
+              : `${numberInputMinValidation} ${min}`
+          );
           return;
         }
       }
@@ -168,9 +182,7 @@ const NumberInput = ({
 
       {label ? <Label htmlFor={id}>{label} </Label> : null}
       {helperText ? (
-        <FormHelperText className="helper-text">
-          {helperText}
-        </FormHelperText>
+        <FormHelperText className="helper-text">{helperText}</FormHelperText>
       ) : null}
       {
         <FormHelperText className="error-msg">
@@ -199,7 +211,11 @@ NumberInput.propTypes = {
   /** Specifies the number intervals  */
   step: PropTypes.number,
   /** Class/clasess will be applied on the parent div of Number Input  */
-  className: PropTypes.string
+  className: PropTypes.string,
+  /** Specifies the number is required or not  */
+  required: PropTypes.bool,
+  /** Used for passing error message  */
+  errorMessage: PropTypes.any
 };
 
 NumberInput.defaultProps = {
@@ -210,8 +226,14 @@ NumberInput.defaultProps = {
   max: null,
   min: null,
   step: null,
-  helperText:null,
-  className: ''
+  helperText: null,
+  className: '',
+  required: false,
+  errorMessage: {
+      required : null , 
+      max : null,
+      min : null
+  }
 };
 
 export default NumberInput;
