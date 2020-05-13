@@ -11,7 +11,6 @@ const Dropdown = ({
   label,
   dropdownType,
   onChange,
-  checkedInput,
   config,
   selectedItem,
   className,
@@ -19,31 +18,28 @@ const Dropdown = ({
 }) => {
   const defaultConfig = { text: 'text', id: 'id' };
   const configuration = { ...defaultConfig, ...config };
-  const [selectedCount,setSelectedCount] = useState(0);
+  const [selectedCount, setSelectedCount] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
   const [selectedObj, setSelectedObj] = useState({});
-  const selectedOption = items.find((item) => {
-    if (item[configuration.id] === selectedItem) {
-      return item;
-    }
-  });
-
-  const [selected, setSelected] = useState(
-    selectedItem ? selectedOption : null
-  );
-
+  const [selected, setSelected] = useState('');
   const dropDown = useRef(null);
   const [dropDownId] = useState(dropdownIdRef++);
 
   useEffect(() => {
-    setSelected(selectedItem ? selectedOption : null);
     if (dropdownType === 'multi') {
-      const initialSelectedObj = {...selectedObj};
-      checkedInput.forEach((defaultInput) => {
-       initialSelectedObj[defaultInput[configuration.id]] = true;
+      const initialSelectedObj = { ...selectedObj };
+      selectedItem.forEach((defaultInput) => {
+        initialSelectedObj[defaultInput[configuration.id]] = true;
       });
       setSelectedObj(initialSelectedObj);
-      setSelectedCount(Object.keys(initialSelectedObj).length)
+      setSelectedCount(Object.keys(initialSelectedObj).length);
+    } else {
+      const selectedOption = items.find((item) => {
+        if (item[configuration.id] === selectedItem) {
+          return item;
+        }
+      });
+      setSelected(selectedItem ? selectedOption : null);
     }
   }, [selectedItem]);
 
@@ -118,7 +114,7 @@ const Dropdown = ({
     event.stopPropagation();
     event.preventDefault();
     const input = event.currentTarget.querySelector('input');
-    const tempSelectedObj = {...selectedObj};
+    const tempSelectedObj = { ...selectedObj };
     if (!input.checked) {
       onChange(item);
       tempSelectedObj[item[defaultConfig.id]] = true;
@@ -200,10 +196,14 @@ const Dropdown = ({
     const listItems = e.target.nextElementSibling;
     if (key === 40) {
       e.preventDefault();
-      dropdownType === 'multi' ? listItems.firstElementChild.focus() : focusNode(listItems.firstElementChild);
+      dropdownType === 'multi'
+        ? listItems.firstElementChild.focus()
+        : focusNode(listItems.firstElementChild);
     } else if (key === 38) {
       e.preventDefault();
-      dropdownType === 'multi' ? listItems.lastElementChild.focus() : focusNode(listItems.lastElementChild);
+      dropdownType === 'multi'
+        ? listItems.lastElementChild.focus()
+        : focusNode(listItems.lastElementChild);
     }
   };
 
@@ -228,23 +228,24 @@ const Dropdown = ({
           }}
         >
           {selectedCount > 0 ? (
-          <button
-            className={`${prefix}-tag ${prefix}-tag-primary`}
-            title="primary-closeable"
-            tabIndex="-1"
-          >
-            <span className={`${prefix}-tag-text`}>{selectedCount}</span>
-            <span
-              className={`${prefix}-close`}
-              onClick={(event) => {
-                event.stopPropagation();
-                setSelectedObj({});
-                setSelectedCount(0);
-              }}
-              aria-hidden="true"
-              tabIndex="0"
-            />
-          </button>) : null}
+            <button
+              className={`${prefix}-tag ${prefix}-tag-primary`}
+              title="primary-closeable"
+              tabIndex="-1"
+            >
+              <span className={`${prefix}-tag-text`}>{selectedCount}</span>
+              <span
+                className={`${prefix}-close`}
+                onClick={(event) => {
+                  event.stopPropagation();
+                  setSelectedObj({});
+                  setSelectedCount(0);
+                }}
+                aria-hidden="true"
+                tabIndex="0"
+              />
+            </button>
+          ) : null}
           {label}
         </div>
       ) : (
@@ -265,7 +266,9 @@ const Dropdown = ({
 
       {isOpen && Array.isArray(items) && items.length ? (
         <ul
-          onKeyDown={dropdownType === 'multi' ? keyDownOnMultiSelect : keyDownOnDropdown}
+          onKeyDown={
+            dropdownType === 'multi' ? keyDownOnMultiSelect : keyDownOnDropdown
+          }
           role="dropdownMenu"
           className={`${prefix}-dropdown-container`}
           aria-labelledby="dropdownMenuButton"
@@ -329,13 +332,13 @@ Dropdown.propTypes = {
   onChange: PropTypes.func,
 
   /** id of item for default selection */
-  selectedItem: PropTypes.string,
+  selectedItem: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
 
   /** Class/clasess will be applied on the parent div of Dropdown */
   className: PropTypes.string,
 
   /** default checked options for multiselect dropdown */
-  checkedInput: PropTypes.array,
+  //checkedInput: PropTypes.array,
 
   /** Configuration Object for updating propery name in items data */
   config: PropTypes.any,
@@ -345,9 +348,7 @@ Dropdown.defaultProps = {
   type: 'bottom',
   label: 'Select Option',
   onChange: () => {},
-  selectedItem: '',
   className: '',
-  checkedInput: [],
   dropdownType: '',
   config: {},
 };

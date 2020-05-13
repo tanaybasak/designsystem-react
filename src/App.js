@@ -1256,7 +1256,7 @@ class App extends Component {
                       dropdownType="multi"
                       type="bottom"
                       items={this.items}
-                      checkedInput={this.itemList}
+                      selectedItem={this.itemList}
                       label="MultiSelect DropDown"
                       onChange={selected => {
                         console.log('selected item', selected);
