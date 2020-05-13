@@ -579,14 +579,14 @@ class App extends Component {
                     activeIndex={Math.floor(Math.random() * 3)}
                     onSelection={e => console.log(e, e.tabIndex)}
                   >
-                    <BreadcrumbItem className="custom-item" href="#">
+                    <BreadcrumbItem className="custom-item">
                       Breadcrumb 1
                     </BreadcrumbItem>
-                    <BreadcrumbItem href="#">Breadcrumb 2</BreadcrumbItem>
-                    <BreadcrumbItem href="#tools">Breadcrumb 3</BreadcrumbItem>
-                    <BreadcrumbItem href="#hammer">Breadcrumb 4</BreadcrumbItem>
-                    <BreadcrumbItem href="#hammer">Breadcrumb 5</BreadcrumbItem>
-                    <BreadcrumbItem href="#hammer">Breadcrumb 6</BreadcrumbItem>
+                    <BreadcrumbItem >Breadcrumb 2</BreadcrumbItem>
+                    <BreadcrumbItem >Breadcrumb 3</BreadcrumbItem>
+                    <BreadcrumbItem >Breadcrumb 4</BreadcrumbItem>
+                    <BreadcrumbItem href="#asdf">Breadcrumb 5</BreadcrumbItem>
+                    <BreadcrumbItem onClick={(e) => {console.log('sdfsdf',e);}}>Breadcrumb 6</BreadcrumbItem>
                   </Breadcrumb>
                 </div>
               {/* Spinner */}

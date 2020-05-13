@@ -17,7 +17,7 @@ function BreadcrumbItem({ onClick, children, active, href, itemClass }) {
       onClick={onClick}
     >
       <Link
-        href={href ? href : 'javascript:void(0);'}
+        href={href ? href : null}
         className={`${defaultStyle.breadcrumbLink}`}
       >
         {children}
