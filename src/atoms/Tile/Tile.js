@@ -17,13 +17,12 @@ const Tile = ({ className, children, type, id, href, ...restProps }) => {
   };
 
   const keyDownOnTile = e => {
-    e.preventDefault();
     const input = expandableElement.current
       ? expandableElement.current.querySelector('input[type="checkbox"]')
       : selectableElement.current.querySelector('input[type="checkbox"]');
-
     const key = e.which || e.keyCode;
     if (key === 13 || key === 32) {
+      e.preventDefault();
       if (input) {
         setChecked(!checked);
       }
@@ -98,7 +97,6 @@ const Tile = ({ className, children, type, id, href, ...restProps }) => {
     return (
       <div
         className={classNames}
-        onKeyDown={keyDownOnTile}
         tabIndex="0"
         ref={expandableElement}
         {...restProps}
@@ -111,7 +109,7 @@ const Tile = ({ className, children, type, id, href, ...restProps }) => {
           title="tile"
           checked={checked}
         />
-        <label htmlFor={`${id}`} className={`${prefix}-tile-arrow`}>
+        <label htmlFor={`${id}`} onKeyDown={keyDownOnTile} className={`${prefix}-tile-arrow`} tabIndex="0">
           <svg width="12" height="7" viewBox="0 0 12 7">
             <path
               fillRule="nonzero"
