@@ -139,7 +139,7 @@ const Overflowmenu = ({
         } else {
           listItem.parentElement.lastElementChild.children[0].focus();
         }
-      } else if (prevElem && prevElem.hasAttribute('disabled')) {
+      } else if (prevElem && prevElem.children[0].hasAttribute('disabled')) {
         focusNode(prevElem, 'previous');
       } else {
         if (prevElem) {
