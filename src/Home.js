@@ -2,12 +2,13 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import Header from './molecules/Header';
-import Icon from './atoms/Icon';
 import Search from './atoms/Search';
 import Sidebar from './molecules/Sidebar';
 import App from './app';
 import TagExample from './example/Tag';
 import logo from './assets/images/logo.png';
+import TableExample from './example/Table';
+import TreeExample from './example/Tree';
 
 class Home extends Component {
   state = {
@@ -24,8 +25,16 @@ class Home extends Component {
       icon: <i className="pi pi-new-relases" />,
       children: [
         {
-          href: '/Tag',
+          href: '/tag',
           title: 'Tag'
+        },
+        {
+          href: '/table',
+          title: 'Table'
+        },
+        {
+          href: '/tree',
+          title: 'Tree'
         }
       ]
     }
@@ -96,6 +105,8 @@ class Home extends Component {
           <Switch>
             <Route exact path="/" component={App} />
             <Route exact path="/tag" component={TagExample} />
+            <Route exact path="/table" component={TableExample} />
+            <Route exact path="/tree" component={TreeExample} />
           </Switch>
         </div>
       </Router>

@@ -34,6 +34,13 @@ const Sidebar = ({
     toggleSidebar(ex, event);
   };
 
+  const expandSidebarOnEnter = event => {
+    var key = event.which || event.keyCode;
+    if (key === 13) {
+      expandSidebar(event);
+    }
+  };
+
   const handleClick = e => {
     if (sidebarContainerRef.current) {
       if (e && sidebarContainerRef.current.contains(e.target)) {
@@ -62,7 +69,7 @@ const Sidebar = ({
             });
             if (activeItem) {
               let tempItem = [...sidebarList];
-              tempItem[index].expanded = !tempItem[index].expanded;
+              tempItem[index].expanded = true;
               updateSidebarList([...tempItem]);
               setActiveItem(activeItem);
             }
@@ -291,25 +298,34 @@ const Sidebar = ({
         data-type={'toggle_sidebar'}
         data-title={title}
         data-expanded={expnd}
-        onClick={expandSidebar}
       >
-        {icon
-          ? React.cloneElement(icon, {
-              className: `hcl-sidebar-title-icon${
-                icon.props.className ? ' ' + icon.props.className : ''
-              }`
-            })
-          : null}
+        {icon ? (
+          React.cloneElement(icon, {
+            className: `hcl-sidebar-title-icon${
+              icon.props.className ? ' ' + icon.props.className : ''
+            }`
+          })
+        ) : (
+          <span className="hcl-sidebar-title-icon" />
+        )}
         <span className="hcl-sidebar-title-text">{title}</span>
-        <Icon
-          type="svg"
-          viewBox="0 0 512 512"
-          alt={title}
-          title={title}
+        <span
           className="hcl-sidebar-title-toggle"
+          tabIndex="0"
+          onClick={expandSidebar}
+          onKeyDown={expandSidebarOnEnter}
         >
-          <polygon points="160,128.4 192.3,96 352,256 352,256 352,256 192.3,416 160,383.6 287.3,256 " />
-        </Icon>
+          <Icon
+            type="svg"
+            height="24px"
+            width="24px"
+            viewBox="0 0 512 512"
+            alt={title}
+            title={title}
+          >
+            <polygon points="160,128.4 192.3,96 352,256 352,256 352,256 192.3,416 160,383.6 287.3,256 " />
+          </Icon>
+        </span>
       </div>
       {sidebarList && sidebarList.length ? (
         <ul className={`${prefix}-sidebar-list`}>
