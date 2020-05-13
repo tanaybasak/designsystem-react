@@ -28,9 +28,11 @@ const Dropdown = ({
   useEffect(() => {
     if (dropdownType === 'multi') {
       const initialSelectedObj = { ...selectedObj };
-      selectedItem.forEach((defaultInput) => {
-        initialSelectedObj[defaultInput[configuration.id]] = true;
-      });
+      selectedItem
+        ? selectedItem.forEach((defaultInput) => {
+            initialSelectedObj[defaultInput[configuration.id]] = true;
+          })
+        : null;
       setSelectedObj(initialSelectedObj);
       setSelectedCount(Object.keys(initialSelectedObj).length);
     } else {
