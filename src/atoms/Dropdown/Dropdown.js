@@ -130,32 +130,23 @@ const Dropdown = ({
   const keyDownOnMultiSelect = (e) => {
     const key = e.which || e.keyCode;
     const listItem = e.target;
-    switch (key) {
-      case 40: {
-        if (!listItem.nextElementSibling) {
-          listItem.parentElement.firstElementChild.focus();
-        } else {
-          listItem.nextElementSibling.focus();
-        }
-        e.preventDefault();
-        break;
+    if (key === 40) {
+      e.preventDefault();
+      if (!listItem.nextElementSibling) {
+        listItem.parentElement.firstElementChild.focus();
+      } else {
+        listItem.nextElementSibling.focus();
       }
-      case 38: {
-        if (!listItem.previousElementSibling) {
-          listItem.parentElement.lastElementChild.focus();
-        } else {
-          listItem.previousElementSibling.focus();
-        }
-        e.preventDefault();
-        break;
+    } else if (key === 38) {
+      e.preventDefault();
+      if (!listItem.previousElementSibling) {
+        listItem.parentElement.lastElementChild.focus();
+      } else {
+        listItem.previousElementSibling.focus();
       }
-      case 13: {
-        e.preventDefault();
-        e.target.click();
-        break;
-      }
-      default:
-        break;
+    } else if (key === 13 || key == 32) {
+      e.preventDefault();
+      e.target.click();
     }
   };
 
@@ -196,16 +187,23 @@ const Dropdown = ({
   const keydownButton = (e) => {
     const key = e.which || e.keyCode;
     const listItems = e.target.nextElementSibling;
-    if (key === 40) {
-      e.preventDefault();
-      dropdownType === 'multi'
-        ? listItems.firstElementChild.focus()
-        : focusNode(listItems.firstElementChild);
-    } else if (key === 38) {
-      e.preventDefault();
-      dropdownType === 'multi'
-        ? listItems.lastElementChild.focus()
-        : focusNode(listItems.lastElementChild);
+    if (isOpen) {
+      if (key === 40) {
+        e.preventDefault();
+        dropdownType === 'multi'
+          ? listItems.firstElementChild.focus()
+          : focusNode(listItems.firstElementChild);
+      } else if (key === 38) {
+        e.preventDefault();
+        dropdownType === 'multi'
+          ? listItems.lastElementChild.focus()
+          : focusNode(listItems.lastElementChild);
+      }
+    } else {
+      if (key === 38 || key == 40) {
+        e.preventDefault();
+        dropDown.current.children[0].click();
+      }
     }
   };
 
@@ -254,7 +252,6 @@ const Dropdown = ({
         <button
           className={`${prefix}-btn ${prefix}-dropdown-toggle`}
           data-toggle="dropdown"
-          onKeyPress={toggleDropdown}
           onKeyDown={keydownButton}
           onClick={(event) => {
             event.stopPropagation();
@@ -302,7 +299,6 @@ const Dropdown = ({
                 <a
                   href="#"
                   className={`${prefix}-dropdown-wrapper`}
-                  tabIndex="-1"
                 >
                   {item[configuration.text]}
                 </a>
@@ -340,7 +336,7 @@ Dropdown.propTypes = {
   className: PropTypes.string,
 
   /** Configuration Object for updating propery name in items data */
-  config: PropTypes.any,
+  config: PropTypes.any
 };
 
 Dropdown.defaultProps = {
@@ -349,7 +345,7 @@ Dropdown.defaultProps = {
   onChange: () => {},
   className: '',
   dropdownType: '',
-  config: {},
+  config: {}
 };
 
 export default Dropdown;
