@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 import Paragraph from '../../atoms/Paragraph/Paragraph';
@@ -29,23 +29,24 @@ export default function FileUploader({
     }
   };
 
-  useEffect(() => {
-    onChange(fileLists);
-  });
-
   const getFileList = (event) => {
     const files = event.target.files;
     const filelist = Object.keys(files).map((i) => files[i]);
-    setFileList([...new Set(filelist)]);
+    const tempFileLists = [...fileLists,...filelist];
+    setFileList(tempFileLists);
+    onChange(tempFileLists);
+    event.target.value = null;
   };
 
   const removeFile = (event, name) => {
     event.preventDefault();
     const index = fileLists.findIndex((file) => file.name === name);
+    const newFileList = [...fileLists];
     if (index !== -1) {
-      fileLists.splice(index, 1);
-      setFileList([...fileLists]);
+      newFileList.splice(index, 1);
+      setFileList(newFileList);
     }
+    onChange(newFileList);
   };
 
   return (
