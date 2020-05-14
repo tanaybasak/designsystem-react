@@ -32,7 +32,6 @@ storiesOf('Dropdown', module)
       <Dropdown
         items={object('Items', items)}
         label={text('Label', 'Dropdown Label')}
-        selectedItem={text('Selected Index')}
         onChange={action(event)}
       />
     ),
@@ -50,7 +49,7 @@ storiesOf('Dropdown', module)
         type={'top'}
         items={object('Items', items)}
         label={text('Label', 'Dropdown Label')}
-        selectedIndex={text('Selected Index')}
+        selectedItem={text('Item','option-2')}
         onChange={action(event)}
       />
     ),
