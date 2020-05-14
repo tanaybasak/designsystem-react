@@ -144,7 +144,7 @@ const Dropdown = ({
       } else {
         listItem.previousElementSibling.focus();
       }
-    } else if (key === 13 || key == 32) {
+    } else if (key === 13 || key === 32) {
       e.preventDefault();
       e.target.click();
     }
