@@ -200,7 +200,7 @@ const Dropdown = ({
           : focusNode(listItems.lastElementChild);
       }
     } else {
-      if (key === 38 || key == 40) {
+      if (key === 38 || key === 40) {
         e.preventDefault();
         dropDown.current.children[0].click();
       }
