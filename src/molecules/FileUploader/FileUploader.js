@@ -87,7 +87,7 @@ export default function FileUploader({
           {fileLists.length
             ? fileLists.map((fileList, index) => (
                 <div key={index} className={`${prefix}-file-container-item`}>
-                  <span className={`${prefix}-file-selected-file`}>
+                  <span title={fileList.name} className={`${prefix}-file-selected-file`}>
                     <p className={`${prefix}-file-filename`}>{fileList.name}</p>
                   </span>
                   <button
