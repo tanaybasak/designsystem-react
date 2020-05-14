@@ -7,8 +7,6 @@ import Tag from './Tag';
 import Icon from '../../atoms/Icon';
 //@update-path-build-end
 
-import {logo} from '../../assets/images/sample_tag_icon.svg';
-
 const typeOptions = {
   Primary: 'primary',
   Secondary: 'secondary'
@@ -57,7 +55,7 @@ storiesOf('Tag', module).add(
         disabled={boolean('Disabled', false)}
         onClose={action('OnClose')}
         tabIndex={0}
-        thumbnailSrc={logo}
+        thumbnailSrc={text("Thumbnail Source", "https://en.bitcoin.it/w/images/en/2/29/BC_Logo_.png")}
         title={text("Title", "")}
         type={select("Type", typeOptions, "primary")}
       >

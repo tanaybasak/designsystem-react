@@ -55,23 +55,15 @@ class Home extends Component {
           icons={[
             {
               onClick: event => console.log(event.currentTarget),
-              icon: <span className={`hcl-icon-1 bg-white`} />
+              icon: <button className={`pi pi-settings`} />
             },
             {
               onClick: event => console.log(event.currentTarget),
-              icon: <span className={`hcl-icon-1 bg-white`} />
+              icon: <button className={`pi pi-new-relases`} />
             },
             {
               onClick: event => console.log(event.currentTarget),
-              icon: <span className={`hcl-icon-1 bg-white`} />
-            },
-            {
-              onClick: event => console.log(event.currentTarget),
-              icon: <span className={`hcl-icon-1 bg-white`} />
-            },
-            {
-              onClick: event => console.log(event.currentTarget),
-              icon: <span className={`hcl-icon-1 bg-white`} />
+              icon: <button className={`pi pi-logout`} />
             }
           ]}
           data-withsidenav
