@@ -24,7 +24,7 @@ export default function FileUploader({
 
   const keyListener = (event) => {
     event.preventDefault();
-    if (event.keyCode === 13) {
+    if (event.key === 'Enter') {
       fileContainer.current.querySelector(`.${prefix}-file-btn`).click();
     }
   };
@@ -77,7 +77,7 @@ export default function FileUploader({
         <label
           htmlFor={id}
           className={classnames}
-          onKeyPress={keyListener}
+          onKeyDown={keyListener}
           tabIndex="0"
           role="button"
         >
