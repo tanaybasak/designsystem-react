@@ -1141,8 +1141,8 @@ class App extends Component {
                 <Slider
                   min={0}
                   max={100}
-                  step={2}
-                  value={44}
+                  step={5}
+                  value={45}
                   title="Slider"
                   onChange={event => {
                     console.log(event.currentTarget.value);
