@@ -30,7 +30,7 @@ const Dropdown = ({
       const initialSelectedObj = { ...selectedObj };
       selectedItem
         ? selectedItem.forEach((defaultInput) => {
-            initialSelectedObj[defaultInput[configuration.id]] = true;
+          initialSelectedObj[defaultInput[configuration.id]] = true;
           })
         : null;
       setSelectedObj(initialSelectedObj);
@@ -118,12 +118,12 @@ const Dropdown = ({
     const input = event.currentTarget.querySelector('input');
     const tempSelectedObj = { ...selectedObj };
     if (!input.checked) {
-      onChange(item);
       tempSelectedObj[item[defaultConfig.id]] = true;
     } else {
       delete tempSelectedObj[item[defaultConfig.id]];
     }
     setSelectedObj(tempSelectedObj);
+    onChange(item, Object.keys(tempSelectedObj));
     setSelectedCount(Object.keys(tempSelectedObj).length);
   };
 
@@ -233,13 +233,20 @@ const Dropdown = ({
               title="primary-closeable"
               tabIndex="-1"
             >
-              <span className={`${prefix}-tag-text`}>{selectedCount}</span>
+              <span className={`${prefix}-tag-text`} >{selectedCount}</span>
               <span
                 className={`${prefix}-close`}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter') {
+                    event.preventDefault();
+                    dropDown.current.querySelector(`.${prefix}-close`).click();
+                  }
+                }}
                 onClick={(event) => {
                   event.stopPropagation();
                   setSelectedObj({});
                   setSelectedCount(0);
+                  onChange(null,[]);
                 }}
                 aria-hidden="true"
                 tabIndex="0"

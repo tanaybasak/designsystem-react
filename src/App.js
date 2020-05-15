@@ -1258,8 +1258,9 @@ class App extends Component {
                       items={this.items}
                       selectedItem={this.itemList}
                       label="MultiSelect DropDown"
-                      onChange={selected => {
-                        console.log('selected item', selected);
+                      onChange={(item, selectedList )=> {
+                        console.log('changed item', item);
+                        console.log('selected itemList', selectedList);
                       }}
                     />
                   </div>
