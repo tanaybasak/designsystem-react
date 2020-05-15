@@ -63,6 +63,15 @@ class App extends Component {
     sidebarExpanded: false
   };
 
+  itemList = [
+    {
+      id: 'option-1',
+    },
+    {
+      id: 'option-2',
+    }
+  ]
+
   items = [
     {
       id: 'option-1',
@@ -1242,6 +1251,19 @@ class App extends Component {
                     }}
                   />
                 </div>
+                <div className="hcl-col-6">
+                    <Dropdown
+                      dropdownType="multi"
+                      type="bottom"
+                      items={this.items}
+                      selectedItem={this.itemList}
+                      label="MultiSelect DropDown"
+                      onChange={(item, selectedList )=> {
+                        console.log('changed item', item);
+                        console.log('selected itemList', selectedList);
+                      }}
+                    />
+                  </div>
               </div>
               {/* Tile Component */}
               <section>
