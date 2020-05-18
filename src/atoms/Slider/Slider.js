@@ -3,6 +3,14 @@ import PropTypes from 'prop-types';
 import Label from '../Label';
 import prefix from '../../settings';
 import debounce from '../../util/debounce';
+import FormHelperText from '../FormHelperText';
+import { isInAP, findMinMax } from '../../util/number';
+import {
+  numberInputMaxValidation,
+  numberInputMinValidation,
+  numberInputInvalid,
+  numberInputStepSizeValidation
+} from '../../content';
 
 const Slider = ({
   min,
@@ -12,6 +20,10 @@ const Slider = ({
   onChange: onChangeHandler,
   value: propsVal,
   withInputBox,
+  label,
+  helperText,
+  errorMessage,
+  id,
   ...restProps
 }) => {
   const [value, setValue] = useState(propsVal || 0);
@@ -19,7 +31,7 @@ const Slider = ({
   const classnames = `${prefix}-slider ${className}`.trim();
   const sliderRef = useRef(null);
   const tooltipRef = useRef(null);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [validationMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     const percentage = (100 * (value - min)) / (max - min);
@@ -35,38 +47,47 @@ const Slider = ({
     }
   }, [value]);
 
-  const isInAP = (a, d, x) => {
-    if (d == 0) {
-      return x == a;
-    } else {
-      return (x - a) % d == 0 && (x - a) / d >= 0;
-    }
-  };
-
-  const findMinMax = (a, d, x) => {
-    const number = x / d + 1;
-    const minV = Math.floor(number);
-    const maxV = Math.ceil(number);
-
-    return [a + (minV - 1) * d, a + (maxV - 1) * d];
-  };
-
   const isValidNumber = number => {
-    if (number < min) {
-      setErrorMessage('Please Enter a value greater than ' + min);
-    } else if (number > max) {
-      setErrorMessage('Please Enter a less than ' + max);
+    if (number === '' || number === null) {
+      setErrorMessage(
+        errorMessage && errorMessage.invalid
+          ? errorMessage.invalid
+          : numberInputInvalid
+      );
+      return false;
     } else {
-      if (isInAP(min, step, number)) {
-        setErrorMessage('');
-        return true;
-      } else {
-        const nearestValue = findMinMax(min, step, number);
+      if (number < min) {
         setErrorMessage(
-          'Please Enter a valid value. Nearest values are ' + nearestValue
+          errorMessage && errorMessage.min
+            ? errorMessage.min
+            : numberInputMinValidation + min
         );
-
         return false;
+      } else if (number > max) {
+        setErrorMessage(
+          errorMessage && errorMessage.max
+            ? errorMessage.max
+            : numberInputMaxValidation + max
+        );
+        return false;
+      } else {
+        if (isInAP(min, step, number)) {
+          setErrorMessage('');
+          return true;
+        } else {
+          const nearestValue = findMinMax(min, step, number);
+          setErrorMessage(
+            errorMessage && errorMessage.step
+              ? errorMessage.step
+              : numberInputStepSizeValidation + nearestValue.join(' and ')
+          );
+          setErrorMessage(
+            'Please enter a valid value. The two nearest valid values are ' +
+              nearestValue.join(' and ')
+          );
+
+          return false;
+        }
       }
     }
   };
@@ -75,16 +96,22 @@ const Slider = ({
     debounce(value => {
       if (isValidNumber(value)) {
         setValue(value);
+        if (onChangeHandler && typeof onChangeHandler === 'function') {
+          onChangeHandler(value);
+        }
       }
-    }, 1000)
+    }, 500)
   ).current;
 
   return (
-    <div className="hcl-slider-wrapper" ref={sliderRef}>
-      <label>Slider Form</label>
+    <div className={`${prefix}-slider-wrapper`} ref={sliderRef}>
+      {label ? <Label htmlFor={id ? id : null}>{label} </Label> : null}
+      {helperText ? (
+        <FormHelperText className="helper-text">{helperText}</FormHelperText>
+      ) : null}
       <div className={classnames}>
         <Label className={`${prefix}-slider-bottom-range`}>{min}</Label>
-        <div className="hcl-slider-input-wrapper">
+        <div className={`${prefix}-slider-input-wrapper`}>
           <div className="range-value" ref={tooltipRef}>
             <span>{value}</span>
           </div>
@@ -99,11 +126,13 @@ const Slider = ({
             onClick={event => {
               event.currentTarget.focus();
             }}
+            id={id ? id : null}
             onChange={event => {
               setValue(event.currentTarget.value);
               setNumberInput(event.currentTarget.value);
+              setErrorMessage('');
               if (onChangeHandler && typeof onChangeHandler === 'function') {
-                onChangeHandler(event);
+                onChangeHandler(event.currentTarget.value);
               }
             }}
           />
@@ -117,30 +146,22 @@ const Slider = ({
             max={max}
             step={step}
             value={numberInput}
-            data-invalid="true"
+            data-invalid={validationMessage ? true : false}
             onChange={event => {
-              const value = Number(event.currentTarget.value);
+              const value = isNaN(event.target.value)
+                ? numberInput
+                : event.target.value;
               setNumberInput(value);
               setSearchTerm(value);
             }}
-            // onBlur={event => {
-            //   // let val = Number(event.currentTarget.value);
-            //   // val = val > max ? max : val < min ? min : val;
-            //   //const value = Number(event.currentTarget.value);
-            //   if (value < min) {
-            //     setValue(min);
-            //   } else if (value > max) {
-            //     setValue(max);
-            //   } else {
-            //     setValue(value);
-            //   }
-            // }}
             disabled={restProps.disabled}
           />
         ) : null}
       </div>
-      {errorMessage ? (
-        <div className="hcl-error-msg">{errorMessage}</div>
+      {validationMessage ? (
+        <FormHelperText className="error-msg">
+          {validationMessage}
+        </FormHelperText>
       ) : null}
     </div>
   );
@@ -163,7 +184,15 @@ Slider.propTypes = {
      true : display input field
      false : hide input field
      */
-  withInputBox: PropTypes.bool
+  withInputBox: PropTypes.bool,
+  /** Title for the Slider */
+  label: PropTypes.string,
+  /** Used for passing custom error message  */
+  errorMessage: PropTypes.any,
+  /** Specifies helper text */
+  helperText: PropTypes.string,
+  /** Unique Id */
+  id: PropTypes.string.isRequired
 };
 
 Slider.defaultProps = {
@@ -173,7 +202,16 @@ Slider.defaultProps = {
   value: 0,
   className: '',
   onChange: () => {},
-  withInputBox: true
+  withInputBox: true,
+  label: null,
+  errorMessage: {
+    step: null,
+    max: null,
+    min: null,
+    invalid:null
+  },
+  helperText: null,
+  id: ''
 };
 
 export default Slider;
