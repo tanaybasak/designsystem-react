@@ -28,7 +28,6 @@ class TagExample extends Component {
           title="Primary Tag With Thumbnail"
           thumbnail={
             <Icon
-              className="hcl-tag-thumbnail"
               type="svg"
               alt="alt"
               title="title"
@@ -74,7 +73,6 @@ class TagExample extends Component {
           type="secondary"
           thumbnail={
             <Icon
-              className="hcl-tag-thumbnail"
               type="svg"
               alt="alt"
               title="title"
