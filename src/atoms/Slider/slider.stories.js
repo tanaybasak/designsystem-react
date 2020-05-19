@@ -16,7 +16,7 @@ storiesOf('Slider', module).add(
       step={number('Step', 1)}
       value={50}
       id="basic-slider"
-      helperText={text('Helper Text', 'Optional Helper text goes here (max 1000 and min 0)')}
+      helperText={text('Helper Text', 'Optional Helper text goes here (max 100 and min 0)')}
       label={text('Label', 'Basic Slider')}
       title="Slider"
       withInputBox={boolean('With Input Box', true)}
