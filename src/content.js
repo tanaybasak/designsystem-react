@@ -17,7 +17,7 @@ export const numberInputMaxValidation =
   "Value Should Be less than or equal to ";
 export const numberInputMinValidation =
   "Value Should Be greater than or equal to  ";
-export const numberInputInvalid = "Number is not valid";
+export const numberInputInvalid = "Please enter a value";
 
 export const period = {
   am: "AM",
