@@ -23,9 +23,9 @@ function Breadcrumb({ activeIndex, onSelection, id, className, children }) {
                         listItems={_listItems}
                         direction="right"
                         ellipsisType="horizontal"
-                        onClick={(e) => {
+                        onClick={(item, idx, e) => {
                             setActive(index + 1);
-                            onSelection(Object.assign({}, e, { tabIndex: index + 1 }));
+                            onSelection(item, idx + 1, e);
                         }}
                     />)
             } else if (index === 0 || !(index < (childCount - 2))) {
@@ -35,7 +35,7 @@ function Breadcrumb({ activeIndex, onSelection, id, className, children }) {
                         if (child.props.onClick) {
                             child.props.onClick(e);
                         }
-                        onSelection(Object.assign({}, e, { tabIndex: index }));
+                        onSelection({"name": child.props.children, "link": child.props.href}, index, e);
                     },
                     key: index,
                     children: child.props.children,

@@ -26,7 +26,7 @@ const MenuList = ({ items, onSelect }) => {
               data-name={name}
               disabled={disabled}
               onClick={(e) => {
-                onSelect(Object.assign({}, e, {item}));
+                onSelect(item, index, e);
               }}
             >
               {link ? (

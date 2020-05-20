@@ -571,7 +571,7 @@ class App extends Component {
                   id="small-navigator"
                   className="custom-breadcrumb-top"
                   activeIndex={Math.floor(Math.random() * 3)}
-                  onSelection={e => console.log(e, e.tabIndex)}
+                  onSelection={(item, idx, e) => console.log(item, idx, e)}
                 >
                   <BreadcrumbItem className="custom-item" href="#">
                     Breadcrumb 1
@@ -586,7 +586,7 @@ class App extends Component {
                     id="small-navigator"
                     className="custom-breadcrumb-top"
                     activeIndex={Math.floor(Math.random() * 3)}
-                    onSelection={e => console.log(e, e.tabIndex)}
+                    onSelection={(item, idx, e) => console.log(item, idx, e)}
                   >
                     <BreadcrumbItem className="custom-item">
                       Breadcrumb 1
@@ -677,8 +677,8 @@ class App extends Component {
                   <Overflowmenu
                     listItems={overflowlist}
                     ellipsisType="horizontal"
-                    onClick={e => {
-                      console.log(e);
+                    onClick={(item, index, e) => {
+                      console.log(item, index, e);
                     }}
                   />
                 </div>
@@ -686,8 +686,8 @@ class App extends Component {
                   <Overflowmenu
                     listItems={overflowlist}
                     direction="right"
-                    onClick={e => {
-                      console.log(e);
+                    onClick={(item, index, e) => {
+                      console.log(item, index, e);
                     }}
                   />
                 </div>
