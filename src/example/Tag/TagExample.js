@@ -45,6 +45,31 @@ class TagExample extends Component {
         >
           Primary Tag With Thumbnail
         </Tag>
+        <Tag
+          className="ml-3"
+          title="Primary Tag With Thumbnail and icon"
+          thumbnail={
+            <Icon
+              type="svg"
+              alt="alt"
+              title="title"
+            >
+              <circle
+                cx="11"
+                cy="11"
+                r="11"
+                stroke="red"
+                strokeWidth="3"
+                fill="white"
+              />
+            </Icon>
+          }
+          icon={
+            <span aria-hidden="true" />
+          }
+        >
+          Primary Tag With Thumbnail and icon
+        </Tag>
         <Tag className="ml-3" title="Secondary Tag" type="secondary">
           Secondary Tag
         </Tag>
@@ -89,6 +114,32 @@ class TagExample extends Component {
           }
         >
           Secondary Tag With Thumbnail
+        </Tag>
+        <Tag
+          className="ml-3"
+          title="Secondary Tag With Thumbnail and icon"
+          type="secondary"
+          thumbnail={
+            <Icon
+              type="svg"
+              alt="alt"
+              title="title"
+            >
+              <circle
+                cx="11"
+                cy="11"
+                r="11"
+                stroke="red"
+                strokeWidth="3"
+                fill="white"
+              />
+            </Icon>
+          }
+          icon={
+            <span aria-hidden="true" />
+          }
+        >
+          Secondary Tag With Thumbnail and icon
         </Tag>
       </div>
     );

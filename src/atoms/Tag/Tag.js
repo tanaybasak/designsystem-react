@@ -10,10 +10,10 @@ const Tag = ({
   closable,
   onClose,
   thumbnail,
+  icon,
   ...restProps
 }) => {
   const classnames = `${prefix}-tag hcl-tag-${type} ${className}`.trim();
-
   const keyListener = event => {
     
     if (event.keyCode === 13) {
@@ -31,7 +31,14 @@ const Tag = ({
                     : ''
                 }`
               }) : null}
-      <span className={`${prefix}-tag-text`}>{children || text}</span>
+      <span className={`${prefix}-tag-text`} title={text}>{children || text}</span>
+      {icon ? React.cloneElement(icon, {
+                className: `${prefix}-tag-icon${
+                  icon.props.className
+                    ? ' ' + icon.props.className
+                    : ''
+                }`
+              }) : null}
       {closable ? (
         <span
           className={`${prefix}-close`}
@@ -68,7 +75,9 @@ Tag.propTypes = {
    */
   onClose: PropTypes.func,
   /** Thumbnail for Tag Component as an Object */
-  thumbnail: PropTypes.object
+  thumbnail: PropTypes.object,
+
+  icon: PropTypes.object
 };
 
 Tag.defaultProps = {
@@ -81,7 +90,8 @@ Tag.defaultProps = {
   disabled: false,
   closable: false,
   onClose: null,
-  thumbnail: null
+  thumbnail: null,
+  icon: null
 };
 
 export default Tag;
