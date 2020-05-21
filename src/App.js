@@ -1448,16 +1448,7 @@ class App extends Component {
                   </SelectItemGroup>
                 </Select>
               </div>
-              {/* TimePicker */}
-              <div className="hcl-col-12 mt-5 mb-5">
-                <TimePicker
-                  timeZones={['Time zone 1', 'Time zone 2', 'Time zone 3']}
-                  label="Select a time"
-                  onChange={selected => {
-                    console.log('selected item', selected);
-                  }}
-                />
-              </div>
+              
               <div className="hcl-col-12">
                 <Paragraph className="p-2 m-1">
                   Pagination Example 1

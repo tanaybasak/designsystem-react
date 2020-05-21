@@ -9,6 +9,7 @@ import TagExample from './example/Tag';
 import logo from './assets/images/logo.png';
 import TableExample from './example/Table';
 import TreeExample from './example/Tree';
+import TimePickerExample from './example/TimePicker';
 
 class Home extends Component {
   state = {
@@ -35,6 +36,10 @@ class Home extends Component {
         {
           href: '/tree',
           title: 'Tree'
+        },
+        {
+          href: '/timepicker',
+          title: 'Time Picker'
         }
       ]
     }
@@ -99,6 +104,7 @@ class Home extends Component {
             <Route exact path="/tag" component={TagExample} />
             <Route exact path="/table" component={TableExample} />
             <Route exact path="/tree" component={TreeExample} />
+            <Route exact path="/timepicker" component={TimePickerExample} />
           </Switch>
         </div>
       </Router>
