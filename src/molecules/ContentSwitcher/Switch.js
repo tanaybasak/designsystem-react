@@ -21,9 +21,7 @@ function Switch({ label, onClick, active, isDisabled, icon, ...restProps }) {
                         })
                     ) : null
             }
-            <span>
-                {label}
-            </span>
+            {label}
         </button>
     )
 }
