@@ -36,7 +36,7 @@ const Overflowmenu = ({
         outOfBound = true;
         updateOverflowMenuPos(overflowMenu, icon, caret, outOfBound);
       }
-      focusNode(overflowMenu.children[0].children[0]);
+      overflowMenu.querySelector('ul li button:not(:disabled)').focus();
       overflowMenu.style.top = parentHeight.concat('px');
     }
   });
@@ -107,43 +107,60 @@ const Overflowmenu = ({
     }
   };
 
-  const focusNode = node => {
-    if (node.classList.contains(`${prefix}-overflow-option`)) {
-      node.children[0].focus();
+  const focusNode = (listItem, direction = 'next') => {
+    const nextElem = listItem.nextElementSibling;
+    const prevElem = listItem.previousElementSibling;
+    if (direction === 'next') {
+      if (!nextElem) {
+        if (
+          listItem.parentElement.firstElementChild.children[0].hasAttribute(
+            'disabled'
+          )
+        ) {
+          focusNode(listItem.parentElement.firstElementChild);
+        } else {
+          listItem.parentElement.firstElementChild.children[0].focus();
+        }
+      } else if (nextElem && nextElem.children[0].hasAttribute('disabled')) {
+        focusNode(nextElem);
+      } else {
+        if (nextElem) {
+          nextElem.children[0].focus();
+        }
+      }
+    } else if (direction === 'previous') {
+      if (!prevElem) {
+        if (
+          listItem.parentElement.lastElementChild.children[0].hasAttribute(
+            'disabled'
+          )
+        ) {
+          focusNode(listItem.parentElement.lastElementChild, 'previous');
+        } else {
+          listItem.parentElement.lastElementChild.children[0].focus();
+        }
+      } else if (prevElem && prevElem.children[0].hasAttribute('disabled')) {
+        focusNode(prevElem, 'previous');
+      } else {
+        if (prevElem) {
+          prevElem.children[0].focus();
+        }
+      }
     }
   };
 
-  const keyDownOnOverflow = e => {
+  const keyDownOnOverflow = (e) => {
     const key = e.which || e.keyCode;
     const listItem = e.target.parentElement;
     switch (key) {
       case 40: {
-        if (!listItem.nextElementSibling) {
-          focusNode(listItem.parentElement.firstElementChild);
-        } else if (listItem.nextElementSibling.children[0].disabled === true) {
-          focusNode(listItem.nextElementSibling.nextElementSibling);
-        } else {
-          focusNode(listItem.nextElementSibling);
-        }
+        focusNode(listItem, 'next');
         e.preventDefault();
         break;
       }
       case 38: {
-        if (!listItem.previousElementSibling) {
-          focusNode(listItem.parentElement.lastElementChild);
-        } else if (
-          listItem.previousElementSibling.children[0].disabled === true
-        ) {
-          focusNode(listItem.previousElementSibling.previousElementSibling);
-        } else {
-          focusNode(listItem.previousElementSibling);
-        }
+        focusNode(listItem, 'previous');
         e.preventDefault();
-        break;
-      }
-      case 13: {
-        e.preventDefault();
-        e.target.click();
         break;
       }
       default:
@@ -202,6 +219,7 @@ const Overflowmenu = ({
             items={listItems}
             onSelect={event => {
               changeDisplay(false);
+              overflow.current.children[0].focus();
               onClick(event);
             }}
           />

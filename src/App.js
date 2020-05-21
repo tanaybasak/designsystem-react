@@ -63,6 +63,15 @@ class App extends Component {
     sidebarExpanded: false
   };
 
+  itemList = [
+    {
+      id: 'option-1',
+    },
+    {
+      id: 'option-2',
+    }
+  ]
+
   items = [
     {
       id: 'option-1',
@@ -1141,11 +1150,27 @@ class App extends Component {
                 <Slider
                   min={0}
                   max={100}
-                  step={2}
-                  value={44}
+                  step={5}
+                  value={45}
                   title="Slider"
-                  onChange={event => {
-                    console.log(event.currentTarget.value);
+                  onChange={(value ) => {
+                    console.log(value );
+                  }}
+                />
+              </div>
+
+              <div className="hcl-col-12 mt-5 mb-5" id="slider-section">
+                <Slider
+                  min={0}
+                  max={1000}
+                  step={50}
+                  value={350}
+                  id="basic-slider"
+                  title="Slider"
+                  label="Basic Slider"
+                  helperText="Optional Helper text goes here (max 1000 and min 0)"
+                  onChange={(value) => {
+                    console.log(value);
                   }}
                 />
               </div>
@@ -1245,6 +1270,19 @@ class App extends Component {
                     }}
                   />
                 </div>
+                <div className="hcl-col-6">
+                    <Dropdown
+                      dropdownType="multi"
+                      type="bottom"
+                      items={this.items}
+                      selectedItem={this.itemList}
+                      label="MultiSelect DropDown"
+                      onChange={(item, selectedList )=> {
+                        console.log('changed item', item);
+                        console.log('selected itemList', selectedList);
+                      }}
+                    />
+                  </div>
               </div>
               {/* Tile Component */}
               <section>
@@ -1385,6 +1423,7 @@ class App extends Component {
                   step={2}
                   id="numberInput2"
                   label="Number Input"
+                  className="hcl-form-group"
                 />
                 <NumberInput
                   defaultValue={10}
@@ -1397,12 +1436,14 @@ class App extends Component {
                   id="numberInput1"
                   label="Number Input validation"
                   helperText="Optional Helper text goes here (max 100 and min 10)"
+                  className="hcl-form-group"
                 />
                 <NumberInput
                   defaultValue={0}
                   id="numberInput3"
                   helperText="Optional Helper text goes here"
                   label="Number Input validation"
+                  className="hcl-form-group"
                   disabled
                 />
               </div>

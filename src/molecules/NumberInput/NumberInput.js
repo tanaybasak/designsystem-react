@@ -25,7 +25,7 @@ const NumberInput = ({
   let [value, setValue] = useState(Number(defaultValue) || 0);
   let [validationMessage, setValidationMessage] = useState('');
   const inputRef = useRef(null);
-  const classnames = `${prefix}-number-input-wrapper ${prefix}-form-group ${className.trim()}`;
+  const classnames = `${prefix}-number-input-wrapper ${className.trim()}`;
 
   useEffect(() => {
     let newValue = Number(value);
@@ -118,9 +118,12 @@ const NumberInput = ({
     <div
       className={classnames}
       disabled={disabled ? 'disabled' : null}
-      data-invalid={validationMessage !== '' ? true : false}
     >
-      <div className={`${prefix}-form-control ${prefix}-number-input`}>
+      {label ? <Label htmlFor={id ? id : null}>{label} </Label> : null}
+      {helperText ? (
+        <FormHelperText className="helper-text">{helperText}</FormHelperText>
+      ) : null}
+      <div className={`${prefix}-number-input`}>
         <input
           type="number"
           className={`${prefix}-form-control`}
@@ -179,11 +182,6 @@ const NumberInput = ({
           </button>
         </div>
       </div>
-
-      {label ? <Label htmlFor={id}>{label} </Label> : null}
-      {helperText ? (
-        <FormHelperText className="helper-text">{helperText}</FormHelperText>
-      ) : null}
       {
         <FormHelperText className="error-msg">
           {validationMessage}
@@ -199,9 +197,9 @@ NumberInput.propTypes = {
   /** Specifies helper text */
   helperText: PropTypes.string,
   /** Unique Id */
-  id: PropTypes.string.isRequired,
+  id: PropTypes.string,
   /** Title for the Number Input */
-  label: PropTypes.string.isRequired,
+  label: PropTypes.string,
   /** True : Disable the  Number Input  */
   disabled: PropTypes.bool,
   /** Specifies the maximum value allowed  */
@@ -221,7 +219,7 @@ NumberInput.propTypes = {
 NumberInput.defaultProps = {
   defaultValue: 0,
   id: '',
-  label: '',
+  label: null,
   disabled: false,
   max: null,
   min: null,
@@ -230,9 +228,9 @@ NumberInput.defaultProps = {
   className: '',
   required: false,
   errorMessage: {
-      required : null , 
-      max : null,
-      min : null
+    required: null,
+    max: null,
+    min: null
   }
 };
 
