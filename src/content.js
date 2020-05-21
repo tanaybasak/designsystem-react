@@ -14,10 +14,11 @@ export const months = [
   "December"
 ];
 export const numberInputMaxValidation =
-  "Value Should Be less than or equal to ";
+  "Value must be less than or equal to ";
 export const numberInputMinValidation =
-  "Value Should Be greater than or equal to  ";
-export const numberInputInvalid = "Number is not valid";
+  "Value must be greater than or equal to ";
+export const numberInputInvalid = "Please enter a valid value";
+export const numberInputStepSizeValidation = "Please enter a valid value. The two nearest valid values are ";
 
 export const period = {
   am: "AM",

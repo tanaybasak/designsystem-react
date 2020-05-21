@@ -22,11 +22,17 @@ export default function AccordionItem({
     if (expanded && elementRef.current) {
       if (elementRef.current.clientHeight) {
         setHeight(elementRef.current.clientHeight + 'px');
+        setTimeout(() => {
+          setHeight('auto');
+        }, 300);
       } else {
         setHeight('auto');
       }
     } else {
-      setHeight('0px');
+      setHeight(elementRef.current.clientHeight + 'px');
+      setTimeout(() => {
+        setHeight('0px');
+      }, 100);
     }
   }, [expanded]);
 

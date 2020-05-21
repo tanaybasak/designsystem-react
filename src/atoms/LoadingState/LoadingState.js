@@ -85,16 +85,21 @@ const LoadingState = ({ type, className, ...restProps }) => {
 
   const sliderLoadingState = () => {
     return (
-      <div className={`${prefix}-slider ${classnames}`}>
-        <label className={`${prefix}-slider-bottom-range`} />
-        <input
-          className={`${prefix}-slider-input`}
-          type="range"
-          min="0"
-          max="100"
-        />
-        <label className={`${prefix}-slider-top-range`} />
-        <input className={`${prefix}-slider-text-input`} type="text" />
+      <div className={`${prefix}-slider-wrapper ${classnames}`}>
+        <div className={`${prefix}-slider `}>
+          <label className={`${prefix}-slider-bottom-range`} />
+          <div className={`${prefix}-slider-input-wrapper`}>
+            <input
+              className={`${prefix}-slider-input`}
+              type="range"
+              min="0"
+              max="100"
+              disabled="true"
+            />
+          </div>
+          <label className={`${prefix}-slider-top-range`} />
+          <input className={`${prefix}-slider-text-input hcl-form-control`} type="number" disabled="true" />
+        </div>
       </div>
     );
   };
@@ -102,34 +107,41 @@ const LoadingState = ({ type, className, ...restProps }) => {
   const tableLoadingState = () => {
     const num = Array.from(Array(4).keys());
     return (
-      <table className={`${prefix}-data-table ${classnames}`}>
-        <thead>
-          <tr>
-            {restProps.tableData.columns.map(
-              ({ label, sortable, title }, index) => (
-                <th
-                  key={`heading-${index}`}
-                  title={title}
-                  className={sortable ? 'sortable' : ''}
-                >
-                  {label}
-                </th>
-              )
-            )}
-          </tr>
-        </thead>
-        <tbody>
-          {num.map((row, index) => (
-            <tr key={`row-${index}`}>
-              {restProps.tableData.columns.map((col, i) => (
-                <td key={`col-${index}-${i}`}>
-                  <span />
-                </td>
-              ))}
+      <div className={`${prefix}-data-table-wrapper`}>
+        <table className={`${prefix}-data-table ${classnames}`}>
+          <thead>
+            <tr>
+              {restProps.tableConfig.map(
+                ({ label, sortable, title }, index) => (
+                  <th
+                    key={`heading-${index}`}
+                    title={title}
+                    className={sortable ? 'sortable' : ''}
+                  >
+                    <div className="header-text-wrapper">{label}</div>
+                  </th>
+                )
+              )}
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {num.map((row, index) => (
+              <tr key={`row-${index}`}>
+                {restProps.tableConfig.map((col, i) => (
+                  <td key={`col-${index}-${i}`}>
+                    <div
+                      className="body-content-wrapper"
+                      style={{ width: '100%' }}
+                    >
+                      <span />
+                    </div>
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     );
   };
 

@@ -55,7 +55,7 @@ storiesOf('Tag', module).add(
         disabled={boolean('Disabled', false)}
         onClose={action('OnClose')}
         tabIndex={0}
-        thumbnailSrc={require('../../assets/images/sample_tag_icon.svg')}
+        thumbnailSrc={text("Thumbnail Source", "https://en.bitcoin.it/w/images/en/2/29/BC_Logo_.png")}
         title={text("Title", "")}
         type={select("Type", typeOptions, "primary")}
       >

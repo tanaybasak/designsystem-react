@@ -18,28 +18,42 @@ const NumberInput = ({
   step,
   className,
   helperText,
+  required,
+  errorMessage,
   ...restProps
 }) => {
   let [value, setValue] = useState(Number(defaultValue) || 0);
   let [validationMessage, setValidationMessage] = useState('');
   const inputRef = useRef(null);
-  const classnames = `${prefix}-number-input-wrapper ${prefix}-form-group ${className.trim()}`;
+  const classnames = `${prefix}-number-input-wrapper ${className.trim()}`;
 
   useEffect(() => {
     let newValue = Number(value);
-    if (restProps.required && value === '') {
-      setValidationMessage(numberInputInvalid);
+    if (required && value === '') {
+      setValidationMessage(
+        errorMessage && errorMessage.required
+          ? errorMessage.required
+          : numberInputInvalid
+      );
       return;
     } else if (value !== '') {
       if (max != null) {
         if (newValue > max) {
-          setValidationMessage(`${numberInputMaxValidation} ${max}`);
+          setValidationMessage(
+            errorMessage && errorMessage.max
+              ? errorMessage.max
+              : `${numberInputMaxValidation} ${max}`
+          );
           return;
         }
       }
       if (min != null) {
         if (newValue < min) {
-          setValidationMessage(`${numberInputMinValidation} ${min}`);
+          setValidationMessage(
+            errorMessage && errorMessage.min
+              ? errorMessage.min
+              : `${numberInputMinValidation} ${min}`
+          );
           return;
         }
       }
@@ -104,9 +118,12 @@ const NumberInput = ({
     <div
       className={classnames}
       disabled={disabled ? 'disabled' : null}
-      data-invalid={validationMessage !== '' ? true : false}
     >
-      <div className={`${prefix}-form-control ${prefix}-number-input`}>
+      {label ? <Label htmlFor={id ? id : null}>{label} </Label> : null}
+      {helperText ? (
+        <FormHelperText className="helper-text">{helperText}</FormHelperText>
+      ) : null}
+      <div className={`${prefix}-number-input`}>
         <input
           type="number"
           className={`${prefix}-form-control`}
@@ -165,13 +182,6 @@ const NumberInput = ({
           </button>
         </div>
       </div>
-
-      {label ? <Label htmlFor={id}>{label} </Label> : null}
-      {helperText ? (
-        <FormHelperText className="helper-text">
-          {helperText}
-        </FormHelperText>
-      ) : null}
       {
         <FormHelperText className="error-msg">
           {validationMessage}
@@ -187,9 +197,9 @@ NumberInput.propTypes = {
   /** Specifies helper text */
   helperText: PropTypes.string,
   /** Unique Id */
-  id: PropTypes.string.isRequired,
+  id: PropTypes.string,
   /** Title for the Number Input */
-  label: PropTypes.string.isRequired,
+  label: PropTypes.string,
   /** True : Disable the  Number Input  */
   disabled: PropTypes.bool,
   /** Specifies the maximum value allowed  */
@@ -199,19 +209,29 @@ NumberInput.propTypes = {
   /** Specifies the number intervals  */
   step: PropTypes.number,
   /** Class/clasess will be applied on the parent div of Number Input  */
-  className: PropTypes.string
+  className: PropTypes.string,
+  /** Specifies the number is required or not  */
+  required: PropTypes.bool,
+  /** Used for passing error message  */
+  errorMessage: PropTypes.any
 };
 
 NumberInput.defaultProps = {
   defaultValue: 0,
   id: '',
-  label: '',
+  label: null,
   disabled: false,
   max: null,
   min: null,
   step: null,
-  helperText:null,
-  className: ''
+  helperText: null,
+  className: '',
+  required: false,
+  errorMessage: {
+    required: null,
+    max: null,
+    min: null
+  }
 };
 
 export default NumberInput;
