@@ -1153,6 +1153,8 @@ class App extends Component {
                   step={5}
                   value={45}
                   title="Slider"
+                  label="Basic Slider"
+                  helperText="Optional Helper text goes here (max 1000 and min 0)"
                   onChange={(value ) => {
                     console.log(value );
                   }}
@@ -1162,13 +1164,14 @@ class App extends Component {
               <div className="hcl-col-12 mt-5 mb-5" id="slider-section">
                 <Slider
                   min={0}
-                  max={1000}
-                  step={50}
-                  value={350}
+                  max={1}
+                  step={.1}
+                  value={.2}
+                  hover
                   id="basic-slider"
                   title="Slider"
-                  label="Basic Slider"
-                  helperText="Optional Helper text goes here (max 1000 and min 0)"
+                  label="Basic Slider with tooltip on hover"
+                  helperText="Optional Helper text goes here (max 1 and min 0)"
                   onChange={(value) => {
                     console.log(value);
                   }}

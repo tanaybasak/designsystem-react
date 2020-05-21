@@ -17,6 +17,7 @@ const Slider = ({
   max,
   step,
   className,
+  hover,
   onChange: onChangeHandler,
   value: propsVal,
   withInputBox,
@@ -28,7 +29,7 @@ const Slider = ({
 }) => {
   const [value, setValue] = useState(propsVal || 0);
   const [numberInput, setNumberInput] = useState(propsVal || 0);
-  const classnames = `${prefix}-slider ${className}`.trim();
+  const classnames = `${prefix}-slider-wrapper ${className}`.trim();
   const sliderRef = useRef(null);
   const tooltipRef = useRef(null);
   const [validationMessage, setErrorMessage] = useState('');
@@ -104,17 +105,14 @@ const Slider = ({
   ).current;
 
   return (
-    <div className={`${prefix}-slider-wrapper`} ref={sliderRef}>
+    <div className={classnames} ref={sliderRef}>
       {label ? <Label htmlFor={id ? id : null}>{label} </Label> : null}
       {helperText ? (
         <FormHelperText className="helper-text">{helperText}</FormHelperText>
       ) : null}
-      <div className={classnames}>
+      <div className={`${prefix}-slider${hover ? ' on-hover' : ''}`}>
         <Label className={`${prefix}-slider-bottom-range`}>{min}</Label>
         <div className={`${prefix}-slider-input-wrapper`}>
-          <div className="range-value" ref={tooltipRef}>
-            <span>{value}</span>
-          </div>
           <input
             className={`${prefix}-slider-input`}
             type="range"
@@ -136,6 +134,9 @@ const Slider = ({
               }
             }}
           />
+          <div className="range-value" ref={tooltipRef}>
+            <span>{value}</span>
+          </div>
         </div>
         <Label className={`${prefix}-slider-top-range`}>{max}</Label>
         {withInputBox ? (
@@ -192,7 +193,9 @@ Slider.propTypes = {
   /** Specifies helper text */
   helperText: PropTypes.string,
   /** Unique Id */
-  id: PropTypes.string.isRequired
+  id: PropTypes.string.isRequired,
+  /** Specifies the tooltip to be shown on hover  */
+  hover: PropTypes.bool
 };
 
 Slider.defaultProps = {
@@ -202,13 +205,14 @@ Slider.defaultProps = {
   value: 0,
   className: '',
   onChange: () => {},
+  hover: false,
   withInputBox: true,
   label: null,
   errorMessage: {
     step: null,
     max: null,
     min: null,
-    invalid:null
+    invalid: null
   },
   helperText: null,
   id: ''
