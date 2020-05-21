@@ -44,7 +44,9 @@ const Tooltip = ({ type, content, direction, children }) => {
     mouseOut = true;
     if (contentIn) {
       contentIn = false;
-      toggleTooltip(false);
+      if (!focusTootlip) {
+        toggleTooltip(false);
+      }
     }
   };
 
