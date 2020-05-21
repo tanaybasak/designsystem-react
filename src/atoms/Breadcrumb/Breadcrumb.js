@@ -24,6 +24,7 @@ function Breadcrumb({ activeIndex, onSelection, id, className, children }) {
                         direction="right"
                         ellipsisType="horizontal"
                         onClick={(item, idx, e) => {
+                            e.preventDefault();
                             setActive(index + 1);
                             onSelection(item, idx + 1, e);
                         }}
@@ -31,11 +32,12 @@ function Breadcrumb({ activeIndex, onSelection, id, className, children }) {
             } else if (index === 0 || !(index < (childCount - 2))) {
                 return cloneElement(child, {
                     onClick: e => {
+                        e.preventDefault();
                         setActive(index);
                         if (child.props.onClick) {
                             child.props.onClick(e);
                         }
-                        onSelection({"name": child.props.children, "link": child.props.href}, index, e);
+                        onSelection({ "name": child.props.children, "link": child.props.href }, index, e);
                     },
                     key: index,
                     children: child.props.children,
