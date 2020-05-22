@@ -1100,11 +1100,21 @@ class App extends Component {
                   activeIndex={contentSwitch.example3}
                   onChange={e => this.onSwitchChange(e, 'example3')}
                 >
-                  <Switch label="All" iconClass="fa fa-center" />
-                  <Switch label="Cybernetics" iconClass="fa fa-center" />
+                  <Switch label="All" 
+                    icon={
+                        <i className="pi pi-activity" />
+                    } 
+                  />
+                  <Switch label="Cybernetics" 
+                    icon={
+                        <i className="pi pi-arrow-up" />
+                    } 
+                  />
                   <Switch
                     label="Information &amp; Communication"
-                    iconClass="fa fa-right"
+                    icon={
+                        <i className="pi pi-check" />
+                    } 
                   />
                 </ContentSwitcher>
                 <section className="mt-1 p-2">
@@ -1133,15 +1143,25 @@ class App extends Component {
                   activeIndex={contentSwitch.example4}
                   onChange={e => this.onSwitchChange(e, 'example4')}
                 >
-                  <Switch label="All" iconClass="fa fa-left" isDisabled />
+                  <Switch 
+                    label="All"
+                    icon={
+                        <i className="pi pi-activity" />
+                    } 
+                    isDisabled
+                  />
                   <Switch
                     label="Cybernetics"
-                    iconClass="fa fa-center"
+                    icon={
+                        <i className="pi pi-arrow-up" />
+                    } 
                     isDisabled
                   />
                   <Switch
                     label="Information &amp; Communication"
-                    iconClass="fa fa-right"
+                    icon={
+                        <i className="pi pi-check" />
+                    } 
                     isDisabled
                   />
                 </ContentSwitcher>
