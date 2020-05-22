@@ -571,7 +571,7 @@ class App extends Component {
                   id="small-navigator"
                   className="custom-breadcrumb-top"
                   activeIndex={Math.floor(Math.random() * 3)}
-                  onSelection={e => console.log(e, e.tabIndex)}
+                  onSelection={(item, idx, e) => console.log(item, idx, e)}
                 >
                   <BreadcrumbItem className="custom-item" href="#">
                     Breadcrumb 1
@@ -580,6 +580,24 @@ class App extends Component {
                   <BreadcrumbItem href="#tools">Breadcrumb 3</BreadcrumbItem>
                 </Breadcrumb>
               </div>
+                {/* Multi-tier Breadcrumb */}
+                <div className="hcl-col-12 mt-5" id="breadcrumb-section">
+                  <Breadcrumb
+                    id="small-navigator"
+                    className="custom-breadcrumb-top"
+                    activeIndex={Math.floor(Math.random() * 3)}
+                    onSelection={(item, idx, e) => console.log(item, idx, e)}
+                  >
+                    <BreadcrumbItem className="custom-item">
+                      Breadcrumb 1
+                    </BreadcrumbItem>
+                    <BreadcrumbItem >Breadcrumb 2</BreadcrumbItem>
+                    <BreadcrumbItem >Breadcrumb 3</BreadcrumbItem>
+                    <BreadcrumbItem >Breadcrumb 4</BreadcrumbItem>
+                    <BreadcrumbItem href="#asdf">Breadcrumb 5</BreadcrumbItem>
+                    <BreadcrumbItem onClick={(e) => {console.log('sdfsdf',e);}}>Breadcrumb 6</BreadcrumbItem>
+                  </Breadcrumb>
+                </div>
               {/* Spinner */}
               <div className="hcl-col-12 mt-5" id="spinner-section">
                 <Spinner />
@@ -659,8 +677,8 @@ class App extends Component {
                   <Overflowmenu
                     listItems={overflowlist}
                     ellipsisType="horizontal"
-                    onClick={e => {
-                      console.log(e);
+                    onClick={(item, index, e) => {
+                      console.log(item, index, e);
                     }}
                   />
                 </div>
@@ -668,8 +686,8 @@ class App extends Component {
                   <Overflowmenu
                     listItems={overflowlist}
                     direction="right"
-                    onClick={e => {
-                      console.log(e);
+                    onClick={(item, index, e) => {
+                      console.log(item, index, e);
                     }}
                   />
                 </div>
