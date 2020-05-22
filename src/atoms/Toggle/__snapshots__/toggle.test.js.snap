@@ -9,6 +9,7 @@ exports[`<Toggle> component snapshots/renders Toggle correctly 1`] = `
     disabled={false}
     id="hellotoggle"
     onChange={[Function]}
+    onKeyDown={[Function]}
     type="checkbox"
   />
   <label

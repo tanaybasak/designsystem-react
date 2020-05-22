@@ -1256,8 +1256,11 @@ class App extends Component {
                   id="file_uploader"
                   label="Account photo"
                   description="only .jpg and .png files. 500kb max file size."
-                  fileType=".jpg"
+                  fileType=".jpg,.png"
                   className="hcl-secondary hcl-sml"
+                  onChange={FileList => {
+                    console.log('FileList:  ',FileList);
+                  }}
                 >
                   Add file
                 </FileUploader>
