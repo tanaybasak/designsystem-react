@@ -23,8 +23,8 @@ export default function FileUploader({
   const fileContainer = useRef(null);
 
   const keyListener = (event) => {
-    event.preventDefault();
     if (event.key === 'Enter') {
+      event.preventDefault();
       fileContainer.current.querySelector(`.${prefix}-file-btn`).click();
     }
   };
