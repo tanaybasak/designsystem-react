@@ -19,16 +19,18 @@ function Breadcrumb({ activeIndex, onSelection, id, className, children }) {
                     _listItems.push({ name: innerChild.props.children, link: innerChild.props.href });
                 });
                 return (
-                    <Overflowmenu
-                        listItems={_listItems}
-                        direction="right"
-                        ellipsisType="horizontal"
-                        onClick={(item, idx, e) => {
-                            e.preventDefault();
-                            setActive(index + 1);
-                            onSelection(item, idx + 1, e);
-                        }}
-                    />)
+                    <li className={`${prefix}-breadcrumb-item`}>
+                        <Overflowmenu
+                            listItems={_listItems}
+                            direction="right"
+                            ellipsisType="horizontal"
+                            onClick={(item, idx, e) => {
+                                e.preventDefault();
+                                setActive(index + 1);
+                                onSelection(item, idx + 1, e);
+                            }}
+                        />
+                    </li>)
             } else if (index === 0 || !(index < (childCount - 2))) {
                 return cloneElement(child, {
                     onClick: e => {
