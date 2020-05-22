@@ -3,33 +3,12 @@
 exports[`<Overflowmenu> component snapshots/renders Overflowmenu correctly 1`] = `
 <section
   className="hcl-overflow-container"
-  listItems={
-    Array [
-      Object {
-        "name": "option 1",
-      },
-      Object {
-        "danger": true,
-        "name": "option 2",
-      },
-      Object {
-        "name": "option 3",
-        "separator": true,
-      },
-      Object {
-        "disabled": true,
-        "name": "option 4",
-      },
-      Object {
-        "link": "https://google.com",
-        "name": "option 5",
-      },
-    ]
-  }
 >
-  <div
+  <span
     className="hcl-ellipsis"
     onClick={[Function]}
+    onKeyPress={[Function]}
+    tabIndex="0"
   />
 </section>
 `;
