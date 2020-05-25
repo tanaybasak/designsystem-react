@@ -13,6 +13,7 @@ const DataTable = ({
   expandRowTemplate,
   headerSelection,
   onRowSelect,
+  triStateSorting,
   ...restProps
 }) => {
   const [rows, updateTableRowData] = useState(tableData);
@@ -51,7 +52,7 @@ const DataTable = ({
       if (tempSortedColumn.order === 'asc') {
         tempSortedColumn.order = 'desc';
       } else if (tempSortedColumn.order === 'desc') {
-        tempSortedColumn.order = null;
+        tempSortedColumn.order = triStateSorting ? null : 'asc';
       } else {
         tempSortedColumn.order = 'asc';
       }
@@ -127,7 +128,7 @@ const DataTable = ({
     tableClass += ` ${prefix}-data-table-zebra`;
   }
 
-  const classnames = `${prefix}-data-table-wrapper${
+  const classnames = `${prefix}-data-table-wrapper data-table-sticky-header${
     type.includes('borderless') ? ` ${prefix}-data-table-borderless` : ''
   } ${className}`.trim();
 
@@ -147,7 +148,7 @@ const DataTable = ({
                 <th
                   key={`heading-${index}`}
                   style={{
-                    width: column.width,
+                    minWidth: column.width,
                     left: column.marginLeft,
                     right: column.marginRight
                   }}
@@ -159,55 +160,39 @@ const DataTable = ({
                     column.pinned === 'right'
                       ? 'sticky-div sticky-right-div'
                       : ''
-                  }`}
+                  }${column.sortable ? ' sortable' : ''}`}
+                  tabIndex={column.sortable ? '0' : null}
+                  onClick={column.sortable ? sort.bind(this, column) : null}
+                  onKeyDown={
+                    column.sortable ? sortOnEnter.bind(this, column) : null
+                  }
                 >
-                  {column.field !== 'checkbox' &&
-                  column.field !== 'overflow' &&
-                  column.field !== 'expand' ? (
-                    <div
-                      className={`header-text-wrapper${
-                        column.sortable ? ' sortable' : ''
-                      }`}
-                      tabIndex={column.sortable ? '0' : null}
-                      onClick={column.sortable ? sort.bind(this, column) : null}
-                      onKeyDown={
-                        column.sortable ? sortOnEnter.bind(this, column) : null
-                      }
-                    >
-                      <span>{column.label}</span>
-                      {column.sortable ? (
-                        sortedColumn.name === column.field &&
-                        sortedColumn.order ? (
-                          <svg
-                            className={`${prefix}-sorting${
-                              sortedColumn.order === 'desc' ? ' desc' : ''
-                            }`}
-                            width="10"
-                            height="5"
-                            viewBox="0 0 10 5"
-                          >
-                            <path d="M0 0l5 4.998L10 0z" fillRule="evenodd" />
-                          </svg>
-                        ) : (
-                          <svg
-                            className={`${prefix}-sorting`}
-                            height="16px"
-                            viewBox="0 0 1024 1024"
-                            version="1.1"
-                          >
-                            <path d="M512.578 192.991l-256 255.52 512 0L512.578 192.991zM512.578 832.511l256-255.52-512 0L512.578 832.511z" />
-                          </svg>
-                        )
-                      ) : null}
-                    </div>
-                  ) : null}
+                  {headerSelection && column.field === 'checkbox'
+                    ? headerSelection
+                    : column.label}
 
-                  {column.field === 'checkbox' ? (
-                    <div className="checkbox-wrapper">{headerSelection}</div>
-                  ) : null}
-
-                  {column.field === 'overflow' || column.field === 'expand' ? (
-                    <div className="header-text-wrapper" />
+                  {column.sortable ? (
+                    sortedColumn.name === column.field && sortedColumn.order ? (
+                      <svg
+                        className={`${prefix}-sorting${
+                          sortedColumn.order === 'desc' ? ' desc' : ''
+                        }`}
+                        width="10"
+                        height="5"
+                        viewBox="0 0 10 5"
+                      >
+                        <path d="M0 0l5 4.998L10 0z" fillRule="evenodd" />
+                      </svg>
+                    ) : (
+                      <svg
+                        className={`${prefix}-sorting`}
+                        height="16px"
+                        viewBox="0 0 1024 1024"
+                        version="1.1"
+                      >
+                        <path d="M512.578 192.991l-256 255.52 512 0L512.578 192.991zM512.578 832.511l256-255.52-512 0L512.578 832.511z" />
+                      </svg>
+                    )
                   ) : null}
                 </th>
               );
@@ -235,64 +220,42 @@ const DataTable = ({
                         : ''
                     }`}
                     style={{
-                      width: column.width,
+                      minWidth: column.width,
                       left: column.marginLeft,
                       right: column.marginRight
                     }}
                     tabIndex={-1}
                     onKeyDown={onKeyDownOnTable.bind(this, i)}
                   >
-                    {column.field === 'checkbox' ? (
-                      <div className="checkbox-wrapper">
-                        {column.renderHtml(row)}
-                      </div>
-                    ) : null}
-                    {column.field !== 'checkbox' &&
-                    column.field !== 'overflow' &&
-                    column.field !== 'expand' ? (
-                      <div
-                        className={`body-content-wrapper${
-                          column.renderHtml ? ' body-content-html-wrapper' : ''
-                        }`}
-                      >
-                        {column.renderHtml
-                          ? column.renderHtml(row)
-                          : column.field.split('.').length > 1
-                          ? getValue(row, column.field)
-                          : row[column.field]}
-                      </div>
-                    ) : null}
-
-                    {column.field === 'overflow' ? (
-                      <div className="header-text-wrapper overflow-wrapper">
-                        {column.renderHtml(row)}
-                      </div>
-                    ) : null}
-                    {column.field === 'expand' ? (
-                      <div
-                        className="header-text-wrapper"
+                    {column.renderHtml ? (
+                      column.renderHtml(row)
+                    ) : column.field === 'expand' ? (
+                      <svg
                         onClick={toggleRow.bind(this, index)}
+                        className={`${
+                          row.expanded
+                            ? `${prefix}-collapse-row`
+                            : `${prefix}-expand-row`
+                        }`}
+                        width="10"
+                        height="5"
+                        viewBox="0 0 10 5"
                       >
-                        <svg
-                          className={`${
-                            row.expanded
-                              ? `${prefix}-collapse-row`
-                              : `${prefix}-expand-row`
-                          }`}
-                          width="10"
-                          height="5"
-                          viewBox="0 0 10 5"
-                        >
-                          <path d="M0 0l5 4.998L10 0z" fillRule="evenodd" />
-                        </svg>
-                      </div>
-                    ) : null}
+                        <path d="M0 0l5 4.998L10 0z" fillRule="evenodd" />
+                      </svg>
+                    ) : column.field.split('.').length > 1 ? (
+                      getValue(row, column.field)
+                    ) : (
+                      row[column.field]
+                    )}
                   </td>
                 ))}
               </tr>
               {expandRowTemplate && row.expanded ? (
                 <tr className={`${prefix}-expanded-row`}>
-                  <td>{expandRowTemplate(row)}</td>
+                  <td colSpan={tableConfiguration.length}>
+                    <div>{expandRowTemplate(row)}</div>
+                  </td>
                 </tr>
               ) : null}
             </React.Fragment>
@@ -336,7 +299,9 @@ DataTable.propTypes = {
   /** Used for passing expand row template  */
   expandRowTemplate: PropTypes.func,
   /** Used for passing template for Table header  */
-  headerSelection: PropTypes.node
+  headerSelection: PropTypes.node,
+  /** When this property is set, sorting in each column iterates through three sort states: ascending, descending, and unsort.  */
+  triStateSorting: PropTypes.bool
 };
 
 DataTable.defaultProps = {
@@ -348,7 +313,8 @@ DataTable.defaultProps = {
   headerSelection: null,
   onSort: () => {},
   onRowSelect: () => {},
-  expandRowTemplate: null
+  expandRowTemplate: null,
+  triStateSorting: false
 };
 
 export default DataTable;

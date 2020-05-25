@@ -78,12 +78,7 @@ export const getColumnStructure = (tableConfig, isExpandRow = false) => {
         }
       }
     }
-  } else {
-    newTempConfig.map(column => {
-      column.width = '1px';
-    });
-  }
-
+  } 
   return newTempConfig;
 };
 
