@@ -17,17 +17,19 @@ class TableExample extends Component {
         renderHtml: row => {
           return <Checkbox id={`${row.id}_checkbox_`} name="testcheck" />;
         },
-        width: '40px'
-        //pinned:'left'
+        //width: '40px',
+        //pinned: 'left'
       },
       {
         label: 'ID',
         field: 'id',
-        width: '160px'
+        // width: '160px',
+        // pinned: 'right'
       },
 
       {
         label: 'Avatar',
+        //pinned: 'left',
         renderHtml: model => {
           return (
             <img
@@ -36,18 +38,19 @@ class TableExample extends Component {
             />
           );
         },
-        width: '60px'
+        //width: '60px'
       },
       {
         label: 'Full Name',
         field: 'name',
         sortable: true,
+        //pinned: 'left',
         // renderHtml: model => {
         //     return (
         //       <span>{model.name} {model.name} {model.name} {model.name}{model.name} {model.name} {model.name} {model.name} {model.name} {model.name}</span>
         //     );
         //   },
-        width: '200px'
+        //width: '200px'
       },
       {
         label: 'Private',
@@ -62,13 +65,13 @@ class TableExample extends Component {
             }`}</Tag>
           );
         },
-        width: '120px'
+        //width: '120px'
       },
       {
         label: 'Language',
         field: 'owner.login',
 
-        width: '120px'
+       // width: '120px'
       },
       {
         label: 'Has Issues',
@@ -84,23 +87,23 @@ class TableExample extends Component {
             />
           );
         },
-        width: '150px'
+        //width: '150px'
       },
       {
         label: 'Forks Count',
         field: 'forks_count',
-        width: '120px'
+        //width: '120px'
       },
       {
         label: 'Branch',
         field: 'default_branch',
         sortable: true,
-        width: '120px'
+        //width: '120px'
       },
       {
         label: 'Issues Count',
         field: 'open_issues_count',
-        width: '120px'
+        //width: '120px'
       },
       {
         field: 'overflow',
@@ -108,13 +111,14 @@ class TableExample extends Component {
           return (
             <Overflowmenu
               listItems={overflowlist}
+              //className="overflow-onhover"
               onClick={e => {
                 console.log(e, row);
               }}
             />
           );
         },
-        width: '80px'
+        //width: '80px'
       }
     ]
   };
@@ -132,8 +136,6 @@ class TableExample extends Component {
       .then(response => {
         console.log(response);
 
-        response[1].name =
-          'Testing longer string Testing longer string Testing longer string Testing longer string Testing longer string Testing longer string Testing longer stringTesting longer string Testing longer string Testing longer string Testing longer string Testing longer string Testing longer string Testing longer stringTesting longer string Testing longer string Testing longer string Testing longer string Testing longer string Testing longer string Testing longer stringTesting longer string Testing longer string Testing longer string Testing longer string Testing longer string Testing longer string Testing longer stringTesting longer string Testing longer string Testing longer string Testing longer string Testing longer string Testing longer string Testing longer stringTesting longer string Testing longer string Testing longer string Testing longer string Testing longer string Testing longer string Testing longer stringTesting longer string Testing longer string Testing longer string Testing longer string Testing longer string Testing longer string Testing longer stringTesting longer string Testing longer string Testing longer string Testing longer string Testing longer string Testing longer string Testing longer stringTesting longer string Testing longer string Testing longer string Testing longer string Testing longer string Testing longer string Testing longer stringTesting longer string Testing longer string Testing longer string Testing longer string Testing longer string Testing longer string Testing longer stringTesting longer string Testing longer string Testing longer string Testing longer string Testing longer string Testing longer string Testing longer stringTesting longer string Testing longer string Testing longer string Testing longer string Testing longer string Testing longer string Testing longer stringTesting longer string Testing longer string Testing longer string Testing longer string Testing longer string Testing longer string Testing longer string';
         this.setState({
           tableData: response,
           totalItems: response.length,
@@ -153,7 +155,25 @@ class TableExample extends Component {
                 id="sample_table"
                 tableData={this.state.displayData}
                 tableConfig={this.state.tableConfig}
-                type="borderless zebra"
+                // expandRowTemplate={() => {
+                //   return (<Paragraph>
+                //     available, but the majority have suffered alteration
+                //     in some form, by injected humour, or randomised words
+                //     which don&apos;t look even slightly believable. If you
+                //     are going to use a passage of Lorem Ipsum, you need to
+                //     be sure there isn&apos;t anything embarrassing hidden
+                //     in the middle of text. All the Lorem Ipsum generators
+                //     on the Internet tend to repeat predefined chunks as
+                //     necessary, making this the first true generator on the
+                //     Internet. It uses a dictionary of over 200 Latin
+                //     words, combined with a handful of model sentence
+                //     structures, to generate Lorem Ipsum which looks
+                //     reasonable. The generated Lorem Ipsum is therefore
+                //     always free from repetition, injected humour, or
+                //     non-characteristic words etc.
+                //   </Paragraph>);
+                // }}
+                type="zebra borderless"
                 onSort={(field, order) => {
                   if (order === null) {
                     this.setState({
