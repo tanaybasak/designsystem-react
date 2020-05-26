@@ -285,7 +285,7 @@ DataTable.propTypes = {
    *
    * }] */
   tableConfig: PropTypes.any,
-  /** Name of the custom class to apply to the Data Table
+  /** Name of the custom class to apply to the Data Table.
    * eg: hcl-data-table-zebra, hcl-data-table-compact, hcl-data-table-tall, hcl-data-table-borderless */
   className: PropTypes.string,
 

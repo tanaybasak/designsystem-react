@@ -65,7 +65,7 @@ Toggle.propTypes = {
    * Argument – event
    */
   onChange: PropTypes.func,
-  /** Name of the custom class to apply to the Toggle */
+  /** Name of the custom class to apply to the Toggle */
   className: PropTypes.string,
   /** Unique id for Toggle */
   id: PropTypes.string.isRequired,
