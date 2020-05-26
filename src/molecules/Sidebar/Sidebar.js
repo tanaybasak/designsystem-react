@@ -365,15 +365,15 @@ const Sidebar = ({
 };
 
 Sidebar.propTypes = {
-  /** Name of the custom class to apply to the Sidebar */
+  /** Name of the custom class to apply to the Sidebar */
   className: PropTypes.string,
-  /** used to set default active link */
+  /** used to set default active link */
   activeLink: PropTypes.string,
   /** used to pass custom template in sidebar link */
   sidebarLinkTemplate: PropTypes.any,
   /** boolean value  */
   expanded: PropTypes.bool,
-  /** Title for the Sidebar */
+  /** Title for the Sidebar */
   title: PropTypes.string,
   /** Content for Sidebar */
   items: PropTypes.array,
@@ -381,12 +381,12 @@ Sidebar.propTypes = {
   disabled: PropTypes.bool,
   /** Icon for Sidebar */
   icon: PropTypes.object,
-  /** Callback function that is invoked when Sidebar link is clicked
+  /** Callback function that is invoked when Sidebar link is clicked
    *
    * Argument – link , event
    */
   onClick: PropTypes.func,
-  /** Callback function that is invoked when Sidebar Toggled
+  /** Callback function that is invoked when Sidebar Toggled
    *
    * Argument – toggleStatus , event
    */

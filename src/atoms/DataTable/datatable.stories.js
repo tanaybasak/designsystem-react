@@ -7,7 +7,6 @@ import DataTable from './DataTable';
 import Checkbox from '../Checkbox';
 import Toggle from '../Toggle';
 import Overflowmenu from '../../molecules/Overflowmenu';
-import Tag from '../Tag';
 //@update-path-build-end
 
 const tableData = [
