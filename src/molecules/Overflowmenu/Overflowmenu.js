@@ -217,10 +217,10 @@ const Overflowmenu = ({
         >
           <MenuList
             items={listItems}
-            onSelect={event => {
+            onSelect={(item, index, event) => {
               changeDisplay(false);
               overflow.current.children[0].focus();
-              onClick(event);
+              onClick(item, index, event);
             }}
           />
           <div

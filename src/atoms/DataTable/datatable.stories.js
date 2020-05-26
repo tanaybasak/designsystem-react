@@ -107,14 +107,6 @@ const tableConfigWithCustomTemplate = [
   {
     label: 'Protocol',
     field: 'protocol',
-    // eslint-disable-next-line react/display-name
-    renderHtml: model => {
-      let classname = 'primary';
-      if (model.protocol === 'HTTP') {
-        classname = 'secondary';
-      }
-      return <Tag type={classname}>{model.protocol}</Tag>;
-    },
     width: '150px'
   },
   {
@@ -203,6 +195,7 @@ storiesOf('DataTable', module)
           boolean('Zebra', false) ? ' zebra' : ''
         }${select('Class Name', classOptions, '')}`}
         tableData={tableData}
+        stickyHeaderMain
         headerSelection={<Checkbox id={`header_checkbox`} />}
         tableConfig={tableConfigWithCustomTemplate}
         onSort={action('Sort Action')}

@@ -118,7 +118,7 @@ const LoadingState = ({ type, className, ...restProps }) => {
                     title={title}
                     className={sortable ? 'sortable' : ''}
                   >
-                    <div className="header-text-wrapper">{label}</div>
+                    {label}
                   </th>
                 )
               )}
@@ -129,12 +129,7 @@ const LoadingState = ({ type, className, ...restProps }) => {
               <tr key={`row-${index}`}>
                 {restProps.tableConfig.map((col, i) => (
                   <td key={`col-${index}-${i}`}>
-                    <div
-                      className="body-content-wrapper"
-                      style={{ width: '100%' }}
-                    >
-                      <span />
-                    </div>
+                    <span />
                   </td>
                 ))}
               </tr>

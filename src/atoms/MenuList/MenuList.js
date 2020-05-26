@@ -25,8 +25,8 @@ const MenuList = ({ items, onSelect }) => {
               className={btnClassNames.join(' ')}
               data-name={name}
               disabled={disabled}
-              onClick={() => {
-                onSelect(item);
+              onClick={(e) => {
+                onSelect(item, index, e);
               }}
             >
               {link ? (
