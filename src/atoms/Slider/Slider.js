@@ -134,7 +134,7 @@ const Slider = ({
               }
             }}
           />
-          <div className="range-value" ref={tooltipRef}>
+          <div className={`${prefix}-range-value`} ref={tooltipRef}>
             <span>{value}</span>
           </div>
         </div>
