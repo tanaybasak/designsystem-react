@@ -10,20 +10,42 @@ const Tag = ({
   closable,
   onClose,
   thumbnail,
-  thumbnailSrc,
+  icon,
   ...restProps
 }) => {
   const classnames = `${prefix}-tag hcl-tag-${type} ${className}`.trim();
+  const keyListener = event => {
+    
+    if (event.keyCode === 13) {
+      event.preventDefault();
+      event.target.click();
+    }
+  }
 
   return (
     <button type="button" className={classnames} {...restProps}>
-      {thumbnail? thumbnail: thumbnailSrc? <img src={thumbnailSrc} className={`${prefix}-tag-thumbnail`} />: null}
-      <span className={`${prefix}-tag-text`}>{children || text}</span>
+      {thumbnail ? React.cloneElement(thumbnail, {
+                className: `${prefix}-tag-thumbnail${
+                  thumbnail.props.className
+                    ? ' ' + thumbnail.props.className
+                    : ''
+                }`
+              }) : null}
+      <span className={`${prefix}-tag-text`} title={text}>{children || text}</span>
+      {icon ? React.cloneElement(icon, {
+                className: `${prefix}-tag-icon${
+                  icon.props.className
+                    ? ' ' + icon.props.className
+                    : ''
+                }`
+              }) : null}
       {closable ? (
         <span
           className={`${prefix}-close`}
           aria-hidden="true"
           onClick={onClose}
+          onKeyDown={keyListener}
+          tabIndex="0"
         />
       ) : null}
     </button>
@@ -54,8 +76,8 @@ Tag.propTypes = {
   onClose: PropTypes.func,
   /** Thumbnail for Tag Component as an Object */
   thumbnail: PropTypes.object,
-  /** Relative path of file as PNG/IMG/data-URIs */
-  thumbnailSrc: PropTypes.string
+
+  icon: PropTypes.object
 };
 
 Tag.defaultProps = {
@@ -69,7 +91,7 @@ Tag.defaultProps = {
   closable: false,
   onClose: null,
   thumbnail: null,
-  thumbnailSrc: null
+  icon: null
 };
 
 export default Tag;
