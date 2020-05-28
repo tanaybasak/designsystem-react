@@ -12,6 +12,7 @@ storiesOf('TimePicker', module).add(
   () => (
     <TimePicker
       label={text('Label', 'Select Time')}
+      helperText={text('Helper Text', 'optional helper text')}
       onChange={action('Timepicker Onchange')}
       timeZones={object('Time Zones', timeZones)}
       aria-label="Time Picker"

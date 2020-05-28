@@ -94,15 +94,11 @@ const LoadingState = ({ type, className, ...restProps }) => {
               type="range"
               min="0"
               max="100"
-              disabled="true"
+              disabled
             />
           </div>
           <label className={`${prefix}-slider-top-range`} />
-          <input
-            className={`${prefix}-slider-text-input hcl-form-control`}
-            type="number"
-            disabled="true"
-          />
+          <input className={`${prefix}-slider-text-input hcl-form-control`} type="number" disabled />
         </div>
       </div>
     );
