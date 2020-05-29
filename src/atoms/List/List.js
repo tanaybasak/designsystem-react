@@ -11,6 +11,17 @@ const _getList = (type, list) => {
   );
 };
 
+const classNameOptions = {
+  'decimal': 'hcl-decimal',
+  'upper-alpha': 'hcl-upper-alpha',
+  'lower-alpha': 'hcl-lower-alpha',
+  'lower-roman': 'hcl-lower-roman',
+  'upper-roman': 'hcl-upper-roman',
+  'circle': 'hcl-circle',
+  'square': 'hcl-square',
+  'disc': 'hcl-disc',
+};
+
 // To create LIs
 const _getListItem = (type, listItems) => {
   return (
@@ -31,34 +42,42 @@ const _getListItem = (type, listItems) => {
   );
 };
 
-export default function List({ listItems, type, className, ...restProps }) {
-  const listType = type === 'ol' ? 'ordered' : 'unordered';
-  const classnames = `${prefix}-list-${listType} ${className}`.trim();
+export default function List({
+  listItems,
+  type,
+  ordered,
+  className,
+  ...restProps
+}) {
+  const classNameType = classNameOptions[type] ? classNameOptions[type] : '';
+  const listType = ordered ? 'ordered' : 'unordered';
+  const classnames = `${prefix}-list-${listType} ${className} ${classNameType}`.trim();
+  const listElement = ordered ? 'ol' : 'ul';
 
   return React.createElement(
-    type,
+    listElement,
     { className: classnames, ...restProps },
-    _getListItem(type, listItems)
+    _getListItem(listElement, listItems)
   );
 }
 
 List.propTypes = {
   /** Class/clasess will be applied on the list  */
   className: PropTypes.string,
-  /** type of list
-    ol – Ordered List. 
-    ul – UnOrdered List
-    */
-  type: PropTypes.oneOf(['ol', 'ul']),
+  /* type of list eg : decimal , upper-alpha , lower-alpha , lower-roman, upper-roman, circle, square, disc */
+  type: PropTypes.string,
+  /* ordered or unordered list based on boolean value */
+  ordered: PropTypes.bool,
   /** Data for list  */
   listItems: PropTypes.array,
   /** Callback function on selecting item*/
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
 };
 
 List.defaultProps = {
   className: '',
-  type: 'ul',
+  type: '',
+  ordered: false,
   listItems: [],
-  onClick: () => {}
+  onClick: () => {},
 };
