@@ -64,7 +64,7 @@ export default function List({
 List.propTypes = {
   /** Class/clasess will be applied on the list  */
   className: PropTypes.string,
-  /**  type of lists for ordered: decimal , upper-alpha , lower-alpha , lower-roman, upper-roman; type of lists for unordered: decimal, circle, square, disc */
+  /**  type of lists for ordered: decimal , upper-alpha , lower-alpha , lower-roman, upper-roman; type of lists for unordered: circle, square, disc */
   type: PropTypes.string,
   /** ordered or unordered list based on boolean value */
   ordered: PropTypes.bool,
