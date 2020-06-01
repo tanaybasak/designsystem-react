@@ -695,12 +695,12 @@ class App extends Component {
               <div className="hcl-col-12 mt-5" id="list-section">
                 {/* Ordered */}
                 <Label>Ordered List</Label>
-                <List listItems={listItems} type="ol" onClick={() => {}} />
+                <List listItems={listItems} ordered type="lower-alpha" onClick={() => {}} />
                 <br />
                 <br />
                 {/* Unordered */}
                 <Label>Unordered List</Label>
-                <List listItems={listItems} type="ul" onClick={() => {}} />
+                <List listItems={listItems} type="disc" onClick={() => {}} />
               </div>
               {/* Tag */}
               <div className="hcl-col-12 mt-5" id="toast-section">
@@ -1040,7 +1040,7 @@ class App extends Component {
                   onChange={e => this.onSwitchChange(e, 'example1')}
                 >
                   <Switch label="All" />
-                  <Switch label="Cybernetics" />
+                  <Switch label="Cybernetics" /> 
                   <Switch label="Information &amp; Communication" />
                 </ContentSwitcher>
                 <section className="mt-1 p-2">
