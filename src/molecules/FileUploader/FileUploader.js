@@ -81,7 +81,6 @@ export default function FileUploader({
           className={classnames}
           onKeyDown={keyListener}
           tabIndex={!disabled ? '0' : null}
-          role="button"
         >
           {children}
         </label>
