@@ -5,6 +5,7 @@ import { select, text, boolean } from '@storybook/addon-knobs';
 //@update-path-build-start
 import Tag from './Tag';
 import Icon from '../../atoms/Icon';
+import icons from "../../../.storybook/iconList";
 //@update-path-build-end
 
 const typeOptions = {
@@ -13,25 +14,40 @@ const typeOptions = {
 };
 
 storiesOf('Tag', module)
+.add(
+  'default',
+  () => (
+    <Tag
+      closable={boolean('Closable', false)}
+      disabled={boolean('Disabled', false)}
+      onClose={action('OnClose')}
+      tabIndex={0}
+      title={text('Title', '')}
+      type={select('Type', typeOptions, 'primary')}
+    >
+      {text('Label', 'Sample Tag')}
+    </Tag>
+  ),
+  {
+    info: {
+      text: `Description About Tag Component
+
+      import { Tag } from '@patron/patron-react/tag'
+
+      `,
+    },
+  }
+)
   .add(
-    'default',
+    'with icon',
     () => (
       <Tag
         closable={boolean('Closable', false)}
         disabled={boolean('Disabled', false)}
         onClose={action('OnClose')}
         tabIndex={0}
-        thumbnail={
-          <Icon type="svg" alt="alt" title="title">
-            <circle
-              cx="11"
-              cy="11"
-              r="11"
-              stroke="red"
-              strokeWidth="3"
-              fill="white"
-            />
-          </Icon>
+        icon={
+          <i className={`pi pi-${select("Icon Class", icons, "user")}`} />
         }
         title={text('Title', '')}
         type={select('Type', typeOptions, 'primary')}
@@ -67,6 +83,43 @@ storiesOf('Tag', module)
             alt="alt"
             title="title"
           />
+        }
+        title={text('Title', '')}
+        type={select('Type', typeOptions, 'primary')}
+      >
+        {text('Label', 'Sample Tag')}
+      </Tag>
+    ),
+    {
+      info: {
+        text: `Description About Tag Component
+  
+          import { Tag } from '@patron/patron-react/tag'
+  
+          `,
+      },
+    }
+  ).add(
+    'With Thumbnail Src + icon',
+    () => (
+      <Tag
+        closable={boolean('Closable', false)}
+        disabled={boolean('Disabled', false)}
+        onClose={action('OnClose')}
+        tabIndex={0}
+        thumbnail={
+          <Icon
+            type="img"
+            src={text(
+              'Thumbnail Source',
+              'https://en.bitcoin.it/w/images/en/2/29/BC_Logo_.png'
+            )}
+            alt="alt"
+            title="title"
+          />
+        }
+        icon={
+          <i className={`pi pi-${select("Icon Class", icons, "link")}`} />
         }
         title={text('Title', '')}
         type={select('Type', typeOptions, 'primary')}
