@@ -32,7 +32,9 @@ export default function FileUploader({
   const getFileList = (event) => {
     const files = event.target.files;
     const filelist = Object.keys(files).map((i) => files[i]);
-    const tempFileLists = [...fileLists,...filelist];
+    const tempFileLists = multiple
+      ? [...fileLists, ...filelist]
+      : [...filelist];
     setFileList(tempFileLists);
     onChange(tempFileLists);
     event.target.value = null;
@@ -78,8 +80,7 @@ export default function FileUploader({
           htmlFor={id}
           className={classnames}
           onKeyDown={keyListener}
-          tabIndex= { !disabled ? "0" : null}
-          role="button"
+          tabIndex={!disabled ? '0' : null}
         >
           {children}
         </label>
@@ -87,7 +88,10 @@ export default function FileUploader({
           {fileLists.length
             ? fileLists.map((fileList, index) => (
                 <div key={index} className={`${prefix}-file-container-item`}>
-                  <span title={fileList.name} className={`${prefix}-file-selected-file`}>
+                  <span
+                    title={fileList.name}
+                    className={`${prefix}-file-selected-file`}
+                  >
                     <p className={`${prefix}-file-filename`}>{fileList.name}</p>
                   </span>
                   <button
@@ -119,7 +123,7 @@ FileUploader.propTypes = {
    * Ghost: 'hcl-btn hcl-ghost'
    */
   className: PropTypes.string,
-  /** Search component for Header */
+  /** Label for File Uploader */
   label: PropTypes.string,
   /** Children of File Uploader button */
   children: PropTypes.any,
@@ -144,7 +148,7 @@ FileUploader.defaultProps = {
   children: null,
   description: '',
   disabled: false,
-  multiple: true,
+  multiple: false,
   fileType: '',
   tabIndex: 0,
   onChange: () => {},
