@@ -4,7 +4,15 @@ import prefix from '../../settings';
 
 let selectTileCount = 0;
 
-const Tile = ({ className, children, type, id, href, ...restProps }) => {
+const Tile = ({
+  className,
+  children,
+  type,
+  expandableType,
+  id,
+  href,
+  ...restProps
+}) => {
   let classNames = null;
   const clickableElement = useRef(null);
   const expandableElement = useRef(null);
@@ -16,7 +24,7 @@ const Tile = ({ className, children, type, id, href, ...restProps }) => {
     setChecked(!checked);
   };
 
-  const keyDownOnTile = e => {
+  const keyDownOnTile = (e) => {
     const input = expandableElement.current
       ? expandableElement.current.querySelector('input[type="checkbox"]')
       : selectableElement.current.querySelector('input[type="checkbox"]');
@@ -34,7 +42,7 @@ const Tile = ({ className, children, type, id, href, ...restProps }) => {
     return (
       <div
         className={classNames}
-        onKeyDown={event => {
+        onKeyDown={(event) => {
           event.stopPropagation();
           const key = event.which || event.keyCode;
           const clickTag = clickableElement.current.querySelector(
@@ -61,12 +69,12 @@ const Tile = ({ className, children, type, id, href, ...restProps }) => {
     selectTileCount += 1;
     classNames = `${prefix}-tile-selectable ${className}`.trim();
     return (
-      <div
-        onKeyDown={keyDownOnTile}
-        ref={selectableElement}
-        {...restProps}
-      >
-        <label tabIndex="0" className={classNames} htmlFor={`select-tile-${selectTileCount}`}>
+      <div onKeyDown={keyDownOnTile} ref={selectableElement} {...restProps}>
+        <label
+          tabIndex="0"
+          className={classNames}
+          htmlFor={`select-tile-${selectTileCount}`}
+        >
           <input
             id={`select-tile-${selectTileCount}`}
             className={`${prefix}-tile-input`}
@@ -93,32 +101,40 @@ const Tile = ({ className, children, type, id, href, ...restProps }) => {
   };
 
   const expandableTile = () => {
-    classNames = `${prefix}-tile-expandable ${className}`.trim();
+    const classNameType = expandableType === 'top' ? 'arrow-top-left' : '';
+    classNames = `${prefix}-tile-expandable ${className} ${classNameType}`.trim();
     return (
-      <div
-        className={classNames}
-        tabIndex="0"
-        ref={expandableElement}
-        {...restProps}
-      >
-        <input
-          id={`${id}`}
-          className={`${prefix}-tile-input`}
-          type="checkbox"
-          onChange={toggle}
-          title="tile"
-          checked={checked}
-        />
-        <label htmlFor={`${id}`} onKeyDown={keyDownOnTile} className={`${prefix}-tile-arrow`} tabIndex="0">
-          <svg width="12" height="7" viewBox="0 0 12 7">
-            <path
-              fillRule="nonzero"
-              d="M6.002 5.55L11.27 0l.726.685L6.003 7 0 .685.726 0z"
-            />
-          </svg>
-        </label>
-        <div className={`${prefix}-tile-content`}>{children[0]}</div>
-        <div className={`${prefix}-tile-hide`}>{children[1]}</div>
+      <div className={`${prefix}-row`}>
+        <div
+          className={classNames}
+          tabIndex="0"
+          ref={expandableElement}
+          {...restProps}
+        >
+          <input
+            id={`${id}`}
+            className={`${prefix}-tile-input`}
+            type="checkbox"
+            onChange={toggle}
+            title="tile"
+            checked={checked}
+          />
+          <label
+            htmlFor={`${id}`}
+            onKeyDown={keyDownOnTile}
+            className={`${prefix}-tile-arrow`}
+            tabIndex="0"
+          >
+            <svg width="12" height="7" viewBox="0 0 12 7">
+              <path
+                fillRule="nonzero"
+                d="M6.002 5.55L11.27 0l.726.685L6.003 7 0 .685.726 0z"
+              />
+            </svg>
+          </label>
+          <div className={`${prefix}-tile-content`}>{children[0]}</div>
+          <div className={`${prefix}-tile-hide`}>{children[1]}</div>
+        </div>
       </div>
     );
   };
@@ -157,6 +173,9 @@ Tile.propTypes = {
   Expandable: This is for expandable Tile.  */
   type: PropTypes.oneOf(['clickable', 'selectable', 'expandable', 'readable']),
 
+  /** expandableType: top or bottom arrow option. */
+  expandableType: PropTypes.string,
+
   /** For Readable, Clickable & Selectable Tile:  
   Content for tile. 
   For Expandable: 
@@ -164,7 +183,7 @@ Tile.propTypes = {
   children: PropTypes.node.isRequired,
 
   /** Unique Identifier for Tile, applicable only for selectable tile.  */
-  id: function(props, propName, componentName) {
+  id: function (props, propName, componentName) {
     if (
       props.hasOwnProperty('type') &&
       props['type'] === 'expandable' &&
@@ -177,7 +196,7 @@ Tile.propTypes = {
   },
 
   /** Hyperlink refernece which will be activated on click, applicable only for clickable tile.  */
-  href: function(props, propName, componentName) {
+  href: function (props, propName, componentName) {
     if (
       props.hasOwnProperty('type') &&
       props['type'] === 'clickable' &&
@@ -187,12 +206,13 @@ Tile.propTypes = {
         `The prop \`${propName}\` is marked as required in \`${componentName}\`, but its value is \`undefined\`.`
       );
     }
-  }
+  },
 };
 
 Tile.defaultProps = {
   className: '',
-  type: 'readable'
+  type: 'readable',
+  expandableType: 'bottom',
 };
 
 export default Tile;

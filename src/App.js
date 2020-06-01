@@ -1346,10 +1346,21 @@ class App extends Component {
                   </Tile>
                 </div>
                 <div className="hcl-col-12 mt-5 mb-5">
-                  {/* expandable tile */}
-                  <Tile type="expandable" id="expandable-tile-1">
+                  {/* expandable bottom right arrow tile */}
+                  <Tile type="expandable"  id="expandable-tile-1">
                     {/* container for default content */}
                     <div>
+                      <p>Content shown prior expand </p>
+                    </div>
+                    {/* container for content which will be added once expanded */}
+                    <div>
+                      <p>Content shown after expand </p>
+                    </div>
+                  </Tile>
+                  {/* expandable top left arrow tile */}
+                  <Tile type="expandable" expandableType="top" id="expandable-tile-2">
+                    {/* container for default content */}
+                    <div> 
                       <p>Content shown prior expand </p>
                     </div>
                     {/* container for content which will be added once expanded */}

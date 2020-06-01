@@ -17,8 +17,8 @@ storiesOf('Tile', module)
     {
       info: {
         text: `Description About Tile Component \n
-        import { Tile } from '@patron/patron-react/tile'`
-      }
+        import { Tile } from '@patron/patron-react/tile'`,
+      },
     }
   )
   .add(
@@ -33,8 +33,8 @@ storiesOf('Tile', module)
     {
       info: {
         text: `Description About Tile Component \n
-        import { Tile } from '@patron/patron-react/tile'`
-      }
+        import { Tile } from '@patron/patron-react/tile'`,
+      },
     }
   )
   .add(
@@ -49,8 +49,8 @@ storiesOf('Tile', module)
     {
       info: {
         text: `Description About Tile Component \n
-        import { Tile } from '@patron/patron-react/tile'`
-      }
+        import { Tile } from '@patron/patron-react/tile'`,
+      },
     }
   )
   .add(
@@ -68,7 +68,26 @@ storiesOf('Tile', module)
     {
       info: {
         text: `Description About Tile Component \n
-        import { Tile } from '@patron/patron-react/tile'`
-      }
+        import { Tile } from '@patron/patron-react/tile'`,
+      },
+    }
+  )
+  .add(
+    'expandable- top left arrow',
+    () => (
+      <Tile id="hcl-expandable-id" type="expandable" expandableType="top">
+        <div>
+          <p>Content shown prior expand</p>
+        </div>
+        <div>
+          <p>Content shown after expand</p>
+        </div>
+      </Tile>
+    ),
+    {
+      info: {
+        text: `Description About Tile Component \n
+        import { Tile } from '@patron/patron-react/tile'`,
+      },
     }
   );
