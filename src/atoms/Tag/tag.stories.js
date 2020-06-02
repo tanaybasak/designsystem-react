@@ -5,9 +5,8 @@ import { select, text, boolean } from '@storybook/addon-knobs';
 //@update-path-build-start
 import Tag from './Tag';
 import Icon from '../../atoms/Icon';
-import icons from "../../../.storybook/iconList";
 //@update-path-build-end
-
+import icons from "../../../.storybook/iconList";
 const typeOptions = {
   Primary: 'primary',
   Secondary: 'secondary',
