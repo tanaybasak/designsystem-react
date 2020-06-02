@@ -15,7 +15,6 @@ const classOrderedOpts = [
 ]
 
 const classUnorderedOpts = [
-  'decimal',
   'circle',
   'square',
   'disc'
@@ -89,7 +88,7 @@ storiesOf('List', module).add(
   'unordered',
   () => (
     <List
-      type={select('Type', classUnorderedOpts, 'decimal')}
+      type={select('Type', classUnorderedOpts, 'disc')}
       listItems={object('List Items', listItems)}
       onClick={action('list event')}
     />
