@@ -33,7 +33,6 @@ import { weekDays, months } from './content';
 import Pagination from './atoms/Pagination';
 import NumberInput from './molecules/NumberInput';
 import { Select, SelectItem, SelectItemGroup } from './atoms/Select';
-import TimePicker from './molecules/TimePicker/TimePicker';
 import Tooltip from './atoms/Tooltip/Tooltip';
 import LoadingState from './atoms/LoadingState/LoadingState';
 import Footer from './molecules/Footer';
