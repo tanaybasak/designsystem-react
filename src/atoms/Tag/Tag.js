@@ -9,6 +9,7 @@ const Tag = ({
   type,
   closable,
   onClose,
+  disabled,
   thumbnail,
   icon,
   ...restProps
@@ -23,7 +24,7 @@ const Tag = ({
   }
 
   return (
-    <button type="button" className={classnames} {...restProps}>
+    <button type="button" className={classnames} disabled={disabled} {...restProps}>
       {thumbnail ? React.cloneElement(thumbnail, {
                 className: `${prefix}-tag-thumbnail${
                   thumbnail.props.className
@@ -45,7 +46,7 @@ const Tag = ({
           aria-hidden="true"
           onClick={onClose}
           onKeyDown={keyListener}
-          tabIndex="0"
+          tabIndex={!disabled ? "0" : null}
         />
       ) : null}
     </button>
