@@ -2,7 +2,8 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import { mount } from 'enzyme';
 import Tooltip from './Tooltip';
-
+import regeneratorRuntime from 'regenerator-runtime';
+import { act } from 'react-dom/test-utils';
 const getTooltipContainer = () => {
   return global.document.querySelector('.hcl-tooltip');
 };
@@ -18,9 +19,20 @@ it('Tooltip renders correctly', () => {
   expect(tree).toMatchSnapshot();
 });
 
+const timeout = ms => {
+  const p1 = new Promise(resolve => setTimeout(resolve, ms));
+  return p1
+    .then(function() {
+      return true;
+    })
+    .catch(() => {
+      return false;
+    });
+};
+
 // Use this in your test after mounting if you need just need to let the query finish without updating the wrapper
 
-it('Definition Tooltip generated on mouse enter', done => {
+it('Definition Tooltip generated on mouse enter', async () => {
   const tooltip = mount(
     <Tooltip content="Definition Tooltip" direction="right" type="definition">
       Content
@@ -28,47 +40,15 @@ it('Definition Tooltip generated on mouse enter', done => {
   );
   expect(getTooltipContainer()).toBeFalsy();
   tooltip.find('span').simulate('mouseEnter');
-  expect(tooltip.find('span').props().className).toEqual(
-    'hcl-tooltip-dottedline'
-  );
   expect(getTooltipContainer().hasChildNodes()).toBeTruthy();
   tooltip.find('span').simulate('mouseLeave');
-  setTimeout(() => {
-    expect(getTooltipContainer()).toBeFalsy();
-    done();
-  }, 1000);
-
-  //   jest.useFakeTimers();
-  //   setTimeout(() => {
-  //     // expect(tooltip.find('span').props().className).not.toEqual(
-  //     //     'hcl-tooltip-dottedline'
-  //     //   );
-  //     done();
-  //       expect(getTooltipContainer()).toBeFalsy();
-  //   }, 1000);
-  //   jest.runAllTimers();
-
-  //jest.advanceTimersByTime(5000);
-  //jest.runAllTimers();
-
-  //setTimeout(()=>{
-  //   it('mock setTimeout test', done => {
-  //     setTimeout(() => {
-  //       expect(tooltip.find('span').props().className).not.toEqual(
-  //         'hcl-tooltip-dottedline'
-  //       );
-  //       expect(getTooltipContainer()).toBeFalsy();
-  //       done();
-  //     }, 1000);
-  //   });
-  // expect(tooltip.find("span").props().className).not.toEqual(
-  //     "hcl-tooltip-dottedline"
-  //   );
-  //   expect(getTooltipContainer()).toBeFalsy();
-  //} , 400)
+  await act(async () => {
+    await timeout(300);
+  });
+  expect(getTooltipContainer()).toBeFalsy();
 });
 
-it('Icon Tooltip generated on mouse enter on left direction', done => {
+it('Icon Tooltip generated on mouse enter on left direction', async () => {
   const tooltip = mount(
     <Tooltip content="Filter" direction="left" type="icon">
       Content
@@ -78,13 +58,13 @@ it('Icon Tooltip generated on mouse enter on left direction', done => {
   tooltip.find('span').simulate('mouseEnter');
   expect(getTooltipContainer().hasChildNodes()).toBeTruthy();
   tooltip.find('span').simulate('mouseLeave');
-  setTimeout(() => {
-    expect(getTooltipContainer()).toBeFalsy();
-    done();
-  }, 1000);
+  await act(async () => {
+    await timeout(300);
+  });
+  expect(getTooltipContainer()).toBeFalsy();
 });
 
-it('Icon Tooltip generated on mouse enter on top direction', done => {
+it('Icon Tooltip generated on mouse enter on top direction', async () => {
   const tooltip = mount(
     <Tooltip content="Filter" direction="top" type="icon">
       Content
@@ -94,10 +74,10 @@ it('Icon Tooltip generated on mouse enter on top direction', done => {
   tooltip.find('span').simulate('mouseEnter');
   expect(getTooltipContainer().hasChildNodes()).toBeTruthy();
   tooltip.find('span').simulate('mouseLeave');
-  setTimeout(() => {
-    expect(getTooltipContainer()).toBeFalsy();
-    done();
-  }, 1000);
+  await act(async () => {
+    await timeout(300);
+  });
+  expect(getTooltipContainer()).toBeFalsy();
 });
 
 it('Interactive Tooltip generated on mouse Click and Updated Position on Scroll', () => {
