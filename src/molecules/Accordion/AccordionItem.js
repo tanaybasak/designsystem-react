@@ -17,6 +17,7 @@ export default function AccordionItem({
   }`;
 
   const [height, setHeight] = useState('0px');
+  const [overflow, setOverflow] = useState('hidden');
   const elementRef = useRef(null);
   useEffect(() => {
     if (expanded && elementRef.current) {
@@ -24,14 +25,17 @@ export default function AccordionItem({
         setHeight(elementRef.current.clientHeight + 'px');
         setTimeout(() => {
           setHeight('auto');
+          setOverflow('visible')
         }, 300);
       } else {
         setHeight('auto');
+        setOverflow('visible')
       }
     } else {
       setHeight(elementRef.current.clientHeight + 'px');
       setTimeout(() => {
         setHeight('0px');
+        setOverflow('hidden')
       }, 100);
     }
   }, [expanded]);
@@ -71,7 +75,7 @@ export default function AccordionItem({
       </div>
       <div
         className={`${prefix}-accordion-content-wrapper`}
-        style={{ height: height }}
+        style={{ height: height, overflow: overflow }}
       >
         <div className={`${prefix}-accordion-content`} ref={elementRef}>
           {children}
