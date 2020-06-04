@@ -2,7 +2,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import { mount } from 'enzyme';
 import TreeView from './TreeView';
-
+import regeneratorRuntime from 'regenerator-runtime';
 const treeData = [
   {
     name: 'Section 1',
@@ -26,16 +26,21 @@ const treeData = [
   {
     name: 'Section 2',
     displayChildren: false,
-    collapsedIcon: 'section1expand',
-    expandIcon: 'section1collapsed',
+    collapsedIcon: 'section2expand',
+    expandIcon: 'section2collapsed',
     children: []
   }
 ];
 
 it('TreeView renders correctly', () => {
+  const newTreeData = JSON.parse(JSON.stringify(treeData));
   const tree = renderer
     .create(
-      <TreeView treeData={treeData} onChange={() => {}} onToggle={() => {}} />
+      <TreeView
+        treeData={newTreeData}
+        onChange={() => {}}
+        onToggle={() => {}}
+      />
     )
     .toJSON();
   expect(tree).toMatchSnapshot();
@@ -43,10 +48,11 @@ it('TreeView renders correctly', () => {
 
 it('Toggle Tree node using click', () => {
   const mockCallBack = jest.fn();
+  const newTreeData = JSON.parse(JSON.stringify(treeData));
   const wrapper = mount(
-    <TreeView treeData={treeData} onToggle={mockCallBack} />
+    <TreeView treeData={newTreeData} onToggle={mockCallBack} />
   );
-  const firstTreeNode = treeData[0];
+  const firstTreeNode = newTreeData[0];
   expect(wrapper.find(`.tree-nested`).exists()).toBeFalsy();
   expect(wrapper.find(`.${firstTreeNode.collapsedIcon}`).exists()).toBeTruthy();
   expect(wrapper.find(`.${firstTreeNode.expandIcon}`).exists()).toBeFalsy();
@@ -63,8 +69,9 @@ it('Toggle Tree node using click', () => {
 
 it('Select Tree Node', () => {
   const mockCallBack = jest.fn();
+  const newTreeData = JSON.parse(JSON.stringify(treeData));
   const wrapper = mount(
-    <TreeView treeData={treeData} type="single" onChange={mockCallBack} />
+    <TreeView treeData={newTreeData} type="single" onChange={mockCallBack} />
   );
   expect(wrapper.find(`.highlight`).exists()).toBeFalsy();
   wrapper
@@ -78,10 +85,11 @@ it('Select Tree Node', () => {
 
 it('Select Tree on Key enter', () => {
   const mockCallBack = jest.fn();
+  const newTreeData = JSON.parse(JSON.stringify(treeData));
   const wrapper = mount(
-    <TreeView treeData={treeData} type="single" onChange={mockCallBack} />
+    <TreeView treeData={newTreeData} type="single" onChange={mockCallBack} />
   );
-  const firstTreeNode = treeData[0];
+  const firstTreeNode = newTreeData[0];
   expect(wrapper.find(`.tree-nested`).exists()).toBeFalsy();
   expect(wrapper.find(`.${firstTreeNode.collapsedIcon}`).exists()).toBeTruthy();
   expect(wrapper.find(`.${firstTreeNode.expandIcon}`).exists()).toBeFalsy();
@@ -99,10 +107,11 @@ it('Select Tree on Key enter', () => {
 
 it('Toggle Tree Node on right Arrow and left arrow', () => {
   const mockCallBack = jest.fn();
+  const newTreeData = JSON.parse(JSON.stringify(treeData));
   const wrapper = mount(
-    <TreeView treeData={treeData} onToggle={mockCallBack} />
+    <TreeView treeData={newTreeData} onToggle={mockCallBack} />
   );
-  const firstTreeNode = treeData[0];
+  const firstTreeNode = newTreeData[0];
   expect(wrapper.find(`.tree-nested`).exists()).toBeFalsy();
   expect(wrapper.find(`.${firstTreeNode.collapsedIcon}`).exists()).toBeTruthy();
   expect(wrapper.find(`.${firstTreeNode.expandIcon}`).exists()).toBeFalsy();
@@ -124,10 +133,11 @@ it('Toggle Tree Node on right Arrow and left arrow', () => {
 
 it('Navigate Item using Arrow Down', () => {
   const mockCallBack = jest.fn();
+  const newTreeData = JSON.parse(JSON.stringify(treeData));
   const wrapper = mount(
-    <TreeView treeData={treeData} onToggle={mockCallBack} />
+    <TreeView treeData={newTreeData} onToggle={mockCallBack} />
   );
-  const firstTreeNode = treeData[0];
+  const firstTreeNode = newTreeData[0];
   expect(wrapper.find(`.tree-nested`).exists()).toBeFalsy();
   expect(wrapper.find(`.${firstTreeNode.collapsedIcon}`).exists()).toBeTruthy();
   expect(wrapper.find(`.${firstTreeNode.expandIcon}`).exists()).toBeFalsy();
@@ -141,25 +151,26 @@ it('Navigate Item using Arrow Down', () => {
   expect(mockCallBack.mock.calls.length).toBe(1);
   treeNode.simulate('keydown', { keyCode: 40 });
   expect(document.activeElement.textContent.trim()).toEqual(
-    treeData[0].children[0].name
+    newTreeData[0].children[0].name
   );
   let currentActiveNode = wrapper.find('.tree-node').at(1);
   currentActiveNode.simulate('keydown', { keyCode: 40 });
   expect(document.activeElement.textContent.trim()).toEqual(
-    treeData[0].children[1].name
+    newTreeData[0].children[1].name
   );
 
   currentActiveNode = wrapper.find('.tree-node').at(2);
   currentActiveNode.simulate('keydown', { keyCode: 40 });
-  expect(document.activeElement.textContent.trim()).toEqual(treeData[1].name);
+  expect(document.activeElement.textContent.trim()).toEqual(newTreeData[1].name);
 });
 
 it('Navigate Item using Arrow Up', () => {
   const mockCallBack = jest.fn();
+  const newTreeData = JSON.parse(JSON.stringify(treeData));
   const wrapper = mount(
-    <TreeView treeData={treeData} onToggle={mockCallBack} />
+    <TreeView treeData={newTreeData} onToggle={mockCallBack} />
   );
-  const firstTreeNode = treeData[0];
+  const firstTreeNode = newTreeData[0];
   expect(wrapper.find(`.tree-nested`).exists()).toBeFalsy();
   expect(wrapper.find(`.${firstTreeNode.collapsedIcon}`).exists()).toBeTruthy();
   expect(wrapper.find(`.${firstTreeNode.expandIcon}`).exists()).toBeFalsy();
@@ -174,11 +185,11 @@ it('Navigate Item using Arrow Up', () => {
   expect(mockCallBack.mock.calls.length).toBe(1);
 
   secondNode.simulate('focus');
-  expect(document.activeElement.textContent.trim()).toEqual(treeData[1].name);
+  expect(document.activeElement.textContent.trim()).toEqual(newTreeData[1].name);
   secondNode.simulate('keydown', { keyCode: 38 });
 
   expect(document.activeElement.textContent.trim()).toEqual(
-    treeData[0].children[1].name
+    newTreeData[0].children[1].name
   );
 
   wrapper
@@ -186,12 +197,12 @@ it('Navigate Item using Arrow Up', () => {
     .at(2)
     .simulate('keydown', { keyCode: 38 });
   expect(document.activeElement.textContent.trim()).toEqual(
-    treeData[0].children[0].name
+    newTreeData[0].children[0].name
   );
 
   wrapper
     .find('.tree-node')
     .at(1)
     .simulate('keydown', { keyCode: 38 });
-  expect(document.activeElement.textContent.trim()).toEqual(treeData[0].name);
+  expect(document.activeElement.textContent.trim()).toEqual(newTreeData[0].name);
 });

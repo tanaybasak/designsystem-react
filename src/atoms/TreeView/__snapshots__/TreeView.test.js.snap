@@ -11,23 +11,44 @@ exports[`TreeView renders correctly 1`] = `
     role="treeitem"
   >
     <div
-      className="tree-node"
+      className="tree-node "
+      level="0"
       onClick={[Function]}
+      onDragEnd={[Function]}
+      onDragLeave={[Function]}
+      onDragOver={[Function]}
+      onDrop={[Function]}
       onKeyDown={[Function]}
       tabIndex="0"
     >
       <i
         className="toggle-icon caret"
       />
-      <i
-        className="section1expand"
-      />
-      <span
-        className=""
-        onClick={[Function]}
+      <div
+        className="treenode-action-wrapper"
       >
-        Section 1
-      </span>
+        <div
+          className="treenode-content-wrapper"
+        >
+          <i
+            className="section1expand"
+          />
+          <span
+            className="tree-text-node "
+            draggable={false}
+            onClick={[Function]}
+            onDragStart={[Function]}
+            title="Section 1"
+          >
+            <div
+              onDragOver={[Function]}
+              onDrop={[Function]}
+            >
+              Section 1
+            </div>
+          </span>
+        </div>
+      </div>
     </div>
   </li>
   <li
@@ -36,16 +57,40 @@ exports[`TreeView renders correctly 1`] = `
     role="treeitem"
   >
     <div
-      className="tree-node no-toggle-element"
+      className="tree-node no-children-exist "
+      level="1"
+      onDragEnd={[Function]}
+      onDragLeave={[Function]}
+      onDragOver={[Function]}
+      onDrop={[Function]}
       onKeyDown={[Function]}
       tabIndex="0"
     >
-      <span
-        className=""
-        onClick={[Function]}
+      <div
+        className="treenode-action-wrapper"
       >
-        Section 2
-      </span>
+        <div
+          className="treenode-content-wrapper"
+        >
+          <i
+            className="section2expand"
+          />
+          <span
+            className="tree-text-node "
+            draggable={false}
+            onClick={[Function]}
+            onDragStart={[Function]}
+            title="Section 2"
+          >
+            <div
+              onDragOver={[Function]}
+              onDrop={[Function]}
+            >
+              Section 2
+            </div>
+          </span>
+        </div>
+      </div>
     </div>
   </li>
 </ul>
