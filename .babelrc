@@ -1,21 +1,22 @@
 {
-    "presets": [
-        [
-            "@babel/preset-env",
-            {
-                "modules": false,
-                "useBuiltIns": "entry",
-                "corejs": {
-                    "version": 3,
-                    "proposals": true
-                }
-            }
-        ],
-        "@babel/preset-react"
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "modules": false,
+        "useBuiltIns": "entry",
+        "corejs": {
+          "version": 3,
+          "proposals": true
+        }
+      }
     ],
-    "plugins": [
-        "@babel/plugin-syntax-dynamic-import",
-        "@babel/plugin-proposal-class-properties",
-        "transform-es2015-modules-commonjs"
-    ]
+    "@babel/preset-react"
+  ],
+  "plugins": [
+    "@babel/plugin-syntax-dynamic-import",
+    "@babel/plugin-proposal-class-properties",
+    "transform-es2015-modules-commonjs",
+    "@babel/plugin-transform-modules-commonjs"
+  ]
 }

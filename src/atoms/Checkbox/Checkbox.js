@@ -34,13 +34,22 @@ export default function Checkbox({ className, checked, label, ...restProps }) {
 }
 
 Checkbox.propTypes = {
+    /** Custom class on the Checkbox wrapper. */
     className: PropTypes.string,
+    /** Disable Checkbox */
     disabled: PropTypes.bool,
+    /** Text for Checkbox Label. */
     label: PropTypes.string,
+    /** Unique string for the Checkbox. */
     id: PropTypes.string.isRequired,
+    /** Accepts event handler as prop/argument. */
     onChange: PropTypes.func,
+    /** Control Checked state for Checkbox */
     checked: PropTypes.bool,
-    title: PropTypes.string
+    /** Unique identifier used within forms. */
+    name: PropTypes.string,
+    /** Text value to be considered when submitting forms. */
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 };
 
 Checkbox.defaultProps = {
@@ -48,6 +57,5 @@ Checkbox.defaultProps = {
     disabled: false,
     label: '',
     onChange: () => { },
-    checked: false,
-    title: '',
+    checked: false
 };

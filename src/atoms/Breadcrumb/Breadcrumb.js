@@ -1,69 +1,82 @@
-import React, { Component } from 'react';
+import React, { useState, cloneElement } from 'react';
 import PropTypes from 'prop-types';
-import Link from '../Link';
 import prefix from '../../settings';
+import Overflowmenu from '../../molecules/Overflowmenu';
 
-class Breadcrumb extends Component {
-    static defaultProps = {
-        id: '',
-        model: [],
-        style: null,
-        className: `${prefix}-breadcrumb`
-    };
+function Breadcrumb({ activeIndex, onSelection, id, className, children }) {
+    const [isActive, setActive] = useState(activeIndex);
 
-    static propTypes = {
-        id: PropTypes.string,
-        model: PropTypes.arrayOf(
-            PropTypes.shape({
-                label: PropTypes.string.isRequired,
-                url: PropTypes.string
-            })
-        ).isRequired,
-        style: PropTypes.object,
-        className: PropTypes.string
-    };
+    const childCount = React.Children.count(children);
+    let renderedOverflowMenu = false;
+    let propChildren = children;
 
-    constructor(props) {
-        super(props);
-        this.defaultStyle = {
-            breadcrumb: `${prefix}-breadcrumb`,
-            breadcrumbItem: `${prefix}-breadcrumb-item`,
-            breadcrumbLink: `${prefix}-link`
-        };
-    }
-
-    renderItems() {
-        if (this.props.model) {
-            return this.props.model.map((item, index) => (
-                <li
-                    className={`${this.defaultStyle.breadcrumbItem}`}
-                    key={`li-${item.label}-${index}`}
-                >
-                    <Link
-                        href={item.url || 'javascript:void(0);'}
-                        className={`${this.defaultStyle.breadcrumbLink}`}
-                    >
-                        {item.label}
-                    </Link>
-                </li>
-            ));
+    const modifiedChildren = React.Children.map(children, (child, index) => {
+        if (child && child.type.name === "BreadcrumbItem") {
+            if (index > 0 && (index < childCount - 2) && !renderedOverflowMenu) {
+                renderedOverflowMenu = true; let _listItems = [];
+                propChildren = propChildren.slice(1, -2);
+                React.Children.forEach(propChildren, (innerChild) => {
+                    _listItems.push({ name: innerChild.props.children, link: innerChild.props.href });
+                });
+                return (
+                    <li className={`${prefix}-breadcrumb-item`}>
+                        <Overflowmenu
+                            listItems={_listItems}
+                            direction="right"
+                            ellipsisType="horizontal"
+                            onClick={(item, idx, e) => {
+                                e.preventDefault();
+                                setActive(index + 1);
+                                onSelection(item, idx + 1, e);
+                            }}
+                        />
+                    </li>)
+            } else if (index === 0 || !(index < (childCount - 2))) {
+                return cloneElement(child, {
+                    onClick: e => {
+                        e.preventDefault();
+                        setActive(index);
+                        if (child.props.onClick) {
+                            child.props.onClick(e);
+                        }
+                        onSelection({ "name": child.props.children, "link": child.props.href }, index, e);
+                    },
+                    key: index,
+                    children: child.props.children,
+                    href: child.props.href,
+                    itemClass: child.props.className,
+                    active: isActive === index
+                });
+            }
         }
-    }
+    });
 
-    render() {
-        return (
-            <ul
-                id={this.props.id || ''}
-                className={`${this.defaultStyle.breadcrumb} ${
-                    this.props.className
-                    } || ''`}
-                style={this.props.style || {}}
-                aria-label="breadcrumb"
-            >
-                {this.renderItems()}
-            </ul>
-        );
-    }
+    return (
+        <ul
+            className={`${prefix}-breadcrumb ${className ? className : ''}`}
+            aria-label="breadcrumb"
+            id={id}
+        >
+            {modifiedChildren}
+        </ul>
+    );
 }
+
+Breadcrumb.propTypes = {
+    /** Unique Id */
+    id: PropTypes.string,
+    /** dafault active breadcrumb item */
+    activeIndex: PropTypes.number,
+    /** Class/clasess will be applied on the parent div of Breadcrumb  */
+    className: PropTypes.string,
+    /** Callback function on selecting item*/
+    onSelection: PropTypes.func
+};
+Breadcrumb.defaultProps = {
+    id: '',
+    activeIndex: 0,
+    className: '',
+    onSelection: () => { }
+};
 
 export default Breadcrumb;

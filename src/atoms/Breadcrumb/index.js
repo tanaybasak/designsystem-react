@@ -1,3 +1,4 @@
 import Breadcrumb from './Breadcrumb';
+import BreadcrumbItem from './BreadcrumbItem';
 
-export default Breadcrumb;
+export { Breadcrumb, BreadcrumbItem };

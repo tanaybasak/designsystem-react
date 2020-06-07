@@ -3,9 +3,11 @@
 exports[`<Modal> component snapshots/renders Modal correctly 1`] = `
 <section
   className="hcl-modal"
+  onKeyDown={[Function]}
+  tabIndex="0"
 >
   <div
-    className="hcl-modal-container hcl-modal-container-lg"
+    className="hcl-modal-container hcl-modal-container-lg "
   >
     <button
       className="hcl-modal-close"
@@ -13,7 +15,7 @@ exports[`<Modal> component snapshots/renders Modal correctly 1`] = `
       type="button"
     />
     <div
-      className="hcl-modal-content"
+      className="hcl-modal-content hcl-modal-content-lg"
     >
       <p
         className=""

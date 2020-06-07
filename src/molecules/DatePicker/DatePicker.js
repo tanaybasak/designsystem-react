@@ -5,9 +5,21 @@ import DatePanel from './DatePanel/DatePanel';
 import DateInput from './DateInput';
 import WeekPanel from './WeekPanel';
 import prefix from '../../settings';
-import { positionComponent, isValidDate } from '../../util/utility';
+import {
+  positionComponent,
+  isValidDate,
+  trackDocumentClick
+} from '../../util/utility';
 
-const DatePicker = ({ weekDays, months, open, format, onDateSelect }) => {
+const DatePicker = ({
+  weekDays,
+  months,
+  open,
+  format,
+  onDateSelect,
+  className,
+  ...restProps
+}) => {
   const date = new Date();
   const [currDateObj, setCurrDateObj] = useState({
     day: date.getDay(),
@@ -22,6 +34,7 @@ const DatePicker = ({ weekDays, months, open, format, onDateSelect }) => {
   const [isValidYear, setIsValidYear] = useState(true);
   const [direction, setDirection] = useState(open);
   const datePickerContainer = useRef(null);
+  const datepickerInput = useRef(null);
 
   useEffect(() => {
     positionComponent(
@@ -110,14 +123,17 @@ const DatePicker = ({ weekDays, months, open, format, onDateSelect }) => {
     setIsValidYear(true);
     setYearSelected(String(currDateObj.year));
     setShowDateContainer(!showDateContainer);
+    trackDocumentClick(datepickerInput.current, () => {
+      setShowDateContainer(false);
+    });
   };
 
   const monthChangeHandler = event => {
+    event.stopPropagation();
+    event.preventDefault();
     let tempDate;
     if (
-      event.target.parentElement.classList.contains(
-        `${prefix}-datePicker-month-next`
-      )
+      event.currentTarget.classList.contains(`${prefix}-datePicker-month-next`)
     ) {
       tempDate = new Date(
         currDateObj.month === 11 ? currDateObj.year + 1 : currDateObj.year,
@@ -125,9 +141,7 @@ const DatePicker = ({ weekDays, months, open, format, onDateSelect }) => {
         15
       );
     } else if (
-      event.target.parentElement.classList.contains(
-        `${prefix}-datePicker-month-prev`
-      )
+      event.currentTarget.classList.contains(`${prefix}-datePicker-month-prev`)
     ) {
       tempDate = new Date(
         currDateObj.month === 0 ? currDateObj.year - 1 : currDateObj.year,
@@ -145,6 +159,8 @@ const DatePicker = ({ weekDays, months, open, format, onDateSelect }) => {
   };
 
   const yearChangeHandler = event => {
+    event.stopPropagation();
+    event.preventDefault();
     let tempDate;
     if (event.target.classList.contains(`${prefix}-datePicker-up`)) {
       tempDate = new Date(currDateObj.year + 1, currDateObj.month, 15);
@@ -175,8 +191,15 @@ const DatePicker = ({ weekDays, months, open, format, onDateSelect }) => {
     return regex.test(str);
   };
 
+  const classnames = `${prefix}-datePicker ${className}`.trim();
+  
+  const datePanelClickHandler = event => {
+    event.stopPropagation();
+    event.preventDefault();
+  };
+
   return (
-    <section className={`${prefix}-datePicker`} data-component="datepicker">
+    <section className={classnames} data-component="datepicker" {...restProps}>
       <div className={`${prefix}-datePicker-container`}>
         <DateInput
           dateSelected={dateSelected}
@@ -189,6 +212,7 @@ const DatePicker = ({ weekDays, months, open, format, onDateSelect }) => {
           isValidYear={isValidYear}
           format={format}
           onEnterPressInputDate={onEnterPressInputDate}
+          datepickerInput={datepickerInput}
         />
         {showDateContainer ? (
           <div
@@ -196,7 +220,8 @@ const DatePicker = ({ weekDays, months, open, format, onDateSelect }) => {
               direction === 'top'
                 ? `${prefix}-datePicker-panel-above`
                 : `${prefix}-datePicker-panel-below`
-            }`}
+              }`}
+            onClick={datePanelClickHandler}
             ref={datePickerContainer}
           >
             <YearMonthPanel
@@ -232,11 +257,26 @@ const DatePicker = ({ weekDays, months, open, format, onDateSelect }) => {
 };
 
 DatePicker.propTypes = {
+  /** Days in week.  Array input can be on the basis of language selected.  */
   weekDays: PropTypes.array,
+
+  /** Months in a year.  Array input can be on the basis of language selected.  */
   months: PropTypes.array,
+
+  /** Down: DatePicker pop up will come under input box.
+    Top: DatePicker pop up will come above input box.  */
   open: PropTypes.string,
+
+  /**
+   MM/DD/YYYY:  One of the format available.
+   DD/MM/YYYY: One of the format available. */
   format: PropTypes.string,
-  onDateSelect: PropTypes.func
+
+  /** Callback function which will be executed on date selection  */
+  onDateSelect: PropTypes.func,
+
+  /** Class/clasess will be applied on the parent div of DatePicker */
+  className: PropTypes.string
 };
 
 DatePicker.defaultProps = {
@@ -257,6 +297,7 @@ DatePicker.defaultProps = {
   ],
   open: 'down',
   format: 'MM/DD/YYYY',
-  onDateSelect: () => {}
+  onDateSelect: () => { },
+  className: ''
 };
 export default DatePicker;

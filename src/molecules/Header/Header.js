@@ -33,9 +33,13 @@ const Header = ({ className, logo, searchComponent, icons, ...restProps }) => {
 };
 
 Header.propTypes = {
+    /** Name of the custom class to apply to the header */
     className: PropTypes.string,
+    /** Logo for header */
     logo: PropTypes.object.isRequired,
+    /** Icons for Header */
     icons: PropTypes.array.isRequired,
+    /** Search component for Header */
     searchComponent: PropTypes.object
 };
 

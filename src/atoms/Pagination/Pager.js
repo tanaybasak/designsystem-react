@@ -3,7 +3,7 @@ import React from 'react';
 import prefix from '../../settings';
 
 const Pager = (props, ref) => {
-    if (!props.options && !props.className && !props.onChange && props.options.length <= 0 && !props.value) {
+    if (!props.options && !props.className && !props.onChange && !props.onKeyDown && props.options.length <= 0 && !props.value) {
         return null;
     }
 
@@ -14,6 +14,9 @@ const Pager = (props, ref) => {
                 value={props.value}
                 onChange={(e) => {
                     props.onChange(e);
+                }}
+                onKeyDown={(e) => {
+                    props.onKeyDown(e);
                 }}
             >
                 {

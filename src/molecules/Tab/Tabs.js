@@ -4,23 +4,29 @@ import prefix from '../../settings';
 
 function Tabs({ activeIndex, onChange, children }) {
     const [isActive, setActive] = useState(activeIndex);
-    let tabContent = null;
 
     const modifiedChildren = React.Children.map(children, (child, index) => {
-        if (index === isActive) {
-            tabContent = child.props.children;
+        if (child) {
+            const { isDisabled, label } = child.props;
+            return cloneElement(child, {
+                onClick: e => {
+                    if (!isDisabled) {
+                        setActive(index);
+                        onChange(Object.assign({}, e, { label, tabIndex: index }));
+                    }
+                },
+                key: 'tab' + index,
+                active: isActive === index
+            });
         }
-        const { isDisabled, label } = child.props;
-        return cloneElement(child, {
-            onClick: e => {
-                if (!isDisabled) {
-                    setActive(index);
-                    onChange(Object.assign({}, e, { label, tabIndex: index }));
-                }
-            },
-            key: index,
-            active: isActive === index
-        });
+    });
+
+    const tabContentWithProps = React.Children.map(modifiedChildren, (child, index) => {
+        return (
+            <div role="tabpanel" className={`${prefix}-tabs-panel ${index === isActive ? 'active' : ''}`}>
+                {child.props.children}
+            </div>
+        );
     });
 
     return (
@@ -31,17 +37,18 @@ function Tabs({ activeIndex, onChange, children }) {
                 </ul>
             </nav>
             <div className={`${prefix}-tabcontent`}>
-                <div role="tabpanel" className={`${prefix}-tabs-panel active`}>
-                    {tabContent}
-                </div>
+                {tabContentWithProps}
             </div>
         </section>
     );
 }
 
 Tabs.propTypes = {
+    /** Index of the tab to be selected. */
     activeIndex: PropTypes.number,
+    /** Accepts event handler as prop/argument. */
     onChange: PropTypes.func,
+    /** self Children i.e Tab Component. */
     children: PropTypes.node.isRequired
 };
 

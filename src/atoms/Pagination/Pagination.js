@@ -71,7 +71,7 @@ const Pagination = ({ totalItems, itemsPerPageStepper, itemsStepperLimit, itemsP
 
     //itemsPerPageDropDown selected, nItems change effect
     useEffect(() => {
-        if (itemsPerPageSelected != -1) {
+        if (itemsPerPageSelected && parseInt(itemsPerPageSelected, 10) != -1) {
             resetRange();
             calculatePages();
         }
@@ -79,24 +79,23 @@ const Pagination = ({ totalItems, itemsPerPageStepper, itemsStepperLimit, itemsP
 
     //total pages useEffect
     useEffect(() => {
-        //if (totalPages != 0) {
         setPageItems(Array.from({ length: totalPages }, (v, k) => k + 1));
-        //}
     }, [totalPages]);
 
     // pages Dropdown creation useEffect
     useEffect(() => {
         if (JSON.stringify(pagesDropDown) !== JSON.stringify([]) && pagesDropDown.length > 0) {
-            setPagesSelected(pagesDropDown[0]);
+            setPagesSelected(parseInt(pagesDropDown[0], 10));
+            toggleNavButtons();
         }
     }, [pagesDropDown]);
 
     // pages DropDown selected useEffect
     useEffect(() => {
         if (pagesSelected != -1) {
-            toggleNavButtons();
             adjustRange();
             togglePageDisplay();
+            toggleNavButtons();
         }
     }, [pagesSelected]);
 
@@ -222,6 +221,29 @@ const Pagination = ({ totalItems, itemsPerPageStepper, itemsStepperLimit, itemsP
         }
     }
 
+    const _onKeyDown = (e) => {
+        const { target } = e;
+        const keycode = e.keycode || e.which;
+        const optionsLen = target.options.length;
+        if (keycode === 37) { // PREVIOUS
+            e.preventDefault();
+            const selIndex = target.selectedIndex;
+            if (selIndex > 0) { // OTHER THAN FIRST ELEMENT
+                target.selectedIndex--;
+            }
+            target === pagesRef.current ? _onPagesChange() : _onItemsChange();
+        } else if (keycode === 39) { // NEXT
+            e.preventDefault();
+            if (target.options) {
+                const selIndex = target.selectedIndex;
+                if ((optionsLen - 1) !== selIndex) { // OTHER THAN LAST ELEMENT
+                    target.selectedIndex++;
+                }
+                target === pagesRef.current ? _onPagesChange() : _onItemsChange();
+            }
+        }
+    }
+
     return (
         <div className={`${prefix}-pagination`}>
             <div className={`${prefix}-pagination-left`}>
@@ -229,7 +251,7 @@ const Pagination = ({ totalItems, itemsPerPageStepper, itemsStepperLimit, itemsP
                     {perPageText}
                 </div>
                 <div className={`${prefix}-pagination-select-wrapper`}>
-                    <Pager ref={pageItemsSelectedRef} value={itemsPerPageSelected} onChange={_onItemsChange} options={itemsPerPageDropDown} className={`${prefix}-pagination-select ${prefix}-page-items`} />
+                    <Pager ref={pageItemsSelectedRef} value={itemsPerPageSelected} onKeyDown={_onKeyDown} onChange={_onItemsChange} options={itemsPerPageDropDown} className={`${prefix}-pagination-select ${prefix}-page-items`} />
                 </div>
                 <span className={`${prefix}-pagination-text`}>
                     <span className={`${prefix}-pagination-range`}>
@@ -257,7 +279,7 @@ const Pagination = ({ totalItems, itemsPerPageStepper, itemsStepperLimit, itemsP
                     </svg>
                 </button>
                 <div className={`${prefix}-pagination-select-wrapper`}>
-                    <Pager ref={pagesRef} value={pagesSelected} onChange={_onPagesChange} options={pagesDropDown} className={`${prefix}-pagination-select ${prefix}-page-number`} />
+                    <Pager ref={pagesRef} value={pagesSelected} onKeyDown={_onKeyDown} onChange={_onPagesChange} options={pagesDropDown} className={`${prefix}-pagination-select ${prefix}-page-number`} />
                 </div>
                 <button className={`${prefix}-pagination-button-next`}
                     aria-label="Next page"
@@ -276,11 +298,17 @@ const Pagination = ({ totalItems, itemsPerPageStepper, itemsStepperLimit, itemsP
 }
 
 Pagination.propTypes = {
+    /** Total number of items to be shown in Pagination Component. */
     totalItems: PropTypes.number.isRequired,
+    /** Stepper value which is incremented in multiples of 2 with the previous value. */
     itemsPerPageStepper: PropTypes.number.isRequired,
+    /** Number within which Step Numbers are generated. */
     itemsStepperLimit: PropTypes.number,
+    /** Text to display to the left of the No. of items Dropdown */
     itemsPerPageText: PropTypes.string,
+    /** Accepts Event handler as argument/prop which is triggered after Items Per Page Dropdown is changed. */
     onItemsPerPageChange: PropTypes.func,
+    /** Accepts Event handler as argument/prop which is triggered after Page Drop-down is changed. */
     onPageChange: PropTypes.func
 };
 

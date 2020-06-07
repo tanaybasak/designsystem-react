@@ -2,37 +2,57 @@
 
 exports[`<Slider> component snapshots/renders Slider correctly 1`] = `
 <div
-  className="hcl-slider"
+  className="hcl-slider-wrapper"
 >
-  <label
-    className="hcl-label hcl-slider-bottom-range"
-    htmlFor=""
-    onClick={[Function]}
+  <div
+    className="hcl-slider"
   >
-    0
-  </label>
-  <input
-    className="hcl-slider-input"
-    max={100}
-    min={0}
-    onChange={[Function]}
-    step={1}
-    type="range"
-    value={0}
-  />
-  <label
-    className="hcl-label hcl-slider-top-range"
-    htmlFor=""
-    onClick={[Function]}
-  >
-    100
-  </label>
-  <input
-    className="hcl-slider-text-input"
-    onBlur={[Function]}
-    onChange={[Function]}
-    type="text"
-    value={0}
-  />
+    <label
+      className="hcl-label hcl-slider-bottom-range"
+      htmlFor=""
+      onClick={[Function]}
+    >
+      0
+    </label>
+    <div
+      className="hcl-slider-input-wrapper"
+    >
+      <input
+        className="hcl-slider-input"
+        id={null}
+        max={100}
+        min={0}
+        onChange={[Function]}
+        onClick={[Function]}
+        step={1}
+        type="range"
+        value={0}
+      />
+      <div
+        className="hcl-range-value"
+      >
+        <span>
+          0
+        </span>
+      </div>
+    </div>
+    <label
+      className="hcl-label hcl-slider-top-range"
+      htmlFor=""
+      onClick={[Function]}
+    >
+      100
+    </label>
+    <input
+      className="hcl-form-control hcl-slider-text-input"
+      data-invalid={false}
+      max={100}
+      min={0}
+      onChange={[Function]}
+      step={1}
+      type="number"
+      value={0}
+    />
+  </div>
 </div>
 `;

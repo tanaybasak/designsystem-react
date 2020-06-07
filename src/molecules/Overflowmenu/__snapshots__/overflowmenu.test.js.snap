@@ -4,9 +4,11 @@ exports[`<Overflowmenu> component snapshots/renders Overflowmenu correctly 1`] =
 <section
   className="hcl-overflow-container"
 >
-  <div
+  <span
     className="hcl-ellipsis"
     onClick={[Function]}
+    onKeyPress={[Function]}
+    tabIndex="0"
   />
 </section>
 `;
