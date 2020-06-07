@@ -39,10 +39,9 @@ import Icon from './atoms/Icon';
 import logo from './assets/images/logo.png';
 import Footer from './molecules/Footer';
 import ActionBar from './molecules/ActionBar';
-import ActionList from './atoms/ActionList';
-import ActionSummary from './atoms/ActionSummary';
+import ActionList from './molecules/ActionBar/ActionList';
+import ActionSummary from './molecules/ActionBar/ActionSummary';
 import ToolBar from './molecules/ToolBar';
-import ToolBarSearch from './molecules/ToolBar/ToolBarSearch';
 import ToolBarActions from './molecules/ToolBar/ToolBarActions';
 
 class App extends Component {
@@ -439,6 +438,28 @@ class App extends Component {
                   }}
                 >
                   Danger outline
+                </Button>
+                <Button
+                  type="secondary-danger"
+                  className="mr-2"
+                  onClick={() => {
+                    console.log('Button Clicked');
+                  }}
+                >
+                  <span>Button</span>
+                  <svg
+                    className="hcl-btn-icon"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M7 7H4v2h3v3h2V9h3V7H9V4H7v3zm1 9A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"
+                      fillRule="evenodd"
+                    />
+                  </svg>
                 </Button>
               </div>
               {/* Heading */}
@@ -1698,13 +1719,14 @@ class App extends Component {
                       {interactiveTooltipIcon}
                     </Tooltip>
                   </div>
-                  
-                  <ActionBar ref={React.createRef()}>
+
+                  <ActionBar>
                     <ActionList>
-                      <button
-                        className="hcl-btn hcl-ghost hcl-sm"
+                      <Button
+                        type="ghost"
+                        className="hcl-sm"
                         onClick={() => {
-                          console.log('actionBat');
+                          console.log('Button Clicked');
                         }}
                       >
                         <span>Button</span>
@@ -1721,8 +1743,14 @@ class App extends Component {
                             fillRule="evenodd"
                           />
                         </svg>
-                      </button>
-                      <button className="hcl-btn hcl-ghost hcl-sm">
+                      </Button>
+                      <Button
+                        type="ghost"
+                        className="hcl-sm"
+                        onClick={() => {
+                          console.log('Button Clicked');
+                        }}
+                      >
                         <span>Button</span>
                         <svg
                           className="hcl-btn-icon"
@@ -1737,8 +1765,14 @@ class App extends Component {
                             fillRule="evenodd"
                           />
                         </svg>
-                      </button>
-                      <button className="hcl-btn hcl-ghost hcl-sm">
+                      </Button>
+                      <Button
+                        type="ghost"
+                        className="hcl-sm"
+                        onClick={() => {
+                          console.log('Button Clicked');
+                        }}
+                      >
                         <span>Button</span>
                         <svg
                           className="hcl-btn-icon"
@@ -1753,11 +1787,11 @@ class App extends Component {
                             fillRule="evenodd"
                           />
                         </svg>
-                      </button>
+                      </Button>
                     </ActionList>
                     <ActionSummary>
                       <span className={`mr-2 hcl-type-zeta`}>
-                        {this.itemsSelected}
+                        {this.state.totalItems}
                       </span>
                       <span className={`hcl-actionbar-text hcl-type-zeta`}>
                         items selected
@@ -1767,30 +1801,20 @@ class App extends Component {
                   </ActionBar>
 
                   <ToolBar>
-                    <ToolBarSearch>
-                      <span className="hcl-search-btn" tabIndex="-1">
-                        <svg
-                          focusable="false"
-                          preserveAspectRatio="xMidYMid meet"
-                          style={{ willChange: 'transform' }}
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="hcl-search-icon"
-                          width="16"
-                          height="16"
-                          viewBox="0 0 16 16"
-                          aria-hidden="true"
-                        >
-                          <path d="M15 14.3L10.7 10c1.9-2.3 1.6-5.8-.7-7.7S4.2.7 2.3 3 .7 8.8 3 10.7c2 1.7 5 1.7 7 0l4.3 4.3.7-.7zM2 6.5C2 4 4 2 6.5 2S11 4 11 6.5 9 11 6.5 11 2 9 2 6.5z" />
-                        </svg>
-                      </span>
-                      <input
-                        type="search"
-                        id="goal-input3"
-                        className="hcl-search-input"
-                        placeholder="Search..."
-                      />
-                      <button className="hcl-search-reset" tabIndex="-1" />
-                    </ToolBarSearch>
+                    <Search
+                      aria-label="Search"
+                      className=""
+                      defaultValue=""
+                      disabled={false}
+                      iconTheme="default"
+                      onBlur={function noRefCheck() {}}
+                      onChange={function noRefCheck() {}}
+                      placeholder="Search..."
+                      size="small"
+                      theme="white"
+                      type="default"
+                    />
+
                     <ToolBarActions>
                       <button
                         className="hcl-toolbar-action"
@@ -1849,13 +1873,20 @@ class App extends Component {
                           <path d="M6.268 2.636l-.313.093c-.662.198-1.28.52-1.822.946l-.255.2-1.427-.754-1.214 1.735 1.186 1.073-.104.31a5.493 5.493 0 0 0-.198 2.759l.05.274L1 10.33l1.214 1.734 1.06-.56.262.275a5.5 5.5 0 0 0 2.42 1.491l.312.093L6.472 15H8.59l.204-1.636.313-.093a5.494 5.494 0 0 0 2.21-1.28l.26-.248 1.09.576 1.214-1.734-1.08-.977.071-.29a5.514 5.514 0 0 0-.073-2.905l-.091-.302 1.15-1.041-1.214-1.734-1.3.687-.257-.22a5.487 5.487 0 0 0-1.98-1.074l-.313-.093L8.59 1H6.472l-.204 1.636zM5.48.876A1 1 0 0 1 6.472 0H8.59a1 1 0 0 1 .992.876l.124.997a6.486 6.486 0 0 1 1.761.954l.71-.375a1 1 0 0 1 1.286.31l1.215 1.734a1 1 0 0 1-.149 1.316l-.688.622a6.514 6.514 0 0 1 .067 2.828l.644.581a1 1 0 0 1 .148 1.316l-1.214 1.734a1 1 0 0 1-1.287.31l-.464-.245c-.6.508-1.286.905-2.029 1.169l-.124.997A1 1 0 0 1 8.59 16H6.472a1 1 0 0 1-.992-.876l-.125-.997a6.499 6.499 0 0 1-2.274-1.389l-.399.211a1 1 0 0 1-1.287-.31L.181 10.904A1 1 0 0 1 .329 9.59l.764-.69a6.553 6.553 0 0 1 .18-2.662l-.707-.64a1 1 0 0 1-.148-1.315l1.214-1.734a1 1 0 0 1 1.287-.31l.86.454a6.482 6.482 0 0 1 1.576-.819L5.48.876z" />
                         </svg>
                       </button>
-                      <button className="hcl-btn hcl-primary hcl-sm">
-                        Add new
-                      </button>
+                      <Button
+                        type="primary"
+                        className="hcl-sm"
+                        onClick={() => {
+                          console.log('Button Clicked');
+                        }}
+                      >
+                        <span> Add new</span>
+                      </Button>
                     </ToolBarActions>
                   </ToolBar>
                 </div>
               </div>
+
               <div className="hcl-row">
                 <div className="hcl-col-6 mb-2">
                   <LoadingState width="100%" height="40px" />

@@ -1,5 +1,5 @@
 import React from 'react';
-import prefix from '../../settings';
+import prefix from '../../../settings';
 
 const ActionSummary = React.forwardRef(
     ({ ...props }, ref) => {
