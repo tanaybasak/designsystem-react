@@ -2,12 +2,26 @@
 
 exports[`Number Input renders correctly 1`] = `
 <div
-  className="hcl-number-input-wrapper hcl-form-group "
-  data-invalid={false}
+  className="hcl-number-input-wrapper "
   disabled={null}
 >
+  <label
+    className="hcl-label"
+    htmlFor="numberInput2"
+    onClick={[Function]}
+  >
+    Number Input validation
+     
+  </label>
   <div
-    className="hcl-form-control hcl-number-input"
+    className="hcl-helper-text"
+    htmlFor=""
+    onClick={[Function]}
+  >
+    Optional Helper text goes here (max 100 and min 10)
+  </div>
+  <div
+    className="hcl-number-input"
   >
     <input
       className="hcl-form-control"
@@ -65,21 +79,6 @@ exports[`Number Input renders correctly 1`] = `
         </svg>
       </button>
     </div>
-  </div>
-  <label
-    className="hcl-label"
-    htmlFor="numberInput2"
-    onClick={[Function]}
-  >
-    Number Input validation
-     
-  </label>
-  <div
-    className="hcl-helper-text"
-    htmlFor=""
-    onClick={[Function]}
-  >
-    Optional Helper text goes here (max 100 and min 10)
   </div>
   <div
     className="hcl-error-msg"
