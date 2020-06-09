@@ -2,6 +2,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import { mount } from 'enzyme';
 import Tooltip from './Tooltip';
+// eslint-disable-next-line no-unused-vars
 import regeneratorRuntime from 'regenerator-runtime';
 import { act } from 'react-dom/test-utils';
 const getTooltipContainer = () => {
