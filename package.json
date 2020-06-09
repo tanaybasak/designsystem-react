@@ -1,6 +1,6 @@
 {
-  "name": "patron-react-dev",
-  "version": "1.0.0",
+  "name": "@patron/patron-react-dev",
+  "version": "0.1.8",
   "description": "",
   "main": "index.js",
   "scripts": {
