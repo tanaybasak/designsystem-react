@@ -1,7 +1,5 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
-import { text, boolean, select } from '@storybook/addon-knobs';
 //@update-path-build-start
 import ActionBar from './ActionBar';
 import ActionSummary from './ActionSummary/ActionSummary';
@@ -83,11 +81,19 @@ storiesOf('ActionBar', module).add(
         </Button>
       </ActionList>
       <ActionSummary>
-        <span className={`mr-2 hcl-type-zeta`}>{'4'}</span>
+        <span className={`mr-2 hcl-type-zeta`}>{this.state.totalItems}</span>
         <span className={`hcl-actionbar-text hcl-type-zeta`}>
           items selected
         </span>
-        <button className={`hcl-actionbar-cancel`}>Cancel</button>
+        <Button
+          type="ghost"
+          className="hcl-sm"
+          onClick={() => {
+            console.log('Button Clicked');
+          }}
+        >
+          Cancel
+        </Button>
       </ActionSummary>
     </ActionBar>
   ),
