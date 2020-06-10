@@ -56,10 +56,10 @@ storiesOf('RadioButtonGroup', module).add(
   ),
   {
     info: {
-      text: `Description About Radio Component \n
+      text: `Description About Radio Group Component \n
 
-                import { Radio } from '@patron/patron-react/radio' \n
-                import { RadioGroup } from '@patron/patron-react/radioGroup'`,
+    import { Radio } from '@patron/patron-react/radio' \n
+    import { RadioGroup } from '@patron/patron-react/radiogroup'`,
     },
   }
 );

@@ -15,7 +15,6 @@ storiesOf('RadioButton', module)
         labelText={text('Label', 'Radio Label')}
         name="test"
         value={text('Value', 'standard')}
-        checked
       />
     ),
     {
