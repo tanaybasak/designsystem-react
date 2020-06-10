@@ -7,7 +7,7 @@
     "start": "cross-env NODE_ENV=development webpack-dev-server --config config/webpack/config.dev.js --colors --progress",
     "build": "npm run clean && cross-env NODE_ENV=production webpack --config config/webpack/config.prod.js --colors --progress",
     "clean": "rimraf dist",
-    "test": "jest --no-cache",
+    "test": "jest --no-cache '-u'",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage --colors",
     "storybook": "start-storybook -p 8060",

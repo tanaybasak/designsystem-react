@@ -1346,7 +1346,7 @@ class App extends Component {
                 </div>
                 <div className="hcl-col-12 mt-5 mb-5">
                   {/* expandable bottom right arrow tile */}
-                  <Tile type="expandable"  id="expandable-tile-1">
+                  <Tile type="expandable" id="expandable-tile-1">
                     {/* container for default content */}
                     <div>
                       <p>Content shown prior expand </p>
