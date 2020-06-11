@@ -46,6 +46,7 @@ export default function AccordionItem({
         className={`${prefix}-accordion-title`}
         data-index={dataIndex}
         tabIndex="0"
+        role="button"
         onKeyDown={event => {
           if (event.keyCode === 13) {
             onChange(event);

@@ -81,7 +81,7 @@ const TreeNode = ({
   const overflowListOnEnter = e => {
     e.stopPropagation();
     var key = e.which || e.keyCode;
-    if (key === 13) {
+    if (key === 13 && e.target.type !== 'submit') {
       getOverflowMenuList();
       e.currentTarget.querySelector('.hcl-ellipsis').click();
       e.preventDefault();
@@ -152,6 +152,7 @@ const TreeNode = ({
       <div className="hcl-form-group hcl-text-container">
         <TextInput
           type="text"
+          // eslint-disable-next-line jsx-a11y/no-autofocus
           autoFocus
           value={node[configuration.name]}
           onBlur={updateTextNodeOnBlur}
@@ -166,22 +167,22 @@ const TreeNode = ({
 
   const updateTreeNodeName = async value => {
     let nodeTemp = { ...node };
-    if(nodeTemp[configuration.name] !== value){
-        nodeTemp[configuration.name] = value;
+    if (nodeTemp[configuration.name] !== value) {
+      nodeTemp[configuration.name] = value;
 
-        let flag = await updateTreeDataBasedOnAction('edit', {
-          level: level,
-          node: nodeTemp
-        });
-        if (flag) {
-          updateTextStatus(false);
-          updateFormStaus(false);
-        } else {
-          updateFormStaus(true);
-        }
-    }else{
+      let flag = await updateTreeDataBasedOnAction('edit', {
+        level: level,
+        node: nodeTemp
+      });
+      if (flag) {
         updateTextStatus(false);
-        updateFormStaus(false);  
+        updateFormStaus(false);
+      } else {
+        updateFormStaus(true);
+      }
+    } else {
+      updateTextStatus(false);
+      updateFormStaus(false);
     }
   };
 
@@ -566,12 +567,14 @@ const TreeNode = ({
     return (
       <span
         onClick={selectNode}
+        role="button"
         className={`tree-text-node${
           selectedNode === node ? ' highlight' : ''
         } ${highlightRow}${cutNode === node ? ' hcl-cut-node' : ''}`}
         title={node[configuration.name]}
         draggable={draggable}
         onDragStart={dragStart}
+        tabIndex="-1"
       >
         <div onDragOver={onDragOverNode} onDrop={onDropOverNode}>
           {node[configuration.name]}
@@ -586,6 +589,8 @@ const TreeNode = ({
         onClick={tiggerOverflowMenu}
         onKeyDown={overflowListOnEnter}
         className="treenode-overflow"
+        role="button"
+        tabIndex="-1"
       >
         <Overflowmenu
           listItems={overflowItemList}
@@ -600,7 +605,7 @@ const TreeNode = ({
     <li
       className="tree-item"
       role="treeitem"
-      aria-expanded={`${node[configuration.displayChildren]}`}
+      aria-expanded={node[configuration.displayChildren] ? true : false}
     >
       {(node[configuration.children] &&
         node[configuration.children].length != 0) ||
@@ -615,6 +620,7 @@ const TreeNode = ({
           onDragOver={onDragOverOutsideNode}
           onDragLeave={clearAll}
           onDragEnd={clearAll}
+          role="button"
         >
           <i
             className={`toggle-icon ${
@@ -664,6 +670,7 @@ const TreeNode = ({
           onDrop={onDropOutsideNode}
           onDragOver={onDragOverOutsideNode}
           onDragEnd={clearAll}
+          role="button"
         >
           <div className="treenode-action-wrapper">
             <div

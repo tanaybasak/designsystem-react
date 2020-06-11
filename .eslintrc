@@ -36,6 +36,7 @@
       }
     ],
     "react/jsx-boolean-value": 2,
-    "react/self-closing-comp": [2, { "component": true, "html": true }]
+    "react/self-closing-comp": [2, { "component": true, "html": true }],
+    "jsx-a11y/no-onchange":0
   }
 }

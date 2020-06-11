@@ -312,6 +312,7 @@ const Sidebar = ({
         <span
           className="hcl-sidebar-title-toggle"
           tabIndex="0"
+          role="button"
           onClick={expandSidebar}
           onKeyDown={expandSidebarOnEnter}
         >
@@ -336,7 +337,7 @@ const Sidebar = ({
                   activeItem === item ? ' active' : ''
                 }`}
                 key={`sidebar_category_${categoryIndex}`}
-                aria-expanded={`${item.expanded ? 'true' : 'false'}`}
+                aria-expanded={item.expanded ? true : false}
               >
                 {getSidebarLink(item, categoryIndex)}
                 {item.children && item.children.length ? (
