@@ -81,7 +81,14 @@ const TreeNode = ({
   const overflowListOnEnter = e => {
     e.stopPropagation();
     var key = e.which || e.keyCode;
-    if (key === 13) {
+    if (
+      key === 13 &&
+      !(
+        e.target &&
+        e.target.classList &&
+        e.target.classList.contains('hcl-overflow-option-btn')
+      )
+    ) {
       getOverflowMenuList();
       e.currentTarget.querySelector('.hcl-ellipsis').click();
       e.preventDefault();
@@ -166,22 +173,22 @@ const TreeNode = ({
 
   const updateTreeNodeName = async value => {
     let nodeTemp = { ...node };
-    if(nodeTemp[configuration.name] !== value){
-        nodeTemp[configuration.name] = value;
+    if (nodeTemp[configuration.name] !== value) {
+      nodeTemp[configuration.name] = value;
 
-        let flag = await updateTreeDataBasedOnAction('edit', {
-          level: level,
-          node: nodeTemp
-        });
-        if (flag) {
-          updateTextStatus(false);
-          updateFormStaus(false);
-        } else {
-          updateFormStaus(true);
-        }
-    }else{
+      let flag = await updateTreeDataBasedOnAction('edit', {
+        level: level,
+        node: nodeTemp
+      });
+      if (flag) {
         updateTextStatus(false);
-        updateFormStaus(false);  
+        updateFormStaus(false);
+      } else {
+        updateFormStaus(true);
+      }
+    } else {
+      updateTextStatus(false);
+      updateFormStaus(false);
     }
   };
 
