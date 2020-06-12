@@ -6,8 +6,7 @@ import FormHelperText from './atoms/FormHelperText';
 import Button from './atoms/Button';
 import Heading from './atoms/Heading';
 import Checkbox from './atoms/Checkbox';
-import Radio from './atoms/Radio';
-import RadioGroup from './molecules/RadioGroup';
+import { Radio, RadioGroup} from './atoms/Radio';
 import TextArea from './atoms/TextArea';
 import Link from './atoms/Link';
 import Paragraph from './atoms/Paragraph';
@@ -491,9 +490,8 @@ class App extends Component {
                 <Radio
                   id="Radio1"
                   labelText="1 (default)"
-                  value="37"
+                  value="3"
                   name="temperature"
-                  checked
                 />
               </div>
               
@@ -525,7 +523,7 @@ class App extends Component {
               <div className="hcl-col-12 mt-5">
                 <legend className="hcl-legend">Radio - Heading</legend>
                 <RadioGroup
-                  defaultSelected="37"
+                  defaultSelected="20"
                   onChange={(checkedVal, e) => {
                     console.log('RadioGroup', checkedVal, e);
                   }}

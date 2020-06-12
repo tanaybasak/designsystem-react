@@ -33,7 +33,7 @@ describe('<Radio> component', () => {
     it('on state change, trigger onChange event ', () => {
         const mockcallback = jest.fn();
         const radio = mount((<Radio onChange={mockcallback} />));
-        expect(radio.find('input[type="radio"]').props().checked).toEqual(false);
+        expect(radio.find('input[type="radio"]').instance().checked).toEqual(false);
         radio.find('input[type="radio"]').simulate('change', { target: { checked: true } });
         expect(mockcallback.mock.calls.length).toEqual(1);
     });

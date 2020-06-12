@@ -4,7 +4,6 @@ import prefix from '../../settings';
 
 const Radio = ({ className, labelText, onChange, ...restProps }) => {
   const classnames = `${prefix}-radio-item ${className}`.trim();
-
   const handleChange = (evt) => {
     onChange(evt.target.value, evt);
   };
@@ -48,7 +47,7 @@ Radio.defaultProps = {
   className: '',
   labelText: '',
   disabled: false,
-  onChange: () => {},
+  onChange: () => {}
 };
 
 export default Radio;
