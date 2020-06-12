@@ -47,7 +47,7 @@ Radio.defaultProps = {
   className: '',
   labelText: '',
   disabled: false,
-  onChange: () => {}
+  onChange: () => {},
 };
 
 export default Radio;

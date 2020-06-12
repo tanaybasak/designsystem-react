@@ -1,4 +1,4 @@
-import React, { useState , useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 
@@ -14,7 +14,6 @@ const RadioGroup = ({
   useEffect(() => {
     setSelected(defaultSelected);
   }, [defaultSelected]);
-
 
   const classNameType =
     orientation === 'vertical' ? `${prefix}-stack-vertical` : '';
@@ -36,11 +35,7 @@ const RadioGroup = ({
     }
   });
 
-  return (
-    <div className={classnames}>
-      {modifiedChildren}
-    </div>
-  );
+  return <div className={classnames}>{modifiedChildren}</div>;
 };
 
 RadioGroup.propTypes = {
@@ -51,15 +46,16 @@ RadioGroup.propTypes = {
   /** Accepts event handler as prop/argument. */
   onChange: PropTypes.func,
   /** defaultSelected to be considered when submitting forms. */
-  defaultSelected: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  defaultSelected: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    .isRequired,
   /** self Children i.e Tab Component. */
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
 };
 
 RadioGroup.defaultProps = {
   className: '',
   orientation: 'horizontal',
-  onChange: () => {}
+  onChange: () => {},
 };
 
 export default RadioGroup;
