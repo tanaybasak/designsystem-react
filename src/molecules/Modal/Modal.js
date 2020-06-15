@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-import ActionBar from '../../atoms/ActionBar';
+import Actions from '../../atoms/Actions';
 import prefix from '../../settings';
 
 const Modal = ({
@@ -87,7 +87,7 @@ const Modal = ({
         )}
         {actions.length > 0 && (
           <footer className={`${prefix}-modal-footer ${prefix}-modal-footer-lg`}>
-            <ActionBar actions={actions} />
+            <Actions actions={actions} />
           </footer>
         )}
       </div>
