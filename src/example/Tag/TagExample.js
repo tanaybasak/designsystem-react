@@ -136,7 +136,10 @@ class TagExample extends Component {
             </Icon>
           }
           icon={
-            <span aria-hidden="true" />
+            <>
+            <span className= 'pi pi-link' aria-hidden="true" />
+            <span className= 'pi pi-user' aria-hidden="true" />
+            </>
           }
         >
           Secondary Tag With Thumbnail and icon
