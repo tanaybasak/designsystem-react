@@ -6,7 +6,7 @@ import FormHelperText from './atoms/FormHelperText';
 import Button from './atoms/Button';
 import Heading from './atoms/Heading';
 import Checkbox from './atoms/Checkbox';
-import Radio from './atoms/Radio';
+import { Radio, RadioGroup} from './atoms/Radio';
 import TextArea from './atoms/TextArea';
 import Link from './atoms/Link';
 import Paragraph from './atoms/Paragraph';
@@ -510,70 +510,64 @@ class App extends Component {
                   <Checkbox id="checkbox6" label="6 (disabled)" disabled />
                 </div>
               </div>
-              {/* Radio */}
-              <div className="hcl-col-12 mt-5" id="radio-section">
-                <legend className="hcl-legend">
-                  Radio - Horizontally arranged (default)
-                </legend>
-                <div className="hcl-radio-group">
+             
+             {/* Radio Button */}
+             <div className="hcl-col-12 mt-5" id="radio-section">
+                <Radio
+                  id="Radio1"
+                  labelText="1 (default)"
+                  value="3"
+                  name="temperature"
+                />
+              </div>
+              
+              {/* Radio Group Button */}
+              <div className="hcl-col-12 mt-5">
+                <legend className="hcl-legend">Radio - Heading</legend>
+                <RadioGroup
+                  orientation="vertical"
+                  defaultSelected="35"
+                  onChange={(checkedVal, e) => {
+                    console.log('RadioGroup', checkedVal, e);
+                  }}
+                >
                   <Radio
-                    id="Radio1"
+                    id="RadioBtn1"
                     labelText="1 (default)"
-                    value="37"
-                    name="temperature"
-                    onChange={this._onTemperatureRadioChange}
-                    checked={this.state.radio.temperature === 37}
+                    value="35"
+                    name="RadioBtn1"
                   />
                   <Radio
-                    id="Radio2"
+                    id="RadioBtn2"
+                    name="RadioBtn2"
                     labelText="2"
-                    name="temperature"
                     value="45"
-                    onChange={this._onTemperatureRadioChange}
-                    checked={this.state.radio.temperature === 45}
                   />
-                  <Radio
-                    id="Radio3"
-                    labelText="3 (disabled)"
-                    value="30"
-                    name="temperature"
-                    disabled
-                    onChange={this._onTemperatureRadioChange}
-                    checked={this.state.radio.temperature === 30}
-                  />
-                </div>
+                  <Radio id="RadioBtn3" labelText="3 (disabled)" value="30" />
+                </RadioGroup>
               </div>
               <div className="hcl-col-12 mt-5">
-                <legend className="hcl-legend">
-                  Radio - Vertically arranged
-                </legend>
-                <div className="hcl-radio-group hcl-stack-vertical">
+                <legend className="hcl-legend">Radio - Heading</legend>
+                <RadioGroup
+                  defaultSelected="20"
+                  onChange={(checkedVal, e) => {
+                    console.log('RadioGroup', checkedVal, e);
+                  }}
+                >
                   <Radio
-                    id="Radio4"
-                    labelText="4 (default)"
-                    value="Bangalore"
-                    name="city"
-                    onChange={this._onCityRadioChange}
-                    checked={this.state.radio.city === 'Bangalore'}
+                    id="RadioBtn4"
+                    labelText="1 (default)"
+                    value="19"
+                    name="RadioBtn4"
                   />
+                  <Radio id="RadioBtn5" labelText="2" value="20" />
                   <Radio
-                    id="Radio5"
-                    labelText="5"
-                    value="Chennai"
-                    name="city"
-                    onChange={this._onCityRadioChange}
-                    checked={this.state.radio.city === 'Chennai'}
+                    id="RadioBtn6"
+                    labelText="3 (disabled)"
+                    value="25"
+                    name="RadioBtn6"
                   />
-                  <Radio
-                    id="Radio6"
-                    labelText="6 (disabled)"
-                    value="Mumbai"
-                    name="city"
-                    disabled
-                    onChange={this._onCityRadioChange}
-                    checked={this.state.radio.city === 'Mumbai'}
-                  />
-                </div>
+                </RadioGroup>
               </div>
               {/* Link */}
               <div className="hcl-col-12 mt-5" id="link-section">

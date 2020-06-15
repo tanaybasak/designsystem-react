@@ -5,7 +5,6 @@ exports[`<Radio> component snapshots/renders Radio correctly 1`] = `
   className="hcl-radio-item"
 >
   <input
-    checked={false}
     className="hcl-radio"
     disabled={false}
     onChange={[Function]}

@@ -16,8 +16,6 @@ export default function Checkbox({ className, checked, label, ...restProps }) {
                 className={`${prefix}-checkbox`}
                 type="checkbox"
                 checked={isChecked}
-                aria-checked={isChecked}
-                aria-disabled={!!restProps.disabled}
                 {...restProps}
                 onChange={event => {
                     setChecked(!isChecked);
