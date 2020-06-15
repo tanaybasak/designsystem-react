@@ -1,8 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 //@update-path-build-start
-import ToolBar from './ToolBar';
-import ToolBarActions from './ToolBarActions/ToolBarActions';
+import { ToolBar, ToolBarActions } from './index';
 import Search from '../../atoms/Search';
 import Button from '../../atoms/Button';
 //@update-path-build-end
@@ -108,7 +107,7 @@ storiesOf('ToolBar', module).add(
     info: {
       text: `Description About ToolBar Component \n
 
-      import { ToolBar } from '@patron/patron-react/toolbar'`
+      import { ToolBar, ToolBarActions } from '@patron/patron-react/toolbar'`
     }
   }
 );

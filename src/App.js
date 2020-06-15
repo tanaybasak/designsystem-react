@@ -39,8 +39,7 @@ import Icon from './atoms/Icon';
 import logo from './assets/images/logo.png';
 import Footer from './molecules/Footer';
 import { ActionBar, ActionSummary, ActionList } from './molecules/ActionBar';
-import ToolBar from './molecules/ToolBar';
-import ToolBarActions from './molecules/ToolBar/ToolBarActions';
+import { ToolBar, ToolBarActions } from './molecules/ToolBar';
 
 class App extends Component {
   state = {

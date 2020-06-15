@@ -1,3 +1,4 @@
 import ToolBar from './ToolBar';
+import ToolBarActions from './ToolBarActions';
 
-export default ToolBar;
+export { ToolBar, ToolBarActions };
