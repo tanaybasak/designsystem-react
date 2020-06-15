@@ -185,7 +185,7 @@ const DataTable = ({
                         viewBox="0 0 16 16"
                         version="1.1"
                       >
-                        <title>Artboard</title>
+                        <title>Sort Icon</title>
                         <g
                           stroke="none"
                           strokeWidth="1"
@@ -209,7 +209,7 @@ const DataTable = ({
                         viewBox="0 0 16 16"
                         version="1.1"
                       >
-                        <title>Artboard</title>
+                        <title>Unsorted Icon</title>
                         <g
                           stroke="none"
                           strokeWidth="1"
