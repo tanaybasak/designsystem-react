@@ -1,12 +1,11 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 //@update-path-build-start
-import ActionBar from './ActionBar';
-import ActionSummary from './ActionSummary/ActionSummary';
-import ActionList from './ActionList/ActionList';
+import { ActionBar, ActionSummary, ActionList } from './index';
 import Button from '../../atoms/Button';
 //@update-path-build-end
-import icons from '../../../.storybook/iconList';
+
+const totalItems = 500;
 
 storiesOf('ActionBar', module).add(
   'default',
@@ -81,7 +80,7 @@ storiesOf('ActionBar', module).add(
         </Button>
       </ActionList>
       <ActionSummary>
-        <span className={`mr-2 hcl-type-zeta`}>{this.state.totalItems}</span>
+        <span className={`mr-2 hcl-type-zeta`}>{totalItems}</span>
         <span className={`hcl-actionbar-text hcl-type-zeta`}>
           items selected
         </span>
@@ -101,7 +100,7 @@ storiesOf('ActionBar', module).add(
     info: {
       text: `Description About ActionBar Component \n
 
-      import { ActionBar } from '@patron/patron-react/actionbar'`
+      import { ActionBar, ActionSummary, ActionList } from '@patron/patron-react/actionbar'`
     }
   }
 );
