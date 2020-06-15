@@ -12,10 +12,10 @@ storiesOf('Checkbox', module)
         () => (
             <Checkbox
                 id="checkbox1"
-                value={text('Value', 'standard')}
                 label={text('Label', 'Checkbox Label')}
                 disabled={boolean('Disabled', false)}
                 onChange={action(event)}
+                value="check1"
             />
         ),
         {
@@ -32,18 +32,26 @@ storiesOf('Checkbox', module)
             <div className="hcl-checkbox-group">
                 <Checkbox
                     id="checkbox1"
-                    value={text('Value', 'standard')}
-                    label={text('Label', 'Checkbox Label 1')}
+                    label={text('Label 1', 'Checkbox Label 1')}
                     onChange={action(event)}
-                    disabled={boolean("disabled", false)}
+                    disabled={boolean("Disabled", false)}
+                    value="check1"
                 />
                 <Checkbox
                     id="checkbox2"
-                    label={'Checkbox Label 2'}
+                    label={text('Label 2', 'Checkbox Label 2')}
                     checked
                     onChange={action(event)}
+                    disabled={boolean("Disabled", false)}
+                    value="check2"
+
                 />
-                <Checkbox id="checkbox3" label="Checkbox Label 3 (disabled)" disabled />
+                <Checkbox
+                    id="checkbox3"
+                    label={text('Label 3', 'Checkbox Label 3')}
+                    value="check3"
+                    disabled
+                />
             </div>
         ),
         {
@@ -60,18 +68,25 @@ storiesOf('Checkbox', module)
             <div className="hcl-checkbox-group hcl-stack-vertical">
                 <Checkbox
                     id="checkbox1"
-                    value={text('Value', 'standard')}
-                    label={text('Label', 'Checkbox Label 1')}
+                    label={text('Label 1', 'Checkbox Label 1')}
                     onChange={action(event)}
-                    disabled={boolean("disabled", false)}
+                    disabled={boolean("Disabled", false)}
+                    value="check1"
                 />
                 <Checkbox
                     id="checkbox2"
-                    label={'Checkbox Label 2'}
+                    label={text('Label 2', 'Checkbox Label 2')}
                     checked
                     onChange={action(event)}
+                    disabled={boolean("Disabled", false)}
+                    value="check2"
                 />
-                <Checkbox id="checkbox3" label="Checkbox Label 3 (disabled)" disabled />
+                <Checkbox
+                    id="checkbox3"
+                    label={text('Label 3', 'Checkbox Label 3')}
+                    disabled
+                    value="check3"
+                />
             </div>
         ),
         {

@@ -22,7 +22,7 @@ storiesOf('RadioButton', module)
         id="radio1"
         labelText={text('Label', 'Radio Label')}
         name="test"
-        value={text('Value', 'standard')}
+        value="radio1"
       />
     ),
     {
@@ -41,20 +41,20 @@ storiesOf('RadioButton', module)
           id="radio1"
           name="test"
           value="Radio1"
-          labelText={text('Label1', 'Radio Label1')}
+          labelText={text('Label1', 'Radio Label 1')}
           {...props.radio()}
         />
         <Radio
           id="radio2"
           name="test"
           value="Radio2"
-          labelText={text('Label2', 'Radio Label2')}
+          labelText={text('Label2', 'Radio Label 2')}
           {...props.radio()}
         />
         <Radio
           id="radio3"
           name="test"
-          labelText={text('Label3', 'Radio Label3')}
+          labelText={text('Label3', 'Radio Label 3')}
           value="Radio3"
           {...props.radio()}
           disabled
@@ -77,21 +77,21 @@ storiesOf('RadioButton', module)
           id="radio1"
           name="test"
           value="Radio1"
-          labelText={text('Label1', 'Radio Label1')}
+          labelText={text('Label1', 'Radio Label 1')}
           {...props.radio()}
         />
         <Radio
           id="radio2"
           name="test"
           value="Radio2"
-          labelText={text('Label2', 'Radio Label2')}
+          labelText={text('Label2', 'Radio Label 2')}
           {...props.radio()}
         />
         <Radio
           id="radio3"
           name="test"
           value="Radio3"
-          labelText={text('Label3', 'Radio Label3')}
+          labelText={text('Label3', 'Radio Label 3')}
           {...props.radio()}
           disabled
         />
