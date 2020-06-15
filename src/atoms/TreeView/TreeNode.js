@@ -8,6 +8,7 @@ import {
 } from '../../util/treeUtil';
 import Overflowmenu from '../../molecules/Overflowmenu';
 import TextInput from '../TextInput';
+import prefix from '../../settings';
 const TreeNode = ({
   node,
   level,
@@ -81,9 +82,16 @@ const TreeNode = ({
   const overflowListOnEnter = e => {
     e.stopPropagation();
     var key = e.which || e.keyCode;
-    if (key === 13) {
+    if (
+      key === 13 &&
+      !(
+        e.target &&
+        e.target.classList &&
+        e.target.classList.contains(`${prefix}-overflow-option-btn`)
+      )
+    ) {
       getOverflowMenuList();
-      e.currentTarget.querySelector('.hcl-ellipsis').click();
+      e.currentTarget.querySelector(`.${prefix}-ellipsis`).click();
       e.preventDefault();
     }
   };
@@ -149,7 +157,7 @@ const TreeNode = ({
 
   const getTextNode = () => {
     return (
-      <div className="hcl-form-group hcl-text-container">
+      <div className={`${prefix}-form-group ${prefix}-text-container`}>
         <TextInput
           type="text"
           autoFocus
@@ -166,22 +174,22 @@ const TreeNode = ({
 
   const updateTreeNodeName = async value => {
     let nodeTemp = { ...node };
-    if(nodeTemp[configuration.name] !== value){
-        nodeTemp[configuration.name] = value;
+    if (nodeTemp[configuration.name] !== value) {
+      nodeTemp[configuration.name] = value;
 
-        let flag = await updateTreeDataBasedOnAction('edit', {
-          level: level,
-          node: nodeTemp
-        });
-        if (flag) {
-          updateTextStatus(false);
-          updateFormStaus(false);
-        } else {
-          updateFormStaus(true);
-        }
-    }else{
+      let flag = await updateTreeDataBasedOnAction('edit', {
+        level: level,
+        node: nodeTemp
+      });
+      if (flag) {
         updateTextStatus(false);
-        updateFormStaus(false);  
+        updateFormStaus(false);
+      } else {
+        updateFormStaus(true);
+      }
+    } else {
+      updateTextStatus(false);
+      updateFormStaus(false);
     }
   };
 
@@ -568,7 +576,7 @@ const TreeNode = ({
         onClick={selectNode}
         className={`tree-text-node${
           selectedNode === node ? ' highlight' : ''
-        } ${highlightRow}${cutNode === node ? ' hcl-cut-node' : ''}`}
+        } ${highlightRow}${cutNode === node ? ` ${prefix}-cut-node` : ''}`}
         title={node[configuration.name]}
         draggable={draggable}
         onDragStart={dragStart}
@@ -600,7 +608,7 @@ const TreeNode = ({
     <li
       className="tree-item"
       role="treeitem"
-      aria-expanded={`${node[configuration.displayChildren]}`}
+      aria-expanded={node[configuration.displayChildren] ? true : false}
     >
       {(node[configuration.children] &&
         node[configuration.children].length != 0) ||
