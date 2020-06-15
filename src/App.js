@@ -35,8 +35,6 @@ import NumberInput from './molecules/NumberInput';
 import { Select, SelectItem, SelectItemGroup } from './atoms/Select';
 import Tooltip from './atoms/Tooltip/Tooltip';
 import LoadingState from './atoms/LoadingState/LoadingState';
-import Icon from './atoms/Icon';
-import logo from './assets/images/logo.png';
 import Footer from './molecules/Footer';
 import { ActionBar, ActionSummary, ActionList } from './molecules/ActionBar';
 import { ToolBar, ToolBarActions } from './molecules/ToolBar';
