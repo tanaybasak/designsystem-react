@@ -38,9 +38,7 @@ import LoadingState from './atoms/LoadingState/LoadingState';
 import Icon from './atoms/Icon';
 import logo from './assets/images/logo.png';
 import Footer from './molecules/Footer';
-import ActionBar from './molecules/ActionBar';
-import ActionList from './molecules/ActionBar/ActionList';
-import ActionSummary from './molecules/ActionBar/ActionSummary';
+import { ActionBar, ActionSummary, ActionList } from './molecules/ActionBar';
 import ToolBar from './molecules/ToolBar';
 import ToolBarActions from './molecules/ToolBar/ToolBarActions';
 
