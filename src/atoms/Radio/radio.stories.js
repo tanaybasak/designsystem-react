@@ -36,7 +36,11 @@ storiesOf('RadioButton', module)
   .add(
     'vertical',
     () => (
-      <RadioGroup  orientation="vertical" onChange={action(event)} defaultSelected="Radio1">
+      <RadioGroup
+        orientation="vertical"
+        onChange={action(event)}
+        defaultSelected="Radio1"
+      >
         <Radio
           id="radio1"
           name="test"
