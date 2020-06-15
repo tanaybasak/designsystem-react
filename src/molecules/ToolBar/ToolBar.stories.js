@@ -28,7 +28,7 @@ storiesOf('ToolBar', module).add(
       <ToolBarActions>
         <Button
           type="ghost"
-          className="hcl-sm"
+          small
           onClick={() => {
             console.log('Button Clicked');
           }}
@@ -51,7 +51,7 @@ storiesOf('ToolBar', module).add(
         </Button>
         <Button
           type="ghost"
-          className="hcl-sm"
+          small
           onClick={() => {
             console.log('Button Clicked');
           }}
@@ -72,7 +72,7 @@ storiesOf('ToolBar', module).add(
         </Button>
         <Button
           type="ghost"
-          className="hcl-sm"
+          small
           onClick={() => {
             console.log('Button Clicked');
           }}
@@ -94,7 +94,7 @@ storiesOf('ToolBar', module).add(
         </Button>
         <Button
           type="primary"
-          className="hcl-sm"
+          small
           onClick={() => {
             console.log('Button Clicked');
           }}

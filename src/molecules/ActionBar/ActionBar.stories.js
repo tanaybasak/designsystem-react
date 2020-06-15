@@ -15,7 +15,7 @@ storiesOf('ActionBar', module).add(
       <ActionList>
         <Button
           type="ghost"
-          className="hcl-sm"
+          small
           onClick={() => {
             console.log('Button Clicked');
           }}
@@ -37,7 +37,7 @@ storiesOf('ActionBar', module).add(
         </Button>
         <Button
           type="ghost"
-          className="hcl-sm"
+          small
           onClick={() => {
             console.log('Button Clicked');
           }}
@@ -59,7 +59,7 @@ storiesOf('ActionBar', module).add(
         </Button>
         <Button
           type="ghost"
-          className="hcl-sm"
+          small
           onClick={() => {
             console.log('Button Clicked');
           }}
@@ -87,7 +87,7 @@ storiesOf('ActionBar', module).add(
         </span>
         <Button
           type="ghost"
-          className="hcl-sm"
+          small
           onClick={() => {
             console.log('Button Clicked');
           }}

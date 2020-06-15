@@ -6,7 +6,7 @@ import FormHelperText from './atoms/FormHelperText';
 import Button from './atoms/Button';
 import Heading from './atoms/Heading';
 import Checkbox from './atoms/Checkbox';
-import { Radio, RadioGroup} from './atoms/Radio';
+import { Radio, RadioGroup } from './atoms/Radio';
 import TextArea from './atoms/TextArea';
 import Link from './atoms/Link';
 import Paragraph from './atoms/Paragraph';
@@ -508,9 +508,9 @@ class App extends Component {
                   <Checkbox id="checkbox6" label="6 (disabled)" disabled />
                 </div>
               </div>
-             
-             {/* Radio Button */}
-             <div className="hcl-col-12 mt-5" id="radio-section">
+
+              {/* Radio Button */}
+              <div className="hcl-col-12 mt-5" id="radio-section">
                 <Radio
                   id="Radio1"
                   labelText="1 (default)"
@@ -518,7 +518,7 @@ class App extends Component {
                   name="temperature"
                 />
               </div>
-              
+
               {/* Radio Group Button */}
               <div className="hcl-col-12 mt-5">
                 <legend className="hcl-legend">Radio - Heading</legend>
@@ -1713,7 +1713,7 @@ class App extends Component {
                     <ActionList>
                       <Button
                         type="ghost"
-                        className="hcl-sm"
+                        small
                         onClick={() => {
                           console.log('Button Clicked');
                         }}
@@ -1735,7 +1735,7 @@ class App extends Component {
                       </Button>
                       <Button
                         type="ghost"
-                        className="hcl-sm"
+                        small
                         onClick={() => {
                           console.log('Button Clicked');
                         }}
@@ -1757,7 +1757,7 @@ class App extends Component {
                       </Button>
                       <Button
                         type="ghost"
-                        className="hcl-sm"
+                        small
                         onClick={() => {
                           console.log('Button Clicked');
                         }}
@@ -1787,7 +1787,7 @@ class App extends Component {
                       </span>
                       <Button
                         type="ghost"
-                        className="hcl-sm"
+                        small
                         onClick={() => {
                           console.log('Button Clicked');
                         }}
@@ -1815,7 +1815,7 @@ class App extends Component {
                     <ToolBarActions>
                       <Button
                         type="ghost"
-                        className="hcl-sm"
+                        small
                         onClick={() => {
                           console.log('Button Clicked');
                         }}
@@ -1838,7 +1838,7 @@ class App extends Component {
                       </Button>
                       <Button
                         type="ghost"
-                        className="hcl-sm"
+                        small
                         onClick={() => {
                           console.log('Button Clicked');
                         }}
@@ -1859,7 +1859,7 @@ class App extends Component {
                       </Button>
                       <Button
                         type="ghost"
-                        className="hcl-sm"
+                        small
                         onClick={() => {
                           console.log('Button Clicked');
                         }}
@@ -1881,7 +1881,7 @@ class App extends Component {
                       </Button>
                       <Button
                         type="primary"
-                        className="hcl-sm"
+                        small
                         onClick={() => {
                           console.log('Button Clicked');
                         }}
