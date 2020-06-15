@@ -1,6 +1,6 @@
-/* eslint-disable no-console */
 import React from 'react';
 import { storiesOf } from '@storybook/react';
+import { action } from '@storybook/addon-actions';
 //@update-path-build-start
 import { ToolBar, ToolBarActions } from './index';
 import Search from '../../atoms/Search';
@@ -29,9 +29,7 @@ storiesOf('ToolBar', module).add(
         <Button
           type="ghost"
           small
-          onClick={() => {
-            console.log('Button Clicked');
-          }}
+          onClick={action('button-click')}
           title="download"
           aria-label="Download"
           alt="Download"
@@ -52,9 +50,7 @@ storiesOf('ToolBar', module).add(
         <Button
           type="ghost"
           small
-          onClick={() => {
-            console.log('Button Clicked');
-          }}
+          onClick={action('button-click')}
           title="edit"
           aria-label="Edit"
           alt="Edit"
@@ -73,9 +69,7 @@ storiesOf('ToolBar', module).add(
         <Button
           type="ghost"
           small
-          onClick={() => {
-            console.log('Button Clicked');
-          }}
+          onClick={action('button-click')}
           title="settings"
           aria-label="Settings"
           alt="Settings"
@@ -92,13 +86,7 @@ storiesOf('ToolBar', module).add(
             <path d="M6.268 2.636l-.313.093c-.662.198-1.28.52-1.822.946l-.255.2-1.427-.754-1.214 1.735 1.186 1.073-.104.31a5.493 5.493 0 0 0-.198 2.759l.05.274L1 10.33l1.214 1.734 1.06-.56.262.275a5.5 5.5 0 0 0 2.42 1.491l.312.093L6.472 15H8.59l.204-1.636.313-.093a5.494 5.494 0 0 0 2.21-1.28l.26-.248 1.09.576 1.214-1.734-1.08-.977.071-.29a5.514 5.514 0 0 0-.073-2.905l-.091-.302 1.15-1.041-1.214-1.734-1.3.687-.257-.22a5.487 5.487 0 0 0-1.98-1.074l-.313-.093L8.59 1H6.472l-.204 1.636zM5.48.876A1 1 0 0 1 6.472 0H8.59a1 1 0 0 1 .992.876l.124.997a6.486 6.486 0 0 1 1.761.954l.71-.375a1 1 0 0 1 1.286.31l1.215 1.734a1 1 0 0 1-.149 1.316l-.688.622a6.514 6.514 0 0 1 .067 2.828l.644.581a1 1 0 0 1 .148 1.316l-1.214 1.734a1 1 0 0 1-1.287.31l-.464-.245c-.6.508-1.286.905-2.029 1.169l-.124.997A1 1 0 0 1 8.59 16H6.472a1 1 0 0 1-.992-.876l-.125-.997a6.499 6.499 0 0 1-2.274-1.389l-.399.211a1 1 0 0 1-1.287-.31L.181 10.904A1 1 0 0 1 .329 9.59l.764-.69a6.553 6.553 0 0 1 .18-2.662l-.707-.64a1 1 0 0 1-.148-1.315l1.214-1.734a1 1 0 0 1 1.287-.31l.86.454a6.482 6.482 0 0 1 1.576-.819L5.48.876z" />
           </svg>
         </Button>
-        <Button
-          type="primary"
-          small
-          onClick={() => {
-            console.log('Button Clicked');
-          }}
-        >
+        <Button type="primary" small onClick={action('button-click')}>
           <span> Add new</span>
         </Button>
       </ToolBarActions>
@@ -107,7 +95,7 @@ storiesOf('ToolBar', module).add(
   {
     info: {
       text: `Description About ToolBar Component \n
-
+      import { Button } from '@patron/patron-react/button' 
       import { ToolBar, ToolBarActions } from '@patron/patron-react/toolbar'`
     }
   }

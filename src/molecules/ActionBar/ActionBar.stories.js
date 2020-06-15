@@ -1,6 +1,6 @@
-/* eslint-disable no-console */
 import React from 'react';
 import { storiesOf } from '@storybook/react';
+import { action } from '@storybook/addon-actions';
 //@update-path-build-start
 import { ActionBar, ActionSummary, ActionList } from './index';
 import Button from '../../atoms/Button';
@@ -13,13 +13,7 @@ storiesOf('ActionBar', module).add(
   () => (
     <ActionBar>
       <ActionList>
-        <Button
-          type="ghost"
-          small
-          onClick={() => {
-            console.log('Button Clicked');
-          }}
-        >
+        <Button type="ghost" small onClick={action('button-click')}>
           <span>Button</span>
           <svg
             className="hcl-btn-icon"
@@ -35,13 +29,7 @@ storiesOf('ActionBar', module).add(
             />
           </svg>
         </Button>
-        <Button
-          type="ghost"
-          small
-          onClick={() => {
-            console.log('Button Clicked');
-          }}
-        >
+        <Button type="ghost" small onClick={action('button-click')}>
           <span>Button</span>
           <svg
             className="hcl-btn-icon"
@@ -57,13 +45,7 @@ storiesOf('ActionBar', module).add(
             />
           </svg>
         </Button>
-        <Button
-          type="ghost"
-          small
-          onClick={() => {
-            console.log('Button Clicked');
-          }}
-        >
+        <Button type="ghost" small onClick={action('button-click')}>
           <span>Button</span>
           <svg
             className="hcl-btn-icon"
@@ -85,13 +67,7 @@ storiesOf('ActionBar', module).add(
         <span className={`hcl-actionbar-text hcl-type-zeta`}>
           items selected
         </span>
-        <Button
-          type="ghost"
-          small
-          onClick={() => {
-            console.log('Button Clicked');
-          }}
-        >
+        <Button type="ghost" small onClick={action('button-click')}>
           Cancel
         </Button>
       </ActionSummary>
@@ -100,8 +76,8 @@ storiesOf('ActionBar', module).add(
   {
     info: {
       text: `Description About ActionBar Component \n
-
-      import { ActionBar, ActionSummary, ActionList } from '@patron/patron-react/actionbar'`
+    import { Button } from '@patron/patron-react/button';
+    import { ActionBar, ActionSummary, ActionList } from '@patron/patron-react/actionbar';`
     }
   }
 );
