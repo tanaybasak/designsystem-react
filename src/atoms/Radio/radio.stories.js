@@ -9,7 +9,7 @@ import RadioGroup from './RadioGroup';
 
 const props = {
   radio: () => ({
-    disabled: boolean('Disabled (disabled in <RadioButton>)', false),
+    disabled: boolean('Disabled', false),
   }),
 };
 
