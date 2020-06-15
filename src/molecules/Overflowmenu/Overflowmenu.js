@@ -186,7 +186,9 @@ const Overflowmenu = ({
     });
   }
 
-  const classnames = `${prefix}-overflow-container ${className}`.trim();
+  const classnames = `${prefix}-overflow-container${className}${
+    display ? ` ${prefix}-active` : ''
+  }`.trim();
 
   return (
     <section className={classnames} {...restProps} ref={overflow}>
