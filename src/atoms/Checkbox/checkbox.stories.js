@@ -11,9 +11,9 @@ storiesOf('Checkbox', module)
         'default',
         () => (
             <Checkbox
+                disabled={boolean('Disabled', false)}
                 id="checkbox1"
                 label={text('Label', 'Checkbox Label')}
-                disabled={boolean('Disabled', false)}
                 onChange={action(event)}
                 value="check1"
             />
@@ -31,18 +31,18 @@ storiesOf('Checkbox', module)
         () => (
             <div className="hcl-checkbox-group">
                 <Checkbox
+                    disabled={boolean("Disabled", false)}
                     id="checkbox1"
                     label={text('Label 1', 'Checkbox Label 1')}
                     onChange={action(event)}
-                    disabled={boolean("Disabled", false)}
                     value="check1"
                 />
                 <Checkbox
+                    disabled={boolean("Disabled", false)}
                     id="checkbox2"
                     label={text('Label 2', 'Checkbox Label 2')}
                     checked
                     onChange={action(event)}
-                    disabled={boolean("Disabled", false)}
                     value="check2"
 
                 />
@@ -67,18 +67,18 @@ storiesOf('Checkbox', module)
         () => (
             <div className="hcl-checkbox-group hcl-stack-vertical">
                 <Checkbox
+                    disabled={boolean("Disabled", false)}
                     id="checkbox1"
                     label={text('Label 1', 'Checkbox Label 1')}
                     onChange={action(event)}
-                    disabled={boolean("Disabled", false)}
                     value="check1"
                 />
                 <Checkbox
+                    disabled={boolean("Disabled", false)}
                     id="checkbox2"
                     label={text('Label 2', 'Checkbox Label 2')}
                     checked
                     onChange={action(event)}
-                    disabled={boolean("Disabled", false)}
                     value="check2"
                 />
                 <Checkbox

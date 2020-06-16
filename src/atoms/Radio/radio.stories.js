@@ -9,7 +9,7 @@ import RadioGroup from './RadioGroup';
 
 const props = {
   radio: () => ({
-    disabled: boolean('Disabled (disabled in <RadioButton>)', false),
+    disabled: boolean('Disabled', false),
   }),
 };
 
@@ -36,27 +36,31 @@ storiesOf('RadioButton', module)
   .add(
     'vertical',
     () => (
-      <RadioGroup onChange={action(event)} defaultSelected="Radio1">
+      <RadioGroup
+        orientation="vertical"
+        onChange={action(event)}
+        defaultSelected="Radio1"
+      >
         <Radio
+          {...props.radio()}
           id="radio1"
           name="test"
           value="Radio1"
           labelText={text('Label1', 'Radio Label 1')}
-          {...props.radio()}
         />
         <Radio
+          {...props.radio()}
           id="radio2"
           name="test"
           value="Radio2"
           labelText={text('Label2', 'Radio Label 2')}
-          {...props.radio()}
         />
         <Radio
+          {...props.radio()}
           id="radio3"
           name="test"
           labelText={text('Label3', 'Radio Label 3')}
           value="Radio3"
-          {...props.radio()}
           disabled
         />
       </RadioGroup>
@@ -74,25 +78,25 @@ storiesOf('RadioButton', module)
     () => (
       <RadioGroup onChange={action(event)} defaultSelected="Radio1">
         <Radio
+          {...props.radio()}
           id="radio1"
           name="test"
           value="Radio1"
           labelText={text('Label1', 'Radio Label 1')}
-          {...props.radio()}
         />
         <Radio
+          {...props.radio()}
           id="radio2"
           name="test"
           value="Radio2"
           labelText={text('Label2', 'Radio Label 2')}
-          {...props.radio()}
         />
         <Radio
+          {...props.radio()}
           id="radio3"
           name="test"
           value="Radio3"
           labelText={text('Label3', 'Radio Label 3')}
-          {...props.radio()}
           disabled
         />
       </RadioGroup>
