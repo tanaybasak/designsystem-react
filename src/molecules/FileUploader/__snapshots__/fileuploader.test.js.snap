@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<FileUploader> component snapshots/renders Button correctly 1`] = `
+<div
+  className="hcl-form-item"
+>
+  <div
+    className="hcl-file-uploader"
+  >
+    <input
+      accept=""
+      className="hcl-file-input"
+      disabled={false}
+      id="file_uploader"
+      multiple={false}
+      onChange={[Function]}
+      tabIndex={0}
+      type="file"
+    />
+    <label
+      className="hcl-file-btn hcl-btn"
+      htmlFor="file_uploader"
+      onKeyDown={[Function]}
+      tabIndex="0"
+    >
+      Add File
+    </label>
+    <div
+      className="hcl-file-container"
+    />
+  </div>
+</div>
+`;
