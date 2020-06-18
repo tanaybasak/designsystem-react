@@ -45,6 +45,7 @@ const Tag = ({
           aria-hidden="true"
           onClick={onClose}
           onKeyDown={keyListener}
+          role="button"
           tabIndex="0"
         />
       ) : null}

@@ -1,6 +1,9 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable jsx-a11y/anchor-has-content */
 import React from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
+let elementId=0;
 
 const LoadingState = ({ type, className, ...restProps }) => {
   const classnames = `${prefix}-loading ${className ? className.trim() : ''}`;
@@ -87,9 +90,10 @@ const LoadingState = ({ type, className, ...restProps }) => {
     return (
       <div className={`${prefix}-slider-wrapper ${classnames}`}>
         <div className={`${prefix}-slider `}>
-          <label className={`${prefix}-slider-bottom-range`} />
+          <label className={`${prefix}-slider-bottom-range`} htmlFor={`element${elementId++}`} aria-label="loading" />
           <div className={`${prefix}-slider-input-wrapper`}>
             <input
+              id={`element${elementId++}`}
               className={`${prefix}-slider-input`}
               type="range"
               min="0"
@@ -97,7 +101,7 @@ const LoadingState = ({ type, className, ...restProps }) => {
               disabled
             />
           </div>
-          <label className={`${prefix}-slider-top-range`} />
+          <label className={`${prefix}-slider-top-range`} htmlFor={`element${elementId++}`} aria-label="loading" />
           <input className={`${prefix}-slider-text-input hcl-form-control`} type="number" disabled />
         </div>
       </div>

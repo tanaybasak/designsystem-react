@@ -703,6 +703,7 @@ const Tooltip = ({ type, content, direction, children }) => {
   return typeof children === 'string' ? (
     <span
       tabIndex="0"
+      role="button"
       ref={parentRef}
       onClick={type === 'interactive' ? openInteractiveTooltip : null}
       onMouseEnter={type !== 'interactive' ? openTooltip : null}
