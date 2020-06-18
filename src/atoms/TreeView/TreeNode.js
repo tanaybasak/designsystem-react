@@ -287,7 +287,7 @@ const TreeNode = ({
   const getDropRegionPlaceholderFromNode = ev => {
     const element = ev.currentTarget.getBoundingClientRect();
     const height = element.height;
-    if (ev.clientY >= element.y && ev.clientY < element.y + height / 4) {
+    if (ev.clientY >= element.y - 2 && ev.clientY < element.y + height / 4) {
       return 'top';
     } else if (
       ev.clientY >= element.y + height / 4 &&
@@ -305,7 +305,7 @@ const TreeNode = ({
   const getDropRegionPlaceholderOutsideNode = ev => {
     const element = ev.currentTarget.getBoundingClientRect();
     const height = element.height;
-    if (ev.clientY >= element.y && ev.clientY <= element.y + height / 2) {
+    if (ev.clientY >= element.y - 1 && ev.clientY <= element.y + height / 2) {
       return 'top';
     } else if (
       ev.clientY > element.y + height / 2 &&
@@ -608,7 +608,15 @@ const TreeNode = ({
     <li
       className="tree-item"
       role="treeitem"
-      aria-expanded={node[configuration.displayChildren] ? true : false}
+      aria-expanded={
+        (node[configuration.children] &&
+          node[configuration.children].length != 0) ||
+        node[configuration.hasChildren]
+          ? node[configuration.displayChildren]
+            ? true
+            : false
+          : null
+      }
     >
       {(node[configuration.children] &&
         node[configuration.children].length != 0) ||
