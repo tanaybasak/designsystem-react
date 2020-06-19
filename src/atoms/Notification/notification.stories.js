@@ -22,7 +22,7 @@ storiesOf('Notification', module).add(
       type={select('Type', notificationType, 'info')}
       closable={boolean('Closable', true)}
       visible={boolean('Visible', true)}
-      onClose={action(event)}
+      onClose={action('Notification-Close')}
     />
   ),
   {
