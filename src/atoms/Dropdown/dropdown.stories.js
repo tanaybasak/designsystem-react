@@ -22,7 +22,7 @@ const items = [
   {
     id: 'option-4',
     text: 'Option 4'
-  },
+  }
 ];
 
 storiesOf('Dropdown', module)
@@ -32,7 +32,7 @@ storiesOf('Dropdown', module)
       <Dropdown
         items={object('Items', items)}
         label={text('Label', 'Dropdown Label')}
-        onChange={action(event)}
+        onChange={action('Dropdown-Onchange')}
       />
     ),
     {
@@ -49,8 +49,8 @@ storiesOf('Dropdown', module)
         type={'top'}
         items={object('Items', items)}
         label={text('Label', 'Dropdown Label')}
-        selectedItem={text('Item','option-2')}
-        onChange={action(event)}
+        selectedItem={text('Item', 'option-2')}
+        onChange={action('Dropdown-Onchange')}
       />
     ),
     {
@@ -59,7 +59,8 @@ storiesOf('Dropdown', module)
         import { Dropdown } from '@patron/patron-react/dropdown'`
       }
     }
-  ).add(
+  )
+  .add(
     'multselect',
     () => (
       <Dropdown

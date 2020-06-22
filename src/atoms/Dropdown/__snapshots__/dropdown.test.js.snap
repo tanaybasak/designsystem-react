@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Dropdown> component snapshots/renders Dropdown correctly 1`] = `
+<section
+  className="hcl-dropdown hcl-dropdown-bottom"
+>
+  <button
+    className="hcl-btn hcl-dropdown-toggle"
+    data-toggle="dropdown"
+    onClick={[Function]}
+    onKeyDown={[Function]}
+  >
+    Select Option
+  </button>
+</section>
+`;
