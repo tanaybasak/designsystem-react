@@ -7,7 +7,11 @@
   padding: 3em;
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
+  align-items: center;
+}
+
+#story-root > .hcl-form-group {
+    width: 100%;
 }
 
 .simplebar-content pre {
