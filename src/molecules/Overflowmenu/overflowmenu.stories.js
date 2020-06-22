@@ -48,7 +48,6 @@ storiesOf('Overflowmenu', module)
         ellipsisType={select('Ellipsis Type', ellipsisType, 'vertical')}
         listItems={object('List Items', listItems)}
         onClick={action('Overflow-Click')}
-        aria-label
       />
     ),
     {
@@ -65,7 +64,6 @@ storiesOf('Overflowmenu', module)
         direction={select('Direction', typeOptions, 'left')}
         listItems={object('List Items', listItems)}
         onClick={action('Overflow-Click')}
-        aria-label
       >
         <Button>overflow button</Button>
       </Overflowmenu>

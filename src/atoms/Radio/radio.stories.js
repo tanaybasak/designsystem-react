@@ -9,8 +9,8 @@ import RadioGroup from './RadioGroup';
 
 const props = {
   radio: () => ({
-    disabled: boolean('Disabled', false),
-  }),
+    disabled: boolean('Disabled', false)
+  })
 };
 
 storiesOf('RadioButton', module)
@@ -29,8 +29,8 @@ storiesOf('RadioButton', module)
       info: {
         text: `Description About Radio Component \n
 
-                import { Radio } from '@patron/patron-react/radio'`,
-      },
+                import { Radio } from '@patron/patron-react/radio'`
+      }
     }
   )
   .add(
@@ -38,7 +38,7 @@ storiesOf('RadioButton', module)
     () => (
       <RadioGroup
         orientation="vertical"
-        onChange={action(event)}
+        onChange={action("RadioGroup-OnChange")}
         defaultSelected="Radio1"
       >
         <Radio
@@ -69,8 +69,8 @@ storiesOf('RadioButton', module)
       info: {
         text: `Description About Radio Group Component \n
   
-        import { Radio , RadioGroup} from '@patron/patron-react/radio' \n`,
-      },
+        import { Radio , RadioGroup} from '@patron/patron-react/radio' \n`
+      }
     }
   )
   .add(
@@ -105,7 +105,7 @@ storiesOf('RadioButton', module)
       info: {
         text: `Description About Radio Group Component \n
   
-        import { Radio , RadioGroup} from '@patron/patron-react/radio' \n`,
-      },
+        import { Radio , RadioGroup} from '@patron/patron-react/radio' \n`
+      }
     }
   );

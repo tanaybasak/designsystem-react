@@ -28,7 +28,7 @@ const DataTable = ({
 
   useEffect(() => {
     let tempConfig = getColumnStructure(
-      [...tableConfiguration],
+      [...tableConfig],
       expandRowTemplate ? true : false
     );
     setTableConfiguration(tempConfig);
@@ -153,7 +153,8 @@ const DataTable = ({
                   style={{
                     minWidth: column.width,
                     left: column.marginLeft,
-                    right: column.marginRight
+                    right: column.marginRight,
+                    ...column.styles
                   }}
                   title={column.title ? column.title.toString() : ''}
                   data-column={column.label}
@@ -257,7 +258,8 @@ const DataTable = ({
                     style={{
                       minWidth: column.width,
                       left: column.marginLeft,
-                      right: column.marginRight
+                      right: column.marginRight,
+                      ...column.styles
                     }}
                     tabIndex={-1}
                     onKeyDown={onKeyDownOnTable.bind(this, i)}

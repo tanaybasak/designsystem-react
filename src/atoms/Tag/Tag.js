@@ -31,6 +31,7 @@ const Tag = ({
               className: `${prefix}-tag-icon${
                 item.props.className ? ' ' + item.props.className : ''
               }`,
+              tabIndex:!disabled ? '0' : null
             });
           });
         } else {
@@ -38,6 +39,7 @@ const Tag = ({
             className: `${prefix}-tag-icon${
               child.props.className ? ' ' + child.props.className : ''
             }`,
+            tabIndex:!disabled ? '0' : null
           });
         }
       }))
