@@ -34,9 +34,9 @@ const Modal = ({
     const firstFocusableEl = focusableEls[0];
     const lastFocusableEl = focusableEls[focusableEls.length - 1];
    
-    if (event.keyCode == 27) {
+    if (e.keyCode == 27) {
       if(keyboard){
-        event.preventDefault();
+        e.preventDefault();
         onClose();
       }
     }
