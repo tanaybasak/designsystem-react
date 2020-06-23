@@ -67,7 +67,7 @@ storiesOf('Dropdown', module)
         dropdownType="multi"
         items={object('Items', items)}
         label={text('Label', 'MultiSelect Label')}
-        onChange={action(event)}
+        onChange={action('Dropdown-Onchange')}
       />
     ),
     {
