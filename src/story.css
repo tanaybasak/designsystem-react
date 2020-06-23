@@ -10,6 +10,10 @@
   align-items: center;
 }
 
+#story-root > .hcl-form-group {
+    width: 100%;
+}
+
 .simplebar-content pre {
   padding: 20px 5px;
   font-weight: 500;

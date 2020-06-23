@@ -7,34 +7,90 @@ import TextInput from './TextInput';
 //@update-path-build-end
 
 const inputTypeOption = {
-  text: 'text',
-  email: 'email',
-  password: 'password',
-  search: 'search',
-  tel: 'tel',
-  url: 'url'
+    text: 'text',
+    email: 'email',
+    password: 'password',
+    search: 'search',
+    tel: 'tel',
+    url: 'url'
 };
 
-storiesOf('TextInput', module).add(
-  'default',
-  () => (
-    <TextInput
-      className=""
-      disabled={boolean('Disabled', false)}
-      onBlur={action('onBlur')}
-      onChange={action('onChange')}
-      onClick={action('onClick')}
-      onFocus={action('onFocus')}
-      placeholder={text('Placeholder', 'Placeholder Text')}
-      type={select('Type', inputTypeOption, 'text')}
-      aria-label="text input"
-    />
-  ),
-  {
-    info: {
-      text: `Description About TextInput Component \n
+storiesOf('TextInput', module)
+    .add(
+        'default',
+        () => (
+            <TextInput
+                className=""
+                disabled={boolean('Disabled', false)}
+                onBlur={action('onBlur')}
+                onChange={action('onChange')}
+                onClick={action('onClick')}
+                onFocus={action('onFocus')}
+                placeholder={text('Placeholder', 'Placeholder Text')}
+                type={select('Type', inputTypeOption, 'text')}
+                aria-label="text input"
+            />
+        ),
+        {
+            info: {
+                text: `Description About TextInput Component \n
       
       import { TextInput } from '@patron/patron-react/textinput'`
-    }
-  }
-);
+            }
+        }
+    )
+    .add(
+        'with error',
+        () => (
+            <div className="hcl-form-group">
+                <TextInput
+                    className=""
+                    disabled={boolean('Disabled', false)}
+                    onBlur={action('onBlur')}
+                    onChange={action('onChange')}
+                    onClick={action('onClick')}
+                    onFocus={action('onFocus')}
+                    placeholder={text('Placeholder', 'Placeholder Text')}
+                    type={select('Type', inputTypeOption, 'text')}
+                    aria-label="text input"
+                    data-invalid="true"
+                />
+                <label className="hcl-label" htmlFor="labeltext">Label text</label>
+                <div className="hcl-error-msg">Validation message here</div>
+            </div>
+        ),
+        {
+            info: {
+                text: `Description About TextInput Component \n
+        
+        import { TextInput } from '@patron/patron-react/textinput'`
+            }
+        }
+    )
+    .add(
+        'with helpertext',
+        () => (
+            <div className="hcl-form-group">
+                <TextInput
+                    className=""
+                    disabled={boolean('Disabled', false)}
+                    onBlur={action('onBlur')}
+                    onChange={action('onChange')}
+                    onClick={action('onClick')}
+                    onFocus={action('onFocus')}
+                    placeholder={text('Placeholder', 'Placeholder Text')}
+                    type={select('Type', inputTypeOption, 'text')}
+                    aria-label="text input"
+                />
+                <label className="hcl-label" htmlFor="labeltext">Label text</label>
+                <div className="hcl-helper-text">Optional Helper text goes here</div>
+            </div>
+        ),
+        {
+            info: {
+                text: `Description About TextInput Component \n
+        
+        import { TextInput } from '@patron/patron-react/textinput'`
+            }
+        }
+    );
