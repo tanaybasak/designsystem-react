@@ -12,14 +12,14 @@ const _getList = (type, list) => {
 };
 
 const classNameOptions = {
-  decimal: 'hcl-decimal',
+  'decimal': 'hcl-decimal',
   'upper-alpha': 'hcl-upper-alpha',
   'lower-alpha': 'hcl-lower-alpha',
   'lower-roman': 'hcl-lower-roman',
   'upper-roman': 'hcl-upper-roman',
-  circle: 'hcl-circle',
-  square: 'hcl-square',
-  disc: 'hcl-disc',
+  'circle': 'hcl-circle',
+  'square': 'hcl-square',
+  'disc': 'hcl-disc'
 };
 
 // To create LIs
@@ -45,7 +45,6 @@ const _getListItem = (type, listItems) => {
 export default function List({
   listItems,
   type,
-  //   ordered,
   className,
   ...restProps
 }) {
