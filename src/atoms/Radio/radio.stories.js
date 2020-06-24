@@ -13,7 +13,7 @@ const props = {
   })
 };
 
-storiesOf('RadioButton', module)
+storiesOf('Radio', module)
   .add(
     'default',
     () => (
