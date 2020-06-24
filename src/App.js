@@ -721,7 +721,6 @@ class App extends Component {
                 <Label>Ordered List</Label>
                 <List
                   listItems={listItems}
-                  ordered
                   type="lower-alpha"
                   onClick={() => {}}
                 />
@@ -729,7 +728,7 @@ class App extends Component {
                 <br />
                 {/* Unordered */}
                 <Label>Unordered List</Label>
-                <List listItems={listItems} type="disc" onClick={() => {}} />
+                <List listItems={listItems} onClick={() => {}} />
               </div>
               {/* Tag */}
               <div className="hcl-col-12 mt-5" id="toast-section">
