@@ -19,7 +19,7 @@ const classNameOptions = {
   'upper-roman': 'hcl-upper-roman',
   'circle': 'hcl-circle',
   'square': 'hcl-square',
-  'disc': 'hcl-disc',
+  'disc': 'hcl-disc'
 };
 
 // To create LIs
@@ -45,14 +45,23 @@ const _getListItem = (type, listItems) => {
 export default function List({
   listItems,
   type,
-  ordered,
   className,
   ...restProps
 }) {
   const classNameType = classNameOptions[type] ? classNameOptions[type] : '';
-  const listType = ordered ? 'ordered' : 'unordered';
+  const orderedTypes = [
+    'decimal',
+    'upper-alpha',
+    'lower-alpha',
+    'upper-roman',
+    'lower-roman',
+  ];
+  let listType = 'unordered';
+  if (orderedTypes.indexOf(type) > -1) {
+    listType = 'ordered';
+  }
   const classnames = `${prefix}-list-${listType} ${className} ${classNameType}`.trim();
-  const listElement = ordered ? 'ol' : 'ul';
+  const listElement = listType === 'ordered' ? 'ol' : 'ul';
 
   return React.createElement(
     listElement,
@@ -66,8 +75,6 @@ List.propTypes = {
   className: PropTypes.string,
   /**  type of lists for ordered: decimal , upper-alpha , lower-alpha , lower-roman, upper-roman; type of lists for unordered: circle, square, disc */
   type: PropTypes.string,
-  /** ordered or unordered list based on boolean value */
-  ordered: PropTypes.bool,
   /** Data for list  */
   listItems: PropTypes.array,
   /** Callback function on selecting item*/
@@ -76,8 +83,7 @@ List.propTypes = {
 
 List.defaultProps = {
   className: '',
-  type: '',
-  ordered: false,
+  type: 'disc',
   listItems: [],
   onClick: () => {},
 };
