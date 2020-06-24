@@ -56,12 +56,9 @@ export default function List({
     'upper-roman',
     'lower-roman',
   ];
-  const unOrderedTypes = ['circle', 'disc', 'square'];
-  let listType = '';
+  let listType = 'unordered';
   if (orderedTypes.indexOf(type) > -1) {
     listType = 'ordered';
-  } else if (unOrderedTypes.indexOf(type) > -1) {
-    listType = 'unordered';
   }
   const classnames = `${prefix}-list-${listType} ${className} ${classNameType}`.trim();
   const listElement = listType === 'ordered' ? 'ol' : 'ul';
