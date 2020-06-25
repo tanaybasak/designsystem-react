@@ -116,14 +116,14 @@ const Dropdown = ({
     event.stopPropagation();
     event.preventDefault();
     const input = event.currentTarget.querySelector('input');
-    const abc = dropDown.current.querySelector(`.${prefix}-dropdown-item`)
+    const multiItem = dropDown.current.querySelector(`.${prefix}-dropdown-item`)
     const tempSelectedObj = { ...selectedObj };
     if (!input.checked) {
       tempSelectedObj[item[defaultConfig.id]] = true;
-      abc.setAttribute('aria-checked', 'true');
+      multiItem.setAttribute('aria-checked', 'true');
     } else {
       delete tempSelectedObj[item[defaultConfig.id]];
-      abc.setAttribute('aria-checked', 'false');
+      multiItem.setAttribute('aria-checked', 'false');
     }
     setSelectedObj(tempSelectedObj);
     onChange(item, Object.keys(tempSelectedObj));
