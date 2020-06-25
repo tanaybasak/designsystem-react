@@ -466,7 +466,7 @@ storiesOf('TreeView', module)
           }
         }}
         onOverflowAction={action('on overflow action')}
-        onOverFlowActionChange={action('on overflow action change')}
+        onActionCompletes={action('on overflow action change')}
         onDeleteNode={async () => {
           return await timeout(3000);
         }}
