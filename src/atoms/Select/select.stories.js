@@ -12,7 +12,7 @@ const props = {
     onChange: action('onChange')
   }),
   group: () => ({
-    disabled: boolean('Disabled (disabled in <SelectItemGroup>)', false)
+    disabled: boolean('Disabled', false)
   })
 };
 
