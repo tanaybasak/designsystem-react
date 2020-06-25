@@ -274,6 +274,7 @@ const Dropdown = ({
             event.target.focus();
           }}
           id={`${type}-dropdown-btn`}
+          aria-label={label}
           aria-haspopup="true"
           aria-controls={`${type}-container`}
         >
@@ -288,7 +289,7 @@ const Dropdown = ({
           }
           id={`${type}-container`}
           role="menu"
-          aria-labelledby={`${type}-dropdown-btn`}
+          aria-label={label}
           className={`${prefix}-dropdown-container`}
           style={{ display: 'none' }}
         >
