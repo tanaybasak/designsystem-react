@@ -30,7 +30,7 @@ const Dropdown = ({
       const initialSelectedObj = { ...selectedObj };
       selectedItem
         ? selectedItem.forEach((defaultInput) => {
-          initialSelectedObj[defaultInput[configuration.id]] = true;
+            initialSelectedObj[defaultInput[configuration.id]] = true;
           })
         : null;
       setSelectedObj(initialSelectedObj);
@@ -116,11 +116,14 @@ const Dropdown = ({
     event.stopPropagation();
     event.preventDefault();
     const input = event.currentTarget.querySelector('input');
+    const abc = dropDown.current.querySelector(`.${prefix}-dropdown-item`)
     const tempSelectedObj = { ...selectedObj };
     if (!input.checked) {
       tempSelectedObj[item[defaultConfig.id]] = true;
+      abc.setAttribute('aria-checked', 'true');
     } else {
       delete tempSelectedObj[item[defaultConfig.id]];
+      abc.setAttribute('aria-checked', 'false');
     }
     setSelectedObj(tempSelectedObj);
     onChange(item, Object.keys(tempSelectedObj));
@@ -219,6 +222,7 @@ const Dropdown = ({
           className={`${prefix}-btn ${prefix}-dropdown-toggle`}
           data-toggle="dropdown"
           tabIndex="0"
+          role="button"
           onKeyPress={toggleDropdown}
           onKeyDown={keydownButton}
           onClick={(event) => {
@@ -226,6 +230,9 @@ const Dropdown = ({
             setIsOpen(!isOpen);
             event.target.focus();
           }}
+          id={`${type}-dropdown-btn`}
+          aria-haspopup="true"
+          aria-controls={`${type}-container`}
         >
           {selectedCount > 0 ? (
             <button
@@ -233,9 +240,10 @@ const Dropdown = ({
               title="primary-closeable"
               tabIndex="-1"
             >
-              <span className={`${prefix}-tag-text`} >{selectedCount}</span>
+              <span aria-label={`${selectedCount}-selected options`} className={`${prefix}-tag-text`}>{selectedCount}</span>
               <span
                 className={`${prefix}-close`}
+                aria-label="close-icon"
                 onKeyDown={(event) => {
                   if (event.key === 'Enter') {
                     event.preventDefault();
@@ -246,7 +254,7 @@ const Dropdown = ({
                   event.stopPropagation();
                   setSelectedObj({});
                   setSelectedCount(0);
-                  onChange(null,[]);
+                  onChange(null, []);
                 }}
                 aria-hidden="true"
                 tabIndex="0"
@@ -265,6 +273,9 @@ const Dropdown = ({
             setIsOpen(!isOpen);
             event.target.focus();
           }}
+          id={`${type}-dropdown-btn`}
+          aria-haspopup="true"
+          aria-controls={`${type}-container`}
         >
           {selected ? selected[configuration.text] : label}
         </button>
@@ -275,9 +286,10 @@ const Dropdown = ({
           onKeyDown={
             dropdownType === 'multi' ? keyDownOnMultiSelect : keyDownOnDropdown
           }
-          role="dropdownMenu"
+          id={`${type}-container`}
+          role="menu"
+          aria-labelledby={`${type}-dropdown-btn`}
           className={`${prefix}-dropdown-container`}
-          aria-labelledby="dropdownMenuButton"
           style={{ display: 'none' }}
         >
           {items.map((item) => {
@@ -289,11 +301,15 @@ const Dropdown = ({
                   onMultiSelect(e, item);
                 }}
                 tabIndex="0"
+                aria-label={item[configuration.text]}
+                role="checkbox"
+                aria-checked={selectedObj[item[defaultConfig.id]] ? true : false}
               >
                 <Checkbox
                   id={item[configuration.id]}
                   label={item[configuration.text]}
                   checked={selectedObj[item[defaultConfig.id]]}
+                  
                   tabIndex="-1"
                 />
               </li>
@@ -305,6 +321,7 @@ const Dropdown = ({
               >
                 <a
                   href="#"
+                  role="menuitem"
                   className={`${prefix}-dropdown-wrapper`}
                 >
                   {item[configuration.text]}
@@ -343,7 +360,7 @@ Dropdown.propTypes = {
   className: PropTypes.string,
 
   /** Configuration Object for updating propery name in items data */
-  config: PropTypes.any
+  config: PropTypes.any,
 };
 
 Dropdown.defaultProps = {
@@ -352,7 +369,7 @@ Dropdown.defaultProps = {
   onChange: () => {},
   className: '',
   dropdownType: '',
-  config: {}
+  config: {},
 };
 
 export default Dropdown;
