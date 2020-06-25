@@ -72,7 +72,6 @@ storiesOf('List', module).add(
       type={select('Type', classOrderedOpts, 'decimal')}
       listItems={object('List Items', listItems)}
       onClick={action('list event')}
-      ordered
     />
   ),
   {
@@ -85,7 +84,7 @@ storiesOf('List', module).add(
     },
   }
 ).add(
-  'unordered',
+  'default',
   () => (
     <List
       type={select('Type', classUnorderedOpts, 'disc')}

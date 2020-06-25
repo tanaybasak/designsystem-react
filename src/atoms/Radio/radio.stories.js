@@ -13,7 +13,7 @@ const props = {
   })
 };
 
-storiesOf('RadioButton', module)
+storiesOf('Radio', module)
   .add(
     'default',
     () => (
@@ -76,7 +76,7 @@ storiesOf('RadioButton', module)
   .add(
     'horizontal',
     () => (
-      <RadioGroup onChange={action(event)} defaultSelected="Radio1">
+      <RadioGroup onChange={action("Radio Group OnChange")} defaultSelected="Radio1">
         <Radio
           {...props.radio()}
           id="radio1"

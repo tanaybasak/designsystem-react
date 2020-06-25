@@ -1,45 +1,16 @@
-/* th {
-    background: rgb(250, 250, 250);
-    text-transform: capitalize;
-} */
-
 #story-root {
   padding: 3em;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
-.simplebar-content pre {
-  padding: 20px 5px;
-  font-weight: 500;
-}
-
-.hcl-modal {
+#story-root .hcl-modal:nth-child(1) {
   position: unset !important;
   width: 100%;
+  outline: none;
   background-color: transparent !important;
 }
 
-.hcl-content-switcher {
-  justify-content: center;
-}
-
-pre button {
-  color: black;
-}
-
-.hcl-toast {
+#story-root .hcl-toast:nth-child(1) {
   position: relative !important;
-  margin: 0 auto !important;
-}
-
-.hcl-search-btn-only {
-  width: 100%;
-}
-
-.hcl-number-input-wrapper {
-  width: 100%;
 }
 
 .hcl-sidebar {
@@ -63,7 +34,25 @@ pre button {
   color: skyblue;
 }
 
-.hcl-tree {
-  width: 400px;
-}
+@media only screen and (min-width: 768px) {
+  #story-root > .hcl-tree,
+  #story-root > .hcl-dropdown,
+  #story-root > .hcl-number-input-wrapper,
+  #story-root > .hcl-search,
+  #story-root > .hcl-slider-wrapper,
+  #story-root > .hcl-spinner,
+  #story-root > .hcl-spinner-inline,
+  #story-root > .hcl-textarea,
+  #story-root > .hcl-form-control,
+  #story-root > .hcl-breadcrumb.hcl-loading,
+  #story-root > .hcl-tab.hcl-loading,
+  #story-root > .hcl-form-group {
+    width: 400px;
+  }
 
+  #story-root > .hcl-actionbar,
+  #story-root > .hcl-toolbar,
+  #story-root > .hcl-accordion {
+    width: 650px;
+  }
+}

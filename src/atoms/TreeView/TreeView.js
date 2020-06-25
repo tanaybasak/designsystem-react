@@ -102,29 +102,34 @@ const TreeView = ({
     if (action === 'delete') {
       let flag = onDeleteNode ? await onDeleteNode(config.node) : true;
       if (flag) {
-        updateTree(deleteNode(treeInfo, config.level));
+        const updatedTree = deleteNode(treeInfo, config.level);
+        updateTree(updatedTree);
         if (onActionCompletes) {
-          onActionCompletes(action, config.node);
+          onActionCompletes(action, updatedTree, config.node);
         }
       }
     } else if (action === 'copy-paste') {
       let flag = onCopyNode ? await onCopyNode(copiedNode, config.node) : true;
       if (flag) {
-        updateTree(copyNode(treeInfo, config.level, config.copyNode));
+        const updatedTree = copyNode(treeInfo, config.level, config.copyNode);
+        updateTree(updatedTree);
         if (onActionCompletes) {
-          onActionCompletes('copy', config.copyNode, config.node);
+          onActionCompletes('copy', updatedTree, config.copyNode, config.node);
         }
       }
     } else if (action === 'cut-paste') {
       let flag = onMoveNode ? await onMoveNode(cutNode, config.node) : true;
       if (flag) {
-        updateTree(
-          updateNodePosition(treeInfo, config.cutNodeLevel, config.level)
+        const updatedTree = updateNodePosition(
+          treeInfo,
+          config.cutNodeLevel,
+          config.level
         );
-        if (onActionCompletes) {
-          onActionCompletes('cut', cutNode, config.node);
-        }
+        updateTree(updatedTree);
         updateTreeState('cutNode', { node: null, level: '' });
+        if (onActionCompletes) {
+          onActionCompletes('cut', updatedTree, cutNode, config.node);
+        }
       }
     } else if (action === 'toggle-node') {
       updateTree(updateTreeNode(treeInfo, config.node, config.level));
@@ -133,12 +138,16 @@ const TreeView = ({
       }
     } else if (action === 'node-update') {
       updateTree(updateTreeNode(treeInfo, config.node, config.level));
+      if (onActionCompletes) {
+        onActionCompletes('custom-action', treeInfo, config.node);
+      }
     } else if (action === 'edit') {
       let flag = await onRenamingNode(config.node);
       if (flag) {
-        updateTree(updateTreeNode(treeInfo, config.node, config.level));
+        const updatedTree = updateTreeNode(treeInfo, config.node, config.level);
+        updateTree(updatedTree);
         if (onActionCompletes) {
-          onActionCompletes(action, config.node);
+          onActionCompletes(action, updatedTree, config.node);
         }
       }
 
@@ -153,16 +162,15 @@ const TreeView = ({
         } else {
           dropNodeArray = dropNodeArray.join('-');
         }
-        updateTree(
-          updateNodePosition(
-            treeInfo,
-            config.draggedNode,
-            dropNodeArray,
-            dropNodeIndex
-          )
+        const updatedTree = updateNodePosition(
+          treeInfo,
+          config.draggedNode,
+          dropNodeArray,
+          dropNodeIndex
         );
+        updateTree(updatedTree);
         if (onActionCompletes) {
-          onActionCompletes('drop', draggedNode, config.node);
+          onActionCompletes('drop', updatedTree, draggedNode, config.node);
         }
       }
     }
