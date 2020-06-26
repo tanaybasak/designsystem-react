@@ -230,9 +230,9 @@ const Dropdown = ({
             setIsOpen(!isOpen);
             event.target.focus();
           }}
-          id={`${type}-dropdown-btn`}
+          id={`dropdown-btn-${dropDownId}`}
           aria-haspopup="true"
-          aria-controls={`${type}-container`}
+          aria-controls={`dropdown-container-${dropDownId}`}
         >
           {selectedCount > 0 ? (
             <button
@@ -273,10 +273,10 @@ const Dropdown = ({
             setIsOpen(!isOpen);
             event.target.focus();
           }}
-          id={`${type}-dropdown-btn`}
+          id={`dropdown-btn-${dropDownId}`}
           aria-label={label}
           aria-haspopup="true"
-          aria-controls={`${type}-container`}
+          aria-controls={`dropdown-container-${dropDownId}`}
         >
           {selected ? selected[configuration.text] : label}
         </button>
@@ -287,7 +287,7 @@ const Dropdown = ({
           onKeyDown={
             dropdownType === 'multi' ? keyDownOnMultiSelect : keyDownOnDropdown
           }
-          id={`${type}-container`}
+          id={`dropdown-container-${dropDownId}`}
           role="menu"
           aria-label={label}
           className={`${prefix}-dropdown-container`}
