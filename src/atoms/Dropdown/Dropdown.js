@@ -116,14 +116,11 @@ const Dropdown = ({
     event.stopPropagation();
     event.preventDefault();
     const input = event.currentTarget.querySelector('input');
-    const multiItem = dropDown.current.querySelector(`.${prefix}-dropdown-item`)
     const tempSelectedObj = { ...selectedObj };
     if (!input.checked) {
       tempSelectedObj[item[defaultConfig.id]] = true;
-      multiItem.setAttribute('aria-checked', 'true');
     } else {
       delete tempSelectedObj[item[defaultConfig.id]];
-      multiItem.setAttribute('aria-checked', 'false');
     }
     setSelectedObj(tempSelectedObj);
     onChange(item, Object.keys(tempSelectedObj));
@@ -230,7 +227,7 @@ const Dropdown = ({
             setIsOpen(!isOpen);
             event.target.focus();
           }}
-          id={`dropdown-btn-${dropDownId}`}
+          id={restProps.id ? restProps.id : `dropdown-btn-${dropDownId}` }
           aria-haspopup="true"
           aria-controls={`dropdown-container-${dropDownId}`}
         >
@@ -273,7 +270,7 @@ const Dropdown = ({
             setIsOpen(!isOpen);
             event.target.focus();
           }}
-          id={`dropdown-btn-${dropDownId}`}
+          id={restProps.id ? restProps.id : `dropdown-btn-${dropDownId}` }
           aria-label={label}
           aria-haspopup="true"
           aria-controls={`dropdown-container-${dropDownId}`}
