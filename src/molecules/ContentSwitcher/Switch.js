@@ -5,6 +5,7 @@ import prefix from '../../settings';
 function Switch({ label, onClick, active, isDisabled, icon, ...restProps }) {
     return (
         <button
+            role="tab"
             tabIndex={0}
             aria-label={label}
             key={`${label}-`}
