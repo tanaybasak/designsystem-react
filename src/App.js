@@ -38,6 +38,7 @@ import LoadingState from './atoms/LoadingState/LoadingState';
 import Footer from './molecules/Footer';
 import { ActionBar, ActionSummary, ActionList } from './molecules/ActionBar';
 import { ToolBar, ToolBarActions } from './molecules/ToolBar';
+import Password from './atoms/Password';
 
 class App extends Component {
   state = {
@@ -334,8 +335,7 @@ class App extends Component {
                 <FormHelperText className="helper-text">
                   Enter Password
                 </FormHelperText>
-                <TextInput
-                  type="password"
+                <Password
                   placeholder="Password"
                   id="password"
                   data-invalid="false"

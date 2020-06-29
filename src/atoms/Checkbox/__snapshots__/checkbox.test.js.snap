@@ -5,8 +5,6 @@ exports[`<Checkbox> component snapshots/renders Checkbox correctly 1`] = `
   className="hcl-checkbox-item"
 >
   <input
-    aria-checked={false}
-    aria-disabled={false}
     checked={false}
     className="hcl-checkbox"
     disabled={false}
