@@ -27,7 +27,7 @@ const MenuList = ({ items, onSelect }) => {
               disabled={disabled}
               onClick={(e) => {
                 onSelect(item, index, e);
-                link ? window.open(link,'_self') : null;
+                link ? window.open(link, e.metaKey ? '' : '_self') : null;
               }}
             >
               {link ? (
