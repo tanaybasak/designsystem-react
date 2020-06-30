@@ -62,7 +62,10 @@ class App extends Component {
       example3: 2,
       example4: 0
     },
-    sidebarExpanded: false
+    sidebarExpanded: false,
+    password: {
+        disabled: false
+    }
   };
 
   itemList = [
@@ -248,7 +251,7 @@ class App extends Component {
   };
 
   render() {
-    const { contentSwitch = {} } = this.state;
+    const { contentSwitch = {}, password } = this.state;
 
     const interactiveTooltipIcon = (
       <svg
@@ -332,6 +335,20 @@ class App extends Component {
               </div>
               {/* Password field */}
               <div className="hcl-form-group hcl-col-12">
+                <Toggle
+                  id="random-toggle"
+                  className="ml-3"
+                  onChange={(checked, e) => {
+                    console.log('Toggled', checked, e);
+                    this.setState({
+                        password: {
+                            disabled: checked
+                        }
+                    }, () => {
+                        console.log(this.state.password.disabled, "and yes");
+                    })
+                  }}
+                />
                 <FormHelperText className="helper-text">
                   Enter Password
                 </FormHelperText>
@@ -339,6 +356,7 @@ class App extends Component {
                   placeholder="Password"
                   id="password"
                   data-invalid="false"
+                  disabled={password.disabled}
                   onChange={event => {
                     console.log(event.currentTarget.value);
                   }}
