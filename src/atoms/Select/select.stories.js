@@ -37,7 +37,7 @@ storiesOf('Select', module).add(
   {
     info: {
       text: `Description About Select Component\n
-      import { Select, SelectItem, SelectItemGroup } from '@patron/patron-react/select'
+      import { Select, SelectItem, SelectItemGroup } from '@patron/patron-react/select';
       `
     }
   }

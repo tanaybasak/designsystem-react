@@ -9,12 +9,12 @@ storiesOf('Spinner', module)
   .add('default', () => <Spinner title={text('Label', 'Loading')} />, {
     info: {
       text: `Description About Spinner Component \n
-      import { Spinner } from '@patron/patron-react/spinner'`
+      import { Spinner } from '@patron/patron-react/spinner';`
     }
   })
   .add('small', () => <Spinner small title={text('Label', 'Loading')} />, {
     info: {
       text: `Description About Spinner Component \n
-      import { Spinner } from '@patron/patron-react/spinner'`
+      import { Spinner } from '@patron/patron-react/spinner';`
     }
   });

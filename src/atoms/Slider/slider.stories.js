@@ -29,7 +29,7 @@ storiesOf('Slider', module)
       info: {
         text: `Description About Slider Component\n
       
-      import { Slider } from '@patron/patron-react/slider'
+      import { Slider } from '@patron/patron-react/slider';
       
       `
       }
@@ -58,7 +58,7 @@ storiesOf('Slider', module)
       info: {
         text: `Description About Slider Component\n
         
-        import { Slider } from '@patron/patron-react/slider'
+        import { Slider } from '@patron/patron-react/slider';
         
         `
       }

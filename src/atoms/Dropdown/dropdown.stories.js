@@ -38,7 +38,7 @@ storiesOf('Dropdown', module)
     {
       info: {
         text: `Description About Dropdown Component \n
-        import { Dropdown } from '@patron/patron-react/dropdown'`
+        import { Dropdown } from '@patron/patron-react/dropdown';`
       }
     }
   )
@@ -56,7 +56,7 @@ storiesOf('Dropdown', module)
     {
       info: {
         text: `Description About Dropdown Component \n
-        import { Dropdown } from '@patron/patron-react/dropdown'`
+        import { Dropdown } from '@patron/patron-react/dropdown';`
       }
     }
   )
@@ -73,7 +73,7 @@ storiesOf('Dropdown', module)
     {
       info: {
         text: `Description About Dropdown Component \n
-        import { Dropdown } from '@patron/patron-react/dropdown'`
+        import { Dropdown } from '@patron/patron-react/dropdown';`
       }
     }
   );

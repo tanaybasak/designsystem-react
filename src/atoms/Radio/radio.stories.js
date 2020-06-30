@@ -29,7 +29,7 @@ storiesOf('Radio', module)
       info: {
         text: `Description About Radio Component \n
 
-                import { Radio } from '@patron/patron-react/radio'`
+                import { Radio } from '@patron/patron-react/radio';`
       }
     }
   )
@@ -69,7 +69,7 @@ storiesOf('Radio', module)
       info: {
         text: `Description About Radio Group Component \n
   
-        import { Radio , RadioGroup} from '@patron/patron-react/radio' \n`
+        import { Radio , RadioGroup} from '@patron/patron-react/radio';`
       }
     }
   )
@@ -105,7 +105,7 @@ storiesOf('Radio', module)
       info: {
         text: `Description About Radio Group Component \n
   
-        import { Radio , RadioGroup} from '@patron/patron-react/radio' \n`
+        import { Radio , RadioGroup} from '@patron/patron-react/radio';`
       }
     }
   );

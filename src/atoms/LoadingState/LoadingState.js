@@ -62,7 +62,7 @@ const LoadingState = ({ type, className, ...restProps }) => {
 
   const tabLoadingState = () => {
     return (
-      <section className={`${prefix}-tab ${classnames}`} data-component="tabs">
+      <section className={`${prefix}-tab ${classnames}`}>
         <nav data-tabs role="navigation">
           <ul role="tablist" className={`${prefix}-tabs-nav`}>
             <li role="tab" className={`${prefix}-tabs-nav-item`}>

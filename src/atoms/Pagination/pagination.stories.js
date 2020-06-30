@@ -23,7 +23,7 @@ storiesOf('Pagination', module).add(
     info: {
       text: `Description About Pagination Component \n
 
-      import { Pagination } from '@patron/patron-react/pagination'`
+      import { Pagination } from '@patron/patron-react/pagination';`
     }
   }
 );

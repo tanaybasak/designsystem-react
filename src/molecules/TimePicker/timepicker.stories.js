@@ -21,7 +21,7 @@ storiesOf('TimePicker', module).add(
   {
     info: {
       text: `Description About TimePicker Component \n
-      import { TimePicker } from '@patron/patron-react/timepicker'`
+      import { TimePicker } from '@patron/patron-react/timepicker';`
     }
   }
 );

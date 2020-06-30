@@ -43,7 +43,7 @@ storiesOf('Datepicker', module).add(
   {
     info: {
       text: `Description About Datepicker Component\n
-      import { DatePicker } from '@patron/patron-react/datepicker'`
+      import { DatePicker } from '@patron/patron-react/datepicker';`
     }
   }
 );
