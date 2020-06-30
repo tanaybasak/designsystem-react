@@ -73,7 +73,7 @@ const Search = ({
   );
 
   return (
-    <div className={classnames}>
+    <div className={classnames} role="search">
       {clickableContent === '' ? (
         type === 'clickable' ? (
           <button
