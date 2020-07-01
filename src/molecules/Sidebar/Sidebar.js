@@ -51,6 +51,10 @@ const Sidebar = ({
   };
 
   useEffect(() => {
+    updateSidebarList(items);
+  }, [items]);
+
+  useEffect(() => {
     setExpanded(expanded);
   }, [expanded]);
 
