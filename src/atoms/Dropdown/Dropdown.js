@@ -30,7 +30,7 @@ const Dropdown = ({
       const initialSelectedObj = { ...selectedObj };
       selectedItem
         ? selectedItem.forEach((defaultInput) => {
-          initialSelectedObj[defaultInput[configuration.id]] = true;
+            initialSelectedObj[defaultInput[configuration.id]] = true;
           })
         : null;
       setSelectedObj(initialSelectedObj);
@@ -219,6 +219,7 @@ const Dropdown = ({
           className={`${prefix}-btn ${prefix}-dropdown-toggle`}
           data-toggle="dropdown"
           tabIndex="0"
+          role="button"
           onKeyPress={toggleDropdown}
           onKeyDown={keydownButton}
           onClick={(event) => {
@@ -226,6 +227,9 @@ const Dropdown = ({
             setIsOpen(!isOpen);
             event.target.focus();
           }}
+          id={restProps.id ? restProps.id : `dropdown-btn-${dropDownId}` }
+          aria-haspopup="true"
+          aria-controls={`dropdown-container-${dropDownId}`}
         >
           {selectedCount > 0 ? (
             <button
@@ -233,9 +237,10 @@ const Dropdown = ({
               title="primary-closeable"
               tabIndex="-1"
             >
-              <span className={`${prefix}-tag-text`} >{selectedCount}</span>
+              <span aria-label={`${selectedCount}-selected options`} className={`${prefix}-tag-text`}>{selectedCount}</span>
               <span
                 className={`${prefix}-close`}
+                aria-label="close-icon"
                 onKeyDown={(event) => {
                   if (event.key === 'Enter') {
                     event.preventDefault();
@@ -246,7 +251,7 @@ const Dropdown = ({
                   event.stopPropagation();
                   setSelectedObj({});
                   setSelectedCount(0);
-                  onChange(null,[]);
+                  onChange(null, []);
                 }}
                 aria-hidden="true"
                 tabIndex="0"
@@ -265,6 +270,10 @@ const Dropdown = ({
             setIsOpen(!isOpen);
             event.target.focus();
           }}
+          id={restProps.id ? restProps.id : `dropdown-btn-${dropDownId}` }
+          aria-label={label}
+          aria-haspopup="true"
+          aria-controls={`dropdown-container-${dropDownId}`}
         >
           {selected ? selected[configuration.text] : label}
         </button>
@@ -275,9 +284,10 @@ const Dropdown = ({
           onKeyDown={
             dropdownType === 'multi' ? keyDownOnMultiSelect : keyDownOnDropdown
           }
-          role="dropdownMenu"
+          id={`dropdown-container-${dropDownId}`}
+          role="menu"
+          aria-label={label}
           className={`${prefix}-dropdown-container`}
-          aria-labelledby="dropdownMenuButton"
           style={{ display: 'none' }}
         >
           {items.map((item) => {
@@ -289,11 +299,15 @@ const Dropdown = ({
                   onMultiSelect(e, item);
                 }}
                 tabIndex="0"
+                aria-label={item[configuration.text]}
+                role="checkbox"
+                aria-checked={selectedObj[item[defaultConfig.id]] ? true : false}
               >
                 <Checkbox
                   id={item[configuration.id]}
                   label={item[configuration.text]}
                   checked={selectedObj[item[defaultConfig.id]]}
+                  
                   tabIndex="-1"
                 />
               </li>
@@ -305,6 +319,7 @@ const Dropdown = ({
               >
                 <a
                   href="#"
+                  role="menuitem"
                   className={`${prefix}-dropdown-wrapper`}
                 >
                   {item[configuration.text]}
@@ -343,7 +358,7 @@ Dropdown.propTypes = {
   className: PropTypes.string,
 
   /** Configuration Object for updating propery name in items data */
-  config: PropTypes.any
+  config: PropTypes.any,
 };
 
 Dropdown.defaultProps = {
@@ -352,7 +367,7 @@ Dropdown.defaultProps = {
   onChange: () => {},
   className: '',
   dropdownType: '',
-  config: {}
+  config: {},
 };
 
 export default Dropdown;
