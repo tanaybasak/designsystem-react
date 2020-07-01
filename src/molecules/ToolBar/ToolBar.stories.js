@@ -95,8 +95,9 @@ storiesOf('ToolBar', module).add(
   {
     info: {
       text: `Description About ToolBar Component \n
-    import { Button } from '@patron/patron-react/button' 
-    import { ToolBar, ToolBarActions } from '@patron/patron-react/toolbar'`
+    import { Button } from '@patron/patron-react/button'; 
+    import { Search } from '@patron/patron-react/search'; 
+    import { ToolBar, ToolBarActions } from '@patron/patron-react/toolbar';`
     }
   }
 );

@@ -179,7 +179,7 @@ storiesOf('DataTable', module)
       info: {
         text: `Description About DataTable Component
 
-      import { DataTable } from '@patron/patron-react/datatable'
+      import { DataTable } from '@patron/patron-react/datatable';
       
       `
       }

@@ -35,7 +35,7 @@ storiesOf('TextInput', module)
             info: {
                 text: `Description About TextInput Component \n
       
-      import { TextInput } from '@patron/patron-react/textinput'`
+      import { TextInput } from '@patron/patron-react/textinput';`
             }
         }
     )
@@ -63,7 +63,7 @@ storiesOf('TextInput', module)
             info: {
                 text: `Description About TextInput Component \n
         
-        import { TextInput } from '@patron/patron-react/textinput'`
+        import { TextInput } from '@patron/patron-react/textinput';`
             }
         }
     )
@@ -90,7 +90,7 @@ storiesOf('TextInput', module)
             info: {
                 text: `Description About TextInput Component \n
         
-        import { TextInput } from '@patron/patron-react/textinput'`
+        import { TextInput } from '@patron/patron-react/textinput';`
             }
         }
     );

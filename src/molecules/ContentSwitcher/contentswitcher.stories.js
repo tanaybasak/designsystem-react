@@ -37,7 +37,7 @@ storiesOf('ContentSwitcher', module)
             info: {
                 text: `Description About ContentSwitcher Component \n
 
-      import { ContentSwitcher, Switch } from '@patron/patron-react/contentswitcher'`
+      import { ContentSwitcher, Switch } from '@patron/patron-react/contentswitcher';`
             }
         }
     )
@@ -84,7 +84,7 @@ storiesOf('ContentSwitcher', module)
             info: {
                 text: `Description About ContentSwitcher Component \n
 
-      import {ContentSwitcher, Switch } from '@patron/patron-react/contentswitcher'`
+      import {ContentSwitcher, Switch } from '@patron/patron-react/contentswitcher';`
             }
         }
     );

@@ -24,7 +24,7 @@ storiesOf('TextArea', module)
             info: {
                 text: `Description About TextArea Component \n
 
-      import { TextArea } from '@patron/patron-react/textarea'`
+      import { TextArea } from '@patron/patron-react/textarea';`
             }
         }
     )
@@ -50,7 +50,7 @@ storiesOf('TextArea', module)
             info: {
                 text: `Description About TextArea Component \n
   
-        import { TextArea } from '@patron/patron-react/textarea'`
+        import { TextArea } from '@patron/patron-react/textarea';`
             }
         }
     )
@@ -75,7 +75,7 @@ storiesOf('TextArea', module)
             info: {
                 text: `Description About TextArea Component \n
   
-        import { TextArea } from '@patron/patron-react/textarea'`
+        import { TextArea } from '@patron/patron-react/textarea';`
             }
         }
     );

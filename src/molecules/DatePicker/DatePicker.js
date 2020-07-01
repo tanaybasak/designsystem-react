@@ -199,7 +199,7 @@ const DatePicker = ({
   };
 
   return (
-    <section className={classnames} data-component="datepicker" {...restProps}>
+    <section className={classnames} {...restProps}>
       <div className={`${prefix}-datePicker-container`}>
         <DateInput
           dateSelected={dateSelected}
