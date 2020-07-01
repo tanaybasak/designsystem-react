@@ -1,19 +1,10 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { select, text, boolean } from '@storybook/addon-knobs';
+import { text, boolean } from '@storybook/addon-knobs';
 //@update-path-build-start
 import TextInput from './TextInput';
 //@update-path-build-end
-
-const inputTypeOption = {
-    text: 'text',
-    email: 'email',
-    password: 'password',
-    search: 'search',
-    tel: 'tel',
-    url: 'url'
-};
 
 storiesOf('TextInput', module)
     .add(
@@ -27,7 +18,6 @@ storiesOf('TextInput', module)
                 onClick={action('onClick')}
                 onFocus={action('onFocus')}
                 placeholder={text('Placeholder', 'Placeholder Text')}
-                type={select('Type', inputTypeOption, 'text')}
                 aria-label="text input"
             />
         ),
@@ -51,7 +41,6 @@ storiesOf('TextInput', module)
                     onClick={action('onClick')}
                     onFocus={action('onFocus')}
                     placeholder={text('Placeholder', 'Placeholder Text')}
-                    type={select('Type', inputTypeOption, 'text')}
                     aria-label="text input"
                     data-invalid="true"
                 />
@@ -79,7 +68,6 @@ storiesOf('TextInput', module)
                     onClick={action('onClick')}
                     onFocus={action('onFocus')}
                     placeholder={text('Placeholder', 'Placeholder Text')}
-                    type={select('Type', inputTypeOption, 'text')}
                     aria-label="text input"
                 />
                 <label className="hcl-label" htmlFor="labeltext">Label text</label>

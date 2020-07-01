@@ -38,6 +38,7 @@ import LoadingState from './atoms/LoadingState/LoadingState';
 import Footer from './molecules/Footer';
 import { ActionBar, ActionSummary, ActionList } from './molecules/ActionBar';
 import { ToolBar, ToolBarActions } from './molecules/ToolBar';
+import Password from './atoms/Password';
 
 class App extends Component {
   state = {
@@ -61,7 +62,10 @@ class App extends Component {
       example3: 2,
       example4: 0
     },
-    sidebarExpanded: false
+    sidebarExpanded: false,
+    password: {
+        disabled: false
+    }
   };
 
   itemList = [
@@ -247,7 +251,7 @@ class App extends Component {
   };
 
   render() {
-    const { contentSwitch = {} } = this.state;
+    const { contentSwitch = {}, password } = this.state;
 
     const interactiveTooltipIcon = (
       <svg
@@ -330,15 +334,29 @@ class App extends Component {
                 </FormHelperText>
               </div>
               {/* Password field */}
+              <Toggle
+                  id="random-toggle"
+                  className="ml-3"
+                  onChange={(checked, e) => {
+                    console.log('Toggled', checked, e);
+                    this.setState({
+                        password: {
+                            disabled: checked
+                        }
+                    }, () => {
+                        console.log(this.state.password.disabled, "and yes");
+                    })
+                  }}
+              />
               <div className="hcl-form-group hcl-col-12">
                 <FormHelperText className="helper-text">
                   Enter Password
                 </FormHelperText>
-                <TextInput
-                  type="password"
+                <Password
                   placeholder="Password"
                   id="password"
                   data-invalid="false"
+                  disabled={password.disabled}
                   onChange={event => {
                     console.log(event.currentTarget.value);
                   }}
