@@ -14,19 +14,16 @@ storiesOf('ContentSwitcher', module)
         () => (
             <ContentSwitcher onChange={action('ContentSwitch-onChange')}>
                 <Switch
-                    role="tab"
                     label={text('Label 1', 'All')}
                     isDisabled={boolean('Disabled', false)}
                     onClick={action('switch-onClick')}
                 />
                 <Switch
-                    role="tab"
                     label={text('Label 2', 'Cybernetics')}
                     isDisabled={boolean('Disabled', false)}
                     onClick={action('switch-onClick')}
                 />
                 <Switch
-                    role="tab"
                     label={text('Label 3', 'Information and Communication')}
                     isDisabled={boolean('Disabled', false)}
                     onClick={action('switch-onClick')}
@@ -46,7 +43,6 @@ storiesOf('ContentSwitcher', module)
         () => (
             <ContentSwitcher onChange={action('ContentSwitch-onChange')}>
                 <Switch
-                    role="tab"
                     label={text('Label 1', 'All')}
                     icon={
                         <i
@@ -57,7 +53,6 @@ storiesOf('ContentSwitcher', module)
                     onClick={action('switch-onClick')}
                 />
                 <Switch
-                    role="tab"
                     label={text('Label 2', 'Cybernetics')}
                     icon={
                         <i
@@ -68,7 +63,6 @@ storiesOf('ContentSwitcher', module)
                     onClick={action('switch-onClick')}
                 />
                 <Switch
-                    role="tab"
                     label={text('Label 3', 'Information and Communication')}
                     icon={
                         <i
