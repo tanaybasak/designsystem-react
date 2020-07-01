@@ -334,8 +334,7 @@ class App extends Component {
                 </FormHelperText>
               </div>
               {/* Password field */}
-              <div className="hcl-form-group hcl-col-12">
-                <Toggle
+              <Toggle
                   id="random-toggle"
                   className="ml-3"
                   onChange={(checked, e) => {
@@ -348,7 +347,8 @@ class App extends Component {
                         console.log(this.state.password.disabled, "and yes");
                     })
                   }}
-                />
+              />
+              <div className="hcl-form-group hcl-col-12">
                 <FormHelperText className="helper-text">
                   Enter Password
                 </FormHelperText>
