@@ -1,7 +1,3 @@
-#story-root {
-  padding: 3em;
-}
-
 #story-root .hcl-modal:nth-child(1) {
   position: unset !important;
   width: 100%;
