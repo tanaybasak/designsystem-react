@@ -189,7 +189,7 @@ Slider.propTypes = {
   /** Title for the Slider */
   label: PropTypes.string,
   /** Used for passing custom error message  */
-  errorMessage: PropTypes.any,
+  errorMessage: PropTypes.object,
   /** Specifies helper text */
   helperText: PropTypes.string,
   /** Unique Id */

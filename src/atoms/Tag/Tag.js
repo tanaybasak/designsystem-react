@@ -101,7 +101,7 @@ Tag.propTypes = {
   /** Thumbnail for Tag Component as an Object */
   thumbnail: PropTypes.object,
 
-  icon: PropTypes.node,
+  icon: PropTypes.element,
 };
 
 Tag.defaultProps = {

@@ -180,7 +180,7 @@ Tile.propTypes = {
   Content for tile. 
   For Expandable: 
   Two children are input. First will be shown prior expand and second will be shown after expand  */
-  children: PropTypes.node.isRequired,
+  children: PropTypes.any.isRequired,
 
   /** Unique Identifier for Tile, applicable only for selectable tile.  */
   id: function (props, propName, componentName) {

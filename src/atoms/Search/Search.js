@@ -136,7 +136,7 @@ Search.propTypes = {
   iconTheme: PropTypes.oneOf(['white', 'default']),
   /** Class/clasess will be applied on the parent div of Search  */
   className: PropTypes.string,
-  /* Default values */
+  /** Default value */
   defaultValue: PropTypes.string,
   /** Placeholder for the search text field  */
   placeholder: PropTypes.string,

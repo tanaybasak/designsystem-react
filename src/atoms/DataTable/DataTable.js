@@ -310,7 +310,7 @@ DataTable.propTypes = {
    *  eg: zebra, compact, tall, borderless  */
   type: PropTypes.string,
   /** Data for table  */
-  tableData: PropTypes.any,
+  tableData: PropTypes.array,
   /** Column Configuration eg:
    * [ {
    *    label : 'Name', // Column Header
@@ -320,7 +320,7 @@ DataTable.propTypes = {
    *    renderHtml: (model)=> {return <span>{model.name}</span>} // For passing Custom Html
    *
    * }] */
-  tableConfig: PropTypes.any,
+  tableConfig: PropTypes.array,
   /** Name of the custom class to apply to the Data Table. */
   className: PropTypes.string,
 
