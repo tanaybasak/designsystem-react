@@ -100,7 +100,7 @@ Tag.propTypes = {
   onClose: PropTypes.func,
   /** Thumbnail for Tag Component as an Object */
   thumbnail: PropTypes.object,
-
+  /** Used for passing tag icon in the right end */
   icon: PropTypes.element,
 };
 
