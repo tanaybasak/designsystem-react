@@ -148,6 +148,7 @@ const Slider = ({
             step={step}
             value={numberInput}
             data-invalid={validationMessage ? true : false}
+            aria-label={restProps.ariaLabel ? restProps.ariaLabel : null}
             onChange={event => {
               const value = isNaN(event.target.value)
                 ? numberInput
@@ -195,7 +196,9 @@ Slider.propTypes = {
   /** Unique Id */
   id: PropTypes.string.isRequired,
   /** Specifies the tooltip to be shown on hover  */
-  hover: PropTypes.bool
+  hover: PropTypes.bool,
+  /** Used to define a string that labels the component. */
+  ariaLabel: PropTypes.string,
 };
 
 Slider.defaultProps = {

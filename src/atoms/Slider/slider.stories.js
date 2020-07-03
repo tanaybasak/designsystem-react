@@ -51,6 +51,7 @@ storiesOf('Slider', module)
         )}
         label={text('Label', 'Basic Slider with Tooltip on hover')}
         title="Slider"
+        ariaLabel="slider input label"
         withInputBox={boolean('With Input Box', true)}
       />
     ),

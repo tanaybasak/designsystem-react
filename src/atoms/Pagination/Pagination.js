@@ -251,7 +251,7 @@ const Pagination = ({ totalItems, itemsPerPageStepper, itemsStepperLimit, itemsP
                     {perPageText}
                 </div>
                 <div className={`${prefix}-pagination-select-wrapper`}>
-                    <Pager ref={pageItemsSelectedRef} value={itemsPerPageSelected} onKeyDown={_onKeyDown} onChange={_onItemsChange} options={itemsPerPageDropDown} className={`${prefix}-pagination-select ${prefix}-page-items`} />
+                    <Pager arialabel="page items" ref={pageItemsSelectedRef} value={itemsPerPageSelected} onKeyDown={_onKeyDown} onChange={_onItemsChange} options={itemsPerPageDropDown} className={`${prefix}-pagination-select ${prefix}-page-items`} />
                 </div>
                 <span className={`${prefix}-pagination-text`}>
                     <span className={`${prefix}-pagination-range`}>
@@ -279,7 +279,7 @@ const Pagination = ({ totalItems, itemsPerPageStepper, itemsStepperLimit, itemsP
                     </svg>
                 </button>
                 <div className={`${prefix}-pagination-select-wrapper`}>
-                    <Pager ref={pagesRef} value={pagesSelected} onKeyDown={_onKeyDown} onChange={_onPagesChange} options={pagesDropDown} className={`${prefix}-pagination-select ${prefix}-page-number`} />
+                    <Pager arialabel="page number" ref={pagesRef} value={pagesSelected} onKeyDown={_onKeyDown} onChange={_onPagesChange} options={pagesDropDown} className={`${prefix}-pagination-select ${prefix}-page-number`} />
                 </div>
                 <button className={`${prefix}-pagination-button-next`}
                     aria-label="Next page"

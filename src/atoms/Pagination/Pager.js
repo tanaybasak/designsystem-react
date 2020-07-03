@@ -15,6 +15,7 @@ const Pager = (props, ref) => {
                 onChange={(e) => {
                     props.onChange(e);
                 }}
+                aria-label={props.arialabel}
                 onKeyDown={(e) => {
                     props.onKeyDown(e);
                 }}

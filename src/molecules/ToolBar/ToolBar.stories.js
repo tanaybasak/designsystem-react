@@ -12,7 +12,7 @@ storiesOf('ToolBar', module).add(
   () => (
     <ToolBar>
       <Search
-        aria-label="Search"
+        ariaLabel="Search"
         className=""
         defaultValue=""
         disabled={false}

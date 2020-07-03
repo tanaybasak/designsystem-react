@@ -72,6 +72,7 @@ const Modal = ({
         <button
           type="button"
           className={`${prefix}-modal-close`}
+          aria-label="modal-close"
           onClick={onClose}
         />
         {(heading !== '' || label !== '') && (

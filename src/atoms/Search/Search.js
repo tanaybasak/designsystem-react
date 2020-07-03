@@ -80,6 +80,7 @@ const Search = ({
             className={`${prefix}-search-btn`}
             disabled={disabled}
             onClick={showSearch}
+            aria-label={restProps.ariaLabel ? restProps.ariaLabel : null}
           >
             {searchIcon}
           </button>
@@ -145,7 +146,10 @@ Search.propTypes = {
   /** call back function triggered on focus out */
   onBlur: PropTypes.func,
   /** Specifying the component is disabled or not. */
-  disabled: PropTypes.bool
+  disabled: PropTypes.bool,
+  /** Used to define a string that labels the component. */
+  ariaLabel: PropTypes.string,
+
 };
 
 Search.defaultProps = {

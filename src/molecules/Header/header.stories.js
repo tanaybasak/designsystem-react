@@ -38,6 +38,7 @@ storiesOf('Header', module).add(
           theme="default"
           type="clickable"
           tabIndex="0"
+          ariaLabel="Header Search"
         />
       }
     />

@@ -28,7 +28,7 @@ storiesOf('Search', module)
         size={select('Size', sizeOption, 'default')}
         theme={select('Theme', themeOption, 'default')}
         disabled={boolean('Disabled' , false)}
-        aria-label="Search"
+        ariaLabel="Search"
         type="default"
       />
     ),
@@ -53,7 +53,7 @@ storiesOf('Search', module)
         size={select('Size', sizeOption, 'default')}
         theme={select('Theme', themeOption, 'default')}
         disabled={boolean('Disabled' , false)}
-        aria-label="Search"
+        ariaLabel="Search"
         type="clickable"
       />
     ),
