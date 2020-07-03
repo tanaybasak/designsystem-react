@@ -16,7 +16,7 @@ storiesOf('Toggle', module)
         labelOff={text('Label Off', 'Off')}
         labelOn={text('Label On', 'On')}
         onChange={action('Toggle-OnChange')}
-        ariaLabel="Toggle"
+        aria-label="Toggle"
       />
     ),
     {
@@ -38,7 +38,7 @@ storiesOf('Toggle', module)
         labelOff={text('Label Off', 'Off')}
         labelOn={text('Label On', 'On')}
         onChange={action('Toggle-OnChange')}
-        ariaLabel="Toggle"
+        aria-label="Toggle"
         small
       />
     ),

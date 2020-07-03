@@ -347,7 +347,7 @@ class App extends Component {
                         console.log(this.state.password.disabled, "and yes");
                     })
                   }}
-                  ariaLabel="Toggle"
+                  aria-label="Toggle"
               />
               <div className="hcl-form-group hcl-col-12">
                 <FormHelperText className="helper-text">

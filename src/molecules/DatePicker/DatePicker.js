@@ -199,7 +199,7 @@ const DatePicker = ({
   };
 
   return (
-    <section className={classnames} {...restProps}>
+    <section className={classnames}>
       <div className={`${prefix}-datePicker-container`}>
         <DateInput
           dateSelected={dateSelected}
@@ -213,6 +213,7 @@ const DatePicker = ({
           format={format}
           onEnterPressInputDate={onEnterPressInputDate}
           datepickerInput={datepickerInput}
+          {...restProps}
         />
         {showDateContainer ? (
           <div

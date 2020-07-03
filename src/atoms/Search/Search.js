@@ -10,6 +10,7 @@ const Search = ({
   className,
   iconTheme,
   disabled,
+  ariaLabel,
   ...restProps
 }) => {
   let [value, setValue] = useState('');
@@ -80,7 +81,7 @@ const Search = ({
             className={`${prefix}-search-btn`}
             disabled={disabled}
             onClick={showSearch}
-            aria-label={restProps.ariaLabel ? restProps.ariaLabel : null}
+            aria-label={ariaLabel ? ariaLabel : null}
           >
             {searchIcon}
           </button>
@@ -102,6 +103,7 @@ const Search = ({
             restProps.onChange(event.currentTarget.value);
           }
         }}
+        aria-label={ariaLabel ? ariaLabel : null}
         onBlur={hideSearch}
       />
       <button
@@ -148,7 +150,7 @@ Search.propTypes = {
   /** Specifying the component is disabled or not. */
   disabled: PropTypes.bool,
   /** Used to define a string that labels the component. */
-  ariaLabel: PropTypes.string,
+  ariaLabel: PropTypes.string
 
 };
 

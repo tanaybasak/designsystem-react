@@ -38,6 +38,7 @@ storiesOf('Datepicker', module).add(
       onDateSelect={action('Date Select')}
       open={select('Direction', typeOptions, 'bottom')}
       weekDays={['S', 'M', 'T', 'W', 'Th', 'F', 'S']}
+      aria-label="Date picker Input label"
     />
   ),
   {

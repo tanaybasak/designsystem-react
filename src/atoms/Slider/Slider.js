@@ -25,6 +25,7 @@ const Slider = ({
   helperText,
   errorMessage,
   id,
+  ariaLabel,
   ...restProps
 }) => {
   const [value, setValue] = useState(propsVal || 0);
@@ -148,7 +149,7 @@ const Slider = ({
             step={step}
             value={numberInput}
             data-invalid={validationMessage ? true : false}
-            aria-label={restProps.ariaLabel ? restProps.ariaLabel : null}
+            aria-label={ariaLabel ? ariaLabel : null}
             onChange={event => {
               const value = isNaN(event.target.value)
                 ? numberInput

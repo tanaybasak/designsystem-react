@@ -10,7 +10,8 @@ const DateInput = ({
   isValidYear,
   onEnterPressInputDate,
   format,
-  datepickerInput
+  datepickerInput,
+  ...restProps
 }) => {
   return (
     <>
@@ -31,6 +32,7 @@ const DateInput = ({
         onChange={onChangeInputDate}
         onKeyPress={onEnterPressInputDate}
         ref={datepickerInput}
+        {...restProps}
       />
       <svg
         className={`${prefix}-datePicker-container-svg`}

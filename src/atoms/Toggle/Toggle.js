@@ -42,7 +42,6 @@ const Toggle = ({
       />
       <label
         className={`${prefix}-toggle-label`}
-        aria-label={restProps.ariaLabel ? restProps.ariaLabel : null}
         htmlFor={restProps.id}
       >
         <span className={`${prefix}-switch`} />
@@ -76,9 +75,7 @@ Toggle.propTypes = {
   /** Boolean value representing state of Toggle Component */
   toggled: PropTypes.bool,
   /** Boolean value to disable Toggle */
-  disabled: PropTypes.bool,
-  /** Used to define a string that labels the component. */
-  ariaLabel: PropTypes.string,
+  disabled: PropTypes.bool
 };
 
 Toggle.defaultProps = {
