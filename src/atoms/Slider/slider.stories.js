@@ -23,6 +23,7 @@ storiesOf('Slider', module)
         label={text('Label', 'Basic Slider')}
         title="Slider"
         withInputBox={boolean('With Input Box', false)}
+        ariaLabel="slider input label"
       />
     ),
     {
