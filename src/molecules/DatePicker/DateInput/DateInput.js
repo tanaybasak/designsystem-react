@@ -11,6 +11,7 @@ const DateInput = ({
   onEnterPressInputDate,
   format,
   datepickerInput,
+  currDateObj,
   ...restProps
 }) => {
   return (
