@@ -11,6 +11,7 @@ const DateInput = ({
   onEnterPressInputDate,
   format,
   datepickerInput,
+  // eslint-disable-next-line no-unused-vars
   currDateObj,
   ...restProps
 }) => {
@@ -64,6 +65,7 @@ DateInput.propTypes = {
   isValidYear: PropTypes.bool.isRequired,
   format: PropTypes.string.isRequired,
   onEnterPressInputDate: PropTypes.func.isRequired,
-  datepickerInput: PropTypes.object.isRequired
+  datepickerInput: PropTypes.object.isRequired,
+  currDateObj: PropTypes.object
 };
 export default DateInput;
