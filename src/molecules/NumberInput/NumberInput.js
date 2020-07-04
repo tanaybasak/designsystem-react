@@ -213,7 +213,7 @@ NumberInput.propTypes = {
   /** Specifies the number is required or not  */
   required: PropTypes.bool,
   /** Used for passing error message  */
-  errorMessage: PropTypes.any
+  errorMessage: PropTypes.object
 };
 
 NumberInput.defaultProps = {
