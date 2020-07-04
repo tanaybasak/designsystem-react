@@ -95,6 +95,7 @@ export default function FileUploader({
                     <p className={`${prefix}-file-filename`}>{fileList.name}</p>
                   </span>
                   <button
+                    aria-label="file-close"
                     onClick={(e) => removeFile(e, fileList.name)}
                     type="button"
                     className={`${prefix}-file-close`}
