@@ -12,7 +12,7 @@ storiesOf('ToolBar', module).add(
   () => (
     <ToolBar>
       <Search
-        aria-label="Search"
+        ariaLabel="Search"
         className=""
         defaultValue=""
         disabled={false}
@@ -38,6 +38,7 @@ storiesOf('ToolBar', module).add(
             fillRule="evenodd"
             height="16"
             name="download"
+            aria-label="download"
             role="img"
             viewBox="0 0 14 16"
             width="14"
@@ -59,6 +60,7 @@ storiesOf('ToolBar', module).add(
             fillRule="evenodd"
             height="16"
             name="edit"
+            aria-label="edit"
             role="img"
             viewBox="0 0 16 16"
             width="16"
@@ -78,6 +80,7 @@ storiesOf('ToolBar', module).add(
             fillRule="evenodd"
             height="16"
             name="settings"
+            aria-label="settings"
             role="img"
             viewBox="0 0 15 16"
             width="15"

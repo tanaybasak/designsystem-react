@@ -93,7 +93,7 @@ const tableConfigWithCustomTemplate = [
     field: 'checkbox',
     // eslint-disable-next-line react/display-name
     renderHtml: row => {
-      return <Checkbox id={`${row.id}_checkbox_`} />;
+      return <Checkbox aria-label="checkbox" id={`${row.id}_checkbox_`} />;
     },
     width: '40px'
   },
@@ -135,6 +135,7 @@ const tableConfigWithCustomTemplate = [
           small
           labelOff=" "
           labelOn=" "
+          aria-label="Toggle"
           toggled={model.status === 'Active' ? true : false}
         />
       );
@@ -195,7 +196,7 @@ storiesOf('DataTable', module)
         }${select('Class Name', classOptions, '')}`}
         tableData={tableData}
         stickyHeaderMain
-        headerSelection={<Checkbox id={`header_checkbox`} />}
+        headerSelection={<Checkbox aria-label="header checkbox" id={`header_checkbox`} />}
         tableConfig={tableConfigWithCustomTemplate}
         onSort={action('Sort Action')}
       />

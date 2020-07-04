@@ -25,7 +25,6 @@ storiesOf('Tooltip', module)
         type="icon"
       >
         <svg
-          aria-hidden="true"
           data-direction="right"
           data-tooltip="Filter"
           data-type="icon"
@@ -116,7 +115,6 @@ storiesOf('Tooltip', module)
         type="interactive"
       >
         <svg
-          aria-hidden="true"
           focusable="false"
           height="16"
           preserveAspectRatio="xMidYMid meet"
