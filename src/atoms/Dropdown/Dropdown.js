@@ -251,7 +251,6 @@ const Dropdown = ({
                   setSelectedCount(0);
                   onChange(null, []);
                 }}
-                aria-hidden="true"
                 tabIndex="0"
               />
             </button>
