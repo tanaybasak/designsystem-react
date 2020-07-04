@@ -117,11 +117,10 @@ const Search = ({
 };
 
 Search.propTypes = {
-  /** 
-   Type of Search
-   default : Normal Search 
-   clickable : Clickable/Header Search  
-   */
+  /** Type of Search
+    default : Normal Search 
+    clickable : Clickable/Header Search  
+     */
   type: PropTypes.oneOf(['clickable', 'default']),
   /** Size of Search
     default : Normal Search 

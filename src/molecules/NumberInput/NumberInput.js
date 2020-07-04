@@ -200,7 +200,7 @@ NumberInput.propTypes = {
   id: PropTypes.string,
   /** Title for the Number Input */
   label: PropTypes.string,
-  /** True : Disable the  Number Input  */
+  /** Disables the  Number Input */
   disabled: PropTypes.bool,
   /** Specifies the maximum value allowed  */
   max: PropTypes.number,
