@@ -36,11 +36,11 @@ Header.propTypes = {
     /** Name of the custom class to apply to the header */
     className: PropTypes.string,
     /** Logo for header */
-    logo: PropTypes.object.isRequired,
+    logo: PropTypes.node.isRequired,
     /** Icons for Header */
     icons: PropTypes.array.isRequired,
     /** Search component for Header */
-    searchComponent: PropTypes.object
+    searchComponent: PropTypes.node
 };
 
 Header.defaultProps = {

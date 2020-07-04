@@ -384,7 +384,7 @@ Sidebar.propTypes = {
   /** Boolean value to disable Sidebar */
   disabled: PropTypes.bool,
   /** Icon for Sidebar */
-  icon: PropTypes.object,
+  icon: PropTypes.element,
   /** Callback function that is invoked when Sidebar link is clicked
    *
    * Argument – link , event

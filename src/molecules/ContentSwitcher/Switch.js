@@ -35,7 +35,7 @@ Switch.propTypes = {
     //** Disable Switch */
     isDisabled: PropTypes.bool,
     /** An icon tag or <img> tag for rendering the icon. */
-    icon: PropTypes.object,
+    icon: PropTypes.element,
     /** true – ‘active’ class is added the switch element 
 
 false – ‘active’ is removed from the switch element. */

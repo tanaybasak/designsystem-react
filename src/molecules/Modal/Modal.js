@@ -118,7 +118,7 @@ Danger: : To create danger modal. */
 
   /** Class/clasess will be applied on the parent div of Modal */
   className: PropTypes.string,
-
+  /** Closes the modal when escape key is pressed */
   keyboard: PropTypes.bool
 };
 
