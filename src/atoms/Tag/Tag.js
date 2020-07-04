@@ -66,7 +66,7 @@ const Tag = ({
       {closable ? (
         <span
           className={`${prefix}-close`}
-          aria-hidden="true"
+          aria-label={ !disabled ? "close" : null}
           onClick={onClose}
           onKeyDown={keyListener}
           tabIndex={!disabled ? '0' : null}
