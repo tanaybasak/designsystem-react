@@ -227,7 +227,6 @@ const Dropdown = ({
             setIsOpen(!isOpen);
             event.target.focus();
           }}
-          id={restProps.id ? restProps.id : `dropdown-btn-${dropDownId}` }
           aria-haspopup="true"
         >
           {selectedCount > 0 ? (
@@ -269,7 +268,6 @@ const Dropdown = ({
             setIsOpen(!isOpen);
             event.target.focus();
           }}
-          id={restProps.id ? restProps.id : `dropdown-btn-${dropDownId}` }
           aria-label={label}
           aria-haspopup="true"
         >
