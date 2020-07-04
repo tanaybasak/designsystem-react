@@ -281,7 +281,7 @@ const Dropdown = ({
             dropdownType === 'multi' ? keyDownOnMultiSelect : keyDownOnDropdown
           }
           id={`dropdown-container-${dropDownId}`}
-          role="menu"
+          role="listbox"
           aria-label={label}
           className={`${prefix}-dropdown-container`}
           style={{ display: 'none' }}
@@ -296,7 +296,7 @@ const Dropdown = ({
                 }}
                 tabIndex="0"
                 aria-label={item[configuration.text]}
-                role="checkbox"
+                role="option"
                 aria-checked={selectedObj[item[defaultConfig.id]] ? true : false}
               >
                 <Checkbox
@@ -311,11 +311,11 @@ const Dropdown = ({
               <li
                 className={`${prefix}-dropdown-item`}
                 key={item[configuration.id]}
+                role="option"
                 onClick={onSelect.bind(this, item)}
               >
                 <a
                   href="#"
-                  role="menuitem"
                   className={`${prefix}-dropdown-wrapper`}
                 >
                   {item[configuration.text]}
