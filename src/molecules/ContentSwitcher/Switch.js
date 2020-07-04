@@ -32,7 +32,7 @@ Switch.propTypes = {
     label: PropTypes.string,
     /** Accepts event handler as prop/argument. */
     onClick: PropTypes.func,
-    //** Disable Switch */
+    /** Disables individual Switch */
     isDisabled: PropTypes.bool,
     /** An icon tag or <img> tag for rendering the icon. */
     icon: PropTypes.element,
