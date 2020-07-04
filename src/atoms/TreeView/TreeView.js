@@ -214,7 +214,7 @@ const TreeView = ({
 
 TreeView.propTypes = {
   /** Tree Data */
-  treeData: PropTypes.any,
+  treeData: PropTypes.array,
   /** Used to pass icon classname for each node */
   iconClass: PropTypes.any,
   /** Used to specify draggable node */
