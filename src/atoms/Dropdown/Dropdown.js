@@ -229,7 +229,6 @@ const Dropdown = ({
           }}
           id={restProps.id ? restProps.id : `dropdown-btn-${dropDownId}` }
           aria-haspopup="true"
-          aria-controls={`dropdown-container-${dropDownId}`}
         >
           {selectedCount > 0 ? (
             <button
@@ -273,7 +272,6 @@ const Dropdown = ({
           id={restProps.id ? restProps.id : `dropdown-btn-${dropDownId}` }
           aria-label={label}
           aria-haspopup="true"
-          aria-controls={`dropdown-container-${dropDownId}`}
         >
           {selected ? selected[configuration.text] : label}
         </button>
