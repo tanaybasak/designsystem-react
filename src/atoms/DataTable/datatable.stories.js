@@ -167,7 +167,7 @@ storiesOf('DataTable', module)
     'default',
     () => (
       <DataTable
-        id="sample_table_1"
+        id="data_table_1"
         type={`${boolean('Border', true) ? '' : 'borderless'}${
           boolean('Zebra', false) ? ' zebra' : ''
         }${select('Class Name', classOptions, '')}`}
@@ -190,7 +190,7 @@ storiesOf('DataTable', module)
     'with custom template',
     () => (
       <DataTable
-        id="sample_table_2"
+        id="data_table_2"
         type={`${boolean('Border', true) ? '' : 'borderless'}${
           boolean('Zebra', false) ? ' zebra' : ''
         }${select('Class Name', classOptions, '')}`}
