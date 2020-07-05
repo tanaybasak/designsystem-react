@@ -187,7 +187,7 @@ const Overflowmenu = ({
   }
 
   const classnames = `${prefix}-overflow-container${className}${
-    display ? ` ${prefix}-active` : ''
+    display ? ` ${prefix}-overflow-active` : ''
   }`.trim();
 
   return (
