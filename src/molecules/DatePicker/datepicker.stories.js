@@ -16,7 +16,7 @@ const formatOptions = {
   'dd/mm/yyyy': 'dd/mm/yyyy'
 };
 
-storiesOf('Datepicker', module).add(
+storiesOf('DatePicker', module).add(
   'default',
   () => (
     <DatePicker

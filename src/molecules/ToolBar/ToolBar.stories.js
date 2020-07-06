@@ -7,7 +7,7 @@ import Search from '../../atoms/Search';
 import Button from '../../atoms/Button';
 //@update-path-build-end
 
-storiesOf('ToolBar', module).add(
+storiesOf('Toolbar', module).add(
   'default',
   () => (
     <ToolBar>
