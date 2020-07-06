@@ -361,7 +361,7 @@ const timeout = ms => {
     );
 };
 
-storiesOf('TreeView', module)
+storiesOf('Tree', module)
   .add('default', () => <TreeView treeData={object('Tree Data', treeData)} />, {
     info: {
       text: `Description About TreeView Component \n
