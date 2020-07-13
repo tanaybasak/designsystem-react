@@ -2,13 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 
-const Button = ({ type, small, className, children, onClick, ...restProps }) => {
+const Button = ({
+  type,
+  small,
+  className,
+  children,
+  onClick,
+  ...restProps
+}) => {
   const classNameOptions = {
-    'primary' : 'hcl-primary',
-    'primary-danger' : 'hcl-primary hcl-danger',
-    'secondary' : 'hcl-secondary',
-    'secondary-danger' : 'hcl-secondary hcl-danger',
-    'ghost' : 'hcl-ghost'
+    primary: 'hcl-primary',
+    'primary-danger': 'hcl-primary hcl-danger',
+    secondary: 'hcl-secondary',
+    'secondary-danger': 'hcl-secondary hcl-danger',
+    ghost: 'hcl-ghost'
   };
 
   const classNameType = classNameOptions[type] ? classNameOptions[type] : '';
