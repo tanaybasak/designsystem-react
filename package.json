@@ -12,7 +12,8 @@
     "test:coverage": "jest --coverage --colors",
     "storybook": "start-storybook -p 8060",
     "build-storybook": "build-storybook",
-    "eslint-test": "eslint src/"
+    "eslint-test": "eslint src/",
+    "prettier:dev": "npx prettier --config --write prettier.config.js \"src/(atoms|molecules|example|util)/**/*.js\""
   },
   "keywords": [
     "hcl",
