@@ -13,7 +13,7 @@
     "storybook": "start-storybook -p 8060",
     "build-storybook": "build-storybook",
     "eslint-test": "eslint src/",
-    "prettier:dev": "npx prettier --config --write prettier.config.js \"src/**/*.js\""
+    "prettier:dev": "npx prettier --config prettier.config.js --write \"src/**/*.js\""
   },
   "keywords": [
     "hcl",
