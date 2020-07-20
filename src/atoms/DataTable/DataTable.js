@@ -47,7 +47,7 @@ const DataTable = ({
       sort(field);
     }
   };
-  const sort = (field) => {
+  const sort = field => {
     let tempSortedColumn = { ...sortedColumn };
     if (tempSortedColumn.name === field.field) {
       if (tempSortedColumn.order === 'asc') {
@@ -67,13 +67,13 @@ const DataTable = ({
 
   const getValue = (row, key) => {
     let value = row;
-    key.split('.').map((f) => {
+    key.split('.').map(f => {
       value = value[f];
     });
     return value;
   };
 
-  const toggleRow = (index) => {
+  const toggleRow = index => {
     let tempData = rows;
     tempData[index].expanded = !tempData[index].expanded;
     updateTableRowData([...tempData]);

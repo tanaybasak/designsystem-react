@@ -12,14 +12,14 @@ const _getList = (type, list) => {
 };
 
 const classNameOptions = {
-  'decimal': 'hcl-decimal',
+  decimal: 'hcl-decimal',
   'upper-alpha': 'hcl-upper-alpha',
   'lower-alpha': 'hcl-lower-alpha',
   'lower-roman': 'hcl-lower-roman',
   'upper-roman': 'hcl-upper-roman',
-  'circle': 'hcl-circle',
-  'square': 'hcl-square',
-  'disc': 'hcl-disc'
+  circle: 'hcl-circle',
+  square: 'hcl-square',
+  disc: 'hcl-disc'
 };
 
 // To create LIs
@@ -42,19 +42,14 @@ const _getListItem = (type, listItems) => {
   );
 };
 
-export default function List({
-  listItems,
-  type,
-  className,
-  ...restProps
-}) {
+export default function List({ listItems, type, className, ...restProps }) {
   const classNameType = classNameOptions[type] ? classNameOptions[type] : '';
   const orderedTypes = [
     'decimal',
     'upper-alpha',
     'lower-alpha',
     'upper-roman',
-    'lower-roman',
+    'lower-roman'
   ];
   let listType = 'unordered';
   if (orderedTypes.indexOf(type) > -1) {
@@ -78,12 +73,12 @@ List.propTypes = {
   /** Data for list  */
   listItems: PropTypes.array,
   /** Callback function on selecting item*/
-  onClick: PropTypes.func,
+  onClick: PropTypes.func
 };
 
 List.defaultProps = {
   className: '',
   type: 'disc',
   listItems: [],
-  onClick: () => {},
+  onClick: () => {}
 };

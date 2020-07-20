@@ -5,7 +5,6 @@ import prefix from '../../settings';
 import FileUploader from './FileUploader';
 
 describe('<FileUploader> component', () => {
-
   it('snapshots/renders Button correctly', () => {
     const tree = renderer
       .create(<FileUploader id="file_uploader">Add File</FileUploader>)
@@ -26,7 +25,11 @@ describe('<FileUploader> component', () => {
   it('renders with button className', () => {
     const mockCallBack = jest.fn();
     const fileUploader = mount(
-      <FileUploader id="file_uploader" className="hcl-secondary" onClick={mockCallBack}>
+      <FileUploader
+        id="file_uploader"
+        className="hcl-secondary"
+        onClick={mockCallBack}
+      >
         Add File
       </FileUploader>
     );
@@ -36,42 +39,50 @@ describe('<FileUploader> component', () => {
   it('renders with default multiple prop', () => {
     const mockCallBack = jest.fn();
     const fileUploader = mount(
-        <FileUploader id="file_uploader" multiple onClick={mockCallBack}>
-          Add File
-        </FileUploader>
-      );
+      <FileUploader id="file_uploader" multiple onClick={mockCallBack}>
+        Add File
+      </FileUploader>
+    );
     expect(fileUploader.props().multiple).toEqual(true);
   });
 
   it('add files', () => {
     const mockCallBack = jest.fn();
-    const file = new File(['dummy content'], 'example.png', {type: 'image/png'})
+    const file = new File(['dummy content'], 'example.png', {
+      type: 'image/png'
+    });
 
-    const mockedEvent = { target: { files: [file] }}
+    const mockedEvent = { target: { files: [file] } };
 
     const fileUploader = mount(
-        <FileUploader id="file_uploader" multiple onClick={mockCallBack}>
-          Add File
-        </FileUploader>
-      ); 
-      fileUploader.find(`.${prefix}-file-input`).simulate('change',mockedEvent);
-     expect(fileUploader.exists(`.${prefix}-file-filename`)).toEqual(true);
-     expect(fileUploader.find(`.${prefix}-file-filename`).text()).toEqual('example.png');
+      <FileUploader id="file_uploader" multiple onClick={mockCallBack}>
+        Add File
+      </FileUploader>
+    );
+    fileUploader.find(`.${prefix}-file-input`).simulate('change', mockedEvent);
+    expect(fileUploader.exists(`.${prefix}-file-filename`)).toEqual(true);
+    expect(fileUploader.find(`.${prefix}-file-filename`).text()).toEqual(
+      'example.png'
+    );
   });
 
   it('remove files', () => {
     const mockCallBack = jest.fn();
-    const file = new File(['dummy content'], 'example.png', {type: 'image/png'})
+    const file = new File(['dummy content'], 'example.png', {
+      type: 'image/png'
+    });
 
-    const mockedEvent = { target: { files: [file] }}
+    const mockedEvent = { target: { files: [file] } };
 
     const fileUploader = mount(
-        <FileUploader id="file_uploader" multiple onClick={mockCallBack}>
-          Add File
-        </FileUploader>
-      );
-    fileUploader.find(`.${prefix}-file-input`).simulate('change',mockedEvent); 
-    fileUploader.find(`.${prefix}-file-close`).simulate('click',{name : 'example.png'});
-     expect(fileUploader.exists(`.${prefix}-file-filename`)).toEqual(false);
+      <FileUploader id="file_uploader" multiple onClick={mockCallBack}>
+        Add File
+      </FileUploader>
+    );
+    fileUploader.find(`.${prefix}-file-input`).simulate('change', mockedEvent);
+    fileUploader
+      .find(`.${prefix}-file-close`)
+      .simulate('click', { name: 'example.png' });
+    expect(fileUploader.exists(`.${prefix}-file-filename`)).toEqual(false);
   });
 });

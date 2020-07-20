@@ -104,9 +104,9 @@ const TimePicker = ({
           value={time}
           onBlur={onSelectingTime}
           onKeyDown={e => {
-              if(e.keyCode === 13) {
-                onSelectingTime(e)
-              }
+            if (e.keyCode === 13) {
+              onSelectingTime(e);
+            }
           }}
           onChange={onChangeTime}
         />

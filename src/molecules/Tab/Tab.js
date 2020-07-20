@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 
-const keyListener = (e) => {
+const keyListener = e => {
   const keycode = e.keycode || e.which;
 
   if (keycode === 37) {
@@ -105,13 +105,13 @@ Tab.propTypes = {
 false – ‘active’ is removed from the current element.  */
   active: PropTypes.bool,
   /** Accepts Click handler as prop/Argument. */
-  onClick: PropTypes.func,
+  onClick: PropTypes.func
 };
 Tab.defaultProps = {
   label: '',
   isDisabled: false,
   active: true,
-  onClick: () => {},
+  onClick: () => {}
 };
 
 export default Tab;

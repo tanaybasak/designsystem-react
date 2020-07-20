@@ -25,7 +25,7 @@ const MenuList = ({ items, onSelect }) => {
               className={btnClassNames.join(' ')}
               data-name={name}
               disabled={disabled}
-              onClick={(e) => {
+              onClick={e => {
                 onSelect(item, index, e);
               }}
             >

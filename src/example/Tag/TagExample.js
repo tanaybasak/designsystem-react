@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
-import React, { Component } from "react";
-import Tag from "../../atoms/Tag";
-import Icon from "../../atoms/Icon";
+import React, { Component } from 'react';
+import Tag from '../../atoms/Tag';
+import Icon from '../../atoms/Icon';
 
 class TagExample extends Component {
   render() {
@@ -18,7 +18,7 @@ class TagExample extends Component {
           title="Primary Closable"
           closable
           onClose={() => {
-            alert("Closing Tag");
+            alert('Closing Tag');
           }}
         >
           Primary Closable
@@ -27,11 +27,7 @@ class TagExample extends Component {
           className="ml-3"
           title="Primary Tag With Thumbnail"
           thumbnail={
-            <Icon
-              type="svg"
-              alt="alt"
-              title="title"
-            >
+            <Icon type="svg" alt="alt" title="title">
               <circle
                 cx="11"
                 cy="11"
@@ -49,11 +45,7 @@ class TagExample extends Component {
           className="ml-3"
           title="Primary Tag With Thumbnail and icon"
           thumbnail={
-            <Icon
-              type="svg"
-              alt="alt"
-              title="title"
-            >
+            <Icon type="svg" alt="alt" title="title">
               <circle
                 cx="11"
                 cy="11"
@@ -64,9 +56,7 @@ class TagExample extends Component {
               />
             </Icon>
           }
-          icon={
-            <span aria-hidden="true" />
-          }
+          icon={<span aria-hidden="true" />}
         >
           Primary Tag With Thumbnail and icon
         </Tag>
@@ -87,7 +77,7 @@ class TagExample extends Component {
           type="secondary"
           closable
           onClose={() => {
-            alert("Closing Tag");
+            alert('Closing Tag');
           }}
         >
           Secondary Closable
@@ -97,11 +87,7 @@ class TagExample extends Component {
           title="Secondary Tag With Thumbnail"
           type="secondary"
           thumbnail={
-            <Icon
-              type="svg"
-              alt="alt"
-              title="title"
-            >
+            <Icon type="svg" alt="alt" title="title">
               <circle
                 cx="11"
                 cy="11"
@@ -120,11 +106,7 @@ class TagExample extends Component {
           title="Secondary Tag With Thumbnail and icon"
           type="secondary"
           thumbnail={
-            <Icon
-              type="svg"
-              alt="alt"
-              title="title"
-            >
+            <Icon type="svg" alt="alt" title="title">
               <circle
                 cx="11"
                 cy="11"
@@ -137,8 +119,8 @@ class TagExample extends Component {
           }
           icon={
             <>
-            <span className= 'pi pi-link' aria-hidden="true" />
-            <span className= 'pi pi-user' aria-hidden="true" />
+              <span className="pi pi-link" aria-hidden="true" />
+              <span className="pi pi-user" aria-hidden="true" />
             </>
           }
         >

@@ -92,7 +92,7 @@ const tableConfigWithCustomTemplate = [
   {
     field: 'checkbox',
     // eslint-disable-next-line react/display-name
-    renderHtml: (row) => {
+    renderHtml: row => {
       return <Checkbox id={`${row.id}_checkbox_`} />;
     },
     width: '40px'

@@ -27,7 +27,7 @@ storiesOf('Search', module)
         placeholder={text('Placeholder', 'Search...')}
         size={select('Size', sizeOption, 'default')}
         theme={select('Theme', themeOption, 'default')}
-        disabled={boolean('Disabled' , false)}
+        disabled={boolean('Disabled', false)}
         aria-label="Search"
         type="default"
       />
@@ -52,7 +52,7 @@ storiesOf('Search', module)
         placeholder={text('Placeholder', 'Search...')}
         size={select('Size', sizeOption, 'default')}
         theme={select('Theme', themeOption, 'default')}
-        disabled={boolean('Disabled' , false)}
+        disabled={boolean('Disabled', false)}
         aria-label="Search"
         type="clickable"
       />

@@ -29,14 +29,14 @@ const Dropdown = ({
     if (dropdownType === 'multi') {
       const initialSelectedObj = { ...selectedObj };
       selectedItem
-        ? selectedItem.forEach((defaultInput) => {
-          initialSelectedObj[defaultInput[configuration.id]] = true;
+        ? selectedItem.forEach(defaultInput => {
+            initialSelectedObj[defaultInput[configuration.id]] = true;
           })
         : null;
       setSelectedObj(initialSelectedObj);
       setSelectedCount(Object.keys(initialSelectedObj).length);
     } else {
-      const selectedOption = items.find((item) => {
+      const selectedOption = items.find(item => {
         if (item[configuration.id] === selectedItem) {
           return item;
         }
@@ -62,7 +62,7 @@ const Dropdown = ({
     }
   });
 
-  const isInViewport = (elem) => {
+  const isInViewport = elem => {
     const bounding = elem.getBoundingClientRect();
     return (
       bounding.top >= 0 &&
@@ -81,7 +81,7 @@ const Dropdown = ({
       addListener(
         'dropdown-' + dropDownId,
         'click',
-        (e) => {
+        e => {
           handleClick(e);
         },
         true
@@ -89,7 +89,7 @@ const Dropdown = ({
     }
   }, [isOpen]);
 
-  const handleClick = (e) => {
+  const handleClick = e => {
     e.preventDefault();
     if (dropDown.current) {
       if (e && dropDown.current.contains(e.target)) {
@@ -99,13 +99,13 @@ const Dropdown = ({
     }
   };
 
-  const focusNode = (node) => {
+  const focusNode = node => {
     if (node.classList.contains(`${prefix}-dropdown-item`)) {
       node.children[0].focus();
     }
   };
 
-  const onSelect = (item) => {
+  const onSelect = item => {
     setSelected(item);
     onChange(item);
     setIsOpen(false);
@@ -127,7 +127,7 @@ const Dropdown = ({
     setSelectedCount(Object.keys(tempSelectedObj).length);
   };
 
-  const keyDownOnMultiSelect = (e) => {
+  const keyDownOnMultiSelect = e => {
     const key = e.which || e.keyCode;
     const listItem = e.target;
     if (key === 40) {
@@ -150,7 +150,7 @@ const Dropdown = ({
     }
   };
 
-  const keyDownOnDropdown = (e) => {
+  const keyDownOnDropdown = e => {
     const key = e.which || e.keyCode;
     const listItem = e.target.parentElement;
     switch (key) {
@@ -177,14 +177,14 @@ const Dropdown = ({
     }
   };
 
-  const toggleDropdown = (e) => {
+  const toggleDropdown = e => {
     if (e.key === 'Enter') {
       e.preventDefault();
       dropDown.current.children[0].click();
     }
   };
 
-  const keydownButton = (e) => {
+  const keydownButton = e => {
     const key = e.which || e.keyCode;
     const listItems = e.target.nextElementSibling;
     if (isOpen) {
@@ -221,7 +221,7 @@ const Dropdown = ({
           tabIndex="0"
           onKeyPress={toggleDropdown}
           onKeyDown={keydownButton}
-          onClick={(event) => {
+          onClick={event => {
             event.stopPropagation();
             setIsOpen(!isOpen);
             event.target.focus();
@@ -233,20 +233,20 @@ const Dropdown = ({
               title="primary-closeable"
               tabIndex="-1"
             >
-              <span className={`${prefix}-tag-text`} >{selectedCount}</span>
+              <span className={`${prefix}-tag-text`}>{selectedCount}</span>
               <span
                 className={`${prefix}-close`}
-                onKeyDown={(event) => {
+                onKeyDown={event => {
                   if (event.key === 'Enter') {
                     event.preventDefault();
                     dropDown.current.querySelector(`.${prefix}-close`).click();
                   }
                 }}
-                onClick={(event) => {
+                onClick={event => {
                   event.stopPropagation();
                   setSelectedObj({});
                   setSelectedCount(0);
-                  onChange(null,[]);
+                  onChange(null, []);
                 }}
                 aria-hidden="true"
                 tabIndex="0"
@@ -260,7 +260,7 @@ const Dropdown = ({
           className={`${prefix}-btn ${prefix}-dropdown-toggle`}
           data-toggle="dropdown"
           onKeyDown={keydownButton}
-          onClick={(event) => {
+          onClick={event => {
             event.stopPropagation();
             setIsOpen(!isOpen);
             event.target.focus();
@@ -280,12 +280,12 @@ const Dropdown = ({
           aria-labelledby="dropdownMenuButton"
           style={{ display: 'none' }}
         >
-          {items.map((item) => {
+          {items.map(item => {
             return dropdownType === 'multi' ? (
               <li
                 className={`${prefix}-dropdown-item`}
                 key={item[configuration.id]}
-                onClick={(e) => {
+                onClick={e => {
                   onMultiSelect(e, item);
                 }}
                 tabIndex="0"
@@ -303,10 +303,7 @@ const Dropdown = ({
                 key={item[configuration.id]}
                 onClick={onSelect.bind(this, item)}
               >
-                <a
-                  href="#"
-                  className={`${prefix}-dropdown-wrapper`}
-                >
+                <a href="#" className={`${prefix}-dropdown-wrapper`}>
                   {item[configuration.text]}
                 </a>
               </li>

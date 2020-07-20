@@ -149,7 +149,7 @@ const Overflowmenu = ({
     }
   };
 
-  const keyDownOnOverflow = (e) => {
+  const keyDownOnOverflow = e => {
     const key = e.which || e.keyCode;
     const listItem = e.target.parentElement;
     switch (key) {

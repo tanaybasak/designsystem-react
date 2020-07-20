@@ -67,31 +67,31 @@ storiesOf('LoadingState', module)
       <LoadingState
         type="datatable"
         tableConfig={[
-            {
-              label: 'Name',
-              field: 'name'
-            },
-            {
-              label: 'Protocol',
-              field: 'protocol'
-            },
-            {
-              label: 'Port',
-              field: 'port'
-            },
-            {
-              label: 'Rule',
-              field: 'rule'
-            },
-            {
-              label: 'Attached Groups',
-              field: 'attachedGroups'
-            },
-            {
-              label: 'Status',
-              field: 'status'
-            }
-          ]}
+          {
+            label: 'Name',
+            field: 'name'
+          },
+          {
+            label: 'Protocol',
+            field: 'protocol'
+          },
+          {
+            label: 'Port',
+            field: 'port'
+          },
+          {
+            label: 'Rule',
+            field: 'rule'
+          },
+          {
+            label: 'Attached Groups',
+            field: 'attachedGroups'
+          },
+          {
+            label: 'Status',
+            field: 'status'
+          }
+        ]}
       />
     ),
     {

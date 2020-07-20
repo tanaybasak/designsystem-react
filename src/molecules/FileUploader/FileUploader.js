@@ -22,16 +22,16 @@ export default function FileUploader({
 
   const fileContainer = useRef(null);
 
-  const keyListener = (event) => {
+  const keyListener = event => {
     if (event.key === 'Enter') {
       event.preventDefault();
       fileContainer.current.querySelector(`.${prefix}-file-btn`).click();
     }
   };
 
-  const getFileList = (event) => {
+  const getFileList = event => {
     const files = event.target.files;
-    const filelist = Object.keys(files).map((i) => files[i]);
+    const filelist = Object.keys(files).map(i => files[i]);
     const tempFileLists = multiple
       ? [...fileLists, ...filelist]
       : [...filelist];
@@ -42,7 +42,7 @@ export default function FileUploader({
 
   const removeFile = (event, name) => {
     event.preventDefault();
-    const index = fileLists.findIndex((file) => file.name === name);
+    const index = fileLists.findIndex(file => file.name === name);
     const newFileList = [...fileLists];
     if (index !== -1) {
       newFileList.splice(index, 1);
@@ -95,7 +95,7 @@ export default function FileUploader({
                     <p className={`${prefix}-file-filename`}>{fileList.name}</p>
                   </span>
                   <button
-                    onClick={(e) => removeFile(e, fileList.name)}
+                    onClick={e => removeFile(e, fileList.name)}
                     type="button"
                     className={`${prefix}-file-close`}
                   />
@@ -138,7 +138,7 @@ FileUploader.propTypes = {
   /** Tab Index for File Uploader */
   tabIndex: PropTypes.number,
   /** Call back function that is invoked when File Uploader is clicked */
-  onChange: PropTypes.func,
+  onChange: PropTypes.func
 };
 
 FileUploader.defaultProps = {
@@ -151,5 +151,5 @@ FileUploader.defaultProps = {
   multiple: false,
   fileType: '',
   tabIndex: 0,
-  onChange: () => {},
+  onChange: () => {}
 };

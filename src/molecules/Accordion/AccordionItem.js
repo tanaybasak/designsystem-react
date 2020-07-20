@@ -25,17 +25,17 @@ export default function AccordionItem({
         setHeight(elementRef.current.clientHeight + 'px');
         setTimeout(() => {
           setHeight('auto');
-          setOverflow('visible')
+          setOverflow('visible');
         }, 300);
       } else {
         setHeight('auto');
-        setOverflow('visible')
+        setOverflow('visible');
       }
     } else {
       setHeight(elementRef.current.clientHeight + 'px');
       setTimeout(() => {
         setHeight('0px');
-        setOverflow('hidden')
+        setOverflow('hidden');
       }, 100);
     }
   }, [expanded]);

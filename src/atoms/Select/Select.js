@@ -5,7 +5,8 @@ import prefix from '../../settings';
 const Select = ({ label, onChange, id, className, ...restProps }) => {
   const onSelect = event => {
     const itemSelected = {
-      value: event.currentTarget.options[event.currentTarget.selectedIndex].value,
+      value:
+        event.currentTarget.options[event.currentTarget.selectedIndex].value,
       text:
         event.currentTarget.options[event.currentTarget.selectedIndex].innerText
     };

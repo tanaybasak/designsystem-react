@@ -11,94 +11,92 @@ const classOrderedOpts = [
   'upper-alpha',
   'lower-alpha',
   'lower-roman',
-  'upper-roman',
-]
+  'upper-roman'
+];
 
-const classUnorderedOpts = [
-  'circle',
-  'square',
-  'disc'
-]
+const classUnorderedOpts = ['circle', 'square', 'disc'];
 
 const listItems = [
   {
     child: [
       {
         name: 'List Level 1-1',
-        value: 'll-1-1',
+        value: 'll-1-1'
       },
       {
         name: 'List Level 1-2',
-        value: 'll-1-2',
-      },
+        value: 'll-1-2'
+      }
     ],
     name: 'List Level 1',
-    value: 'll-1',
+    value: 'll-1'
   },
   {
     child: [
       {
         name: 'List 2-1',
-        value: 'll-2-1',
+        value: 'll-2-1'
       },
       {
         name: 'List 2-2',
-        value: 'll-2-2',
-      },
+        value: 'll-2-2'
+      }
     ],
     name: 'List 2',
-    value: 'll-2',
+    value: 'll-2'
   },
   {
     child: [
       {
         name: 'List Level 3-1',
-        value: 'll-3-1',
+        value: 'll-3-1'
       },
       {
         name: 'List Level 3-2',
-        value: 'll-3-2',
-      },
+        value: 'll-3-2'
+      }
     ],
     name: 'List Level 3',
-    value: 'll-3',
-  },
+    value: 'll-3'
+  }
 ];
 
-storiesOf('List', module).add(
-  'ordered',
-  () => (
-    <List
-      type={select('Type', classOrderedOpts, 'decimal')}
-      listItems={object('List Items', listItems)}
-      onClick={action('list event')}
-    />
-  ),
-  {
-    info: {
-      text: `Description About List Component\n
+storiesOf('List', module)
+  .add(
+    'ordered',
+    () => (
+      <List
+        type={select('Type', classOrderedOpts, 'decimal')}
+        listItems={object('List Items', listItems)}
+        onClick={action('list event')}
+      />
+    ),
+    {
+      info: {
+        text: `Description About List Component\n
       
       import { List } from '@patron/patron-react/list'
 
-      `,
-    },
-  }
-).add(
-  'default',
-  () => (
-    <List
-      type={select('Type', classUnorderedOpts, 'disc')}
-      listItems={object('List Items', listItems)}
-      onClick={action('list event')}
-    />
-  ),
-  {
-    info: {
-      text: `Description About List Component\n
+      `
+      }
+    }
+  )
+  .add(
+    'default',
+    () => (
+      <List
+        type={select('Type', classUnorderedOpts, 'disc')}
+        listItems={object('List Items', listItems)}
+        onClick={action('list event')}
+      />
+    ),
+    {
+      info: {
+        text: `Description About List Component\n
       
       import { List } from '@patron/patron-react/list'
 
-      `,
-    },
-  }
-);
+      `
+      }
+    }
+  );

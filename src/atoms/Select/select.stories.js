@@ -20,10 +20,7 @@ storiesOf('Select', module).add(
   'default',
   () => (
     <Select {...props.select()} id="selct-id">
-      <SelectItem
-        value="placeholder-item"
-        text="Choose an option"
-      />
+      <SelectItem value="placeholder-item" text="Choose an option" />
       <SelectItemGroup label="Category 1" {...props.group()}>
         <SelectItem value="option-1" text="Option 1" />
         <SelectItem value="option-2" text="Option 2" />

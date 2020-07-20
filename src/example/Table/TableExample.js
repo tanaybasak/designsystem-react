@@ -16,13 +16,13 @@ class TableExample extends Component {
         field: 'checkbox',
         renderHtml: row => {
           return <Checkbox id={`${row.id}_checkbox_`} name="testcheck" />;
-        },
+        }
         //width: '40px',
         //pinned: 'left'
       },
       {
         label: 'ID',
-        field: 'id',
+        field: 'id'
         // width: '160px',
         // pinned: 'right'
       },
@@ -37,13 +37,13 @@ class TableExample extends Component {
               style={{ width: '44px', height: '44px', borderRadius: '50%' }}
             />
           );
-        },
+        }
         //width: '60px'
       },
       {
         label: 'Full Name',
         field: 'name',
-        sortable: true,
+        sortable: true
         //pinned: 'left',
         // renderHtml: model => {
         //     return (
@@ -64,14 +64,14 @@ class TableExample extends Component {
               model.owner.site_admin ? 'Yes' : 'No'
             }`}</Tag>
           );
-        },
+        }
         //width: '120px'
       },
       {
         label: 'Language',
-        field: 'owner.login',
+        field: 'owner.login'
 
-       // width: '120px'
+        // width: '120px'
       },
       {
         label: 'Has Issues',
@@ -86,23 +86,23 @@ class TableExample extends Component {
               toggled={model.has_issues}
             />
           );
-        },
+        }
         //width: '150px'
       },
       {
         label: 'Forks Count',
-        field: 'forks_count',
+        field: 'forks_count'
         //width: '120px'
       },
       {
         label: 'Branch',
         field: 'default_branch',
-        sortable: true,
+        sortable: true
         //width: '120px'
       },
       {
         label: 'Issues Count',
-        field: 'open_issues_count',
+        field: 'open_issues_count'
         //width: '120px'
       },
       {
@@ -117,7 +117,7 @@ class TableExample extends Component {
               }}
             />
           );
-        },
+        }
         //width: '80px'
       }
     ]
