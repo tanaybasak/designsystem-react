@@ -46,7 +46,7 @@ Button.propTypes = {
   /** call back function on click  */
   onClick: PropTypes.func,
   /** Disable Button  */
-  disabled: PropTypes.bool,
+  disabled: PropTypes.bool
 };
 
 Button.defaultProps = {

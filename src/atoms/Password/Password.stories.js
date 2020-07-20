@@ -27,8 +27,8 @@ storiesOf('Password', module)
       info: {
         text: `Description About Password Component \n
       
-      import { Password } from '@patron/patron-react/password'`,
-      },
+      import { Password } from '@patron/patron-react/password'`
+      }
     }
   )
   .add(
@@ -56,8 +56,8 @@ storiesOf('Password', module)
       info: {
         text: `Description About Password Component \n
         
-        import { Password } from '@patron/patron-react/password'`,
-      },
+        import { Password } from '@patron/patron-react/password'`
+      }
     }
   )
   .add(
@@ -84,7 +84,7 @@ storiesOf('Password', module)
       info: {
         text: `Description About Password Component \n
         
-        import { Password } from '@patron/patron-react/password'`,
-      },
+        import { Password } from '@patron/patron-react/password'`
+      }
     }
   );

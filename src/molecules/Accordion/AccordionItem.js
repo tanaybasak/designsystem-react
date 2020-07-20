@@ -12,7 +12,7 @@ export default function AccordionItem({
   const classnames = `${`${prefix}-accordion-item ${className}`.trim()}${
     expanded ? ' expanded' : ''
   }`;
-  const {dataIndex, onExpand, children } = restProps;
+  const { dataIndex, onExpand, children } = restProps;
 
   const [height, setHeight] = useState('0px');
   const [overflow, setOverflow] = useState('hidden');
@@ -39,7 +39,7 @@ export default function AccordionItem({
   }, [expanded]);
 
   return (
-    <li className={classnames} >
+    <li className={classnames}>
       <div
         className={`${prefix}-accordion-title`}
         data-index={dataIndex}
@@ -47,8 +47,8 @@ export default function AccordionItem({
         onKeyDown={event => {
           if (event.keyCode === 13) {
             onChange(event);
-            if(onExpand) {
-                onExpand(event);
+            if (onExpand) {
+              onExpand(event);
             }
           } else if (event.keyCode === 38) {
             event.preventDefault();
@@ -68,7 +68,7 @@ export default function AccordionItem({
         }}
         onClick={event => {
           onChange(event);
-          if(onExpand) {
+          if (onExpand) {
             onExpand(event);
           }
         }}
