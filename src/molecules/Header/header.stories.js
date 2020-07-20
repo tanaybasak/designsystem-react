@@ -12,13 +12,13 @@ storiesOf('Header', module).add(
     <Header
       icons={[
         {
-          icon: <button className="pi pi-settings" />
+          icon: <button className="pi pi-settings" title="settings" />
         },
         {
-          icon: <button className="pi pi-new-relases" />
+          icon: <button className="pi pi-new-relases" title="releases" />
         },
         {
-          icon: <button className="pi pi-logout" />
+          icon: <button className="pi pi-logout" title="logout" />
         }
       ]}
       logo={
@@ -38,6 +38,7 @@ storiesOf('Header', module).add(
           theme="default"
           type="clickable"
           tabIndex="0"
+          ariaLabel="Header Search"
         />
       }
     />
@@ -45,8 +46,9 @@ storiesOf('Header', module).add(
   {
     info: {
       text: `Description About Header Component
-      
-      import { Header } from '@patron/patron-react/header'
+
+      import { Header } from '@patron/patron-react/header';
+    import { Search } from '@patron/patron-react/search';
 
       `
     }

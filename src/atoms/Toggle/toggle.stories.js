@@ -16,13 +16,14 @@ storiesOf('Toggle', module)
         labelOff={text('Label Off', 'Off')}
         labelOn={text('Label On', 'On')}
         onChange={action('Toggle-OnChange')}
+        aria-label="Toggle"
       />
     ),
     {
       info: {
         text: `Description About Toggle Component
 
-        import { Toggle } from '@patron/patron-react/toggle'
+        import { Toggle } from '@patron/patron-react/toggle';
 
         `
       }
@@ -37,6 +38,7 @@ storiesOf('Toggle', module)
         labelOff={text('Label Off', 'Off')}
         labelOn={text('Label On', 'On')}
         onChange={action('Toggle-OnChange')}
+        aria-label="Toggle"
         small
       />
     ),
@@ -44,7 +46,7 @@ storiesOf('Toggle', module)
       info: {
         text: `Description About Toggle Component
 
-        import { Toggle } from '@patron/patron-react/toggle'
+        import { Toggle } from '@patron/patron-react/toggle';
 
         `
       }

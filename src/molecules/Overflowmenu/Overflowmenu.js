@@ -187,7 +187,7 @@ const Overflowmenu = ({
   }
 
   const classnames = `${prefix}-overflow-container${className}${
-    display ? ` ${prefix}-active` : ''
+    display ? ` ${prefix}-overflow-active` : ''
   }`.trim();
 
   return (
@@ -250,7 +250,8 @@ Overflowmenu.propTypes = {
   Right: To open overflow menu in right direction  */
   direction: PropTypes.oneOf(['left', 'right']),
 
-  children: PropTypes.node,
+  /** overflow content */
+  children: PropTypes.any,
 
   /** List of the item and associated actions, which should be part of menu. */
   listItems: PropTypes.array.isRequired,

@@ -14,13 +14,13 @@ const SelectItemGroup = ({ disabled, label, ...restProps }) => {
 };
 
 SelectItemGroup.propTypes = {
-  /* Provide the contents of <SelectItemGroup>  */
+  /** Provide the contents of <SelectItemGroup>  */
   children: PropTypes.node,
 
   /** Label for select, if this props is not passed no label will appear. */
   label: PropTypes.string,
 
-  /* Specify whether the <SelectItemGroup> should be disabled */
+  /** Specify whether the <SelectItemGroup> should be disabled */
   disabled: PropTypes.bool
 };
 

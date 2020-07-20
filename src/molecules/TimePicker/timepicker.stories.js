@@ -11,6 +11,7 @@ storiesOf('TimePicker', module).add(
   'default',
   () => (
     <TimePicker
+      id="time-picker"
       label={text('Label', 'Select Time')}
       helperText={text('Helper Text', 'optional helper text')}
       onChange={action('Timepicker Onchange')}
@@ -21,7 +22,7 @@ storiesOf('TimePicker', module).add(
   {
     info: {
       text: `Description About TimePicker Component \n
-      import { TimePicker } from '@patron/patron-react/timepicker'`
+      import { TimePicker } from '@patron/patron-react/timepicker';`
     }
   }
 );

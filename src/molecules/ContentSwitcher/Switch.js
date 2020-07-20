@@ -5,6 +5,7 @@ import prefix from '../../settings';
 function Switch({ label, onClick, active, isDisabled, icon, ...restProps }) {
   return (
     <button
+      role="tab"
       tabIndex={0}
       aria-label={label}
       key={`${label}-`}
@@ -30,10 +31,10 @@ Switch.propTypes = {
   label: PropTypes.string,
   /** Accepts event handler as prop/argument. */
   onClick: PropTypes.func,
-  //** Disable Switch */
+  /** Disables individual Switch */
   isDisabled: PropTypes.bool,
   /** An icon tag or <img> tag for rendering the icon. */
-  icon: PropTypes.object,
+  icon: PropTypes.element,
   /** true – ‘active’ class is added the switch element 
 
 false – ‘active’ is removed from the switch element. */

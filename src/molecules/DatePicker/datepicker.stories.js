@@ -16,7 +16,7 @@ const formatOptions = {
   'dd/mm/yyyy': 'dd/mm/yyyy'
 };
 
-storiesOf('Datepicker', module).add(
+storiesOf('DatePicker', module).add(
   'default',
   () => (
     <DatePicker
@@ -38,12 +38,13 @@ storiesOf('Datepicker', module).add(
       onDateSelect={action('Date Select')}
       open={select('Direction', typeOptions, 'bottom')}
       weekDays={['S', 'M', 'T', 'W', 'Th', 'F', 'S']}
+      aria-label="Date picker Input label"
     />
   ),
   {
     info: {
       text: `Description About Datepicker Component\n
-      import { DatePicker } from '@patron/patron-react/datepicker'`
+      import { DatePicker } from '@patron/patron-react/datepicker';`
     }
   }
 );

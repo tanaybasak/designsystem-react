@@ -4,6 +4,7 @@ import { withKnobs } from '@storybook/addon-knobs';
 import { withInfo } from '@storybook/addon-info';
 import { withA11y } from '@storybook/addon-a11y';
 import '../src/story.css';
+import './config.css';
 import '@patron/patron-css/patron/index.css';
 import 'patron-icon/dist/patron-font.css'
 

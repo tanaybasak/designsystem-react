@@ -3,37 +3,39 @@ import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { text, boolean } from '@storybook/addon-knobs';
 //@update-path-build-start
-import TextInput from './TextInput';
+import Password from './Password';
 //@update-path-build-end
 
-storiesOf('TextInput', module)
+storiesOf('Password', module)
   .add(
     'default',
     () => (
-      <TextInput
-        className=""
-        disabled={boolean('Disabled', false)}
-        onBlur={action('onBlur')}
-        onChange={action('onChange')}
-        onClick={action('onClick')}
-        onFocus={action('onFocus')}
-        placeholder={text('Placeholder', 'Placeholder Text')}
-        aria-label="text input"
-      />
+      <div className="hcl-form-group">
+        <Password
+          className=""
+          disabled={boolean('Disabled', false)}
+          onBlur={action('onBlur')}
+          onChange={action('onChange')}
+          onClick={action('onClick')}
+          onFocus={action('onFocus')}
+          placeholder={text('Placeholder', 'Placeholder Text')}
+          aria-label="text input"
+        />
+      </div>
     ),
     {
       info: {
-        text: `Description About TextInput Component \n
+        text: `Description About Password Component \n
       
-      import { TextInput } from '@patron/patron-react/textinput';`
-      }
+      import { Password } from '@patron/patron-react/password'`,
+      },
     }
   )
   .add(
     'with error',
     () => (
       <div className="hcl-form-group">
-        <TextInput
+        <Password
           className=""
           disabled={boolean('Disabled', false)}
           onBlur={action('onBlur')}
@@ -52,17 +54,17 @@ storiesOf('TextInput', module)
     ),
     {
       info: {
-        text: `Description About TextInput Component \n
+        text: `Description About Password Component \n
         
-        import { TextInput } from '@patron/patron-react/textinput';`
-      }
+        import { Password } from '@patron/patron-react/password'`,
+      },
     }
   )
   .add(
     'with helpertext',
     () => (
       <div className="hcl-form-group">
-        <TextInput
+        <Password
           className=""
           disabled={boolean('Disabled', false)}
           onBlur={action('onBlur')}
@@ -80,9 +82,9 @@ storiesOf('TextInput', module)
     ),
     {
       info: {
-        text: `Description About TextInput Component \n
+        text: `Description About Password Component \n
         
-        import { TextInput } from '@patron/patron-react/textinput';`
-      }
+        import { Password } from '@patron/patron-react/password'`,
+      },
     }
   );

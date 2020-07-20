@@ -72,6 +72,7 @@ const Modal = ({
         <button
           type="button"
           className={`${prefix}-modal-close`}
+          aria-label="modal-close"
           onClick={onClose}
         />
         {(heading !== '' || label !== '') && (
@@ -123,7 +124,7 @@ Danger: : To create danger modal. */
 
   /** Class/clasess will be applied on the parent div of Modal */
   className: PropTypes.string,
-
+  /** Closes the modal when escape key is pressed */
   keyboard: PropTypes.bool
 };
 

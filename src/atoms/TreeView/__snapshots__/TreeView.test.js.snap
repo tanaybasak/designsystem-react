@@ -6,7 +6,7 @@ exports[`TreeView renders correctly 1`] = `
   role="tree"
 >
   <li
-    aria-expanded="false"
+    aria-expanded={false}
     className="tree-item"
     role="treeitem"
   >
@@ -52,7 +52,7 @@ exports[`TreeView renders correctly 1`] = `
     </div>
   </li>
   <li
-    aria-expanded="false"
+    aria-expanded={null}
     className="tree-item"
     role="treeitem"
   >

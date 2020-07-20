@@ -21,15 +21,27 @@ const LoadingState = ({ type, className, ...restProps }) => {
         aria-label="breadcrumb"
       >
         <li className={`${prefix}-breadcrumb-item`}>
-          <a href="#" className={`${prefix}-link`} />
+          <a
+            href="#"
+            className={`${prefix}-link`}
+            aria-label="loading breadcrumb link 1"
+          />
         </li>
         <li
           className={`${prefix}-breadcrumb-item ${prefix}-breadcrumb-item-active`}
         >
-          <a href="#" className={`${prefix}-link`} />
+          <a
+            href="#"
+            className={`${prefix}-link`}
+            aria-label="loading breadcrumb link 2"
+          />
         </li>
         <li className={`${prefix}-breadcrumb-item`}>
-          <a href="#" className={`${prefix}-link`} />
+          <a
+            href="#"
+            className={`${prefix}-link`}
+            aria-label="loading breadcrumb link 3"
+          />
         </li>
       </ul>
     );
@@ -39,19 +51,28 @@ const LoadingState = ({ type, className, ...restProps }) => {
     return (
       <ul className={`${prefix}-accordion ${classnames}`}>
         <li className={`${prefix}-accordion-item expanded`}>
-          <h4 className={`${prefix}-accordion-title`}>
+          <h4
+            className={`${prefix}-accordion-title`}
+            aria-label="loading accordion 1"
+          >
             <span />
           </h4>
           <p className={`${prefix}-accordion-content`} />
         </li>
         <li className={`${prefix}-accordion-item`}>
-          <h4 className={`${prefix}-accordion-title`}>
+          <h4
+            className={`${prefix}-accordion-title`}
+            aria-label="loading accordion 2"
+          >
             <span />
           </h4>
           <p className={`${prefix}-accordion-content`} />
         </li>
         <li className={`${prefix}-accordion-item`}>
-          <h4 className={`${prefix}-accordion-title`}>
+          <h4
+            className={`${prefix}-accordion-title`}
+            aria-label="loading accordion 3"
+          >
             <span />
           </h4>
           <p className={`${prefix}-accordion-content`} />
@@ -62,7 +83,7 @@ const LoadingState = ({ type, className, ...restProps }) => {
 
   const tabLoadingState = () => {
     return (
-      <section className={`${prefix}-tab ${classnames}`} data-component="tabs">
+      <section className={`${prefix}-tab ${classnames}`}>
         <nav data-tabs role="navigation">
           <ul role="tablist" className={`${prefix}-tabs-nav`}>
             <li role="tab" className={`${prefix}-tabs-nav-item`}>
@@ -95,6 +116,7 @@ const LoadingState = ({ type, className, ...restProps }) => {
               min="0"
               max="100"
               disabled
+              aria-label="loading slider range"
             />
           </div>
           <label className={`${prefix}-slider-top-range`} />
@@ -102,6 +124,7 @@ const LoadingState = ({ type, className, ...restProps }) => {
             className={`${prefix}-slider-text-input hcl-form-control`}
             type="number"
             disabled
+            aria-label="loading slider input"
           />
         </div>
       </div>

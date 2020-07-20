@@ -14,19 +14,16 @@ storiesOf('ContentSwitcher', module)
     () => (
       <ContentSwitcher onChange={action('ContentSwitch-onChange')}>
         <Switch
-          role="tab"
           label={text('Label 1', 'All')}
           isDisabled={boolean('Disabled', false)}
           onClick={action('switch-onClick')}
         />
         <Switch
-          role="tab"
           label={text('Label 2', 'Cybernetics')}
           isDisabled={boolean('Disabled', false)}
           onClick={action('switch-onClick')}
         />
         <Switch
-          role="tab"
           label={text('Label 3', 'Information and Communication')}
           isDisabled={boolean('Disabled', false)}
           onClick={action('switch-onClick')}
@@ -37,7 +34,7 @@ storiesOf('ContentSwitcher', module)
       info: {
         text: `Description About ContentSwitcher Component \n
 
-      import { ContentSwitcher, Switch } from '@patron/patron-react/contentswitcher'`
+      import { ContentSwitcher, Switch } from '@patron/patron-react/contentswitcher';`
       }
     }
   )
@@ -46,21 +43,18 @@ storiesOf('ContentSwitcher', module)
     () => (
       <ContentSwitcher onChange={action('ContentSwitch-onChange')}>
         <Switch
-          role="tab"
           label={text('Label 1', 'All')}
           icon={<i className={`pi pi-${select('Icon 1', icons, 'audio')}`} />}
           isDisabled={boolean('Disabled 1', false)}
           onClick={action('switch-onClick')}
         />
         <Switch
-          role="tab"
           label={text('Label 2', 'Cybernetics')}
           icon={<i className={`pi pi-${select('Icon 2', icons, 'blog')}`} />}
           isDisabled={boolean('Disabled 2', false)}
           onClick={action('switch-onClick')}
         />
         <Switch
-          role="tab"
           label={text('Label 3', 'Information and Communication')}
           icon={
             <i className={`pi pi-${select('Icon 3', icons, 'calendar')}`} />
@@ -74,7 +68,7 @@ storiesOf('ContentSwitcher', module)
       info: {
         text: `Description About ContentSwitcher Component \n
 
-      import {ContentSwitcher, Switch } from '@patron/patron-react/contentswitcher'`
+      import {ContentSwitcher, Switch } from '@patron/patron-react/contentswitcher';`
       }
     }
   );

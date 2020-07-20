@@ -23,13 +23,14 @@ storiesOf('Slider', module)
         label={text('Label', 'Basic Slider')}
         title="Slider"
         withInputBox={boolean('With Input Box', false)}
+        ariaLabel="slider input label"
       />
     ),
     {
       info: {
         text: `Description About Slider Component\n
       
-      import { Slider } from '@patron/patron-react/slider'
+      import { Slider } from '@patron/patron-react/slider';
       
       `
       }
@@ -51,6 +52,7 @@ storiesOf('Slider', module)
         )}
         label={text('Label', 'Basic Slider with Tooltip on hover')}
         title="Slider"
+        ariaLabel="slider input label"
         withInputBox={boolean('With Input Box', true)}
       />
     ),
@@ -58,7 +60,7 @@ storiesOf('Slider', module)
       info: {
         text: `Description About Slider Component\n
         
-        import { Slider } from '@patron/patron-react/slider'
+        import { Slider } from '@patron/patron-react/slider';
         
         `
       }

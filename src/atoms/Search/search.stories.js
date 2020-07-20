@@ -28,7 +28,7 @@ storiesOf('Search', module)
         size={select('Size', sizeOption, 'default')}
         theme={select('Theme', themeOption, 'default')}
         disabled={boolean('Disabled', false)}
-        aria-label="Search"
+        ariaLabel="Search"
         type="default"
       />
     ),
@@ -36,7 +36,7 @@ storiesOf('Search', module)
       info: {
         text: `Description About Search Component \n
         
-        import { Search } from '@patron/patron-react/search'
+        import { Search } from '@patron/patron-react/search';
 
         `
       }
@@ -53,7 +53,7 @@ storiesOf('Search', module)
         size={select('Size', sizeOption, 'default')}
         theme={select('Theme', themeOption, 'default')}
         disabled={boolean('Disabled', false)}
-        aria-label="Search"
+        ariaLabel="Search"
         type="clickable"
       />
     ),
@@ -61,7 +61,7 @@ storiesOf('Search', module)
       info: {
         text: `Description About Search Component \n
         
-        import { Search } from '@patron/patron-react/search'
+        import { Search } from '@patron/patron-react/search';
 
         `
       }

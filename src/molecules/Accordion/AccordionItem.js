@@ -6,15 +6,13 @@ export default function AccordionItem({
   title,
   expanded,
   onChange,
-  onExpand,
   className,
-  children,
-  dataIndex,
   ...restProps
 }) {
   const classnames = `${`${prefix}-accordion-item ${className}`.trim()}${
     expanded ? ' expanded' : ''
   }`;
+  const {dataIndex, onExpand, children } = restProps;
 
   const [height, setHeight] = useState('0px');
   const [overflow, setOverflow] = useState('hidden');
@@ -41,7 +39,7 @@ export default function AccordionItem({
   }, [expanded]);
 
   return (
-    <li className={classnames} {...restProps}>
+    <li className={classnames} >
       <div
         className={`${prefix}-accordion-title`}
         data-index={dataIndex}
@@ -49,7 +47,9 @@ export default function AccordionItem({
         onKeyDown={event => {
           if (event.keyCode === 13) {
             onChange(event);
-            onExpand(event);
+            if(onExpand) {
+                onExpand(event);
+            }
           } else if (event.keyCode === 38) {
             event.preventDefault();
             if (event.currentTarget.parentElement.previousElementSibling) {
@@ -68,7 +68,9 @@ export default function AccordionItem({
         }}
         onClick={event => {
           onChange(event);
-          onExpand(event);
+          if(onExpand) {
+            onExpand(event);
+          }
         }}
       >
         {title}
@@ -78,7 +80,7 @@ export default function AccordionItem({
         style={{ height: height, overflow: overflow }}
       >
         <div className={`${prefix}-accordion-content`} ref={elementRef}>
-          {children}
+          {children ? children : null}
         </div>
       </div>
     </li>
@@ -94,22 +96,13 @@ AccordionItem.propTypes = {
   /** Callback function that is invoked when Accordion is expanded or closed.
   Argument – event */
   onChange: PropTypes.func,
-
-  onExpand: PropTypes.func,
   /** Name of the custom class to apply to the Accordion Item */
-  className: PropTypes.string,
-  /** Content for Accordion Item */
-  children: PropTypes.any,
-  /** Internally used by Accordion */
-  dataIndex: PropTypes.number
+  className: PropTypes.string
 };
 
 AccordionItem.defaultProps = {
   title: null,
   expanded: false,
   onChange: () => {},
-  onExpand: () => {},
-  className: '',
-  children: '',
-  dataIndex: null
+  className: ''
 };

@@ -298,6 +298,7 @@ const Pagination = ({
         <div className={`${prefix}-pagination-text`}>{perPageText}</div>
         <div className={`${prefix}-pagination-select-wrapper`}>
           <Pager
+            arialabel="page items"
             ref={pageItemsSelectedRef}
             value={itemsPerPageSelected}
             onKeyDown={_onKeyDown}
@@ -348,6 +349,7 @@ const Pagination = ({
         </button>
         <div className={`${prefix}-pagination-select-wrapper`}>
           <Pager
+            arialabel="page number"
             ref={pagesRef}
             value={pagesSelected}
             onKeyDown={_onKeyDown}

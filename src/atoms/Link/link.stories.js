@@ -12,7 +12,7 @@ storiesOf('Link', module).add(
     info: {
       text: `Description About Link Component \n
       
-      import { Link } from '@patron/patron-react/link'`
+      import { Link } from '@patron/patron-react/link';`
     }
   }
 );

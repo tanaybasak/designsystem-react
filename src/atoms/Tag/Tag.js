@@ -66,7 +66,7 @@ const Tag = ({
       {closable ? (
         <span
           className={`${prefix}-close`}
-          aria-hidden="true"
+          aria-label={!disabled ? 'close' : null}
           onClick={onClose}
           onKeyDown={keyListener}
           tabIndex={!disabled ? '0' : null}
@@ -100,8 +100,8 @@ Tag.propTypes = {
   onClose: PropTypes.func,
   /** Thumbnail for Tag Component as an Object */
   thumbnail: PropTypes.object,
-
-  icon: PropTypes.node
+  /** Used for passing tag icon in the right end */
+  icon: PropTypes.element
 };
 
 Tag.defaultProps = {

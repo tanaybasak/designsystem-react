@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import prefix from '../../settings';
 import Link from '../Link';
 
-function BreadcrumbItem({ onClick, children, active, href, itemClass }) {
+function BreadcrumbItem({ onClick, children, href, itemClass, ...restProps }) {
   const defaultStyle = {
     breadcrumbItem: `${prefix}-breadcrumb-item`,
     breadcrumbLink: `${prefix}-link`
@@ -13,7 +13,7 @@ function BreadcrumbItem({ onClick, children, active, href, itemClass }) {
     <li
       className={`${defaultStyle.breadcrumbItem} ${
         itemClass ? itemClass : ''
-      } ${active ? prefix + '-breadcrumb-item-active' : ''}`}
+      } ${restProps.active ? prefix + '-breadcrumb-item-active' : ''}`}
       onClick={onClick}
     >
       <Link
@@ -33,7 +33,6 @@ function BreadcrumbItem({ onClick, children, active, href, itemClass }) {
 }
 
 BreadcrumbItem.propTypes = {
-  active: PropTypes.bool,
   /** hyperlink - The URL of the link*/
   href: PropTypes.string,
   /** Class/clasess will be applied on the breadcrumb item  */
@@ -42,7 +41,6 @@ BreadcrumbItem.propTypes = {
   onClick: PropTypes.func
 };
 BreadcrumbItem.defaultProps = {
-  active: false,
   href: '',
   itemClass: '',
   onClick: () => {}

@@ -219,6 +219,7 @@ const Dropdown = ({
           className={`${prefix}-btn ${prefix}-dropdown-toggle`}
           data-toggle="dropdown"
           tabIndex="0"
+          role="button"
           onKeyPress={toggleDropdown}
           onKeyDown={keydownButton}
           onClick={event => {
@@ -226,6 +227,7 @@ const Dropdown = ({
             setIsOpen(!isOpen);
             event.target.focus();
           }}
+          aria-haspopup="true"
         >
           {selectedCount > 0 ? (
             <button
@@ -233,9 +235,15 @@ const Dropdown = ({
               title="primary-closeable"
               tabIndex="-1"
             >
-              <span className={`${prefix}-tag-text`}>{selectedCount}</span>
+              <span
+                aria-label={`${selectedCount}-selected options`}
+                className={`${prefix}-tag-text`}
+              >
+                {selectedCount}
+              </span>
               <span
                 className={`${prefix}-close`}
+                aria-label="close-icon"
                 onKeyDown={event => {
                   if (event.key === 'Enter') {
                     event.preventDefault();
@@ -248,7 +256,6 @@ const Dropdown = ({
                   setSelectedCount(0);
                   onChange(null, []);
                 }}
-                aria-hidden="true"
                 tabIndex="0"
               />
             </button>
@@ -265,6 +272,8 @@ const Dropdown = ({
             setIsOpen(!isOpen);
             event.target.focus();
           }}
+          aria-label={label}
+          aria-haspopup="true"
         >
           {selected ? selected[configuration.text] : label}
         </button>
@@ -275,9 +284,10 @@ const Dropdown = ({
           onKeyDown={
             dropdownType === 'multi' ? keyDownOnMultiSelect : keyDownOnDropdown
           }
-          role="dropdownMenu"
+          id={`dropdown-container-${dropDownId}`}
+          role="listbox"
+          aria-label={label}
           className={`${prefix}-dropdown-container`}
-          aria-labelledby="dropdownMenuButton"
           style={{ display: 'none' }}
         >
           {items.map(item => {
@@ -289,6 +299,11 @@ const Dropdown = ({
                   onMultiSelect(e, item);
                 }}
                 tabIndex="0"
+                aria-label={item[configuration.text]}
+                role="option"
+                aria-checked={
+                  selectedObj[item[defaultConfig.id]] ? true : false
+                }
               >
                 <Checkbox
                   id={item[configuration.id]}
@@ -301,6 +316,7 @@ const Dropdown = ({
               <li
                 className={`${prefix}-dropdown-item`}
                 key={item[configuration.id]}
+                role="option"
                 onClick={onSelect.bind(this, item)}
               >
                 <a href="#" className={`${prefix}-dropdown-wrapper`}>

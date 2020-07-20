@@ -51,6 +51,10 @@ const Sidebar = ({
   };
 
   useEffect(() => {
+    updateSidebarList(items);
+  }, [items]);
+
+  useEffect(() => {
     setExpanded(expanded);
   }, [expanded]);
 
@@ -371,7 +375,7 @@ Sidebar.propTypes = {
   activeLink: PropTypes.string,
   /** used to pass custom template in sidebar link */
   sidebarLinkTemplate: PropTypes.any,
-  /** boolean value  */
+  /** Accepts boolean value  to make sidebar expanded or collapse */
   expanded: PropTypes.bool,
   /** Title for the Sidebar */
   title: PropTypes.string,
@@ -380,7 +384,7 @@ Sidebar.propTypes = {
   /** Boolean value to disable Sidebar */
   disabled: PropTypes.bool,
   /** Icon for Sidebar */
-  icon: PropTypes.object,
+  icon: PropTypes.element,
   /** Callback function that is invoked when Sidebar link is clicked
    *
    * Argument – link , event

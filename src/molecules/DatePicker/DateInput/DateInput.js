@@ -10,7 +10,10 @@ const DateInput = ({
   isValidYear,
   onEnterPressInputDate,
   format,
-  datepickerInput
+  datepickerInput,
+  // eslint-disable-next-line no-unused-vars
+  currDateObj,
+  ...restProps
 }) => {
   return (
     <>
@@ -31,6 +34,7 @@ const DateInput = ({
         onChange={onChangeInputDate}
         onKeyPress={onEnterPressInputDate}
         ref={datepickerInput}
+        {...restProps}
       />
       <svg
         className={`${prefix}-datePicker-container-svg`}
@@ -61,6 +65,7 @@ DateInput.propTypes = {
   isValidYear: PropTypes.bool.isRequired,
   format: PropTypes.string.isRequired,
   onEnterPressInputDate: PropTypes.func.isRequired,
-  datepickerInput: PropTypes.object.isRequired
+  datepickerInput: PropTypes.object.isRequired,
+  currDateObj: PropTypes.object
 };
 export default DateInput;

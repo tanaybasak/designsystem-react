@@ -31,7 +31,7 @@ storiesOf('Tag', module)
       info: {
         text: `Description About Tag Component
 
-      import { Tag } from '@patron/patron-react/tag'
+      import { Tag } from '@patron/patron-react/tag';
 
       `
       }
@@ -61,7 +61,7 @@ storiesOf('Tag', module)
       info: {
         text: `Description About Tag Component
 
-        import { Tag } from '@patron/patron-react/tag'
+        import { Tag } from '@patron/patron-react/tag';
 
         `
       }
@@ -96,7 +96,8 @@ storiesOf('Tag', module)
       info: {
         text: `Description About Tag Component
   
-          import { Tag } from '@patron/patron-react/tag'
+        import { Tag } from '@patron/patron-react/tag';
+    import { Icon } from '@patron/patron-react/icon';
   
           `
       }
@@ -137,7 +138,8 @@ storiesOf('Tag', module)
       info: {
         text: `Description About Tag Component
   
-          import { Tag } from '@patron/patron-react/tag'
+        import { Tag } from '@patron/patron-react/tag';
+    import { Icon } from '@patron/patron-react/icon';
   
           `
       }

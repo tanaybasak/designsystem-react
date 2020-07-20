@@ -93,7 +93,7 @@ const tableConfigWithCustomTemplate = [
     field: 'checkbox',
     // eslint-disable-next-line react/display-name
     renderHtml: row => {
-      return <Checkbox id={`${row.id}_checkbox_`} />;
+      return <Checkbox aria-label="checkbox" id={`${row.id}_checkbox_`} />;
     },
     width: '40px'
   },
@@ -135,6 +135,7 @@ const tableConfigWithCustomTemplate = [
           small
           labelOff=" "
           labelOn=" "
+          aria-label="Toggle"
           toggled={model.status === 'Active' ? true : false}
         />
       );
@@ -166,7 +167,7 @@ storiesOf('DataTable', module)
     'default',
     () => (
       <DataTable
-        id="sample_table_1"
+        id="data_table_1"
         type={`${boolean('Border', true) ? '' : 'borderless'}${
           boolean('Zebra', false) ? ' zebra' : ''
         }${select('Class Name', classOptions, '')}`}
@@ -179,7 +180,7 @@ storiesOf('DataTable', module)
       info: {
         text: `Description About DataTable Component
 
-      import { DataTable } from '@patron/patron-react/datatable'
+      import { DataTable } from '@patron/patron-react/datatable';
       
       `
       }
@@ -189,13 +190,13 @@ storiesOf('DataTable', module)
     'with custom template',
     () => (
       <DataTable
-        id="sample_table_2"
+        id="data_table_2"
         type={`${boolean('Border', true) ? '' : 'borderless'}${
           boolean('Zebra', false) ? ' zebra' : ''
         }${select('Class Name', classOptions, '')}`}
         tableData={tableData}
         stickyHeaderMain
-        headerSelection={<Checkbox id={`header_checkbox`} />}
+        headerSelection={<Checkbox aria-label="header checkbox" id={`header_checkbox`} />}
         tableConfig={tableConfigWithCustomTemplate}
         onSort={action('Sort Action')}
       />

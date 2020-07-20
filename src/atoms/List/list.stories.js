@@ -75,7 +75,7 @@ storiesOf('List', module)
       info: {
         text: `Description About List Component\n
       
-      import { List } from '@patron/patron-react/list'
+      import { List } from '@patron/patron-react/list';
 
       `
       }
@@ -94,7 +94,7 @@ storiesOf('List', module)
       info: {
         text: `Description About List Component\n
       
-      import { List } from '@patron/patron-react/list'
+      import { List } from '@patron/patron-react/list';
 
       `
       }

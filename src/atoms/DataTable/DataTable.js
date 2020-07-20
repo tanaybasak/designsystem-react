@@ -306,9 +306,11 @@ const DataTable = ({
 DataTable.propTypes = {
   /** Unique id for Table */
   id: PropTypes.string.isRequired,
+  /** Used to define the table type
+   *  eg: zebra, compact, tall, borderless  */
   type: PropTypes.string,
   /** Data for table  */
-  tableData: PropTypes.any,
+  tableData: PropTypes.array,
   /** Column Configuration eg:
    * [ {
    *    label : 'Name', // Column Header
@@ -318,9 +320,8 @@ DataTable.propTypes = {
    *    renderHtml: (model)=> {return <span>{model.name}</span>} // For passing Custom Html
    *
    * }] */
-  tableConfig: PropTypes.any,
-  /** Name of the custom class to apply to the Data Table.
-   * eg: hcl-data-table-zebra, hcl-data-table-compact, hcl-data-table-tall, hcl-data-table-borderless */
+  tableConfig: PropTypes.array,
+  /** Name of the custom class to apply to the Data Table. */
   className: PropTypes.string,
 
   /** Call back function to sort table data
