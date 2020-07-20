@@ -127,7 +127,7 @@ const tableConfigWithCustomTemplate = [
     label: 'Status',
     field: 'status',
     // eslint-disable-next-line react/display-name
-    renderHtml: (model) => {
+    renderHtml: model => {
       return (
         <Toggle
           id={`toggleId-${model.id}`}
