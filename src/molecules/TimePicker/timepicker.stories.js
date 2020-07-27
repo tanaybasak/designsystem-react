@@ -15,7 +15,6 @@ storiesOf('TimePicker', module).add(
       label={text('Label', 'Select Time')}
       helperText={text('Helper Text', 'optional helper text')}
       onChange={action('Timepicker Onchange')}
-      timeZones={object('Time Zones', timeZones)}
       aria-label="Time Picker"
     />
   ),
@@ -25,4 +24,41 @@ storiesOf('TimePicker', module).add(
       import { TimePicker } from '@patron/patron-react/timepicker';`
     }
   }
-);
+).add(
+    'with 24 hour clock',
+    () => (
+      <TimePicker
+        id="time-picker"
+        label={text('Label', 'Select Time')}
+        type="HH"
+        labelHH={text('labelHH', '24H')}
+        helperText={text('Helper Text', 'optional helper text')}
+        onChange={action('Timepicker Onchange')}
+        aria-label="Time Picker"
+      />
+    ),
+    {
+      info: {
+        text: `Description About TimePicker Component \n
+        import { TimePicker } from '@patron/patron-react/timepicker';`
+      }
+    }
+  ).add(
+    'with timezone',
+    () => (
+      <TimePicker
+        id="time-picker"
+        label={text('Label', 'Select Time')}
+        helperText={text('Helper Text', 'optional helper text')}
+        onChange={action('Timepicker Onchange')}
+        timeZones={object('Time Zones', timeZones)}
+        aria-label="Time Picker"
+      />
+    ),
+    {
+      info: {
+        text: `Description About TimePicker Component \n
+        import { TimePicker } from '@patron/patron-react/timepicker';`
+      }
+    }
+  );
