@@ -10,6 +10,7 @@ import logo from './assets/images/logo.png';
 import TableExample from './example/Table';
 import TreeExample from './example/Tree';
 import TimePickerExample from './example/TimePicker';
+import OverlayExample from './example/OverlayExample';
 
 class Home extends Component {
   state = {
@@ -40,7 +41,11 @@ class Home extends Component {
         {
           href: '/timepicker',
           title: 'Time Picker'
-        }
+        },
+        {
+            href: '/overlay',
+            title: 'Overlay'
+          }
       ]
     }
   ];
@@ -105,6 +110,7 @@ class Home extends Component {
             <Route exact path="/table" component={TableExample} />
             <Route exact path="/tree" component={TreeExample} />
             <Route exact path="/timepicker" component={TimePickerExample} />
+            <Route exact path="/overlay" component={OverlayExample} />
           </Switch>
         </div>
       </Router>
