@@ -1149,7 +1149,10 @@ class App extends Component {
                   activeIndex={contentSwitch.example3}
                   onChange={e => this.onSwitchChange(e, 'example3')}
                 >
-                  <Switch label="All" icon={<i className="p-hclsw p-hclsw-active" />} />
+                  <Switch
+                    label="All"
+                    icon={<i className="p-hclsw p-hclsw-active" />}
+                  />
                   <Switch
                     label="Cybernetics"
                     icon={<i className="p-hclsw p-hclsw-arrow-up" />}
