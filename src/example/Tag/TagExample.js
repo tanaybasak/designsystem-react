@@ -119,8 +119,8 @@ class TagExample extends Component {
           }
           icon={
             <>
-              <span className="pi pi-link" aria-hidden="true" />
-              <span className="pi pi-user" aria-hidden="true" />
+              <span className="p-hclsw p-hclsw-link" aria-hidden="true" />
+              <span className="p-hclsw p-hclsw-user" aria-hidden="true" />
             </>
           }
         >

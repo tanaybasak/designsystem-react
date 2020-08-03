@@ -1149,14 +1149,14 @@ class App extends Component {
                   activeIndex={contentSwitch.example3}
                   onChange={e => this.onSwitchChange(e, 'example3')}
                 >
-                  <Switch label="All" icon={<i className="pi pi-active" />} />
+                  <Switch label="All" icon={<i className="p-hclsw p-hclsw-active" />} />
                   <Switch
                     label="Cybernetics"
-                    icon={<i className="pi pi-arrow-up" />}
+                    icon={<i className="p-hclsw p-hclsw-arrow-up" />}
                   />
                   <Switch
                     label="Information &amp; Communication"
-                    icon={<i className="pi pi-checkbox" />}
+                    icon={<i className="p-hclsw p-hclsw-checkbox" />}
                   />
                 </ContentSwitcher>
                 <section className="mt-1 p-2">
@@ -1187,17 +1187,17 @@ class App extends Component {
                 >
                   <Switch
                     label="All"
-                    icon={<i className="pi pi-active" />}
+                    icon={<i className="p-hclsw p-hclsw-active" />}
                     isDisabled
                   />
                   <Switch
                     label="Cybernetics"
-                    icon={<i className="pi pi-arrow-up" />}
+                    icon={<i className="p-hclsw p-hclsw-arrow-up" />}
                     isDisabled
                   />
                   <Switch
                     label="Information &amp; Communication"
-                    icon={<i className="pi pi-checkbox" />}
+                    icon={<i className="p-hclsw p-hclsw-checkbox" />}
                     isDisabled
                   />
                 </ContentSwitcher>

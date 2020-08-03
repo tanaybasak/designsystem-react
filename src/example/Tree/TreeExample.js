@@ -16,7 +16,7 @@ class TreeExample extends Component {
         name: 'Main',
         displayChildren: true,
         type: 'folder',
-        expandIcon: 'pi pi-View',
+        expandIcon: 'p-hclsw p-hclsw-View',
         action: [],
         children: [
           {
@@ -343,8 +343,8 @@ class TreeExample extends Component {
                       }
                     ],
                     values: {
-                      expandIcon: 'pi pi-export',
-                      collapsedIcon: 'pi pi-folder'
+                      expandIcon: 'p-hclsw p-hclsw-export',
+                      collapsedIcon: 'p-hclsw p-hclsw-folder'
                     }
                   },
                   {
@@ -356,7 +356,7 @@ class TreeExample extends Component {
                       }
                     ],
                     values: {
-                      icon: 'pi pi-document'
+                      icon: 'p-hclsw p-hclsw-document'
                     }
                   }
                 ]}
