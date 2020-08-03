@@ -29,14 +29,14 @@ const Dropdown = ({
     if (dropdownType === 'multi') {
       const initialSelectedObj = { ...selectedObj };
       selectedItem
-        ? selectedItem.forEach((defaultInput) => {
+        ? selectedItem.forEach(defaultInput => {
             initialSelectedObj[defaultInput[configuration.id]] = true;
           })
         : null;
       setSelectedObj(initialSelectedObj);
       setSelectedCount(Object.keys(initialSelectedObj).length);
     } else {
-      const selectedOption = items.find((item) => {
+      const selectedOption = items.find(item => {
         if (item[configuration.id] === selectedItem) {
           return item;
         }
@@ -62,7 +62,7 @@ const Dropdown = ({
     }
   });
 
-  const isInViewport = (elem) => {
+  const isInViewport = elem => {
     const bounding = elem.getBoundingClientRect();
     return (
       bounding.top >= 0 &&
@@ -81,7 +81,7 @@ const Dropdown = ({
       addListener(
         'dropdown-' + dropDownId,
         'click',
-        (e) => {
+        e => {
           handleClick(e);
         },
         true
@@ -89,7 +89,7 @@ const Dropdown = ({
     }
   }, [isOpen]);
 
-  const handleClick = (e) => {
+  const handleClick = e => {
     e.preventDefault();
     if (dropDown.current) {
       if (e && dropDown.current.contains(e.target)) {
@@ -99,13 +99,13 @@ const Dropdown = ({
     }
   };
 
-  const focusNode = (node) => {
+  const focusNode = node => {
     if (node.classList.contains(`${prefix}-dropdown-item`)) {
       node.children[0].focus();
     }
   };
 
-  const onSelect = (item) => {
+  const onSelect = item => {
     setSelected(item);
     onChange(item);
     setIsOpen(false);
@@ -127,7 +127,7 @@ const Dropdown = ({
     setSelectedCount(Object.keys(tempSelectedObj).length);
   };
 
-  const keyDownOnMultiSelect = (e) => {
+  const keyDownOnMultiSelect = e => {
     const key = e.which || e.keyCode;
     const listItem = e.target;
     if (key === 40) {
@@ -150,7 +150,7 @@ const Dropdown = ({
     }
   };
 
-  const keyDownOnDropdown = (e) => {
+  const keyDownOnDropdown = e => {
     const key = e.which || e.keyCode;
     const listItem = e.target.parentElement;
     switch (key) {
@@ -177,14 +177,14 @@ const Dropdown = ({
     }
   };
 
-  const toggleDropdown = (e) => {
+  const toggleDropdown = e => {
     if (e.key === 'Enter') {
       e.preventDefault();
       dropDown.current.children[0].click();
     }
   };
 
-  const keydownButton = (e) => {
+  const keydownButton = e => {
     const key = e.which || e.keyCode;
     const listItems = e.target.nextElementSibling;
     if (isOpen) {
@@ -222,7 +222,7 @@ const Dropdown = ({
           role="button"
           onKeyPress={toggleDropdown}
           onKeyDown={keydownButton}
-          onClick={(event) => {
+          onClick={event => {
             event.stopPropagation();
             setIsOpen(!isOpen);
             event.target.focus();
@@ -235,17 +235,22 @@ const Dropdown = ({
               title="primary-closeable"
               tabIndex="-1"
             >
-              <span aria-label={`${selectedCount}-selected options`} className={`${prefix}-tag-text`}>{selectedCount}</span>
+              <span
+                aria-label={`${selectedCount}-selected options`}
+                className={`${prefix}-tag-text`}
+              >
+                {selectedCount}
+              </span>
               <span
                 className={`${prefix}-close`}
                 aria-label="close-icon"
-                onKeyDown={(event) => {
+                onKeyDown={event => {
                   if (event.key === 'Enter') {
                     event.preventDefault();
                     dropDown.current.querySelector(`.${prefix}-close`).click();
                   }
                 }}
-                onClick={(event) => {
+                onClick={event => {
                   event.stopPropagation();
                   setSelectedObj({});
                   setSelectedCount(0);
@@ -262,7 +267,7 @@ const Dropdown = ({
           className={`${prefix}-btn ${prefix}-dropdown-toggle`}
           data-toggle="dropdown"
           onKeyDown={keydownButton}
-          onClick={(event) => {
+          onClick={event => {
             event.stopPropagation();
             setIsOpen(!isOpen);
             event.target.focus();
@@ -285,24 +290,25 @@ const Dropdown = ({
           className={`${prefix}-dropdown-container`}
           style={{ display: 'none' }}
         >
-          {items.map((item) => {
+          {items.map(item => {
             return dropdownType === 'multi' ? (
               <li
                 className={`${prefix}-dropdown-item`}
                 key={item[configuration.id]}
-                onClick={(e) => {
+                onClick={e => {
                   onMultiSelect(e, item);
                 }}
                 tabIndex="0"
                 aria-label={item[configuration.text]}
                 role="option"
-                aria-checked={selectedObj[item[defaultConfig.id]] ? true : false}
+                aria-checked={
+                  selectedObj[item[defaultConfig.id]] ? true : false
+                }
               >
                 <Checkbox
                   id={item[configuration.id]}
                   label={item[configuration.text]}
                   checked={selectedObj[item[defaultConfig.id]]}
-                  
                   tabIndex="-1"
                 />
               </li>
@@ -313,10 +319,7 @@ const Dropdown = ({
                 role="option"
                 onClick={onSelect.bind(this, item)}
               >
-                <a
-                  href="#"
-                  className={`${prefix}-dropdown-wrapper`}
-                >
+                <a href="#" className={`${prefix}-dropdown-wrapper`}>
                   {item[configuration.text]}
                 </a>
               </li>
@@ -353,7 +356,7 @@ Dropdown.propTypes = {
   className: PropTypes.string,
 
   /** Configuration Object for updating propery name in items data */
-  config: PropTypes.any,
+  config: PropTypes.any
 };
 
 Dropdown.defaultProps = {
@@ -362,7 +365,7 @@ Dropdown.defaultProps = {
   onChange: () => {},
   className: '',
   dropdownType: '',
-  config: {},
+  config: {}
 };
 
 export default Dropdown;

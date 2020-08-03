@@ -64,7 +64,7 @@ class App extends Component {
     },
     sidebarExpanded: false,
     password: {
-        disabled: false
+      disabled: false
     }
   };
 
@@ -335,19 +335,22 @@ class App extends Component {
               </div>
               {/* Password field */}
               <Toggle
-                  id="random-toggle"
-                  className="ml-3"
-                  onChange={(checked, e) => {
-                    console.log('Toggled', checked, e);
-                    this.setState({
-                        password: {
-                            disabled: checked
-                        }
-                    }, () => {
-                        console.log(this.state.password.disabled, "and yes");
-                    })
-                  }}
-                  aria-label="Toggle"
+                id="random-toggle"
+                className="ml-3"
+                onChange={(checked, e) => {
+                  console.log('Toggled', checked, e);
+                  this.setState(
+                    {
+                      password: {
+                        disabled: checked
+                      }
+                    },
+                    () => {
+                      console.log(this.state.password.disabled, 'and yes');
+                    }
+                  );
+                }}
+                aria-label="Toggle"
               />
               <div className="hcl-form-group hcl-col-12">
                 <FormHelperText className="helper-text">

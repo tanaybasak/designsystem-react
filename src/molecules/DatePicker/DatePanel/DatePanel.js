@@ -66,8 +66,9 @@ const DatePanel = ({ currDateObj, dateSelected, selectDate, format }) => {
         year = currDateObj.year;
         break;
       case 'next':
-        month = `0${Number(currDateObj.month === 11 ? -1 : currDateObj.month) +
-          2}`.slice(-2);
+        month = `0${
+          Number(currDateObj.month === 11 ? -1 : currDateObj.month) + 2
+        }`.slice(-2);
         year =
           currDateObj.month === 11 ? currDateObj.year + 1 : currDateObj.year;
     }
@@ -78,7 +79,7 @@ const DatePanel = ({ currDateObj, dateSelected, selectDate, format }) => {
           type !== 'current' ? ' ' + DOMstrings.fade : ''
         }${
           year === todayDate.getFullYear() &&
-          Number(month) === todayDate.getMonth()+1 &&
+          Number(month) === todayDate.getMonth() + 1 &&
           Number(day) === todayDate.getDate()
             ? ' ' + DOMstrings.todayHighlight
             : ''

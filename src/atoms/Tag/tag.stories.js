@@ -9,7 +9,7 @@ import Icon from '../../atoms/Icon';
 import icons from '../../../.storybook/iconList';
 const typeOptions = {
   Primary: 'primary',
-  Secondary: 'secondary',
+  Secondary: 'secondary'
 };
 
 storiesOf('Tag', module)
@@ -33,8 +33,8 @@ storiesOf('Tag', module)
 
       import { Tag } from '@patron/patron-react/tag';
 
-      `,
-      },
+      `
+      }
     }
   )
   .add(
@@ -63,8 +63,8 @@ storiesOf('Tag', module)
 
         import { Tag } from '@patron/patron-react/tag';
 
-        `,
-      },
+        `
+      }
     }
   )
   .add(
@@ -99,8 +99,8 @@ storiesOf('Tag', module)
         import { Tag } from '@patron/patron-react/tag';
     import { Icon } from '@patron/patron-react/icon';
   
-          `,
-      },
+          `
+      }
     }
   )
   .add(
@@ -141,7 +141,7 @@ storiesOf('Tag', module)
         import { Tag } from '@patron/patron-react/tag';
     import { Icon } from '@patron/patron-react/icon';
   
-          `,
-      },
+          `
+      }
     }
   );
