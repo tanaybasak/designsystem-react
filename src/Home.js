@@ -23,7 +23,7 @@ class Home extends Component {
     },
     {
       title: 'Components',
-      icon: <i className="p-hclsw p-hclsw-new-relases" />,
+      icon: <i className="p-hclsw p-hclsw-release" />,
       children: [
         {
           href: '/tag',
@@ -60,11 +60,11 @@ class Home extends Component {
           icons={[
             {
               onClick: event => console.log(event.currentTarget),
-              icon: <button className={`p-hclsw p-hclsw-settings`} />
+              icon: <button className={`p-hclsw p-hclsw-setting`} />
             },
             {
               onClick: event => console.log(event.currentTarget),
-              icon: <button className={`p-hclsw p-hclsw-new-relases`} />
+              icon: <button className={`p-hclsw p-hclsw-notification`} />
             },
             {
               onClick: event => console.log(event.currentTarget),
@@ -78,7 +78,7 @@ class Home extends Component {
           items={this.navigationData}
           expanded={this.state.sidebarExpanded}
           activeLink="/Tag"
-          icon={<i className="p-hclsw p-hclsw-users_active" />}
+          icon={<i className="p-hclsw p-hclsw-user-active" />}
           sidebarLinkTemplate={link => {
             return <Link to={link.href}>{link.title}</Link>;
           }}
