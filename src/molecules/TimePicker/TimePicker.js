@@ -104,13 +104,17 @@ const TimePicker = ({
           value={time}
           onBlur={onSelectingTime}
           onKeyDown={e => {
-              if(e.keyCode === 13) {
-                onSelectingTime(e)
-              }
+            if (e.keyCode === 13) {
+              onSelectingTime(e);
+            }
           }}
           onChange={onChangeTime}
         />
-        <select className={`${prefix}-select`} aria-label="choose option" onChange={onSelectPeriod}>
+        <select
+          className={`${prefix}-select`}
+          aria-label="choose option"
+          onChange={onSelectPeriod}
+        >
           <option className={`${prefix}-select-option`} value={period.am}>
             {period.am}
           </option>
@@ -118,7 +122,11 @@ const TimePicker = ({
             {period.pm}
           </option>
         </select>
-        <select className={`${prefix}-select`} aria-label="choose option" onChange={onSelectTimezone}>
+        <select
+          className={`${prefix}-select`}
+          aria-label="choose option"
+          onChange={onSelectTimezone}
+        >
           {timeZones.map(timezone => {
             return (
               <option

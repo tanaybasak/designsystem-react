@@ -7,7 +7,7 @@ const RadioGroup = ({
   orientation,
   children,
   onChange,
-  defaultSelected,
+  defaultSelected
 }) => {
   const [selected, setSelected] = useState(defaultSelected);
 
@@ -19,7 +19,7 @@ const RadioGroup = ({
     orientation === 'vertical' ? `${prefix}-stack-vertical` : '';
   const classnames = `${prefix}-radio-group ${classNameType} ${className}`.trim();
 
-  const modifiedChildren = React.Children.map(children, (child) => {
+  const modifiedChildren = React.Children.map(children, child => {
     if (child) {
       const { value } = child.props;
       return React.cloneElement(child, {
@@ -30,7 +30,7 @@ const RadioGroup = ({
           }
         },
         key: value,
-        checked: value === selected,
+        checked: value === selected
       });
     }
   });
@@ -49,13 +49,13 @@ RadioGroup.propTypes = {
   defaultSelected: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
     .isRequired,
   /** self Children i.e Tab Component. */
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node.isRequired
 };
 
 RadioGroup.defaultProps = {
   className: '',
   orientation: 'horizontal',
-  onChange: () => {},
+  onChange: () => {}
 };
 
 export default RadioGroup;

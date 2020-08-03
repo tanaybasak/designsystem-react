@@ -192,7 +192,7 @@ const DatePicker = ({
   };
 
   const classnames = `${prefix}-datePicker ${className}`.trim();
-  
+
   const datePanelClickHandler = event => {
     event.stopPropagation();
     event.preventDefault();
@@ -221,7 +221,7 @@ const DatePicker = ({
               direction === 'top'
                 ? `${prefix}-datePicker-panel-above`
                 : `${prefix}-datePicker-panel-below`
-              }`}
+            }`}
             onClick={datePanelClickHandler}
             ref={datePickerContainer}
           >
@@ -298,7 +298,7 @@ DatePicker.defaultProps = {
   ],
   open: 'down',
   format: 'MM/DD/YYYY',
-  onDateSelect: () => { },
+  onDateSelect: () => {},
   className: ''
 };
 export default DatePicker;

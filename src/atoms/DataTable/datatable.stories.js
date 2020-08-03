@@ -196,7 +196,9 @@ storiesOf('DataTable', module)
         }${select('Class Name', classOptions, '')}`}
         tableData={tableData}
         stickyHeaderMain
-        headerSelection={<Checkbox aria-label="header checkbox" id={`header_checkbox`} />}
+        headerSelection={
+          <Checkbox aria-label="header checkbox" id={`header_checkbox`} />
+        }
         tableConfig={tableConfigWithCustomTemplate}
         onSort={action('Sort Action')}
       />

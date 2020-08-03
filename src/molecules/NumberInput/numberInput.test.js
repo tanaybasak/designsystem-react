@@ -1,7 +1,7 @@
-import React from "react";
-import renderer from "react-test-renderer";
-import { mount } from "enzyme";
-import NumberInput from "./NumberInput";
+import React from 'react';
+import renderer from 'react-test-renderer';
+import { mount } from 'enzyme';
+import NumberInput from './NumberInput';
 
 const numberInputComponent = (
   <NumberInput
@@ -14,21 +14,21 @@ const numberInputComponent = (
   />
 );
 
-it("Number Input renders correctly", () => {
+it('Number Input renders correctly', () => {
   const tree = renderer.create(numberInputComponent).toJSON();
   expect(tree).toMatchSnapshot();
 });
 
-it("Increment Number", () => {
+it('Increment Number', () => {
   const wrapper = mount(numberInputComponent);
-  expect(wrapper.find("input").props().value).toEqual(10);
-  wrapper.find(".increment-btn").simulate("mouseDown");
-  expect(wrapper.find("input").props().value).toEqual(11);
+  expect(wrapper.find('input').props().value).toEqual(10);
+  wrapper.find('.increment-btn').simulate('mouseDown');
+  expect(wrapper.find('input').props().value).toEqual(11);
 });
 
-it("Decrement Number", () => {
+it('Decrement Number', () => {
   const wrapper = mount(numberInputComponent);
-  expect(wrapper.find("input").props().value).toEqual(10);
-  wrapper.find(".decrement-btn").simulate("mouseDown");
-  expect(wrapper.find("input").props().value).toEqual(9);
+  expect(wrapper.find('input').props().value).toEqual(10);
+  wrapper.find('.decrement-btn').simulate('mouseDown');
+  expect(wrapper.find('input').props().value).toEqual(9);
 });

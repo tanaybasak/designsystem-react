@@ -48,8 +48,9 @@ export const getColumnStructure = (tableConfig, isExpandRow = false) => {
     let leftPinned = false;
     newTempConfig.map((column, index) => {
       if (!column.width) {
-        column.width = `calc((100% - ${allocatedWidth +
-          unitUsed}) / ${totalItemsWithoutWidth})`;
+        column.width = `calc((100% - ${
+          allocatedWidth + unitUsed
+        }) / ${totalItemsWithoutWidth})`;
       }
 
       if (column.pinned === 'left') {
@@ -78,7 +79,7 @@ export const getColumnStructure = (tableConfig, isExpandRow = false) => {
         }
       }
     }
-  } 
+  }
   return newTempConfig;
 };
 

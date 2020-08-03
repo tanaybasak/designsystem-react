@@ -115,10 +115,7 @@ const NumberInput = ({
   };
 
   return (
-    <div
-      className={classnames}
-      disabled={disabled ? 'disabled' : null}
-    >
+    <div className={classnames} disabled={disabled ? 'disabled' : null}>
       {label ? <Label htmlFor={id ? id : null}>{label} </Label> : null}
       {helperText ? (
         <FormHelperText className="helper-text">{helperText}</FormHelperText>
