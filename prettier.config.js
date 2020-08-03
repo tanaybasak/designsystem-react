@@ -4,5 +4,11 @@ module.exports = {
   tabWidth: 2,
   semi: true,
   singleQuote: true,
-  arrowParens: 'avoid'
+  printWidth: 80,
+  bracketSpacing: true,
+  proseWrap: "preserve",
+  arrowParens: 'avoid',
+  htmlWhitespaceSensitivity: "css",
+  endOfLine: "auto",
+  quoteProps: "as-needed"
 };
