@@ -15,7 +15,7 @@ const Tag = ({
   ...restProps
 }) => {
   const classnames = `${prefix}-tag hcl-tag-${type} ${className}`.trim();
-  const keyListener = (event) => {
+  const keyListener = event => {
     if (event.keyCode === 13) {
       event.preventDefault();
       event.target.click();
@@ -24,14 +24,14 @@ const Tag = ({
 
   let element = null;
   icon
-    ? (element = React.Children.map(icon, (child) => {
+    ? (element = React.Children.map(icon, child => {
         if (child.props.children) {
-          return child.props.children.map((item) => {
+          return child.props.children.map(item => {
             return React.cloneElement(item, {
               className: `${prefix}-tag-icon${
                 item.props.className ? ' ' + item.props.className : ''
               }`,
-              tabIndex:!disabled ? '0' : null
+              tabIndex: !disabled ? '0' : null
             });
           });
         } else {
@@ -39,7 +39,7 @@ const Tag = ({
             className: `${prefix}-tag-icon${
               child.props.className ? ' ' + child.props.className : ''
             }`,
-            tabIndex:!disabled ? '0' : null
+            tabIndex: !disabled ? '0' : null
           });
         }
       }))
@@ -56,7 +56,7 @@ const Tag = ({
         ? React.cloneElement(thumbnail, {
             className: `${prefix}-tag-thumbnail${
               thumbnail.props.className ? ' ' + thumbnail.props.className : ''
-            }`,
+            }`
           })
         : null}
       <span className={`${prefix}-tag-text`} title={text}>
@@ -66,7 +66,7 @@ const Tag = ({
       {closable ? (
         <span
           className={`${prefix}-close`}
-          aria-label={ !disabled ? "close" : null}
+          aria-label={!disabled ? 'close' : null}
           onClick={onClose}
           onKeyDown={keyListener}
           tabIndex={!disabled ? '0' : null}
@@ -101,7 +101,7 @@ Tag.propTypes = {
   /** Thumbnail for Tag Component as an Object */
   thumbnail: PropTypes.object,
   /** Used for passing tag icon in the right end */
-  icon: PropTypes.element,
+  icon: PropTypes.element
 };
 
 Tag.defaultProps = {
@@ -115,7 +115,7 @@ Tag.defaultProps = {
   closable: false,
   onClose: null,
   thumbnail: null,
-  icon: null,
+  icon: null
 };
 
 export default Tag;

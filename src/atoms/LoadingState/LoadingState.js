@@ -21,15 +21,27 @@ const LoadingState = ({ type, className, ...restProps }) => {
         aria-label="breadcrumb"
       >
         <li className={`${prefix}-breadcrumb-item`}>
-          <a href="#" className={`${prefix}-link`} aria-label="loading breadcrumb link 1" />
+          <a
+            href="#"
+            className={`${prefix}-link`}
+            aria-label="loading breadcrumb link 1"
+          />
         </li>
         <li
           className={`${prefix}-breadcrumb-item ${prefix}-breadcrumb-item-active`}
         >
-          <a href="#" className={`${prefix}-link`} aria-label="loading breadcrumb link 2" />
+          <a
+            href="#"
+            className={`${prefix}-link`}
+            aria-label="loading breadcrumb link 2"
+          />
         </li>
         <li className={`${prefix}-breadcrumb-item`}>
-          <a href="#" className={`${prefix}-link`} aria-label="loading breadcrumb link 3" />
+          <a
+            href="#"
+            className={`${prefix}-link`}
+            aria-label="loading breadcrumb link 3"
+          />
         </li>
       </ul>
     );
@@ -39,19 +51,28 @@ const LoadingState = ({ type, className, ...restProps }) => {
     return (
       <ul className={`${prefix}-accordion ${classnames}`}>
         <li className={`${prefix}-accordion-item expanded`}>
-          <h4 className={`${prefix}-accordion-title`} aria-label="loading accordion 1">
+          <h4
+            className={`${prefix}-accordion-title`}
+            aria-label="loading accordion 1"
+          >
             <span />
           </h4>
           <p className={`${prefix}-accordion-content`} />
         </li>
         <li className={`${prefix}-accordion-item`}>
-          <h4 className={`${prefix}-accordion-title`} aria-label="loading accordion 2">
+          <h4
+            className={`${prefix}-accordion-title`}
+            aria-label="loading accordion 2"
+          >
             <span />
           </h4>
           <p className={`${prefix}-accordion-content`} />
         </li>
         <li className={`${prefix}-accordion-item`}>
-          <h4 className={`${prefix}-accordion-title`} aria-label="loading accordion 3">
+          <h4
+            className={`${prefix}-accordion-title`}
+            aria-label="loading accordion 3"
+          >
             <span />
           </h4>
           <p className={`${prefix}-accordion-content`} />
@@ -99,7 +120,12 @@ const LoadingState = ({ type, className, ...restProps }) => {
             />
           </div>
           <label className={`${prefix}-slider-top-range`} />
-          <input className={`${prefix}-slider-text-input hcl-form-control`} type="number" disabled aria-label="loading slider input" />
+          <input
+            className={`${prefix}-slider-text-input hcl-form-control`}
+            type="number"
+            disabled
+            aria-label="loading slider input"
+          />
         </div>
       </div>
     );

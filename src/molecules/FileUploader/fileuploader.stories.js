@@ -17,61 +17,63 @@ const classOptions = {
   Ghost: 'hcl-btn hcl-ghost'
 };
 
-storiesOf('FileUploader', module).add(
-  'default',
-  () => (
-    <FileUploader
-      className={select(
-        'Button Type',
-        classOptions,
-        'hcl-btn hcl-primary hcl-sm'
-      )}
-      description={text('Description', 'File Uploader Description')}
-      disabled={boolean('Disabled', false)}
-      fileType={text('File Type', '')}
-      id="sample_file_uploader"
-      label={text('Label', 'Add File')}
-      onChange={action('File Uploader OnChange')}
-    >
-      Add File
-    </FileUploader>
-  ),
-  {
-    info: {
-      text: `Description About FileUploader Component
+storiesOf('FileUploader', module)
+  .add(
+    'default',
+    () => (
+      <FileUploader
+        className={select(
+          'Button Type',
+          classOptions,
+          'hcl-btn hcl-primary hcl-sm'
+        )}
+        description={text('Description', 'File Uploader Description')}
+        disabled={boolean('Disabled', false)}
+        fileType={text('File Type', '')}
+        id="sample_file_uploader"
+        label={text('Label', 'Add File')}
+        onChange={action('File Uploader OnChange')}
+      >
+        Add File
+      </FileUploader>
+    ),
+    {
+      info: {
+        text: `Description About FileUploader Component
 
       import { FileUploader } from '@patron/patron-react/fileuploader';
 
       `
+      }
     }
-  }
-).add(
-  'multiple',
-  () => (
-    <FileUploader
-      className={select(
-        'Button Type',
-        classOptions,
-        'hcl-btn hcl-primary hcl-sm'
-      )}
-      description={text('Description', 'File Uploader Description')}
-      disabled={boolean('Disabled', false)}
-      fileType={text('File Type', '')}
-      id="sample_file_uploader"
-      label={text('Label', 'Add File')}
-      multiple
-      onChange={action('File Uploader OnChange')}
-    >
-      Add File
-    </FileUploader>
-  ),
-  {
-    info: {
-      text: `Description About FileUploader Component
+  )
+  .add(
+    'multiple',
+    () => (
+      <FileUploader
+        className={select(
+          'Button Type',
+          classOptions,
+          'hcl-btn hcl-primary hcl-sm'
+        )}
+        description={text('Description', 'File Uploader Description')}
+        disabled={boolean('Disabled', false)}
+        fileType={text('File Type', '')}
+        id="sample_file_uploader"
+        label={text('Label', 'Add File')}
+        multiple
+        onChange={action('File Uploader OnChange')}
+      >
+        Add File
+      </FileUploader>
+    ),
+    {
+      info: {
+        text: `Description About FileUploader Component
 
       import { FileUploader } from '@patron/patron-react/fileuploader';
 
       `
+      }
     }
-  }
-);
+  );

@@ -25,7 +25,7 @@ const Modal = ({
 
   useEffect(() => {
     modal.current.focus();
-  },[]);
+  }, []);
 
   const focusTrap = e => {
     const focusableEls = modal.current.querySelectorAll(
@@ -33,9 +33,9 @@ const Modal = ({
     );
     const firstFocusableEl = focusableEls[0];
     const lastFocusableEl = focusableEls[focusableEls.length - 1];
-   
+
     if (e.keyCode == 27) {
-      if(keyboard){
+      if (keyboard) {
         e.preventDefault();
         onClose();
       }
@@ -76,7 +76,9 @@ const Modal = ({
           onClick={onClose}
         />
         {(heading !== '' || label !== '') && (
-          <header className={`${prefix}-modal-header ${prefix}-modal-header-lg`}>
+          <header
+            className={`${prefix}-modal-header ${prefix}-modal-header-lg`}
+          >
             {label !== '' ? (
               <small className={`${prefix}-modal-label`}>{label}</small>
             ) : null}
@@ -84,10 +86,14 @@ const Modal = ({
           </header>
         )}
         {children && (
-          <div className={`${prefix}-modal-content ${prefix}-modal-content-lg`}>{children}</div>
+          <div className={`${prefix}-modal-content ${prefix}-modal-content-lg`}>
+            {children}
+          </div>
         )}
         {actions.length > 0 && (
-          <footer className={`${prefix}-modal-footer ${prefix}-modal-footer-lg`}>
+          <footer
+            className={`${prefix}-modal-footer ${prefix}-modal-footer-lg`}
+          >
             <Actions actions={actions} />
           </footer>
         )}
@@ -129,7 +135,7 @@ Modal.defaultProps = {
   onClose: () => {},
   actions: [],
   className: '',
-  keyboard : true
+  keyboard: true
 };
 
 export default Modal;

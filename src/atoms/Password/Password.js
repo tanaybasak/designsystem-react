@@ -104,7 +104,7 @@ const Password = ({ className, disabled, ...restProps }) => {
         disabled={disabled}
         {...restProps}
         value={value}
-        onChange={(event) => {
+        onChange={event => {
           setValue(event.currentTarget.value);
           restProps.onChange(event);
         }}
@@ -134,7 +134,7 @@ Password.propTypes = {
   /** Event to subscribe when the Input field is focused. */
   onFocus: PropTypes.func,
   /** Event to subscribe when the Input field is Blurred. */
-  onBlur: PropTypes.func,
+  onBlur: PropTypes.func
 };
 
 Password.defaultProps = {
@@ -143,7 +143,7 @@ Password.defaultProps = {
   onChange: () => {},
   onClick: () => {},
   onFocus: () => {},
-  onBlur: () => {},
+  onBlur: () => {}
 };
 
 export default Password;

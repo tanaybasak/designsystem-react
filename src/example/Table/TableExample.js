@@ -15,7 +15,7 @@ class TableExample extends Component {
       {
         field: 'checkbox',
         renderHtml: row => {
-          return <Checkbox id={`${row.id}_checkbox_`} name='testcheck' />;
+          return <Checkbox id={`${row.id}_checkbox_`} name="testcheck" />;
         }
         //width: '40px',
         //pinned: 'left'

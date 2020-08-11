@@ -151,7 +151,6 @@ Search.propTypes = {
   disabled: PropTypes.bool,
   /** Used to define a string that labels the component. */
   ariaLabel: PropTypes.string
-
 };
 
 Search.defaultProps = {

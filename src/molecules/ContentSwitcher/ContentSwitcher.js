@@ -40,7 +40,7 @@ const focusNode = (currentItem, direction = 'next') => {
   }
 };
 
-const keyDownOnContextSwitch = (e) => {
+const keyDownOnContextSwitch = e => {
   const key = e.which || e.keyCode;
   const currentElem = e.currentTarget;
 
@@ -65,7 +65,7 @@ function ContentSwitcher({ activeIndex, onChange, children }) {
   const modifiedChildren = React.Children.map(children, (child, index) => {
     const { label } = child.props;
     return cloneElement(child, {
-      onClick: (e) => {
+      onClick: e => {
         changeSwitch(index);
         onChange(Object.assign({}, e, { label, switchIndex: index }));
       },
