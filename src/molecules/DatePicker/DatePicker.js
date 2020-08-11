@@ -10,6 +10,7 @@ import {
   isValidDate,
   trackDocumentClick
 } from '../../util/utility';
+import Overlay from '../../atoms/Overlay';
 
 const DatePicker = ({
   weekDays,
@@ -35,6 +36,8 @@ const DatePicker = ({
   const [direction, setDirection] = useState(open);
   const datePickerContainer = useRef(null);
   const datepickerInput = useRef(null);
+
+  const [targetEl, setTargetEl] = useState(null);
 
   useEffect(() => {
     positionComponent(
@@ -119,13 +122,14 @@ const DatePicker = ({
     }
   };
 
-  const toggleDateContainer = () => {
+  const toggleDateContainer = (event) => {
     setIsValidYear(true);
     setYearSelected(String(currDateObj.year));
     setShowDateContainer(!showDateContainer);
-    trackDocumentClick(datepickerInput.current, () => {
-      setShowDateContainer(false);
-    });
+    setTargetEl(event.currentTarget);
+    // trackDocumentClick(datepickerInput.current, () => {
+    //   setShowDateContainer(false);
+    // });
   };
 
   const monthChangeHandler = event => {
@@ -192,15 +196,31 @@ const DatePicker = ({
   };
 
   const classnames = `${prefix}-datePicker ${className}`.trim();
-  
+
   const datePanelClickHandler = event => {
     event.stopPropagation();
     event.preventDefault();
   };
 
+  const onToggle = (status, type) => {
+    setShowDateContainer(status);
+    if (status) {
+    //   if (overflowMenu.current.querySelector('li button:not(:disabled)')) {
+    //     overflowMenu.current.querySelector('li button:not(:disabled)').focus();
+    //   }
+    } else {
+    //   console.log('type ==>', type);
+    //   if (type !== 'outside' && targetEl) {
+    //     targetEl.focus();
+    //   }
+    }
+    console.log('onToggle', status, type);
+  };
+ 
+
   return (
     <section className={classnames}>
-      <div className={`${prefix}-datePicker-container`}>
+      <div className="hcl-overlay-wrapper hcl-datePicker-container">
         <DateInput
           dateSelected={dateSelected}
           toggleDateContainer={toggleDateContainer}
@@ -215,13 +235,19 @@ const DatePicker = ({
           datepickerInput={datepickerInput}
           {...restProps}
         />
-        {showDateContainer ? (
+        <Overlay
+          attachElementToBody={false}
+          scrollListner={false}
+          showOverlay={showDateContainer}
+          targetElement={targetEl}
+          onToggle={onToggle}
+        >
           <div
             className={`${prefix}-datePicker-panel ${prefix}-datePicker-panel-show ${
               direction === 'top'
                 ? `${prefix}-datePicker-panel-above`
                 : `${prefix}-datePicker-panel-below`
-              }`}
+            }`}
             onClick={datePanelClickHandler}
             ref={datePickerContainer}
           >
@@ -244,7 +270,7 @@ const DatePicker = ({
               format={format}
             />
           </div>
-        ) : null}
+        </Overlay>
       </div>
       {!isDateSelectedValid ? (
         <div
@@ -298,7 +324,7 @@ DatePicker.defaultProps = {
   ],
   open: 'down',
   format: 'MM/DD/YYYY',
-  onDateSelect: () => { },
+  onDateSelect: () => {},
   className: ''
 };
 export default DatePicker;

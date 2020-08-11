@@ -6,7 +6,7 @@ import {
   getConditionStatus,
   isInSameLevel
 } from '../../util/treeUtil';
-import Overflowmenu from '../../molecules/Overflowmenu';
+import {Overflowmenu} from '../../molecules/Overflowmenu';
 import TextInput from '../TextInput';
 import prefix from '../../settings';
 const TreeNode = ({
@@ -605,8 +605,11 @@ const TreeNode = ({
       >
         <Overflowmenu
           listItems={overflowItemList}
+          attachElementToBody
+          scrollListner
+          direction="bottom-right"
+          ellipsisType="vertical"
           onClick={onOverflowItemSelect}
-          direction="right"
         />
       </div>
     );

@@ -3,8 +3,14 @@ import React, { Component } from 'react';
 import Overlay from '../../atoms/Overlay';
 import Notification from '../../atoms/Notification';
 import Button from '../../atoms/Button';
+import DatePicker from '../../molecules/DatePicker';
 import List from '../../atoms/List';
 import prefix from '../../settings';
+import { Menu, SubMenuItem } from '../../atoms/Menu';
+import MenuItem from '../../molecules/Overflowmenu/MenuItem';
+import Dropdown from '../../atoms/Dropdown/Dropdown';
+import Overflowmenu from '../../molecules/Overflowmenu/Overflowmenu';
+import { weekDays, months } from '../../content';
 const listItems = [
   {
     name: 'List Level 1',
@@ -46,11 +52,77 @@ const listItems = [
 class OverlayExample extends Component {
   //menu = React.createRef();
   state = {
-    showOverlay: false
+    showOverlay: false,
+    targetElement: null,
+    overflowlist: [
+      {
+        name: 'option 1'
+      },
+      {
+        name: 'option 2',
+        danger: true
+      },
+      {
+        name: 'option 3',
+        separator: true
+      },
+      {
+        name: 'option 4',
+        disabled: true
+      },
+      {
+        name: 'option 5',
+        link: 'https://google.com'
+      }
+    ],
+    customOverflowList: [
+      {
+        name: 'Copy',
+        icon: 'pi pi-copy'
+      },
+      {
+        name: 'Delete',
+        danger: true,
+        icon: 'pi pi-remove'
+      },
+      {
+        name: 'View',
+        icon: 'pi pi-View'
+      }
+    ]
+  };
+
+  action = (type, e) => {
+    console.log(type);
+    this.setState({
+      showOverlay: false,
+      targetElement: null
+    });
   };
 
   showoverlay1 = e => {
-    this.refs.child2.showOverlay(e);
+    this.setState({
+      showOverlay: !this.state.showOverlay,
+      targetElement: e.currentTarget
+    });
+    //this.refs.child1.showOverlay(e);
+    //   if(this.state.showOverlay){
+    //     this.refs.child1.hideOverlay(e);
+
+    //     this.setState({
+    //         showOverlay: false
+    //     })
+    //   }else{
+    //     this.refs.child1.showOverlay(e);
+
+    //     this.setState({
+    //         showOverlay: true
+    //     })
+    //   }
+  };
+
+  hideoverlay1 = e => {
+    this.refs.child2.hideOverlay(e);
   };
 
   showoverlay4 = e => {
@@ -58,38 +130,392 @@ class OverlayExample extends Component {
   };
 
   showoverlay2 = e => {
-      console.log(this.refs.child1)
-    this.refs.child1.showOverlay(e);
+    this.setState({
+      showOverlay: !this.state.showOverlay,
+      targetElement: e.currentTarget
+    });
+    //this.refs.child2.showOverlay(e);
   };
 
   showoverlay3 = e => {
     this.refs.child3.showOverlay(e);
   };
+
+  onclose = e => {
+    console.log('on Close');
+
+    this.setState({
+      showOverlay: false,
+      targetElement: null
+    });
+  };
+
+  onclose1 = e => {
+    this.setState({
+      showOverlay2: false,
+      targetElement2: null
+    });
+  };
   render() {
     return (
       <div className='hcl-col-12 mt-5'>
-        <Button onClick={this.showoverlay1}>Open Notification 1</Button>
+        <Overflowmenu
+          listItems={this.state.overflowlist}
+          attachElementToBody={false}
+          direction='top-left'
+          ellipsisType='vertical'
+          onClick={(item, index, e) => {
+            console.log('OVERFLOW SELECT');
+            console.log(item, index, e);
+          }}
+        />
+
+        <Overflowmenu
+          listItems={this.state.overflowlist}
+          attachElementToBody={true}
+          direction='top-right'
+          customTemplate={
+            <button className='hcl-btn hcl-ghost'>
+              <i className='pi pi-View'></i>
+            </button>
+          }
+          ellipsisType='vertical'
+          onClick={(item, index, e) => {
+            console.log('OVERFLOW SELECT');
+            console.log(item, index, e);
+          }}
+        />
+
+        <Overflowmenu
+          attachElementToBody={false}
+          ellipsisType='horizontal'
+          onClick={(item, index, e) => {
+            console.log('OVERFLOW SELECT CUstom');
+            console.log(item, index, e);
+          }}
+        >
+          {this.state.customOverflowList.map((menu, index) => {
+            return (
+              <MenuItem item={menu} key={`menu${index}`}>
+                <i className={menu.icon}></i>
+                {menu.name}
+              </MenuItem>
+            );
+          })}
+        </Overflowmenu>
+
+        <Overflowmenu
+          attachElementToBody={true}
+          direction='bottom-right'
+          customTemplate={
+            <button className='hcl-btn hcl-ghost'>
+              <i className='pi pi-View'></i>
+            </button>
+          }
+          ellipsisType='vertical'
+          onClick={(item, index, e) => {
+            console.log('OVERFLOW SELECT');
+            console.log(item, index, e);
+          }}
+        >
+          <MenuItem item={'copy'}>
+            <i className='pi pi-copy'></i>Copy
+          </MenuItem>
+          <MenuItem item={'remove'} danger={true}>
+            <i className='pi pi-remove'></i>Delete
+          </MenuItem>
+          <MenuItem item={'view'}>
+            <i className='pi pi-View'></i>View
+          </MenuItem>
+        </Overflowmenu>
 
         <Button onClick={this.showoverlay1}>Open Notification 2</Button>
+        <Button onClick={this.showoverlay2}>Open Notification 3</Button>
+
+        <Overflowmenu
+          attachElementToBody={true}
+          targetElement={this.state.targetElement}
+          showOverlay={this.state.showOverlay}
+          common={true}
+        >
+          <MenuItem item={'copy'}>
+            <i className='pi pi-copy'></i>Copy
+          </MenuItem>
+          <MenuItem item={'remove'} danger={true}>
+            <i className='pi pi-remove'></i>Delete
+          </MenuItem>
+          <MenuItem item={'view'}>
+            <i className='pi pi-View'></i>View
+          </MenuItem>
+        </Overflowmenu>
+
+        <Dropdown
+          type='top'
+          items={[
+            {
+              id: 'option-1',
+              text: 'Option 1'
+            },
+            {
+              id: 'option-2',
+              text: 'Option 2'
+            },
+            {
+              id: 'option-3',
+              text: 'Option 3'
+            },
+            {
+              id: 'option-4',
+              text: 'Option 4'
+            }
+          ]}
+          label='Top DropDown'
+          selectedItem='option-3'
+          onChange={selected => {
+            console.log('selected item', selected);
+          }}
+        />
+
+        <DatePicker
+          weekDays={weekDays}
+          months={months}
+          open='top'
+          format='mm/dd/yyyy'
+          onDateSelect={dateSelected => {
+            console.log('Selected Date', dateSelected);
+          }}
+        />
+
+        {/* <Menu
+          showOverlay={this.state.showOverlay}
+          targetElement={this.state.targetElement}
+          direction='top-left'
+          onClose={this.onclose}
+        >
+          <SubMenuItem onClick={this.action.bind(this, 'copy')}>
+            Copy
+          </SubMenuItem>
+          <SubMenuItem onClick={this.action.bind(this, 'cut')}>Cut</SubMenuItem>
+          <SubMenuItem onClick={this.action.bind(this, 'delete')}>
+            Delete
+          </SubMenuItem>
+        </Menu>
+
+        <Overlay
+          showOverlay={this.state.showOverlay2}
+          targetElement={this.state.targetElement2}
+          onClose={this.onclose1}
+        >
+          <Notification
+            className=''
+            closable
+            icon={null}
+            onClose={function noRefCheck() {}}
+            subtitle='Notification Sub Title'
+            title='Notification Title'
+            type='info'
+            visible
+          />
+        </Overlay>
+
+        <Dropdown
+          className=''
+          config={{}}
+          dropdownType=''
+          items={[
+            {
+              id: 'option-1',
+              text: 'Option 1'
+            },
+            {
+              id: 'option-2',
+              text: 'Option 2'
+            },
+            {
+              id: 'option-3',
+              text: 'Option 3'
+            },
+            {
+              id: 'option-4',
+              text: 'Option 4'
+            }
+          ]}
+          label='Dropdown Label'
+          onChange={function noRefCheck() {}}
+          type='bottom'
+        />
+
+        <Dropdown
+          className=''
+          config={{}}
+          dropdownType='multi'
+          items={[
+            {
+              id: 'option-1',
+              text: 'Option 1'
+            },
+            {
+              id: 'option-2',
+              text: 'Option 2'
+            },
+            {
+              id: 'option-3',
+              text: 'Option 3'
+            },
+            {
+              id: 'option-4',
+              text: 'Option 4'
+            }
+          ]}
+          label='MultiSelect Label'
+          onChange={function noRefCheck() {}}
+          type='bottom'
+        /> */}
+
+        {/* <Overlay
+          ref='child2'
+          direction='top-left'
+          style={{ width: '11.25rem' }}
+        >
+          <Menu>
+            <SubMenuItem>Copy</SubMenuItem>
+            <SubMenuItem>Cut</SubMenuItem>
+            <SubMenuItem>Delete</SubMenuItem>
+          </Menu>
+        </Overlay> */}
+        {/* <Button onClick={this.showoverlay1}>Open Notification 2</Button>
 
         <Button onClick={this.showoverlay2}>Open Notification 3</Button>
 
         <Button onClick={this.showoverlay4}>Open Notification 4</Button>
-        <Overlay ref='child1' direction='bottom-right'>
-          <Notification
-            title='Notification title'
-            subtitle='Lorem Ipsum is simply dummy text of the printing and typesetting industry.'
-            type='warning'
-            visible={true}
-          />
-        </Overlay>
 
-        <Overlay ref='child2' direction='top-left'>
-          <Notification
-            title='Notification title'
-            subtitle='Lorem Ipsum is simply dummy text of the printing and typesetting industry.'
-            type='info'
-            visible={true}
+        <Button onClick={this.showoverlay1}>Open Notification 1</Button>
+        <Overlay
+          ref='child1'
+          direction='bottom-right'
+          style={{ width: '11.25rem' }}
+        > */}
+        {/* <Overlay
+          showOverlay={this.state.showOverlay}
+          targetElement={this.state.targetElement}
+        >
+          <Menu>
+            <SubMenuItem>Copy</SubMenuItem>
+            <SubMenuItem>Cut</SubMenuItem>
+            <SubMenuItem>Delete</SubMenuItem>
+          </Menu>
+        </Overlay> */}
+        {/* </Overlay> */}
+
+        {/* <td> */}
+
+        {/* OverflowMenu
+
+            <Button onClick={this.showoverlay1}>Open Notification 1</Button>
+            <Menu target={e.currentTarget} show={true} onClose={}>
+                <SubMenuItem>Copy</SubMenuItem>
+                <SubMenuItem>Cut</SubMenuItem>
+                <SubMenuItem>Delete</SubMenuItem>
+            </Menu> */}
+
+        {/* Dropdown
+
+          <Dropdown list={}>
+
+          </Dropdown>
+          Datepicker
+
+
+
+
+
+
+
+
+        <Overflowmenu>
+          <TargetArea>Open Notification 1</TargetArea>
+          <Menu>
+              {
+                  list.map( val => {
+                      return (<SubMenuItem>{val.name}</SubMenuItem>)
+                  })
+              }
+            
+            
+          </Menu>
+        </Overflowmenu>
+
+        <Dropdown>
+          
+            <DropdownItem>Copy</DropdownItem>
+            <DropdownItem>Cut</DropdownItem>
+            <DropdownItem>Delete</DropdownItem>
+          
+        </Dropdown>
+        </td> */}
+
+        {/* <Overflowmenu>
+          <TargetArea>
+            <Button>Open Notification 1</Button>
+          </TargetArea>
+
+          <Menu>
+            <SubMenuItem>Copy</SubMenuItem>
+            <SubMenuItem>Cut</SubMenuItem>
+            <SubMenuItem>Delete</SubMenuItem>
+          </Menu>
+        </Overflowmenu> */}
+
+        {/* <FormLabel></FormLabel>
+        <NumberInput></NumberInput>
+            <ErrorMessage></ErrorMessage> */}
+
+        {/* <Form>
+          <FormLabel></FormLabel>
+          <OptionalText></OptionalText>
+          <NumberInput onChange={value}></NumberInput>
+          <ErrorMessage
+            validationFn={e => {
+              if (value > 10) {
+              }
+            }}
+          ></ErrorMessage>
+        </Form>
+
+        <Overflowmenu list={[{}, {}]}>
+          <Button>Open Notification 1</Button>
+        </Overflowmenu> */}
+
+        {/* <Overlay
+          ref='child2'
+          direction='top-left'
+          style={{ width: '11.25rem' }}
+        >
+          <MenuList
+            items={[
+              {
+                name: 'option 1'
+              },
+              {
+                name: 'option 2',
+                danger: true
+              },
+              {
+                name: 'option 3',
+                separator: true
+              },
+              {
+                name: 'option 4',
+                disabled: true
+              },
+              {
+                name: 'option 5',
+                link: 'https://google.com'
+              }
+            ]}
+            onSelect={(item, index, event) => {
+              console.log(item, index, event);
+            }}
           />
         </Overlay>
 
@@ -116,26 +542,30 @@ class OverlayExample extends Component {
         </Overlay>
 
         <Overlay ref='child4' direction='bottom-right'>
-        <div className={`${prefix}-dropdown`}>
-          <ul role='listbox' className={`${prefix}-dropdown-container`} style={{display:'block',position:'unset'}}>
-            <li className={`${prefix}-dropdown-item`} role='option'>
-              <a href='#' className={`${prefix}-dropdown-wrapper`}>
-                Item 1
-              </a>
-            </li>
-            <li className={`${prefix}-dropdown-item`} role='option'>
-              <a href='#' className={`${prefix}-dropdown-wrapper`}>
-                Item 2
-              </a>
-            </li>
-            <li className={`${prefix}-dropdown-item`} role='option'>
-              <a href='#' className={`${prefix}-dropdown-wrapper`}>
-                Item 3
-              </a>
-            </li>
-          </ul>
+          <div className={`${prefix}-dropdown`}>
+            <ul
+              role='listbox'
+              className={`${prefix}-dropdown-container`}
+              style={{ display: 'block', position: 'unset' }}
+            >
+              <li className={`${prefix}-dropdown-item`} role='option'>
+                <a href='#' className={`${prefix}-dropdown-wrapper`}>
+                  Item 1
+                </a>
+              </li>
+              <li className={`${prefix}-dropdown-item`} role='option'>
+                <a href='#' className={`${prefix}-dropdown-wrapper`}>
+                  Item 2
+                </a>
+              </li>
+              <li className={`${prefix}-dropdown-item`} role='option'>
+                <a href='#' className={`${prefix}-dropdown-wrapper`}>
+                  Item 3
+                </a>
+              </li>
+            </ul>
           </div>
-        </Overlay>
+        </Overlay> */}
       </div>
     );
   }

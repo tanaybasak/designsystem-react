@@ -1,291 +1,206 @@
-// import React, { useRef } from 'react';
-// import ReactDOM from 'react-dom';
-// import PropTypes from 'prop-types';
-// import prefix from '../../settings';
-// let overlayElementRef = 1;
-// const Overlay = ({ children, showOverlay ,...restProps },ref) => {
-//   //const overlayContainerRef = useRef(null);
-
-//   const overlayContainer = () => {
-//     return ReactDOM.createPortal(
-//       <div className={`${prefix}-overlay-container`}>
-//         {children}
-//       </div>,
-//       document.body
-//     );
-//   };
-
-//   return showOverlay ? overlayContainer() : null;
-// };
-
-// Overlay.propTypes = {
-//   children: PropTypes.element.isRequired,
-//   showOverlay:PropTypes.bool.isRequired
-// };
-
-// Overlay.defaultProps = {
-//   children: null,
-//   showOverlay:false
-// };
-
-// export default Overlay;
-
-// import React, { useState } from 'react';
-// import prefix from '../../settings';
-// import ReactDOM from 'react-dom';
-// import PropTypes from 'prop-types';
-// import './overlay.css';
-// const Overlay = React.forwardRef(({ ...props }, ref) => {
-//   const [showOverlay, toggleOverlay] = useState(false);
-
-//   const overlayContainer = () => {
-//     return ReactDOM.createPortal(
-//       <div className={`${prefix}-overlay-container`} ref={ref}>
-//         {props.children}
-//       </div>,
-//       document.body
-//     );
-//   };
-
-//   ref.showAlert = () => {
-//     console.log('Toggle Component');
-//   };
-
-// //props.toggleComponent();
-//   return overlayContainer();
-// });
-
-// Overlay.displayName = 'Overlay';
-// Overlay.propTypes = {
-//   children: PropTypes.element.isRequired,
-//   showOverlay: PropTypes.bool.isRequired,
-//   toggleComponent:PropTypes.func
-// };
-
-// Overlay.defaultProps = {
-//   children: null,
-//   showOverlay: false,
-//   toggleComponent:()=>{}
-// };
-// export default Overlay;
-
-import React from 'react';
-import prefix from '../../settings';
+import React, { useRef, useEffect, useState, useCallback } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
+import prefix from '../../settings';
+import { getPositions, visibleY } from '../../util/overlay';
 import { addListener, removeListeners } from '../../util/eventManager';
-let tooltipElementRef = 1;
-const tooltipAdjustment = 2;
-import './overlay.css';
-class Overlay extends React.Component {
-  state = {
-    showOverlay: false,
-    tooltipId: tooltipElementRef++,
-    position: 'top',
-    currentElementPosition: null
-  };
+import debounce from '../../util/debounce';
+let overlayElementRef = 1;
 
-  menu = React.createRef();
+const Overlay = ({
+  children,
+  showOverlay,
+  direction,
+  targetElement,
+  scrollListner,
+  onToggle,
+  attachElementToBody,
+  closeOnEscape,
+  ...restProps
+}) => {
+  const overlayContainerRef = useRef(null);
+  const [overlayElementId] = useState(overlayElementRef++);
 
-  handleClick = e => {
-    console.log('Handle Click');
-    if (this.menu.current) {
-      if (e && this.menu.current.contains(e.target)) {
+  const handleClick = e => {
+    console.log('OUTSIDE Handle Click');
+    if (overlayContainerRef.current) {
+      if (e && overlayContainerRef.current.contains(e.target)) {
         return;
       }
-      removeListeners('tooltipId-' + this.state.tooltipId, 'click');
-      if (this.props.scrollListner) {
-        removeListeners('tooltipId-' + this.state.tooltipId, 'scroll');
+      if (e && targetElement && targetElement.contains(e.target)) {
+        return;
       }
-      this.setState({
-        showOverlay: false
-      });
+      hideOverlayContainer('outside');
     }
   };
 
-  handleScroll = () => {
-    console.log('Handle Scroll');
-    if (this.state.currentElement) {
-      const elementInfo = this.menu.current.getBoundingClientRect();
+  const scrollEnd = useRef(
+    debounce(targetElement => {
+      changeOverlayPosition(true, targetElement);
+    }, 200)
+  ).current;
 
-      const positions = this.getPositions(
-        this.props.direction,
-        elementInfo.width,
-        elementInfo.height
-      );
-      this.menu.current.style.top = positions.top;
-      this.menu.current.style.left = positions.left;
-    }
+  const handleScroll = e => {
+    console.log('Handle Scroll', targetElement);
+    scrollEnd(targetElement);
   };
+  useEffect(() => {
+    if (showOverlay !== null && targetElement !== null) {
+      if (
+        showOverlay &&
+        overlayContainerRef &&
+        overlayContainerRef.current &&
+        targetElement
+      ) {
+        showOverlayContainer();
+      } else {
+        hideOverlayContainer('stateChange');
+      }
+    }
+  }, [showOverlay, targetElement]);
 
-  showOverlay(e) {
-    console.log(this.state.tooltipId);
-    const position = e.currentTarget.getBoundingClientRect();
-    //console.log(e.currentTarget.getBoundingClientRect());
-
+  const showOverlayContainer = () => {
     addListener(
-      'tooltipId-' + this.state.tooltipId,
+      'overlayElementId-' + overlayElementId,
       'click',
       e => {
-        this.handleClick(e);
+        handleClick(e);
       },
       true
     );
 
-    if (this.props.scrollListner) {
+    if (scrollListner) {
       addListener(
-        'tooltipId-' + this.state.tooltipId,
+        'overlayElementId-' + overlayElementId,
         'scroll',
         e => {
-          this.handleScroll(e);
+          handleScroll(e);
         },
         true
       );
     }
-
-    this.setState(
-      {
-        showOverlay: true,
-        currentElement: e.currentTarget
-        //   ,
-        //   top: window.pageYOffset+position.bottom+'px',
-        //   left:window.pageXOffset+position.left+'px'
-      },
-      this.changeOverlayPosition
-    );
-
-    //console.log("==>",console.log(this.menu.current))
-  }
-
-  changeOverlayPosition = () => {
-    const elementInfo = this.menu.current.getBoundingClientRect();
-
-    const positions = this.getPositions(
-      this.props.direction ? this.props.direction : 'bottom-left',
-      elementInfo.width,
-      elementInfo.height
-    );
-    this.menu.current.style.top = positions.top;
-    this.menu.current.style.left = positions.left;
-    this.menu.current.classList.add('hcl-overlay-container-show');
+    changeOverlayPosition(false, targetElement);
+    if (onToggle) {
+      onToggle(true);
+    }
   };
 
-  isOutofBound = (propsDirection, width, height, parentElementPosition) => {
-    let outOfBound = false;
-    switch (propsDirection) {
-      case 'top': {
-        if (parentElementPosition.top - height < tooltipAdjustment) {
-          outOfBound = true;
-        }
-        break;
+  const hideOverlayContainer = type => {
+    removeListeners('overlayElementId-' + overlayElementId, 'click');
+    if (scrollListner) {
+      removeListeners('overlayElementId-' + overlayElementId, 'scroll');
+    }
+    if (onToggle && type !== 'stateChange') {
+      onToggle(false, type);
+    }
+  };
+
+  
+
+  const changeOverlayPosition = (isScroll, targetElement) => {
+    const elementInfo = overlayContainerRef.current.getBoundingClientRect();
+    if (targetElement && visibleY(targetElement)) {
+      const positions = getPositions(
+        direction,
+        elementInfo.width,
+        elementInfo.height,
+        targetElement,
+        attachElementToBody
+      );
+
+      overlayContainerRef.current.style.top = positions.top;
+      overlayContainerRef.current.style.left = positions.left;
+      if (isScroll) {
+        overlayContainerRef.current.classList.add(
+          'hcl-overlay-container-scroll'
+        );
+        overlayContainerRef.current.classList.remove(
+          'hcl-overlay-container-hidden'
+        );
+      } else {
+        overlayContainerRef.current.classList.add('hcl-overlay-container-show');
       }
-      case 'bottom': {
-        if (
-          parentElementPosition.bottom + height >
-          window.innerHeight - tooltipAdjustment
-        ) {
-          outOfBound = true;
-        }
-        break;
-      }
-      case 'left': {
-        if (
-          parentElementPosition.left + width >
-          window.innerWidth - tooltipAdjustment
-        ) {
-          outOfBound = true;
-        }
-        break;
-      }
-      case 'right': {
-        if (parentElementPosition.right - width < tooltipAdjustment) {
-          outOfBound = true;
-        }
-        break;
+    } else {
+      if (isScroll) {
+        overlayContainerRef.current.classList.add(
+          'hcl-overlay-container-hidden'
+        );
       }
     }
-    return outOfBound;
   };
 
-  getDirection = (propsDirection, width, height, parentElementPosition) => {
-      const splitDirection = propsDirection.split("-")
-    const first = this.isOutofBound(splitDirection[0], width, height, parentElementPosition);
-    const second = this.isOutofBound(splitDirection[1], width, height, parentElementPosition);
+  const keyDownListner = e => {
+    if (closeOnEscape && e.keyCode === 27) {
+      hideOverlayContainer('escape');
+    } else if (e.keyCode === 9) {
+      const focusableEls = overlayContainerRef.current.querySelectorAll(
+        'a[href]:not([disabled]):not([tabindex="-1"]), button:not([disabled]):not([tabindex="-1"]), textarea:not([disabled]):not([tabindex="-1"]), input[type="text"]:not([disabled]):not([tabindex="-1"]), input[type="radio"]:not([disabled]):not([tabindex="-1"]), input[type="checkbox"]:not([disabled]):not([tabindex="-1"]), select:not([disabled]):not([tabindex="-1"]), [tabindex]:not([tabindex="-1"])'
+      );
+      const firstFocusableEl = focusableEls[0];
+      const lastFocusableEl = focusableEls[focusableEls.length - 1];
 
-    const direOb = {
-        'top' : 'bottom',
-        'bottom' : 'top',
-        'left' : 'right',
-        'right' : 'left'
+      if (e.shiftKey) {
+        if (document.activeElement === firstFocusableEl) {
+          hideOverlayContainer('focusout');
+          e.preventDefault();
+        }
+      } else {
+        if (document.activeElement === lastFocusableEl) {
+          hideOverlayContainer('focusout');
+          e.preventDefault();
+        }
+      }
     }
-    const newDirection = `${(first ? direOb[splitDirection[0]] : splitDirection[0])}-${(second ? direOb[splitDirection[1]] : splitDirection[1])}`
-    return newDirection;
   };
 
-  getPositions = (propsDirection, width, height) => {
-    console.log(width);
-    const parentElementPosition = this.state.currentElement.getBoundingClientRect();
-
-    const direction = this.getDirection(
-      propsDirection,
-      width,
-      height,
-      parentElementPosition
+  const overlayContainer = overlayContainerRef => {
+    const overlayContainerEl = (
+      <div
+        className={`${prefix}-overlay-container`}
+        ref={overlayContainerRef}
+        onKeyDown={keyDownListner}
+        {...restProps}
+      >
+        {children}
+      </div>
     );
-    console.log(propsDirection , "New Direction" , direction)
-    let left = 0;
-    let top = 0;
-    switch (direction) {
-      case 'bottom-left': {
-        left = parentElementPosition.left;
-        top = parentElementPosition.bottom;
-        break;
-      }
-      case 'bottom-right': {
-        left = parentElementPosition.right - width;
-        top = parentElementPosition.bottom;
-
-        break;
-      }
-      case 'top-left': {
-        left = parentElementPosition.left;
-        top = parentElementPosition.top - height;
-
-        break;
-      }
-      case 'top-right': {
-        left = parentElementPosition.right - width;
-        top = parentElementPosition.top - height;
-
-        break;
-      }
+    if (attachElementToBody) {
+      return ReactDOM.createPortal(overlayContainerEl, document.body);
+    } else {
+      return overlayContainerEl;
     }
-
-    return {
-      left: left + window.pageXOffset + 'px',
-      top: top + window.pageYOffset + 'px'
-    };
   };
-  render() {
-    return this.state.showOverlay
-      ? ReactDOM.createPortal(
-          <div className={`${prefix}-overlay-container`} ref={this.menu}>
-            {this.props.children}
-          </div>,
-          document.body
-        )
-      : null;
-  }
-}
+
+  return showOverlay && targetElement
+    ? overlayContainer(overlayContainerRef)
+    : null;
+};
+
 Overlay.propTypes = {
-  children: PropTypes.element.isRequired,
-  direction: PropTypes.string,
-  scrollListner: PropTypes.bool
+  children: PropTypes.element,
+  showOverlay: PropTypes.bool,
+  targetElement: PropTypes.element,
+  direction: PropTypes.oneOf([
+    'top-right',
+    'top-left',
+    'bottom-right',
+    'bottom-left'
+  ]),
+  scrollListner: PropTypes.bool,
+  onToggle: PropTypes.func,
+  attachElementToBody: PropTypes.bool,
+  closeOnEscape: PropTypes.bool
 };
 
 Overlay.defaultProps = {
   children: null,
+  showOverlay: false,
+  targetElement: null,
   direction: 'bottom-left',
-  scrollListner: false
+  scrollListner: false,
+  onToggle: () => {},
+  attachElementToBody: false,
+  closeOnEscape: false
 };
+
 export default Overlay;
