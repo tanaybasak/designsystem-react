@@ -280,8 +280,6 @@ const DataTable = ({
                       >
                         <path d="M0 0l5 4.998L10 0z" fillRule="evenodd" />
                       </svg>
-                    ) : column.field.split('.').length > 1 ? (
-                      getValue(row, column.field)
                     ) : (
                       row[column.field]
                     )}

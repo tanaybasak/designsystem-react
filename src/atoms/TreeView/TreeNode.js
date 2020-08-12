@@ -30,7 +30,8 @@ const TreeNode = ({
   copiedNode,
   cutNodeLevel,
   updateTreeDataBasedOnAction,
-  updateTreeState
+  updateTreeState,
+  overflowOnHover
 }) => {
   // Toggle Tree Node Section
   const updateNodeToggleStatus = status => {
@@ -606,6 +607,7 @@ const TreeNode = ({
         <Overflowmenu
           listItems={overflowItemList}
           onClick={onOverflowItemSelect}
+          className={overflowOnHover ? 'overflow-onhover' : ''}
           direction="right"
         />
       </div>
@@ -753,6 +755,7 @@ const TreeNode = ({
                 getOverFlowItems={getOverFlowItems}
                 updateTreeDataBasedOnAction={updateTreeDataBasedOnAction}
                 updateTreeState={updateTreeState}
+                overflowOnHover={overflowOnHover}
               />
             );
           })}
@@ -783,7 +786,8 @@ TreeNode.propTypes = {
   cutNodeLevel: PropTypes.string,
   copiedNode: PropTypes.any,
   updateTreeDataBasedOnAction: PropTypes.func,
-  updateTreeState: PropTypes.func
+  updateTreeState: PropTypes.func,
+  overflowOnHover: PropTypes.bool
 };
 
 TreeNode.defaultProps = {
@@ -807,7 +811,8 @@ TreeNode.defaultProps = {
   cutNodeLevel: '',
   getOverFlowItems: null,
   updateTreeDataBasedOnAction: () => {},
-  updateTreeState: () => {}
+  updateTreeState: () => {},
+  overflowOnHover: false
 };
 
 export default TreeNode;
