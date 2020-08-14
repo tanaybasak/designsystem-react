@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState, useCallback } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
@@ -22,7 +22,6 @@ const Overlay = ({
   const [overlayElementId] = useState(overlayElementRef++);
 
   const handleClick = e => {
-    console.log('OUTSIDE Handle Click');
     if (overlayContainerRef.current) {
       if (e && overlayContainerRef.current.contains(e.target)) {
         return;
@@ -40,8 +39,7 @@ const Overlay = ({
     }, 200)
   ).current;
 
-  const handleScroll = e => {
-    console.log('Handle Scroll', targetElement);
+  const handleScroll = () => {
     scrollEnd(targetElement);
   };
   useEffect(() => {
@@ -94,8 +92,6 @@ const Overlay = ({
       onToggle(false, type);
     }
   };
-
-  
 
   const changeOverlayPosition = (isScroll, targetElement) => {
     const elementInfo = overlayContainerRef.current.getBoundingClientRect();
@@ -179,7 +175,7 @@ const Overlay = ({
 Overlay.propTypes = {
   children: PropTypes.element,
   showOverlay: PropTypes.bool,
-  targetElement: PropTypes.element,
+  targetElement: PropTypes.object,
   direction: PropTypes.oneOf([
     'top-right',
     'top-left',

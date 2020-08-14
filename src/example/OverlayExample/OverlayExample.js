@@ -158,28 +158,38 @@ class OverlayExample extends Component {
   };
   render() {
     return (
-      <div className='hcl-col-12 mt-5'>
+      <div className="hcl-col-12 mt-5">
         <Overflowmenu
           listItems={this.state.overflowlist}
           attachElementToBody={false}
-          direction='top-left'
-          ellipsisType='vertical'
+          direction="top-left"
+          ellipsisType="vertical"
           onClick={(item, index, e) => {
             console.log('OVERFLOW SELECT');
             console.log(item, index, e);
           }}
         />
-
         <Overflowmenu
           listItems={this.state.overflowlist}
           attachElementToBody={true}
-          direction='top-right'
+          direction="top-right"
+          customIcon={<i className="pi pi-View"></i>}
+          ellipsisType="vertical"
+          onClick={(item, index, e) => {
+            console.log('OVERFLOW SELECT');
+            console.log(item, index, e);
+          }}
+        />
+        <Overflowmenu
+          listItems={this.state.overflowlist}
+          attachElementToBody={true}
+          direction="top-right"
           customTemplate={
-            <button className='hcl-btn hcl-ghost'>
-              <i className='pi pi-View'></i>
+            <button className="hcl-btn hcl-ghost">
+              <i className="pi pi-View"></i>
             </button>
           }
-          ellipsisType='vertical'
+          ellipsisType="vertical"
           onClick={(item, index, e) => {
             console.log('OVERFLOW SELECT');
             console.log(item, index, e);
@@ -188,7 +198,7 @@ class OverlayExample extends Component {
 
         <Overflowmenu
           attachElementToBody={false}
-          ellipsisType='horizontal'
+          ellipsisType="horizontal"
           onClick={(item, index, e) => {
             console.log('OVERFLOW SELECT CUstom');
             console.log(item, index, e);
@@ -206,30 +216,30 @@ class OverlayExample extends Component {
 
         <Overflowmenu
           attachElementToBody={true}
-          direction='bottom-right'
+          direction="bottom-right"
           customTemplate={
-            <button className='hcl-btn hcl-ghost'>
-              <i className='pi pi-View'></i>
+            <button className="hcl-btn hcl-ghost">
+              <i className="pi pi-View"></i>
             </button>
           }
-          ellipsisType='vertical'
+          ellipsisType="vertical"
           onClick={(item, index, e) => {
             console.log('OVERFLOW SELECT');
             console.log(item, index, e);
           }}
         >
           <MenuItem item={'copy'}>
-            <i className='pi pi-copy'></i>Copy
+            <i className="pi pi-copy"></i>Copy
           </MenuItem>
           <MenuItem item={'remove'} danger={true}>
-            <i className='pi pi-remove'></i>Delete
+            <i className="pi pi-remove"></i>Delete
           </MenuItem>
           <MenuItem item={'view'}>
-            <i className='pi pi-View'></i>View
+            <i className="pi pi-View"></i>View
           </MenuItem>
         </Overflowmenu>
 
-        <Button onClick={this.showoverlay1}>Open Notification 2</Button>
+        {/* <Button onClick={this.showoverlay1}>Open Notification 2</Button>
         <Button onClick={this.showoverlay2}>Open Notification 3</Button>
 
         <Overflowmenu
@@ -284,7 +294,7 @@ class OverlayExample extends Component {
           onDateSelect={dateSelected => {
             console.log('Selected Date', dateSelected);
           }}
-        />
+        /> */}
 
         {/* <Menu
           showOverlay={this.state.showOverlay}

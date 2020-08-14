@@ -87,11 +87,11 @@ const TreeNode = ({
       !(
         e.target &&
         e.target.classList &&
-        e.target.classList.contains(`${prefix}-overflow-option-btn`)
+        e.target.classList.contains(`${prefix}-overflow-option-item`)
       )
     ) {
       getOverflowMenuList();
-      e.currentTarget.querySelector(`.${prefix}-ellipsis`).click();
+      e.currentTarget.querySelector(`.${prefix}-overflow-btn`).click();
       e.preventDefault();
     }
   };

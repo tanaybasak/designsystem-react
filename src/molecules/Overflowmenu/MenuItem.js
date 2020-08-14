@@ -10,46 +10,43 @@ const MenuItem = ({
   separator,
   children,
   className,
+  link,
   ...rest
 }) => {
-  const classNames = [`${prefix}-overflow-option-btn`];
+  const classNames = [`${prefix}-overflow-option-item`];
   if (danger) {
-    classNames.push(`${prefix}-overflow-option-dangerbtn`);
+    classNames.push(`${prefix}-overflow-option-danger`);
   }
   if (disabled) {
-    classNames.push(`${prefix}-overflow-option-disablebtn`);
+    classNames.push(`${prefix}-overflow-option-disabled`);
   }
   if (separator) {
-    classNames.push(`${prefix}-overflow-separator`);
+    classNames.push(`${prefix}-overflow-option-separator`);
   }
-  if(className){
-    classNames.push(className)
+  if (className) {
+    classNames.push(className);
   }
-  
+
   return (
-    //   {items.map((item, index) => {
-    //     const { danger, disabled, separator, link, name, ...rest } = item;
-    //     const itemClassNames = [`${prefix}-overflow-option`];
-    //     const btnClassNames = [`${prefix}-overflow-option-btn`];
-
-    //     danger && btnClassNames.push(`${prefix}-overflow-option-dangerbtn`);
-    //     disabled && btnClassNames.push(`${prefix}-overflow-option-disablebtn`);
-    //     separator && btnClassNames.push(`${prefix}-overflow-separator`);
-
-    //     return (
     <li className={`${prefix}-overflow-option`}>
-      <button
-        className={classNames.join(' ')}
-        disabled={disabled}
-        onClick={e => {
-          if (onClick) {
-            onClick(item, e);
-          }
-        }}
-        {...rest}
-      >
-        {children}
-      </button>
+      {link ? (
+        <a className={classNames.join(' ')} href={link} {...rest}>
+          {children}
+        </a>
+      ) : (
+        <button
+          className={classNames.join(' ')}
+          disabled={disabled}
+          onClick={e => {
+            if (onClick) {
+              onClick(item, e);
+            }
+          }}
+          {...rest}
+        >
+          {children}
+        </button>
+      )}
     </li>
     //     );
     //   })}
@@ -63,7 +60,9 @@ MenuItem.propTypes = {
   disabled: PropTypes.bool,
   danger: PropTypes.bool,
   separator: PropTypes.bool,
-  children: PropTypes.any
+  children: PropTypes.any,
+  className: PropTypes.string,
+  link: PropTypes.string
 };
 
 MenuItem.defaultProps = {
@@ -72,7 +71,9 @@ MenuItem.defaultProps = {
   disabled: false,
   danger: false,
   separator: false,
-  children: null
+  children: null,
+  className: '',
+  link: null
 };
 
 export default MenuItem;

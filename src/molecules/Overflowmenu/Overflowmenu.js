@@ -1,13 +1,10 @@
 /* eslint-disable jsx-quotes */
-import React, { useState, useEffect, useRef, cloneElement } from 'react';
+import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
-import MenuList from '../../atoms/Menu';
-import { addListener, removeListeners } from '../../util/eventManager';
 import prefix from '../../settings';
 import Overlay from '../../atoms/Overlay';
 import MenuItem from './MenuItem';
 
-let overflowIdRef = 0;
 const Overflowmenu = ({
   className,
   direction,
@@ -17,109 +14,17 @@ const Overflowmenu = ({
   customTemplate,
   listItems,
   attachElementToBody,
-  //targetElement,
-  showOverlay,
+  customIcon,
   scrollListner,
-  common,
   ...restProps
 }) => {
   const [display, changeDisplay] = useState(false);
-  const overflowMenu = useRef(null);
+  const overflowMenuRef = useRef(null);
   const targetElementRef = useRef(null);
-  const [overflowId] = useState(overflowIdRef++);
-  const [targetEl, setTargetElement] = useState(null);
 
-//   useEffect(() => {
-//     setTargetElement(targetElement);
-//   }, [targetElement]);
-  //   useEffect(() => {
-  //     const overflowMenu = overflow.current.children[1];
-  //     if (overflowMenu) {
-  //       const icon = overflow.current.children[0];
-  //       const caret = overflowMenu.children[1];
-  //       let outOfBound = false;
-  //       const parentHeight = (
-  //         overflowMenu.parentElement.offsetHeight +
-  //         8 -
-  //         parseInt(getComputedStyle(icon).marginBottom)
-  //       ).toString();
-
-  //       overflowMenu.style.display = 'block';
-  //       updateOverflowMenuPos(overflowMenu, icon, caret, outOfBound);
-  //       if (!isInViewport(overflowMenu)) {
-  //         outOfBound = true;
-  //         updateOverflowMenuPos(overflowMenu, icon, caret, outOfBound);
-  //       }
-  //       overflowMenu.querySelector('ul li button:not(:disabled)').focus();
-  //       overflowMenu.style.top = parentHeight.concat('px');
-  //     }
-  //   });
-
-  //   useEffect(() => {
-  //     if (!display) {
-  //       removeListeners('overflow-' + overflowId, 'click');
-  //     } else {
-  //       addListener(
-  //         'overflow-' + overflowId,
-  //         'click',
-  //         e => {
-  //           handleClick(e);
-  //         },
-  //         true
-  //       );
-  //     }
-  //   }, [display]);
-
-  const handleClick = e => {
-    if (overflow.current) {
-      if (e && overflow.current.contains(e.target)) {
-        return;
-      }
-      changeDisplay(false);
-    }
-  };
-
-  const clickHandler = e => {
+  const clickHandler = () => {
     //setTargetElement(e.currentTarget);
     changeDisplay(!display);
-  };
-
-  const isInViewport = elem => {
-    const bounding = elem.getBoundingClientRect();
-    return (
-      bounding.left >= 0 &&
-      bounding.right <=
-        (window.innerWidth || document.documentElement.clientWidth)
-    );
-  };
-
-  const updateOverflowMenuPos = (overflowMenu, icon, caret, outOfBound) => {
-    let caretPosition;
-    if (overflowMenu.classList.contains(`${prefix}-overflow-right`)) {
-      if (outOfBound) {
-        caretPosition = (icon.offsetWidth / 2 - 18).toString();
-        overflowMenu.style.left = null;
-        overflowMenu.style.right = caretPosition.concat('px');
-        caret.style.left = '10rem';
-      } else {
-        caretPosition = (icon.offsetWidth / 2 - 22).toString();
-        overflowMenu.style.left = caretPosition.concat('px');
-        overflowMenu.style.right = null;
-        caret.style.left = null;
-      }
-    } else if (overflowMenu.classList.contains(`${prefix}-overflow-left`)) {
-      if (outOfBound) {
-        caretPosition = (icon.offsetWidth / 2 - 22).toString();
-        overflowMenu.style.right = null;
-        overflowMenu.style.left = caretPosition.concat('px');
-        caret.style.left = '1rem';
-      } else {
-        caretPosition = (icon.offsetWidth / 2 - 18).toString();
-        overflowMenu.style.right = caretPosition.concat('px');
-        overflowMenu.style.left = null;
-        caret.style.left = null;
-      }
-    }
   };
 
   const focusNode = (listItem, direction = 'next') => {
@@ -183,27 +88,13 @@ const Overflowmenu = ({
     }
   };
 
-  const toggleOverflow = e => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      overflow.current.children[0].click();
-    }
-  };
-
-  let element = null;
-  if (typeof children !== 'string') {
-    element = React.Children.map(children, child => {
-      return React.cloneElement(child, {
-        tabIndex: '0',
-        onClick: clickHandler,
-        onKeyPress: toggleOverflow
-      });
-    });
+  const classnames = [`${prefix}-overlay-wrapper`];
+  if (className) {
+    classnames.push(className);
   }
-
-  const classnames = `${prefix}-overflow-container${className}${
-    display ? ` ${prefix}-overflow-active` : ''
-  }`.trim();
+  if (display) {
+    classnames.push(`${prefix}-overlay-wrapper-active`);
+  }
 
   const getListItems = items => {
     return items.map((item, index) => {
@@ -221,6 +112,7 @@ const Overflowmenu = ({
           danger={item.danger}
           separator={item.separator}
           disabled={item.disabled}
+          link={item.link}
         >
           {item.name}
         </MenuItem>
@@ -248,42 +140,26 @@ const Overflowmenu = ({
   const onToggle = (status, type) => {
     changeDisplay(status);
     if (status) {
-      if (overflowMenu.current.querySelector('li button:not(:disabled)')) {
-        overflowMenu.current.querySelector('li button:not(:disabled)').focus();
+      if (
+        overflowMenuRef.current.querySelector(
+          `li .${prefix}-overflow-option-item:not(.${prefix}-overflow-option-disabled)`
+        )
+      ) {
+        overflowMenuRef.current
+          .querySelector(
+            `li .${prefix}-overflow-option-item:not(.${prefix}-overflow-option-disabled)`
+          )
+          .focus();
       }
     } else {
-      console.log('type ==>', type);
       if (type !== 'outside' && targetElementRef && targetElementRef.current) {
         targetElementRef.current.focus();
       }
     }
-    console.log('onToggle', status, type);
   };
 
-  const loadOverlayContainer = (attachElementToBody, showOverlay, targetEl) => {
-    return (
-      <Overlay
-        attachElementToBody={attachElementToBody}
-        showOverlay={showOverlay}
-        targetElement={targetEl}
-        onToggle={onToggle}
-        direction={direction}
-      >
-        <ul
-          aria-labelledby='Right Overflow Menu'
-          className='hcl-overflow-menu'
-          onKeyDown={keyDownOnOverflow}
-          ref={overflowMenu}
-        >
-          {listItems && listItems.length > 0
-            ? getListItems(listItems)
-            : getListItemsFromElement(children)}
-        </ul>
-      </Overlay>
-    );
-  };
   return (
-    <div className='hcl-overlay-wrapper'>
+    <div className={classnames.join(' ')} {...restProps}>
       {customTemplate ? (
         React.cloneElement(customTemplate, {
           onClick: clickHandler,
@@ -291,21 +167,27 @@ const Overflowmenu = ({
         })
       ) : (
         <button
-          className={`${prefix}-ellipsis${
-            ellipsisType === 'horizontal' ? ' horizontal-ellipsis' : ''
-          }`}
+          className={`
+            ${prefix}-overflow-btn 
+            ${
+              customIcon
+                ? ''
+                : `
+            
+            ${prefix}-ellipsis ${
+                    ellipsisType === 'horizontal' ? ' horizontal-ellipsis' : ''
+                  }
+            
+            `
+            }`}
           ref={targetElementRef}
-          aria-label='Left Overflow Menu'
-          role='Overflow Menu'
+          aria-label="Overflow Menu"
+          role="Overflow Menu"
           onClick={clickHandler}
-        />
+        >
+          {customIcon ? customIcon : null}
+        </button>
       )}
-
-      {/* {loadOverlayContainer(
-        attachElementToBody,
-        display,
-        targetElementRef.current
-      )} */}
 
       <Overlay
         attachElementToBody={attachElementToBody}
@@ -314,63 +196,23 @@ const Overflowmenu = ({
         targetElement={targetElementRef.current}
         onToggle={onToggle}
         direction={direction}
+        closeOnEscape
       >
         <ul
-          aria-labelledby='Right Overflow Menu'
-          className='hcl-overflow-menu'
+          aria-labelledby="Right Overflow Menu"
+          className={`${prefix}-overflow-menu`}
           onKeyDown={keyDownOnOverflow}
-          ref={overflowMenu}
+          ref={overflowMenuRef}
         >
           {listItems && listItems.length > 0
             ? getListItems(listItems)
-            : children ? getListItemsFromElement(children) : null}
+            : children
+            ? getListItemsFromElement(children)
+            : null}
         </ul>
       </Overlay>
     </div>
   );
-
-  // <section className={classnames} {...restProps} ref={overflow}>
-  //   {typeof children === 'string' ? (
-  //     <span tabIndex='0' onKeyPress={toggleOverflow} onClick={clickHandler}>
-  //       {children}
-  //     </span>
-  //   ) : children === null ? (
-  //     <span
-  //       tabIndex='0'
-  //       onKeyPress={toggleOverflow}
-  //       className={`${prefix}-ellipsis${
-  //         ellipsisType === 'horizontal' ? ' horizontal-ellipsis' : ''
-  //       }`}
-  //       onClick={clickHandler}
-  //     >
-  //       {children}
-  //     </span>
-  //   ) : (
-  //     element
-  //   )}
-
-  //   {display && Array.isArray(listItems) && listItems.length > 0 && (
-  //     <div
-  //       onKeyDown={keyDownOnOverflow}
-  //       style={{ display: 'none' }}
-  //       className={`${prefix}-overflow-menu ${prefix}-overflow-${direction}`}
-  //     >
-  //       <MenuList
-  //         items={listItems}
-  //         onSelect={(item, index, event) => {
-  //           changeDisplay(false);
-  //           overflow.current.children[0].focus();
-  //           onClick(item, index, event);
-  //         }}
-  //       />
-  //       <div
-  //         className={`${prefix}-overflow-caret${
-  //           direction === 'left' ? '' : '-right'
-  //         }`}
-  //       />
-  //     </div>
-  //   )}
-  // </section>
 };
 
 Overflowmenu.defaultProps = {
@@ -382,7 +224,8 @@ Overflowmenu.defaultProps = {
   className: '',
   customTemplate: null,
   attachElementToBody: false,
-  common: false
+  scrollListner: false,
+  customIcon: null
 };
 
 Overflowmenu.propTypes = {
@@ -415,7 +258,8 @@ Overflowmenu.propTypes = {
 
   customTemplate: PropTypes.element,
 
-  common: PropTypes.bool
+  customIcon: PropTypes.element,
+  scrollListner: PropTypes.bool
 };
 
 export default Overflowmenu;

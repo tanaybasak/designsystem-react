@@ -39,7 +39,7 @@ import Footer from './molecules/Footer';
 import { ActionBar, ActionSummary, ActionList } from './molecules/ActionBar';
 import { ToolBar, ToolBarActions } from './molecules/ToolBar';
 import Password from './atoms/Password';
-import Overlay from './atoms/Overlay';
+//import Overlay from './atoms/Overlay';
 
 class App extends Component {
   state = {
@@ -171,9 +171,9 @@ class App extends Component {
   modalActions5 = [{ label: 'Delete', danger: true }];
 
   modalActions7 = [{ label: 'Save', primary: true }];
-  showoverlay = e => {
-    this.refs.child.showOverlay(e);
-  };
+  //   showoverlay = e => {
+  //     this.refs.child.showOverlay(e);
+  //   };
   _onTemperatureRadioChange = e => {
     this.setState({
       radio: {
@@ -609,35 +609,35 @@ class App extends Component {
                 </Paragraph>
               </div>
               {/* Breadcrumb */}
-              {/* <div className='hcl-col-12 mt-5' id='breadcrumb-section'>
+              <div className="hcl-col-12 mt-5" id="breadcrumb-section">
                 <Breadcrumb
-                  id='small-navigator'
-                  className='custom-breadcrumb-top'
+                  id="small-navigator"
+                  className="custom-breadcrumb-top"
                   activeIndex={Math.floor(Math.random() * 3)}
                   onSelection={(item, idx, e) => console.log(item, idx, e)}
                 >
-                  <BreadcrumbItem className='custom-item' href='#'>
+                  <BreadcrumbItem className="custom-item" href="#">
                     Breadcrumb 1
                   </BreadcrumbItem>
-                  <BreadcrumbItem href='#'>Breadcrumb 2</BreadcrumbItem>
-                  <BreadcrumbItem href='#tools'>Breadcrumb 3</BreadcrumbItem>
+                  <BreadcrumbItem href="#">Breadcrumb 2</BreadcrumbItem>
+                  <BreadcrumbItem href="#tools">Breadcrumb 3</BreadcrumbItem>
                 </Breadcrumb>
-              </div> */}
+              </div>
               {/* Multi-tier Breadcrumb */}
-              {/* <div className='hcl-col-12 mt-5' id='breadcrumb-section'>
+              <div className="hcl-col-12 mt-5" id="breadcrumb-section">
                 <Breadcrumb
-                  id='small-navigator'
-                  className='custom-breadcrumb-top'
+                  id="small-navigator"
+                  className="custom-breadcrumb-top"
                   activeIndex={Math.floor(Math.random() * 3)}
-                  onSelection={(item, idx, e) => console.log(item, idx, e)}
+                  onSelection={(item, e) => console.log(item, e)}
                 >
-                  <BreadcrumbItem className='custom-item'>
+                  <BreadcrumbItem className="custom-item">
                     Breadcrumb 1
                   </BreadcrumbItem>
                   <BreadcrumbItem>Breadcrumb 2</BreadcrumbItem>
                   <BreadcrumbItem>Breadcrumb 3</BreadcrumbItem>
                   <BreadcrumbItem>Breadcrumb 4</BreadcrumbItem>
-                  <BreadcrumbItem href='#asdf'>Breadcrumb 5</BreadcrumbItem>
+                  <BreadcrumbItem href="#asdf">Breadcrumb 5</BreadcrumbItem>
                   <BreadcrumbItem
                     onClick={e => {
                       console.log('sdfsdf', e);
@@ -646,7 +646,7 @@ class App extends Component {
                     Breadcrumb 6
                   </BreadcrumbItem>
                 </Breadcrumb>
-              </div> */}
+              </div>
               {/* Spinner */}
               <div className="hcl-col-12 mt-5" id="spinner-section">
                 <Spinner />
@@ -743,7 +743,6 @@ class App extends Component {
                 <div className="hcl-font-center">
                   <Overflowmenu
                     listItems={overflowlist}
-                    
                     direction="top-right"
                     customTemplate={
                       <button className="hcl-btn hcl-ghost">
@@ -1974,7 +1973,7 @@ class App extends Component {
                   <LoadingState />
                 </div>
 
-                <Button onClick={this.showoverlay}>Open Notification 2</Button>
+                {/* <Button onClick={this.showoverlay}>Open Notification 2</Button>
                 <Overlay ref="child" scrollListner direction="top-left">
                   <Notification
                     title="Notification title"
@@ -1982,7 +1981,7 @@ class App extends Component {
                     type="warning"
                     visible
                   />
-                </Overlay>
+                </Overlay> */}
               </div>
             </div>
           </section>
