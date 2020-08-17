@@ -141,7 +141,7 @@ FileUploader.propTypes = {
   tabIndex: PropTypes.number,
   /** Call back function that is invoked when File Uploader is clicked */
   onChange: PropTypes.func,
-  /** Boolean value to hide or showfile names selected from File Uploader */
+  /** Boolean value to hide or show file names selected from File Uploader */
   hideFile: PropTypes.bool
 };
 
