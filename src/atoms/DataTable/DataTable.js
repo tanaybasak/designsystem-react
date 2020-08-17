@@ -65,14 +65,6 @@ const DataTable = ({
     updateSortedColumn(tempSortedColumn);
   };
 
-  const getValue = (row, key) => {
-    let value = row;
-    key.split('.').map(f => {
-      value = value[f];
-    });
-    return value;
-  };
-
   const toggleRow = index => {
     let tempData = rows;
     tempData[index].expanded = !tempData[index].expanded;
