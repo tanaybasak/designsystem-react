@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { text, object } from '@storybook/addon-knobs';
+import { text, boolean } from '@storybook/addon-knobs';
 //@update-path-build-start
 import TimePicker from './TimePicker';
 //@update-path-build-end
@@ -14,6 +14,7 @@ storiesOf('TimePicker', module).add(
       id="time-picker"
       label={text('Label', 'Select Time')}
       helperText={text('Helper Text', 'optional helper text')}
+      disabled={boolean('Disabled', false)}
       onChange={action('Timepicker Onchange')}
       aria-label="Time Picker"
     />
@@ -33,6 +34,7 @@ storiesOf('TimePicker', module).add(
         type="HH"
         labelHH={text('labelHH', '24H')}
         helperText={text('Helper Text', 'optional helper text')}
+        disabled={boolean('Disabled', false)}
         onChange={action('Timepicker Onchange')}
         aria-label="Time Picker"
       />
@@ -50,8 +52,9 @@ storiesOf('TimePicker', module).add(
         id="time-picker"
         label={text('Label', 'Select Time')}
         helperText={text('Helper Text', 'optional helper text')}
+        disabled={boolean('Disabled', false)}
         onChange={action('Timepicker Onchange')}
-        timeZones={object('Time Zones', timeZones)}
+        timeZones={timeZones}
         aria-label="Time Picker"
       />
     ),

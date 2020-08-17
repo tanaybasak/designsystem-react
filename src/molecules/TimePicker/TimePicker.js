@@ -13,6 +13,7 @@ const TimePicker = ({
   onChange,
   type,
   labelHH,
+  disabled,
   ...restProps
 }) => {
   const classnames = `${prefix}-timepicker ${className}`.trim();
@@ -31,7 +32,7 @@ const TimePicker = ({
       event.currentTarget.options[event.currentTarget.selectedIndex].innerText;
 
     setTimeObject(tempTimeObject);
-    if(validationMessage === ""){
+    if(validationMessage === ''){
         onChange(tempTimeObject);
     }
     
@@ -42,7 +43,7 @@ const TimePicker = ({
     tempTimeObject.timezone =
       event.currentTarget.options[event.currentTarget.selectedIndex].innerText;
     setTimeObject(tempTimeObject);
-    if(validationMessage === ""){
+    if(validationMessage === ''){
         onChange(tempTimeObject);
     }
   };
@@ -166,6 +167,7 @@ const TimePicker = ({
           pattern="[0-9:]*"
           value={time}
           onBlur={onSelectingTime}
+          disabled={disabled}
           onKeyDown={e => {
             if (e.keyCode === 13) {
               onSelectingTime(e);
@@ -181,6 +183,7 @@ const TimePicker = ({
             className={`${prefix}-select`}
             aria-label="choose option"
             onChange={onSelectPeriod}
+            disabled={disabled}
           >
             <option className={`${prefix}-select-option`} value={period.am}>
               {period.am}
@@ -196,6 +199,7 @@ const TimePicker = ({
             className={`${prefix}-select`}
             aria-label="choose option"
             onChange={onSelectTimezone}
+            disabled={disabled}
           >
             {timeZones.map(timezone => {
               return (
@@ -241,6 +245,8 @@ TimePicker.propTypes = {
   type: PropTypes.oneOf(['hh', 'HH']),
   /** Label used for 24hours clock */
   labelHH:PropTypes.string,
+  /** Disables the  Time Picker  */
+  disabled: PropTypes.bool
 };
 
 TimePicker.defaultProps = {
@@ -250,7 +256,8 @@ TimePicker.defaultProps = {
   id: null,
   className: '',
   type: 'hh',
-  labelHH:''
+  labelHH:'',
+  disabled:false
 };
 
 export default TimePicker;
