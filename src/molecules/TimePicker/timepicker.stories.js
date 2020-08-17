@@ -7,25 +7,27 @@ import TimePicker from './TimePicker';
 //@update-path-build-end
 
 const timeZones = ['Time zone 1', 'Time zone 2', 'Time zone 3'];
-storiesOf('TimePicker', module).add(
-  'default',
-  () => (
-    <TimePicker
-      id="time-picker"
-      label={text('Label', 'Select Time')}
-      helperText={text('Helper Text', 'optional helper text')}
-      disabled={boolean('Disabled', false)}
-      onChange={action('Timepicker Onchange')}
-      aria-label="Time Picker"
-    />
-  ),
-  {
-    info: {
-      text: `Description About TimePicker Component \n
+storiesOf('TimePicker', module)
+  .add(
+    'default',
+    () => (
+      <TimePicker
+        id="time-picker"
+        label={text('Label', 'Select Time')}
+        helperText={text('Helper Text', 'optional helper text')}
+        disabled={boolean('Disabled', false)}
+        onChange={action('Timepicker Onchange')}
+        aria-label="Time Picker"
+      />
+    ),
+    {
+      info: {
+        text: `Description About TimePicker Component \n
       import { TimePicker } from '@patron/patron-react/timepicker';`
+      }
     }
-  }
-).add(
+  )
+  .add(
     'with 24 hour clock',
     () => (
       <TimePicker
@@ -45,7 +47,8 @@ storiesOf('TimePicker', module).add(
         import { TimePicker } from '@patron/patron-react/timepicker';`
       }
     }
-  ).add(
+  )
+  .add(
     'with timezone',
     () => (
       <TimePicker

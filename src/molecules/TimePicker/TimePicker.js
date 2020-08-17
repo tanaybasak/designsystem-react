@@ -32,10 +32,9 @@ const TimePicker = ({
       event.currentTarget.options[event.currentTarget.selectedIndex].innerText;
 
     setTimeObject(tempTimeObject);
-    if(validationMessage === ''){
-        onChange(tempTimeObject);
+    if (validationMessage === '') {
+      onChange(tempTimeObject);
     }
-    
   };
 
   const onSelectTimezone = event => {
@@ -43,8 +42,8 @@ const TimePicker = ({
     tempTimeObject.timezone =
       event.currentTarget.options[event.currentTarget.selectedIndex].innerText;
     setTimeObject(tempTimeObject);
-    if(validationMessage === ''){
-        onChange(tempTimeObject);
+    if (validationMessage === '') {
+      onChange(tempTimeObject);
     }
   };
 
@@ -152,9 +151,7 @@ const TimePicker = ({
     <div className={classnames} {...restProps}>
       {label ? <Label htmlFor={id ? id : null}>{label}</Label> : null}
       {helperText ? (
-        <FormHelperText className="helper-text">
-          {helperText}
-        </FormHelperText>
+        <FormHelperText className="helper-text">{helperText}</FormHelperText>
       ) : null}
       <div className={`${prefix}-timepicker-input`}>
         <input
@@ -176,7 +173,7 @@ const TimePicker = ({
           onChange={onChangeTime}
         />
         {type === 'HH' && labelHH !== '' ? (
-            <span className={`${prefix}-timepicker-hour-label`}>{labelHH}</span>
+          <span className={`${prefix}-timepicker-hour-label`}>{labelHH}</span>
         ) : null}
         {type !== 'HH' ? (
           <select
@@ -237,14 +234,14 @@ TimePicker.propTypes = {
   id: PropTypes.string,
   /** Specifies helper text */
   helperText: PropTypes.string,
-  /** 
-   * Used to specify the type of time picker 
+  /**
+   * Used to specify the type of time picker
    * hh : 12hours clock
    * HH : 24hours clock
-    */
+   */
   type: PropTypes.oneOf(['hh', 'HH']),
   /** Label used for 24hours clock */
-  labelHH:PropTypes.string,
+  labelHH: PropTypes.string,
   /** Disables the  Time Picker  */
   disabled: PropTypes.bool
 };
@@ -256,8 +253,8 @@ TimePicker.defaultProps = {
   id: null,
   className: '',
   type: 'hh',
-  labelHH:'',
-  disabled:false
+  labelHH: '',
+  disabled: false
 };
 
 export default TimePicker;
