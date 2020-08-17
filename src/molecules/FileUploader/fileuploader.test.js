@@ -55,7 +55,7 @@ describe('<FileUploader> component', () => {
     const mockedEvent = { target: { files: [file] } };
 
     const fileUploader = mount(
-      <FileUploader id="file_uploader" multiple onClick={mockCallBack}>
+      <FileUploader id="file_uploader" hideFile multiple onClick={mockCallBack}>
         Add File
       </FileUploader>
     );
@@ -75,7 +75,7 @@ describe('<FileUploader> component', () => {
     const mockedEvent = { target: { files: [file] } };
 
     const fileUploader = mount(
-      <FileUploader id="file_uploader" multiple onClick={mockCallBack}>
+      <FileUploader id="file_uploader" hideFile multiple onClick={mockCallBack}>
         Add File
       </FileUploader>
     );
