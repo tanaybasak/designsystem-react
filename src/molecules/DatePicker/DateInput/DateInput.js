@@ -27,7 +27,7 @@ const DateInput = ({
         placeholder={format}
         autoComplete="off"
         value={dateSelected ? dateSelected : ''}
-        onClick={()=>{
+        onClick={() => {
           event.stopPropagation();
           toggleDateContainer();
         }}
@@ -41,7 +41,7 @@ const DateInput = ({
         width="14"
         height="16"
         viewBox="0 0 14 16"
-        onClick={()=>{
+        onClick={() => {
           event.stopPropagation();
           toggleDateContainer();
         }}

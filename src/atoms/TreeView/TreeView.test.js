@@ -58,10 +58,7 @@ it('Toggle Tree node using click', () => {
   expect(wrapper.find(`.${firstTreeNode.collapsedIcon}`).exists()).toBeTruthy();
   expect(wrapper.find(`.${firstTreeNode.expandIcon}`).exists()).toBeFalsy();
 
-  wrapper
-    .find('.tree-node')
-    .at(0)
-    .simulate('click');
+  wrapper.find('.tree-node').at(0).simulate('click');
   expect(wrapper.find(`.tree-nested`).exists()).toBeTruthy();
   expect(wrapper.find(`.${firstTreeNode.collapsedIcon}`).exists()).toBeFalsy();
   expect(wrapper.find(`.${firstTreeNode.expandIcon}`).exists()).toBeTruthy();
@@ -75,11 +72,7 @@ it('Select Tree Node', () => {
     <TreeView treeData={newTreeData} type="single" onChange={mockCallBack} />
   );
   expect(wrapper.find(`.highlight`).exists()).toBeFalsy();
-  wrapper
-    .find('.tree-node')
-    .at(0)
-    .find('span')
-    .simulate('click');
+  wrapper.find('.tree-node').at(0).find('span').simulate('click');
   expect(wrapper.find(`.highlight`).exists()).toBeTruthy();
   expect(mockCallBack.mock.calls.length).toBe(1);
 });
@@ -94,14 +87,8 @@ it('Select Tree on Key enter', () => {
   expect(wrapper.find(`.tree-nested`).exists()).toBeFalsy();
   expect(wrapper.find(`.${firstTreeNode.collapsedIcon}`).exists()).toBeTruthy();
   expect(wrapper.find(`.${firstTreeNode.expandIcon}`).exists()).toBeFalsy();
-  wrapper
-    .find('.tree-node')
-    .at(0)
-    .simulate('focus');
-  wrapper
-    .find('.tree-node')
-    .at(0)
-    .simulate('keydown', { keyCode: 13 });
+  wrapper.find('.tree-node').at(0).simulate('focus');
+  wrapper.find('.tree-node').at(0).simulate('keydown', { keyCode: 13 });
   expect(wrapper.find(`.highlight`).exists()).toBeTruthy();
   expect(mockCallBack.mock.calls.length).toBe(1);
 });
@@ -162,7 +149,9 @@ it('Navigate Item using Arrow Down', () => {
 
   currentActiveNode = wrapper.find('.tree-node').at(2);
   currentActiveNode.simulate('keydown', { keyCode: 40 });
-  expect(document.activeElement.textContent.trim()).toEqual(newTreeData[1].name);
+  expect(document.activeElement.textContent.trim()).toEqual(
+    newTreeData[1].name
+  );
 });
 
 it('Navigate Item using Arrow Up', () => {
@@ -186,24 +175,22 @@ it('Navigate Item using Arrow Up', () => {
   expect(mockCallBack.mock.calls.length).toBe(1);
 
   secondNode.simulate('focus');
-  expect(document.activeElement.textContent.trim()).toEqual(newTreeData[1].name);
+  expect(document.activeElement.textContent.trim()).toEqual(
+    newTreeData[1].name
+  );
   secondNode.simulate('keydown', { keyCode: 38 });
 
   expect(document.activeElement.textContent.trim()).toEqual(
     newTreeData[0].children[1].name
   );
 
-  wrapper
-    .find('.tree-node')
-    .at(2)
-    .simulate('keydown', { keyCode: 38 });
+  wrapper.find('.tree-node').at(2).simulate('keydown', { keyCode: 38 });
   expect(document.activeElement.textContent.trim()).toEqual(
     newTreeData[0].children[0].name
   );
 
-  wrapper
-    .find('.tree-node')
-    .at(1)
-    .simulate('keydown', { keyCode: 38 });
-  expect(document.activeElement.textContent.trim()).toEqual(newTreeData[0].name);
+  wrapper.find('.tree-node').at(1).simulate('keydown', { keyCode: 38 });
+  expect(document.activeElement.textContent.trim()).toEqual(
+    newTreeData[0].name
+  );
 });

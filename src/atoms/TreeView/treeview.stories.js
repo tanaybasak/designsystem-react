@@ -350,7 +350,7 @@ const treeDataWithDragandDropOverflow = [
 const timeout = ms => {
   const p1 = new Promise(resolve => setTimeout(resolve, ms));
   return p1
-    .then(function() {
+    .then(function () {
       return true;
     })
     .catch(

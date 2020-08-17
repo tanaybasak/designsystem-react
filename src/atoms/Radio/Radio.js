@@ -4,7 +4,7 @@ import prefix from '../../settings';
 
 const Radio = ({ className, labelText, onChange, ...restProps }) => {
   const classnames = `${prefix}-radio-item ${className}`.trim();
-  const handleChange = (evt) => {
+  const handleChange = evt => {
     onChange(evt.target.value, evt);
   };
   return (
@@ -40,14 +40,14 @@ Radio.propTypes = {
   /** Name of radio element */
   name: PropTypes.string,
   /** Text value to be considered when submitting forms. */
-  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 };
 
 Radio.defaultProps = {
   className: '',
   labelText: '',
   disabled: false,
-  onChange: () => {},
+  onChange: () => {}
 };
 
 export default Radio;

@@ -13,7 +13,7 @@ const Toggle = ({
 }) => {
   const [checked, setChecked] = useState(toggled || false);
 
-  const keyDownOnToggle = (e) => {
+  const keyDownOnToggle = e => {
     const key = e.which || e.keyCode;
     if (key === 39) {
       e.preventDefault();
@@ -32,7 +32,7 @@ const Toggle = ({
     >
       <input
         type="checkbox"
-        onChange={(event) => {
+        onChange={event => {
           setChecked(!checked);
           onChange(!checked, event);
         }}
@@ -40,10 +40,7 @@ const Toggle = ({
         checked={checked}
         {...restProps}
       />
-      <label
-        className={`${prefix}-toggle-label`}
-        htmlFor={restProps.id}
-      >
+      <label className={`${prefix}-toggle-label`} htmlFor={restProps.id}>
         <span className={`${prefix}-switch`} />
       </label>
       {labelOff ? (
@@ -83,7 +80,7 @@ Toggle.defaultProps = {
   labelOff: 'Off',
   labelOn: 'On',
   onChange: () => {},
-  disabled: false,
+  disabled: false
 };
 
 export default Toggle;

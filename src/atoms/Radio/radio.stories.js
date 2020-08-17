@@ -38,7 +38,7 @@ storiesOf('Radio', module)
     () => (
       <RadioGroup
         orientation="vertical"
-        onChange={action("RadioGroup-OnChange")}
+        onChange={action('RadioGroup-OnChange')}
         defaultSelected="Radio1"
       >
         <Radio
@@ -76,7 +76,10 @@ storiesOf('Radio', module)
   .add(
     'horizontal',
     () => (
-      <RadioGroup onChange={action("Radio Group OnChange")} defaultSelected="Radio1">
+      <RadioGroup
+        onChange={action('Radio Group OnChange')}
+        defaultSelected="Radio1"
+      >
         <Radio
           {...props.radio()}
           id="radio1"
