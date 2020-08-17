@@ -31,16 +31,14 @@ export default function FileUploader({
   };
 
   const getFileList = event => {
-    if (hideFile) {
-      const files = event.target.files;
-      const filelist = Object.keys(files).map(i => files[i]);
-      const tempFileLists = multiple
-        ? [...fileLists, ...filelist]
-        : [...filelist];
-      setFileList(tempFileLists);
-      onChange(tempFileLists, event);
-      event.target.value = null;
-    }
+    const files = event.target.files;
+    const filelist = Object.keys(files).map(i => files[i]);
+    const tempFileLists = multiple
+      ? [...fileLists, ...filelist]
+      : [...filelist];
+    setFileList(tempFileLists);
+    onChange(tempFileLists, event);
+    event.target.value = null;
   };
 
   const removeFile = (event, name) => {
@@ -88,7 +86,7 @@ export default function FileUploader({
           {children}
         </label>
         <div className={`${prefix}-file-container`}>
-          {fileLists.length && hideFile
+          {fileLists.length && !hideFile
             ? fileLists.map((fileList, index) => (
                 <div key={index} className={`${prefix}-file-container-item`}>
                   <span
