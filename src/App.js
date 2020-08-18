@@ -1317,8 +1317,8 @@ class App extends Component {
                   description="only .jpg and .png files. 500kb max file size."
                   fileType=".jpg,.png"
                   className="hcl-secondary hcl-sml"
-                  onChange={FileList => {
-                    console.log('FileList:  ', FileList);
+                  onChange={(FileList, e) => {
+                    console.log('FileList:  ', FileList, 'event', e);
                   }}
                 >
                   Add file
