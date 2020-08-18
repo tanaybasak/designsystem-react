@@ -649,7 +649,7 @@ class App extends Component {
               </div>
               {/* Small Spinner */}
               <div className="hcl-col-12 mt-5">
-                <Spinner small />
+                <Spinner small label="Loading..." />
               </div>
               {/* Toggle */}
               <div className="hcl-col-12 mt-5" id="toggle-section">
