@@ -29,7 +29,8 @@ const TreeView = ({
   onRenamingNode,
   onMoveNode,
   onCopyNode,
-  onActionCompletes
+  onActionCompletes,
+  overflowOnHover
 }) => {
   let [treeInfo, updateTree] = useState(treeData);
 
@@ -198,6 +199,7 @@ const TreeView = ({
             onSelectNode={type === 'single' ? onSelectNode : null}
             selectedNode={type === 'single' ? selectedNode : null}
             configuration={configuration}
+            overflowOnHover={overflowOnHover}
             onOverflowAction={onOverflowAction}
             copiedNode={copiedNode}
             cutNode={cutNode}
@@ -227,6 +229,8 @@ TreeView.propTypes = {
   collapsedIcon: PropTypes.string,
   /** Style class of the component */
   className: PropTypes.string,
+  /** used to display overflow menu on hover  */
+  overflowOnHover: PropTypes.bool,
   /** Callback function on selecting overflow menu item */
   onOverflowAction: PropTypes.func,
   /** Callback function used for specifying rules on drag and drop or cut and paste */
@@ -297,7 +301,8 @@ TreeView.defaultProps = {
   onMoveNode: null,
   onCopyNode: null,
   onDeleteNode: null,
-  onActionCompletes: null
+  onActionCompletes: null,
+  overflowOnHover: false
 };
 
 export default TreeView;

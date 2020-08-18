@@ -186,12 +186,16 @@ const Overflowmenu = ({
     });
   }
 
-  const classnames = `${prefix}-overflow-container${className}${
-    display ? ` ${prefix}-overflow-active` : ''
-  }`.trim();
+  const classnames = [`${prefix}-overflow-container`];
+  if (className) {
+    classnames.push(className);
+  }
+  if (display) {
+    classnames.push(`${prefix}-overflow-active`);
+  }
 
   return (
-    <section className={classnames} {...restProps} ref={overflow}>
+    <section className={classnames.join(' ')} {...restProps} ref={overflow}>
       {typeof children === 'string' ? (
         <span tabIndex="0" onKeyPress={toggleOverflow} onClick={clickHandler}>
           {children}
