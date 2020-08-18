@@ -18,7 +18,7 @@ const SelectItem = ({ value, disabled, hidden, text, ...restProps }) => {
 
 SelectItem.propTypes = {
   /** Specify the value of the <SelectItem> */
-  value: PropTypes.any.isRequired,
+  value: PropTypes.string.isRequired,
 
   /** Specify whether the <SelectItem> should be disabled */
   disabled: PropTypes.bool,
