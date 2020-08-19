@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
-import { addListener, removeListeners } from '../../util/eventManager';
 import Checkbox from '../Checkbox';
 import Overlay from '../Overlay';
 
@@ -15,6 +14,8 @@ const Dropdown = ({
   config,
   selectedItem,
   className,
+  attachElementToBody,
+  scrollListner,
   ...restProps
 }) => {
   const defaultConfig = { text: 'text', id: 'id' };
@@ -48,63 +49,9 @@ const Dropdown = ({
     }
   }, [selectedItem]);
 
-  useEffect(() => {
-    const dropdownMenu = dropDown.current.getElementsByTagName('ul')[0];
-    if (dropdownMenu) {
-      dropdownMenu.style.display = 'block';
-      if (!isInViewport(dropdownMenu)) {
-        if (type === 'bottom') {
-          dropDown.current.classList.remove(`${prefix}-dropdown-bottom`);
-          dropDown.current.classList.add(`${prefix}-dropdown-top`);
-        }
-        if (type === 'top') {
-          dropDown.current.classList.remove(`${prefix}-dropdown-top`);
-          dropDown.current.classList.add(`${prefix}-dropdown-bottom`);
-        }
-      }
-    }
-  });
-
-  const isInViewport = elem => {
-    const bounding = elem.getBoundingClientRect();
-    return (
-      bounding.top >= 0 &&
-      bounding.left >= 0 &&
-      bounding.bottom <=
-        (window.innerHeight || document.documentElement.clientHeight) &&
-      bounding.right <=
-        (window.innerWidth || document.documentElement.clientWidth)
-    );
-  };
-
-  useEffect(() => {
-    if (!isOpen) {
-      //removeListeners('dropdown-' + dropDownId, 'click');
-    } else {
-      //   addListener(
-      //     'dropdown-' + dropDownId,
-      //     'click',
-      //     e => {
-      //       handleClick(e);
-      //     },
-      //     true
-      //   );
-    }
-  }, [isOpen]);
-
-  const handleClick = e => {
-    e.preventDefault();
-    if (dropDown.current) {
-      if (e && dropDown.current.contains(e.target)) {
-        return;
-      }
-      setIsOpen(false);
-    }
-  };
-
   const focusNode = node => {
     if (node.classList.contains(`${prefix}-dropdown-item`)) {
-      node.children[0].focus();
+      node.focus();
     }
   };
 
@@ -112,10 +59,10 @@ const Dropdown = ({
     setSelected(item);
     onChange(item);
     setIsOpen(false);
-    dropDown.current.children[0].focus();
+    dropDown.current.focus();
   };
 
-  const onMultiSelect = (event, item) => {
+  const onMultiSelect = (item, event) => {
     event.stopPropagation();
     event.preventDefault();
     const input = event.currentTarget.querySelector('input');
@@ -147,15 +94,12 @@ const Dropdown = ({
       } else {
         listItem.previousElementSibling.focus();
       }
-    } else if (key === 13 || key === 32) {
-      e.preventDefault();
-      e.target.click();
     }
   };
 
   const keyDownOnDropdown = e => {
     const key = e.which || e.keyCode;
-    const listItem = e.target.parentElement;
+    const listItem = e.target;
     switch (key) {
       case 40: {
         if (!listItem.nextElementSibling) {
@@ -180,13 +124,6 @@ const Dropdown = ({
     }
   };
 
-  const toggleDropdown = e => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      dropDown.current.children[0].click();
-    }
-  };
-
   const keydownButton = e => {
     const key = e.which || e.keyCode;
     const listItems = dropDownRef.current;
@@ -203,9 +140,9 @@ const Dropdown = ({
           : focusNode(listItems.lastElementChild);
       }
     } else {
-      if (key === 38 || key === 40) {
+      if (key === 38 || key === 40 || key === 13) {
         e.preventDefault();
-        dropDown.current.children[0].click();
+        toggleDropDown(e);
       }
     }
   };
@@ -213,42 +150,49 @@ const Dropdown = ({
   const onToggle = (status, type) => {
     setIsOpen(status);
     if (status) {
-    //   if (overflowMenu.current.querySelector('li button:not(:disabled)')) {
-    //     overflowMenu.current.querySelector('li button:not(:disabled)').focus();
-    //   }
+      if (dropDownRef.current && dropDownRef.current.firstElementChild) {
+        dropDownRef.current.firstElementChild.focus();
+      }
     } else {
-    //   console.log('type ==>', type);
       if (type !== 'outside' && targetEl) {
         targetEl.focus();
       }
     }
-    console.log('onToggle', status, type);
   };
- 
 
-  const classnames = `${prefix}-dropdown ${
-    type === 'bottom' ? `${prefix}-dropdown-bottom` : `${prefix}-dropdown-top`
-  } ${className}
-  ${isOpen ? `${prefix}-dropdown-open` : ''}`.trim();
+  const clearSelection = event => {
+    event.stopPropagation();
+    setSelectedObj({});
+    setSelectedCount(0);
+    onChange(null, []);
+    dropDown.current.focus();
+  };
+
+  const toggleDropDown = event => {
+    event.stopPropagation();
+    setTargetEl(event.currentTarget);
+    setIsOpen(!isOpen);
+  };
+
+  const classNames = [`${prefix}-overlay-wrapper`, `${prefix}-dropdown`];
+  if (isOpen) {
+    classNames.push(`${prefix}-overlay-wrapper-active`);
+  }
+  if (className) {
+    classNames.push(className);
+  }
 
   return (
-    // <section className={classnames} ref={dropDown} {...restProps}>
-    <div className="hcl-overlay-wrapper hcl-dropdown" ref={dropDown} {...restProps}>
+    <div className={classNames.join(' ')} {...restProps}>
       {dropdownType === 'multi' ? (
         <div
           className={`${prefix}-btn ${prefix}-dropdown-toggle`}
           data-toggle="dropdown"
           tabIndex="0"
           role="button"
-          onKeyPress={toggleDropdown}
+          ref={dropDown}
           onKeyDown={keydownButton}
-          onClick={event => {
-            event.stopPropagation();
-            setTargetEl(event.currentTarget);
-            setIsOpen(!isOpen);
-
-            event.target.focus();
-          }}
+          onClick={toggleDropDown}
           aria-haspopup="true"
         >
           {selectedCount > 0 ? (
@@ -269,15 +213,10 @@ const Dropdown = ({
                 onKeyDown={event => {
                   if (event.key === 'Enter') {
                     event.preventDefault();
-                    dropDown.current.querySelector(`.${prefix}-close`).click();
+                    clearSelection(event);
                   }
                 }}
-                onClick={event => {
-                  event.stopPropagation();
-                  setSelectedObj({});
-                  setSelectedCount(0);
-                  onChange(null, []);
-                }}
+                onClick={clearSelection}
                 tabIndex="0"
               />
             </button>
@@ -288,14 +227,9 @@ const Dropdown = ({
         <button
           className={`${prefix}-btn ${prefix}-dropdown-toggle`}
           data-toggle="dropdown"
+          ref={dropDown}
           onKeyDown={keydownButton}
-          onClick={event => {
-              console.log('Button Clicked')
-            event.stopPropagation();
-            setTargetEl(event.currentTarget);
-            setIsOpen(!isOpen);
-            event.target.focus();
-          }}
+          onClick={toggleDropDown}
           aria-label={label}
           aria-haspopup="true"
         >
@@ -304,55 +238,70 @@ const Dropdown = ({
       )}
 
       <Overlay
-        attachElementToBody={false}
-        scrollListner={false}
+        attachElementToBody={attachElementToBody}
+        scrollListner={scrollListner}
+        direction={`${type === 'bottom' ? 'bottom-left' : 'top-left'}`}
         showOverlay={isOpen}
         targetElement={targetEl}
         onToggle={onToggle}
+        closeOnEscape
         style={{ width: targetEl ? targetEl.offsetWidth + 'px' : '0' }}
       >
         <ul
           onKeyDown={
             dropdownType === 'multi' ? keyDownOnMultiSelect : keyDownOnDropdown
           }
+          className={`${prefix}-dropdown-menu`}
           id={`dropdown-container-${dropDownId}`}
           role="listbox"
           aria-label={label}
           ref={dropDownRef}
-          
         >
           {items.map(item => {
-            return dropdownType === 'multi' ? (
+            return (
               <li
                 className={`${prefix}-dropdown-item`}
                 key={item[configuration.id]}
-                onClick={e => {
-                  onMultiSelect(e, item);
+                onClick={
+                  dropdownType === 'multi'
+                    ? onMultiSelect.bind(this, item)
+                    : onSelect.bind(this, item)
+                }
+                onKeyDown={e => {
+                  const key = e.which || e.keyCode;
+                  if (dropdownType === 'multi') {
+                    if (key === 13 || key === 32) {
+                      e.preventDefault();
+                      onMultiSelect(item, e);
+                    }
+                  } else {
+                    if (key === 13) {
+                      e.preventDefault();
+                      onSelect(item);
+                    }
+                  }
                 }}
                 tabIndex="0"
                 aria-label={item[configuration.text]}
                 role="option"
                 aria-checked={
-                  selectedObj[item[defaultConfig.id]] ? true : false
+                  dropdownType === 'multi'
+                    ? selectedObj[item[defaultConfig.id]]
+                      ? true
+                      : false
+                    : null
                 }
               >
-                <Checkbox
-                  id={item[configuration.id]}
-                  label={item[configuration.text]}
-                  checked={selectedObj[item[defaultConfig.id]]}
-                  tabIndex="-1"
-                />
-              </li>
-            ) : (
-              <li
-                className={`${prefix}-dropdown-item`}
-                key={item[configuration.id]}
-                role="option"
-                onClick={onSelect.bind(this, item)}
-              >
-                <a href="#" className={`${prefix}-dropdown-wrapper`}>
-                  {item[configuration.text]}
-                </a>
+                {dropdownType === 'multi' ? (
+                  <Checkbox
+                    id={item[configuration.id]}
+                    label={item[configuration.text]}
+                    checked={selectedObj[item[defaultConfig.id]]}
+                    tabIndex="-1"
+                  />
+                ) : (
+                  item[configuration.text]
+                )}
               </li>
             );
           })}
@@ -387,7 +336,10 @@ Dropdown.propTypes = {
   className: PropTypes.string,
 
   /** Configuration Object for updating propery name in items data */
-  config: PropTypes.any
+  config: PropTypes.any,
+
+  attachElementToBody: PropTypes.bool,
+  scrollListner: PropTypes.bool
 };
 
 Dropdown.defaultProps = {
@@ -396,7 +348,9 @@ Dropdown.defaultProps = {
   onChange: () => {},
   className: '',
   dropdownType: '',
-  config: {}
+  config: {},
+  attachElementToBody: false,
+  scrollListner: false
 };
 
 export default Dropdown;

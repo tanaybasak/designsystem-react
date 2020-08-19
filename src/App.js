@@ -1360,6 +1360,8 @@ class App extends Component {
                 <div className="hcl-col-6">
                   <Dropdown
                     type="bottom"
+                    attachElementToBody
+                    scrollListner
                     items={this.items}
                     label="Bottom DropDown"
                     onChange={selected => {

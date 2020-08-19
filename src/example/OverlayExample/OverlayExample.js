@@ -239,6 +239,96 @@ class OverlayExample extends Component {
           </MenuItem>
         </Overflowmenu>
 
+        <Dropdown
+          type="bottom"
+          items={[
+            {
+              id: 'option-1',
+              text: 'Option 1'
+            },
+            {
+              id: 'option-2',
+              text: 'Option 2'
+            },
+            {
+              id: 'option-3',
+              text: 'Option 3'
+            },
+            {
+              id: 'option-4',
+              text: 'Option 4'
+            }
+          ]}
+          label="Top DropDown"
+          selectedItem="option-3"
+          onChange={selected => {
+            console.log('selected item', selected);
+          }}
+        />
+
+        <Dropdown
+          type="top"
+          items={[
+            {
+              id: 'option-1',
+              text: 'Option 1'
+            },
+            {
+              id: 'option-2',
+              text: 'Option 2'
+            },
+            {
+              id: 'option-3',
+              text: 'Option 3'
+            },
+            {
+              id: 'option-4',
+              text: 'Option 4'
+            }
+          ]}
+          label="Top DropDown"
+          selectedItem="option-3"
+          onChange={selected => {
+            console.log('selected item', selected);
+          }}
+        />
+
+        <Dropdown
+          type="top"
+          dropdownType="multi"
+          attachElementToBody
+          items={[
+            {
+              id: 'option-1',
+              text: 'Option 1'
+            },
+            {
+              id: 'option-2',
+              text: 'Option 2'
+            },
+            {
+              id: 'option-3',
+              text: 'Option 3'
+            },
+            {
+              id: 'option-4',
+              text: 'Option 4'
+            }
+          ]}
+          label="Top DropDown"
+          selectedItem={[
+            {
+              id: 'option-1'
+            },
+            {
+              id: 'option-2'
+            }
+          ]}
+          onChange={selected => {
+            console.log('selected item', selected);
+          }}
+        />
+
         {/* <Button onClick={this.showoverlay1}>Open Notification 2</Button>
         <Button onClick={this.showoverlay2}>Open Notification 3</Button>
 
