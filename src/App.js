@@ -649,7 +649,7 @@ class App extends Component {
               </div>
               {/* Small Spinner */}
               <div className="hcl-col-12 mt-5">
-                <Spinner small />
+                <Spinner small label="Loading..." />
               </div>
               {/* Toggle */}
               <div className="hcl-col-12 mt-5" id="toggle-section">
@@ -1320,8 +1320,8 @@ class App extends Component {
                   description="only .jpg and .png files. 500kb max file size."
                   fileType=".jpg,.png"
                   className="hcl-secondary hcl-sml"
-                  onChange={FileList => {
-                    console.log('FileList:  ', FileList);
+                  onChange={(FileList, e) => {
+                    console.log('FileList:  ', FileList, 'event', e);
                   }}
                 >
                   Add file

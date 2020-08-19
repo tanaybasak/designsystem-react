@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { object } from '@storybook/addon-knobs';
+import { object, boolean } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 //@update-path-build-start
 import TreeView from './TreeView';
@@ -473,6 +473,7 @@ storiesOf('Tree', module)
         onRenamingNode={async () => {
           return await timeout(3000);
         }}
+        overflowOnHover={boolean('OverflowOnHover', false)}
         type="single"
         onChange={action('on change')}
         onToggle={action('on toggle')}

@@ -13,6 +13,7 @@ export default function FileUploader({
   multiple,
   fileType,
   tabIndex,
+  hideFile,
   onChange,
   ...restProps
 }) {
@@ -36,7 +37,7 @@ export default function FileUploader({
       ? [...fileLists, ...filelist]
       : [...filelist];
     setFileList(tempFileLists);
-    onChange(tempFileLists);
+    onChange(tempFileLists, event);
     event.target.value = null;
   };
 
@@ -48,7 +49,7 @@ export default function FileUploader({
       newFileList.splice(index, 1);
       setFileList(newFileList);
     }
-    onChange(newFileList);
+    onChange(newFileList, event);
   };
 
   return (
@@ -85,7 +86,7 @@ export default function FileUploader({
           {children}
         </label>
         <div className={`${prefix}-file-container`}>
-          {fileLists.length
+          {fileLists.length && !hideFile
             ? fileLists.map((fileList, index) => (
                 <div key={index} className={`${prefix}-file-container-item`}>
                   <span
@@ -139,7 +140,9 @@ FileUploader.propTypes = {
   /** Tab Index for File Uploader */
   tabIndex: PropTypes.number,
   /** Call back function that is invoked when File Uploader is clicked */
-  onChange: PropTypes.func
+  onChange: PropTypes.func,
+  /** Boolean value to hide or show file names selected from File Uploader */
+  hideFile: PropTypes.bool
 };
 
 FileUploader.defaultProps = {
@@ -152,5 +155,6 @@ FileUploader.defaultProps = {
   multiple: false,
   fileType: '',
   tabIndex: 0,
+  hideFile: false,
   onChange: () => {}
 };
