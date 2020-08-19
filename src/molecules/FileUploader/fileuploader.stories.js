@@ -30,6 +30,7 @@ storiesOf('FileUploader', module)
         description={text('Description', 'File Uploader Description')}
         disabled={boolean('Disabled', false)}
         fileType={text('File Type', '')}
+        hideFile={boolean('hideFile', false)}
         id="sample_file_uploader"
         label={text('Label', 'Add File')}
         onChange={action('File Uploader OnChange')}
@@ -59,6 +60,7 @@ storiesOf('FileUploader', module)
         description={text('Description', 'File Uploader Description')}
         disabled={boolean('Disabled', false)}
         fileType={text('File Type', '')}
+        hideFile={boolean('hideFile', false)}
         id="sample_file_uploader"
         label={text('Label', 'Add File')}
         multiple

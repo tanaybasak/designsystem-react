@@ -6,7 +6,7 @@ import {
   getConditionStatus,
   isInSameLevel
 } from '../../util/treeUtil';
-import {Overflowmenu} from '../../molecules/Overflowmenu';
+import { Overflowmenu } from '../../molecules/Overflowmenu';
 import TextInput from '../TextInput';
 import prefix from '../../settings';
 const TreeNode = ({
@@ -30,7 +30,8 @@ const TreeNode = ({
   copiedNode,
   cutNodeLevel,
   updateTreeDataBasedOnAction,
-  updateTreeState
+  updateTreeState,
+  overflowOnHover
 }) => {
   // Toggle Tree Node Section
   const updateNodeToggleStatus = status => {
@@ -610,6 +611,7 @@ const TreeNode = ({
           direction="bottom-right"
           ellipsisType="vertical"
           onClick={onOverflowItemSelect}
+          className={overflowOnHover ? 'overflow-onhover' : ''}
         />
       </div>
     );
@@ -756,6 +758,7 @@ const TreeNode = ({
                 getOverFlowItems={getOverFlowItems}
                 updateTreeDataBasedOnAction={updateTreeDataBasedOnAction}
                 updateTreeState={updateTreeState}
+                overflowOnHover={overflowOnHover}
               />
             );
           })}
@@ -786,7 +789,8 @@ TreeNode.propTypes = {
   cutNodeLevel: PropTypes.string,
   copiedNode: PropTypes.any,
   updateTreeDataBasedOnAction: PropTypes.func,
-  updateTreeState: PropTypes.func
+  updateTreeState: PropTypes.func,
+  overflowOnHover: PropTypes.bool
 };
 
 TreeNode.defaultProps = {
@@ -810,7 +814,8 @@ TreeNode.defaultProps = {
   cutNodeLevel: '',
   getOverFlowItems: null,
   updateTreeDataBasedOnAction: () => {},
-  updateTreeState: () => {}
+  updateTreeState: () => {},
+  overflowOnHover: false
 };
 
 export default TreeNode;
