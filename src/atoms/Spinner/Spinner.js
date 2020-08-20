@@ -31,14 +31,14 @@ Spinner.propTypes = {
   className: PropTypes.string,
 
   /** Specify the label for the small spinner */
-  label: PropTypes.string,
+  label: PropTypes.string
 };
 
 Spinner.defaultProps = {
   small: false,
   title: '',
   className: '',
-  label: '',
+  label: ''
 };
 
 export default Spinner;

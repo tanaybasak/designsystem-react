@@ -28,7 +28,9 @@ const items = [
         title: 'Child Item 4'
       }
     ],
-    icon: <i style={{ color: 'white' }} className={`pi pi-${icons[2]}`} />,
+    icon: (
+      <i style={{ color: 'white' }} className={`p-hclsw p-hclsw-${icons[2]}`} />
+    ),
     title: 'Category One'
   },
   {
@@ -78,7 +80,7 @@ storiesOf('Sidebar', module).add(
       icon={
         <i
           style={{ color: 'white' }}
-          className={`pi pi-${select('Title Icon', icons, 'user')}`}
+          className={`p-hclsw p-hclsw-${select('Title Icon', icons, 'user')}`}
         />
       }
       expanded={boolean('Expanded', true)}

@@ -19,11 +19,11 @@ class Home extends Component {
     {
       title: 'Home',
       href: '/',
-      icon: <i className="pi pi-home" />
+      icon: <i className="p-hclsw p-hclsw-home" />
     },
     {
       title: 'Components',
-      icon: <i className="pi pi-new-relases" />,
+      icon: <i className="p-hclsw p-hclsw-release" />,
       children: [
         {
           href: '/tag',
@@ -60,15 +60,15 @@ class Home extends Component {
           icons={[
             {
               onClick: event => console.log(event.currentTarget),
-              icon: <button className={`pi pi-settings`} />
+              icon: <button className={`p-hclsw p-hclsw-setting`} />
             },
             {
               onClick: event => console.log(event.currentTarget),
-              icon: <button className={`pi pi-new-relases`} />
+              icon: <button className={`p-hclsw p-hclsw-notification`} />
             },
             {
               onClick: event => console.log(event.currentTarget),
-              icon: <button className={`pi pi-logout`} />
+              icon: <button className={`p-hclsw p-hclsw-logout`} />
             }
           ]}
           data-withsidenav
@@ -78,7 +78,7 @@ class Home extends Component {
           items={this.navigationData}
           expanded={this.state.sidebarExpanded}
           activeLink="/Tag"
-          icon={<i className="pi pi-users_active" />}
+          icon={<i className="p-hclsw p-hclsw-user-active" />}
           sidebarLinkTemplate={link => {
             return <Link to={link.href}>{link.title}</Link>;
           }}
