@@ -1,6 +1,6 @@
 {
   "name": "@patron/patron-react-dev",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -38,6 +38,7 @@
     "@babel/preset-env": "^7.8.7",
     "@babel/preset-react": "^7.0.0",
     "@patron/patron-css": "git+https://github01.hclpnp.com/UXUIAssets/patron-css.git",
+    "@patron/patron-icon": "git+https://github01.hclpnp.com/UXUIAssets/patron-icon.git",
     "@storybook/addon-a11y": "^5.3.18",
     "@storybook/addon-actions": "^5.3.18",
     "@storybook/addon-info": "^5.3.18",
@@ -68,7 +69,6 @@
     "node-sass": "^4.14.1",
     "object-assign": "^4.1.1",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
-    "@patron/patron-icon": "git+https://github01.hclpnp.com/UXUIAssets/patron-icon.git",
     "postcss-loader": "^3.0.0",
     "postcss-preset-env": "^6.6.0",
     "prettier": "^2.0.5",
@@ -80,7 +80,7 @@
     "rimraf": "^2.6.3",
     "sass-loader": "^7.1.0",
     "semver": "^7.3.2",
-    "simple-git": "^2.11.0",
+    "simple-git": "^2.19.0",
     "style-loader": "^0.23.1",
     "terser-webpack-plugin": "^1.2.3",
     "uglifyjs-webpack-plugin": "^2.1.2",
