@@ -16,6 +16,8 @@ const Overlay = ({
   onToggle,
   attachElementToBody,
   closeOnEscape,
+  className,
+  preventCloseElements,
   ...restProps
 }) => {
   const overlayContainerRef = useRef(null);
@@ -29,7 +31,17 @@ const Overlay = ({
       if (e && targetElement && targetElement.contains(e.target)) {
         return;
       }
-      hideOverlayContainer('outside');
+      let canClose = true;
+      if (preventCloseElements && preventCloseElements.length > 0) {
+        preventCloseElements.forEach(element => {
+          if (e && element && element.contains(e.target)) {
+            canClose = false;
+          }
+        });
+      }
+      if (canClose) {
+        hideOverlayContainer('outside');
+      }
     }
   };
 
@@ -150,9 +162,10 @@ const Overlay = ({
   };
 
   const overlayContainer = overlayContainerRef => {
+    const classNames = `${prefix}-overlay-container ${className}`;
     const overlayContainerEl = (
       <div
-        className={`${prefix}-overlay-container`}
+        className={classNames.trim()}
         ref={overlayContainerRef}
         onKeyDown={keyDownListner}
         {...restProps}
@@ -185,7 +198,9 @@ Overlay.propTypes = {
   scrollListner: PropTypes.bool,
   onToggle: PropTypes.func,
   attachElementToBody: PropTypes.bool,
-  closeOnEscape: PropTypes.bool
+  closeOnEscape: PropTypes.bool,
+  className: PropTypes.string,
+  preventCloseElements: PropTypes.array
 };
 
 Overlay.defaultProps = {
@@ -196,7 +211,9 @@ Overlay.defaultProps = {
   scrollListner: false,
   onToggle: () => {},
   attachElementToBody: false,
-  closeOnEscape: false
+  closeOnEscape: false,
+  className: '',
+  preventCloseElements: null
 };
 
 export default Overlay;

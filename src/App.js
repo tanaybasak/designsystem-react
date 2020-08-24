@@ -1513,7 +1513,8 @@ class App extends Component {
                   <DatePicker
                     weekDays={weekDays}
                     months={months}
-                    open="top"
+                    attachElementToBody
+                    scrollListner
                     format="mm/dd/yyyy"
                     onDateSelect={dateSelected => {
                       console.log('Selected Date', dateSelected);

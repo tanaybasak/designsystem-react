@@ -29,7 +29,7 @@ const DateInput = ({
         value={dateSelected ? dateSelected : ''}
         onClick={event => {
           event.stopPropagation();
-          toggleDateContainer(event);
+          toggleDateContainer(datepickerInput);
         }}
         onChange={onChangeInputDate}
         onKeyPress={onEnterPressInputDate}
@@ -43,7 +43,7 @@ const DateInput = ({
         viewBox="0 0 14 16"
         onClick={event => {
           event.stopPropagation();
-          toggleDateContainer(event);
+          toggleDateContainer(datepickerInput);
         }}
       >
         <path

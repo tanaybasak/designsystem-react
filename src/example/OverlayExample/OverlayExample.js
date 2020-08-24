@@ -78,16 +78,16 @@ class OverlayExample extends Component {
     customOverflowList: [
       {
         name: 'Copy',
-        icon: 'pi pi-copy'
+        icon: 'p-hclsw p-hclsw-copy'
       },
       {
         name: 'Delete',
         danger: true,
-        icon: 'pi pi-remove'
+        icon: 'p-hclsw p-hclsw-remove'
       },
       {
         name: 'View',
-        icon: 'pi pi-View'
+        icon: 'p-hclsw p-hclsw-View'
       }
     ]
   };
@@ -173,7 +173,7 @@ class OverlayExample extends Component {
           listItems={this.state.overflowlist}
           attachElementToBody={true}
           direction="top-right"
-          customIcon={<i className="pi pi-View"></i>}
+          customIcon={<i className="p-hclsw p-hclsw-release"></i>}
           ellipsisType="vertical"
           onClick={(item, index, e) => {
             console.log('OVERFLOW SELECT');
@@ -186,7 +186,7 @@ class OverlayExample extends Component {
           direction="top-right"
           customTemplate={
             <button className="hcl-btn hcl-ghost">
-              <i className="pi pi-View"></i>
+              <i className="p-hclsw p-hclsw-release"></i>
             </button>
           }
           ellipsisType="vertical"
@@ -219,7 +219,7 @@ class OverlayExample extends Component {
           direction="bottom-right"
           customTemplate={
             <button className="hcl-btn hcl-ghost">
-              <i className="pi pi-View"></i>
+              <i className="p-hclsw p-hclsw-release"></i>
             </button>
           }
           ellipsisType="vertical"
@@ -229,13 +229,13 @@ class OverlayExample extends Component {
           }}
         >
           <MenuItem item={'copy'}>
-            <i className="pi pi-copy"></i>Copy
+            <i className="p-hclsw p-hclsw-copy"></i>Copy
           </MenuItem>
           <MenuItem item={'remove'} danger={true}>
-            <i className="pi pi-remove"></i>Delete
+            <i className="p-hclsw p-hclsw-delete"></i>Delete
           </MenuItem>
           <MenuItem item={'view'}>
-            <i className="pi pi-View"></i>View
+            <i className="p-hclsw p-hclsw-view"></i>View
           </MenuItem>
         </Overflowmenu>
 
@@ -329,6 +329,19 @@ class OverlayExample extends Component {
           }}
         />
 
+        <DatePicker
+          weekDays={weekDays}
+          label="Select Date"
+          helperText="optional helper text"
+          months={months}
+          direction="bottom-right"
+          attachElementToBody
+          format="mm/dd/yyyy"
+          onDateSelect={dateSelected => {
+            console.log('Selected Date', dateSelected);
+          }}
+        />
+
         {/* <Button onClick={this.showoverlay1}>Open Notification 2</Button>
         <Button onClick={this.showoverlay2}>Open Notification 3</Button>
 
@@ -339,13 +352,13 @@ class OverlayExample extends Component {
           common={true}
         >
           <MenuItem item={'copy'}>
-            <i className='pi pi-copy'></i>Copy
+            <i className='p-hclsw p-hclsw-copy'></i>Copy
           </MenuItem>
           <MenuItem item={'remove'} danger={true}>
-            <i className='pi pi-remove'></i>Delete
+            <i className='p-hclsw p-hclsw-remove'></i>Delete
           </MenuItem>
           <MenuItem item={'view'}>
-            <i className='pi pi-View'></i>View
+            <i className='p-hclsw p-hclsw-View'></i>View
           </MenuItem>
         </Overflowmenu>
 
