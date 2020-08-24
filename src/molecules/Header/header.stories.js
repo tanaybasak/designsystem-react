@@ -12,13 +12,18 @@ storiesOf('Header', module).add(
     <Header
       icons={[
         {
-          icon: <button className="pi pi-settings" title="settings" />
+          icon: <button className="p-hclsw p-hclsw-setting" title="setting" />
         },
         {
-          icon: <button className="pi pi-new-relases" title="releases" />
+          icon: (
+            <button
+              className="p-hclsw p-hclsw-notification"
+              title="notification"
+            />
+          )
         },
         {
-          icon: <button className="pi pi-logout" title="logout" />
+          icon: <button className="p-hclsw p-hclsw-logout" title="logout" />
         }
       ]}
       logo={

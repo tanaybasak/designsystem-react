@@ -95,37 +95,37 @@ const treeDataWithIcon = [
     name: 'Main',
     displayChildren: true,
     type: 'folder',
-    expandIcon: 'pi pi-export',
-    collapsedIcon: 'pi pi-folder',
+    expandIcon: 'p-hclsw p-hclsw-export',
+    collapsedIcon: 'p-hclsw p-hclsw-folder',
     action: [],
     children: [
       {
         name: '1',
         displayChildren: false,
         type: 'folder',
-        expandIcon: 'pi pi-export',
-        collapsedIcon: 'pi pi-folder',
+        expandIcon: 'p-hclsw p-hclsw-export',
+        collapsedIcon: 'p-hclsw p-hclsw-folder',
         children: []
       },
       {
         name: '2',
         displayChildren: false,
         type: 'file',
-        icon: 'pi pi-document',
+        icon: 'p-hclsw p-hclsw-document',
         children: []
       },
       {
         name: '3',
         displayChildren: false,
         type: 'file',
-        icon: 'pi pi-document',
+        icon: 'p-hclsw p-hclsw-document',
         children: []
       },
       {
         name: '4',
         displayChildren: false,
         type: 'file',
-        icon: 'pi pi-document',
+        icon: 'p-hclsw p-hclsw-document',
         children: []
       }
     ]
@@ -134,29 +134,29 @@ const treeDataWithIcon = [
     name: 'Folder 2',
     displayChildren: false,
     type: 'folder',
-    expandIcon: 'pi pi-export',
-    collapsedIcon: 'pi pi-folder',
+    expandIcon: 'p-hclsw p-hclsw-export',
+    collapsedIcon: 'p-hclsw p-hclsw-folder',
     children: [
       {
         name: 'Folder 2.1',
         displayChildren: false,
         type: 'folder',
-        expandIcon: 'pi pi-export',
-        collapsedIcon: 'pi pi-folder',
+        expandIcon: 'p-hclsw p-hclsw-export',
+        collapsedIcon: 'p-hclsw p-hclsw-folder',
         children: [
           {
             name: 'File 2.1.1',
             displayChildren: false,
             type: 'file',
-            icon: 'pi pi-document',
+            icon: 'p-hclsw p-hclsw-document',
             children: []
           },
           {
             name: 'Folder 2.1.2',
             displayChildren: false,
             type: 'folder',
-            expandIcon: 'pi pi-export',
-            collapsedIcon: 'pi pi-folder',
+            expandIcon: 'p-hclsw p-hclsw-export',
+            collapsedIcon: 'p-hclsw p-hclsw-folder',
             children: []
           }
         ]
@@ -165,28 +165,28 @@ const treeDataWithIcon = [
         name: 'Folder 2.2',
         displayChildren: false,
         type: 'folder',
-        expandIcon: 'pi pi-export',
-        collapsedIcon: 'pi pi-folder',
+        expandIcon: 'p-hclsw p-hclsw-export',
+        collapsedIcon: 'p-hclsw p-hclsw-folder',
         children: [
           {
             name: 'Folder 2.2.1',
             displayChildren: false,
             type: 'folder',
-            expandIcon: 'pi pi-export',
-            collapsedIcon: 'pi pi-folder',
+            expandIcon: 'p-hclsw p-hclsw-export',
+            collapsedIcon: 'p-hclsw p-hclsw-folder',
             children: [
               {
                 name: 'File 2.2.1.1',
                 displayChildren: false,
                 type: 'file',
-                icon: 'pi pi-document',
+                icon: 'p-hclsw p-hclsw-document',
                 children: []
               },
               {
                 name: 'File 2.2.1.2',
                 displayChildren: false,
                 type: 'file',
-                icon: 'pi pi-document',
+                icon: 'p-hclsw p-hclsw-document',
                 children: []
               }
             ]
@@ -195,7 +195,7 @@ const treeDataWithIcon = [
             name: 'File 2.2.2',
             displayChildren: false,
             type: 'file',
-            icon: 'pi pi-document',
+            icon: 'p-hclsw p-hclsw-document',
             children: []
           }
         ]
@@ -206,7 +206,7 @@ const treeDataWithIcon = [
     name: 'File 3',
     displayChildren: false,
     type: 'file',
-    icon: 'pi pi-document',
+    icon: 'p-hclsw p-hclsw-document',
     children: []
   }
 ];
@@ -216,8 +216,8 @@ const treeDataWithDragandDropOverflow = [
     name: 'Main',
     displayChildren: true,
     type: 'folder',
-    expandIcon: 'pi pi-export',
-    collapsedIcon: 'pi pi-folder',
+    expandIcon: 'p-hclsw p-hclsw-export',
+    collapsedIcon: 'p-hclsw p-hclsw-folder',
     draggable: true,
     action: [],
     children: [
@@ -226,8 +226,8 @@ const treeDataWithDragandDropOverflow = [
         displayChildren: false,
         type: 'folder',
         draggable: true,
-        expandIcon: 'pi pi-export',
-        collapsedIcon: 'pi pi-folder',
+        expandIcon: 'p-hclsw p-hclsw-export',
+        collapsedIcon: 'p-hclsw p-hclsw-folder',
         children: []
       },
       {
@@ -235,7 +235,7 @@ const treeDataWithDragandDropOverflow = [
         displayChildren: false,
         type: 'file',
         draggable: true,
-        icon: 'pi pi-document',
+        icon: 'p-hclsw p-hclsw-document',
         children: []
       },
       {
@@ -243,7 +243,7 @@ const treeDataWithDragandDropOverflow = [
         displayChildren: false,
         type: 'file',
         draggable: true,
-        icon: 'pi pi-document',
+        icon: 'p-hclsw p-hclsw-document',
         children: []
       },
       {
@@ -251,7 +251,7 @@ const treeDataWithDragandDropOverflow = [
         displayChildren: false,
         type: 'file',
         draggable: true,
-        icon: 'pi pi-document',
+        icon: 'p-hclsw p-hclsw-document',
         children: []
       }
     ]
@@ -261,23 +261,23 @@ const treeDataWithDragandDropOverflow = [
     displayChildren: false,
     type: 'folder',
     draggable: true,
-    expandIcon: 'pi pi-export',
-    collapsedIcon: 'pi pi-folder',
+    expandIcon: 'p-hclsw p-hclsw-export',
+    collapsedIcon: 'p-hclsw p-hclsw-folder',
     children: [
       {
         name: 'Folder 2.1',
         displayChildren: false,
         type: 'folder',
         draggable: true,
-        expandIcon: 'pi pi-export',
-        collapsedIcon: 'pi pi-folder',
+        expandIcon: 'p-hclsw p-hclsw-export',
+        collapsedIcon: 'p-hclsw p-hclsw-folder',
         children: [
           {
             name: 'File 2.1.1',
             displayChildren: false,
             type: 'file',
             draggable: true,
-            icon: 'pi pi-document',
+            icon: 'p-hclsw p-hclsw-document',
             children: []
           },
           {
@@ -285,8 +285,8 @@ const treeDataWithDragandDropOverflow = [
             displayChildren: false,
             type: 'folder',
             draggable: true,
-            expandIcon: 'pi pi-export',
-            collapsedIcon: 'pi pi-folder',
+            expandIcon: 'p-hclsw p-hclsw-export',
+            collapsedIcon: 'p-hclsw p-hclsw-folder',
             children: []
           }
         ]
@@ -296,23 +296,23 @@ const treeDataWithDragandDropOverflow = [
         displayChildren: false,
         type: 'folder',
         draggable: true,
-        expandIcon: 'pi pi-export',
-        collapsedIcon: 'pi pi-folder',
+        expandIcon: 'p-hclsw p-hclsw-export',
+        collapsedIcon: 'p-hclsw p-hclsw-folder',
         children: [
           {
             name: 'Folder 2.2.1',
             displayChildren: false,
             type: 'folder',
             draggable: true,
-            expandIcon: 'pi pi-export',
-            collapsedIcon: 'pi pi-folder',
+            expandIcon: 'p-hclsw p-hclsw-export',
+            collapsedIcon: 'p-hclsw p-hclsw-folder',
             children: [
               {
                 name: 'File 2.2.1.1',
                 displayChildren: false,
                 type: 'file',
                 draggable: true,
-                icon: 'pi pi-document',
+                icon: 'p-hclsw p-hclsw-document',
                 children: []
               },
               {
@@ -320,7 +320,7 @@ const treeDataWithDragandDropOverflow = [
                 displayChildren: false,
                 type: 'file',
                 draggable: true,
-                icon: 'pi pi-document',
+                icon: 'p-hclsw p-hclsw-document',
                 children: []
               }
             ]
@@ -330,7 +330,7 @@ const treeDataWithDragandDropOverflow = [
             displayChildren: false,
             type: 'file',
             draggable: true,
-            icon: 'pi pi-document',
+            icon: 'p-hclsw p-hclsw-document',
             children: []
           }
         ]
@@ -342,7 +342,7 @@ const treeDataWithDragandDropOverflow = [
     displayChildren: false,
     type: 'file',
     draggable: true,
-    icon: 'pi pi-document',
+    icon: 'p-hclsw p-hclsw-document',
     children: []
   }
 ];

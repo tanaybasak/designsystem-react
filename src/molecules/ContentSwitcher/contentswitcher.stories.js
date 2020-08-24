@@ -44,20 +44,38 @@ storiesOf('ContentSwitcher', module)
       <ContentSwitcher onChange={action('ContentSwitch-onChange')}>
         <Switch
           label={text('Label 1', 'All')}
-          icon={<i className={`pi pi-${select('Icon 1', icons, 'audio')}`} />}
+          icon={
+            <i
+              className={`p-hclsw p-hclsw-${select(
+                'Icon 1',
+                icons,
+                'overview'
+              )}`}
+            />
+          }
           isDisabled={boolean('Disabled 1', false)}
           onClick={action('switch-onClick')}
         />
         <Switch
           label={text('Label 2', 'Cybernetics')}
-          icon={<i className={`pi pi-${select('Icon 2', icons, 'blog')}`} />}
+          icon={
+            <i
+              className={`p-hclsw p-hclsw-${select('Icon 2', icons, 'admin')}`}
+            />
+          }
           isDisabled={boolean('Disabled 2', false)}
           onClick={action('switch-onClick')}
         />
         <Switch
           label={text('Label 3', 'Information and Communication')}
           icon={
-            <i className={`pi pi-${select('Icon 3', icons, 'calendar')}`} />
+            <i
+              className={`p-hclsw p-hclsw-${select(
+                'Icon 3',
+                icons,
+                'calendar'
+              )}`}
+            />
           }
           isDisabled={boolean('Disabled 3', false)}
           onClick={action('switch-onClick')}

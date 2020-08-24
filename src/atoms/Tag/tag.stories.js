@@ -48,7 +48,7 @@ storiesOf('Tag', module)
         icon={
           <i
             tabIndex="0"
-            className={`pi pi-${select('Icon Class', icons, 'user')}`}
+            className={`p-hclsw p-hclsw-${select('Icon Class', icons, 'user')}`}
           />
         }
         title={text('Title', '')}
@@ -125,7 +125,7 @@ storiesOf('Tag', module)
         icon={
           <i
             tabIndex="0"
-            className={`pi pi-${select('Icon Class', icons, 'link')}`}
+            className={`p-hclsw p-hclsw-${select('Icon Class', icons, 'link')}`}
           />
         }
         title={text('Title', '')}
