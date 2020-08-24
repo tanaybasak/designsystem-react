@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import YearMonthPanel from './YearMonthPanel/YearMonthPanel';
 import DatePanel from './DatePanel/DatePanel';
@@ -189,24 +189,8 @@ const DatePicker = ({
     classnames.push(`${prefix}-overlay-wrapper-active`);
   }
 
-  const datePanelClickHandler = event => {
-    event.stopPropagation();
-    event.preventDefault();
-  };
-
-  const onToggle = (status, type) => {
+  const onToggle = status => {
     setShowDateContainer(status);
-    if (status) {
-      //   if (overflowMenu.current.querySelector('li button:not(:disabled)')) {
-      //     overflowMenu.current.querySelector('li button:not(:disabled)').focus();
-      //   }
-    } else {
-      //   console.log('type ==>', type);
-      //   if (type !== 'outside' && targetEl) {
-      //     targetEl.focus();
-      //   }
-    }
-    console.log('onToggle', status, type);
   };
 
   return (
@@ -238,7 +222,6 @@ const DatePicker = ({
           targetElement={targetEl}
           onToggle={onToggle}
           preventCloseElements={targetEl ? [targetEl.nextElementSibling] : []}
-          className={`${prefix}-datePicker-panel`}
         >
           {/* <div
             className={`${prefix}-datePicker-panel ${prefix}-datePicker-panel-show ${
@@ -249,7 +232,7 @@ const DatePicker = ({
             onClick={datePanelClickHandler}
             ref={datePickerContainer}
           > */}
-          <>
+          <div className={`${prefix}-datePicker-panel`}>
             <YearMonthPanel
               months={months}
               currDateObj={currDateObj}
@@ -268,7 +251,7 @@ const DatePicker = ({
               selectDate={selectDate}
               format={format}
             />
-          </>
+          </div>
         </Overlay>
       </div>
       {!isDateSelectedValid ? (
