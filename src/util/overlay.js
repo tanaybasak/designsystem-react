@@ -1,32 +1,32 @@
 const overlayAdjustment = 2;
 
 export const visibleY = el => {
-    let rect = el.getBoundingClientRect();
-    const top = rect.top;
-    const height = rect.height;
-    let newEl = el.parentNode;
-    // Check if bottom of the element is off the page
-    if (rect.bottom < 0) {
+  let rect = el.getBoundingClientRect();
+  const top = rect.top;
+  const height = rect.height;
+  let newEl = el.parentNode;
+  // Check if bottom of the element is off the page
+  if (rect.bottom < 0) {
+    return false;
+  }
+  // Check its within the document viewport
+  if (top > document.documentElement.clientHeight) {
+    return false;
+  }
+  do {
+    rect = newEl.getBoundingClientRect();
+    // eslint-disable-next-line no-mixed-operators
+    if (top <= rect.bottom === false) {
       return false;
     }
-    // Check its within the document viewport
-    if (top > document.documentElement.clientHeight) {
+    // Check if the element is out of view due to a container scrolling
+    if (top + height <= rect.top) {
       return false;
     }
-    do {
-      rect = newEl.getBoundingClientRect();
-      // eslint-disable-next-line no-mixed-operators
-      if (top <= rect.bottom === false) {
-        return false;
-      }
-      // Check if the element is out of view due to a container scrolling
-      if (top + height <= rect.top) {
-        return false;
-      }
-      newEl = newEl.parentNode;
-    } while (newEl !== document.body);
-    return true;
-  };
+    newEl = newEl.parentNode;
+  } while (newEl !== document.body);
+  return true;
+};
 export const changeOverlayPosition = (
   overlayContainerRef,
   direction,
@@ -142,7 +142,6 @@ export const getPositions = (
     height,
     parentElementPosition
   );
-  console.log(propsDirection, 'New Direction', direction , attachElementToBody);
 
   let left = 0;
   let top = 0;
