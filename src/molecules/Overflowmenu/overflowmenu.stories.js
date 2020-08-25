@@ -4,46 +4,37 @@ import { action } from '@storybook/addon-actions';
 import { select, object } from '@storybook/addon-knobs';
 //@update-path-build-start
 import Overflowmenu from './Overflowmenu';
-import Button from '../../atoms/Button';
 import MenuItem from './MenuItem';
 //@update-path-build-end
-
-const typeOptions = {
-  'bottom-left': 'bottom-left',
-  'bottom-right': 'bottom-right',
-  'top-left': 'top-left',
-  'top-right': 'top-right'
-};
 
 const ellipsisType = {
   Vertical: 'vertical',
   Horizontal: 'horizontal'
 };
-
 const listItems = [
   {
-    name: 'option 1',
-    icon: 'pi pi-View'
+    name: 'Add',
+    icon: 'p-hclsw p-hclsw-add-component'
   },
   {
     danger: true,
-    name: 'option 2',
-    icon: 'pi pi-View'
+    name: 'Delete',
+    icon: 'p-hclsw p-hclsw-delete'
   },
   {
-    name: 'option 3',
+    name: 'Copy',
     separator: true,
-    icon: 'pi pi-View'
+    icon: 'p-hclsw p-hclsw-copy'
   },
   {
     disabled: true,
-    name: 'option 4',
-    icon: 'pi pi-View'
+    name: 'Paste',
+    icon: 'p-hclsw p-hclsw-paste'
   },
   {
     link: 'https://google.com',
-    name: 'option 5',
-    icon: 'pi pi-View'
+    name: 'link',
+    icon: 'p-hclsw p-hclsw-link'
   }
 ];
 
@@ -52,7 +43,6 @@ storiesOf('OverflowMenu', module)
     'default',
     () => (
       <Overflowmenu
-        direction={select('Direction', typeOptions, 'bottom-left')}
         ellipsisType={select('Ellipsis Type', ellipsisType, 'vertical')}
         listItems={object('List Items', listItems)}
         onClick={action('Overflow-Click')}
@@ -66,18 +56,32 @@ storiesOf('OverflowMenu', module)
     }
   )
   .add(
-    'with icon',
+    'with custom icon',
     () => (
       <Overflowmenu
-        direction={select('Direction', typeOptions, 'bottom-left')}
         onClick={action('Overflow-Click')}
+        customIcon={<i className="p-hclsw p-hclsw-menu" />}
         attachElementToBody
         scrollListner
       >
         {listItems.map((menu, index) => {
           return (
-            <MenuItem item={menu} key={`menu${index}`}>
-              <i className={menu.icon} />
+            <MenuItem
+              item={menu}
+              key={`menu${index}`}
+              danger={menu.danger}
+              separator={menu.separator}
+              disabled={menu.disabled}
+              link={menu.link}
+            >
+              <i
+                className={menu.icon}
+                style={{
+                  display: 'inline-block',
+                  paddingRight: '.5rem',
+                  verticalAlign: 'middle'
+                }}
+              />
               {menu.name}
             </MenuItem>
           );
@@ -87,26 +91,23 @@ storiesOf('OverflowMenu', module)
     {
       info: {
         text: `Description About Overflowmenu Component \n
-    import { Overflowmenu } from '@patron/patron-react/overflowmenu';
-    import { Button } from '@patron/patron-react/button';`
+    import { Overflowmenu } from '@patron/patron-react/overflowmenu';`
       }
     }
   )
   .add(
-    'custom',
+    'custom template',
     () => (
       <Overflowmenu
-        direction={select('Direction', typeOptions, 'bottom-left')}
         listItems={object('List Items', listItems)}
         onClick={action('Overflow-Click')}
-        customTemplate={<button>overflow button</button>}
+        customTemplate={<button className="hcl-btn">overflow button</button>}
       />
     ),
     {
       info: {
         text: `Description About Overflowmenu Component \n
-    import { Overflowmenu } from '@patron/patron-react/overflowmenu';
-    import { Button } from '@patron/patron-react/button';`
+    import { Overflowmenu } from '@patron/patron-react/overflowmenu';`
       }
     }
   );

@@ -170,7 +170,6 @@ const DatePicker = ({
     setDateSelected(event.target.getAttribute('date'));
     setIsDateSelectedValid(true);
     setIsValidYear(true);
-    //toggleDateContainer();
     setShowDateContainer(false);
     onDateSelect(event.target.getAttribute('date'));
   };
@@ -223,15 +222,6 @@ const DatePicker = ({
           onToggle={onToggle}
           preventCloseElements={targetEl ? [targetEl.nextElementSibling] : []}
         >
-          {/* <div
-            className={`${prefix}-datePicker-panel ${prefix}-datePicker-panel-show ${
-              direction === 'top'
-                ? `${prefix}-datePicker-panel-above`
-                : `${prefix}-datePicker-panel-below`
-            }`}
-            onClick={datePanelClickHandler}
-            ref={datePickerContainer}
-          > */}
           <div className={`${prefix}-datePicker-panel`}>
             <YearMonthPanel
               months={months}
@@ -281,13 +271,18 @@ DatePicker.propTypes = {
   /** Class/clasess will be applied on the parent div of DatePicker */
   className: PropTypes.string,
 
+  /** Used for defining the position of datepicker */
   direction: PropTypes.oneOf([
     'top-right',
     'top-left',
     'bottom-right',
     'bottom-left'
   ]),
+
+  /** Used to attach the datepicker container to body */
   attachElementToBody: PropTypes.bool,
+
+  /** Date picker Container position will changed on scroll. This is applicable when datepicker container is attached to body */
   scrollListner: PropTypes.bool,
   /** Label for time picker, if not provided no label will be added.   */
   label: PropTypes.string,

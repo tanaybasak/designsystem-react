@@ -48,20 +48,25 @@ const MenuItem = ({
         </button>
       )}
     </li>
-    //     );
-    //   })}
-    // </ul>
   );
 };
 
 MenuItem.propTypes = {
+  /** Item will return on click of the Menu Item */
   item: PropTypes.any,
+  /** @ignore */
   onClick: PropTypes.func,
+  /** Used to disable the menu item */
   disabled: PropTypes.bool,
+  /** Used to apply danger style to menu item */
   danger: PropTypes.bool,
+  /** Used to add a separator in menu item */
   separator: PropTypes.bool,
+  /** Used to pass children */
   children: PropTypes.any,
+  /** Used to pass custom classname */
   className: PropTypes.string,
+  /** Used to pass the link. It will redirect to the link on click */
   link: PropTypes.string
 };
 

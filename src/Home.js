@@ -43,9 +43,9 @@ class Home extends Component {
           title: 'Time Picker'
         },
         {
-            href: '/overlay',
-            title: 'Overlay'
-          }
+          href: '/overlay',
+          title: 'Overlay'
+        }
       ]
     }
   ];

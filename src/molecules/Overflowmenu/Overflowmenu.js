@@ -23,7 +23,6 @@ const Overflowmenu = ({
   const targetElementRef = useRef(null);
 
   const clickHandler = () => {
-    //setTargetElement(e.currentTarget);
     changeDisplay(!display);
   };
 
@@ -251,14 +250,19 @@ Overflowmenu.propTypes = {
   /** Callback function on selecting item*/
   onClick: PropTypes.func.isRequired,
 
+  /** Used to attach the overlay container to body */
   attachElementToBody: PropTypes.bool,
 
   /** Class/clasess will be applied on the parent div of OverflowMenu */
   className: PropTypes.string,
 
+  /** Used to pass custom template */
   customTemplate: PropTypes.element,
 
+  /** Used to pass custom icon template. */
   customIcon: PropTypes.element,
+
+  /** Overflow Container position will changed on scroll. This is applicable when overflow container is attached to body */
   scrollListner: PropTypes.bool
 };
 

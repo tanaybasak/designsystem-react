@@ -83,11 +83,11 @@ class OverlayExample extends Component {
       {
         name: 'Delete',
         danger: true,
-        icon: 'p-hclsw p-hclsw-remove'
+        icon: 'p-hclsw p-hclsw-delete'
       },
       {
         name: 'View',
-        icon: 'p-hclsw p-hclsw-View'
+        icon: 'p-hclsw p-hclsw-folder'
       }
     ]
   };
@@ -141,13 +141,13 @@ class OverlayExample extends Component {
     this.refs.child3.showOverlay(e);
   };
 
-  onclose = e => {
-    console.log('on Close');
-
-    this.setState({
-      showOverlay: false,
-      targetElement: null
-    });
+  onclose = (status, type) => {
+    if (!status) {
+      this.setState({
+        showOverlay: status,
+        targetElement: null
+      });
+    }
   };
 
   onclose1 = e => {
@@ -342,6 +342,25 @@ class OverlayExample extends Component {
           }}
         />
 
+        <Button onClick={this.showoverlay1}>Open Notification 2</Button>
+        <Overlay
+          showOverlay={this.state.showOverlay}
+          targetElement={this.state.targetElement}
+          attachElementToBody
+          scrollListner
+          onToggle={this.onclose}
+        >
+          <Notification
+            className=""
+            closable
+            icon={null}
+            onClose={function noRefCheck() {}}
+            subtitle="Notification Sub Title"
+            title="Notification Title"
+            type="info"
+            visible
+          />
+        </Overlay>
         {/* <Button onClick={this.showoverlay1}>Open Notification 2</Button>
         <Button onClick={this.showoverlay2}>Open Notification 3</Button>
 

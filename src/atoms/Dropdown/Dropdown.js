@@ -338,7 +338,10 @@ Dropdown.propTypes = {
   /** Configuration Object for updating propery name in items data */
   config: PropTypes.any,
 
+  /** Used to attach the dropdown container to body */
   attachElementToBody: PropTypes.bool,
+
+  /** Dropdown Container position will changed on scroll. This is applicable when Dropdown container is attached to body */
   scrollListner: PropTypes.bool
 };
 
