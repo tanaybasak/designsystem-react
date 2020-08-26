@@ -6,7 +6,7 @@ import { select, boolean } from '@storybook/addon-knobs';
 import DataTable from './DataTable';
 import Checkbox from '../Checkbox';
 import Toggle from '../Toggle';
-import { Overflowmenu } from '../../molecules/Overflowmenu';
+import Overflowmenu from '../../molecules/Overflowmenu/Overflowmenu';
 //@update-path-build-end
 
 const tableData = [
