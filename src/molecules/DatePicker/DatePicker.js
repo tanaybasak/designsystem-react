@@ -17,6 +17,7 @@ const DatePicker = ({
   open,
   format,
   onDateSelect,
+  defaultDate,
   className,
   ...restProps
 }) => {
@@ -49,6 +50,31 @@ const DatePicker = ({
     );
   });
 
+  useEffect(() => {
+    if (defaultDate && defaultDate !== '') {
+      const defaultDateArray = datepickerInput.current
+        .getAttribute('defaultdate')
+        .split('/');
+
+        switch (format) {
+          case 'mm/dd/yyyy':
+            updateFormattedDate(
+              defaultDateArray[0],
+              defaultDateArray[1],
+              defaultDateArray[2]
+            );
+            break;
+          case 'dd/mm/yyyy':
+            updateFormattedDate(
+              defaultDateArray[1],
+              defaultDateArray[0],
+              defaultDateArray[2]
+            );
+            break;
+        }
+    }
+  }, [defaultDate]);
+
   const onEnterPressInputDate = event => {
     if (event.key === 'Enter') {
       const isdateValid = isValidDate(event.target.value, format);
@@ -70,7 +96,7 @@ const DatePicker = ({
   };
 
   const onEnterPressYear = event => {
-    if (event.key === 'Enter') {
+    if (event.key === 'Enter' ) {
       if (isValidYearFunc(event.target.value)) {
         const tempDate = new Date(
           Number(event.target.value),
@@ -110,11 +136,15 @@ const DatePicker = ({
     switch (format) {
       case 'mm/dd/yyyy':
         setDateSelected(`${monthStr}/${dateStr}/${year}`);
-        onDateSelect(`${monthStr}/${dateStr}/${year}`);
+        dateSelected === ''
+          ? null
+          : onDateSelect(`${monthStr}/${dateStr}/${year}`);
         break;
       case 'dd/mm/yyyy':
         setDateSelected(`${dateStr}/${monthStr}/${year}`);
-        onDateSelect(`${dateStr}/${monthStr}/${year}`);
+        dateSelected === ''
+          ? null
+          : onDateSelect(`${dateStr}/${monthStr}/${year}`);
         break;
     }
   };
@@ -203,6 +233,7 @@ const DatePicker = ({
       <div className={`${prefix}-datePicker-container`}>
         <DateInput
           dateSelected={dateSelected}
+          defaultDate={defaultDate}
           toggleDateContainer={toggleDateContainer}
           onChangeInputDate={event => {
             setDateSelected(event.target.value);
@@ -277,7 +308,10 @@ DatePicker.propTypes = {
   onDateSelect: PropTypes.func,
 
   /** Class/clasess will be applied on the parent div of DatePicker */
-  className: PropTypes.string
+  className: PropTypes.string,
+
+  /** This props allows user to pass default date */
+  defaultDate: PropTypes.string
 };
 
 DatePicker.defaultProps = {
@@ -299,6 +333,7 @@ DatePicker.defaultProps = {
   open: 'down',
   format: 'MM/DD/YYYY',
   onDateSelect: () => {},
-  className: ''
+  className: '',
+  defaultDate:''
 };
 export default DatePicker;

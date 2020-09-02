@@ -1485,14 +1485,15 @@ class App extends Component {
                   ny variations of passages of Lorem Ipsum
                 </AccordionItem>
               </Accordion>
-              {/* DatePicker */}
-              <div className="hcl-row m-3 hcl-col-12">
+                   {/* DatePicker */}
+                   <div className="hcl-row m-3 hcl-col-12">
                 <div className="hcl-col-6">
                   <DatePicker
                     weekDays={weekDays}
                     months={months}
                     open="top"
                     format="mm/dd/yyyy"
+                    defaultDate="12/30/1990"
                     onDateSelect={dateSelected => {
                       console.log('Selected Date', dateSelected);
                     }}

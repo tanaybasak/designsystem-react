@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { select } from '@storybook/addon-knobs';
+import { select, text } from '@storybook/addon-knobs';
 //@update-path-build-start
 import DatePicker from './DatePicker';
 //@update-path-build-end
@@ -39,6 +39,7 @@ storiesOf('DatePicker', module).add(
       open={select('Direction', typeOptions, 'bottom')}
       weekDays={['S', 'M', 'T', 'W', 'Th', 'F', 'S']}
       aria-label="Date picker Input label"
+      defaultDate={text('Default Date', '12/30/1990')}
     />
   ),
   {
