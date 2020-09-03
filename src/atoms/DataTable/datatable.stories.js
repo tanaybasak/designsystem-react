@@ -8,7 +8,6 @@ import Checkbox from '../Checkbox';
 import Toggle from '../Toggle';
 import Tag from '../Tag';
 import Dropdown from '../Dropdown';
-import Link from '../Link';
 import Search from '../Search';
 //@update-path-build-end
 
@@ -45,6 +44,7 @@ const tableData = [
 const tableConfigWithCustomTemplate = [
   {
     field: 'checkbox',
+    // eslint-disable-next-line react/display-name
     renderHtml: row => {
       return <Checkbox id={`${row.id}_checkbox_`} name="testcheck" />;
     },
@@ -107,6 +107,7 @@ const tableConfigWithCustomTemplate = [
   {
     label: 'Port',
     field: 'port',
+    // eslint-disable-next-line react/display-name
     renderHtml: port => {
       let classname = 'primary';
       return (
@@ -141,6 +142,7 @@ const tableConfigWithCustomTemplate = [
   {
     label: 'Status',
     field: 'status',
+    // eslint-disable-next-line react/display-name
     renderHtml: status => {
       return (
         <Toggle
