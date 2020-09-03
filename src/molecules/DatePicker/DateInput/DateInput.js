@@ -11,6 +11,7 @@ const DateInput = ({
   onEnterPressInputDate,
   format,
   datepickerInput,
+  defaultDate,
   // eslint-disable-next-line no-unused-vars
   currDateObj,
   ...restProps
@@ -31,6 +32,7 @@ const DateInput = ({
           event.stopPropagation();
           toggleDateContainer();
         }}
+        defaultdate={defaultDate}
         onChange={onChangeInputDate}
         onKeyPress={onEnterPressInputDate}
         ref={datepickerInput}
@@ -66,6 +68,7 @@ DateInput.propTypes = {
   format: PropTypes.string.isRequired,
   onEnterPressInputDate: PropTypes.func.isRequired,
   datepickerInput: PropTypes.object.isRequired,
-  currDateObj: PropTypes.object
+  currDateObj: PropTypes.object,
+  defaultDate: PropTypes.string
 };
 export default DateInput;
