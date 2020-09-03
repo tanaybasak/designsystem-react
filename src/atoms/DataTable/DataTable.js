@@ -21,6 +21,7 @@ const DataTable = ({
   const tableRef = useRef(null);
   const [tableConfiguration, setTableConfiguration] = useState(tableConfig);
   const [sortedColumn, updateSortedColumn] = useState({});
+  let customHeaderFlag = false;
 
   useEffect(() => {
     updateTableRowData(tableData);
@@ -139,6 +140,9 @@ const DataTable = ({
         <thead>
           <tr>
             {tableConfiguration.map((column, index) => {
+              customHeaderFlag || column.columnHtml
+                ? (customHeaderFlag = true)
+                : null;
               return (
                 <th
                   key={`heading-${index}`}
@@ -226,6 +230,35 @@ const DataTable = ({
               );
             })}
           </tr>
+          {customHeaderFlag ? (
+            <tr>
+              {tableConfiguration.map((column, index) => {
+                return (
+                  <th
+                    key={`customheader-${index}`}
+                    style={{
+                      minWidth: column.width,
+                      left: column.marginLeft,
+                      right: column.marginRight,
+                      top: '50px',
+                      ...column.styles
+                    }}
+                    className={`${
+                      column.pinned === 'left'
+                        ? 'sticky-div sticky-left-div'
+                        : ''
+                    }${
+                      column.pinned === 'right'
+                        ? 'sticky-div sticky-right-div'
+                        : ''
+                    }${column.sortable ? ' sortable' : ''}`}
+                  >
+                    <div>{column.columnHtml ? column.columnHtml : null}</div>
+                  </th>
+                );
+              })}
+            </tr>
+          ) : null}
         </thead>
         <tbody>
           {rows.map((row, index) => (

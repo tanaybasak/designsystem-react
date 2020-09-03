@@ -16,20 +16,39 @@ class TableExample extends Component {
         field: 'checkbox',
         renderHtml: row => {
           return <Checkbox id={`${row.id}_checkbox_`} name="testcheck" />;
-        }
-        //width: '40px',
-        //pinned: 'left'
+        },
+
+        width: '40px'
+        // pinned: 'left'
       },
       {
         label: 'ID',
-        field: 'id'
-        // width: '160px',
-        // pinned: 'right'
+        field: 'id',
+        columnHtml: () => {
+          return (
+            <Tag
+              className=""
+              closable={false}
+              disabled={false}
+              icon={<i className="p-hclsw p-hclsw-link" tabIndex="0" />}
+              onClose={function noRefCheck() {}}
+              tabIndex={0}
+              text={null}
+              thumbnail={<i className="p-hclsw p-hclsw-checkbox" />}
+              title=""
+              type="primary"
+            >
+              Sample Tag
+            </Tag>
+          );
+        },
+        width: '160px',
+        pinned: 'right'
       },
 
       {
         label: 'Avatar',
-        //pinned: 'left',
+        pinned: 'left',
         renderHtml: model => {
           return (
             <img
@@ -37,20 +56,23 @@ class TableExample extends Component {
               style={{ width: '44px', height: '44px', borderRadius: '50%' }}
             />
           );
-        }
-        //width: '60px'
+        },
+        columnHtml: () => {
+          return <h6> this is temp</h6>;
+        },
+        width: '60px'
       },
       {
         label: 'Full Name',
         field: 'name',
-        sortable: true
+        sortable: true,
         //pinned: 'left',
         // renderHtml: model => {
         //     return (
         //       <span>{model.name} {model.name} {model.name} {model.name}{model.name} {model.name} {model.name} {model.name} {model.name} {model.name}</span>
         //     );
         //   },
-        //width: '200px'
+        width: '200px'
       },
       {
         label: 'Private',
@@ -64,14 +86,14 @@ class TableExample extends Component {
               model.owner.site_admin ? 'Yes' : 'No'
             }`}</Tag>
           );
-        }
-        //width: '120px'
+        },
+        width: '120px'
       },
       {
         label: 'Language',
-        field: 'owner.login'
+        field: 'owner.login',
 
-        // width: '120px'
+        width: '120px'
       },
       {
         label: 'Has Issues',
@@ -86,24 +108,24 @@ class TableExample extends Component {
               toggled={model.has_issues}
             />
           );
-        }
-        //width: '150px'
+        },
+        width: '150px'
       },
       {
         label: 'Forks Count',
-        field: 'forks_count'
-        //width: '120px'
+        field: 'forks_count',
+        width: '120px'
       },
       {
         label: 'Branch',
         field: 'default_branch',
-        sortable: true
-        //width: '120px'
+        sortable: true,
+        width: '120px'
       },
       {
         label: 'Issues Count',
-        field: 'open_issues_count'
-        //width: '120px'
+        field: 'open_issues_count',
+        width: '120px'
       },
       {
         field: 'overflow',
@@ -117,8 +139,8 @@ class TableExample extends Component {
               }}
             />
           );
-        }
-        //width: '80px'
+        },
+        width: '500px'
       }
     ]
   };
@@ -155,6 +177,7 @@ class TableExample extends Component {
                 id="sample_table"
                 tableData={this.state.displayData}
                 tableConfig={this.state.tableConfig}
+                stickyHeaderMain={true}
                 // expandRowTemplate={() => {
                 //   return (<Paragraph>
                 //     available, but the majority have suffered alteration
