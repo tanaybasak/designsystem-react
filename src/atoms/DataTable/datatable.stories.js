@@ -19,7 +19,7 @@ const tableData = [
     protocol: 'HTTP',
     port: '80',
     rule: 'Round Robin',
-    attachedGroups: "Maureen VM Groups",
+    attachedGroups: 'Maureen VM Groups',
     status: 'Active'
   },
   {
@@ -28,7 +28,7 @@ const tableData = [
     protocol: 'FTP',
     port: '100',
     rule: 'Round Robin',
-    attachedGroups: "Maureen VM Groups",
+    attachedGroups: 'Maureen VM Groups',
     status: 'InActive'
   },
   {
@@ -37,32 +37,144 @@ const tableData = [
     protocol: 'HTTP',
     port: '80',
     rule: 'Round Robin',
-    attachedGroups: "Maureen VM Groups",
+    attachedGroups: 'Maureen VM Groups',
     status: 'Active'
   }
 ];
-const overflowlist = [
+
+const tableConfigWithCustomTemplate = [
   {
-    name: 'option 1'
+    field: 'checkbox',
+    renderHtml: row => {
+      return <Checkbox id={`${row.id}_checkbox_`} name="testcheck" />;
+    },
+
+    width: '40px',
+    pinned: 'left'
   },
   {
-    name: 'option 2',
-    danger: true
+    label: 'Name',
+    field: 'name',
+    sortable: true,
+    columnHtml: (
+      <Search
+        ariaLabel="Search"
+        className=""
+        defaultValue=""
+        disabled={false}
+        iconTheme="default"
+        onBlur={function noRefCheck() {}}
+        onChange={function noRefCheck() {}}
+        placeholder="Search..."
+        size="default"
+        theme="default"
+        type="default"
+      />
+    ),
+    width: '160px',
+    pinned: 'right'
   },
   {
-    name: 'option 3',
-    separator: true
+    label: 'Protocol',
+    field: 'protocol',
+    pinned: 'left',
+    columnHtml: (
+      <Dropdown
+        className=""
+        config={{}}
+        dropdownType="multi"
+        items={[
+          {
+            id: 'option-1',
+            text: 'HTTP'
+          },
+          {
+            id: 'option-2',
+            text: 'FTP'
+          },
+          {
+            id: 'option-3',
+            text: 'SMTP'
+          }
+        ]}
+        label="MultiSelect Label"
+        onChange={function noRefCheck() {}}
+        type="bottom"
+      />
+    ),
+    width: '60px'
   },
   {
-    name: 'option 4',
-    disabled: true
+    label: 'Port',
+    field: 'port',
+    renderHtml: port => {
+      let classname = 'primary';
+      return (
+        <Tag type={classname}>{`${port.port === '80' ? 'Yes' : 'No'}`}</Tag>
+      );
+    },
+    width: '120px'
   },
   {
-    name: 'option 5',
-    link: 'https://google.com'
+    label: 'Rule',
+    field: 'rule'
+  },
+  {
+    label: 'Attached Groups',
+    field: 'attachedGroups',
+    columnHtml: (
+      <Search
+        ariaLabel="Search"
+        className=""
+        defaultValue=""
+        disabled={false}
+        iconTheme="default"
+        onBlur={function noRefCheck() {}}
+        onChange={function noRefCheck() {}}
+        placeholder="Search..."
+        size="default"
+        theme="default"
+        type="default"
+      />
+    )
+  },
+  {
+    label: 'Status',
+    field: 'status',
+    renderHtml: status => {
+      return (
+        <Toggle
+          id={status + '--'}
+          disabled
+          labelOff=" "
+          labelOn=" "
+          toggled={status.status === 'Active' ? true : false}
+        />
+      );
+    },
+    columnHtml: (
+      <Dropdown
+        className=""
+        config={{}}
+        dropdownType="multi"
+        items={[
+          {
+            id: 'option-1',
+            text: 'Active'
+          },
+          {
+            id: 'option-2',
+            text: 'Inactive'
+          }
+        ]}
+        label="MultiSelect Label"
+        onChange={function noRefCheck() {}}
+        type="bottom"
+      />
+    ),
+    width: '150px'
   }
 ];
-
 const tableConfig = [
   {
     label: 'Name',
@@ -88,137 +200,6 @@ const tableConfig = [
   {
     label: 'Status',
     field: 'status'
-  }
-];
-
-
-
-const tableConfigWithCustomTemplate = [
-  {
-    field: 'checkbox',
-    renderHtml: row => {
-      return <Checkbox id={`${row.id}_checkbox_`} name="testcheck" />;
-    },
-
-    width: '40px',
-    pinned: 'left'
-  },
-  {
-    label: 'Name',
-    field: 'name',
-    sortable: true,
-    columnHtml: () => {
-      return (
-        <Tag
-          className=""
-          closable={false}
-          disabled={false}
-          icon={<i className="p-hclsw p-hclsw-link" tabIndex="0" />}
-          onClose={function noRefCheck() {}}
-          tabIndex={0}
-          text={null}
-          thumbnail={<i className="p-hclsw p-hclsw-checkbox" />}
-          title=""
-          type="primary"
-        >
-          Sample Tag
-        </Tag>
-      );
-    },
-    width: '160px',
-    pinned: 'right'
-  },
-  {
-    label: 'Protocol',
-    field: 'protocol',
-    pinned: 'left',
-    columnHtml: () => {
-      return (
-        <Dropdown
-        className=""
-        config={{}}
-        dropdownType="multi"
-        items={[
-          {
-            id: 'option-1',
-            text: 'HTTP'
-          },
-          {
-            id: 'option-2',
-            text: 'FTP'
-          },
-          {
-            id: 'option-3',
-            text: 'SMTP'
-          }
-        ]}
-        label="MultiSelect Label"
-        onChange={function noRefCheck() {}}
-        type="bottom"
-      />
-      );
-    },
-    width: '60px'
-  },
-  {
-    label: 'Port',
-    field: 'port',
-    renderHtml: port => {
-      let classname = 'primary';
-      return (
-        <Tag type={classname}>{`${port.port === '80' ? 'Yes' : 'No'}`}</Tag>
-      );
-    },
-    width: '120px'
-  },
-  {
-    label: 'Rule',
-    field: 'rule'
-  },
-  {
-    label: 'Attached Groups',
-    field: 'attachedGroups',
-    columnHtml: () => {
-      return (
-        <Search
-        ariaLabel="Search"
-        className=""
-        defaultValue=""
-        disabled={false}
-        iconTheme="default"
-        onBlur={function noRefCheck() {}}
-        onChange={function noRefCheck() {}}
-        placeholder="Search..."
-        size="default"
-        theme="default"
-        type="default"
-      />
-      );
-    },
-  },
-  {
-    label: 'Status',
-    field: 'status',
-    renderHtml: status => {
-      console.log(status)
-      return (
-        <Toggle
-          id={status + '--'}
-          disabled
-          labelOff=" "
-          labelOn=" "
-          toggled={status.status === 'Active' ? true : false}
-        />
-      );
-    },
-    columnHtml: () => {
-      return (
-        <Link className="" href="#" onClick={function noRefCheck() {}}>
-          This is Link
-        </Link>
-      );
-    },
-    width: '150px'
   }
 ];
 
@@ -259,7 +240,7 @@ storiesOf('DataTable', module)
         tableData={object('Table Data', tableData)}
         tableConfig={object('Table Config', tableConfigWithCustomTemplate)}
         stickyHeaderMain={boolean('Sticky Header', true)}
-        type=  {text('Type', 'zebra borderless')}
+        type={text('Type', 'zebra borderless')}
         headerSelection={<Checkbox id={`header_checkbox`} />}
         onSort={action('Sort Action')}
       />

@@ -253,7 +253,7 @@ const DataTable = ({
                         : ''
                     }${column.sortable ? ' sortable' : ''}`}
                   >
-                    <div>{column.columnHtml ? column.columnHtml() : null}</div>
+                    <div>{column.columnHtml ? column.columnHtml : null}</div>
                   </th>
                 );
               })}

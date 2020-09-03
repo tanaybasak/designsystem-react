@@ -18,27 +18,29 @@ class TableExample extends Component {
           return <Checkbox id={`${row.id}_checkbox_`} name="testcheck" />;
         },
 
-        width: '40px',
+        width: '40px'
         // pinned: 'left'
       },
       {
         label: 'ID',
         field: 'id',
         columnHtml: () => {
-          return <Tag
-          className=""
-          closable={false}
-          disabled={false}
-          icon={<i className="p-hclsw p-hclsw-link" tabIndex="0"/>}
-          onClose={function noRefCheck(){}}
-          tabIndex={0}
-          text={null}
-          thumbnail={<i className="p-hclsw p-hclsw-checkbox" />}
-          title=""
-          type="primary"
-        >
-          Sample Tag
-        </Tag>  ;
+          return (
+            <Tag
+              className=""
+              closable={false}
+              disabled={false}
+              icon={<i className="p-hclsw p-hclsw-link" tabIndex="0" />}
+              onClose={function noRefCheck() {}}
+              tabIndex={0}
+              text={null}
+              thumbnail={<i className="p-hclsw p-hclsw-checkbox" />}
+              title=""
+              type="primary"
+            >
+              Sample Tag
+            </Tag>
+          );
         },
         width: '160px',
         pinned: 'right'
@@ -59,7 +61,6 @@ class TableExample extends Component {
           return <h6> this is temp</h6>;
         },
         width: '60px'
-        
       },
       {
         label: 'Full Name',
