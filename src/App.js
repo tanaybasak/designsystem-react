@@ -1485,8 +1485,8 @@ class App extends Component {
                   ny variations of passages of Lorem Ipsum
                 </AccordionItem>
               </Accordion>
-                   {/* DatePicker */}
-                   <div className="hcl-row m-3 hcl-col-12">
+              {/* DatePicker */}
+              <div className="hcl-row m-3 hcl-col-12">
                 <div className="hcl-col-6">
                   <DatePicker
                     weekDays={weekDays}

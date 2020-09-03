@@ -56,22 +56,22 @@ const DatePicker = ({
         .getAttribute('defaultdate')
         .split('/');
 
-        switch (format) {
-          case 'mm/dd/yyyy':
-            updateFormattedDate(
-              defaultDateArray[0],
-              defaultDateArray[1],
-              defaultDateArray[2]
-            );
-            break;
-          case 'dd/mm/yyyy':
-            updateFormattedDate(
-              defaultDateArray[1],
-              defaultDateArray[0],
-              defaultDateArray[2]
-            );
-            break;
-        }
+      switch (format) {
+        case 'mm/dd/yyyy':
+          updateFormattedDate(
+            defaultDateArray[0],
+            defaultDateArray[1],
+            defaultDateArray[2]
+          );
+          break;
+        case 'dd/mm/yyyy':
+          updateFormattedDate(
+            defaultDateArray[1],
+            defaultDateArray[0],
+            defaultDateArray[2]
+          );
+          break;
+      }
     }
   }, [defaultDate]);
 
@@ -96,7 +96,7 @@ const DatePicker = ({
   };
 
   const onEnterPressYear = event => {
-    if (event.key === 'Enter' ) {
+    if (event.key === 'Enter') {
       if (isValidYearFunc(event.target.value)) {
         const tempDate = new Date(
           Number(event.target.value),
@@ -334,6 +334,6 @@ DatePicker.defaultProps = {
   format: 'MM/DD/YYYY',
   onDateSelect: () => {},
   className: '',
-  defaultDate:''
+  defaultDate: ''
 };
 export default DatePicker;

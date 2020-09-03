@@ -68,6 +68,7 @@ DateInput.propTypes = {
   format: PropTypes.string.isRequired,
   onEnterPressInputDate: PropTypes.func.isRequired,
   datepickerInput: PropTypes.object.isRequired,
-  currDateObj: PropTypes.object
+  currDateObj: PropTypes.object,
+  defaultDate: PropTypes.string
 };
 export default DateInput;
