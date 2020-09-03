@@ -1,12 +1,16 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { select, boolean } from '@storybook/addon-knobs';
+import { select, boolean, text, object } from '@storybook/addon-knobs';
 //@update-path-build-start
 import DataTable from './DataTable';
 import Checkbox from '../Checkbox';
 import Toggle from '../Toggle';
 import Overflowmenu from '../../molecules/Overflowmenu';
+import Tag from '../Tag';
+import Notification from '../Notification';
+import Link from '../Link';
+import customTableConfig from './sample-custom-table-data';
 //@update-path-build-end
 
 const tableData = [
@@ -38,7 +42,7 @@ const tableData = [
     status: 'Active'
   }
 ];
-const overflowList = [
+const overflowlist = [
   {
     name: 'option 1'
   },
@@ -91,69 +95,143 @@ const tableConfig = [
 const tableConfigWithCustomTemplate = [
   {
     field: 'checkbox',
-    // eslint-disable-next-line react/display-name
     renderHtml: row => {
-      return <Checkbox aria-label="checkbox" id={`${row.id}_checkbox_`} />;
+      return <Checkbox id={`${row.id}_checkbox_`} name="testcheck" />;
     },
-    width: '40px'
+
+    width: '40px',
+    pinned: 'left'
   },
   {
-    label: 'Name',
+    label: 'ID',
+    field: 'id',
+    columnHtml: () => {
+      return (
+        <Tag
+          className=""
+          closable={false}
+          disabled={false}
+          icon={<i className="p-hclsw p-hclsw-link" tabIndex="0" />}
+          onClose={function noRefCheck() {}}
+          tabIndex={0}
+          text={null}
+          thumbnail={<i className="p-hclsw p-hclsw-checkbox" />}
+          title=""
+          type="primary"
+        >
+          Sample Tag
+        </Tag>
+      );
+    },
+    width: '160px',
+    pinned: 'right'
+  },
+
+  {
+    label: 'Avatar',
+    pinned: 'left',
+    renderHtml: model => {
+      return (
+        <img
+          src={model.owner.avatar_url}
+          style={{ width: '44px', height: '44px', borderRadius: '50%' }}
+        />
+      );
+    },
+    columnHtml: () => {
+      return (
+        <Notification
+          className=""
+          closable
+          icon={null}
+          onClose={function noRefCheck() {}}
+          subtitle="Notification Sub Title"
+          title="Notification Title"
+          type="info"
+          visible
+        />
+      );
+    },
+    width: '60px'
+  },
+  {
+    label: 'Full Name',
     field: 'name',
     sortable: true,
     width: '200px'
   },
   {
-    label: 'Protocol',
-    field: 'protocol',
-    width: '150px'
+    label: 'Private',
+    renderHtml: model => {
+      let classname = 'primary';
+      if (!model.owner.site_admin) {
+        classname = 'secondary';
+      }
+      return (
+        <Tag type={classname}>{`${model.owner.site_admin ? 'Yes' : 'No'}`}</Tag>
+      );
+    },
+    width: '120px'
   },
   {
-    label: 'Port',
-    field: 'port',
-    width: '100px'
+    label: 'Language',
+    field: 'owner.login',
+
+    width: '120px'
   },
   {
-    label: 'Rule',
-    field: 'rule',
-    width: '200px'
-  },
-  {
-    label: 'Attached Groups',
-    field: 'attachedGroups',
-    width: '200px'
-  },
-  {
-    label: 'Status',
-    field: 'status',
-    // eslint-disable-next-line react/display-name
+    label: 'Has Issues',
+    field: 'has_issues',
     renderHtml: model => {
       return (
         <Toggle
-          id={`toggleId-${model.id}`}
+          id={model.id + '--'}
           disabled
-          small
           labelOff=" "
           labelOn=" "
-          aria-label="Toggle"
-          toggled={model.status === 'Active' ? true : false}
+          toggled={model.has_issues}
         />
       );
     },
-    width: '200px'
+    columnHtml: () => {
+      return (
+        <Link className="" href="#" onClick={function noRefCheck() {}}>
+          This is Link
+        </Link>
+      );
+    },
+    width: '150px'
+  },
+  {
+    label: 'Forks Count',
+    field: 'forks_count',
+    width: '120px'
+  },
+  {
+    label: 'Branch',
+    field: 'default_branch',
+    sortable: true,
+    width: '120px'
+  },
+  {
+    label: 'Issues Count',
+    field: 'open_issues_count',
+    width: '120px'
   },
   {
     field: 'overflow',
-    // eslint-disable-next-line react/display-name
-    renderHtml: () => {
+    renderHtml: row => {
       return (
         <Overflowmenu
-          listItems={overflowList}
-          onClick={action('overflow action')}
+          listItems={overflowlist}
+          //className="overflow-onhover"
+          onClick={e => {
+            console.log(e, row);
+          }}
         />
       );
     },
-    width: '100px'
+    width: '500px'
   }
 ];
 
@@ -190,16 +268,12 @@ storiesOf('DataTable', module)
     'with custom template',
     () => (
       <DataTable
-        id="data_table_2"
-        type={`${boolean('Border', true) ? '' : 'borderless'}${
-          boolean('Zebra', false) ? ' zebra' : ''
-        }${select('Class Name', classOptions, '')}`}
-        tableData={tableData}
-        stickyHeaderMain
-        headerSelection={
-          <Checkbox aria-label="header checkbox" id={`header_checkbox`} />
-        }
-        tableConfig={tableConfigWithCustomTemplate}
+        id={text('Id', 'custom-datatable')}
+        tableData={object('Table Data', customTableConfig)}
+        tableConfig={object('Table Config', tableConfigWithCustomTemplate)}
+        stickyHeaderMain={boolean('Sticky Header', true)}
+        type=  {text('Type', 'zebra borderless')}
+        headerSelection={<Checkbox id={`header_checkbox`} />}
         onSort={action('Sort Action')}
       />
     ),
