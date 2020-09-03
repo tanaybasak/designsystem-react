@@ -238,7 +238,7 @@ storiesOf('DataTable', module)
       <DataTable
         id={text('Id', 'custom-datatable')}
         tableData={object('Table Data', tableData)}
-        tableConfig={object('Table Config', tableConfigWithCustomTemplate)}
+        tableConfig={tableConfigWithCustomTemplate}
         stickyHeaderMain={boolean('Sticky Header', true)}
         type={text('Type', 'zebra borderless')}
         headerSelection={<Checkbox id={`header_checkbox`} />}
