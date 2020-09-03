@@ -6,11 +6,10 @@ import { select, boolean, text, object } from '@storybook/addon-knobs';
 import DataTable from './DataTable';
 import Checkbox from '../Checkbox';
 import Toggle from '../Toggle';
-import Overflowmenu from '../../molecules/Overflowmenu';
 import Tag from '../Tag';
-import Notification from '../Notification';
+import Dropdown from '../Dropdown';
 import Link from '../Link';
-import customTableConfig from './sample-custom-table-data';
+import Search from '../Search';
 //@update-path-build-end
 
 const tableData = [
@@ -20,16 +19,16 @@ const tableData = [
     protocol: 'HTTP',
     port: '80',
     rule: 'Round Robin',
-    attachedGroups: "Maureen's VM Groups",
+    attachedGroups: "Maureen VM Groups",
     status: 'Active'
   },
   {
     id: 2,
     name: 'Load Balancer 2',
     protocol: 'FTP',
-    port: '80',
+    port: '100',
     rule: 'Round Robin',
-    attachedGroups: "Maureen's VM Groups",
+    attachedGroups: "Maureen VM Groups",
     status: 'InActive'
   },
   {
@@ -38,7 +37,7 @@ const tableData = [
     protocol: 'HTTP',
     port: '80',
     rule: 'Round Robin',
-    attachedGroups: "Maureen's VM Groups",
+    attachedGroups: "Maureen VM Groups",
     status: 'Active'
   }
 ];
@@ -92,6 +91,8 @@ const tableConfig = [
   }
 ];
 
+
+
 const tableConfigWithCustomTemplate = [
   {
     field: 'checkbox',
@@ -103,8 +104,9 @@ const tableConfigWithCustomTemplate = [
     pinned: 'left'
   },
   {
-    label: 'ID',
-    field: 'id',
+    label: 'Name',
+    field: 'name',
+    sortable: true,
     columnHtml: () => {
       return (
         <Tag
@@ -126,70 +128,86 @@ const tableConfigWithCustomTemplate = [
     width: '160px',
     pinned: 'right'
   },
-
   {
-    label: 'Avatar',
+    label: 'Protocol',
+    field: 'protocol',
     pinned: 'left',
-    renderHtml: model => {
-      return (
-        <img
-          src={model.owner.avatar_url}
-          style={{ width: '44px', height: '44px', borderRadius: '50%' }}
-        />
-      );
-    },
     columnHtml: () => {
       return (
-        <Notification
-          className=""
-          closable
-          icon={null}
-          onClose={function noRefCheck() {}}
-          subtitle="Notification Sub Title"
-          title="Notification Title"
-          type="info"
-          visible
-        />
+        <Dropdown
+        className=""
+        config={{}}
+        dropdownType="multi"
+        items={[
+          {
+            id: 'option-1',
+            text: 'HTTP'
+          },
+          {
+            id: 'option-2',
+            text: 'FTP'
+          },
+          {
+            id: 'option-3',
+            text: 'SMTP'
+          }
+        ]}
+        label="MultiSelect Label"
+        onChange={function noRefCheck() {}}
+        type="bottom"
+      />
       );
     },
     width: '60px'
   },
   {
-    label: 'Full Name',
-    field: 'name',
-    sortable: true,
-    width: '200px'
-  },
-  {
-    label: 'Private',
-    renderHtml: model => {
+    label: 'Port',
+    field: 'port',
+    renderHtml: port => {
       let classname = 'primary';
-      if (!model.owner.site_admin) {
-        classname = 'secondary';
-      }
       return (
-        <Tag type={classname}>{`${model.owner.site_admin ? 'Yes' : 'No'}`}</Tag>
+        <Tag type={classname}>{`${port.port === '80' ? 'Yes' : 'No'}`}</Tag>
       );
     },
     width: '120px'
   },
   {
-    label: 'Language',
-    field: 'owner.login',
-
-    width: '120px'
+    label: 'Rule',
+    field: 'rule'
   },
   {
-    label: 'Has Issues',
-    field: 'has_issues',
-    renderHtml: model => {
+    label: 'Attached Groups',
+    field: 'attachedGroups',
+    columnHtml: () => {
+      return (
+        <Search
+        ariaLabel="Search"
+        className=""
+        defaultValue=""
+        disabled={false}
+        iconTheme="default"
+        onBlur={function noRefCheck() {}}
+        onChange={function noRefCheck() {}}
+        placeholder="Search..."
+        size="default"
+        theme="default"
+        type="default"
+      />
+      );
+    },
+  },
+  {
+    label: 'Status',
+    field: 'status',
+    renderHtml: status => {
+      console.log(status)
       return (
         <Toggle
-          id={model.id + '--'}
+          id={status + '--'}
           disabled
           labelOff=" "
           labelOn=" "
-          toggled={model.has_issues}
+          toggled={status.status === 'Active' ? true : false}
         />
       );
     },
@@ -201,37 +219,6 @@ const tableConfigWithCustomTemplate = [
       );
     },
     width: '150px'
-  },
-  {
-    label: 'Forks Count',
-    field: 'forks_count',
-    width: '120px'
-  },
-  {
-    label: 'Branch',
-    field: 'default_branch',
-    sortable: true,
-    width: '120px'
-  },
-  {
-    label: 'Issues Count',
-    field: 'open_issues_count',
-    width: '120px'
-  },
-  {
-    field: 'overflow',
-    renderHtml: row => {
-      return (
-        <Overflowmenu
-          listItems={overflowlist}
-          //className="overflow-onhover"
-          onClick={e => {
-            console.log(e, row);
-          }}
-        />
-      );
-    },
-    width: '500px'
   }
 ];
 
@@ -269,7 +256,7 @@ storiesOf('DataTable', module)
     () => (
       <DataTable
         id={text('Id', 'custom-datatable')}
-        tableData={object('Table Data', customTableConfig)}
+        tableData={object('Table Data', tableData)}
         tableConfig={object('Table Config', tableConfigWithCustomTemplate)}
         stickyHeaderMain={boolean('Sticky Header', true)}
         type=  {text('Type', 'zebra borderless')}
