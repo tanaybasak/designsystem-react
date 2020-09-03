@@ -130,8 +130,6 @@ const tableConfigWithCustomTemplate = [
         defaultValue=""
         disabled={false}
         iconTheme="default"
-        onBlur={function noRefCheck() {}}
-        onChange={function noRefCheck() {}}
         placeholder="Search..."
         size="default"
         theme="default"
@@ -143,14 +141,14 @@ const tableConfigWithCustomTemplate = [
     label: 'Status',
     field: 'status',
     // eslint-disable-next-line react/display-name
-    renderHtml: status => {
+    renderHtml: model => {
       return (
         <Toggle
-          id={status + '--'}
+          id={`toggle-id${model.id}`}
           disabled
           labelOff=" "
           labelOn=" "
-          toggled={status.status === 'Active' ? true : false}
+          toggled={model.status === 'Active' ? true : false}
         />
       );
     },
