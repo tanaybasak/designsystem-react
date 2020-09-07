@@ -350,6 +350,8 @@ storiesOf('DataTable', module)
     import {Toggle} from '@patron/patron-react/toggle';
     import {Overflowmenu} from '@patron/patron-react/overflowmenu';
     import {Tag} from '@patron/patron-react/tag';
+    import Search from '../Search';
+    import Dropdown from '../Dropdown';
       `
       }
     }
