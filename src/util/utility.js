@@ -89,7 +89,7 @@ export const clone = item => {
   if (typeof result == 'undefined') {
     if (Object.prototype.toString.call(item) === '[object Array]') {
       result = [];
-      item.forEach(function (child, index ) {
+      item.forEach(function (child, index) {
         result[index] = clone(child);
       });
     } else if (typeof item == 'object') {
@@ -108,7 +108,7 @@ export const clone = item => {
           }
         }
       } else {
-          result = item;
+        result = item;
       }
     } else {
       result = item;
