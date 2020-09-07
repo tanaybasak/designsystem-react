@@ -49,8 +49,69 @@ const tableConfigWithCustomTemplate = [
       return <Checkbox id={`${row.id}_checkbox_`} name="testcheck" />;
     },
 
-    width: '40px',
-    pinned: 'left'
+    width: '40px'
+  },
+  {
+    label: 'Name',
+    field: 'name',
+    sortable: true,
+    width: '60px'
+  },
+  {
+    label: 'Protocol',
+    field: 'protocol',
+    width: '60px'
+  },
+  {
+    label: 'Port',
+    field: 'port',
+    // eslint-disable-next-line react/display-name
+    renderHtml: port => {
+      let classname = 'primary';
+      return (
+        <Tag type={classname}>{`${port.port === '80' ? 'Yes' : 'No'}`}</Tag>
+      );
+    },
+    width: '60px'
+  },
+  {
+    label: 'Rule',
+    field: 'rule',
+    width: '60px'
+  },
+  {
+    label: 'Attached Groups',
+    field: 'attachedGroups',
+    width: '60px'
+  },
+  {
+    label: 'Status',
+    field: 'status',
+    // eslint-disable-next-line react/display-name
+    renderHtml: model => {
+      return (
+        <Toggle
+          id={`toggle-id${model.id}`}
+          disabled
+          labelOff=" "
+          labelOn=" "
+          toggled={model.status === 'Active' ? true : false}
+        />
+      );
+    },
+    width: '60px'
+  }
+];
+
+const tableConfigWithCustomColumn = [
+  {
+    field: 'checkbox',
+    // eslint-disable-next-line react/display-name
+    renderHtml: row => {
+      return <Checkbox id={`${row.id}_checkbox_`} name="testcheck" />;
+    },
+
+    width: '40px'
   },
   {
     label: 'Name',
@@ -70,14 +131,11 @@ const tableConfigWithCustomTemplate = [
         theme="default"
         type="default"
       />
-    ),
-    width: '160px',
-    pinned: 'right'
+    )
   },
   {
     label: 'Protocol',
     field: 'protocol',
-    pinned: 'left',
     columnHtml: (
       <Dropdown
         className=""
@@ -101,20 +159,7 @@ const tableConfigWithCustomTemplate = [
         onChange={function noRefCheck() {}}
         type="bottom"
       />
-    ),
-    width: '60px'
-  },
-  {
-    label: 'Port',
-    field: 'port',
-    // eslint-disable-next-line react/display-name
-    renderHtml: port => {
-      let classname = 'primary';
-      return (
-        <Tag type={classname}>{`${port.port === '80' ? 'Yes' : 'No'}`}</Tag>
-      );
-    },
-    width: '120px'
+    )
   },
   {
     label: 'Rule',
@@ -136,6 +181,53 @@ const tableConfigWithCustomTemplate = [
         type="default"
       />
     )
+  }
+];
+
+const tableConfigWithPinning = [
+  {
+    field: 'checkbox',
+    // eslint-disable-next-line react/display-name
+    renderHtml: row => {
+      return <Checkbox id={`${row.id}_checkbox_`} name="testcheck" />;
+    },
+
+    width: '40px'
+  },
+  {
+    label: 'Name',
+    field: 'name',
+    sortable: true,
+    pinned: 'left',
+    width: '100px'
+  },
+  {
+    label: 'Protocol',
+    field: 'protocol',
+    pinned: 'left',
+    width: '100px'
+  },
+  {
+    label: 'Port',
+    field: 'port',
+    // eslint-disable-next-line react/display-name
+    renderHtml: port => {
+      let classname = 'primary';
+      return (
+        <Tag type={classname}>{`${port.port === '80' ? 'Yes' : 'No'}`}</Tag>
+      );
+    },
+    width: '300px'
+  },
+  {
+    label: 'Rule',
+    field: 'rule',
+    width: '300px'
+  },
+  {
+    label: 'Attached Groups',
+    field: 'attachedGroups',
+    width: '300px'
   },
   {
     label: 'Status',
@@ -152,27 +244,7 @@ const tableConfigWithCustomTemplate = [
         />
       );
     },
-    columnHtml: (
-      <Dropdown
-        className=""
-        config={{}}
-        dropdownType="multi"
-        items={[
-          {
-            id: 'option-1',
-            text: 'Active'
-          },
-          {
-            id: 'option-2',
-            text: 'Inactive'
-          }
-        ]}
-        label="MultiSelect Label"
-        onChange={function noRefCheck() {}}
-        type="bottom"
-      />
-    ),
-    width: '150px'
+    width: '300px'
   }
 ];
 const tableConfig = [
@@ -236,9 +308,61 @@ storiesOf('DataTable', module)
     'with custom template',
     () => (
       <DataTable
-        id={text('Id', 'custom-datatable')}
+        id="custom-datatable-custom-temp"
         tableData={object('Table Data', tableData)}
         tableConfig={tableConfigWithCustomTemplate}
+        stickyHeaderMain={boolean('Sticky Header', true)}
+        type={text('Type', 'zebra borderless')}
+        headerSelection={<Checkbox id={`header_checkbox`} />}
+        onSort={action('Sort Action')}
+      />
+    ),
+    {
+      info: {
+        text: `Description About DataTable Component \n
+        import { DataTable } from '@patron/patron-react/datatable';
+    import {Checkbox} from '@patron/patron-react/checkbox';
+    import {Toggle} from '@patron/patron-react/toggle';
+    import {Overflowmenu} from '@patron/patron-react/overflowmenu';
+    import {Tag} from '@patron/patron-react/tag';
+      `
+      }
+    }
+  )
+  .add(
+    'with custom column header',
+    () => (
+      <DataTable
+        id="custom-datatable-column"
+        tableData={object('Table Data', tableData)}
+        tableConfig={tableConfigWithCustomColumn}
+        stickyHeaderMain={boolean('Sticky Header', true)}
+        type={text('Type', 'zebra borderless')}
+        headerSelection={<Checkbox id={`header_checkbox`} />}
+        onSort={action('Sort Action')}
+      />
+    ),
+    {
+      info: {
+        text: `Description About DataTable Component \n
+        import { DataTable } from '@patron/patron-react/datatable';
+    import {Checkbox} from '@patron/patron-react/checkbox';
+    import {Toggle} from '@patron/patron-react/toggle';
+    import {Overflowmenu} from '@patron/patron-react/overflowmenu';
+    import {Tag} from '@patron/patron-react/tag';
+    import Search from '../Search';
+    import Dropdown from '../Dropdown';
+      `
+      }
+    }
+  )
+  .add(
+    'with pinning',
+    () => (
+      <DataTable
+        id="custom-datatable-pin"
+        tableData={object('Table Data', tableData)}
+        tableConfig={tableConfigWithPinning}
         stickyHeaderMain={boolean('Sticky Header', true)}
         type={text('Type', 'zebra borderless')}
         headerSelection={<Checkbox id={`header_checkbox`} />}

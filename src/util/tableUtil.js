@@ -1,4 +1,7 @@
-export const getColumnStructure = (tableConfig, isExpandRow = false) => {
+import { clone } from './utility';
+
+export const getColumnStructure = (tableConfiguration, isExpandRow = false) => {
+  let tableConfig = clone(tableConfiguration);
   let columnInfo = {
     left: [],
     main: [],
