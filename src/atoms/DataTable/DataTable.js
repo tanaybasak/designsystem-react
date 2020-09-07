@@ -19,7 +19,7 @@ const DataTable = ({
 }) => {
   const [rows, updateTableRowData] = useState(tableData);
   const tableRef = useRef(null);
-  const [tableConfiguration, setTableConfiguration] = useState(tableConfig);
+  const [tableConfiguration, setTableConfiguration] = useState([]);
   const [sortedColumn, updateSortedColumn] = useState({});
   let customHeaderFlag = false;
 
@@ -29,7 +29,7 @@ const DataTable = ({
 
   useEffect(() => {
     let tempConfig = getColumnStructure(
-      [...tableConfig],
+      tableConfig,
       expandRowTemplate ? true : false
     );
     setTableConfiguration(tempConfig);

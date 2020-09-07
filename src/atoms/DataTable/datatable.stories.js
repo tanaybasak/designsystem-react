@@ -308,7 +308,7 @@ storiesOf('DataTable', module)
     'with custom template',
     () => (
       <DataTable
-        id={text('Id', 'custom-datatable')}
+        id="custom-datatable-custom-temp"
         tableData={object('Table Data', tableData)}
         tableConfig={tableConfigWithCustomTemplate}
         stickyHeaderMain={boolean('Sticky Header', true)}
@@ -333,7 +333,7 @@ storiesOf('DataTable', module)
     'with custom column header',
     () => (
       <DataTable
-        id={text('Id', 'custom-datatable')}
+        id="custom-datatable-column"
         tableData={object('Table Data', tableData)}
         tableConfig={tableConfigWithCustomColumn}
         stickyHeaderMain={boolean('Sticky Header', true)}
@@ -360,7 +360,7 @@ storiesOf('DataTable', module)
     'with pinning',
     () => (
       <DataTable
-        id={text('Id', 'custom-datatable')}
+        id="custom-datatable-pin"
         tableData={object('Table Data', tableData)}
         tableConfig={tableConfigWithPinning}
         stickyHeaderMain={boolean('Sticky Header', true)}
