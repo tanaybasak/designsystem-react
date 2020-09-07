@@ -199,13 +199,13 @@ const tableConfigWithPinning = [
     field: 'name',
     sortable: true,
     pinned: 'left',
-    width: '100px'
+    width: '300px'
   },
   {
     label: 'Protocol',
     field: 'protocol',
     pinned: 'left',
-    width: '100px'
+    width: '300px'
   },
   {
     label: 'Port',
