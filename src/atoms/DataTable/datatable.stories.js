@@ -49,17 +49,17 @@ const tableConfigWithCustomTemplate = [
       return <Checkbox id={`${row.id}_checkbox_`} name="testcheck" />;
     },
 
-    width: '40px',
+    width: '40px'
   },
   {
     label: 'Name',
     field: 'name',
     sortable: true,
-    width: '60px',
+    width: '60px'
   },
   {
     label: 'Protocol',
-    field: 'protocol',  
+    field: 'protocol',
     width: '60px'
   },
   {
@@ -72,18 +72,17 @@ const tableConfigWithCustomTemplate = [
         <Tag type={classname}>{`${port.port === '80' ? 'Yes' : 'No'}`}</Tag>
       );
     },
-    width: '60px',
+    width: '60px'
   },
   {
     label: 'Rule',
     field: 'rule',
-    width: '60px',
-
+    width: '60px'
   },
   {
     label: 'Attached Groups',
     field: 'attachedGroups',
-    width: '60px',
+    width: '60px'
   },
   {
     label: 'Status',
@@ -104,7 +103,7 @@ const tableConfigWithCustomTemplate = [
   }
 ];
 
-const tableConfigWithCustomColumn= [
+const tableConfigWithCustomColumn = [
   {
     field: 'checkbox',
     // eslint-disable-next-line react/display-name
@@ -112,7 +111,7 @@ const tableConfigWithCustomColumn= [
       return <Checkbox id={`${row.id}_checkbox_`} name="testcheck" />;
     },
 
-    width: '40px',
+    width: '40px'
   },
   {
     label: 'Name',
@@ -132,11 +131,11 @@ const tableConfigWithCustomColumn= [
         theme="default"
         type="default"
       />
-    ),
+    )
   },
   {
     label: 'Protocol',
-    field: 'protocol',  
+    field: 'protocol',
     columnHtml: (
       <Dropdown
         className=""
@@ -160,11 +159,11 @@ const tableConfigWithCustomColumn= [
         onChange={function noRefCheck() {}}
         type="bottom"
       />
-    ),
+    )
   },
   {
     label: 'Rule',
-    field: 'rule',
+    field: 'rule'
   },
   {
     label: 'Attached Groups',
@@ -181,12 +180,11 @@ const tableConfigWithCustomColumn= [
         theme="default"
         type="default"
       />
-    ),
-  },
-
+    )
+  }
 ];
 
-const tableConfigWithPinning= [
+const tableConfigWithPinning = [
   {
     field: 'checkbox',
     // eslint-disable-next-line react/display-name
@@ -194,20 +192,20 @@ const tableConfigWithPinning= [
       return <Checkbox id={`${row.id}_checkbox_`} name="testcheck" />;
     },
 
-    width: '40px',
+    width: '40px'
   },
   {
     label: 'Name',
     field: 'name',
     sortable: true,
-    pinned: 'left', 
-    width: '100px',
+    pinned: 'left',
+    width: '100px'
   },
   {
     label: 'Protocol',
-    field: 'protocol',  
+    field: 'protocol',
     pinned: 'left',
-    width: '100px',
+    width: '100px'
   },
   {
     label: 'Port',
@@ -219,18 +217,17 @@ const tableConfigWithPinning= [
         <Tag type={classname}>{`${port.port === '80' ? 'Yes' : 'No'}`}</Tag>
       );
     },
-    width: '300px',
+    width: '300px'
   },
   {
     label: 'Rule',
     field: 'rule',
-    width: '300px',
-
+    width: '300px'
   },
   {
     label: 'Attached Groups',
     field: 'attachedGroups',
-    width: '300px',
+    width: '300px'
   },
   {
     label: 'Status',
@@ -247,7 +244,7 @@ const tableConfigWithPinning= [
         />
       );
     },
-    width: '300px',
+    width: '300px'
   }
 ];
 const tableConfig = [
@@ -331,7 +328,8 @@ storiesOf('DataTable', module)
       `
       }
     }
-  ).add(
+  )
+  .add(
     'with custom column header',
     () => (
       <DataTable
@@ -355,7 +353,8 @@ storiesOf('DataTable', module)
       `
       }
     }
-  ).add(
+  )
+  .add(
     'with pinning',
     () => (
       <DataTable
