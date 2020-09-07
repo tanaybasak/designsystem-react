@@ -341,7 +341,8 @@ DataTable.propTypes = {
    *    sortable:true,// Is column Sortable
    *    width:'100px',// Minimum width for the column
    *    renderHtml: (model)=> {return <span>{model.name}</span>} // For passing Custom Html
-   *
+   *    columnHtml: ( <Search ariaLabel="Search" className=""defaultValue="" iconTheme="default" />) // For passing custom html in data column
+   *    pinned: 'right' // Pass 'right' to pin column right or pass 'left' to pin column left
    * }] */
   tableConfig: PropTypes.array,
   /** Name of the custom class to apply to the Data Table. */
