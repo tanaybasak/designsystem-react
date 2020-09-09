@@ -4,51 +4,10 @@ import Overlay from '../../atoms/Overlay';
 import Notification from '../../atoms/Notification';
 import Button from '../../atoms/Button';
 import DatePicker from '../../molecules/DatePicker';
-import List from '../../atoms/List';
-import prefix from '../../settings';
-import { Menu, SubMenuItem } from '../../atoms/Menu';
 import MenuItem from '../../molecules/Overflowmenu/MenuItem';
 import Dropdown from '../../atoms/Dropdown/Dropdown';
 import Overflowmenu from '../../molecules/Overflowmenu/Overflowmenu';
 import { weekDays, months } from '../../content';
-const listItems = [
-  {
-    name: 'List Level 1',
-    value: 'll-1'
-  },
-  {
-    name: 'List 2',
-    value: 'll-2'
-  },
-  {
-    name: 'List Level 3',
-    value: 'll-3'
-  },
-  {
-    name: 'List Level 1',
-    value: 'll-1'
-  },
-  {
-    name: 'List 2',
-    value: 'll-2'
-  },
-  {
-    name: 'List Level 3',
-    value: 'll-3'
-  },
-  {
-    name: 'List Level 1',
-    value: 'll-1'
-  },
-  {
-    name: 'List 2',
-    value: 'll-2'
-  },
-  {
-    name: 'List Level 3',
-    value: 'll-3'
-  }
-];
 class OverlayExample extends Component {
   //menu = React.createRef();
   state = {
