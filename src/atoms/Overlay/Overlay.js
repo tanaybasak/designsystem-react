@@ -106,33 +106,37 @@ const Overlay = ({
   };
 
   const changeOverlayPosition = (isScroll, targetElement) => {
-    const elementInfo = overlayContainerRef.current.getBoundingClientRect();
-    if (targetElement) {
-      const positions = getPositions(
-        direction,
-        elementInfo.width,
-        elementInfo.height,
-        targetElement,
-        attachElementToBody
-      );
+    if (overlayContainerRef && overlayContainerRef.current) {
+      const elementInfo = overlayContainerRef.current.getBoundingClientRect();
+      if (targetElement) {
+        const positions = getPositions(
+          direction,
+          elementInfo.width,
+          elementInfo.height,
+          targetElement,
+          attachElementToBody
+        );
 
-      overlayContainerRef.current.style.top = positions.top;
-      overlayContainerRef.current.style.left = positions.left;
-      if (isScroll) {
-        overlayContainerRef.current.classList.add(
-          'hcl-overlay-container-scroll'
-        );
-        overlayContainerRef.current.classList.remove(
-          'hcl-overlay-container-hidden'
-        );
+        overlayContainerRef.current.style.top = positions.top;
+        overlayContainerRef.current.style.left = positions.left;
+        if (isScroll) {
+          overlayContainerRef.current.classList.add(
+            'hcl-overlay-container-scroll'
+          );
+          overlayContainerRef.current.classList.remove(
+            'hcl-overlay-container-hidden'
+          );
+        } else {
+          overlayContainerRef.current.classList.add(
+            'hcl-overlay-container-show'
+          );
+        }
       } else {
-        overlayContainerRef.current.classList.add('hcl-overlay-container-show');
-      }
-    } else {
-      if (isScroll) {
-        overlayContainerRef.current.classList.add(
-          'hcl-overlay-container-hidden'
-        );
+        if (isScroll) {
+          overlayContainerRef.current.classList.add(
+            'hcl-overlay-container-hidden'
+          );
+        }
       }
     }
   };
