@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
-import { getPositions, visibleY } from '../../util/overlay';
+import { getPositions } from '../../util/overlay';
 import { addListener, removeListeners } from '../../util/eventManager';
 import debounce from '../../util/debounce';
 let overlayElementRef = 1;
@@ -107,7 +107,7 @@ const Overlay = ({
 
   const changeOverlayPosition = (isScroll, targetElement) => {
     const elementInfo = overlayContainerRef.current.getBoundingClientRect();
-    if (targetElement && visibleY(targetElement)) {
+    if (targetElement) {
       const positions = getPositions(
         direction,
         elementInfo.width,
