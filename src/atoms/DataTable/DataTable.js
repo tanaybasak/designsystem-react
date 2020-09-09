@@ -121,8 +121,8 @@ const DataTable = ({
     tableClass += ` ${prefix}-data-table-zebra`;
   }
 
-  const classnames = `${prefix}-data-table-wrapper data-table-sticky-header${
-    stickyHeaderMain ? ' overflow-unset' : ''
+  const classnames = `${prefix}-data-table-wrapper${
+    stickyHeaderMain ? ' data-table-sticky-header' : ''
   }${
     type.includes('borderless') ? ` ${prefix}-data-table-borderless` : ''
   } ${className}`.trim();
