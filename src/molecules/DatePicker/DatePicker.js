@@ -15,6 +15,7 @@ const DatePicker = ({
   months,
   format,
   onDateSelect,
+  defaultDate,
   className,
   direction,
   scrollListner,
@@ -39,6 +40,31 @@ const DatePicker = ({
   const datepickerInput = useRef(null);
 
   const [targetEl, setTargetEl] = useState(null);
+
+  useEffect(() => {
+    if (defaultDate && defaultDate !== '') {
+      const defaultDateArray = datepickerInput.current
+        .getAttribute('defaultdate')
+        .split('/');
+
+      switch (format) {
+        case 'mm/dd/yyyy':
+          updateFormattedDate(
+            defaultDateArray[0],
+            defaultDateArray[1],
+            defaultDateArray[2]
+          );
+          break;
+        case 'dd/mm/yyyy':
+          updateFormattedDate(
+            defaultDateArray[1],
+            defaultDateArray[0],
+            defaultDateArray[2]
+          );
+          break;
+      }
+    }
+  }, [defaultDate]);
 
   const onEnterPressInputDate = event => {
     if (event.key === 'Enter') {
@@ -101,11 +127,15 @@ const DatePicker = ({
     switch (format) {
       case 'mm/dd/yyyy':
         setDateSelected(`${monthStr}/${dateStr}/${year}`);
-        onDateSelect(`${monthStr}/${dateStr}/${year}`);
+        dateSelected === ''
+          ? null
+          : onDateSelect(`${monthStr}/${dateStr}/${year}`);
         break;
       case 'dd/mm/yyyy':
         setDateSelected(`${dateStr}/${monthStr}/${year}`);
-        onDateSelect(`${dateStr}/${monthStr}/${year}`);
+        dateSelected === ''
+          ? null
+          : onDateSelect(`${dateStr}/${monthStr}/${year}`);
         break;
     }
   };
@@ -201,6 +231,7 @@ const DatePicker = ({
       <div className="hcl-overlay-wrapper hcl-datePicker-container">
         <DateInput
           dateSelected={dateSelected}
+          defaultDate={defaultDate}
           toggleDateContainer={toggleDateContainer}
           onChangeInputDate={event => {
             setDateSelected(event.target.value);
@@ -289,7 +320,9 @@ DatePicker.propTypes = {
   /** Specifies helper text */
   helperText: PropTypes.string,
   /** Unique Id */
-  id: PropTypes.string
+  id: PropTypes.string,
+  /** This props allows user to pass default date */
+  defaultDate: PropTypes.string
 };
 
 DatePicker.defaultProps = {
@@ -316,6 +349,7 @@ DatePicker.defaultProps = {
   className: '',
   label: null,
   helperText: null,
-  id: null
+  id: null,
+  defaultDate: ''
 };
 export default DatePicker;

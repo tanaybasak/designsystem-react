@@ -19,8 +19,9 @@ const DataTable = ({
 }) => {
   const [rows, updateTableRowData] = useState(tableData);
   const tableRef = useRef(null);
-  const [tableConfiguration, setTableConfiguration] = useState(tableConfig);
+  const [tableConfiguration, setTableConfiguration] = useState([]);
   const [sortedColumn, updateSortedColumn] = useState({});
+  let customHeaderFlag = false;
 
   useEffect(() => {
     updateTableRowData(tableData);
@@ -28,7 +29,7 @@ const DataTable = ({
 
   useEffect(() => {
     let tempConfig = getColumnStructure(
-      [...tableConfig],
+      tableConfig,
       expandRowTemplate ? true : false
     );
     setTableConfiguration(tempConfig);
@@ -139,6 +140,9 @@ const DataTable = ({
         <thead>
           <tr>
             {tableConfiguration.map((column, index) => {
+              customHeaderFlag || column.columnHtml
+                ? (customHeaderFlag = true)
+                : null;
               return (
                 <th
                   key={`heading-${index}`}
@@ -226,6 +230,35 @@ const DataTable = ({
               );
             })}
           </tr>
+          {customHeaderFlag ? (
+            <tr>
+              {tableConfiguration.map((column, index) => {
+                return (
+                  <th
+                    key={`customheader-${index}`}
+                    style={{
+                      minWidth: column.width,
+                      left: column.marginLeft,
+                      right: column.marginRight,
+                      top: '50px',
+                      ...column.styles
+                    }}
+                    className={`${
+                      column.pinned === 'left'
+                        ? 'sticky-div sticky-left-div'
+                        : ''
+                    }${
+                      column.pinned === 'right'
+                        ? 'sticky-div sticky-right-div'
+                        : ''
+                    }${column.sortable ? ' sortable' : ''}`}
+                  >
+                    <div>{column.columnHtml ? column.columnHtml : null}</div>
+                  </th>
+                );
+              })}
+            </tr>
+          ) : null}
         </thead>
         <tbody>
           {rows.map((row, index) => (
@@ -308,7 +341,8 @@ DataTable.propTypes = {
    *    sortable:true,// Is column Sortable
    *    width:'100px',// Minimum width for the column
    *    renderHtml: (model)=> {return <span>{model.name}</span>} // For passing Custom Html
-   *
+   *    columnHtml: ( <Search ariaLabel="Search" className=""defaultValue="" iconTheme="default" />) // For passing custom html in data column
+   *    pinned: 'right' // Pass 'right' to pin column right or pass 'left' to pin column left
    * }] */
   tableConfig: PropTypes.array,
   /** Name of the custom class to apply to the Data Table. */

@@ -69,3 +69,12 @@ export const isValidDate = (str, format) => {
 export const getRem = value => {
   return value / 16 + 'rem';
 };
+
+// deep clone
+export const clone = items => {
+  let result = []; 
+  items.map((item)=>{
+    result.push({...item})
+  })
+  return result;
+};

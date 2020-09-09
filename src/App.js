@@ -1516,6 +1516,7 @@ class App extends Component {
                     attachElementToBody
                     scrollListner
                     format="mm/dd/yyyy"
+                    defaultDate="12/30/1990"
                     onDateSelect={dateSelected => {
                       console.log('Selected Date', dateSelected);
                     }}
