@@ -65,7 +65,7 @@ storiesOf('OverflowMenu', module)
         listItems={object('List Items', listItems)}
         onClick={action('Overflow-Click')}
       >
-        <Button>overflow button</Button>
+        <Button type="primary">overflow button</Button>
       </Overflowmenu>
     ),
     {
