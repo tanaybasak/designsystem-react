@@ -5,7 +5,6 @@ import { text, select, boolean } from '@storybook/addon-knobs';
 import icons from '../../../.storybook/iconList';
 //@update-path-build-start
 import Sidebar from './Sidebar';
-import Icon from '../../atoms/Icon';
 //@update-path-build-end
 
 const items = [
@@ -28,9 +27,7 @@ const items = [
         title: 'Child Item 4'
       }
     ],
-    icon: (
-      <i  className={`p-hclsw p-hclsw-${icons[2]}`} />
-    ),
+    icon: <i className={`p-hclsw p-hclsw-${icons[2]}`} />,
     title: 'Category One'
   },
   {
@@ -67,8 +64,7 @@ const items = [
       //     }}
       //   />
       // </Icon>
-      <i  className={`p-hclsw p-hclsw-${icons[1]}`} />
-
+      <i className={`p-hclsw p-hclsw-${icons[1]}`} />
     ),
     title: 'Category Two'
   }
