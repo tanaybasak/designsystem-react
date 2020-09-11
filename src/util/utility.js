@@ -72,9 +72,9 @@ export const getRem = value => {
 
 // deep clone
 export const clone = items => {
-  let result = []; 
-  items.map((item)=>{
-    result.push({...item})
-  })
+  let result = [];
+  items.map(item => {
+    result.push({ ...item });
+  });
   return result;
 };
