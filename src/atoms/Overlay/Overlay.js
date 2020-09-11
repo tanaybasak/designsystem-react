@@ -66,6 +66,10 @@ const Overlay = ({
       } else {
         hideOverlayContainer('stateChange');
       }
+    } else {
+      if (showOverlay === false) {
+        hideOverlayContainer('stateChange');
+      }
     }
   }, [showOverlay, targetElement]);
 
