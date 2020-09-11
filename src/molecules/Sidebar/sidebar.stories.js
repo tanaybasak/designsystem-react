@@ -50,20 +50,6 @@ const items = [
       }
     ],
     icon: (
-      // <Icon type={'svg'} alt={'alt'} title={'title'}>
-      //   <rect
-      //     rx={3}
-      //     ry={3}
-      //     width={'100%'}
-      //     height={'100%'}
-      //     style={{
-      //       fill: '#fff',
-      //       stroke: 'black',
-      //       strokeWidth: 2,
-      //       opacity: 0.5
-      //     }}
-      //   />
-      // </Icon>
       <i className={`p-hclsw p-hclsw-${icons[1]}`} />
     ),
     title: 'Category Two'
