@@ -5,7 +5,6 @@ import { text, select, boolean } from '@storybook/addon-knobs';
 import icons from '../../../.storybook/iconList';
 //@update-path-build-start
 import Sidebar from './Sidebar';
-import Icon from '../../atoms/Icon';
 //@update-path-build-end
 
 const items = [
@@ -28,9 +27,7 @@ const items = [
         title: 'Child Item 4'
       }
     ],
-    icon: (
-      <i style={{ color: 'white' }} className={`p-hclsw p-hclsw-${icons[2]}`} />
-    ),
+    icon: <i className={`p-hclsw p-hclsw-${icons[2]}`} />,
     title: 'Category One'
   },
   {
@@ -53,20 +50,7 @@ const items = [
       }
     ],
     icon: (
-      <Icon type={'svg'} alt={'alt'} title={'title'}>
-        <rect
-          rx={3}
-          ry={3}
-          width={'100%'}
-          height={'100%'}
-          style={{
-            fill: '#fff',
-            stroke: 'black',
-            strokeWidth: 2,
-            opacity: 0.5
-          }}
-        />
-      </Icon>
+      <i className={`p-hclsw p-hclsw-${icons[1]}`} />
     ),
     title: 'Category Two'
   }
@@ -79,7 +63,7 @@ storiesOf('Sidebar', module).add(
       title={text('Title', 'Default')}
       icon={
         <i
-          style={{ color: 'white' }}
+          // style={{ color: 'white' }}
           className={`p-hclsw p-hclsw-${select('Title Icon', icons, 'user')}`}
         />
       }
