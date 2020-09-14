@@ -24,8 +24,7 @@ class TableExample extends Component {
       {
         label: 'ID',
         field: 'id',
-        columnHtml: () => {
-          return (
+        columnHtml: (
             <Tag
               className=""
               closable={false}
@@ -40,8 +39,7 @@ class TableExample extends Component {
             >
               Sample Tag
             </Tag>
-          );
-        },
+          ),
         width: '160px',
         pinned: 'right'
       },
@@ -57,9 +55,9 @@ class TableExample extends Component {
             />
           );
         },
-        columnHtml: () => {
-          return <h6> this is temp</h6>;
-        },
+        columnHtml: (
+           <h6> this is temp</h6>
+        ),
         width: '60px'
       },
       {
