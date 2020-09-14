@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 import { getColumnStructure } from '../../util/tableUtil';
+import { addListener, removeListeners } from '../../util/eventManager';
 
 const DataTable = ({
   id,
@@ -21,6 +22,15 @@ const DataTable = ({
   const tableRef = useRef(null);
   const [tableConfiguration, setTableConfiguration] = useState([]);
   const [sortedColumn, updateSortedColumn] = useState({});
+  const [isMouseDown, setIsMouseDown] = useState({
+    currentElem: undefined,
+    eleidx: -1,
+    label: '',
+    isDown: false,
+    mouseX: undefined,
+    mouseY: undefined
+  });
+  const [cellObj, setcellObj] = useState({});
   let customHeaderFlag = false;
 
   useEffect(() => {
@@ -42,6 +52,201 @@ const DataTable = ({
       tableRef.current.parentElement.style.overflow = 'auto';
     }
   }, [tableRef]);
+
+  useEffect(() => {
+    const { currentElem = undefined, label = '', isDown = false } = isMouseDown;
+    if (currentElem && isDown) {
+      /* 
+        add/bind document events 
+      */
+      addListener(
+        'datatablemousemove-' + (id ? id : `datatable-${tableId}`),
+        'mousemove',
+        e => {
+          onPressMouseMove(e, e.target.dataset.column);
+        },
+        true
+      );
+      addListener(
+        'datatablemouseup-' + (id ? id : `datatable-${tableId}`),
+        'mouseup',
+        e => {
+          onPressMouseUp(e, e.target.dataset.column);
+        },
+        true
+      );
+    } else {
+      console.log('removed event listeners ...');
+      removeListeners(
+        'datatablemousemove-' + (id ? id : `datatable-${tableId}`),
+        'mousemove'
+      );
+      removeListeners(
+        'datatablemouseup-' + (id ? id : `datatable-${tableId}`),
+        'mouseup'
+      );
+    }
+    // when component is un-mounted
+    return () => {
+      removeListeners(
+        'datatablemousemove-' + (id ? id : `datatable-${tableId}`),
+        'mousemove'
+      );
+      removeListeners(
+        'datatablemouseup-' + (id ? id : `datatable-${tableId}`),
+        'mouseup'
+      );
+    };
+  }, [isMouseDown]);
+
+  const onPressMouseMove = (e, col) => {
+    e.preventDefault();
+    var nThTarget = isMouseDown['isDown'] ? isMouseDown['currentElem'] : null;
+    // console.log('what is this ???', isMouseDown);
+    if (
+      (isMouseDown['isDown'] && e.pageX - isMouseDown.mouseX > 1) ||
+      e.pageX - isMouseDown.mouseX < -1
+    ) {
+      let { startX = null, startWidth = null, resizeElem = null } =
+        cellObj &&
+        nThTarget &&
+        nThTarget.dataset &&
+        nThTarget.dataset.column &&
+        cellObj[nThTarget.dataset.column]
+          ? cellObj[nThTarget.dataset.column]
+          : {};
+      let moveLength = e.pageX - startX;
+      nThTarget
+        ? (nThTarget.style.width = startWidth + moveLength + 'px')
+        : null;
+      console.log('==>', startWidth + moveLength, tableConfiguration);
+
+      // let tempObj = { ...tableConfiguration };
+      // tempObj[isMouseDown['eleidx']].width = startWidth + moveLength + 'px';
+
+      // setcellObj({
+      //   ...cellObj,
+      //   [col]: {
+      //     mouseUpWidth: startWidth + moveLength + 'px'
+      //   }
+      // });
+      // setTableConfiguration({
+      //   tempObj
+      // });
+    }
+
+    // let tempObj = [...tableConfiguration];
+    // tempObj.map((item, i) => {
+    //   console.log("Are you coming in ????", item.label, col, (startWidth + moveLength));
+    //   if (item.label === col && (startWidth + moveLength) >= item.width) {
+    //     nThTarget ? (nThTarget.style.width = startWidth + moveLength + 'px') : null;
+    //     // item.width = cellObj[col]['resizeElem'].clientWidth + 'px'
+    //   }
+    // });
+  };
+
+  const onPressMouseUp = (e, col) => {
+    e.preventDefault();
+    let tempObj = [...tableConfiguration];
+    tempObj[isMouseDown['eleidx']].width =
+      isMouseDown['currentElem'].style.width;
+    // setTableConfiguration(tempObj);
+    // debugger;
+    isMouseDown['currentElem'].classList.remove('resizing');
+    tempObj.map(item =>
+      item.width && item.width.includes('calc') ? delete item.width : item
+    );
+    console.log(tempObj);
+    let tempConfig = getColumnStructure(
+      [...tempObj],
+      expandRowTemplate ? true : false
+    );
+    // console.log(tempConfig);
+    setTableConfiguration(tempConfig);
+
+    if (cellObj && cellObj[col]) {
+      // setcellObj({
+      //   ...cellObj,
+      //   [col]: {
+      //     startWidth: cellObj[col]['resizeElem'].clientWidth
+      //   }
+      // });
+      // Update
+      // let tempObj = [...tableConfiguration];
+      // tempObj.map((item, i) => {
+      //   item.label === col ? item.width = (cellObj[col]["resizeElem"].clientWidth) + "px" : null
+      // });
+      // let tempConfig = getColumnStructure(
+      //   [...tempObj],
+      //   expandRowTemplate ? true : false
+      // );
+      // console.log(tempConfig);
+      // setTableConfiguration(tempConfig);
+      // setTableConfiguration(tempObj);
+    }
+    document.body.classList.remove('resize-table');
+    setIsMouseDown({
+      currentElem: undefined,
+      eleidx: -1,
+      label: '',
+      isDown: false,
+      mouseX: undefined,
+      mouseY: undefined
+    });
+  };
+
+  const reMouseDown = (column, ukey, e) => {
+    var nThTarget =
+      e.target.nodeName == 'SPAN' &&
+      e.target.className === 'hcl-data-table-resizable'
+        ? e.target.parentElement
+        : null;
+    document.body.classList.add('resize-table');
+    e.target.parentElement.classList.add('resizing');
+    // var nThTarget = e.target.nodeName == "TH" ? e.target : null;
+    if (nThTarget && cellObj) {
+      setcellObj({
+        ...cellObj,
+        [column.label]: {
+          startX: e.pageX,
+          startWidth: nThTarget.clientWidth,
+          resizeElem: nThTarget
+        }
+      });
+      setIsMouseDown({
+        ...isMouseDown,
+        currentElem: nThTarget,
+        eleidx: tableConfiguration.findIndex(
+          (item, i) => item.label === column.label
+        ),
+        label: column.label,
+        isDown: true,
+        mouseX: e.pageX,
+        mouseY: e.pageY
+      });
+    } else {
+      setIsMouseDown({
+        ...isMouseDown,
+        currentElem: undefined,
+        eleidx: -1,
+        label: '',
+        isDown: false,
+        mouseX: undefined,
+        mouseY: undefined
+      });
+    }
+  };
+
+  const reMouseUp = (column, ukey, e) => {
+    console.log('on mouseup ', tableConfiguration);
+
+    setIsMouseDown({
+      ...isMouseDown,
+      eleidx: -1,
+      isDown: false
+    });
+    document.body.classList.remove('resize-table');
+  };
 
   const sortOnEnter = (field, e) => {
     if (e.key === 'Enter') {
@@ -160,7 +365,9 @@ const DataTable = ({
                     column.pinned === 'right'
                       ? 'sticky-div sticky-right-div'
                       : ''
-                  }${column.sortable ? ' sortable' : ''}`}
+                  }${column.sortable ? ' sortable' : ''}${
+                    column.allowResize ? ' resizable' : ''
+                  }`}
                   tabIndex={column.sortable ? '0' : null}
                   onClick={column.sortable ? sort.bind(this, column) : null}
                   onKeyDown={
@@ -169,7 +376,32 @@ const DataTable = ({
                 >
                   {headerSelection && column.field === 'checkbox'
                     ? headerSelection
-                    : column.label}
+                    : (
+                    <>
+                      <span className="hcl-data-table-header">
+                        {column.label}
+                      </span>
+                      {column.allowResize ? (
+                        <span
+                          className="hcl-data-table-resizable"
+                          onMouseDown={
+                            column.allowResize
+                              ? reMouseDown.bind(
+                                  this,
+                                  column,
+                                  `heading-${index}`
+                                )
+                              : null
+                          }
+                          onMouseUp={
+                            column.allowResize
+                              ? reMouseUp.bind(this, column, `heading-${index}`)
+                              : null
+                          }
+                        ></span>
+                      ) : null}
+                    </>
+                  )}
 
                   {column.sortable ? (
                     sortedColumn.name === column.field && sortedColumn.order ? (
