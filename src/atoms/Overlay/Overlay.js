@@ -54,22 +54,16 @@ const Overlay = ({
   const handleScroll = () => {
     scrollEnd(targetElement);
   };
+
   useEffect(() => {
-    if (showOverlay !== null && targetElement !== null) {
-      if (
-        showOverlay &&
-        overlayContainerRef &&
-        overlayContainerRef.current &&
-        targetElement
-      ) {
+    if (showOverlay) {
+      if (overlayContainerRef && overlayContainerRef.current) {
         showOverlayContainer();
       } else {
         hideOverlayContainer('stateChange');
       }
     } else {
-      if (showOverlay === false) {
-        hideOverlayContainer('stateChange');
-      }
+      hideOverlayContainer('stateChange');
     }
   }, [showOverlay, targetElement]);
 
@@ -83,7 +77,7 @@ const Overlay = ({
       true
     );
 
-    if (scrollListner) {
+    if (scrollListner && targetElement) {
       addListener(
         'overlayElementId-' + overlayElementId,
         'scroll',
@@ -93,7 +87,14 @@ const Overlay = ({
         true
       );
     }
-    changeOverlayPosition(false, targetElement);
+    if (targetElement) {
+      changeOverlayPosition(false, targetElement);
+    } else {
+      if (overlayContainerRef && overlayContainerRef.current) {
+        overlayContainerRef.current.classList.add('hcl-overlay-container-show');
+      }
+    }
+
     if (onToggle) {
       onToggle(true);
     }
@@ -135,13 +136,14 @@ const Overlay = ({
             'hcl-overlay-container-show'
           );
         }
-      } else {
-        if (isScroll) {
-          overlayContainerRef.current.classList.add(
-            'hcl-overlay-container-hidden'
-          );
-        }
       }
+      //   else {
+      //     if (isScroll) {
+      //       overlayContainerRef.current.classList.add(
+      //         'hcl-overlay-container-hidden'
+      //       );
+      //     }
+      //   }
     }
   };
 
@@ -188,9 +190,7 @@ const Overlay = ({
     }
   };
 
-  return showOverlay && targetElement
-    ? overlayContainer(overlayContainerRef)
-    : null;
+  return showOverlay ? overlayContainer(overlayContainerRef) : null;
 };
 
 Overlay.propTypes = {
@@ -224,4 +224,4 @@ Overlay.defaultProps = {
   preventCloseElements: null
 };
 
-export default Overlay;
+export default React.memo(Overlay);

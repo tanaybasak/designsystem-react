@@ -51,6 +51,28 @@ class OverlayExample extends Component {
     ]
   };
 
+  handleContextMenu = event => {
+    event.preventDefault();
+    const xPos = event.pageX + 10 + 'px';
+    const yPos = event.pageY + 10 + 'px';
+
+    console.log(document.getElementsByClassName('hcl-btn')[0]);
+    this.setState({
+      showOverlay: true,
+      //targetElement: document.getElementsByClassName('hcl-btn')[0]
+      left: xPos,
+      top: yPos
+    });
+  };
+
+  componentDidMount() {
+    document.addEventListener('contextmenu', this.handleContextMenu);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('contextmenu', this.handleContextMenu);
+  }
+
   action = (type, e) => {
     console.log(type);
     this.setState({
@@ -64,24 +86,17 @@ class OverlayExample extends Component {
       showOverlay: !this.state.showOverlay,
       targetElement: e.currentTarget
     });
-    //this.refs.child1.showOverlay(e);
-    //   if(this.state.showOverlay){
-    //     this.refs.child1.hideOverlay(e);
-
-    //     this.setState({
-    //         showOverlay: false
-    //     })
-    //   }else{
-    //     this.refs.child1.showOverlay(e);
-
-    //     this.setState({
-    //         showOverlay: true
-    //     })
-    //   }
   };
 
   hideoverlay1 = e => {
-    this.refs.child2.hideOverlay(e);
+    setTimeout(() => {
+      this.setState({
+        showOverlay: false,
+        targetElement: null
+      });
+    }, 300);
+
+    //this.refs.child2.hideOverlay(e);
   };
 
   showoverlay4 = e => {
@@ -93,7 +108,6 @@ class OverlayExample extends Component {
       showOverlay: !this.state.showOverlay,
       targetElement: e.currentTarget
     });
-    //this.refs.child2.showOverlay(e);
   };
 
   showoverlay3 = e => {
@@ -308,12 +322,18 @@ class OverlayExample extends Component {
           attachElementToBody
           scrollListner
           onToggle={this.onclose}
+          style={{ left: this.state.left, top: this.state.top ,  }}
         >
           <Notification
             className=""
             closable
             icon={null}
-            onClose={function noRefCheck() {}}
+            onClose={e => {
+              this.setState({
+                showOverlay: false,
+                targetElement: null
+              });
+            }}
             subtitle="Notification Sub Title"
             title="Notification Title"
             type="info"
