@@ -697,7 +697,10 @@ const Tooltip = ({ type, content, direction, children }) => {
         onBlur: type !== 'interactive' ? closeTooltipOnBlur : null,
         onKeyPress: type === 'interactive' ? showTooltipOnEnter : null,
         ref: parentRef,
-        className: customClass.trim()
+        className: (customClass +=
+          type === 'interactive'
+            ? `${prefix}-interactive-tooltip`
+            : `${prefix}-icon-tooltip`)
       });
     });
   }
@@ -714,8 +717,8 @@ const Tooltip = ({ type, content, direction, children }) => {
       onKeyPress={type === 'interactive' ? showTooltipOnEnter : null}
       className={
         showTooltip && type === 'definition'
-          ? `${prefix}-tooltip-dottedline`
-          : null
+          ? `${prefix}-def-tooltip ${prefix}-tooltip-dottedline`
+          : `${prefix}-def-tooltip`
       }
     >
       {children}
