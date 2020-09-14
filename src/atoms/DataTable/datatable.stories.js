@@ -9,7 +9,7 @@ import Toggle from '../Toggle';
 import Tag from '../Tag';
 import Dropdown from '../Dropdown';
 import Search from '../Search';
-import { Overflowmenu } from '../../molecules/Overflowmenu';
+import Overflowmenu from '../../molecules/Overflowmenu/Overflowmenu';
 //@update-path-build-end
 
 const tableData = [
