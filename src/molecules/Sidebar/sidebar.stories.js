@@ -49,9 +49,7 @@ const items = [
         title: 'Child Item 4'
       }
     ],
-    icon: (
-      <i className={`p-hclsw p-hclsw-${icons[1]}`} />
-    ),
+    icon: <i className={`p-hclsw p-hclsw-${icons[1]}`} />,
     title: 'Category Two'
   }
 ];
