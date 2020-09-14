@@ -322,7 +322,7 @@ class OverlayExample extends Component {
           attachElementToBody
           scrollListner
           onToggle={this.onclose}
-          style={{ left: this.state.left, top: this.state.top ,  }}
+          style={{ left: this.state.left, top: this.state.top }}
         >
           <Notification
             className=""

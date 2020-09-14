@@ -9,6 +9,7 @@ import Toggle from '../Toggle';
 import Tag from '../Tag';
 import Dropdown from '../Dropdown';
 import Search from '../Search';
+import { Overflowmenu } from '../../molecules/Overflowmenu';
 //@update-path-build-end
 
 const tableData = [
@@ -41,6 +42,32 @@ const tableData = [
   }
 ];
 
+const listItems = [
+  {
+    name: 'Add',
+    icon: 'p-hclsw p-hclsw-add-component'
+  },
+  {
+    danger: true,
+    name: 'Delete',
+    icon: 'p-hclsw p-hclsw-delete'
+  },
+  {
+    name: 'Copy',
+    separator: true,
+    icon: 'p-hclsw p-hclsw-copy'
+  },
+  {
+    disabled: true,
+    name: 'Paste',
+    icon: 'p-hclsw p-hclsw-paste'
+  },
+  {
+    link: 'https://google.com',
+    name: 'link',
+    icon: 'p-hclsw p-hclsw-link'
+  }
+];
 const tableConfigWithCustomTemplate = [
   {
     field: 'checkbox',
@@ -100,6 +127,21 @@ const tableConfigWithCustomTemplate = [
       );
     },
     width: '60px'
+  },
+  {
+    field: 'overflow',
+    // eslint-disable-next-line react/display-name
+    renderHtml: () => {
+      return (
+        <Overflowmenu
+          listItems={listItems}
+          attachElementToBody
+          ellipsisType="vertical"
+          onClick={action('Overflow Select')}
+        />
+      );
+    },
+    width: '50px'
   }
 ];
 

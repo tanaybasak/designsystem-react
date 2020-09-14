@@ -5,7 +5,7 @@ import Tag from '../../atoms/Tag';
 import Toggle from '../../atoms/Toggle';
 import Checkbox from '../../atoms/Checkbox';
 import DataTable from '../../atoms/DataTable';
-import {Overflowmenu} from '../../molecules/Overflowmenu';
+import { Overflowmenu } from '../../molecules/Overflowmenu';
 class TableExample extends Component {
   state = {
     tableData: [],
@@ -25,21 +25,21 @@ class TableExample extends Component {
         label: 'ID',
         field: 'id',
         columnHtml: (
-            <Tag
-              className=""
-              closable={false}
-              disabled={false}
-              icon={<i className="p-hclsw p-hclsw-link" tabIndex="0" />}
-              onClose={function noRefCheck() {}}
-              tabIndex={0}
-              text={null}
-              thumbnail={<i className="p-hclsw p-hclsw-checkbox" />}
-              title=""
-              type="primary"
-            >
-              Sample Tag
-            </Tag>
-          ),
+          <Tag
+            className=""
+            closable={false}
+            disabled={false}
+            icon={<i className="p-hclsw p-hclsw-link" tabIndex="0" />}
+            onClose={function noRefCheck() {}}
+            tabIndex={0}
+            text={null}
+            thumbnail={<i className="p-hclsw p-hclsw-checkbox" />}
+            title=""
+            type="primary"
+          >
+            Sample Tag
+          </Tag>
+        ),
         width: '160px',
         pinned: 'right'
       },
@@ -55,7 +55,7 @@ class TableExample extends Component {
             />
           );
         },
-        columnHtml: (<h6> this is temp</h6>),
+        columnHtml: <h6> this is temp</h6>,
         width: '260px'
       },
       {
@@ -99,8 +99,8 @@ class TableExample extends Component {
             <Toggle
               id={model.id + '--'}
               disabled
-              labelOff=' '
-              labelOn=' '
+              labelOff=" "
+              labelOn=" "
               toggled={model.has_issues}
             />
           );
@@ -131,8 +131,8 @@ class TableExample extends Component {
               listItems={overflowlist}
               attachElementToBody={true}
               scrollListner={true}
-              direction='bottom-right'
-              ellipsisType='vertical'
+              direction="bottom-right"
+              ellipsisType="vertical"
               onClick={(item, index, e) => {
                 console.log('OVERFLOW SELECT');
                 console.log(item, index, e);
@@ -169,12 +169,12 @@ class TableExample extends Component {
 
   render() {
     return (
-      <main className='hcl-content-main'>
-        <section className='hcl-container pt-5 mb-5'>
-          <div className='hcl-row m-0'>
-            <div className='hcl-col-12 mt-5 mb-5' id='dataTableElement'>
+      <main className="hcl-content-main">
+        <section className="hcl-container pt-5 mb-5">
+          <div className="hcl-row m-0">
+            <div className="hcl-col-12 mt-5 mb-5" id="dataTableElement">
               <DataTable
-                id='sample_table'
+                id="sample_table"
                 tableData={this.state.displayData}
                 tableConfig={this.state.tableConfig}
                 stickyHeaderMain={true}
@@ -196,7 +196,7 @@ class TableExample extends Component {
                 //     non-characteristic words etc.
                 //   </Paragraph>);
                 // }}
-                type='zebra borderless'
+                type="zebra borderless"
                 onSort={(field, order) => {
                   if (order === null) {
                     this.setState({

@@ -101,7 +101,9 @@ storiesOf('OverflowMenu', module)
       <Overflowmenu
         listItems={object('List Items', listItems)}
         onClick={action('Overflow-Click')}
-        customTemplate={<button className="hcl-btn">overflow button</button>}
+        customTemplate={
+          <button className="hcl-btn hcl-primary">overflow button</button>
+        }
       />
     ),
     {
