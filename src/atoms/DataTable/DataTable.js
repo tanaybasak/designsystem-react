@@ -28,7 +28,8 @@ const DataTable = ({
     label: '',
     isDown: false,
     mouseX: undefined,
-    mouseY: undefined
+    mouseY: undefined,
+    endWidth: undefined
   });
   const [cellObj, setcellObj] = useState({});
   let customHeaderFlag = false;
@@ -99,6 +100,7 @@ const DataTable = ({
     };
   }, [isMouseDown]);
 
+  let dummyVal = '';
   const onPressMouseMove = (e, col) => {
     e.preventDefault();
     var nThTarget = isMouseDown['isDown'] ? isMouseDown['currentElem'] : null;
@@ -119,6 +121,21 @@ const DataTable = ({
       nThTarget
         ? (nThTarget.style.width = startWidth + moveLength + 'px')
         : null;
+      // setIsMouseDown({
+      //   ...isMouseDown,
+      //   endWidth: startWidth + moveLength + 'px'
+      // });
+
+      dummyVal = startWidth + moveLength + 'px';
+
+
+
+      // setcellObj({
+      //   ...cellObj,
+      //   [isMouseDown["label"]]: {
+      //     endWidth: startWidth + moveLength + 'px'
+      //   },
+      // });
       console.log('==>', startWidth + moveLength, tableConfiguration);
 
       // let tempObj = { ...tableConfiguration };
@@ -150,6 +167,15 @@ const DataTable = ({
     let tempObj = [...tableConfiguration];
     tempObj[isMouseDown['eleidx']].width =
       isMouseDown['currentElem'].style.width;
+    // console.log(dummyVal, isMouseDown['currentElem'].style.width);
+    tempObj[isMouseDown['eleidx']].width = dummyVal;
+    
+    // console.log('what ????', cellObj);
+    // tempObj[isMouseDown['eleidx']].width =
+    //   cellObj[isMouseDown['label']]['endWidth'];
+    // tempObj[isMouseDown['eleidx']].width =
+    //   isMouseDown['endWidth'];
+    // cellObj[isMouseDown['label']]["endWidth"];
     // setTableConfiguration(tempObj);
     // debugger;
     isMouseDown['currentElem'].classList.remove('resizing');
@@ -191,7 +217,8 @@ const DataTable = ({
       label: '',
       isDown: false,
       mouseX: undefined,
-      mouseY: undefined
+      mouseY: undefined,
+      endWidth: undefined
     });
   };
 
