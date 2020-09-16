@@ -32,6 +32,32 @@ const DataTable = ({
     endWidth: undefined
   });
   const [cellObj, setcellObj] = useState({});
+  const [tableWidthPostRender, setTableWidthPostRender] = useState(`auto`);
+  const [isPinned, setIsPinned] = useState(false);
+
+  const calculateIsPinned = () => {
+    // console.log(`calulating pinned ?`);
+    setIsPinned(tableConfiguration.some(column =>
+      column.pinned
+        ? column.pinned === `left` || column.pinned === `right`
+        : false
+    ));
+  }
+
+  const calculateTableWidth = () => {
+    let temptableWidthPostRender =
+      tableRef && tableRef.current ? tableRef.current.clientWidth : undefined;
+    console.log(`caluclaitnt ?width ?` + temptableWidthPostRender);
+    setTableWidthPostRender(temptableWidthPostRender + `px`);
+  };
+
+  useEffect(() => {
+    if (rows.length > 0) {
+      calculateTableWidth();
+      calculateIsPinned();
+    }
+  }, [rows]);
+
   let customHeaderFlag = false;
 
   useEffect(() => {
@@ -48,7 +74,9 @@ const DataTable = ({
 
   useEffect(() => {
     if (
-      tableRef.current.parentElement.offsetWidth < tableRef.current.offsetWidth
+      tableRef.current.parentElement.offsetWidth <
+        tableRef.current.offsetWidth &&
+      rows.length > 0
     ) {
       tableRef.current.parentElement.style.overflow = 'auto';
     }
@@ -77,7 +105,7 @@ const DataTable = ({
         true
       );
     } else {
-      console.log('removed event listeners ...');
+      // console.log('removed event listeners ...');
       removeListeners(
         'datatablemousemove-' + (id ? id : `datatable-${tableId}`),
         'mousemove'
@@ -104,7 +132,6 @@ const DataTable = ({
   const onPressMouseMove = (e, col) => {
     e.preventDefault();
     var nThTarget = isMouseDown['isDown'] ? isMouseDown['currentElem'] : null;
-    // console.log('what is this ???', isMouseDown);
     if (
       (isMouseDown['isDown'] && e.pageX - isMouseDown.mouseX > 1) ||
       e.pageX - isMouseDown.mouseX < -1
@@ -118,99 +145,32 @@ const DataTable = ({
           ? cellObj[nThTarget.dataset.column]
           : {};
       let moveLength = e.pageX - startX;
-      nThTarget
-        ? (nThTarget.style.width = startWidth + moveLength + 'px')
-        : null;
-      // setIsMouseDown({
-      //   ...isMouseDown,
-      //   endWidth: startWidth + moveLength + 'px'
-      // });
-
+      // nThTarget
+      //   ? ((nThTarget.style.width = startWidth + moveLength + 'px'),
+      //     (nThTarget.style.minWidth = startWidth + moveLength + 'px'))
+      //   : null;
       dummyVal = startWidth + moveLength + 'px';
-
-
-
-      // setcellObj({
-      //   ...cellObj,
-      //   [isMouseDown["label"]]: {
-      //     endWidth: startWidth + moveLength + 'px'
-      //   },
-      // });
-      console.log('==>', startWidth + moveLength, tableConfiguration);
-
-      // let tempObj = { ...tableConfiguration };
-      // tempObj[isMouseDown['eleidx']].width = startWidth + moveLength + 'px';
-
-      // setcellObj({
-      //   ...cellObj,
-      //   [col]: {
-      //     mouseUpWidth: startWidth + moveLength + 'px'
-      //   }
-      // });
-      // setTableConfiguration({
-      //   tempObj
-      // });
     }
-
-    // let tempObj = [...tableConfiguration];
-    // tempObj.map((item, i) => {
-    //   console.log("Are you coming in ????", item.label, col, (startWidth + moveLength));
-    //   if (item.label === col && (startWidth + moveLength) >= item.width) {
-    //     nThTarget ? (nThTarget.style.width = startWidth + moveLength + 'px') : null;
-    //     // item.width = cellObj[col]['resizeElem'].clientWidth + 'px'
-    //   }
-    // });
   };
 
   const onPressMouseUp = (e, col) => {
     e.preventDefault();
     let tempObj = [...tableConfiguration];
-    tempObj[isMouseDown['eleidx']].width =
-      isMouseDown['currentElem'].style.width;
-    // console.log(dummyVal, isMouseDown['currentElem'].style.width);
+    // tempObj[isMouseDown['eleidx']].width =
+    //   isMouseDown['currentElem'].style.width;
     tempObj[isMouseDown['eleidx']].width = dummyVal;
     
-    // console.log('what ????', cellObj);
-    // tempObj[isMouseDown['eleidx']].width =
-    //   cellObj[isMouseDown['label']]['endWidth'];
-    // tempObj[isMouseDown['eleidx']].width =
-    //   isMouseDown['endWidth'];
-    // cellObj[isMouseDown['label']]["endWidth"];
-    // setTableConfiguration(tempObj);
-    // debugger;
     isMouseDown['currentElem'].classList.remove('resizing');
+    document.body.classList.remove('resize-table');
     tempObj.map(item =>
       item.width && item.width.includes('calc') ? delete item.width : item
     );
-    console.log(tempObj);
     let tempConfig = getColumnStructure(
       [...tempObj],
       expandRowTemplate ? true : false
     );
-    // console.log(tempConfig);
-    setTableConfiguration(tempConfig);
 
-    if (cellObj && cellObj[col]) {
-      // setcellObj({
-      //   ...cellObj,
-      //   [col]: {
-      //     startWidth: cellObj[col]['resizeElem'].clientWidth
-      //   }
-      // });
-      // Update
-      // let tempObj = [...tableConfiguration];
-      // tempObj.map((item, i) => {
-      //   item.label === col ? item.width = (cellObj[col]["resizeElem"].clientWidth) + "px" : null
-      // });
-      // let tempConfig = getColumnStructure(
-      //   [...tempObj],
-      //   expandRowTemplate ? true : false
-      // );
-      // console.log(tempConfig);
-      // setTableConfiguration(tempConfig);
-      // setTableConfiguration(tempObj);
-    }
-    document.body.classList.remove('resize-table');
+    setTableConfiguration(tempConfig);
     setIsMouseDown({
       currentElem: undefined,
       eleidx: -1,
@@ -230,7 +190,6 @@ const DataTable = ({
         : null;
     document.body.classList.add('resize-table');
     e.target.parentElement.classList.add('resizing');
-    // var nThTarget = e.target.nodeName == "TH" ? e.target : null;
     if (nThTarget && cellObj) {
       setcellObj({
         ...cellObj,
@@ -359,6 +318,10 @@ const DataTable = ({
   }${
     type.includes('borderless') ? ` ${prefix}-data-table-borderless` : ''
   } ${className}`.trim();
+  
+  // useEffect(() => {
+  //   console.log(`tablewidthPostRender ===> ${tableWidthPostRender}`);
+  // })
 
   return (
     <div className={classnames}>
@@ -367,8 +330,29 @@ const DataTable = ({
         ref={tableRef}
         className={tableClass}
         role="grid"
+        style={{
+          tableLayout: isPinned ? `fixed` : `auto`,
+          width:
+            (isPinned && tableWidthPostRender != `auto`)
+              ? tableWidthPostRender
+              : `inherit`
+        }}
         {...restProps}
       >
+        <colgroup>
+          {tableConfiguration.map((column, index) => {
+            return (
+              <col
+                key={`heading-${index}`}
+                style={{
+                  minWidth: column.width,
+                  width: column.width,
+                  ...column.styles
+                }}
+              ></col>
+            );
+          })}
+        </colgroup>
         <thead>
           <tr>
             {tableConfiguration.map((column, index) => {
@@ -380,6 +364,7 @@ const DataTable = ({
                   key={`heading-${index}`}
                   style={{
                     minWidth: column.width,
+                    width: column.width,
                     left: column.marginLeft,
                     right: column.marginRight,
                     ...column.styles
@@ -401,9 +386,9 @@ const DataTable = ({
                     column.sortable ? sortOnEnter.bind(this, column) : null
                   }
                 >
-                  {headerSelection && column.field === 'checkbox'
-                    ? headerSelection
-                    : (
+                  {headerSelection && column.field === 'checkbox' ? (
+                    headerSelection
+                  ) : (
                     <>
                       <span className="hcl-data-table-header">
                         {column.label}

@@ -25,29 +25,30 @@ class TableExample extends Component {
         label: 'ID',
         field: 'id',
         columnHtml: (
-            <Tag
-              className=""
-              closable={false}
-              disabled={false}
-              icon={<i className="p-hclsw p-hclsw-link" tabIndex="0" />}
-              onClose={function noRefCheck() {}}
-              tabIndex={0}
-              text={null}
-              thumbnail={<i className="p-hclsw p-hclsw-checkbox" />}
-              title=""
-              type="primary"
-            >
-              Sample Tag
-            </Tag>
+          <Tag
+            className=""
+            closable={false}
+            disabled={false}
+            icon={<i className="p-hclsw p-hclsw-link" tabIndex="0" />}
+            onClose={function noRefCheck() {}}
+            tabIndex={0}
+            text={null}
+            thumbnail={<i className="p-hclsw p-hclsw-checkbox" />}
+            title=""
+            type="primary"
+          >
+            Sample Tag
+          </Tag>
         ),
-        allowResize: true
-        // width: '160px',
-        // pinned: 'right'
+        allowResize: true,
+        width: '160px',
+        pinned: 'left'
       },
 
       {
         label: 'Avatar',
-        // pinned: 'left',
+        pinned: 'left',
+        allowResize: true,
         renderHtml: model => {
           return (
             <img
@@ -56,22 +57,20 @@ class TableExample extends Component {
             />
           );
         },
-        columnHtml: (
-           <h6> this is temp</h6>
-        ),
-        // width: '60px'
+        columnHtml: <h6> this is temp</h6>,
+        width: '160px'
       },
       {
         label: 'Full Name',
         field: 'name',
         sortable: true,
-        //pinned: 'left',
+        pinned: 'left',
         // renderHtml: model => {
         //     return (
         //       <span>{model.name} {model.name} {model.name} {model.name}{model.name} {model.name} {model.name} {model.name} {model.name} {model.name}</span>
         //     );
         //   },
-        // width: '200px'
+        width: '200px'
       },
       {
         label: 'Private',
@@ -86,13 +85,13 @@ class TableExample extends Component {
             }`}</Tag>
           );
         },
-        // width: '120px'
+        width: '120px'
       },
       {
         label: 'Language',
         field: 'owner.login',
 
-        // width: '120px'
+        width: '120px'
       },
       {
         label: 'Has Issues',
@@ -108,23 +107,24 @@ class TableExample extends Component {
             />
           );
         },
-        // width: '150px'
+        width: '150px'
       },
       {
         label: 'Forks Count',
         field: 'forks_count',
-        // width: '120px'
+        width: '120px'
       },
       {
         label: 'Branch',
         field: 'default_branch',
         sortable: true,
-        // width: '120px'
+        width: '120px'
       },
       {
         label: 'Issues Count',
         field: 'open_issues_count',
-        // width: '120px'
+        width: '420px',
+        pinned: 'right'
       },
       {
         field: 'overflow',
@@ -139,8 +139,264 @@ class TableExample extends Component {
             />
           );
         },
-        // width: '500px'
+        width: '400px'
       }
+      // {
+      //   field: 'checkbox',
+      //   renderHtml: row => {
+      //     return <Checkbox id={`${row.id}_checkbox_`} name="testcheck" />;
+      //   }
+
+      //   // width: '40px'
+      //   // pinned: 'left'
+      // },
+      // {
+      //   label: 'ID',
+      //   field: 'id',
+      //   columnHtml: (
+      //     <Tag
+      //       className=""
+      //       closable={false}
+      //       disabled={false}
+      //       icon={<i className="p-hclsw p-hclsw-link" tabIndex="0" />}
+      //       onClose={function noRefCheck() {}}
+      //       tabIndex={0}
+      //       text={null}
+      //       thumbnail={<i className="p-hclsw p-hclsw-checkbox" />}
+      //       title=""
+      //       type="primary"
+      //     >
+      //       Sample Tag
+      //     </Tag>
+      //   ),
+      //   allowResize: true,
+      //   // width: '160px',
+      //   // pinned: 'left'
+      // },
+
+      // {
+      //   label: 'Avatar',
+      //   // pinned: 'left',
+      //   allowResize: true,
+      //   renderHtml: model => {
+      //     return (
+      //       <img
+      //         src={model.owner.avatar_url}
+      //         style={{ width: '44px', height: '44px', borderRadius: '50%' }}
+      //       />
+      //     );
+      //   },
+      //   columnHtml: <h6> this is temp</h6>
+      //   // width: '60px'
+      // },
+      // {
+      //   label: 'Full Name',
+      //   field: 'name',
+      //   sortable: true
+      //   // pinned: 'left',
+      //   // renderHtml: model => {
+      //   //     return (
+      //   //       <span>{model.name} {model.name} {model.name} {model.name}{model.name} {model.name} {model.name} {model.name} {model.name} {model.name}</span>
+      //   //     );
+      //   //   },
+      //   // width: '200px'
+      // },
+      // {
+      //   label: 'Private',
+      //   renderHtml: model => {
+      //     let classname = 'primary';
+      //     if (!model.owner.site_admin) {
+      //       classname = 'secondary';
+      //     }
+      //     return (
+      //       <Tag type={classname}>{`${
+      //         model.owner.site_admin ? 'Yes' : 'No'
+      //       }`}</Tag>
+      //     );
+      //   }
+      //   // width: '120px'
+      // },
+      // {
+      //   label: 'Language',
+      //   field: 'owner.login'
+
+      //   // width: '120px'
+      // },
+      // {
+      //   label: 'Has Issues',
+      //   field: 'has_issues',
+      //   renderHtml: model => {
+      //     return (
+      //       <Toggle
+      //         id={model.id + '--'}
+      //         disabled
+      //         labelOff=" "
+      //         labelOn=" "
+      //         toggled={model.has_issues}
+      //       />
+      //     );
+      //   }
+      //   // width: '150px'
+      // },
+      // {
+      //   label: 'Forks Count',
+      //   field: 'forks_count'
+      //   // width: '120px'
+      // },
+      // {
+      //   label: 'Branch',
+      //   field: 'default_branch',
+      //   sortable: true
+      //   // width: '120px'
+      // },
+      // {
+      //   label: 'Issues Count',
+      //   field: 'open_issues_count'
+      //   // width: '120px'
+      // },
+      // {
+      //   field: 'overflow',
+      //   renderHtml: row => {
+      //     return (
+      //       <Overflowmenu
+      //         listItems={overflowlist}
+      //         //className="overflow-onhover"
+      //         onClick={e => {
+      //           console.log(e, row);
+      //         }}
+      //       />
+      //     );
+      //   }
+      //   // width: '500px'
+      // },
+      // {
+      //   field: 'checkbox',
+      //   renderHtml: row => {
+      //     return <Checkbox id={`${row.id}_checkbox_`} name="testcheck" />;
+      //   }
+
+      //   // width: '40px'
+      //   // pinned: 'left'
+      // },
+      // {
+      //   label: 'ID',
+      //   field: 'id',
+      //   columnHtml: (
+      //     <Tag
+      //       className=""
+      //       closable={false}
+      //       disabled={false}
+      //       icon={<i className="p-hclsw p-hclsw-link" tabIndex="0" />}
+      //       onClose={function noRefCheck() {}}
+      //       tabIndex={0}
+      //       text={null}
+      //       thumbnail={<i className="p-hclsw p-hclsw-checkbox" />}
+      //       title=""
+      //       type="primary"
+      //     >
+      //       Sample Tag
+      //     </Tag>
+      //   ),
+      //   allowResize: true,
+      //   // width: '160px',
+      //   // pinned: 'left'
+      // },
+
+      // {
+      //   label: 'Avatar',
+      //   // pinned: 'left',
+      //   allowResize: true,
+      //   renderHtml: model => {
+      //     return (
+      //       <img
+      //         src={model.owner.avatar_url}
+      //         style={{ width: '44px', height: '44px', borderRadius: '50%' }}
+      //       />
+      //     );
+      //   },
+      //   columnHtml: <h6> this is temp</h6>
+      //   // width: '60px'
+      // },
+      // {
+      //   label: 'Full Name',
+      //   field: 'name',
+      //   sortable: true
+      //   // pinned: 'left',
+      //   // renderHtml: model => {
+      //   //     return (
+      //   //       <span>{model.name} {model.name} {model.name} {model.name}{model.name} {model.name} {model.name} {model.name} {model.name} {model.name}</span>
+      //   //     );
+      //   //   },
+      //   // width: '200px'
+      // },
+      // {
+      //   label: 'Private',
+      //   renderHtml: model => {
+      //     let classname = 'primary';
+      //     if (!model.owner.site_admin) {
+      //       classname = 'secondary';
+      //     }
+      //     return (
+      //       <Tag type={classname}>{`${
+      //         model.owner.site_admin ? 'Yes' : 'No'
+      //       }`}</Tag>
+      //     );
+      //   }
+      //   // width: '120px'
+      // },
+      // {
+      //   label: 'Language',
+      //   field: 'owner.login'
+
+      //   // width: '120px'
+      // },
+      // {
+      //   label: 'Has Issues',
+      //   field: 'has_issues',
+      //   renderHtml: model => {
+      //     return (
+      //       <Toggle
+      //         id={model.id + '--'}
+      //         disabled
+      //         labelOff=" "
+      //         labelOn=" "
+      //         toggled={model.has_issues}
+      //       />
+      //     );
+      //   }
+      //   // width: '150px'
+      // },
+      // {
+      //   label: 'Forks Count',
+      //   field: 'forks_count'
+      //   // width: '120px'
+      // },
+      // {
+      //   label: 'Branch',
+      //   field: 'default_branch',
+      //   sortable: true
+      //   // width: '120px'
+      // },
+      // {
+      //   label: 'Issues Count',
+      //   field: 'open_issues_count'
+      //   // width: '120px'
+      // },
+      // {
+      //   field: 'overflow',
+      //   renderHtml: row => {
+      //     return (
+      //       <Overflowmenu
+      //         listItems={overflowlist}
+      //         //className="overflow-onhover"
+      //         onClick={e => {
+      //           console.log(e, row);
+      //         }}
+      //       />
+      //     );
+      //   }
+      //   // width: '500px'
+      // }
     ]
   };
   componentDidMount = () => {
@@ -168,7 +424,7 @@ class TableExample extends Component {
 
   render() {
     return (
-      <main className="hcl-content-main">
+      // <main className="hcl-content-main">
         <section className="hcl-container pt-5 mb-5">
           <div className="hcl-row m-0">
             <div className="hcl-col-12 mt-5 mb-5" id="dataTableElement">
@@ -176,7 +432,7 @@ class TableExample extends Component {
                 id="sample_table"
                 tableData={this.state.displayData}
                 tableConfig={this.state.tableConfig}
-                stickyHeaderMain={true}
+                stickyHeaderMain={false}
                 // expandRowTemplate={() => {
                 //   return (<Paragraph>
                 //     available, but the majority have suffered alteration
@@ -219,7 +475,7 @@ class TableExample extends Component {
             </div>
           </div>
         </section>
-      </main>
+      // </main>
     );
   }
 }
