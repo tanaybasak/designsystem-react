@@ -47,7 +47,6 @@ const DataTable = ({
   const calculateTableWidth = () => {
     let temptableWidthPostRender =
       tableRef && tableRef.current ? tableRef.current.clientWidth : undefined;
-    console.log(`caluclaitnt ?width ?` + temptableWidthPostRender);
     setTableWidthPostRender(temptableWidthPostRender + `px`);
   };
 
@@ -339,7 +338,7 @@ const DataTable = ({
         }}
         {...restProps}
       >
-        <colgroup>
+        {/* <colgroup>
           {tableConfiguration.map((column, index) => {
             return (
               <col
@@ -352,7 +351,7 @@ const DataTable = ({
               ></col>
             );
           })}
-        </colgroup>
+        </colgroup> */}
         <thead>
           <tr>
             {tableConfiguration.map((column, index) => {
