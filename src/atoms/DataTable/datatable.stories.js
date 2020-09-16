@@ -353,7 +353,6 @@ storiesOf('DataTable', module)
         id="custom-datatable-custom-temp"
         tableData={object('Table Data', tableData)}
         tableConfig={tableConfigWithCustomTemplate}
-        stickyHeaderMain={boolean('Sticky Header', true)}
         type={text('Type', 'zebra borderless')}
         headerSelection={<Checkbox id={`header_checkbox`} />}
         onSort={action('Sort Action')}
@@ -378,7 +377,6 @@ storiesOf('DataTable', module)
         id="custom-datatable-column"
         tableData={object('Table Data', tableData)}
         tableConfig={tableConfigWithCustomColumn}
-        stickyHeaderMain={boolean('Sticky Header', true)}
         type={text('Type', 'zebra borderless')}
         headerSelection={<Checkbox id={`header_checkbox`} />}
         onSort={action('Sort Action')}
@@ -405,7 +403,6 @@ storiesOf('DataTable', module)
         id="custom-datatable-pin"
         tableData={object('Table Data', tableData)}
         tableConfig={tableConfigWithPinning}
-        stickyHeaderMain={boolean('Sticky Header', true)}
         type={text('Type', 'zebra borderless')}
         headerSelection={<Checkbox id={`header_checkbox`} />}
         onSort={action('Sort Action')}
