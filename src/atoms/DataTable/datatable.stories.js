@@ -73,7 +73,13 @@ const tableConfigWithCustomTemplate = [
     field: 'checkbox',
     // eslint-disable-next-line react/display-name
     renderHtml: row => {
-      return <Checkbox id={`${row.id}_checkbox_`} name="testcheck" />;
+      return (
+        <Checkbox
+          id={`${row.id}_checkbox_`}
+          aria-label="checkbox"
+          name="testcheck"
+        />
+      );
     },
 
     width: '40px'
@@ -122,6 +128,7 @@ const tableConfigWithCustomTemplate = [
           disabled
           labelOff=" "
           labelOn=" "
+          aria-label="Toggle"
           toggled={model.status === 'Active' ? true : false}
         />
       );
@@ -150,7 +157,13 @@ const tableConfigWithCustomColumn = [
     field: 'checkbox',
     // eslint-disable-next-line react/display-name
     renderHtml: row => {
-      return <Checkbox id={`${row.id}_checkbox_`} name="testcheck" />;
+      return (
+        <Checkbox
+          id={`${row.id}_checkbox_`}
+          aria-label="checkbox"
+          name="testcheck"
+        />
+      );
     },
 
     width: '40px'
@@ -231,7 +244,13 @@ const tableConfigWithPinning = [
     field: 'checkbox',
     // eslint-disable-next-line react/display-name
     renderHtml: row => {
-      return <Checkbox id={`${row.id}_checkbox_`} name="testcheck" />;
+      return (
+        <Checkbox
+          id={`${row.id}_checkbox_`}
+          aria-label="checkbox"
+          name="testcheck"
+        />
+      );
     },
 
     width: '40px'
@@ -282,6 +301,7 @@ const tableConfigWithPinning = [
           disabled
           labelOff=" "
           labelOn=" "
+          aria-label="Toggle"
           toggled={model.status === 'Active' ? true : false}
         />
       );
@@ -354,7 +374,9 @@ storiesOf('DataTable', module)
         tableData={object('Table Data', tableData)}
         tableConfig={tableConfigWithCustomTemplate}
         type={text('Type', 'zebra borderless')}
-        headerSelection={<Checkbox id={`header_checkbox`} />}
+        headerSelection={
+          <Checkbox aria-label="header checkbox" id={`header_checkbox`} />
+        }
         onSort={action('Sort Action')}
       />
     ),
@@ -378,7 +400,9 @@ storiesOf('DataTable', module)
         tableData={object('Table Data', tableData)}
         tableConfig={tableConfigWithCustomColumn}
         type={text('Type', 'zebra borderless')}
-        headerSelection={<Checkbox id={`header_checkbox`} />}
+        headerSelection={
+          <Checkbox aria-label="header checkbox" id={`header_checkbox`} />
+        }
         onSort={action('Sort Action')}
       />
     ),
@@ -404,7 +428,9 @@ storiesOf('DataTable', module)
         tableData={object('Table Data', tableData)}
         tableConfig={tableConfigWithPinning}
         type={text('Type', 'zebra borderless')}
-        headerSelection={<Checkbox id={`header_checkbox`} />}
+        headerSelection={
+          <Checkbox aria-label="header checkbox" id={`header_checkbox`} />
+        }
         onSort={action('Sort Action')}
       />
     ),

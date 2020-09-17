@@ -181,7 +181,7 @@ const Overflowmenu = ({
             }`}
           ref={targetElementRef}
           aria-label="Overflow Menu"
-          role="Overflow Menu"
+          type="button"
           onClick={clickHandler}
         >
           {customIcon ? customIcon : null}
