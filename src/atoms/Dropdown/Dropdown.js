@@ -232,6 +232,7 @@ const Dropdown = ({
           onClick={toggleDropDown}
           aria-label={label}
           aria-haspopup="true"
+          type="button"
         >
           {selected ? selected[configuration.text] : label}
         </button>
