@@ -28,9 +28,9 @@ const DateInput = ({
         placeholder={format}
         autoComplete="off"
         value={dateSelected ? dateSelected : ''}
-        onClick={() => {
+        onClick={event => {
           event.stopPropagation();
-          toggleDateContainer();
+          toggleDateContainer(datepickerInput);
         }}
         defaultdate={defaultDate}
         onChange={onChangeInputDate}
@@ -43,9 +43,9 @@ const DateInput = ({
         width="14"
         height="16"
         viewBox="0 0 14 16"
-        onClick={() => {
+        onClick={event => {
           event.stopPropagation();
-          toggleDateContainer();
+          toggleDateContainer(datepickerInput);
         }}
       >
         <path

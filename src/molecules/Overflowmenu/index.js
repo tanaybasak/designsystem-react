@@ -1,3 +1,4 @@
 import Overflowmenu from './Overflowmenu';
+import MenuItem from './MenuItem';
 
-export default Overflowmenu;
+export { Overflowmenu, MenuItem };

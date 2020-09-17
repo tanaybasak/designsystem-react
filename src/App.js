@@ -20,7 +20,7 @@ import Toast from './atoms/Toast';
 import Modal from './molecules/Modal';
 import { Tabs, Tab } from './molecules/Tab';
 import Slider from './atoms/Slider';
-import Overflowmenu from './molecules/Overflowmenu';
+import { Overflowmenu } from './molecules/Overflowmenu';
 import overflowlist from './molecules/Overflowmenu/sample-overflow-list.json';
 import { ContentSwitcher, Switch } from './molecules/ContentSwitcher';
 import Search from './atoms/Search';
@@ -39,9 +39,11 @@ import Footer from './molecules/Footer';
 import { ActionBar, ActionSummary, ActionList } from './molecules/ActionBar';
 import { ToolBar, ToolBarActions } from './molecules/ToolBar';
 import Password from './atoms/Password';
+//import Overlay from './atoms/Overlay';
 
 class App extends Component {
   state = {
+    showOverlay: false,
     totalItems: 300,
     stepper: 10,
     stepperLimit: 100,
@@ -169,7 +171,9 @@ class App extends Component {
   modalActions5 = [{ label: 'Delete', danger: true }];
 
   modalActions7 = [{ label: 'Save', primary: true }];
-
+  //   showoverlay = e => {
+  //     this.refs.child.showOverlay(e);
+  //   };
   _onTemperatureRadioChange = e => {
     this.setState({
       radio: {
@@ -625,7 +629,7 @@ class App extends Component {
                   id="small-navigator"
                   className="custom-breadcrumb-top"
                   activeIndex={Math.floor(Math.random() * 3)}
-                  onSelection={(item, idx, e) => console.log(item, idx, e)}
+                  onSelection={(item, e) => console.log(item, e)}
                 >
                   <BreadcrumbItem className="custom-item">
                     Breadcrumb 1
@@ -721,8 +725,17 @@ class App extends Component {
                 <div className="hcl-font-center">
                   <Overflowmenu
                     listItems={overflowlist}
-                    ellipsisType="horizontal"
+                    attachElementToBody
+                    scrollListner
+                    direction="top-right"
+                    customTemplate={
+                      <button className="hcl-btn hcl-ghost">
+                        <i className="pi pi-View" />
+                      </button>
+                    }
+                    ellipsisType="vertical"
                     onClick={(item, index, e) => {
+                      console.log('OVERFLOW SELECT');
                       console.log(item, index, e);
                     }}
                   />
@@ -730,8 +743,15 @@ class App extends Component {
                 <div className="hcl-font-center">
                   <Overflowmenu
                     listItems={overflowlist}
-                    direction="right"
+                    direction="top-right"
+                    customTemplate={
+                      <button className="hcl-btn hcl-ghost">
+                        <i className="pi pi-View" />
+                      </button>
+                    }
+                    ellipsisType="vertical"
                     onClick={(item, index, e) => {
+                      console.log('OVERFLOW SELECT');
                       console.log(item, index, e);
                     }}
                   />
@@ -1343,6 +1363,8 @@ class App extends Component {
                 <div className="hcl-col-6">
                   <Dropdown
                     type="bottom"
+                    attachElementToBody
+                    scrollListner
                     items={this.items}
                     label="Bottom DropDown"
                     onChange={selected => {
@@ -1491,7 +1513,8 @@ class App extends Component {
                   <DatePicker
                     weekDays={weekDays}
                     months={months}
-                    open="top"
+                    attachElementToBody
+                    scrollListner
                     format="mm/dd/yyyy"
                     defaultDate="12/30/1990"
                     onDateSelect={dateSelected => {
@@ -1956,6 +1979,16 @@ class App extends Component {
                 <div className="hcl-col-6 mb-2">
                   <LoadingState />
                 </div>
+
+                {/* <Button onClick={this.showoverlay}>Open Notification 2</Button>
+                <Overlay ref="child" scrollListner direction="top-left">
+                  <Notification
+                    title="Notification title"
+                    subtitle="Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+                    type="warning"
+                    visible
+                  />
+                </Overlay> */}
               </div>
             </div>
           </section>
