@@ -171,22 +171,7 @@ const tableConfigWithCustomColumn = [
   {
     label: 'Name',
     field: 'name',
-    sortable: true,
-    columnHtml: (
-      <Search
-        ariaLabel="Search"
-        className=""
-        defaultValue=""
-        disabled={false}
-        iconTheme="default"
-        onBlur={function noRefCheck() {}}
-        onChange={function noRefCheck() {}}
-        placeholder="Search..."
-        size="default"
-        theme="default"
-        type="default"
-      />
-    )
+    sortable: true
   },
   {
     label: 'Protocol',
@@ -225,7 +210,7 @@ const tableConfigWithCustomColumn = [
     field: 'attachedGroups',
     columnHtml: (
       <Search
-        ariaLabel="Search"
+        ariaLabel="Search1"
         className=""
         defaultValue=""
         disabled={false}
