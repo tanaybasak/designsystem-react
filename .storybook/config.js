@@ -1,6 +1,5 @@
 import { configure, addParameters, addDecorator } from '@storybook/react';
 import customTheme from './sample-theme';
-import React from 'react';
 import { withKnobs } from '@storybook/addon-knobs';
 import { withInfo } from '@storybook/addon-info';
 import { withA11y } from '@storybook/addon-a11y';
