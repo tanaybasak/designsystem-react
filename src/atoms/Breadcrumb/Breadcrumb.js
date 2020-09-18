@@ -9,6 +9,7 @@ function Breadcrumb({ activeIndex, onSelection, id, className, children }) {
   const childCount = React.Children.count(children);
   let renderedOverflowMenu = false;
   let propChildren = children;
+  let modifiedChildrentemp = [];
 
   const modifiedChildren = React.Children.toArray(children).map(
     (child, index) => {
@@ -41,7 +42,7 @@ function Breadcrumb({ activeIndex, onSelection, id, className, children }) {
               link: innerChild.props.href
             });
           });
-          return (
+          // return (
             // <li className={`${prefix}-breadcrumb-item`}>
             //   <Overflowmenu
             //     listItems={_listItems}
@@ -54,7 +55,7 @@ function Breadcrumb({ activeIndex, onSelection, id, className, children }) {
             //     }}
             //   />
             // </li>
-            React.createElement(
+            modifiedChildrentemp.push(React.createElement(
               'li',
               {
                 className: `${prefix}-breadcrumb-item`,
@@ -74,10 +75,10 @@ function Breadcrumb({ activeIndex, onSelection, id, className, children }) {
                 },
                 null
               )
-            )
-          );
+            ));
+          // );
         } else if (index === 0 || !(index < childCount - 2)) {
-          return cloneElement(child, {
+          modifiedChildrentemp.push(cloneElement(child, {
             onClick: e => {
               e.preventDefault();
               setActive(index);
@@ -94,7 +95,25 @@ function Breadcrumb({ activeIndex, onSelection, id, className, children }) {
             href: child.props.href,
             itemClass: child.props.className,
             active: isActive === index
-          });
+          }));
+          // return cloneElement(child, {
+          //   onClick: e => {
+          //     e.preventDefault();
+          //     setActive(index);
+          //     if (child.props.onClick) {
+          //       child.props.onClick(e);
+          //     }
+          //     onSelection(
+          //       { name: child.props.children, link: child.props.href },
+          //       e
+          //     );
+          //   },
+          //   key: index,
+          //   children: child.props.children,
+          //   href: child.props.href,
+          //   itemClass: child.props.className,
+          //   active: isActive === index
+          // });
         }
       }
     }
@@ -106,7 +125,7 @@ function Breadcrumb({ activeIndex, onSelection, id, className, children }) {
       aria-label="breadcrumb"
       id={id}
     >
-      {modifiedChildren}
+      {modifiedChildrentemp}
     </ul>
   );
 }
