@@ -29,16 +29,13 @@ export default function Accordion({
     <ul className={classnames} {...restProps}>
       {children
         ? Children.toArray(children).map((child, index) =>
-            // cloneElement(child, {
-            //   onExpand: event => {
-            //     toggleContent(event);
-            //   },
-            //   expanded: expanded[index],
-            //   dataIndex: index
-            // })
-            {
-              return <div key={index}>{index}</div>;
-            }
+            cloneElement(child, {
+              onExpand: event => {
+                toggleContent(event);
+              },
+              expanded: expanded[index],
+              dataIndex: index
+            })
           )
         : null}
     </ul>
