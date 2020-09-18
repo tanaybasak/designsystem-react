@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import prefix from '../../settings';
 import { getColumnStructure } from '../../util/tableUtil';
 import { addListener, removeListeners } from '../../util/eventManager';
-
+let uniquetableId = 0;
 const DataTable = ({
   id,
   type,
@@ -33,15 +33,18 @@ const DataTable = ({
   const [cellObj, setcellObj] = useState({});
   const [tableWidthPostRender, setTableWidthPostRender] = useState(`auto`);
   const [isPinned, setIsPinned] = useState(false);
+  const [tableId] = useState(uniquetableId++);
 
   const calculateIsPinned = () => {
     // console.log(`calulating pinned ?`);
-    setIsPinned(tableConfiguration.some(column =>
-      column.pinned
-        ? column.pinned === `left` || column.pinned === `right`
-        : false
-    ));
-  }
+    setIsPinned(
+      tableConfiguration.some(column =>
+        column.pinned
+          ? column.pinned === `left` || column.pinned === `right`
+          : false
+      )
+    );
+  };
 
   const calculateTableWidth = () => {
     let temptableWidthPostRender =
@@ -81,7 +84,7 @@ const DataTable = ({
   }, [tableRef]);
 
   useEffect(() => {
-    const { currentElem = undefined, label = '', isDown = false } = isMouseDown;
+    const { currentElem = undefined, isDown = false } = isMouseDown;
     if (currentElem && isDown) {
       /* 
         add/bind document events 
@@ -90,7 +93,7 @@ const DataTable = ({
         'datatablemousemove-' + (id ? id : `datatable-${tableId}`),
         'mousemove',
         e => {
-          onPressMouseMove(e, e.target.dataset.column);
+          onPressMouseMove(e);
         },
         true
       );
@@ -98,7 +101,7 @@ const DataTable = ({
         'datatablemouseup-' + (id ? id : `datatable-${tableId}`),
         'mouseup',
         e => {
-          onPressMouseUp(e, e.target.dataset.column);
+          onPressMouseUp(e);
         },
         true
       );
@@ -127,14 +130,14 @@ const DataTable = ({
   }, [isMouseDown]);
 
   let dummyVal = '';
-  const onPressMouseMove = (e, col) => {
+  const onPressMouseMove = e => {
     e.preventDefault();
     var nThTarget = isMouseDown['isDown'] ? isMouseDown['currentElem'] : null;
     if (
       (isMouseDown['isDown'] && e.pageX - isMouseDown.mouseX > 1) ||
       e.pageX - isMouseDown.mouseX < -1
     ) {
-      let { startX = null, startWidth = null, resizeElem = null } =
+      let { startX = null, startWidth = null } =
         cellObj &&
         nThTarget &&
         nThTarget.dataset &&
@@ -151,13 +154,13 @@ const DataTable = ({
     }
   };
 
-  const onPressMouseUp = (e, col) => {
+  const onPressMouseUp = e => {
     e.preventDefault();
     let tempObj = [...tableConfiguration];
     // tempObj[isMouseDown['eleidx']].width =
     //   isMouseDown['currentElem'].style.width;
     tempObj[isMouseDown['eleidx']].width = dummyVal;
-    
+
     isMouseDown['currentElem'].classList.remove('resizing');
     document.body.classList.remove('resize-table');
     tempObj.map(item =>
@@ -201,7 +204,7 @@ const DataTable = ({
         ...isMouseDown,
         currentElem: nThTarget,
         eleidx: tableConfiguration.findIndex(
-          (item, i) => item.label === column.label
+          item => item.label === column.label
         ),
         label: column.label,
         isDown: true,
@@ -221,8 +224,8 @@ const DataTable = ({
     }
   };
 
-  const reMouseUp = (column, ukey, e) => {
-    console.log('on mouseup ', tableConfiguration);
+  const reMouseUp = e => {
+    e.preventDefault();
 
     setIsMouseDown({
       ...isMouseDown,
@@ -314,7 +317,7 @@ const DataTable = ({
   const classnames = `${prefix}-data-table-wrapper data-table-sticky-header${
     type.includes('borderless') ? ` ${prefix}-data-table-borderless` : ''
   } ${className}`.trim();
-  
+
   // useEffect(() => {
   //   console.log(`tablewidthPostRender ===> ${tableWidthPostRender}`);
   // })
@@ -329,7 +332,7 @@ const DataTable = ({
         style={{
           tableLayout: isPinned ? `fixed` : `auto`,
           width:
-            (isPinned && tableWidthPostRender != `auto`)
+            isPinned && tableWidthPostRender != `auto`
               ? tableWidthPostRender
               : `inherit`
         }}
@@ -406,7 +409,7 @@ const DataTable = ({
                               ? reMouseUp.bind(this, column, `heading-${index}`)
                               : null
                           }
-                        ></span>
+                        />
                       ) : null}
                     </>
                   )}
