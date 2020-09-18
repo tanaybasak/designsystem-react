@@ -1,14 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Overflowmenu> component snapshots/renders Overflowmenu correctly 1`] = `
-<section
-  className="hcl-overflow-container"
+<div
+  className="hcl-overlay-wrapper"
 >
-  <span
-    className="hcl-ellipsis"
+  <button
+    aria-label="Overflow Menu"
+    className="
+            hcl-overflow-btn 
+            
+            
+            hcl-ellipsis 
+            
+            "
     onClick={[Function]}
-    onKeyPress={[Function]}
-    tabIndex="0"
+    role="Overflow Menu"
   />
-</section>
+</div>
 `;

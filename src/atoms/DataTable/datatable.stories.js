@@ -9,6 +9,7 @@ import Toggle from '../Toggle';
 import Tag from '../Tag';
 import Dropdown from '../Dropdown';
 import Search from '../Search';
+import Overflowmenu from '../../molecules/Overflowmenu/Overflowmenu';
 //@update-path-build-end
 
 const tableData = [
@@ -41,12 +42,44 @@ const tableData = [
   }
 ];
 
+const listItems = [
+  {
+    name: 'Add',
+    icon: 'p-hclsw p-hclsw-add-component'
+  },
+  {
+    danger: true,
+    name: 'Delete',
+    icon: 'p-hclsw p-hclsw-delete'
+  },
+  {
+    name: 'Copy',
+    separator: true,
+    icon: 'p-hclsw p-hclsw-copy'
+  },
+  {
+    disabled: true,
+    name: 'Paste',
+    icon: 'p-hclsw p-hclsw-paste'
+  },
+  {
+    link: 'https://google.com',
+    name: 'link',
+    icon: 'p-hclsw p-hclsw-link'
+  }
+];
 const tableConfigWithCustomTemplate = [
   {
     field: 'checkbox',
     // eslint-disable-next-line react/display-name
     renderHtml: row => {
-      return <Checkbox id={`${row.id}_checkbox_`} name="testcheck" />;
+      return (
+        <Checkbox
+          id={`${row.id}_checkbox_`}
+          aria-label="checkbox"
+          name="testcheck"
+        />
+      );
     },
 
     width: '40px'
@@ -95,11 +128,27 @@ const tableConfigWithCustomTemplate = [
           disabled
           labelOff=" "
           labelOn=" "
+          aria-label="Toggle"
           toggled={model.status === 'Active' ? true : false}
         />
       );
     },
     width: '60px'
+  },
+  {
+    field: 'overflow',
+    // eslint-disable-next-line react/display-name
+    renderHtml: () => {
+      return (
+        <Overflowmenu
+          listItems={listItems}
+          attachElementToBody
+          ellipsisType="vertical"
+          onClick={action('Overflow Select')}
+        />
+      );
+    },
+    width: '50px'
   }
 ];
 
@@ -108,7 +157,13 @@ const tableConfigWithCustomColumn = [
     field: 'checkbox',
     // eslint-disable-next-line react/display-name
     renderHtml: row => {
-      return <Checkbox id={`${row.id}_checkbox_`} name="testcheck" />;
+      return (
+        <Checkbox
+          id={`${row.id}_checkbox_`}
+          aria-label="checkbox"
+          name="testcheck"
+        />
+      );
     },
 
     width: '40px'
@@ -116,22 +171,7 @@ const tableConfigWithCustomColumn = [
   {
     label: 'Name',
     field: 'name',
-    sortable: true,
-    columnHtml: (
-      <Search
-        ariaLabel="Search"
-        className=""
-        defaultValue=""
-        disabled={false}
-        iconTheme="default"
-        onBlur={function noRefCheck() {}}
-        onChange={function noRefCheck() {}}
-        placeholder="Search..."
-        size="default"
-        theme="default"
-        type="default"
-      />
-    )
+    sortable: true
   },
   {
     label: 'Protocol',
@@ -170,7 +210,7 @@ const tableConfigWithCustomColumn = [
     field: 'attachedGroups',
     columnHtml: (
       <Search
-        ariaLabel="Search"
+        ariaLabel="Search1"
         className=""
         defaultValue=""
         disabled={false}
@@ -189,7 +229,13 @@ const tableConfigWithPinning = [
     field: 'checkbox',
     // eslint-disable-next-line react/display-name
     renderHtml: row => {
-      return <Checkbox id={`${row.id}_checkbox_`} name="testcheck" />;
+      return (
+        <Checkbox
+          id={`${row.id}_checkbox_`}
+          aria-label="checkbox"
+          name="testcheck"
+        />
+      );
     },
 
     width: '40px'
@@ -240,6 +286,7 @@ const tableConfigWithPinning = [
           disabled
           labelOff=" "
           labelOn=" "
+          aria-label="Toggle"
           toggled={model.status === 'Active' ? true : false}
         />
       );
@@ -311,9 +358,10 @@ storiesOf('DataTable', module)
         id="custom-datatable-custom-temp"
         tableData={object('Table Data', tableData)}
         tableConfig={tableConfigWithCustomTemplate}
-        stickyHeaderMain={boolean('Sticky Header', true)}
         type={text('Type', 'zebra borderless')}
-        headerSelection={<Checkbox id={`header_checkbox`} />}
+        headerSelection={
+          <Checkbox aria-label="header checkbox" id={`header_checkbox`} />
+        }
         onSort={action('Sort Action')}
       />
     ),
@@ -336,9 +384,10 @@ storiesOf('DataTable', module)
         id="custom-datatable-column"
         tableData={object('Table Data', tableData)}
         tableConfig={tableConfigWithCustomColumn}
-        stickyHeaderMain={boolean('Sticky Header', true)}
         type={text('Type', 'zebra borderless')}
-        headerSelection={<Checkbox id={`header_checkbox`} />}
+        headerSelection={
+          <Checkbox aria-label="header checkbox" id={`header_checkbox`} />
+        }
         onSort={action('Sort Action')}
       />
     ),
@@ -363,9 +412,10 @@ storiesOf('DataTable', module)
         id="custom-datatable-pin"
         tableData={object('Table Data', tableData)}
         tableConfig={tableConfigWithPinning}
-        stickyHeaderMain={boolean('Sticky Header', true)}
         type={text('Type', 'zebra borderless')}
-        headerSelection={<Checkbox id={`header_checkbox`} />}
+        headerSelection={
+          <Checkbox aria-label="header checkbox" id={`header_checkbox`} />
+        }
         onSort={action('Sort Action')}
       />
     ),

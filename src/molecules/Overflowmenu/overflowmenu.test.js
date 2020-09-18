@@ -41,30 +41,25 @@ describe('<Overflowmenu> component', () => {
     overflowmenu.find(`.${prefix}-ellipsis`).simulate('click');
     expect(overflowmenu.find(`.${prefix}-overflow-menu`).exists()).toBeTruthy();
 
-    let button = overflowmenu.find('button').at(0);
+    let button = overflowmenu.find(`.${prefix}-overflow-option-item`).at(0);
     expect(button.is(':focus')).toBe(true);
 
     button.simulate('keydown', { keyCode: 40 });
-    button = overflowmenu.find('button').at(1);
-
+    button = overflowmenu.find(`.${prefix}-overflow-option-item`).at(1);
     expect(button.is(':focus')).toBe(true);
-    expect(button.hasClass(`${prefix}-overflow-option-dangerbtn`)).toBeTruthy();
+    expect(button.hasClass(`${prefix}-overflow-option-danger`)).toBeTruthy();
 
     button.simulate('keydown', { keyCode: 40 });
-    button = overflowmenu.find('button').at(2);
-
+    button = overflowmenu.find(`.${prefix}-overflow-option-item`).at(2);
     expect(button.is(':focus')).toBe(true);
-    expect(button.hasClass(`${prefix}-overflow-separator`)).toBeTruthy();
+    expect(button.hasClass(`${prefix}-overflow-option-separator`)).toBeTruthy();
 
     button.simulate('keydown', { keyCode: 40 });
-    button = overflowmenu.find('button').at(3);
-
+    button = overflowmenu.find(`.${prefix}-overflow-option-item`).at(3);
     expect(button.is(':focus')).toBe(false);
-    expect(
-      button.hasClass(`${prefix}-overflow-option-disablebtn`)
-    ).toBeTruthy();
+    expect(button.hasClass(`${prefix}-overflow-option-disabled`)).toBeTruthy();
 
-    button = overflowmenu.find('button').at(4);
+    button = overflowmenu.find(`.${prefix}-overflow-option-item`).at(4);
 
     expect(button.is(':focus')).toBe(true);
     expect(overflowmenu.find('a')).toBeTruthy();
@@ -78,37 +73,35 @@ describe('<Overflowmenu> component', () => {
     overflowmenu.find(`.${prefix}-ellipsis`).simulate('click');
     expect(overflowmenu.find(`.${prefix}-overflow-menu`).exists()).toBeTruthy();
 
-    let button = overflowmenu.find('button').at(0);
+    let button = overflowmenu.find(`.${prefix}-overflow-option-item`).at(0);
     expect(button.is(':focus')).toBe(true);
 
     button.simulate('focus');
     button.simulate('keydown', { keyCode: 38 });
-    button = overflowmenu.find('button').at(4);
+    button = overflowmenu.find(`.${prefix}-overflow-option-item`).at(4);
 
     expect(button.is(':focus')).toBe(true);
     expect(overflowmenu.find('a')).toBeTruthy();
 
     button.simulate('focus');
     button.simulate('keydown', { keyCode: 38 });
-    button = overflowmenu.find('button').at(3);
+    button = overflowmenu.find(`.${prefix}-overflow-option-item`).at(3);
 
     expect(button.is(':focus')).toBe(false);
-    expect(
-      button.hasClass(`${prefix}-overflow-option-disablebtn`)
-    ).toBeTruthy();
+    expect(button.hasClass(`${prefix}-overflow-option-disabled`)).toBeTruthy();
 
     button.simulate('focus');
     button.simulate('keydown', { keyCode: 38 });
-    button = overflowmenu.find('button').at(2);
+    button = overflowmenu.find(`.${prefix}-overflow-option-item`).at(2);
 
     expect(button.is(':focus')).toBe(true);
-    expect(button.hasClass(`${prefix}-overflow-separator`)).toBeTruthy();
+    expect(button.hasClass(`${prefix}-overflow-option-separator`)).toBeTruthy();
 
     button.simulate('focus');
     button.simulate('keydown', { keyCode: 38 });
-    button = overflowmenu.find('button').at(1);
+    button = overflowmenu.find(`.${prefix}-overflow-option-item`).at(1);
 
     expect(button.is(':focus')).toBe(true);
-    expect(button.hasClass(`${prefix}-overflow-option-dangerbtn`)).toBeTruthy();
+    expect(button.hasClass(`${prefix}-overflow-option-danger`)).toBeTruthy();
   });
 });

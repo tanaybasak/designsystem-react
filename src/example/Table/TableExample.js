@@ -5,7 +5,7 @@ import Tag from '../../atoms/Tag';
 import Toggle from '../../atoms/Toggle';
 import Checkbox from '../../atoms/Checkbox';
 import DataTable from '../../atoms/DataTable';
-import Overflowmenu from '../../molecules/Overflowmenu';
+import { Overflowmenu } from '../../molecules/Overflowmenu';
 class TableExample extends Component {
   state = {
     tableData: [],
@@ -58,7 +58,7 @@ class TableExample extends Component {
           );
         },
         columnHtml: <h6> this is temp</h6>,
-        width: '160px'
+        width: '260px'
       },
       {
         label: 'Full Name',
@@ -132,9 +132,13 @@ class TableExample extends Component {
           return (
             <Overflowmenu
               listItems={overflowlist}
-              //className="overflow-onhover"
-              onClick={e => {
-                console.log(e, row);
+              attachElementToBody={true}
+              scrollListner={true}
+              direction="bottom-right"
+              ellipsisType="vertical"
+              onClick={(item, index, e) => {
+                console.log('OVERFLOW SELECT');
+                console.log(item, index, e);
               }}
             />
           );

@@ -33,25 +33,21 @@ describe('<Dropdown> component', () => {
     const mockonclick = jest.fn();
     const dropdown = mount(<Dropdown items={items} onClick={mockonclick} />);
     dropdown.find(`.${prefix}-dropdown-toggle`).simulate('click');
-    expect(
-      dropdown.find(`.${prefix}-dropdown-container`).exists()
-    ).toBeTruthy();
+    expect(dropdown.find(`.${prefix}-dropdown-menu`).exists()).toBeTruthy();
   });
 
   it('Arrow Up event on Dropdown button', () => {
     const mockonclick = jest.fn();
     const dropdown = mount(<Dropdown items={items} onClick={mockonclick} />);
     dropdown.find(`.${prefix}-dropdown-toggle`).simulate('click');
-    expect(
-      dropdown.find(`.${prefix}-dropdown-container`).exists()
-    ).toBeTruthy();
+    expect(dropdown.find(`.${prefix}-dropdown-menu`).exists()).toBeTruthy();
 
     let button = dropdown.find(`.${prefix}-dropdown-toggle`);
     button.simulate('keydown', { keyCode: 38 });
 
-    expect(dropdown.find('a').at(3).is(':focus')).toBe(true);
+    expect(dropdown.find('li').at(3).is(':focus')).toBe(true);
     dropdown.find('li').at(3).simulate('click');
-    expect(dropdown.find(`.${prefix}-dropdown-container`).exists()).toBeFalsy();
+    expect(dropdown.find(`.${prefix}-dropdown-menu`).exists()).toBeFalsy();
     expect(button.text()).toEqual('Option 4');
   });
 
@@ -59,16 +55,14 @@ describe('<Dropdown> component', () => {
     const mockonclick = jest.fn();
     const dropdown = mount(<Dropdown items={items} onClick={mockonclick} />);
     dropdown.find(`.${prefix}-dropdown-toggle`).simulate('click');
-    expect(
-      dropdown.find(`.${prefix}-dropdown-container`).exists()
-    ).toBeTruthy();
+    expect(dropdown.find(`.${prefix}-dropdown-menu`).exists()).toBeTruthy();
 
     let button = dropdown.find(`.${prefix}-dropdown-toggle`);
     button.simulate('keydown', { keyCode: 40 });
 
-    expect(dropdown.find('a').at(0).is(':focus')).toBe(true);
+    expect(dropdown.find('li').at(0).is(':focus')).toBe(true);
     dropdown.find('li').at(0).simulate('click');
-    expect(dropdown.find(`.${prefix}-dropdown-container`).exists()).toBeFalsy();
+    expect(dropdown.find(`.${prefix}-dropdown-menu`).exists()).toBeFalsy();
     expect(button.text()).toEqual('Option 1');
   });
 
@@ -76,29 +70,27 @@ describe('<Dropdown> component', () => {
     const mockonclick = jest.fn();
     const dropdown = mount(<Dropdown items={items} onClick={mockonclick} />);
     dropdown.find(`.${prefix}-dropdown-toggle`).simulate('click');
-    expect(
-      dropdown.find(`.${prefix}-dropdown-container`).exists()
-    ).toBeTruthy();
+    expect(dropdown.find(`.${prefix}-dropdown-menu`).exists()).toBeTruthy();
 
     let button = dropdown.find(`.${prefix}-dropdown-toggle`);
 
     button.simulate('keydown', { keyCode: 40 });
 
-    let anchor = dropdown.find('a').at(0);
+    let anchor = dropdown.find('li').at(0);
     expect(anchor.is(':focus')).toBe(true);
 
     anchor.simulate('keydown', { keyCode: 40 });
-    anchor = dropdown.find('a').at(1);
-
-    expect(anchor.is(':focus')).toBe(true);
-
-    anchor.simulate('keydown', { keyCode: 40 });
-    anchor = dropdown.find('a').at(2);
+    anchor = dropdown.find('li').at(1);
 
     expect(anchor.is(':focus')).toBe(true);
 
     anchor.simulate('keydown', { keyCode: 40 });
-    anchor = dropdown.find('a').at(3);
+    anchor = dropdown.find('li').at(2);
+
+    expect(anchor.is(':focus')).toBe(true);
+
+    anchor.simulate('keydown', { keyCode: 40 });
+    anchor = dropdown.find('li').at(3);
 
     expect(anchor.is(':focus')).toBe(true);
   });
@@ -107,29 +99,27 @@ describe('<Dropdown> component', () => {
     const mockonclick = jest.fn();
     const dropdown = mount(<Dropdown items={items} onClick={mockonclick} />);
     dropdown.find(`.${prefix}-dropdown-toggle`).simulate('click');
-    expect(
-      dropdown.find(`.${prefix}-dropdown-container`).exists()
-    ).toBeTruthy();
+    expect(dropdown.find(`.${prefix}-dropdown-menu`).exists()).toBeTruthy();
 
     let button = dropdown.find(`.${prefix}-dropdown-toggle`);
 
     button.simulate('keydown', { keyCode: 38 });
 
-    let anchor = dropdown.find('a').at(3);
+    let anchor = dropdown.find('li').at(3);
     expect(anchor.is(':focus')).toBe(true);
 
     anchor.simulate('keydown', { keyCode: 38 });
-    anchor = dropdown.find('a').at(2);
-
-    expect(anchor.is(':focus')).toBe(true);
-
-    anchor.simulate('keydown', { keyCode: 38 });
-    anchor = dropdown.find('a').at(1);
+    anchor = dropdown.find('li').at(2);
 
     expect(anchor.is(':focus')).toBe(true);
 
     anchor.simulate('keydown', { keyCode: 38 });
-    anchor = dropdown.find('a').at(0);
+    anchor = dropdown.find('li').at(1);
+
+    expect(anchor.is(':focus')).toBe(true);
+
+    anchor.simulate('keydown', { keyCode: 38 });
+    anchor = dropdown.find('li').at(0);
 
     expect(anchor.is(':focus')).toBe(true);
   });
@@ -140,9 +130,7 @@ describe('<Dropdown> component', () => {
       <Dropdown items={items} dropdownType="multi" onClick={mockonclick} />
     );
     dropdown.find(`.${prefix}-dropdown-toggle`).simulate('click');
-    expect(
-      dropdown.find(`.${prefix}-dropdown-container`).exists()
-    ).toBeTruthy();
+    expect(dropdown.find(`.${prefix}-dropdown-menu`).exists()).toBeTruthy();
 
     let button = dropdown.find(`.${prefix}-dropdown-toggle`);
 
@@ -173,9 +161,7 @@ describe('<Dropdown> component', () => {
       <Dropdown items={items} dropdownType="multi" onClick={mockonclick} />
     );
     dropdown.find(`.${prefix}-dropdown-toggle`).simulate('click');
-    expect(
-      dropdown.find(`.${prefix}-dropdown-container`).exists()
-    ).toBeTruthy();
+    expect(dropdown.find(`.${prefix}-dropdown-menu`).exists()).toBeTruthy();
 
     let button = dropdown.find(`.${prefix}-dropdown-toggle`);
 
@@ -206,9 +192,7 @@ describe('<Dropdown> component', () => {
       <Dropdown items={items} dropdownType="multi" onClick={mockonclick} />
     );
     dropdown.find(`.${prefix}-dropdown-toggle`).simulate('click');
-    expect(
-      dropdown.find(`.${prefix}-dropdown-container`).exists()
-    ).toBeTruthy();
+    expect(dropdown.find(`.${prefix}-dropdown-menu`).exists()).toBeTruthy();
 
     let button = dropdown.find(`.${prefix}-dropdown-toggle`);
     button.simulate('keydown', { keyCode: 40 });

@@ -1,24 +1,28 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import YearMonthPanel from './YearMonthPanel/YearMonthPanel';
 import DatePanel from './DatePanel/DatePanel';
 import DateInput from './DateInput';
 import WeekPanel from './WeekPanel';
 import prefix from '../../settings';
-import {
-  positionComponent,
-  isValidDate,
-  trackDocumentClick
-} from '../../util/utility';
+import { isValidDate } from '../../util/utility';
+import Overlay from '../../atoms/Overlay';
+import Label from '../../atoms/Label';
+import FormHelperText from '../../atoms/FormHelperText';
 
 const DatePicker = ({
   weekDays,
   months,
-  open,
   format,
   onDateSelect,
   defaultDate,
   className,
+  direction,
+  scrollListner,
+  attachElementToBody,
+  label,
+  helperText,
+  id,
   ...restProps
 }) => {
   const date = new Date();
@@ -33,22 +37,9 @@ const DatePicker = ({
   const [dateSelected, setDateSelected] = useState('');
   const [isDateSelectedValid, setIsDateSelectedValid] = useState(true);
   const [isValidYear, setIsValidYear] = useState(true);
-  const [direction, setDirection] = useState(open);
-  const datePickerContainer = useRef(null);
   const datepickerInput = useRef(null);
 
-  useEffect(() => {
-    positionComponent(
-      () => {
-        setDirection('top');
-      },
-      () => {
-        setDirection('bottom');
-      },
-      open,
-      datePickerContainer.current
-    );
-  });
+  const [targetEl, setTargetEl] = useState(null);
 
   useEffect(() => {
     if (defaultDate && defaultDate !== '') {
@@ -149,13 +140,11 @@ const DatePicker = ({
     }
   };
 
-  const toggleDateContainer = () => {
+  const toggleDateContainer = target => {
     setIsValidYear(true);
     setYearSelected(String(currDateObj.year));
     setShowDateContainer(!showDateContainer);
-    trackDocumentClick(datepickerInput.current, () => {
-      setShowDateContainer(false);
-    });
+    setTargetEl(target.current);
   };
 
   const monthChangeHandler = event => {
@@ -211,7 +200,7 @@ const DatePicker = ({
     setDateSelected(event.target.getAttribute('date'));
     setIsDateSelectedValid(true);
     setIsValidYear(true);
-    toggleDateContainer();
+    setShowDateContainer(false);
     onDateSelect(event.target.getAttribute('date'));
   };
 
@@ -221,16 +210,25 @@ const DatePicker = ({
     return regex.test(str);
   };
 
-  const classnames = `${prefix}-datePicker ${className}`.trim();
+  const classnames = [`${prefix}-datePicker`];
+  if (className) {
+    classnames.push(className);
+  }
+  if (showDateContainer) {
+    classnames.push(`${prefix}-overlay-wrapper-active`);
+  }
 
-  const datePanelClickHandler = event => {
-    event.stopPropagation();
-    event.preventDefault();
+  const onToggle = status => {
+    setShowDateContainer(status);
   };
 
   return (
-    <section className={classnames}>
-      <div className={`${prefix}-datePicker-container`}>
+    <div className={classnames.join(' ')}>
+      {label ? <Label htmlFor={id ? id : null}>{label}</Label> : null}
+      {helperText ? (
+        <FormHelperText className="helper-text">{helperText}</FormHelperText>
+      ) : null}
+      <div className="hcl-overlay-wrapper hcl-datePicker-container">
         <DateInput
           dateSelected={dateSelected}
           defaultDate={defaultDate}
@@ -246,16 +244,16 @@ const DatePicker = ({
           datepickerInput={datepickerInput}
           {...restProps}
         />
-        {showDateContainer ? (
-          <div
-            className={`${prefix}-datePicker-panel ${prefix}-datePicker-panel-show ${
-              direction === 'top'
-                ? `${prefix}-datePicker-panel-above`
-                : `${prefix}-datePicker-panel-below`
-            }`}
-            onClick={datePanelClickHandler}
-            ref={datePickerContainer}
-          >
+        <Overlay
+          attachElementToBody={attachElementToBody}
+          scrollListner={scrollListner}
+          direction={direction}
+          showOverlay={showDateContainer}
+          targetElement={targetEl}
+          onToggle={onToggle}
+          preventCloseElements={targetEl ? [targetEl.nextElementSibling] : []}
+        >
+          <div className={`${prefix}-datePicker-panel`}>
             <YearMonthPanel
               months={months}
               currDateObj={currDateObj}
@@ -275,16 +273,14 @@ const DatePicker = ({
               format={format}
             />
           </div>
-        ) : null}
+        </Overlay>
       </div>
       {!isDateSelectedValid ? (
-        <div
-          className={`${prefix}-datePicker-error ${prefix}-datePicker-error-show`}
-        >
+        <FormHelperText className="error-msg">
           Invalid date format.
-        </div>
+        </FormHelperText>
       ) : null}
-    </section>
+    </div>
   );
 };
 
@@ -294,10 +290,6 @@ DatePicker.propTypes = {
 
   /** Months in a year.  Array input can be on the basis of language selected.  */
   months: PropTypes.array,
-
-  /** Down: DatePicker pop up will come under input box.
-    Top: DatePicker pop up will come above input box.  */
-  open: PropTypes.string,
 
   /**
    MM/DD/YYYY:  One of the format available.
@@ -310,6 +302,25 @@ DatePicker.propTypes = {
   /** Class/clasess will be applied on the parent div of DatePicker */
   className: PropTypes.string,
 
+  /** Used for defining the position of datepicker */
+  direction: PropTypes.oneOf([
+    'top-right',
+    'top-left',
+    'bottom-right',
+    'bottom-left'
+  ]),
+
+  /** Used to attach the datepicker container to body */
+  attachElementToBody: PropTypes.bool,
+
+  /** Date picker Container position will changed on scroll. This is applicable when datepicker container is attached to body */
+  scrollListner: PropTypes.bool,
+  /** Label for time picker, if not provided no label will be added.   */
+  label: PropTypes.string,
+  /** Specifies helper text */
+  helperText: PropTypes.string,
+  /** Unique Id */
+  id: PropTypes.string,
   /** This props allows user to pass default date */
   defaultDate: PropTypes.string
 };
@@ -330,10 +341,15 @@ DatePicker.defaultProps = {
     'November',
     'December'
   ],
-  open: 'down',
+  direction: 'bottom-left',
+  attachElementToBody: false,
+  scrollListner: false,
   format: 'MM/DD/YYYY',
   onDateSelect: () => {},
   className: '',
+  label: null,
+  helperText: null,
+  id: null,
   defaultDate: ''
 };
 export default DatePicker;

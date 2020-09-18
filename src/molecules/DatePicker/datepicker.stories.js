@@ -6,11 +6,6 @@ import { select, text } from '@storybook/addon-knobs';
 import DatePicker from './DatePicker';
 //@update-path-build-end
 
-const typeOptions = {
-  Top: 'top',
-  Bottom: 'bottom'
-};
-
 const formatOptions = {
   'mm/dd/yyyy': 'mm/dd/yyyy',
   'dd/mm/yyyy': 'dd/mm/yyyy'
@@ -36,7 +31,6 @@ storiesOf('DatePicker', module).add(
         'December'
       ]}
       onDateSelect={action('Date Select')}
-      open={select('Direction', typeOptions, 'bottom')}
       weekDays={['S', 'M', 'T', 'W', 'Th', 'F', 'S']}
       aria-label="Date picker Input label"
       defaultDate={text('Default Date', '12/30/1990')}

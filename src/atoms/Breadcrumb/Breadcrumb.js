@@ -1,7 +1,7 @@
 import React, { useState, cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
-import Overflowmenu from '../../molecules/Overflowmenu';
+import { Overflowmenu } from '../../molecules/Overflowmenu';
 
 function Breadcrumb({ activeIndex, onSelection, id, className, children }) {
   const [isActive, setActive] = useState(activeIndex);
@@ -26,12 +26,12 @@ function Breadcrumb({ activeIndex, onSelection, id, className, children }) {
           <li className={`${prefix}-breadcrumb-item`}>
             <Overflowmenu
               listItems={_listItems}
-              direction="right"
+              direction="bottom-right"
               ellipsisType="horizontal"
-              onClick={(item, idx, e) => {
+              onClick={(item, e) => {
                 e.preventDefault();
                 setActive(index + 1);
-                onSelection(item, idx + 1, e);
+                onSelection(item, e);
               }}
             />
           </li>
@@ -46,7 +46,7 @@ function Breadcrumb({ activeIndex, onSelection, id, className, children }) {
             }
             onSelection(
               { name: child.props.children, link: child.props.href },
-              index,
+
               e
             );
           },

@@ -15,7 +15,6 @@ const DataTable = ({
   headerSelection,
   onRowSelect,
   triStateSorting,
-  stickyHeaderMain,
   ...restProps
 }) => {
   const [rows, updateTableRowData] = useState(tableData);
@@ -313,8 +312,6 @@ const DataTable = ({
   }
 
   const classnames = `${prefix}-data-table-wrapper data-table-sticky-header${
-    stickyHeaderMain ? ' overflow-unset' : ''
-  }${
     type.includes('borderless') ? ` ${prefix}-data-table-borderless` : ''
   } ${className}`.trim();
   
@@ -606,9 +603,7 @@ DataTable.propTypes = {
   /** Used for passing template for Table header  */
   headerSelection: PropTypes.node,
   /** When this property is set, sorting in each column iterates through three sort states: ascending, descending, and unsort.  */
-  triStateSorting: PropTypes.bool,
-  /** Used to fix/stick header on body scroll  */
-  stickyHeaderMain: PropTypes.bool
+  triStateSorting: PropTypes.bool
 };
 
 DataTable.defaultProps = {
@@ -621,8 +616,7 @@ DataTable.defaultProps = {
   onSort: () => {},
   onRowSelect: () => {},
   expandRowTemplate: null,
-  triStateSorting: false,
-  stickyHeaderMain: false
+  triStateSorting: false
 };
 
 export default DataTable;
