@@ -9,10 +9,8 @@ function Breadcrumb({ activeIndex, onSelection, id, className, children }) {
   const childCount = React.Children.count(children);
   let renderedOverflowMenu = false;
   let propChildren = children;
-  // let modifiedChildrentemp = [];
 
   const modifiedChildren = React.Children.map(children, (child, index) => {
-    // if (child && child.type.name === 'BreadcrumbItem') {
       if (index > 0 && index < childCount - 2 && !renderedOverflowMenu) {
         renderedOverflowMenu = true;
         let _listItems = [];
@@ -58,7 +56,6 @@ function Breadcrumb({ activeIndex, onSelection, id, className, children }) {
           active: isActive === index
         });
       }
-    // }
   });
 
 
