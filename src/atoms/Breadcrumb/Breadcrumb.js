@@ -10,7 +10,7 @@ function Breadcrumb({ activeIndex, onSelection, id, className, children }) {
   let renderedOverflowMenu = false;
   let propChildren = children;
 
-  const modifiedChildren = React.Children.map(children, (child, index) => {
+  const modifiedChildren = React.Children.toArray(children).map((child, index) => {
     if (child && child.type.name === 'BreadcrumbItem') {
       if (index > 0 && index < childCount - 2 && !renderedOverflowMenu) {
         renderedOverflowMenu = true;
