@@ -11,32 +11,6 @@ function Breadcrumb({ activeIndex, onSelection, id, className, children }) {
   let propChildren = children;
 
   const modifiedChildren = React.Children.toArray(children).map((child, index) => {
-    if (child && child.type.name === 'BreadcrumbItem') {
-      if (index > 0 && index < childCount - 2 && !renderedOverflowMenu) {
-        renderedOverflowMenu = true;
-        let _listItems = [];
-        propChildren = propChildren.slice(1, -2);
-        React.Children.forEach(propChildren, innerChild => {
-          _listItems.push({
-            name: innerChild.props.children,
-            link: innerChild.props.href
-          });
-        });
-        return (
-          <li className={`${prefix}-breadcrumb-item`}>
-            <Overflowmenu
-              listItems={_listItems}
-              direction="bottom-right"
-              ellipsisType="horizontal"
-              onClick={(item, e) => {
-                e.preventDefault();
-                setActive(index + 1);
-                onSelection(item, e);
-              }}
-            />
-          </li>
-        );
-      } else if (index === 0 || !(index < childCount - 2)) {
         return cloneElement(child, {
           onClick: e => {
             e.preventDefault();
@@ -46,7 +20,6 @@ function Breadcrumb({ activeIndex, onSelection, id, className, children }) {
             }
             onSelection(
               { name: child.props.children, link: child.props.href },
-
               e
             );
           },
@@ -56,8 +29,52 @@ function Breadcrumb({ activeIndex, onSelection, id, className, children }) {
           itemClass: child.props.className,
           active: isActive === index
         });
-      }
-    }
+    // if (child && child.type.name === 'BreadcrumbItem') {
+    //   if (index > 0 && index < childCount - 2 && !renderedOverflowMenu) {
+    //     renderedOverflowMenu = true;
+    //     let _listItems = [];
+    //     propChildren = propChildren.slice(1, -2);
+    //     React.Children.forEach(propChildren, innerChild => {
+    //       _listItems.push({
+    //         name: innerChild.props.children,
+    //         link: innerChild.props.href
+    //       });
+    //     });
+    //     return (
+    //       <li className={`${prefix}-breadcrumb-item`}>
+    //         <Overflowmenu
+    //           listItems={_listItems}
+    //           direction="bottom-right"
+    //           ellipsisType="horizontal"
+    //           onClick={(item, e) => {
+    //             e.preventDefault();
+    //             setActive(index + 1);
+    //             onSelection(item, e);
+    //           }}
+    //         />
+    //       </li>
+    //     );
+    //   } else if (index === 0 || !(index < childCount - 2)) {
+    //     return cloneElement(child, {
+    //       onClick: e => {
+    //         e.preventDefault();
+    //         setActive(index);
+    //         if (child.props.onClick) {
+    //           child.props.onClick(e);
+    //         }
+    //         onSelection(
+    //           { name: child.props.children, link: child.props.href },
+    //           e
+    //         );
+    //       },
+    //       key: index,
+    //       children: child.props.children,
+    //       href: child.props.href,
+    //       itemClass: child.props.className,
+    //       active: isActive === index
+    //     });
+    //   }
+    // }
   });
 
   return (
