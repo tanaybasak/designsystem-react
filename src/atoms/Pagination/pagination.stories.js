@@ -10,13 +10,14 @@ storiesOf('Pagination', module).add(
   'default',
   () => (
     <Pagination
-      itemsPerPageStepper={20}
       itemsPerPageText={text('Items Per Page Text', 'Items per Page:')}
       itemsStepperLimit={100}
       onChange={action('on change')}
       onItemsPerPageChange={action('item per page change')}
+      itemsPerPageStepper={number('Items Per Page', 20)}
       onPageChange={action('page change')}
       totalItems={number('Total Items', 103)}
+      currentPage={number('current page', 2)}
     />
   ),
   {

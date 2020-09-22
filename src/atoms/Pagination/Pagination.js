@@ -9,6 +9,7 @@ const Pagination = ({
   itemsStepperLimit,
   itemsPerPageText,
   onPageChange,
+  currentPage,
   onItemsPerPageChange
 }) => {
   //states
@@ -21,7 +22,7 @@ const Pagination = ({
   const [itemsPerPageSelected, setItemsPerPageSelected] = useState(-1);
   const [totalPages, setTotalPages] = useState(0);
   const [pagesDropDown, setPageItems] = useState([]);
-  const [pagesSelected, setPagesSelected] = useState(-1);
+  const [pagesSelected, setPagesSelected] = useState(currentPage);
 
   //refs
   const nextbtnRef = useRef();
@@ -94,10 +95,12 @@ const Pagination = ({
       JSON.stringify(pagesDropDown) !== JSON.stringify([]) &&
       pagesDropDown.length > 0
     ) {
-      setPagesSelected(parseInt(pagesDropDown[0], 10));
+      if (pagesSelected != currentPage) {
+        setPagesSelected(parseInt(pagesDropDown[0], 10));
+      }
       toggleNavButtons();
     }
-  }, [pagesDropDown]);
+  }, [pagesDropDown, currentPage]);
 
   // pages DropDown selected useEffect
   useEffect(() => {
@@ -107,6 +110,12 @@ const Pagination = ({
       toggleNavButtons();
     }
   }, [pagesSelected]);
+
+  useEffect(() => {
+    if (pagesSelected != currentPage) {
+      setPagesSelected(currentPage);
+    }
+  }, [currentPage]);
 
   //on Load useEffect
   useEffect(() => {
@@ -395,11 +404,14 @@ Pagination.propTypes = {
   /** Accepts Event handler as argument/prop which is triggered after Items Per Page Dropdown is changed. */
   onItemsPerPageChange: PropTypes.func,
   /** Accepts Event handler as argument/prop which is triggered after Page Drop-down is changed. */
-  onPageChange: PropTypes.func
+  onPageChange: PropTypes.func,
+  /** current active Page number */
+  currentPage: PropTypes.number
 };
 
 Pagination.defaultProps = {
   totalItems: 0,
+  currentPage: 1,
   itemsPerPageStepper: 20,
   itemsStepperLimit: 100,
   itemsPerPageText: 'Items per Page:',
