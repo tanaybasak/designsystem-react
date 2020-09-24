@@ -1,3 +1,4 @@
 import TreeView from './TreeView';
+import TreeNodeTemplate from './TreeNodeTemplate';
 
-export default TreeView;
+export { TreeNodeTemplate, TreeView };

@@ -1,13 +1,39 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 import TreeNode from './TreeNode';
-import {
-  updateTreeNode,
-  updateNodePosition,
-  deleteNode,
-  copyNode
-} from '../../util/treeUtil';
+import TreeStateContext from './treeStateContext';
+import TreeDispatchContext from './treeDispatchContext';
+import TreeFunctionContext from './treeFunctionContext';
+import { treeReducer } from './treeReducer';
+
+const initialState = {
+  treeInfo: [],
+  expandedNodes: {},
+  selectedNode: null,
+  draggedNode: null,
+  draggedNodeLevel: null,
+  cutNode: null,
+  cutNodeLevel: null,
+  copiedNode: null,
+  configuration: {
+    expandIcon: 'expandIcon',
+    collapsedIcon: 'collapsedIcon',
+    icon: 'icon',
+    children: 'children',
+    name: 'name',
+    hasChildren: 'hasChildren',
+    draggable: 'draggable',
+    key: 'key'
+  },
+  expandedIcon: null,
+  collapsedIcon: null,
+  iconClass: null,
+  dragRules: null,
+  overflowOnHover: false,
+  type: 'default',
+  draggable: 'none'
+};
 
 const TreeView = ({
   treeData,
@@ -30,186 +56,141 @@ const TreeView = ({
   onMoveNode,
   onCopyNode,
   onActionCompletes,
-  overflowOnHover
+  overflowOnHover,
+  expandedNodes,
+  customTemplate,
+  customActionTemplate,
+  customNodeTemplate,
+  draggable,
+  onDragStart,
+  onDragOver,
+  onDragEnter,
+  onDragLeave,
+  onDrop,
+  onDragEnd,
+  onDoubleClick,
+  onKeyDown,
+  onClick,
+  isDropAllowed,
+  getIcons,
+  isDraggable
 }) => {
-  let [treeInfo, updateTree] = useState(treeData);
-
-  let [selectedNode, updateSelectedNode] = useState({});
-
-  let [draggedNode, updateDraggedNode] = useState({});
-  let [draggedNodeLevel, updateDraggedNodeLevel] = useState('');
-
-  let [cutNode, updateCutNode] = useState({});
-  let [cutNodeLevel, updateCutNodeLevel] = useState('');
-
-  let [copiedNode, updateCopyNode] = useState({});
+  const [state, dispatch] = useReducer(treeReducer, initialState);
 
   useEffect(() => {
-    updateTree(treeData);
+    dispatch({ type: 'SET_TREE_DATA', data: treeData });
   }, [treeData]);
 
   useEffect(() => {
-    updateSelectedNode(nodeSelected);
+    if (config) {
+      dispatch({ type: 'SET_CONFIGURATION', data: config });
+    }
+
+    //dispatch({ type: 'SET_EXPANDED_NODE', data: expandedNodes });
+  }, [config]);
+
+  useEffect(() => {
+    if (expandedNodes) {
+      dispatch({ type: 'SET_EXPANDED_NODE', data: expandedNodes });
+    }
+  }, [expandedNodes]);
+
+  useEffect(() => {
+    if (nodeSelected) {
+      dispatch({ type: 'SET_SELECTED_NODE', data: nodeSelected });
+    }
   }, [nodeSelected]);
 
-  const isMoveNodeAllowedMain = (x, y) => {
-    return isMoveNodeAllowed ? isMoveNodeAllowed(x, y, treeInfo) : true;
-  };
-
-  const isCopyAllowedMain = (x, y) => {
-    return isCopyAllowed ? isCopyAllowed(x, y, treeInfo) : true;
-  };
-
-  const onSelectNode = node => {
-    updateSelectedNode(node);
-    if (onChange) {
-      onChange(node);
+  useEffect(() => {
+    if (expandedIcon && collapsedIcon) {
+      dispatch({
+        type: 'SET_TOGGLE_ICON',
+        data: {
+          expandedIcon: expandedIcon,
+          collapsedIcon: collapsedIcon
+        }
+      });
     }
-  };
+  }, [expandedIcon, collapsedIcon]);
 
-  const onToggleNode = event => {
-    if (onToggle) {
-      onToggle(event);
+  useEffect(() => {
+    if (dragRules) {
+      dispatch({ type: 'SET_DRAG_RULES', data: dragRules });
     }
-  };
+  }, [dragRules]);
 
-  let defaultConfig = {
-    displayChildren: 'displayChildren',
-    expandIcon: 'expandIcon',
-    collapsedIcon: 'collapsedIcon',
-    icon: 'icon',
-    children: 'children',
-    name: 'name',
-    hasChildren: 'hasChildren',
-    draggable: 'draggable'
-  };
-
-  const updateTreeState = (action, config) => {
-    if (action === 'draggedNode') {
-      updateDraggedNode(config.node);
-      updateDraggedNodeLevel(config.level);
-    } else if (action === 'cutNode') {
-      updateCutNode(config.node);
-      updateCopyNode(null);
-      updateCutNodeLevel(config.level);
-    } else if (action === 'copyNode') {
-      updateCutNode(null);
-      updateCopyNode(config.node);
-      updateCutNodeLevel(null);
+  useEffect(() => {
+    if (iconClass) {
+      dispatch({ type: 'SET_ICON_CLASS', data: iconClass });
     }
-  };
+  }, [iconClass]);
 
-  const updateTreeDataBasedOnAction = async (action, config) => {
-    if (action === 'delete') {
-      let flag = onDeleteNode ? await onDeleteNode(config.node) : true;
-      if (flag) {
-        const updatedTree = deleteNode(treeInfo, config.level);
-        updateTree(updatedTree);
-        if (onActionCompletes) {
-          onActionCompletes(action, updatedTree, config.node);
-        }
-      }
-    } else if (action === 'copy-paste') {
-      let flag = onCopyNode ? await onCopyNode(copiedNode, config.node) : true;
-      if (flag) {
-        const updatedTree = copyNode(treeInfo, config.level, config.copyNode);
-        updateTree(updatedTree);
-        if (onActionCompletes) {
-          onActionCompletes('copy', updatedTree, config.copyNode, config.node);
-        }
-      }
-    } else if (action === 'cut-paste') {
-      let flag = onMoveNode ? await onMoveNode(cutNode, config.node) : true;
-      if (flag) {
-        const updatedTree = updateNodePosition(
-          treeInfo,
-          config.cutNodeLevel,
-          config.level
-        );
-        updateTree(updatedTree);
-        updateTreeState('cutNode', { node: null, level: '' });
-        if (onActionCompletes) {
-          onActionCompletes('cut', updatedTree, cutNode, config.node);
-        }
-      }
-    } else if (action === 'toggle-node') {
-      updateTree(updateTreeNode(treeInfo, config.node, config.level));
-      if (onToggleNode) {
-        onToggleNode(config.node);
-      }
-    } else if (action === 'node-update') {
-      updateTree(updateTreeNode(treeInfo, config.node, config.level));
-      if (onActionCompletes) {
-        onActionCompletes('custom-action', treeInfo, config.node);
-      }
-    } else if (action === 'edit') {
-      let flag = await onRenamingNode(config.node);
-      if (flag) {
-        const updatedTree = updateTreeNode(treeInfo, config.node, config.level);
-        updateTree(updatedTree);
-        if (onActionCompletes) {
-          onActionCompletes(action, updatedTree, config.node);
-        }
-      }
-
-      return flag;
-    } else if (action === 'move-node') {
-      let flag = onMoveNode ? await onMoveNode(draggedNode, config.node) : true;
-      if (flag) {
-        let dropNodeArray = config.dropNode.split('-');
-        const dropNodeIndex = parseInt(dropNodeArray.splice(-1));
-        if (dropNodeArray.length === 0) {
-          dropNodeArray = null;
-        } else {
-          dropNodeArray = dropNodeArray.join('-');
-        }
-        const updatedTree = updateNodePosition(
-          treeInfo,
-          config.draggedNode,
-          dropNodeArray,
-          dropNodeIndex
-        );
-        updateTree(updatedTree);
-        if (onActionCompletes) {
-          onActionCompletes('drop', updatedTree, draggedNode, config.node);
-        }
-      }
+  useEffect(() => {
+    if (overflowOnHover) {
+      dispatch({ type: 'SET_OVERFLOW_ON_HOVER' });
     }
-  };
+  }, [overflowOnHover]);
 
-  const configuration = { ...defaultConfig, ...config };
+  useEffect(() => {
+    if (type) {
+      dispatch({ type: 'SET_TREE_VIEW_TYPE', data: type });
+    }
+  }, [type]);
+
+  useEffect(() => {
+    if (draggable && draggable !== 'none') {
+      dispatch({ type: 'SET_DRAGGABLE', data: draggable });
+    }
+  }, [draggable]);
+
   const classnames = `${prefix}-tree ${className.trim()}`;
   return (
     <ul role="tree" className={classnames}>
-      {treeInfo.map((node, index) => {
-        return (
-          <TreeNode
-            node={node}
-            key={`index-${index}`}
-            expandedIcon={expandedIcon}
-            collapsedIcon={collapsedIcon}
-            iconClass={iconClass}
-            dragRules={dragRules}
-            isMoveNodeAllowed={isMoveNodeAllowedMain}
-            isCopyAllowed={isCopyAllowedMain}
-            draggedNode={draggedNode}
-            draggedNodeLevel={draggedNodeLevel}
-            level={index + ''}
-            parentNode={null}
-            onSelectNode={type === 'single' ? onSelectNode : null}
-            selectedNode={type === 'single' ? selectedNode : null}
-            configuration={configuration}
-            overflowOnHover={overflowOnHover}
-            onOverflowAction={onOverflowAction}
-            copiedNode={copiedNode}
-            cutNode={cutNode}
-            getOverFlowItems={getOverFlowItems}
-            cutNodeLevel={cutNodeLevel}
-            updateTreeDataBasedOnAction={updateTreeDataBasedOnAction}
-            updateTreeState={updateTreeState}
-          />
-        );
-      })}
+      <TreeDispatchContext.Provider value={dispatch}>
+        <TreeStateContext.Provider value={state}>
+          <TreeFunctionContext.Provider
+            value={{
+              onChange: onChange,
+              onToggle: onToggle,
+              onDeleteNode: onDeleteNode,
+              onCopyNode: onCopyNode,
+              onMoveNode: onMoveNode,
+              onActionCompletes: onActionCompletes,
+              onOverflowAction: onOverflowAction,
+              onRenamingNode: onRenamingNode,
+              isCopyAllowed: isCopyAllowed,
+              isMoveNodeAllowed: isMoveNodeAllowed,
+              isDropAllowed: isDropAllowed,
+              getOverFlowItems: getOverFlowItems,
+              customTemplate: customTemplate,
+              customActionTemplate: customActionTemplate,
+              customNodeTemplate: customNodeTemplate,
+              getIcons: getIcons,
+              onDragStart: onDragStart,
+              onDragOver: onDragOver,
+              onDragEnter: onDragEnter,
+              onDragLeave: onDragLeave,
+              onDrop: onDrop,
+              onDragEnd: onDragEnd,
+              onDoubleClick: onDoubleClick,
+              onKeyDown: onKeyDown,
+              onClick: onClick,
+              isDraggable: isDraggable
+            }}
+          >
+            {state.treeInfo.map((node, index) => {
+              return (
+                <TreeNode
+                  node={node}
+                  key={`index-${index}`}
+                  level={index + ''}
+                  parentNode={null}
+                />
+              );
+            })}
+          </TreeFunctionContext.Provider>
+        </TreeStateContext.Provider>
+      </TreeDispatchContext.Provider>
     </ul>
   );
 };
@@ -224,9 +205,9 @@ TreeView.propTypes = {
   /** Used to set selected node */
   nodeSelected: PropTypes.any,
   /** To Specify Expand Icon */
-  expandedIcon: PropTypes.string,
+  expandedIcon: PropTypes.node,
   /** To Specify Collapsed Icon */
-  collapsedIcon: PropTypes.string,
+  collapsedIcon: PropTypes.node,
   /** Style class of the component */
   className: PropTypes.string,
   /** used to display overflow menu on hover  */
@@ -278,7 +259,40 @@ TreeView.propTypes = {
   /** Callback function on pasting node  */
   onCopyNode: PropTypes.func,
   /** Callback function after completing the overflow action  */
-  onActionCompletes: PropTypes.func
+  onActionCompletes: PropTypes.func,
+  /** Array of objects which stores the expanded node list */
+  expandedNodes: PropTypes.object,
+  /** Callback function used to pass custom template */
+  customTemplate: PropTypes.func,
+  /** Callback function used to pass custom template which will place in the right end of the node */
+  customActionTemplate: PropTypes.func,
+  /** Callback function used to pass custom template for node content */
+  customNodeTemplate: PropTypes.func,
+  draggable: PropTypes.oneOf(['none', 'internal', 'external']),
+  /** Callback function to add custom drag start function */
+  onDragStart: PropTypes.func,
+  /** Callback function to add custom drag over function */
+  onDragOver: PropTypes.func,
+  /** Callback function to add custom drag enter function */
+  onDragEnter: PropTypes.func,
+  /** Callback function to add custom drag leave function */
+  onDragLeave: PropTypes.func,
+  /** Callback function to add custom drop function */
+  onDrop: PropTypes.func,
+  /** Callback function to add custom drag end function */
+  onDragEnd: PropTypes.func,
+  /** Callback function to add double click function */
+  onDoubleClick: PropTypes.func,
+  /** Callback function to add keydown function */
+  onKeyDown: PropTypes.func,
+  /** Callback function to add on click function */
+  onClick: PropTypes.func,
+  /** Callback function is used to validate the drop region on drag and drop */
+  isDropAllowed: PropTypes.func,
+  /** Callback function is used to provide custom icon for node */
+  getIcons: PropTypes.func,
+  /** Callback function is used to define whether the node is draggable */
+  isDraggable: PropTypes.func
 };
 
 TreeView.defaultProps = {
@@ -290,8 +304,8 @@ TreeView.defaultProps = {
   isMoveNodeAllowed: null,
   isCopyAllowed: null,
   onRenamingNode: null,
-  expandedIcon: 'caret caret-down',
-  collapsedIcon: 'caret',
+  expandedIcon: null,
+  collapsedIcon: null,
   className: '',
   type: 'default',
   config: {},
@@ -302,7 +316,25 @@ TreeView.defaultProps = {
   onCopyNode: null,
   onDeleteNode: null,
   onActionCompletes: null,
-  overflowOnHover: false
+  overflowOnHover: false,
+
+  expandedNodes: null,
+  customTemplate: null,
+  customActionTemplate: null,
+  customNodeTemplate: null,
+  draggable: 'none',
+  onDragStart: null,
+  onDragOver: null,
+  onDragEnter: null,
+  onDragLeave: null,
+  onDrop: null,
+  onDragEnd: null,
+  onDoubleClick: null,
+  onKeyDown: null,
+  onClick: null,
+  isDropAllowed: null,
+  getIcons: null,
+  isDraggable: null
 };
 
 export default TreeView;

@@ -4,362 +4,48 @@ import { object, boolean } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 //@update-path-build-start
 import TreeView from './TreeView';
+import Notification from '../Notification';
+import TreeNodeTemplate from './TreeNodeTemplate';
+import Checkbox from '../Checkbox';
 //@update-path-build-end
 
-const treeData = [
-  {
-    children: [
-      {
-        children: [
-          {
-            children: [],
-            name: 'Sub Section 1.1.1',
-            displayChildren: false
-          },
-          {
-            children: [],
-            name: 'Sub Section 1.1.2',
-            displayChildren: false
-          }
-        ],
-        name: 'Sub Section 1.1',
-        displayChildren: false
-      },
-      {
-        children: [],
-        name: 'Sub Section 1.2',
-        displayChildren: false
-      }
-    ],
-    name: 'Section 1',
-    displayChildren: false
-  },
-  {
-    children: [
-      {
-        children: [
-          {
-            children: [],
-            name: 'Sub Section 2.1.1',
-            displayChildren: false
-          },
-          {
-            children: [],
-            name: 'Sub Section 2.1.2',
-            displayChildren: false
-          }
-        ],
-        name: 'Sub Section 2.1',
-        displayChildren: false
-      },
-      {
-        children: [
-          {
-            children: [
-              {
-                children: [],
-                name: 'Sub Section 2.2.1.1',
-                displayChildren: false
-              },
-              {
-                children: [],
-                name: 'Sub Section 2.2.1.2',
-                displayChildren: false
-              }
-            ],
-            name: 'Sub Section 2.2.1',
-            displayChildren: false
-          },
-          {
-            children: [],
-            name: 'Sub Section 2.2.2',
-            displayChildren: false
-          }
-        ],
-        name: 'Sub Section 2.2',
-        displayChildren: false
-      }
-    ],
-    name: 'Section 2',
-    displayChildren: false
-  },
-  {
-    children: [],
-    name: 'Section 3',
-    displayChildren: false
-  }
-];
+const getCustomTree = () => {
+  let treeData = [];
+  for (let i = 0; i < 5; i++) {
+    let maintreeObj = {
+      name: 'Tree 1 Name ' + i,
+      type: 'folder',
+      key: `node-${i}`
+    };
+    maintreeObj.children = [];
+    for (let j = 0; j < 3; j++) {
+      let childtreeObj = {
+        name: 'Tree 1 Child Name ' + i + '-' + j,
+        type: 'folder',
+        key: `node-${i}-${j}`
+      };
+      childtreeObj.children = [];
+      for (let k = 0; k < 2; k++) {
+        let grandChild = {
+          name: 'Tree 1 Grand Child Name ' + i + '-' + j + '-' + k,
+          type: 'file',
+          key: `node-${i}-${j}-${k}`
+        };
 
-const treeDataWithIcon = [
-  {
-    name: 'Main',
-    displayChildren: true,
-    type: 'folder',
-    expandIcon: 'p-hclsw p-hclsw-export',
-    collapsedIcon: 'p-hclsw p-hclsw-folder',
-    action: [],
-    children: [
-      {
-        name: '1',
-        displayChildren: false,
-        type: 'folder',
-        expandIcon: 'p-hclsw p-hclsw-export',
-        collapsedIcon: 'p-hclsw p-hclsw-folder',
-        children: []
-      },
-      {
-        name: '2',
-        displayChildren: false,
-        type: 'file',
-        icon: 'p-hclsw p-hclsw-document',
-        children: []
-      },
-      {
-        name: '3',
-        displayChildren: false,
-        type: 'file',
-        icon: 'p-hclsw p-hclsw-document',
-        children: []
-      },
-      {
-        name: '4',
-        displayChildren: false,
-        type: 'file',
-        icon: 'p-hclsw p-hclsw-document',
-        children: []
+        childtreeObj.children.push(grandChild);
       }
-    ]
-  },
-  {
-    name: 'Folder 2',
-    displayChildren: false,
-    type: 'folder',
-    expandIcon: 'p-hclsw p-hclsw-export',
-    collapsedIcon: 'p-hclsw p-hclsw-folder',
-    children: [
-      {
-        name: 'Folder 2.1',
-        displayChildren: false,
-        type: 'folder',
-        expandIcon: 'p-hclsw p-hclsw-export',
-        collapsedIcon: 'p-hclsw p-hclsw-folder',
-        children: [
-          {
-            name: 'File 2.1.1',
-            displayChildren: false,
-            type: 'file',
-            icon: 'p-hclsw p-hclsw-document',
-            children: []
-          },
-          {
-            name: 'Folder 2.1.2',
-            displayChildren: false,
-            type: 'folder',
-            expandIcon: 'p-hclsw p-hclsw-export',
-            collapsedIcon: 'p-hclsw p-hclsw-folder',
-            children: []
-          }
-        ]
-      },
-      {
-        name: 'Folder 2.2',
-        displayChildren: false,
-        type: 'folder',
-        expandIcon: 'p-hclsw p-hclsw-export',
-        collapsedIcon: 'p-hclsw p-hclsw-folder',
-        children: [
-          {
-            name: 'Folder 2.2.1',
-            displayChildren: false,
-            type: 'folder',
-            expandIcon: 'p-hclsw p-hclsw-export',
-            collapsedIcon: 'p-hclsw p-hclsw-folder',
-            children: [
-              {
-                name: 'File 2.2.1.1',
-                displayChildren: false,
-                type: 'file',
-                icon: 'p-hclsw p-hclsw-document',
-                children: []
-              },
-              {
-                name: 'File 2.2.1.2',
-                displayChildren: false,
-                type: 'file',
-                icon: 'p-hclsw p-hclsw-document',
-                children: []
-              }
-            ]
-          },
-          {
-            name: 'File 2.2.2',
-            displayChildren: false,
-            type: 'file',
-            icon: 'p-hclsw p-hclsw-document',
-            children: []
-          }
-        ]
-      }
-    ]
-  },
-  {
-    name: 'File 3',
-    displayChildren: false,
-    type: 'file',
-    icon: 'p-hclsw p-hclsw-document',
-    children: []
-  }
-];
+      maintreeObj.children.push(childtreeObj);
+    }
 
-const treeDataWithDragandDropOverflow = [
-  {
-    name: 'Main',
-    displayChildren: true,
-    type: 'folder',
-    expandIcon: 'p-hclsw p-hclsw-export',
-    collapsedIcon: 'p-hclsw p-hclsw-folder',
-    draggable: true,
-    action: [],
-    children: [
-      {
-        name: 'Folder 1',
-        displayChildren: false,
-        type: 'folder',
-        draggable: true,
-        expandIcon: 'p-hclsw p-hclsw-export',
-        collapsedIcon: 'p-hclsw p-hclsw-folder',
-        children: []
-      },
-      {
-        name: 'File 2',
-        displayChildren: false,
-        type: 'file',
-        draggable: true,
-        icon: 'p-hclsw p-hclsw-document',
-        children: []
-      },
-      {
-        name: 'File 3',
-        displayChildren: false,
-        type: 'file',
-        draggable: true,
-        icon: 'p-hclsw p-hclsw-document',
-        children: []
-      },
-      {
-        name: 'File 4',
-        displayChildren: false,
-        type: 'file',
-        draggable: true,
-        icon: 'p-hclsw p-hclsw-document',
-        children: []
-      }
-    ]
-  },
-  {
-    name: 'Folder 2',
-    displayChildren: false,
-    type: 'folder',
-    draggable: true,
-    expandIcon: 'p-hclsw p-hclsw-export',
-    collapsedIcon: 'p-hclsw p-hclsw-folder',
-    children: [
-      {
-        name: 'Folder 2.1',
-        displayChildren: false,
-        type: 'folder',
-        draggable: true,
-        expandIcon: 'p-hclsw p-hclsw-export',
-        collapsedIcon: 'p-hclsw p-hclsw-folder',
-        children: [
-          {
-            name: 'File 2.1.1',
-            displayChildren: false,
-            type: 'file',
-            draggable: true,
-            icon: 'p-hclsw p-hclsw-document',
-            children: []
-          },
-          {
-            name: 'Folder 2.1.2',
-            displayChildren: false,
-            type: 'folder',
-            draggable: true,
-            expandIcon: 'p-hclsw p-hclsw-export',
-            collapsedIcon: 'p-hclsw p-hclsw-folder',
-            children: []
-          }
-        ]
-      },
-      {
-        name: 'Folder 2.2',
-        displayChildren: false,
-        type: 'folder',
-        draggable: true,
-        expandIcon: 'p-hclsw p-hclsw-export',
-        collapsedIcon: 'p-hclsw p-hclsw-folder',
-        children: [
-          {
-            name: 'Folder 2.2.1',
-            displayChildren: false,
-            type: 'folder',
-            draggable: true,
-            expandIcon: 'p-hclsw p-hclsw-export',
-            collapsedIcon: 'p-hclsw p-hclsw-folder',
-            children: [
-              {
-                name: 'File 2.2.1.1',
-                displayChildren: false,
-                type: 'file',
-                draggable: true,
-                icon: 'p-hclsw p-hclsw-document',
-                children: []
-              },
-              {
-                name: 'File 2.2.1.2',
-                displayChildren: false,
-                type: 'file',
-                draggable: true,
-                icon: 'p-hclsw p-hclsw-document',
-                children: []
-              }
-            ]
-          },
-          {
-            name: 'File 2.2.2',
-            displayChildren: false,
-            type: 'file',
-            draggable: true,
-            icon: 'p-hclsw p-hclsw-document',
-            children: []
-          }
-        ]
-      }
-    ]
-  },
-  {
-    name: 'File 8',
-    displayChildren: false,
-    type: 'file',
-    draggable: true,
-    icon: 'p-hclsw p-hclsw-document',
-    children: []
+    treeData.push(maintreeObj);
   }
-];
 
-const timeout = ms => {
-  const p1 = new Promise(resolve => setTimeout(resolve, ms));
-  return p1
-    .then(function () {
-      return true;
-    })
-    .catch(
-      // Log the rejection reason
-      () => {
-        return false;
-      }
-    );
+  console.log(treeData);
+
+  return treeData;
 };
+
+const treeData = getCustomTree();
 
 storiesOf('Tree', module)
   .add('default', () => <TreeView treeData={object('Tree Data', treeData)} />, {
@@ -388,8 +74,35 @@ storiesOf('Tree', module)
     'with icon',
     () => (
       <TreeView
-        treeData={object('Tree Data', treeDataWithIcon)}
+        treeData={object('Tree Data', treeData)}
         type="single"
+        iconClass={[
+          {
+            condition: [
+              {
+                operator: 'type',
+                operand: '=',
+                value: 'folder'
+              }
+            ],
+            values: {
+              expandIcon: <i className="p-hclsw p-hclsw-export" />,
+              collapsedIcon: <i className="p-hclsw p-hclsw-folder" />
+            }
+          },
+          {
+            condition: [
+              {
+                operator: 'type',
+                operand: '=',
+                value: 'file'
+              }
+            ],
+            values: {
+              icon: <i className="p-hclsw p-hclsw-document" />
+            }
+          }
+        ]}
       />
     ),
     {
@@ -406,17 +119,65 @@ storiesOf('Tree', module)
     'with Drag&Drop',
     () => (
       <TreeView
-        isMoveNodeAllowed={(dragModel, dropModel) => {
-          if (dragModel.type === 'file' && dropModel.type === 'folder') {
-            return true;
-          } else if (
-            dragModel.type === 'folder' &&
-            dropModel.type === 'folder'
-          ) {
-            return true;
+        dragRules={[
+          {
+            condition: [
+              {
+                operator: 'type',
+                operand: '=',
+                value: 'folder'
+              }
+            ]
+          },
+          {
+            condition: [
+              {
+                operator: 'type',
+                operand: '=',
+                value: 'file'
+              }
+            ]
           }
-          return false;
+        ]}
+        isDropAllowed={(dragModel, dropModel, parentNode, treeData) => {
+          let canDropInsideDropModel = false;
+          let canDropInsideParentModel = false;
+
+          if (dropModel.type === 'folder') {
+            canDropInsideDropModel = true;
+          }
+
+          if (
+            parentNode === undefined ||
+            parentNode === null ||
+            parentNode.type === 'folder'
+          ) {
+            canDropInsideParentModel = true;
+          }
+          return [canDropInsideDropModel, canDropInsideParentModel];
         }}
+        treeData={treeData}
+        draggable="internal"
+        onActionCompletes={action('on overflow action change')}
+        type="single"
+        onChange={action('on change')}
+        onToggle={action('on toggle')}
+      />
+    ),
+    {
+      info: {
+        text: `Description About TreeView Component \n
+        
+        import { TreeView } from '@patron/patron-react/treeview';
+        
+        `
+      }
+    }
+  )
+  .add(
+    'with Overflow Menu',
+    () => (
+      <TreeView
         isCopyAllowed={(dragModel, dropModel) => {
           if (dragModel.type === 'file' && dropModel.type === 'folder') {
             return true;
@@ -428,7 +189,7 @@ storiesOf('Tree', module)
           }
           return false;
         }}
-        treeData={treeDataWithDragandDropOverflow}
+        treeData={treeData}
         getOverFlowItems={model => {
           let common = [
             {
@@ -468,15 +229,62 @@ storiesOf('Tree', module)
         onOverflowAction={action('on overflow action')}
         onActionCompletes={action('on overflow action change')}
         onDeleteNode={async () => {
-          return await timeout(3000);
+          return true;
         }}
-        onRenamingNode={async () => {
-          return await timeout(3000);
+        isMoveNodeAllowed={(dragModel, dropModel, parentNode, treeData) => {
+          let canDropInsideDropModel = false;
+
+          if (dropModel.type === 'folder') {
+            canDropInsideDropModel = true;
+          }
+
+          return canDropInsideDropModel;
+        }}
+        onRenamingNode={async value => {
+          if (value.name.length > 2) {
+            return [true];
+          } else {
+            return [
+              false,
+              // eslint-disable-next-line react/jsx-key
+              <Notification
+                //subtitle={errorMessage}
+                closable={false}
+                title="Please Enter minimum 3 character"
+                type="warning"
+                visible
+              />
+            ];
+          }
         }}
         overflowOnHover={boolean('OverflowOnHover', false)}
         type="single"
         onChange={action('on change')}
         onToggle={action('on toggle')}
+      />
+    ),
+    {
+      info: {
+        text: `Description About TreeView Component \n
+        
+        import { TreeView } from '@patron/patron-react/treeview';
+        
+        `
+      }
+    }
+  )
+  .add(
+    'with custom template',
+    () => (
+      <TreeView
+        treeData={object('Tree Data', treeData)}
+        customTemplate={node => {
+          return (
+            <TreeNodeTemplate>
+              <Checkbox id={node.key} label={`${node.name}`} value={node.key} />
+            </TreeNodeTemplate>
+          );
+        }}
       />
     ),
     {

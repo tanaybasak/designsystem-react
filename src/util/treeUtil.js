@@ -25,8 +25,7 @@ export const findLastVisibleChildren = nodeElement => {
   }
 };
 
-export const updateTreeNode = (tree, node, level) => {
-  //let treeData = JSON.parse(JSON.stringify(tree));
+export const updateTreeNode = (tree, node, level, configuration) => {
   let treeData = [...tree];
   let levelArray = level.split('-');
 
@@ -36,108 +35,13 @@ export const updateTreeNode = (tree, node, level) => {
     let model = treeData[parseInt(levelArray.splice(0, 1))];
     levelArray.map((arrayNumber, index) => {
       if (levelArray.length === index + 1) {
-        model.children[parseInt(arrayNumber)] = node;
+        model[configuration['children']][parseInt(arrayNumber)] = node;
       } else {
-        model = model.children[parseInt(arrayNumber)];
+        model = model[configuration['children']][parseInt(arrayNumber)];
       }
     });
   }
 
-  return treeData;
-};
-
-export const moveTreeNodeToChildren = (tree, dragLevel, dropLevel) => {
-  //let treeData = JSON.parse(JSON.stringify(tree));
-  let treeData = [...tree];
-  let draggedNodeArray = dragLevel.split('-');
-  let dropNodeArry = dropLevel.split('-');
-
-  let dropModel = treeData[parseInt(dropNodeArry.splice(0, 1))];
-  dropNodeArry.map(arrayNumber => {
-    dropModel = dropModel.children[parseInt(arrayNumber)];
-  });
-
-  const spliceIndex = parseInt(draggedNodeArray.splice(0, 1));
-  let model = treeData[spliceIndex];
-  if (draggedNodeArray.length > 0) {
-    draggedNodeArray.map((arrayNumber, index) => {
-      if (draggedNodeArray.length - 1 === index) {
-        let requestedModel = model.children[parseInt(arrayNumber)];
-        model.children.splice(parseInt(arrayNumber), 1);
-        model = requestedModel;
-      } else {
-        model = model.children[parseInt(arrayNumber)];
-      }
-    });
-  } else {
-    treeData.splice(spliceIndex, 1);
-  }
-
-  if (!dropModel.children) {
-    dropModel.children = [];
-  }
-  dropModel.children.push(model);
-
-  return treeData;
-};
-
-const compareVersion = (v1, v2) => {
-  if (typeof v1 !== 'string') return false;
-  if (typeof v2 !== 'string') return false;
-  v1 = v1.split('-');
-  v2 = v2.split('-');
-  const k = Math.min(v1.length, v2.length);
-  for (let i = 0; i < k; ++i) {
-    v1[i] = parseInt(v1[i], 10);
-    v2[i] = parseInt(v2[i], 10);
-    if (v1[i] > v2[i]) return 1;
-    if (v1[i] < v2[i]) return -1;
-  }
-  return v1.length == v2.length ? 0 : v1.length < v2.length ? -1 : 1;
-};
-export const moveTreeNode = (tree, dragLevel, dropLevel) => {
-  const levelCompare = compareVersion(dragLevel, dropLevel);
-  //let treeData = JSON.parse(JSON.stringify(tree));
-  let treeData = [...tree];
-  let draggedNodeArray = dragLevel.split('-');
-  let dropNodeArry = dropLevel.split('-');
-  let dropModel = treeData;
-  let dropModelIndex = parseInt(dropNodeArry.splice(-1, 1));
-  if (dropNodeArry.length !== 0) {
-    dropModel = treeData[parseInt(dropNodeArry.splice(0, 1))];
-    dropNodeArry.map(arrayNumber => {
-      dropModel = dropModel.children[parseInt(arrayNumber)];
-    });
-  }
-  const spliceIndex = parseInt(draggedNodeArray.splice(0, 1));
-  let model = treeData[spliceIndex];
-  if (draggedNodeArray.length > 0) {
-    draggedNodeArray.map((arrayNumber, index) => {
-      if (draggedNodeArray.length - 1 === index) {
-        let requestedModel = model.children[parseInt(arrayNumber)];
-        model.children.splice(parseInt(arrayNumber), 1);
-        model = requestedModel;
-      } else {
-        model = model.children[parseInt(arrayNumber)];
-      }
-    });
-  } else {
-    treeData.splice(spliceIndex, 1);
-  }
-  if (Array.isArray(dropModel)) {
-    if (levelCompare === -1) {
-      dropModelIndex = dropModelIndex - 1;
-    }
-    dropModel.splice(dropModelIndex, 0, model);
-  } else {
-    if (!dropModel.children) {
-      dropModel.children = [];
-    }
-    if (levelCompare === -1) {
-      dropModelIndex = dropModelIndex - 1;
-    }
-    dropModel.children.splice(dropModelIndex, 0, model);
-  }
   return treeData;
 };
 
@@ -170,9 +74,9 @@ export const updateNodePosition = (
   tree,
   dragLevel,
   dropLevel,
-  dropModelIndex
+  dropModelIndex,
+  configuration
 ) => {
-  //let treeData = JSON.parse(JSON.stringify(tree));
   let treeData = [...tree];
   let draggedNodeArray = dragLevel.split('-');
   let dropNodeArry = [];
@@ -183,7 +87,7 @@ export const updateNodePosition = (
 
     dropModel = treeData[parseInt(dropNodeArry.splice(0, 1))];
     dropNodeArry.map(arrayNumber => {
-      dropModel = dropModel.children[parseInt(arrayNumber)];
+      dropModel = dropModel[configuration['children']][parseInt(arrayNumber)];
     });
   }
 
@@ -191,7 +95,7 @@ export const updateNodePosition = (
     if (Array.isArray(dropModel)) {
       dropModelIndex = dropModel.length;
     } else {
-      dropModelIndex = dropModel.children.length;
+      dropModelIndex = dropModel[configuration['children']].length;
     }
   }
 
@@ -200,7 +104,7 @@ export const updateNodePosition = (
   if (draggedNodeArray.length > 0) {
     dragModel = treeData[parseInt(draggedNodeArray.splice(0, 1))];
     draggedNodeArray.map(arrayNumber => {
-      dragModel = dragModel.children[parseInt(arrayNumber)];
+      dragModel = dragModel[configuration['children']][parseInt(arrayNumber)];
     });
   }
 
@@ -208,23 +112,38 @@ export const updateNodePosition = (
     if (Array.isArray(dragModel)) {
       moveElementInArray(dragModel, dragModelIndex, dropModelIndex);
     } else {
-      moveElementInArray(dragModel.children, dragModelIndex, dropModelIndex);
+      moveElementInArray(
+        dragModel[configuration['children']],
+        dragModelIndex,
+        dropModelIndex
+      );
     }
   } else {
     if (Array.isArray(dropModel)) {
-      dropModel.splice(dropModelIndex, 0, dragModel.children[dragModelIndex]);
-      dragModel.children.splice(dragModelIndex, 1);
+      dropModel.splice(
+        dropModelIndex,
+        0,
+        dragModel[configuration['children']][dragModelIndex]
+      );
+      dragModel[configuration['children']].splice(dragModelIndex, 1);
     } else {
       if (Array.isArray(dragModel)) {
-        dropModel.children.splice(dropModelIndex, 0, dragModel[dragModelIndex]);
-        dragModel.splice(dragModelIndex, 1);
-      } else {
-        dropModel.children.splice(
+        dropModel[configuration['children']].splice(
           dropModelIndex,
           0,
-          dragModel.children[dragModelIndex]
+          dragModel[dragModelIndex]
         );
-        dragModel.children.splice(dragModelIndex, 1);
+        dragModel.splice(dragModelIndex, 1);
+      } else {
+        if (!dropModel[configuration['children']]) {
+          dropModel[configuration['children']] = [];
+        }
+        dropModel[configuration['children']].splice(
+          dropModelIndex,
+          0,
+          dragModel[configuration['children']][dragModelIndex]
+        );
+        dragModel[configuration['children']].splice(dragModelIndex, 1);
       }
     }
   }
@@ -238,7 +157,7 @@ export const isInSameLevel = (level1, level2) => {
   );
 };
 
-export const deleteNode = (tree, level) => {
+export const deleteNode = (tree, level, configuration) => {
   let deleteLevel = level.split('-');
   let tempTreeInfo = [...tree];
   if (deleteLevel.length === 1) {
@@ -247,30 +166,64 @@ export const deleteNode = (tree, level) => {
     let model = tempTreeInfo[parseInt(deleteLevel.splice(0, 1))];
     deleteLevel.map((arrayNumber, index) => {
       if (deleteLevel.length === index + 1) {
-        model.children.splice(parseInt(arrayNumber), 1);
+        model[configuration['children']].splice(parseInt(arrayNumber), 1);
       } else {
-        model = model.children[parseInt(arrayNumber)];
+        model = model[configuration['children']][parseInt(arrayNumber)];
       }
     });
   }
   return tempTreeInfo;
 };
 
-export const copyNode = (tree, level, node) => {
+export const copyNode = (tree, level, node, configuration) => {
   let pasteNodeLevel = level.split('-');
   let tempTreeInfo = [...tree];
 
   if (pasteNodeLevel.length === 1) {
-    tempTreeInfo[parseInt(pasteNodeLevel[0])].children.push(
-      JSON.parse(JSON.stringify(node))
+    tempTreeInfo[parseInt(pasteNodeLevel[0])][configuration['children']].push(
+      node
     );
   } else {
     let model = tempTreeInfo[parseInt(pasteNodeLevel.splice(0, 1))];
     pasteNodeLevel.map(arrayNumber => {
-      model = model.children[parseInt(arrayNumber)];
+      model = model[configuration['children']][parseInt(arrayNumber)];
     });
 
-    model.children.push(JSON.parse(JSON.stringify(node)));
+    model[configuration['children']].push(node);
   }
   return tempTreeInfo;
+};
+
+export const getDropRegionPlaceholderFromNode = ev => {
+  const element = ev.currentTarget.getBoundingClientRect();
+  const height = element.height;
+  if (
+    ev.clientY >= element.y - 2 &&
+    ev.clientY < element.y + (height * 3) / 10
+  ) {
+    return 'top';
+  } else if (
+    ev.clientY >= element.y + (height * 3) / 10 &&
+    ev.clientY <= element.y + (height * 7) / 10
+  ) {
+    return 'middle';
+  } else if (
+    ev.clientY > element.y + (height * 7) / 10 &&
+    ev.clientY <= element.y + height
+  ) {
+    return 'bottom';
+  }
+};
+
+export const getDropRegionPlaceholderOutsideNode = ev => {
+  const element = ev.currentTarget.getBoundingClientRect();
+  const height = element.height;
+  if (ev.clientY >= element.y - 1 && ev.clientY <= element.y + height / 2) {
+    return 'top';
+  } else if (
+    ev.clientY > element.y + height / 2 &&
+    ev.clientY <= element.y + height
+  ) {
+    return 'bottom';
+  }
 };
