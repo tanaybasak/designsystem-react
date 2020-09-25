@@ -120,9 +120,23 @@ const Overflowmenu = ({
   };
 
   const getListItemsFromElement = children => {
-    return children.map((item, index) => {
-      return React.cloneElement(item, {
-        key: `list-index${index}`,
+    if (Array.isArray(children)) {
+      return children.map((item, index) => {
+        return React.cloneElement(item, {
+          key: `list-index${index}`,
+          onClick: (item, event) => {
+            changeDisplay(false);
+            if (onClick) {
+              onClick(item, event);
+            }
+            if (targetElementRef && targetElementRef.current) {
+              targetElementRef.current.focus();
+            }
+          }
+        });
+      });
+    } else {
+      return React.cloneElement(children, {
         onClick: (item, event) => {
           changeDisplay(false);
           if (onClick) {
@@ -133,7 +147,7 @@ const Overflowmenu = ({
           }
         }
       });
-    });
+    }
   };
 
   const onToggle = (status, type) => {
