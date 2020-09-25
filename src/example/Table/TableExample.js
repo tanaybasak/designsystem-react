@@ -19,7 +19,7 @@ class TableExample extends Component {
         },
 
         width: '40px',
-        pinned: 'left'
+        // pinned: 'left'
       },
       {
         label: 'ID',
@@ -42,12 +42,12 @@ class TableExample extends Component {
         ),
         allowResize: true,
         width: '160px',
-        pinned: 'left'
+        // pinned: 'left'
       },
 
       {
         label: 'Avatar',
-        pinned: 'left',
+        // pinned: 'left',
         allowResize: true,
         renderHtml: model => {
           return (
@@ -64,7 +64,7 @@ class TableExample extends Component {
         label: 'Full Name',
         field: 'name',
         sortable: true,
-        pinned: 'left',
+        // pinned: 'left',
         // renderHtml: model => {
         //     return (
         //       <span>{model.name} {model.name} {model.name} {model.name}{model.name} {model.name} {model.name} {model.name} {model.name} {model.name}</span>
@@ -124,7 +124,7 @@ class TableExample extends Component {
         label: 'Issues Count',
         field: 'open_issues_count',
         width: '420px',
-        pinned: 'right'
+        // pinned: 'right'
       },
       {
         field: 'overflow',
@@ -436,7 +436,6 @@ class TableExample extends Component {
               id="sample_table"
               tableData={this.state.displayData}
               tableConfig={this.state.tableConfig}
-              stickyHeaderMain={false}
               // expandRowTemplate={() => {
               //   return (<Paragraph>
               //     available, but the majority have suffered alteration
