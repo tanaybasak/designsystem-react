@@ -24,7 +24,8 @@ const initialState = {
     name: 'name',
     hasChildren: 'hasChildren',
     draggable: 'draggable',
-    key: 'key'
+    key: 'key',
+    externalExpandNode: false
   },
   expandedIcon: null,
   collapsedIcon: null,
@@ -222,7 +223,8 @@ TreeView.propTypes = {
    *    name: 'name',
    *    hasChildren: 'hasChildren',
    *    draggable: 'draggable',
-   *    key: 'key'
+   *    key: 'key',
+   *    externalExpandNode:false // if true, tree component will used expandedNodes props to store expanded nodes
    * }
    */
   config: PropTypes.object,

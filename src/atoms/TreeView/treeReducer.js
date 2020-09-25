@@ -1,3 +1,5 @@
+import { updateTreeNode } from '../../util/treeUtil';
+
 export const treeReducer = (state, action) => {
   switch (action.type) {
     case 'SET_TREE_DATA': {
@@ -92,29 +94,74 @@ export const treeReducer = (state, action) => {
       };
     }
     case 'TOGGLE_NODE_STATUS': {
-      const expandedNodes = { ...state.expandedNodes };
-      if (expandedNodes[action.key]) {
-        delete expandedNodes[action.key];
+      if (state.configuration['externalExpandNode']) {
+        const expandedNodes = { ...state.expandedNodes };
+        const nodeKey = action.data.node[state.configuration['key']];
+        if (expandedNodes[nodeKey]) {
+          delete expandedNodes[nodeKey];
+        } else {
+          expandedNodes[nodeKey] = true;
+        }
+        return {
+          ...state,
+          expandedNodes: expandedNodes
+        };
       } else {
-        expandedNodes[action.key] = true;
+        const node = { ...action.data.node };
+        node[state.configuration['displayChildren']] = !node[
+          state.configuration['displayChildren']
+        ];
+        const updatedTree = updateTreeNode(
+          state.treeInfo,
+          node,
+          action.data.level,
+          state.configuration
+        );
+
+        return {
+          ...state,
+          treeInfo: updatedTree
+        };
       }
-      return {
-        ...state,
-        expandedNodes: expandedNodes
-      };
     }
     case 'TOGGLE_NODE_STATUS_LAZY_LOAD': {
-      const expandedNodes = { ...state.expandedNodes };
-      if (expandedNodes[action.key]) {
-        delete expandedNodes[action.key];
+      if (state.configuration['externalExpandNode']) {
+        const expandedNodes = { ...state.expandedNodes };
+        const nodeKey = action.data.node[state.configuration['key']];
+        if (expandedNodes[nodeKey]) {
+          delete expandedNodes[nodeKey];
+        } else {
+          expandedNodes[nodeKey] = true;
+        }
+
+        const updatedTree = updateTreeNode(
+          state.treeInfo,
+          action.data.node,
+          action.data.level,
+          state.configuration
+        );
+        return {
+          ...state,
+          expandedNodes: expandedNodes,
+          treeInfo: updatedTree
+        };
       } else {
-        expandedNodes[action.key] = true;
+        const node = { ...action.data.node };
+        node[state.configuration['displayChildren']] = !node[
+          state.configuration['displayChildren']
+        ];
+        const updatedTree = updateTreeNode(
+          state.treeInfo,
+          node,
+          action.data.level,
+          state.configuration
+        );
+
+        return {
+          ...state,
+          treeInfo: updatedTree
+        };
       }
-      return {
-        ...state,
-        expandedNodes: expandedNodes,
-        treeInfo: action.data
-      };
     }
     case 'SET_ICON_CLASS': {
       return {

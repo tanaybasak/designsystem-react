@@ -2,7 +2,7 @@
 
 exports[`Tooltip renders correctly 1`] = `
 <span
-  className={null}
+  className="hcl-def-tooltip"
   onBlur={[Function]}
   onClick={null}
   onFocus={[Function]}

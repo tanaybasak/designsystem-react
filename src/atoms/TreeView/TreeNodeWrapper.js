@@ -17,9 +17,7 @@ import {
   getDropRegionPlaceholderFromNode,
   getDropRegionPlaceholderOutsideNode,
   isInSameLevel,
-  updateNodePosition,
-  getConditionStatus,
-  updateTreeNode
+  updateNodePosition
 } from '../../util/treeUtil';
 import TreeNodeTemplate from './TreeNodeTemplate';
 import NodeIcon from './NodeIcon';
@@ -52,18 +50,14 @@ const TreeNodeWrapper = ({
     ) {
       draggable = node[configuration.draggable];
     } else if (state.dragRules) {
-      if (state.dragRules.operator) {
-        draggable = state.dragRules.values[node[state.dragRules.operator]];
+      if (state.dragRules.operator && node[state.dragRules.operator]) {
+        draggable =
+          state.dragRules.values[
+            node[state.dragRules.operator].replace(/ /g, '_')
+          ];
       } else {
         draggable = state.dragRules.values;
       }
-
-      //   state.dragRules.map(rule => {
-      //     const conditionStatus = getConditionStatus(rule.condition, node);
-      //     if (conditionStatus) {
-      //       draggable = true;
-      //     }
-      //   });
     } else if (callbackContext.isDraggable) {
       draggable = callbackContext.isDraggable(node);
     }
@@ -86,16 +80,12 @@ const TreeNodeWrapper = ({
         if (children && children.length > 0) {
           let nodeTemp = { ...node };
           nodeTemp[configuration.children] = children;
-          const updatedTree = updateTreeNode(
-            state.treeInfo,
-            nodeTemp,
-            level,
-            configuration
-          );
           dispatch({
             type: 'TOGGLE_NODE_STATUS_LAZY_LOAD',
-            key: node[configuration.key],
-            data: updatedTree
+            data: {
+              node: nodeTemp,
+              level: level
+            }
           });
           updateLoadingState(false);
         }
@@ -103,7 +93,7 @@ const TreeNodeWrapper = ({
     } else {
       dispatch({
         type: 'TOGGLE_NODE_STATUS',
-        key: node[configuration.key]
+        data: { node, level }
       });
       if (callbackContext.onToggle) {
         callbackContext.onToggle(node);
@@ -449,12 +439,16 @@ const TreeNodeWrapper = ({
     <div
       className={`${prefix}-tree-node${
         state.selectedNode &&
-        state.selectedNode[configuration.key] === node[configuration.key]
+        ((node[configuration.key] &&
+          state.selectedNode[configuration.key] === node[configuration.key]) ||
+          state.selectedNode === node)
           ? ` ${prefix}-node-highlight`
           : ''
       }${
-        state.cutNode &&
-        state.cutNode[configuration.key] === node[configuration.key]
+        (state.cutNode &&
+          node[configuration.key] &&
+          state.cutNode[configuration.key] === node[configuration.key]) ||
+        state.cutNode === node
           ? ` ghost`
           : ''
       }${hasChildren ? `` : ' no-children-exist'}`}

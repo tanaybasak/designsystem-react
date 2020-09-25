@@ -14,22 +14,30 @@ const getCustomTree = () => {
     let maintreeObj = {
       name: 'Tree 1 Name ' + i,
       type: 'folder',
-      id: `node-${i}`,
+      //draggableX:false,
+      //icon: 'p-hclsw p-hclsw-export',
+      //collapsedIcon:'p-hclsw p-hclsw-folder',
+      //id: `node-${i}`,
       hasChildren: true
     };
     maintreeObj.children = [];
     for (let j = 0; j < 2; j++) {
       let childtreeObj = {
         name: 'Tree 1 Child Name ' + i + '-' + j,
-        type: 'folder',
-        id: `node-${i}-${j}`
+        //draggableX:false,
+        //expandIcon: 'p-hclsw p-hclsw-export',
+        //collapsedIcon:'p-hclsw p-hclsw-folder',
+        type: 'folder'
+        //id: `node-${i}-${j}`
       };
       childtreeObj.children = [];
       for (let k = 0; k < 2; k++) {
         let grandChild = {
           name: 'Tree 1 Grand Child Name ' + i + '-' + j + '-' + k,
-          type: 'file',
-          id: `node-${i}-${j}-${k}`
+          type: 'file'
+          //draggableX:true,
+          //icon: 'p-hclsw p-hclsw-document',
+          //id: `node-${i}-${j}-${k}`
         };
 
         childtreeObj.children.push(grandChild);
@@ -54,11 +62,11 @@ class TreeExample extends Component {
     },
     treeData: getCustomTree(),
     selectedNode: {},
-    config: { key: 'id' },
+    // config: { key: 'id'},
 
     showModal: false,
     expandedNode: { 'node-0': true, 'node-0-1': true },
-    nodeSelected: { id: 'node-0-1-1' }
+    nodeSelected: null //{ id: 'node-0-1-1' }
   };
 
   getClonedModel = model => {
@@ -153,6 +161,29 @@ class TreeExample extends Component {
         <div className="hcl-row">
           <div className="hcl-col-4 mb-2">
             <TreeView
+              iconClass={{
+                operator: 'type',
+                values: {
+                  file: {
+                    icon: <i className="p-hclsw p-hclsw-document" />
+                  },
+                  folder: {
+                    icon: <i className="p-hclsw p-hclsw-folder" />
+                  }
+                }
+              }}
+              // getIcons={node => {
+              //   if (node.type === 'folder') {
+              //     return {
+              //       expandIcon: <i className="p-hclsw p-hclsw-export"></i>,
+              //       collapsedIcon: <i className="p-hclsw p-hclsw-folder"></i>
+              //     };
+              //   } else {
+              //     return {
+              //       icon: <i className="p-hclsw p-hclsw-document"></i>
+              //     };
+              //   }
+              // }}
               //   expandedIcon={<i className="p-hclsw p-hclsw-export"></i>}
               //   collapsedIcon={<i className="p-hclsw p-hclsw-add"></i>}
               //   dragRules={[
@@ -218,21 +249,19 @@ class TreeExample extends Component {
                 return false;
               }}
               treeData={this.state.treeData}
-              getIcons={node => {
-                if (node.type === 'folder') {
-                  return {
-                    expandIcon: <i className="p-hclsw p-hclsw-export"></i>,
-                    collapsedIcon: <i className="p-hclsw p-hclsw-folder"></i>
-                  };
-                } else {
-                  return {
-                    icon: <i className="p-hclsw p-hclsw-document"></i>
-                  };
-                }
-              }}
-              isDraggable={node => {
-                return node.type === 'folder' ? false : true;
-              }}
+              //   dragRules={{
+              //     operator: 'type',
+              //     values: {
+              //       file: true,
+              //       folder: false
+              //     }
+              //   }}
+              //   dragRules={{
+              //     values: true
+              //   }}
+              //   isDraggable={node => {
+              //     return node.type === 'folder' ? false : true;
+              //   }}
               //   iconClass={[
               //     {
               //       condition: [
@@ -309,7 +338,7 @@ class TreeExample extends Component {
                     {
                       name: 'Update Property',
                       action: 'updateProperty',
-                      icon: <i className="p-hclsw p-hclsw-document"></i>,
+                      icon: <i className="p-hclsw p-hclsw-document"></i>
                     }
                   ]
                 ];
@@ -323,11 +352,12 @@ class TreeExample extends Component {
               onOverflowAction={async (action, model) => {
                 console.log('action', action, model);
 
-                // if (action === 'copy') {
-                //   this.setState({
-                //     copiedNodeFromOneTreeToAnother: model
-                //   });
-                // }
+                if (action === 'copy') {
+                  return JSON.parse(JSON.stringify(model));
+                  //   this.setState({
+                  //     copiedNodeFromOneTreeToAnother: model
+                  //   });
+                }
                 if (action === 'updateProperty') {
                   if (model.type === 'folder') {
                     model.type = 'file';
@@ -387,21 +417,21 @@ class TreeExample extends Component {
                 //   nodeSelected: selected
                 // });
               }}
-            //   onToggle={async node => {
-            //     console.log('On Toggle', node);
-            //     await this.timeout(3000);
-            //     let children = []
-            //     for (let j = 0; j < 2; j++) {
-            //       let childtreeObj = {
-            //         name: 'Tree 1 Child Name ' +node.id  + '-' + j,
-            //         type: 'folder',
-            //         hasChildren:true,
-            //         id: `node-${node.id}-${j}`
-            //       };
-            //       children.push(childtreeObj)
-            //     }
-            //     return children;
-            //   }}
+              //   onToggle={async node => {
+              //     console.log('On Toggle', node);
+              //     await this.timeout(3000);
+              //     let children = []
+              //     for (let j = 0; j < 2; j++) {
+              //       let childtreeObj = {
+              //         name: 'Tree 1 Child Name ' +node.id  + '-' + j,
+              //         type: 'folder',
+              //         hasChildren:true,
+              //         id: `node-${node.id}-${j}`
+              //       };
+              //       children.push(childtreeObj)
+              //     }
+              //     return children;
+              //   }}
               onActionCompletes={(action, node1, node2, node3) => {
                 console.log(action, node1, node2, node3);
                 // console.log('onActionCompletes', action);

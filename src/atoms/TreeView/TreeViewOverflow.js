@@ -176,16 +176,18 @@ const TreeViewOverflow = ({ node, level, updateTextStatus }) => {
         }
       } else {
         let nodeData = await callbackContext.onOverflowAction(actionName, node);
-        dispatch({
-          type: 'SET_TREE_DATA',
-          data: updateTreeNode(state.treeInfo, nodeData, level, configuration)
-        });
-        if (callbackContext.onActionCompletes) {
-          callbackContext.onActionCompletes(
-            'custom-action',
-            state.treeInfo,
-            nodeData
-          );
+        if (nodeData) {
+          dispatch({
+            type: 'SET_TREE_DATA',
+            data: updateTreeNode(state.treeInfo, nodeData, level, configuration)
+          });
+          if (callbackContext.onActionCompletes) {
+            callbackContext.onActionCompletes(
+              'custom-action',
+              state.treeInfo,
+              nodeData
+            );
+          }
         }
       }
     }

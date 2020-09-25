@@ -331,7 +331,11 @@ storiesOf('Tree', module)
             return file;
           }
         }}
-        onOverflowAction={action('on overflow action')}
+        onOverflowAction={(overflowAction, model) => {
+          if (overflowAction === 'copy') {
+            return JSON.parse(JSON.stringify(model));
+          }
+        }}
         onActionCompletes={action('on overflow action change')}
         onDeleteNode={async () => {
           return true;

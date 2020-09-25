@@ -4,7 +4,6 @@ import prefix from '../../settings';
 
 import TreeStateContext from './treeStateContext';
 import TreeFunctionContext from './treeFunctionContext';
-import { getConditionStatus } from '../../util/treeUtil';
 
 const NodeIcon = ({ node }) => {
   const state = useContext(TreeStateContext);
@@ -12,40 +11,37 @@ const NodeIcon = ({ node }) => {
 
   const configuration = state.configuration;
 
-  const displayChildren =
-    state.expandedNodes && state.expandedNodes[node[configuration.key]];
+  const displayChildren = configuration.externalExpandNode
+    ? state.expandedNodes && state.expandedNodes[node[configuration.key]]
+    : node[configuration.displayChildren];
 
   let expandIcon = null;
   let collapsedIcon = null;
   let icon = null;
-  if (callbackContext.getIcons) {
-    let icons = callbackContext.getIcons(node);
-    expandIcon = icons.expandIcon;
-    collapsedIcon = icons.collapsedIcon;
-    icon = icons.icon;
-  } else if (state.iconClass) {
-    // let iconClassObj = {};
-    // state.iconClass.map(actionSet => {
-    //   if (actionSet.condition === 'all') {
-    //     iconClassObj = actionSet.values;
-    //   } else {
-    //     const conditionStatus = getConditionStatus(actionSet.condition, node);
-    //     if (conditionStatus) {
-    //       iconClassObj = actionSet.values;
-    //     }
-    //   }
-    // });
-
-    if (state.iconClass.operator) {
-      expandIcon =
-        state.iconClass.values[node[state.iconClass.operator]].expandedIcon;
-      collapsedIcon =
-        state.iconClass.values[node[state.iconClass.operator]].collapsedIcon;
-      icon = state.iconClass.values[node[state.iconClass.operator]].icon;
-    } else {
-      expandIcon = state.iconClass.values.expandedIcon;
-      collapsedIcon = state.iconClass.values.collapsedIcon;
-      icon = state.iconClass.values.icon;
+  if (
+    !(
+      node[configuration.expandIcon] ||
+      node[configuration.collapsedIcon] ||
+      node[configuration.icon]
+    )
+  ) {
+    if (callbackContext.getIcons) {
+      let icons = callbackContext.getIcons(node);
+      expandIcon = icons.expandIcon;
+      collapsedIcon = icons.collapsedIcon;
+      icon = icons.icon;
+    } else if (state.iconClass) {
+      if (state.iconClass.operator) {
+        expandIcon =
+          state.iconClass.values[node[state.iconClass.operator]].expandedIcon;
+        collapsedIcon =
+          state.iconClass.values[node[state.iconClass.operator]].collapsedIcon;
+        icon = state.iconClass.values[node[state.iconClass.operator]].icon;
+      } else {
+        expandIcon = state.iconClass.values.expandedIcon;
+        collapsedIcon = state.iconClass.values.collapsedIcon;
+        icon = state.iconClass.values.icon;
+      }
     }
   }
 

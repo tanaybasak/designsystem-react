@@ -8,8 +8,9 @@ const TreeNode = ({ node, level, parentNode }) => {
 
   const configuration = state.configuration;
 
-  const displayChildren =
-    state.expandedNodes && state.expandedNodes[node[configuration.key]];
+  const displayChildren = configuration.externalExpandNode
+    ? state.expandedNodes && state.expandedNodes[node[configuration.key]]
+    : node[configuration.displayChildren];
 
   return (
     <li
