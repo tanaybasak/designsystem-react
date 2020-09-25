@@ -28,8 +28,23 @@ const TreeViewOverflow = ({ node, level, updateTextStatus }) => {
     getOverflowMenuList();
   };
 
+  const enablePasteAction = list => {
+    const found = list.find(element => element.action === 'paste');
+
+    if (found) {
+      found.disabled = false;
+    } else {
+      list.push({
+        name: 'Paste',
+        action: 'paste'
+      });
+    }
+
+    return list;
+  };
+
   const getOverflowMenuList = () => {
-    const overflowList = callbackContext.getOverFlowItems(node);
+    let overflowList = callbackContext.getOverFlowItems(node);
     if (!level.startsWith(state.cutNodeLevel)) {
       if (
         state.cutNode &&
@@ -45,19 +60,13 @@ const TreeViewOverflow = ({ node, level, updateTextStatus }) => {
           state.cutNodeLevel.substr(0, state.cutNodeLevel.lastIndexOf('-')) !==
           level
         ) {
-          overflowList.push({
-            name: 'Paste',
-            action: 'paste'
-          });
+          overflowList = enablePasteAction(overflowList);
         }
       } else if (
         state.copiedNode &&
         callbackContext.isCopyAllowed(state.copiedNode, node, state.treeInfo)
       ) {
-        overflowList.push({
-          name: 'Paste',
-          action: 'paste'
-        });
+        overflowList = enablePasteAction(overflowList);
       }
     }
     updateOverflowItemList(overflowList);
@@ -123,7 +132,6 @@ const TreeViewOverflow = ({ node, level, updateTextStatus }) => {
               configuration
             );
             dispatch({ type: 'SET_TREE_DATA', data: updatedTree });
-            dispatch({ type: 'RESET_CUT_NODE' });
             if (callbackContext.onActionCompletes) {
               callbackContext.onActionCompletes(
                 'cut',
@@ -134,14 +142,14 @@ const TreeViewOverflow = ({ node, level, updateTextStatus }) => {
             }
           }
         } else {
-          let flag = callbackContext.onCopyNode
+          let clonedCopyModel = callbackContext.onCopyNode
             ? await callbackContext.onCopyNode(state.copiedNode, node)
             : true;
-          if (flag) {
+          if (clonedCopyModel) {
             const updatedTree = copyNode(
               state.treeInfo,
               level,
-              state.copiedNode,
+              clonedCopyModel,
               configuration
             );
             dispatch({ type: 'SET_TREE_DATA', data: updatedTree });
@@ -149,7 +157,7 @@ const TreeViewOverflow = ({ node, level, updateTextStatus }) => {
               callbackContext.onActionCompletes(
                 'copy',
                 updatedTree,
-                state.copiedNode,
+                clonedCopyModel,
                 node
               );
             }
@@ -208,6 +216,11 @@ const TreeViewOverflow = ({ node, level, updateTextStatus }) => {
               disabled={menu.disabled}
               link={menu.link}
             >
+              {menu.icon ? (
+                <span style={{ marginRight: '.5rem', verticalAlign: 'middle' }}>
+                  {menu.icon}
+                </span>
+              ) : null}
               {menu.name}
             </MenuItem>
           );

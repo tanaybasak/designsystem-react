@@ -18,13 +18,15 @@ import {
   getDropRegionPlaceholderOutsideNode,
   isInSameLevel,
   updateNodePosition,
-  getConditionStatus
+  getConditionStatus,
+  updateTreeNode
 } from '../../util/treeUtil';
 import TreeNodeTemplate from './TreeNodeTemplate';
 import NodeIcon from './NodeIcon';
 import TreeInlineEditor from './TreeInlineEditor';
 import NodeContent from './NodeContent';
 import TreeViewOverflow from './TreeViewOverflow';
+import Spinner from '../Spinner';
 
 const TreeNodeWrapper = ({
   node,
@@ -40,6 +42,7 @@ const TreeNodeWrapper = ({
   const configuration = state.configuration;
 
   const [showText, updateTextStatus] = useState(false);
+  const [loadingState, updateLoadingState] = useState(false);
 
   let draggable = false;
   if (state.draggable !== 'none') {
@@ -49,29 +52,62 @@ const TreeNodeWrapper = ({
     ) {
       draggable = node[configuration.draggable];
     } else if (state.dragRules) {
-      state.dragRules.map(rule => {
-        const conditionStatus = getConditionStatus(rule.condition, node);
-        if (conditionStatus) {
-          draggable = true;
-        }
-      });
+      if (state.dragRules.operator) {
+        draggable = state.dragRules.values[node[state.dragRules.operator]];
+      } else {
+        draggable = state.dragRules.values;
+      }
+
+      //   state.dragRules.map(rule => {
+      //     const conditionStatus = getConditionStatus(rule.condition, node);
+      //     if (conditionStatus) {
+      //       draggable = true;
+      //     }
+      //   });
     } else if (callbackContext.isDraggable) {
       draggable = callbackContext.isDraggable(node);
     }
   }
 
-  const updateNodeToggleStatus = status => {
+  const updateNodeToggleStatus = async status => {
     if (typeof status !== 'boolean') {
       status.stopPropagation();
       status.preventDefault();
     }
 
-    dispatch({
-      type: 'TOGGLE_NODE_STATUS',
-      key: node[configuration.key]
-    });
-    if (callbackContext.onToggle) {
-      callbackContext.onToggle(node);
+    if (
+      node[configuration.hasChildren] &&
+      (!node[configuration.children] ||
+        node[configuration.children].length === 0)
+    ) {
+      if (callbackContext.onToggle) {
+        updateLoadingState(true);
+        let children = await callbackContext.onToggle(node);
+        if (children && children.length > 0) {
+          let nodeTemp = { ...node };
+          nodeTemp[configuration.children] = children;
+          const updatedTree = updateTreeNode(
+            state.treeInfo,
+            nodeTemp,
+            level,
+            configuration
+          );
+          dispatch({
+            type: 'TOGGLE_NODE_STATUS_LAZY_LOAD',
+            key: node[configuration.key],
+            data: updatedTree
+          });
+          updateLoadingState(false);
+        }
+      }
+    } else {
+      dispatch({
+        type: 'TOGGLE_NODE_STATUS',
+        key: node[configuration.key]
+      });
+      if (callbackContext.onToggle) {
+        callbackContext.onToggle(node);
+      }
     }
   };
 
@@ -164,7 +200,7 @@ const TreeNodeWrapper = ({
         break;
       }
       case 13: {
-        if (state.type === 'sigle') {
+        if (state.type === 'single') {
           selectNode(e);
           e.preventDefault();
         } else {
@@ -495,7 +531,9 @@ const TreeNodeWrapper = ({
     >
       <div className={`${prefix}-node-highlight-wrapper`} />
       {hasChildren ? (
-        displayChildren ? (
+        loadingState ? (
+          <Spinner className={`${prefix}-toggle-icon`} small />
+        ) : displayChildren ? (
           state.expandedIcon ? (
             cloneElement(state.expandedIcon, {
               className: `${prefix}-toggle-icon ${state.expandedIcon.props.className}`,

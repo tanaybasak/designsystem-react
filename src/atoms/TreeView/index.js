@@ -1,4 +1,5 @@
 import TreeView from './TreeView';
 import TreeNodeTemplate from './TreeNodeTemplate';
+import TextEditor from './TextEditor';
 
-export { TreeNodeTemplate, TreeView };
+export { TreeNodeTemplate, TextEditor, TreeView };

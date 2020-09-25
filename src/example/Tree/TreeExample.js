@@ -10,21 +10,22 @@ import { Overflowmenu, MenuItem } from '../../molecules/Overflowmenu';
 import Notification from '../../atoms/Notification';
 const getCustomTree = () => {
   let treeData = [];
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 2; i++) {
     let maintreeObj = {
       name: 'Tree 1 Name ' + i,
       type: 'folder',
-      id: `node-${i}`
+      id: `node-${i}`,
+      hasChildren: true
     };
     maintreeObj.children = [];
-    for (let j = 0; j < 10; j++) {
+    for (let j = 0; j < 2; j++) {
       let childtreeObj = {
         name: 'Tree 1 Child Name ' + i + '-' + j,
         type: 'folder',
         id: `node-${i}-${j}`
       };
       childtreeObj.children = [];
-      for (let k = 0; k < 10; k++) {
+      for (let k = 0; k < 2; k++) {
         let grandChild = {
           name: 'Tree 1 Grand Child Name ' + i + '-' + j + '-' + k,
           type: 'file',
@@ -43,18 +44,37 @@ const getCustomTree = () => {
 
   return treeData;
 };
+let dynamicId = 1;
 class TreeExample extends Component {
   state = {
-    nodeSelected: null,
+    //nodeSelected: null,
     toast: {
       visible: false,
       type: 'success'
     },
     treeData: getCustomTree(),
     selectedNode: {},
+    config: { key: 'id' },
+
     showModal: false,
     expandedNode: { 'node-0': true, 'node-0-1': true },
-    nodeSelected: { id: 'node-0-1-3' }
+    nodeSelected: { id: 'node-0-1-1' }
+  };
+
+  getClonedModel = model => {
+    console.log(model);
+    //let newModal = {...model}
+    model.id = `Temp-${++dynamicId}`;
+    //newModal.children = []
+    model.children &&
+      model.children.length > 0 &&
+      model.children.map(data => {
+        this.getClonedModel(data);
+        // data.id= `Temp-${++dynamicId}`;
+        // newModal.children.push( {...data});
+      });
+
+    return model;
   };
 
   showToast = message => {
@@ -258,23 +278,27 @@ class TreeExample extends Component {
                   {
                     name: 'Rename',
                     action: 'edit',
-                    icon: <i className="p-hclsw p-hclsw-folder"></i>
+                    icon: <i className="p-hclsw p-hclsw-edit"></i>
                   },
                   {
                     name: 'Cut',
-                    action: 'cut'
+                    action: 'cut',
+                    icon: <i className="p-hclsw p-hclsw-cut"></i>
                   },
                   {
                     name: 'Copy',
-                    action: 'copy'
+                    action: 'copy',
+                    icon: <i className="p-hclsw p-hclsw-copy"></i>
                   },
                   {
                     name: 'Paste',
                     action: 'paste',
+                    icon: <i className="p-hclsw p-hclsw-paste"></i>,
                     disabled: true
                   },
                   {
                     name: 'Delete',
+                    icon: <i className="p-hclsw p-hclsw-delete"></i>,
                     action: 'delete'
                   }
                 ];
@@ -284,7 +308,8 @@ class TreeExample extends Component {
                   ...[
                     {
                       name: 'Update Property',
-                      action: 'updateProperty'
+                      action: 'updateProperty',
+                      icon: <i className="p-hclsw p-hclsw-document"></i>,
                     }
                   ]
                 ];
@@ -298,11 +323,11 @@ class TreeExample extends Component {
               onOverflowAction={async (action, model) => {
                 console.log('action', action, model);
 
-                if (action === 'copy') {
-                  this.setState({
-                    copiedNodeFromOneTreeToAnother: model
-                  });
-                }
+                // if (action === 'copy') {
+                //   this.setState({
+                //     copiedNodeFromOneTreeToAnother: model
+                //   });
+                // }
                 if (action === 'updateProperty') {
                   if (model.type === 'folder') {
                     model.type = 'file';
@@ -351,56 +376,69 @@ class TreeExample extends Component {
                 return await this.timeout(0);
               }}
               onCopyNode={async (dragModel, dropModel) => {
-                console.log(dragModel, dropModel);
-                return await this.timeout(0);
+                var data_copy = JSON.parse(JSON.stringify(dragModel));
+                let clonedModel = this.getClonedModel(data_copy);
+                return await clonedModel;
               }}
               type="single"
               onChange={selected => {
                 console.log('Selected Node', selected);
-                this.setState({
-                  nodeSelected: selected
-                });
+                // this.setState({
+                //   nodeSelected: selected
+                // });
               }}
-              onToggle={node => {
-                console.log('On Toggle', node);
-              }}
+            //   onToggle={async node => {
+            //     console.log('On Toggle', node);
+            //     await this.timeout(3000);
+            //     let children = []
+            //     for (let j = 0; j < 2; j++) {
+            //       let childtreeObj = {
+            //         name: 'Tree 1 Child Name ' +node.id  + '-' + j,
+            //         type: 'folder',
+            //         hasChildren:true,
+            //         id: `node-${node.id}-${j}`
+            //       };
+            //       children.push(childtreeObj)
+            //     }
+            //     return children;
+            //   }}
               onActionCompletes={(action, node1, node2, node3) => {
                 console.log(action, node1, node2, node3);
                 // console.log('onActionCompletes', action);
                 // console.log('node1', node1);
                 // console.log('node2', node2);
 
-                if (action === 'edit') {
-                  this.showToast(`${node2.name} renamed successfully`);
-                } else if (action === 'copy') {
-                  this.showToast(
-                    `${node2.name} node pasted successfully inside ${node3.name}`
-                  );
-                } else if (action === 'cut') {
-                  this.showToast(
-                    `${node2.name} node moved successfully inside ${node3.name}`
-                  );
-                } else if (action === 'delete') {
-                  this.showToast(`${node2.name} deleted successfully`);
-                } else if (action === 'drop') {
-                  this.showToast(
-                    `${node2.name} node moved successfully inside ${node3.name}`
-                  );
-                }
-              }}
-              //nodeSelected={this.state.nodeSelected}
-              config={{ key: 'id' }}
-                // customTemplate={node => {
-                //   return (
-                //     <TreeNodeTemplate>
-                //       <Checkbox
-                //         id={node.id}
-                //         label={`${node.name}`}
-                //         value={node.id}
-                //       />
-                //     </TreeNodeTemplate>
+                // if (action === 'edit') {
+                //   this.showToast(`${node2.name} renamed successfully`);
+                // } else if (action === 'copy') {
+                //   this.showToast(
+                //     `${node2.name} node pasted successfully inside ${node3.name}`
                 //   );
-                // }}
+                // } else if (action === 'cut') {
+                //   this.showToast(
+                //     `${node2.name} node moved successfully inside ${node3.name}`
+                //   );
+                // } else if (action === 'delete') {
+                //   this.showToast(`${node2.name} deleted successfully`);
+                // } else if (action === 'drop') {
+                //   this.showToast(
+                //     `${node2.name} node moved successfully inside ${node3.name}`
+                //   );
+                // }
+              }}
+              nodeSelected={this.state.nodeSelected}
+              config={this.state.config}
+              // customTemplate={node => {
+              //   return (
+              //     <TreeNodeTemplate>
+              //       <Checkbox
+              //         id={node.id}
+              //         label={`${node.name}`}
+              //         value={node.id}
+              //       />
+              //     </TreeNodeTemplate>
+              //   );
+              // }}
               overflowOnHover={true}
               //   customNodeTemplate={node => {
               //     return (

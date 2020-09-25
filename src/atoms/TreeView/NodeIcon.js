@@ -24,21 +24,29 @@ const NodeIcon = ({ node }) => {
     collapsedIcon = icons.collapsedIcon;
     icon = icons.icon;
   } else if (state.iconClass) {
-    let iconClassObj = {};
-    state.iconClass.map(actionSet => {
-      if (actionSet.condition === 'all') {
-        iconClassObj = actionSet.values;
-      } else {
-        const conditionStatus = getConditionStatus(actionSet.condition, node);
-        if (conditionStatus) {
-          iconClassObj = actionSet.values;
-        }
-      }
-    });
+    // let iconClassObj = {};
+    // state.iconClass.map(actionSet => {
+    //   if (actionSet.condition === 'all') {
+    //     iconClassObj = actionSet.values;
+    //   } else {
+    //     const conditionStatus = getConditionStatus(actionSet.condition, node);
+    //     if (conditionStatus) {
+    //       iconClassObj = actionSet.values;
+    //     }
+    //   }
+    // });
 
-    expandIcon = iconClassObj.expandIcon;
-    collapsedIcon = iconClassObj.collapsedIcon;
-    icon = iconClassObj.icon;
+    if (state.iconClass.operator) {
+      expandIcon =
+        state.iconClass.values[node[state.iconClass.operator]].expandedIcon;
+      collapsedIcon =
+        state.iconClass.values[node[state.iconClass.operator]].collapsedIcon;
+      icon = state.iconClass.values[node[state.iconClass.operator]].icon;
+    } else {
+      expandIcon = state.iconClass.values.expandedIcon;
+      collapsedIcon = state.iconClass.values.collapsedIcon;
+      icon = state.iconClass.values.icon;
+    }
   }
 
   return (

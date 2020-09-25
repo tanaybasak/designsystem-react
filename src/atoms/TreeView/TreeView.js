@@ -38,42 +38,46 @@ const initialState = {
 const TreeView = ({
   treeData,
   nodeSelected,
+  expandedNodes,
   expandedIcon,
-  onChange,
   collapsedIcon,
   className,
   config,
-  onToggle,
   type,
-  onOverflowAction,
+  onChange,
+  onToggle,
   iconClass,
-  dragRules,
-  isMoveNodeAllowed,
-  isCopyAllowed,
+  getIcons,
+
+  overflowOnHover,
   getOverFlowItems,
+  onOverflowAction,
   onDeleteNode,
   onRenamingNode,
   onMoveNode,
   onCopyNode,
+  isMoveNodeAllowed,
+  isCopyAllowed,
   onActionCompletes,
-  overflowOnHover,
-  expandedNodes,
-  customTemplate,
-  customActionTemplate,
-  customNodeTemplate,
+
+  dragRules,
+  isDraggable,
   draggable,
+  isDropAllowed,
   onDragStart,
   onDragOver,
   onDragEnter,
   onDragLeave,
   onDrop,
   onDragEnd,
+
+  customTemplate,
+  customActionTemplate,
+  customNodeTemplate,
+
   onDoubleClick,
   onKeyDown,
-  onClick,
-  isDropAllowed,
-  getIcons,
-  isDraggable
+  onClick
 }) => {
   const [state, dispatch] = useReducer(treeReducer, initialState);
 
@@ -85,8 +89,6 @@ const TreeView = ({
     if (config) {
       dispatch({ type: 'SET_CONFIGURATION', data: config });
     }
-
-    //dispatch({ type: 'SET_EXPANDED_NODE', data: expandedNodes });
   }, [config]);
 
   useEffect(() => {
@@ -198,32 +200,48 @@ const TreeView = ({
 TreeView.propTypes = {
   /** Tree Data */
   treeData: PropTypes.array,
-  /** Used to pass icon classname for each node */
-  iconClass: PropTypes.any,
-  /** Used to specify draggable node */
-  dragRules: PropTypes.any,
-  /** Used to set selected node */
-  nodeSelected: PropTypes.any,
-  /** To Specify Expand Icon */
+  /** Used to pass default selected node. */
+  nodeSelected: PropTypes.object,
+  /** Array of objects which stores the expanded node list
+   * expected format { [uniqueKey] : true , [uniqueNodeKey] : true}
+   * eg : { 'node-0': true, 'node-0-1': true }
+   */
+  expandedNodes: PropTypes.object,
+  /** used to customize expanded icon */
   expandedIcon: PropTypes.node,
-  /** To Specify Collapsed Icon */
+  /** used to customize collapsed icon */
   collapsedIcon: PropTypes.node,
   /** Style class of the component */
   className: PropTypes.string,
+  /** Configuration Object for updating propery name in tree data
+   * {
+   *    expandIcon: 'expandIcon',
+   *    collapsedIcon: 'collapsedIcon',
+   *    icon: 'icon',
+   *    children: 'children',
+   *    name: 'name',
+   *    hasChildren: 'hasChildren',
+   *    draggable: 'draggable',
+   *    key: 'key'
+   * }
+   */
+  config: PropTypes.object,
+  /** Type of Treeview
+   * default : Component without any node selection
+   * single : Component with node selection
+   */
+  type: PropTypes.oneOf(['default', 'single']),
+  /** Callback function on selecting a tree node */
+  onChange: PropTypes.func,
+  /** Callback function on expanding/collapsing tree node. */
+  onToggle: PropTypes.func,
+  /** Used to provide custom icon for node */
+  iconClass: PropTypes.object,
+  /** Callback function is used to provide custom icon for node */
+  getIcons: PropTypes.func,
+
   /** used to display overflow menu on hover  */
   overflowOnHover: PropTypes.bool,
-  /** Callback function on selecting overflow menu item */
-  onOverflowAction: PropTypes.func,
-  /** Callback function used for specifying rules on drag and drop or cut and paste */
-  isMoveNodeAllowed: PropTypes.func,
-  /** Callback function used for specifying rules on copy and paste */
-  isCopyAllowed: PropTypes.func,
-  /** Callback function on selecting tree node */
-  onChange: PropTypes.func,
-  /** Callback function on expanding/collapsing tree node */
-  onToggle: PropTypes.func,
-  /** Callback function on deleting tree node from overflow menu */
-  onDeleteNode: PropTypes.func,
   /** Callback function for setting overflow menu actions
    *  eg:
    * [
@@ -235,40 +253,36 @@ TreeView.propTypes = {
    *
    */
   getOverFlowItems: PropTypes.func,
+  /** Callback function on selecting overflow menu item */
+  onOverflowAction: PropTypes.func,
+
+  /** Callback function on deleting tree node from overflow menu */
+  onDeleteNode: PropTypes.func,
   /** Callback function on renaming tree node from overflow menu */
   onRenamingNode: PropTypes.func,
-  /** Configuration Object for updating propery name in tree data
- {
-  displayChildren: 'displayChildren',
-  expandIcon: 'expandIcon',
-  collapsedIcon: 'collapsedIcon',
-  icon: 'icon',
-  children: 'children',
-  name: 'name',
-  hasChildren: 'hasChildren'
-}
-*/
-  config: PropTypes.any,
-  /** Type of Treeview
-   * default : Component without any node selection
-   * single : Component with node selection
-   */
-  type: PropTypes.oneOf(['default', 'single']),
-  /** Callback function on moving node  */
+  /** Callback function on cut paste action  */
   onMoveNode: PropTypes.func,
-  /** Callback function on pasting node  */
+  /** Callback function on copy paste action  */
   onCopyNode: PropTypes.func,
-  /** Callback function after completing the overflow action  */
+  /** Callback function used for specifying rules on cut and paste */
+  isMoveNodeAllowed: PropTypes.func,
+  /** Callback function used for specifying rules on copy and paste */
+  isCopyAllowed: PropTypes.func,
+  /** Callback function after completing the overflow action or drag and drop  */
   onActionCompletes: PropTypes.func,
-  /** Array of objects which stores the expanded node list */
-  expandedNodes: PropTypes.object,
-  /** Callback function used to pass custom template */
-  customTemplate: PropTypes.func,
-  /** Callback function used to pass custom template which will place in the right end of the node */
-  customActionTemplate: PropTypes.func,
-  /** Callback function used to pass custom template for node content */
-  customNodeTemplate: PropTypes.func,
+
+  /** Used to specify draggable node */
+  dragRules: PropTypes.any,
+  /** Callback function is used to define whether the node is draggable */
+  isDraggable: PropTypes.func,
+  /** Used for setting drag and drop behaviour for the tree component
+   * none : default value. There is no dragging functionality
+   * internal : Internal drag and drop functionality will be set. Need to define isDropAllowed call back function inorder to specify the drag and drop rules
+   * external : Dragging is possible. Need to the write common drag and drop html5 function to add the behaviour
+   */
   draggable: PropTypes.oneOf(['none', 'internal', 'external']),
+  /** Callback function is used to validate the drop region on drag and drop */
+  isDropAllowed: PropTypes.func,
   /** Callback function to add custom drag start function */
   onDragStart: PropTypes.func,
   /** Callback function to add custom drag over function */
@@ -281,18 +295,20 @@ TreeView.propTypes = {
   onDrop: PropTypes.func,
   /** Callback function to add custom drag end function */
   onDragEnd: PropTypes.func,
+
+  /** Callback function used to pass custom template. Only expand/collapse icon will be present. */
+  customTemplate: PropTypes.func,
+  /** Callback function used to pass custom template which will place in the right end of the node. This is used to define custom action in which can add link,button,overflow menu etc */
+  customActionTemplate: PropTypes.func,
+  /** Callback function used to pass custom template for node content */
+  customNodeTemplate: PropTypes.func,
+
   /** Callback function to add double click function */
   onDoubleClick: PropTypes.func,
   /** Callback function to add keydown function */
   onKeyDown: PropTypes.func,
   /** Callback function to add on click function */
-  onClick: PropTypes.func,
-  /** Callback function is used to validate the drop region on drag and drop */
-  isDropAllowed: PropTypes.func,
-  /** Callback function is used to provide custom icon for node */
-  getIcons: PropTypes.func,
-  /** Callback function is used to define whether the node is draggable */
-  isDraggable: PropTypes.func
+  onClick: PropTypes.func
 };
 
 TreeView.defaultProps = {

@@ -5,7 +5,9 @@ export const treeReducer = (state, action) => {
         ...state,
         treeInfo: action.data,
         draggedNode: null,
-        draggedNodeLevel: null
+        draggedNodeLevel: null,
+        cutNode: null,
+        cutNodeLevel: null
       };
     }
     case 'SET_EXPANDED_NODE': {
@@ -39,7 +41,10 @@ export const treeReducer = (state, action) => {
       return {
         ...state,
         draggedNode: action.data.draggedNode,
-        draggedNodeLevel: action.data.draggedNodeLevel
+        draggedNodeLevel: action.data.draggedNodeLevel,
+        copiedNode: null,
+        cutNode: null,
+        cutNodeLevel: null
       };
     }
     case 'CLEAR_DRAGGED_NODE': {
@@ -57,15 +62,6 @@ export const treeReducer = (state, action) => {
         copiedNode: null
       };
     }
-    case 'RESET_CUT_NODE': {
-      return {
-        ...state,
-        cutNode: null,
-        cutNodeLevel: null,
-        copiedNode: null
-      };
-    }
-
     case 'SET_COPIED_NODE': {
       return {
         ...state,
@@ -95,15 +91,6 @@ export const treeReducer = (state, action) => {
         renameLevel: null
       };
     }
-    case 'RENAME_SELECTED_NODE': {
-      let tempTreeData = [...state.treedata];
-      tempTreeData[0].name = 'renamed';
-      return {
-        ...state,
-        treedata: tempTreeData,
-        renameLevel: null
-      };
-    }
     case 'TOGGLE_NODE_STATUS': {
       const expandedNodes = { ...state.expandedNodes };
       if (expandedNodes[action.key]) {
@@ -114,6 +101,19 @@ export const treeReducer = (state, action) => {
       return {
         ...state,
         expandedNodes: expandedNodes
+      };
+    }
+    case 'TOGGLE_NODE_STATUS_LAZY_LOAD': {
+      const expandedNodes = { ...state.expandedNodes };
+      if (expandedNodes[action.key]) {
+        delete expandedNodes[action.key];
+      } else {
+        expandedNodes[action.key] = true;
+      }
+      return {
+        ...state,
+        expandedNodes: expandedNodes,
+        treeInfo: action.data
       };
     }
     case 'SET_ICON_CLASS': {
