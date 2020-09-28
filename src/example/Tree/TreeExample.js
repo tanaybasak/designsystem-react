@@ -10,7 +10,7 @@ import { Overflowmenu, MenuItem } from '../../molecules/Overflowmenu';
 import Notification from '../../atoms/Notification';
 const getCustomTree = () => {
   let treeData = [];
-  for (let i = 0; i < 2; i++) {
+  for (let i = 0; i < 5; i++) {
     let maintreeObj = {
       name: 'Tree 1 Name ' + i,
       type: 'folder',
@@ -249,13 +249,13 @@ class TreeExample extends Component {
                 return false;
               }}
               treeData={this.state.treeData}
-              //   dragRules={{
-              //     operator: 'type',
-              //     values: {
-              //       file: true,
-              //       folder: false
-              //     }
-              //   }}
+                dragRules={{
+                  operator: 'type',
+                  values: {
+                    file: true,
+                    folder: true
+                  }
+                }}
               //   dragRules={{
               //     values: true
               //   }}

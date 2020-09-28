@@ -377,12 +377,20 @@ const TreeNodeWrapper = ({
       }
     }
 
-    if (ev.currentTarget.classList.contains('canDropAsChildren')) {
+    if (
+      ev.currentTarget.classList.contains('canDropAsChildren') &&
+      ev.currentTarget.classList.contains('canDropInSameLevel')
+    ) {
       const position = getDropRegionPlaceholderFromNode(ev);
       highlightDropZone(position, ev.currentTarget);
     } else if (ev.currentTarget.classList.contains('canDropInSameLevel')) {
       const position = getDropRegionPlaceholderOutsideNode(ev);
       highlightDropZone(position, ev.currentTarget);
+    } else if (
+      ev.currentTarget.classList.contains('canDropAsChildren') &&
+      !ev.currentTarget.classList.contains('canDropInSameLevel')
+    ) {
+      highlightDropZone('middle', ev.currentTarget);
     }
   };
 
