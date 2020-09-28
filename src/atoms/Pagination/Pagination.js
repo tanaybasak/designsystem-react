@@ -95,27 +95,28 @@ const Pagination = ({
       JSON.stringify(pagesDropDown) !== JSON.stringify([]) &&
       pagesDropDown.length > 0
     ) {
-      if (pagesSelected != currentPage) {
-        setPagesSelected(parseInt(pagesDropDown[0], 10));
+      if (currentPage >= totalPages) {
+        setPagesSelected(parseInt(pagesDropDown[totalPages - 1], 10));
       }
       toggleNavButtons();
     }
-  }, [pagesDropDown, currentPage]);
+  }, [pagesDropDown, currentPage, totalPages]);
 
   // pages DropDown selected useEffect
   useEffect(() => {
-    if (pagesSelected != -1) {
-      adjustRange();
-      togglePageDisplay();
-      toggleNavButtons();
-    }
-  }, [pagesSelected]);
+    adjustRange();
+    togglePageDisplay();
+    toggleNavButtons();
+  });
 
   useEffect(() => {
     if (pagesSelected != currentPage) {
       setPagesSelected(currentPage);
     }
-  }, [currentPage]);
+    if (currentPage >= totalPages) {
+      setPagesSelected(parseInt(pagesDropDown[totalPages - 1], 10));
+    }
+  }, [currentPage, totalPages]);
 
   //on Load useEffect
   useEffect(() => {
@@ -123,8 +124,16 @@ const Pagination = ({
   }, []);
 
   const togglePageDisplay = () => {
-    if (startpagedisplayRef.current) {
+    if (startpagedisplayRef.current && pagesSelected >= totalPages) {
+      startpagedisplayRef.current.innerHTML = totalPages;
+    } else if (
+      startpagedisplayRef.current &&
+      pagesSelected <= totalPages &&
+      pagesSelected > 0
+    ) {
       startpagedisplayRef.current.innerHTML = pagesSelected;
+    } else {
+      startpagedisplayRef.current.innerHTML = 1;
     }
   };
 
@@ -179,11 +188,17 @@ const Pagination = ({
         // One Option
         previousbtnRef.current.disabled = true;
         nextbtnRef.current.disabled = true;
-      } else if (pagesRef.current.selectedIndex === 0) {
+      } else if (
+        pagesRef.current.selectedIndex === 0 &&
+        currentPage < pagesRef.current.options.length
+      ) {
         //First Index
         previousbtnRef.current.disabled = true;
         nextbtnRef.current.disabled = false;
-      } else if (nextIndex === pagesRef.current.options.length) {
+      } else if (
+        nextIndex === pagesRef.current.options.length ||
+        currentPage > pagesRef.current.options.length
+      ) {
         //Last Index
         nextbtnRef.current.disabled = true;
         previousbtnRef.current.disabled = false;
