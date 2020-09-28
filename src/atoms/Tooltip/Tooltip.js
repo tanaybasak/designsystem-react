@@ -699,8 +699,8 @@ const Tooltip = ({ type, content, direction, children }) => {
         ref: parentRef,
         className: (customClass +=
           type === 'interactive'
-            ? `${prefix}-interactive-tooltip`
-            : `${prefix}-icon-tooltip`)
+            ? ` ${prefix}-interactive-tooltip`
+            : ` ${prefix}-icon-tooltip`)
       });
     });
   }

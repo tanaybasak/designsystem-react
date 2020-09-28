@@ -249,13 +249,13 @@ class TreeExample extends Component {
                 return false;
               }}
               treeData={this.state.treeData}
-                dragRules={{
-                  operator: 'type',
-                  values: {
-                    file: true,
-                    folder: true
-                  }
-                }}
+              dragRules={{
+                operator: 'type',
+                values: {
+                  file: true,
+                  folder: true
+                }
+              }}
               //   dragRules={{
               //     values: true
               //   }}

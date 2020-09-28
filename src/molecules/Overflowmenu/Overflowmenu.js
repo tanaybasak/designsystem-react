@@ -22,7 +22,8 @@ const Overflowmenu = ({
   const overflowMenuRef = useRef(null);
   const targetElementRef = useRef(null);
 
-  const clickHandler = () => {
+  const clickHandler = event => {
+    targetElementRef.current = event.currentTarget;
     changeDisplay(!display);
   };
 
@@ -175,8 +176,7 @@ const Overflowmenu = ({
     <div className={classnames.join(' ')} {...restProps}>
       {customTemplate ? (
         React.cloneElement(customTemplate, {
-          onClick: clickHandler,
-          ref: targetElementRef
+          onClick: clickHandler
         })
       ) : (
         <button
@@ -193,7 +193,6 @@ const Overflowmenu = ({
             
             `
             }`}
-          ref={targetElementRef}
           aria-label="Overflow Menu"
           type="button"
           onClick={clickHandler}
