@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 import { getColumnStructure } from '../../util/tableUtil';
@@ -21,19 +21,19 @@ const DataTable = ({
   const tableRef = useRef(null);
   const [tableConfiguration, setTableConfiguration] = useState([]);
   const [sortedColumn, updateSortedColumn] = useState({});
-  const [isMouseDown, setIsMouseDown] = useState({
-    currentElem: undefined,
-    eleidx: -1,
-    label: '',
-    isDown: false,
-    mouseX: undefined,
-    mouseY: undefined,
-    endWidth: undefined
-  });
-  const [cellObj, setcellObj] = useState({});
-  const [tableWidthPostRender, setTableWidthPostRender] = useState(`auto`);
   const [isPinned, setIsPinned] = useState(false);
+  const [tableWidthPostRender, setTableWidthPostRender] = useState(`auto`);
   const [tableId] = useState(uniquetableId++);
+  // const [isMouseDown, setIsMouseDown] = useState({
+  //   currentElem: undefined,
+  //   eleidx: -1,
+  //   label: '',
+  //   isDown: false,
+  //   mouseX: undefined,
+  //   mouseY: undefined,
+  //   endWidth: undefined
+  // });
+  // const [cellObj, setcellObj] = useState({});
 
   const calculateIsPinned = () => {
     // console.log(`calulating pinned ?`);
@@ -83,157 +83,157 @@ const DataTable = ({
     }
   }, [tableRef]);
 
-  useEffect(() => {
-    const { currentElem = undefined, isDown = false } = isMouseDown;
-    if (currentElem && isDown) {
-      /* 
-        add/bind document events 
-      */
-      addListener(
-        'datatablemousemove-' + (id ? id : `datatable-${tableId}`),
-        'mousemove',
-        e => {
-          onPressMouseMove(e);
-        },
-        true
-      );
-      addListener(
-        'datatablemouseup-' + (id ? id : `datatable-${tableId}`),
-        'mouseup',
-        e => {
-          onPressMouseUp(e);
-        },
-        true
-      );
-    } else {
-      // console.log('removed event listeners ...');
-      removeListeners(
-        'datatablemousemove-' + (id ? id : `datatable-${tableId}`),
-        'mousemove'
-      );
-      removeListeners(
-        'datatablemouseup-' + (id ? id : `datatable-${tableId}`),
-        'mouseup'
-      );
-    }
-    // when component is un-mounted
-    return () => {
-      removeListeners(
-        'datatablemousemove-' + (id ? id : `datatable-${tableId}`),
-        'mousemove'
-      );
-      removeListeners(
-        'datatablemouseup-' + (id ? id : `datatable-${tableId}`),
-        'mouseup'
-      );
-    };
-  }, [isMouseDown]);
+  // useEffect(() => {
+  //   const { currentElem = undefined, isDown = false } = isMouseDown;
+  //   if (currentElem && isDown) {
+  //     /*
+  //       add/bind document events
+  //     */
+  //     addListener(
+  //       'datatablemousemove-' + (id ? id : `datatable-${tableId}`),
+  //       'mousemove',
+  //       e => {
+  //         onPressMouseMove(e);
+  //       },
+  //       true
+  //     );
+  //     addListener(
+  //       'datatablemouseup-' + (id ? id : `datatable-${tableId}`),
+  //       'mouseup',
+  //       e => {
+  //         onPressMouseUp(e);
+  //       },
+  //       true
+  //     );
+  //   } else {
+  //     // console.log('removed event listeners ...');
+  //     removeListeners(
+  //       'datatablemousemove-' + (id ? id : `datatable-${tableId}`),
+  //       'mousemove'
+  //     );
+  //     removeListeners(
+  //       'datatablemouseup-' + (id ? id : `datatable-${tableId}`),
+  //       'mouseup'
+  //     );
+  //   }
+  //   // when component is un-mounted
+  //   return () => {
+  //     removeListeners(
+  //       'datatablemousemove-' + (id ? id : `datatable-${tableId}`),
+  //       'mousemove'
+  //     );
+  //     removeListeners(
+  //       'datatablemouseup-' + (id ? id : `datatable-${tableId}`),
+  //       'mouseup'
+  //     );
+  //   };
+  // }, [isMouseDown]);
 
-  let dummyVal = '';
-  const onPressMouseMove = e => {
-    e.preventDefault();
-    var nThTarget = isMouseDown['isDown'] ? isMouseDown['currentElem'] : null;
-    if (
-      (isMouseDown['isDown'] && e.pageX - isMouseDown.mouseX > 1) ||
-      e.pageX - isMouseDown.mouseX < -1
-    ) {
-      let { startX = null, startWidth = null } =
-        cellObj &&
-        nThTarget &&
-        nThTarget.dataset &&
-        nThTarget.dataset.column &&
-        cellObj[nThTarget.dataset.column]
-          ? cellObj[nThTarget.dataset.column]
-          : {};
-      let moveLength = e.pageX - startX;
-      // nThTarget
-      //   ? ((nThTarget.style.width = startWidth + moveLength + 'px'),
-      //     (nThTarget.style.minWidth = startWidth + moveLength + 'px'))
-      //   : null;
-      dummyVal = startWidth + moveLength + 'px';
-    }
-  };
+  // let dummyVal = '';
+  // const onPressMouseMove = e => {
+  //   e.preventDefault();
+  //   var nThTarget = isMouseDown['isDown'] ? isMouseDown['currentElem'] : null;
+  //   if (
+  //     (isMouseDown['isDown'] && e.pageX - isMouseDown.mouseX > 1) ||
+  //     e.pageX - isMouseDown.mouseX < -1
+  //   ) {
+  //     let { startX = null, startWidth = null } =
+  //       cellObj &&
+  //       nThTarget &&
+  //       nThTarget.dataset &&
+  //       nThTarget.dataset.column &&
+  //       cellObj[nThTarget.dataset.column]
+  //         ? cellObj[nThTarget.dataset.column]
+  //         : {};
+  //     let moveLength = e.pageX - startX;
+  //     // nThTarget
+  //     //   ? ((nThTarget.style.width = startWidth + moveLength + 'px'),
+  //     //     (nThTarget.style.minWidth = startWidth + moveLength + 'px'))
+  //     //   : null;
+  //     dummyVal = startWidth + moveLength + 'px';
+  //   }
+  // };
 
-  const onPressMouseUp = e => {
-    e.preventDefault();
-    let tempObj = [...tableConfiguration];
-    // tempObj[isMouseDown['eleidx']].width =
-    //   isMouseDown['currentElem'].style.width;
-    tempObj[isMouseDown['eleidx']].width = dummyVal;
+  // const onPressMouseUp = e => {
+  //   e.preventDefault();
+  //   let tempObj = [...tableConfiguration];
+  //   // tempObj[isMouseDown['eleidx']].width =
+  //   //   isMouseDown['currentElem'].style.width;
+  //   tempObj[isMouseDown['eleidx']].width = dummyVal;
 
-    isMouseDown['currentElem'].classList.remove('resizing');
-    document.body.classList.remove('resize-table');
-    tempObj.map(item =>
-      item.width && item.width.includes('calc') ? delete item.width : item
-    );
-    let tempConfig = getColumnStructure(
-      [...tempObj],
-      expandRowTemplate ? true : false
-    );
+  //   isMouseDown['currentElem'].classList.remove('resizing');
+  //   document.body.classList.remove('resize-table');
+  //   tempObj.map(item =>
+  //     item.width && item.width.includes('calc') ? delete item.width : item
+  //   );
+  //   let tempConfig = getColumnStructure(
+  //     [...tempObj],
+  //     expandRowTemplate ? true : false
+  //   );
 
-    setTableConfiguration(tempConfig);
-    setIsMouseDown({
-      currentElem: undefined,
-      eleidx: -1,
-      label: '',
-      isDown: false,
-      mouseX: undefined,
-      mouseY: undefined,
-      endWidth: undefined
-    });
-  };
+  //   setTableConfiguration(tempConfig);
+  //   setIsMouseDown({
+  //     currentElem: undefined,
+  //     eleidx: -1,
+  //     label: '',
+  //     isDown: false,
+  //     mouseX: undefined,
+  //     mouseY: undefined,
+  //     endWidth: undefined
+  //   });
+  // };
 
-  const reMouseDown = (column, ukey, e) => {
-    var nThTarget =
-      e.target.nodeName == 'SPAN' &&
-      e.target.className === 'hcl-data-table-resizable'
-        ? e.target.parentElement
-        : null;
-    document.body.classList.add('resize-table');
-    e.target.parentElement.classList.add('resizing');
-    if (nThTarget && cellObj) {
-      setcellObj({
-        ...cellObj,
-        [column.label]: {
-          startX: e.pageX,
-          startWidth: nThTarget.clientWidth,
-          resizeElem: nThTarget
-        }
-      });
-      setIsMouseDown({
-        ...isMouseDown,
-        currentElem: nThTarget,
-        eleidx: tableConfiguration.findIndex(
-          item => item.label === column.label
-        ),
-        label: column.label,
-        isDown: true,
-        mouseX: e.pageX,
-        mouseY: e.pageY
-      });
-    } else {
-      setIsMouseDown({
-        ...isMouseDown,
-        currentElem: undefined,
-        eleidx: -1,
-        label: '',
-        isDown: false,
-        mouseX: undefined,
-        mouseY: undefined
-      });
-    }
-  };
+  // const reMouseDown = (column, ukey, e) => {
+  //   var nThTarget =
+  //     e.target.nodeName == 'SPAN' &&
+  //     e.target.className === 'hcl-data-table-resizable'
+  //       ? e.target.parentElement
+  //       : null;
+  //   document.body.classList.add('resize-table');
+  //   e.target.parentElement.classList.add('resizing');
+  //   if (nThTarget && cellObj) {
+  //     setcellObj({
+  //       ...cellObj,
+  //       [column.label]: {
+  //         startX: e.pageX,
+  //         startWidth: nThTarget.clientWidth,
+  //         resizeElem: nThTarget
+  //       }
+  //     });
+  //     setIsMouseDown({
+  //       ...isMouseDown,
+  //       currentElem: nThTarget,
+  //       eleidx: tableConfiguration.findIndex(
+  //         item => item.label === column.label
+  //       ),
+  //       label: column.label,
+  //       isDown: true,
+  //       mouseX: e.pageX,
+  //       mouseY: e.pageY
+  //     });
+  //   } else {
+  //     setIsMouseDown({
+  //       ...isMouseDown,
+  //       currentElem: undefined,
+  //       eleidx: -1,
+  //       label: '',
+  //       isDown: false,
+  //       mouseX: undefined,
+  //       mouseY: undefined
+  //     });
+  //   }
+  // };
 
-  const reMouseUp = e => {
-    e.preventDefault();
+  // const reMouseUp = e => {
+  //   e.preventDefault();
 
-    setIsMouseDown({
-      ...isMouseDown,
-      eleidx: -1,
-      isDown: false
-    });
-    document.body.classList.remove('resize-table');
-  };
+  //   setIsMouseDown({
+  //     ...isMouseDown,
+  //     eleidx: -1,
+  //     isDown: false
+  //   });
+  //   document.body.classList.remove('resize-table');
+  // };
 
   const sortOnEnter = (field, e) => {
     if (e.key === 'Enter') {
@@ -318,9 +318,83 @@ const DataTable = ({
     type.includes('borderless') ? ` ${prefix}-data-table-borderless` : ''
   } ${className}`.trim();
 
+  // const [clickDrag, setclickDrag] = useState({
+  //   enableMouseMove: false,
+  //   startX: 0,
+  //   currentColumnName: {}
+  // });
+
   // useEffect(() => {
-  //   console.log(`tablewidthPostRender ===> ${tableWidthPostRender}`);
-  // })
+  //   if (
+  //     clickDrag && clickDrag[`enableMouseMove`] &&
+  //     clickDrag[`currentColumnName`]
+  //   ) {
+  //     addListener(
+  //       'datatablemousemove-' + clickDrag[`currentColumnName`][`label`],
+  //       'mousemove',
+  //       e => {
+  //         onPressMouseMove(e);
+  //       },
+  //       true
+  //     );
+  //     addListener(
+  //       'datatablemouseup-' + clickDrag[`currentColumnName`][`label`],
+  //       'mouseup',
+  //       e => {
+  //         onPressMouseUp(e, clickDrag[`currentColumnName`][`label`]);
+  //       },
+  //       true
+  //     );
+  //   } else {
+  //   removeListeners(
+  //     'datatablemousemove-' + clickDrag[`currentColumnName`][`label`],
+  //     'mousemove'
+  //   );
+  //   removeListeners(
+  //     'datatablemouseup-' + clickDrag[`currentColumnName`][`label`],
+  //     'mouseup'
+  //   );
+  //   }
+  // }, [clickDrag]);
+
+  const onColumnMouseDown = (column, idx, e) => {
+    console.log('oncloumnmousedown');
+    let prevX = e.clientX;
+    let prevY = e.clientY;
+    const headingEle =
+      e && e.target && e.target.parentElement ? e.target.parentElement : null;
+    headingEle.classList.add(`resizing-heading`);
+    addListener(
+      'datatablemousemove-' + column[`label`] + idx,
+      'mousemove',
+      e => {
+        onPressMouseMove(e, column[`label`] + idx, headingEle);
+      },
+      false
+    );
+    addListener(
+      'datatablemouseup-' + column[`label`] + idx,
+      'mouseup',
+      e => {
+        onPressMouseUp(e, column[`label`] + idx, headingEle);
+      },
+      false
+    );
+  };
+
+  const onPressMouseMove = (e, column, headingEle) => {
+    const rect = headingEle ? headingEle.getBoundingClientRect() : null;
+    console.log(`moving `, headingEle);
+  };
+
+  const onPressMouseUp = (e, column, headingEle) => {
+    console.log(`global mouse up`);
+    headingEle.classList.remove(`resizing-heading`);
+    if (column) {
+      removeListeners('datatablemousemove-' + column, 'mousemove');
+      removeListeners('datatablemouseup-' + column, 'mouseup');
+    }
+  };
 
   return (
     <div className={classnames}>
@@ -338,20 +412,6 @@ const DataTable = ({
         }}
         {...restProps}
       >
-        {/* <colgroup>
-          {tableConfiguration.map((column, index) => {
-            return (
-              <col
-                key={`heading-${index}`}
-                style={{
-                  minWidth: column.width,
-                  width: column.width,
-                  ...column.styles
-                }}
-              ></col>
-            );
-          })}
-        </colgroup> */}
         <thead>
           <tr>
             {tableConfiguration.map((column, index) => {
@@ -395,20 +455,50 @@ const DataTable = ({
                       {column.allowResize ? (
                         <span
                           className="hcl-data-table-resizable"
+                          //   onMouseDown={() => {
+                          //     console.log(`mousedown`);
+                          //     mousedown = 1;
+                          //     console.log(mousedown);
+                          //   }}
+                          //   onClick={() => {
+                          //     console.log(`clicked`)
+                          //     mousedown = 0;
+                          //     console.log(mousedown);
+                          //   }}
+                          // onMouseUp={() => console.log(`mouseup`)}
                           onMouseDown={
                             column.allowResize
-                              ? reMouseDown.bind(
+                              ? onColumnMouseDown.bind(
                                   this,
                                   column,
                                   `heading-${index}`
                                 )
                               : null
                           }
-                          onMouseUp={
-                            column.allowResize
-                              ? reMouseUp.bind(this, column, `heading-${index}`)
-                              : null
-                          }
+                          // onMouseUp={
+                          //   column.allowResize
+                          //     ? onColumnMouseUp.bind(
+                          //         this,
+                          //         column,
+                          //         `heading-${index}`
+                          //       )
+                          //     : null
+                          // }
+                          // onClick={column.allowResize ? onColumnClick.bind(this) : null}
+                          // onMouseDown={
+                          //   column.allowResize
+                          //     ? reMouseDown.bind(
+                          //         this,
+                          //         column,
+                          //         `heading-${index}`
+                          //       )
+                          //     : null
+                          // }
+                          // onMouseUp={
+                          //   column.allowResize
+                          //     ? reMouseUp.bind(this, column, `heading-${index}`)
+                          //     : null
+                          // }
                         />
                       ) : null}
                     </>
