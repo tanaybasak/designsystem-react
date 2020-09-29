@@ -318,49 +318,12 @@ const DataTable = ({
     type.includes('borderless') ? ` ${prefix}-data-table-borderless` : ''
   } ${className}`.trim();
 
-  // const [clickDrag, setclickDrag] = useState({
-  //   enableMouseMove: false,
-  //   startX: 0,
-  //   currentColumnName: {}
-  // });
-
-  // useEffect(() => {
-  //   if (
-  //     clickDrag && clickDrag[`enableMouseMove`] &&
-  //     clickDrag[`currentColumnName`]
-  //   ) {
-  //     addListener(
-  //       'datatablemousemove-' + clickDrag[`currentColumnName`][`label`],
-  //       'mousemove',
-  //       e => {
-  //         onPressMouseMove(e);
-  //       },
-  //       true
-  //     );
-  //     addListener(
-  //       'datatablemouseup-' + clickDrag[`currentColumnName`][`label`],
-  //       'mouseup',
-  //       e => {
-  //         onPressMouseUp(e, clickDrag[`currentColumnName`][`label`]);
-  //       },
-  //       true
-  //     );
-  //   } else {
-  //   removeListeners(
-  //     'datatablemousemove-' + clickDrag[`currentColumnName`][`label`],
-  //     'mousemove'
-  //   );
-  //   removeListeners(
-  //     'datatablemouseup-' + clickDrag[`currentColumnName`][`label`],
-  //     'mouseup'
-  //   );
-  //   }
-  // }, [clickDrag]);
 
   const onColumnMouseDown = (column, idx, e) => {
     e.preventDefault();
     console.log('oncloumnmousedown');
     document.body.classList.add('resize-table');
+    tableRef.current.parentElement.style.position = `relative`;
     
     let pageX = e.pageX;
     let nThTarget;
@@ -377,7 +340,13 @@ const DataTable = ({
         ]
       : e.target.parentElement;
     
-    e.target.parentElement.parentElement.previousElementSibling ? e.target.parentElement.classList.add(`resizing`) : null;
+    
+    /* Adding class `resizing` for span tags */
+    e.target.parentElement.parentElement.previousElementSibling
+      ? e.target.parentElement.classList.add(`resizing`)
+      : e.target.parentElement.parentElement.nextElementSibling.children[
+          parseInt(idx.split(`-`)[1], 10)
+        ].classList.add(`resizing`);
     
     nThTarget.classList.add(`resizing`);
 
@@ -413,7 +382,7 @@ const DataTable = ({
 
     let moveLength = e && startX ? e.pageX - startX : null;
     totalLengthMoved = moveLength ? (startWidth + moveLength) + 'px' : null;
-    console.log(totalLengthMoved);
+    // console.log(totalLengthMoved);
   };
 
   const onPressMouseUp = (e, columnLabel, headingEle) => {
