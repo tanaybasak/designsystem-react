@@ -91,25 +91,6 @@ const Pagination = ({
 
   // pages Dropdown creation useEffect
   useEffect(() => {
-    if (
-      JSON.stringify(pagesDropDown) !== JSON.stringify([]) &&
-      pagesDropDown.length > 0
-    ) {
-      if (currentPage > totalPages) {
-        setPagesSelected(parseInt(pagesDropDown[totalPages - 1], 10));
-      }
-      toggleNavButtons();
-    }
-  }, [pagesDropDown, currentPage, totalPages]);
-
-  // pages DropDown selected useEffect
-  useEffect(() => {
-    adjustRange();
-    togglePageDisplay();
-    toggleNavButtons();
-  });
-
-  useEffect(() => {
     if (pagesSelected != currentPage) {
       setPagesSelected(currentPage);
     }
@@ -121,7 +102,14 @@ const Pagination = ({
         setPagesSelected(parseInt(pagesDropDown[totalPages - 1], 10));
       }
     }
-  }, [currentPage, totalPages, pagesDropDown]);
+  }, [pagesDropDown, currentPage, totalPages]);
+
+  // pages DropDown selected useEffect
+  useEffect(() => {
+    adjustRange();
+    togglePageDisplay();
+    toggleNavButtons();
+  });
 
   //on Load useEffect
   useEffect(() => {
