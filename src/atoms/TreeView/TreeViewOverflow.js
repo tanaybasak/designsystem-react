@@ -219,7 +219,7 @@ const TreeViewOverflow = ({ node, level, updateTextStatus }) => {
               link={menu.link}
             >
               {menu.icon ? (
-                <span style={{ marginRight: '.5rem', verticalAlign: 'middle' }}>
+                <span className={`${prefix}-overflow-option-icon`}>
                   {menu.icon}
                 </span>
               ) : null}

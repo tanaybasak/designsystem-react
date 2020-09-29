@@ -469,7 +469,7 @@ class TreeExample extends Component {
               //     </TreeNodeTemplate>
               //   );
               // }}
-              overflowOnHover={true}
+              overflowOnHover={false}
               //   customNodeTemplate={node => {
               //     return (
               //       <Checkbox id={node.id} label={node.name} value={node.id} />
