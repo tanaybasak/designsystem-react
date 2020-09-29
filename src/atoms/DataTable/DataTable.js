@@ -358,27 +358,41 @@ const DataTable = ({
   // }, [clickDrag]);
 
   const onColumnMouseDown = (column, idx, e) => {
+    e.preventDefault();
     console.log('oncloumnmousedown');
     document.body.classList.add('resize-table');
+    
     let pageX = e.pageX;
-    var nThTarget =
-      e.target.nodeName == 'SPAN' &&
-      e.target.className === 'hcl-data-table-resizable'
-        ? e.target.parentElement
-        : null;
+    let nThTarget;
+      // e.target.nodeName == 'SPAN' &&
+      // e.target.className === 'hcl-data-table-resizable'
+      //   ? e.target.parentElement
+      //   : null;
     
     
-    const headingEle =
-      e && e.target && e.target.parentElement ? e.target.parentElement : null;
-    headingEle.classList.add(`resizing`);
-
+    /* For Detecting Second Row Header Resize */
+    nThTarget = e.target.parentElement.parentElement.previousElementSibling
+      ? e.target.parentElement.parentElement.previousElementSibling.children[
+          parseInt(idx.split(`-`)[1], 10)
+        ]
+      : e.target.parentElement;
+    
+    e.target.parentElement.parentElement.previousElementSibling ? e.target.parentElement.classList.add(`resizing`) : null;
+    
+    nThTarget.classList.add(`resizing`);
 
     /* Adding Event Listeners */
     addListener(
       'datatablemousemove-' + column[`label`] + idx,
       'mousemove',
       e => {
-        onPressMouseMove(e, column[`label`] + idx, pageX, nThTarget["clientWidth"], headingEle);
+        onPressMouseMove(
+          e,
+          column[`label`] + idx,
+          pageX,
+          nThTarget['clientWidth'],
+          nThTarget
+        );
       },
       false
     );
@@ -386,15 +400,16 @@ const DataTable = ({
       'datatablemouseup-' + column[`label`] + idx,
       'mouseup',
       e => {
-        onPressMouseUp(e, column[`label`] + idx, headingEle);
+        onPressMouseUp(e, column[`label`] + idx, nThTarget);
       },
       false
     );
   };
+
   let totalLengthMoved = '';
   const onPressMouseMove = (e, columnLabel, startX, startWidth, headingEle) => {
+    e.preventDefault();
     document.body.classList.add('resize-table');
-    const rect = headingEle ? headingEle.getBoundingClientRect() : null;
 
     let moveLength = e && startX ? e.pageX - startX : null;
     totalLengthMoved = moveLength ? (startWidth + moveLength) + 'px' : null;
