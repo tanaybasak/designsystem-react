@@ -359,16 +359,26 @@ const DataTable = ({
 
   const onColumnMouseDown = (column, idx, e) => {
     console.log('oncloumnmousedown');
-    let prevX = e.clientX;
-    let prevY = e.clientY;
+    document.body.classList.add('resize-table');
+    let pageX = e.pageX;
+    var nThTarget =
+      e.target.nodeName == 'SPAN' &&
+      e.target.className === 'hcl-data-table-resizable'
+        ? e.target.parentElement
+        : null;
+    
+    
     const headingEle =
       e && e.target && e.target.parentElement ? e.target.parentElement : null;
-    headingEle.classList.add(`resizing-heading`);
+    headingEle.classList.add(`resizing`);
+
+
+    /* Adding Event Listeners */
     addListener(
       'datatablemousemove-' + column[`label`] + idx,
       'mousemove',
       e => {
-        onPressMouseMove(e, column[`label`] + idx, headingEle);
+        onPressMouseMove(e, column[`label`] + idx, pageX, nThTarget["clientWidth"], headingEle);
       },
       false
     );
@@ -381,18 +391,38 @@ const DataTable = ({
       false
     );
   };
-
-  const onPressMouseMove = (e, column, headingEle) => {
+  let totalLengthMoved = '';
+  const onPressMouseMove = (e, columnLabel, startX, startWidth, headingEle) => {
+    document.body.classList.add('resize-table');
     const rect = headingEle ? headingEle.getBoundingClientRect() : null;
-    console.log(`moving `, headingEle);
+
+    let moveLength = e && startX ? e.pageX - startX : null;
+    totalLengthMoved = moveLength ? (startWidth + moveLength) + 'px' : null;
+    console.log(totalLengthMoved);
   };
 
-  const onPressMouseUp = (e, column, headingEle) => {
-    console.log(`global mouse up`);
-    headingEle.classList.remove(`resizing-heading`);
-    if (column) {
-      removeListeners('datatablemousemove-' + column, 'mousemove');
-      removeListeners('datatablemouseup-' + column, 'mouseup');
+  const onPressMouseUp = (e, columnLabel, headingEle) => {
+    e.preventDefault();
+    document.body.classList.remove('resize-table');
+    headingEle.classList.remove(`resizing`);
+    console.log(`global mouse up`, headingEle);
+
+
+    let tempObj = [...tableConfiguration];
+    tempObj.map(item =>
+      item.width && item.width.includes('calc') ? delete item.width : item
+    );
+    let tempConfig = getColumnStructure(
+      [...tempObj],
+      expandRowTemplate ? true : false
+    );
+    headingEle.width = totalLengthMoved;
+    setTableConfiguration(tempConfig);
+
+    /* Remove Event Listeners */
+    if (columnLabel) {
+      removeListeners('datatablemousemove-' + columnLabel, 'mousemove');
+      removeListeners('datatablemouseup-' + columnLabel, 'mouseup');
     }
   };
 
@@ -455,17 +485,6 @@ const DataTable = ({
                       {column.allowResize ? (
                         <span
                           className="hcl-data-table-resizable"
-                          //   onMouseDown={() => {
-                          //     console.log(`mousedown`);
-                          //     mousedown = 1;
-                          //     console.log(mousedown);
-                          //   }}
-                          //   onClick={() => {
-                          //     console.log(`clicked`)
-                          //     mousedown = 0;
-                          //     console.log(mousedown);
-                          //   }}
-                          // onMouseUp={() => console.log(`mouseup`)}
                           onMouseDown={
                             column.allowResize
                               ? onColumnMouseDown.bind(
@@ -475,30 +494,6 @@ const DataTable = ({
                                 )
                               : null
                           }
-                          // onMouseUp={
-                          //   column.allowResize
-                          //     ? onColumnMouseUp.bind(
-                          //         this,
-                          //         column,
-                          //         `heading-${index}`
-                          //       )
-                          //     : null
-                          // }
-                          // onClick={column.allowResize ? onColumnClick.bind(this) : null}
-                          // onMouseDown={
-                          //   column.allowResize
-                          //     ? reMouseDown.bind(
-                          //         this,
-                          //         column,
-                          //         `heading-${index}`
-                          //       )
-                          //     : null
-                          // }
-                          // onMouseUp={
-                          //   column.allowResize
-                          //     ? reMouseUp.bind(this, column, `heading-${index}`)
-                          //     : null
-                          // }
                         />
                       ) : null}
                     </>
@@ -584,9 +579,25 @@ const DataTable = ({
                       column.pinned === 'right'
                         ? 'sticky-div sticky-right-div'
                         : ''
-                    }${column.sortable ? ' sortable' : ''}`}
+                    }${column.sortable ? ' sortable' : ''}${column.allowResize ? 'resizable' : ''}`}
                   >
-                    <div>{column.columnHtml ? column.columnHtml : null}</div>
+                    <>
+                      {column.columnHtml ? column.columnHtml : null}
+                      {column.allowResize ? (
+                        <span
+                          className="hcl-data-table-resizable"
+                          onMouseDown={
+                            column.allowResize
+                              ? onColumnMouseDown.bind(
+                                  this,
+                                  column,
+                                  `heading-${index}`
+                                )
+                              : null
+                          }
+                        />
+                      ) : null}
+                    </>
                   </th>
                 );
               })}
