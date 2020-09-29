@@ -697,10 +697,7 @@ const Tooltip = ({ type, content, direction, children }) => {
         onBlur: type !== 'interactive' ? closeTooltipOnBlur : null,
         onKeyPress: type === 'interactive' ? showTooltipOnEnter : null,
         ref: parentRef,
-        className: (customClass +=
-          type === 'interactive'
-            ? ` ${prefix}-interactive-tooltip`
-            : ` ${prefix}-icon-tooltip`)
+        className: customClass
       });
     });
   }
