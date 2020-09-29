@@ -95,7 +95,7 @@ const Pagination = ({
       JSON.stringify(pagesDropDown) !== JSON.stringify([]) &&
       pagesDropDown.length > 0
     ) {
-      if (currentPage >= totalPages) {
+      if (currentPage > totalPages) {
         setPagesSelected(parseInt(pagesDropDown[totalPages - 1], 10));
       }
       toggleNavButtons();
@@ -113,10 +113,15 @@ const Pagination = ({
     if (pagesSelected != currentPage) {
       setPagesSelected(currentPage);
     }
-    if (currentPage >= totalPages) {
-      setPagesSelected(parseInt(pagesDropDown[totalPages - 1], 10));
+    if (
+      JSON.stringify(pagesDropDown) !== JSON.stringify([]) &&
+      pagesDropDown.length > 0
+    ) {
+      if (currentPage > totalPages) {
+        setPagesSelected(parseInt(pagesDropDown[totalPages - 1], 10));
+      }
     }
-  }, [currentPage, totalPages]);
+  }, [currentPage, totalPages, pagesDropDown]);
 
   //on Load useEffect
   useEffect(() => {
