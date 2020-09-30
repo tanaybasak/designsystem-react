@@ -106,10 +106,12 @@ const Pagination = ({
 
   // pages DropDown selected useEffect
   useEffect(() => {
-    adjustRange();
-    togglePageDisplay();
-    toggleNavButtons();
-  });
+    if (pagesSelected && pagesSelected <= totalPages) {
+      adjustRange();
+      togglePageDisplay();
+      toggleNavButtons();
+    }
+  }, [pagesSelected, totalPages]);
 
   //on Load useEffect
   useEffect(() => {
@@ -177,7 +179,10 @@ const Pagination = ({
     if (pagesRef.current) {
       let nextIndex = pagesRef.current.selectedIndex;
       nextIndex++;
-      if (totalItems === 0 || pagesRef.current.options.length === 1) {
+      if (pagesRef.current.selectedIndex === -1) {
+        nextbtnRef.current.disabled = false;
+        previousbtnRef.current.disabled = true;
+      } else if (totalItems === 0 || pagesRef.current.options.length === 1) {
         // One Option
         previousbtnRef.current.disabled = true;
         nextbtnRef.current.disabled = true;
