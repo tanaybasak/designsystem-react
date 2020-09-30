@@ -7,7 +7,7 @@ import TreeView from './TreeView';
 import Notification from '../Notification';
 import TreeNodeTemplate from './TreeNodeTemplate';
 import Checkbox from '../Checkbox';
-import Tag from '../Tag/Tag';
+import Button from '../Button/Button';
 //@update-path-build-end
 let dynamicId = 1;
 const getCustomTree = () => {
@@ -96,7 +96,13 @@ storiesOf('Tree', module)
   })
   .add(
     'with selection',
-    () => <TreeView treeData={object('Tree Data', treeData)} type="single" />,
+    () => (
+      <TreeView
+        treeData={object('Tree Data', treeData)}
+        type="single"
+        onChange={action('On Selection')}
+      />
+    ),
     {
       info: {
         text: `Description About TreeView Component \n
@@ -160,33 +166,6 @@ storiesOf('Tree', module)
         //     )
         //   }
         // }}
-        // iconClass={[
-        //   {
-        //     condition: [
-        //       {
-        //         operator: 'type',
-        //         operand: '=',
-        //         value: 'folder'
-        //       }
-        //     ],
-        //     values: {
-        //       expandIcon: <i className="p-hclsw p-hclsw-export" />,
-        //       collapsedIcon: <i className="p-hclsw p-hclsw-folder" />
-        //     }
-        //   },
-        //   {
-        //     condition: [
-        //       {
-        //         operator: 'type',
-        //         operand: '=',
-        //         value: 'file'
-        //       }
-        //     ],
-        //     values: {
-        //       icon: <i className="p-hclsw p-hclsw-document" />
-        //     }
-        //   }
-        // ]}
       />
     ),
     {
@@ -203,6 +182,17 @@ storiesOf('Tree', module)
     'with Drag&Drop',
     () => (
       <TreeView
+        iconClass={{
+          operator: 'type',
+          values: {
+            file: {
+              icon: <i className="p-hclsw p-hclsw-document" />
+            },
+            folder: {
+              icon: <i className="p-hclsw p-hclsw-folder" />
+            }
+          }
+        }}
         dragRules={{
           operator: 'type',
           values: {
@@ -213,26 +203,7 @@ storiesOf('Tree', module)
         // dragRules={{
         //   values: false
         // }}
-        // dragRules={[
-        //   {
-        //     condition: [
-        //       {
-        //         operator: 'type',
-        //         operand: '=',
-        //         value: 'folder'
-        //       }
-        //     ]
-        //   },
-        //   {
-        //     condition: [
-        //       {
-        //         operator: 'type',
-        //         operand: '=',
-        //         value: 'file'
-        //       }
-        //     ]
-        //   }
-        // ]}
+
         isDropAllowed={(dragModel, dropModel, parentNode) => {
           let canDropInsideDropModel = false;
           let canDropInsideParentModel = false;
@@ -272,6 +243,17 @@ storiesOf('Tree', module)
     'with Overflow Menu',
     () => (
       <TreeView
+        iconClass={{
+          operator: 'type',
+          values: {
+            file: {
+              icon: <i className="p-hclsw p-hclsw-document" />
+            },
+            folder: {
+              icon: <i className="p-hclsw p-hclsw-folder" />
+            }
+          }
+        }}
         isCopyAllowed={(dragModel, dropModel) => {
           if (dragModel.type === 'file' && dropModel.type === 'folder') {
             return true;
@@ -451,10 +433,29 @@ storiesOf('Tree', module)
     () => (
       <TreeView
         treeData={object('Tree Data', treeData)}
+        overflowOnHover
         customActionTemplate={node => {
           return node.type === 'folder' ? (
-            <Tag>{node.children.length}</Tag>
-          ) : null;
+            <Button
+              type="ghost"
+              small
+              className="hcl-secondary-bg-hover"
+              aria-label="add file"
+            >
+              <i className="p-hclsw p-hclsw-add filled" />
+            </Button>
+          ) : (
+            <>
+              <Button
+                type="ghost"
+                small
+                className="hcl-secondary-bg-hover"
+                aria-label="delete file"
+              >
+                <i className="p-hclsw p-hclsw-delete" />
+              </Button>
+            </>
+          );
         }}
       />
     ),

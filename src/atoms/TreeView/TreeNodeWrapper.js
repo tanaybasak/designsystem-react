@@ -459,6 +459,13 @@ const TreeNodeWrapper = ({
         state.cutNode === node
           ? ` ghost`
           : ''
+      }${
+        (state.draggedNode &&
+          node[configuration.key] &&
+          state.draggedNode[configuration.key] === node[configuration.key]) ||
+        state.draggedNode === node
+          ? ` ghost`
+          : ''
       }${hasChildren ? `` : ' no-children-exist'}`}
       tabIndex="0"
       level={level}
