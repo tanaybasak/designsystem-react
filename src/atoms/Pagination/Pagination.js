@@ -109,7 +109,7 @@ const Pagination = ({
     adjustRange();
     togglePageDisplay();
     toggleNavButtons();
-  });
+  }, [pagesSelected, pagesDropDown]);
 
   //on Load useEffect
   useEffect(() => {
@@ -183,14 +183,14 @@ const Pagination = ({
         nextbtnRef.current.disabled = true;
       } else if (
         pagesRef.current.selectedIndex === 0 &&
-        currentPage < pagesRef.current.options.length
+        pagesSelected < pagesRef.current.options.length
       ) {
         //First Index
         previousbtnRef.current.disabled = true;
         nextbtnRef.current.disabled = false;
       } else if (
         nextIndex === pagesRef.current.options.length ||
-        currentPage > pagesRef.current.options.length
+        pagesSelected > pagesRef.current.options.length
       ) {
         //Last Index
         nextbtnRef.current.disabled = true;
