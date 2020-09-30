@@ -22,7 +22,8 @@ const Overflowmenu = ({
   const overflowMenuRef = useRef(null);
   const targetElementRef = useRef(null);
 
-  const clickHandler = () => {
+  const clickHandler = event => {
+    targetElementRef.current = event.currentTarget;
     changeDisplay(!display);
   };
 
@@ -120,9 +121,23 @@ const Overflowmenu = ({
   };
 
   const getListItemsFromElement = children => {
-    return children.map((item, index) => {
-      return React.cloneElement(item, {
-        key: `list-index${index}`,
+    if (Array.isArray(children)) {
+      return children.map((item, index) => {
+        return React.cloneElement(item, {
+          key: `list-index${index}`,
+          onClick: (item, event) => {
+            changeDisplay(false);
+            if (onClick) {
+              onClick(item, event);
+            }
+            if (targetElementRef && targetElementRef.current) {
+              targetElementRef.current.focus();
+            }
+          }
+        });
+      });
+    } else {
+      return React.cloneElement(children, {
         onClick: (item, event) => {
           changeDisplay(false);
           if (onClick) {
@@ -133,7 +148,7 @@ const Overflowmenu = ({
           }
         }
       });
-    });
+    }
   };
 
   const onToggle = (status, type) => {
@@ -161,8 +176,7 @@ const Overflowmenu = ({
     <div className={classnames.join(' ')} {...restProps}>
       {customTemplate ? (
         React.cloneElement(customTemplate, {
-          onClick: clickHandler,
-          ref: targetElementRef
+          onClick: clickHandler
         })
       ) : (
         <button
@@ -179,7 +193,6 @@ const Overflowmenu = ({
             
             `
             }`}
-          ref={targetElementRef}
           aria-label="Overflow Menu"
           type="button"
           onClick={clickHandler}

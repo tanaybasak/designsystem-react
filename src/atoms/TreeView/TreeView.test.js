@@ -47,19 +47,18 @@ it('TreeView renders correctly', () => {
   expect(tree).toMatchSnapshot();
 });
 
-it('Toggle Tree node using click', () => {
+it('Toggle Tree node using click on caret icon', () => {
   const mockCallBack = jest.fn();
   const newTreeData = JSON.parse(JSON.stringify(treeData));
   const wrapper = mount(
     <TreeView treeData={newTreeData} onToggle={mockCallBack} />
   );
   const firstTreeNode = newTreeData[0];
-  expect(wrapper.find(`.tree-nested`).exists()).toBeFalsy();
+  expect(wrapper.find(`.hcl-tree-nested`).exists()).toBeFalsy();
   expect(wrapper.find(`.${firstTreeNode.collapsedIcon}`).exists()).toBeTruthy();
   expect(wrapper.find(`.${firstTreeNode.expandIcon}`).exists()).toBeFalsy();
-
-  wrapper.find('.tree-node').at(0).simulate('click');
-  expect(wrapper.find(`.tree-nested`).exists()).toBeTruthy();
+  wrapper.find('.hcl-toggle-icon').at(0).simulate('click');
+  expect(wrapper.find(`.hcl-tree-nested`).exists()).toBeTruthy();
   expect(wrapper.find(`.${firstTreeNode.collapsedIcon}`).exists()).toBeFalsy();
   expect(wrapper.find(`.${firstTreeNode.expandIcon}`).exists()).toBeTruthy();
   expect(mockCallBack.mock.calls.length).toBe(1);
@@ -71,9 +70,9 @@ it('Select Tree Node', () => {
   const wrapper = mount(
     <TreeView treeData={newTreeData} type="single" onChange={mockCallBack} />
   );
-  expect(wrapper.find(`.highlight`).exists()).toBeFalsy();
-  wrapper.find('.tree-node').at(0).find('span').simulate('click');
-  expect(wrapper.find(`.highlight`).exists()).toBeTruthy();
+  expect(wrapper.find(`.hcl-node-highlight`).exists()).toBeFalsy();
+  wrapper.find('.hcl-tree-node').at(0).simulate('click');
+  expect(wrapper.find(`.hcl-node-highlight`).exists()).toBeTruthy();
   expect(mockCallBack.mock.calls.length).toBe(1);
 });
 
@@ -84,12 +83,12 @@ it('Select Tree on Key enter', () => {
     <TreeView treeData={newTreeData} type="single" onChange={mockCallBack} />
   );
   const firstTreeNode = newTreeData[0];
-  expect(wrapper.find(`.tree-nested`).exists()).toBeFalsy();
+  expect(wrapper.find(`.hcl-tree-nested`).exists()).toBeFalsy();
   expect(wrapper.find(`.${firstTreeNode.collapsedIcon}`).exists()).toBeTruthy();
   expect(wrapper.find(`.${firstTreeNode.expandIcon}`).exists()).toBeFalsy();
-  wrapper.find('.tree-node').at(0).simulate('focus');
-  wrapper.find('.tree-node').at(0).simulate('keydown', { keyCode: 13 });
-  expect(wrapper.find(`.highlight`).exists()).toBeTruthy();
+  wrapper.find('.hcl-tree-node').at(0).simulate('focus');
+  wrapper.find('.hcl-tree-node').at(0).simulate('keydown', { keyCode: 13 });
+  expect(wrapper.find(`.hcl-node-highlight`).exists()).toBeTruthy();
   expect(mockCallBack.mock.calls.length).toBe(1);
 });
 
@@ -100,21 +99,21 @@ it('Toggle Tree Node on right Arrow and left arrow', () => {
     <TreeView treeData={newTreeData} onToggle={mockCallBack} />
   );
   const firstTreeNode = newTreeData[0];
-  expect(wrapper.find(`.tree-nested`).exists()).toBeFalsy();
+  expect(wrapper.find(`.hcl-tree-nested`).exists()).toBeFalsy();
   expect(wrapper.find(`.${firstTreeNode.collapsedIcon}`).exists()).toBeTruthy();
   expect(wrapper.find(`.${firstTreeNode.expandIcon}`).exists()).toBeFalsy();
 
-  const treeNode = wrapper.find('.tree-node').at(0);
+  const treeNode = wrapper.find('.hcl-tree-node').at(0);
   treeNode.simulate('focus');
   treeNode.simulate('keydown', { keyCode: 39 });
-  expect(wrapper.find(`.tree-nested`).exists()).toBeTruthy();
+  expect(wrapper.find(`.hcl-tree-nested`).exists()).toBeTruthy();
   expect(wrapper.find(`.${firstTreeNode.collapsedIcon}`).exists()).toBeFalsy();
   expect(wrapper.find(`.${firstTreeNode.expandIcon}`).exists()).toBeTruthy();
   expect(mockCallBack.mock.calls.length).toBe(1);
 
   treeNode.simulate('focus');
   treeNode.simulate('keydown', { keyCode: 37 });
-  expect(wrapper.find(`.tree-nested`).exists()).toBeFalsy();
+  expect(wrapper.find(`.hcl-tree-nested`).exists()).toBeFalsy();
   expect(wrapper.find(`.${firstTreeNode.collapsedIcon}`).exists()).toBeTruthy();
   expect(wrapper.find(`.${firstTreeNode.expandIcon}`).exists()).toBeFalsy();
 });
@@ -126,14 +125,14 @@ it('Navigate Item using Arrow Down', () => {
     <TreeView treeData={newTreeData} onToggle={mockCallBack} />
   );
   const firstTreeNode = newTreeData[0];
-  expect(wrapper.find(`.tree-nested`).exists()).toBeFalsy();
+  expect(wrapper.find(`.hcl-tree-nested`).exists()).toBeFalsy();
   expect(wrapper.find(`.${firstTreeNode.collapsedIcon}`).exists()).toBeTruthy();
   expect(wrapper.find(`.${firstTreeNode.expandIcon}`).exists()).toBeFalsy();
 
-  const treeNode = wrapper.find('.tree-node').at(0);
+  const treeNode = wrapper.find('.hcl-tree-node').at(0);
   treeNode.simulate('focus');
   treeNode.simulate('keydown', { keyCode: 39 });
-  expect(wrapper.find(`.tree-nested`).exists()).toBeTruthy();
+  expect(wrapper.find(`.hcl-tree-nested`).exists()).toBeTruthy();
   expect(wrapper.find(`.${firstTreeNode.collapsedIcon}`).exists()).toBeFalsy();
   expect(wrapper.find(`.${firstTreeNode.expandIcon}`).exists()).toBeTruthy();
   expect(mockCallBack.mock.calls.length).toBe(1);
@@ -141,13 +140,13 @@ it('Navigate Item using Arrow Down', () => {
   expect(document.activeElement.textContent.trim()).toEqual(
     newTreeData[0].children[0].name
   );
-  let currentActiveNode = wrapper.find('.tree-node').at(1);
+  let currentActiveNode = wrapper.find('.hcl-tree-node').at(1);
   currentActiveNode.simulate('keydown', { keyCode: 40 });
   expect(document.activeElement.textContent.trim()).toEqual(
     newTreeData[0].children[1].name
   );
 
-  currentActiveNode = wrapper.find('.tree-node').at(2);
+  currentActiveNode = wrapper.find('.hcl-tree-node').at(2);
   currentActiveNode.simulate('keydown', { keyCode: 40 });
   expect(document.activeElement.textContent.trim()).toEqual(
     newTreeData[1].name
@@ -161,15 +160,15 @@ it('Navigate Item using Arrow Up', () => {
     <TreeView treeData={newTreeData} onToggle={mockCallBack} />
   );
   const firstTreeNode = newTreeData[0];
-  expect(wrapper.find(`.tree-nested`).exists()).toBeFalsy();
+  expect(wrapper.find(`.hcl-tree-nested`).exists()).toBeFalsy();
   expect(wrapper.find(`.${firstTreeNode.collapsedIcon}`).exists()).toBeTruthy();
   expect(wrapper.find(`.${firstTreeNode.expandIcon}`).exists()).toBeFalsy();
 
-  const firstNode = wrapper.find('.tree-node').at(0);
-  const secondNode = wrapper.find('.tree-node').at(1);
+  const firstNode = wrapper.find('.hcl-tree-node').at(0);
+  const secondNode = wrapper.find('.hcl-tree-node').at(1);
   firstNode.simulate('focus');
   firstNode.simulate('keydown', { keyCode: 39 });
-  expect(wrapper.find(`.tree-nested`).exists()).toBeTruthy();
+  expect(wrapper.find(`.hcl-tree-nested`).exists()).toBeTruthy();
   expect(wrapper.find(`.${firstTreeNode.collapsedIcon}`).exists()).toBeFalsy();
   expect(wrapper.find(`.${firstTreeNode.expandIcon}`).exists()).toBeTruthy();
   expect(mockCallBack.mock.calls.length).toBe(1);
@@ -184,12 +183,12 @@ it('Navigate Item using Arrow Up', () => {
     newTreeData[0].children[1].name
   );
 
-  wrapper.find('.tree-node').at(2).simulate('keydown', { keyCode: 38 });
+  wrapper.find('.hcl-tree-node').at(2).simulate('keydown', { keyCode: 38 });
   expect(document.activeElement.textContent.trim()).toEqual(
     newTreeData[0].children[0].name
   );
 
-  wrapper.find('.tree-node').at(1).simulate('keydown', { keyCode: 38 });
+  wrapper.find('.hcl-tree-node').at(1).simulate('keydown', { keyCode: 38 });
   expect(document.activeElement.textContent.trim()).toEqual(
     newTreeData[0].name
   );
