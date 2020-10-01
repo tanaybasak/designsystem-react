@@ -318,7 +318,9 @@ const DataTable = ({
     type.includes('borderless') ? ` ${prefix}-data-table-borderless` : ''
   } ${className}`.trim();
 
-
+  const [divider, setDivider] = useState({visibility: false, left:0});
+  const resizeLineRef = useRef(null);
+  
   const onColumnMouseDown = (column, idx, e) => {
     e.preventDefault();
     console.log('oncloumnmousedown');
@@ -331,15 +333,14 @@ const DataTable = ({
       // e.target.className === 'hcl-data-table-resizable'
       //   ? e.target.parentElement
       //   : null;
-    
-    
+
+      
     /* For Detecting Second Row Header Resize */
     nThTarget = e.target.parentElement.parentElement.previousElementSibling
       ? e.target.parentElement.parentElement.previousElementSibling.children[
           parseInt(idx.split(`-`)[1], 10)
         ]
       : e.target.parentElement;
-    
     
     /* Adding class `resizing` for span tags */
     e.target.parentElement.parentElement.previousElementSibling
@@ -349,6 +350,15 @@ const DataTable = ({
         ].classList.add(`resizing`);
     
     nThTarget.classList.add(`resizing`);
+
+    setDivider({
+      ...divider,
+      visibility: true,
+      left: e.pageX
+    });
+
+    console.log(e.pageX, `==> pageX`);
+
 
     /* Adding Event Listeners */
     addListener(
@@ -369,28 +379,50 @@ const DataTable = ({
       'datatablemouseup-' + column[`label`] + idx,
       'mouseup',
       e => {
-        onPressMouseUp(e, column[`label`] + idx, nThTarget);
+        onPressMouseUp(e, column[`label`] + idx, idx, nThTarget);
       },
       false
     );
   };
 
+
   let totalLengthMoved = '';
   const onPressMouseMove = (e, columnLabel, startX, startWidth, headingEle) => {
     e.preventDefault();
+
+    // const tableResizableBounds = 
+    //   headingEle
+    //     .querySelector(`.hcl-data-table-resizable`)
+    //     .getBoundingClientRect();
+    console.log(e.pageX, `in mousemove`);
     document.body.classList.add('resize-table');
 
     let moveLength = e && startX ? e.pageX - startX : null;
     totalLengthMoved = moveLength ? (startWidth + moveLength) + 'px' : null;
     // console.log(totalLengthMoved);
+    if (resizeLineRef && resizeLineRef.current) {
+      console.log(resizeLineRef.current.getBoundingClientRect());
+      // resizeLineRef.current.style.left = totalLengthMoved;
+      setDivider({
+        ...divider,
+        left: e.pageX + `px`
+      });
+    }
   };
 
-  const onPressMouseUp = (e, columnLabel, headingEle) => {
+
+  const onPressMouseUp = (e, columnLabel, idx, headingEle) => {
     e.preventDefault();
+
     document.body.classList.remove('resize-table');
     headingEle.classList.remove(`resizing`);
-    console.log(`global mouse up`, headingEle);
+    headingEle.parentElement.previousElementSibling
+      ? headingEle.classList.remove(`resizing`)
+      : headingEle.parentElement.nextElementSibling.children[
+          parseInt(idx.split(`-`)[1], 10)
+        ].classList.remove(`resizing`);
 
+    console.log(`global mouse up`, headingEle);
 
     let tempObj = [...tableConfiguration];
     tempObj.map(item =>
@@ -407,11 +439,25 @@ const DataTable = ({
     if (columnLabel) {
       removeListeners('datatablemousemove-' + columnLabel, 'mousemove');
       removeListeners('datatablemouseup-' + columnLabel, 'mouseup');
+      setDivider({
+        ...divider,
+        visibility:false
+      });
     }
   };
 
   return (
     <div className={classnames}>
+      {divider && divider.visibility ? (
+        <>
+          <div
+            ref={resizeLineRef}
+            style={{
+              left: divider.left + `px`
+            }}
+          className={`resize-line`}></div>
+        </>
+      ) : null}
       <table
         id={id}
         ref={tableRef}
@@ -563,7 +609,9 @@ const DataTable = ({
                       column.pinned === 'right'
                         ? 'sticky-div sticky-right-div'
                         : ''
-                    }${column.sortable ? ' sortable' : ''}${column.allowResize ? 'resizable' : ''}`}
+                    }${column.sortable ? ' sortable' : ''}${
+                      column.allowResize ? 'resizable' : ''
+                    }`}
                   >
                     <>
                       {column.columnHtml ? column.columnHtml : null}
