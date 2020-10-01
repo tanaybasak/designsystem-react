@@ -91,18 +91,15 @@ const Pagination = ({
 
   // pages Dropdown creation useEffect
   useEffect(() => {
-    if (pagesSelected != currentPage) {
-      setPagesSelected(currentPage);
-    }
     if (
       JSON.stringify(pagesDropDown) !== JSON.stringify([]) &&
       pagesDropDown.length > 0
     ) {
-      if (currentPage > totalPages) {
-        setPagesSelected(parseInt(pagesDropDown[totalPages - 1], 10));
+      if (pagesSelected > totalPages) {
+        setPagesSelected(parseInt(pagesDropDown[0], 10));
       }
     }
-  }, [pagesDropDown, currentPage, totalPages]);
+  }, [pagesDropDown, pagesSelected, totalPages]);
 
   // pages DropDown selected useEffect
   useEffect(() => {
