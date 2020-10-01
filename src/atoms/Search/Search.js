@@ -25,7 +25,10 @@ const Search = ({
 
   useEffect(() => {
     setValue(defaultValue);
-  }, [defaultValue]);
+    if (type === 'clickable' && defaultValue) {
+      setClickableContent('show');
+    }
+  }, [defaultValue, type]);
 
   const icon = `${prefix}-search-icon
         ${iconTheme === 'white' ? 'white' : ''}`;
