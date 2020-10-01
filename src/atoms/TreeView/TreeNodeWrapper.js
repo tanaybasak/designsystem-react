@@ -534,7 +534,9 @@ const TreeNodeWrapper = ({
           : null
       }
       onDoubleClick={
-        callbackContext.onDoubleClick ? callbackContext.onDoubleClick : null
+        callbackContext.onDoubleClick
+          ? callbackContext.onDoubleClick.bind(this, node, parentNode, level)
+          : null
       }
       ref={parentRef}
     >

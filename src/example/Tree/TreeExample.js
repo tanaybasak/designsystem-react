@@ -410,7 +410,7 @@ class TreeExample extends Component {
                 let clonedModel = this.getClonedModel(data_copy);
                 return await clonedModel;
               }}
-              type="single"
+              //type="single"
               onChange={selected => {
                 console.log('Selected Node', selected);
                 // this.setState({
@@ -536,9 +536,13 @@ class TreeExample extends Component {
               onKeyDown={(v1, v2, v3, v4) => {
                 console.log(v1, v2, v3, v4);
               }}
-              //   onClick={(v1, v2, v3, v4) => {
-              //     console.log(v1, v2, v3, v4);
-              //   }}
+              onClick={(v1, v2, v3, v4) => {
+                if (v1.type !== 'folder') {
+                  this.setState({
+                    nodeSelected: v1
+                  });
+                }
+              }}
             />
           </div>
           {/* <div className="hcl-col-6 mb-2">
