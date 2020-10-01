@@ -106,9 +106,12 @@ const Pagination = ({
 
   // pages DropDown selected useEffect
   useEffect(() => {
-    adjustRange();
-    togglePageDisplay();
-    toggleNavButtons();
+    if (pagesSelected && pagesDropDown && pagesDropDown.length) {
+      console.log(pagesSelected, pagesDropDown);
+      adjustRange();
+      togglePageDisplay();
+      toggleNavButtons();
+    }
   }, [pagesSelected, pagesDropDown]);
 
   //on Load useEffect
