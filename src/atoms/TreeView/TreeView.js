@@ -233,49 +233,141 @@ TreeView.propTypes = {
    * single : Component with node selection
    */
   type: PropTypes.oneOf(['default', 'single']),
-  /** Callback function on selecting a tree node */
+  /** Callback function on selecting a tree node
+   * function(node, event)
+   * node : selected tree node
+   * event : click event
+   */
   onChange: PropTypes.func,
-  /** Callback function on expanding/collapsing tree node. */
+  /** Callback function on expanding/collapsing tree node.
+   * function(node)
+   * node : toggled tree node
+   */
   onToggle: PropTypes.func,
-  /** Used to provide custom icon for node */
+  /** Used to provide custom icon for node
+   * eg:
+   *    {
+   *        operator: 'type', // operator is any property which exist on each tree node.
+   *        values: {
+   *            file: {
+   *                icon: <i className="p-hclsw p-hclsw-document" /> // this icon display for all node whose type is matching with file.
+   *            },
+   *            folder: {
+   *                expandedIcon: <i className="p-hclsw p-hclsw-export" />, // this icon display for all node whose "type" is matching with "folder" and node should be expanded.
+   *                collapsedIcon: <i className="p-hclsw p-hclsw-folder" /> // this icon display for all node whose "type" is matching with "folder" and node should be collapsed.
+   *            }
+   *        }
+   *    }
+   *
+   * can use any property present in the node.
+   *
+   */
   iconClass: PropTypes.object,
-  /** Callback function is used to provide custom icon for node */
+  /** Callback function is used to provide custom icon for node
+   * This callback can be used if icon passing logic is complex, or not possible to acheive with the help of "iconClass" props
+   * function(node)
+   * node : tree node
+   */
   getIcons: PropTypes.func,
 
-  /** used to display overflow menu on hover  */
+  /** used to display overflow menu on hover. This can be used for showing "customActionTemplate" on hover  */
   overflowOnHover: PropTypes.bool,
   /** Callback function for setting overflow menu actions
+   * function(node)
+   * node : tree node
+   *
+   * this function expect below object format.
    *  eg:
    * [
-   * {name: 'Rename',action: 'edit'}
-   * {name: 'Cut',action: 'cut'}
-   * {name: 'Copy',action: 'copy'}
-   * {name: 'Delete',action: 'delete'}
+   * {name: 'Rename',action: 'edit',icon:<i className="p-hclsw p-hclsw-edit" />}
+   * {name: 'Cut',action: 'cut',icon:<i className="p-hclsw p-hclsw-edit" />}
+   * {name: 'Copy',action: 'copy',icon:<i className="p-hclsw p-hclsw-edit" />}
+   * {name: 'Delete',action: 'delete',icon:<i className="p-hclsw p-hclsw-edit" />}
    * ]
    *
    */
   getOverFlowItems: PropTypes.func,
-  /** Callback function on selecting overflow menu item */
+  /** Callback function on selecting overflow menu items.
+   * This function mainly used to write logic on custom overlflow menu action other that cut,paste,rename and delete
+   * **need to make a reference copy of model on copy action from overflow menu and that model should be returned from this call back
+   * **All the other custom overflow action, in which tree node is changed, need to return that changed tree node from the function
+   * */
   onOverflowAction: PropTypes.func,
 
-  /** Callback function on deleting tree node from overflow menu */
+  /** Callback function on deleting tree node from overflow menu
+   * function(node)
+   * node : tree node
+   *
+   * this function expect a boolean value. If true node will get deleted.
+   */
   onDeleteNode: PropTypes.func,
-  /** Callback function on renaming tree node from overflow menu */
+  /** Callback function on renaming tree node from overflow menu
+   * function(node)
+   * node : tree node
+   *
+   * this function expect an array.
+   * [true] : the node will get renamed
+   * [false , error_message] : error message will be shown as an overlay
+   * error_message : it can be an html element
+   *
+   *
+   */
   onRenamingNode: PropTypes.func,
-  /** Callback function on cut paste action  */
-  onMoveNode: PropTypes.func,
-  /** Callback function on copy paste action  */
-  onCopyNode: PropTypes.func,
-  /** Callback function used for specifying rules on cut and paste */
+  /** Callback function used for specifying rules on cut and paste
+   * function(cutNode , pasteNode , null , treeData)
+   * cutNode : cut node
+   * pasteNode : node where paste action validation checks
+   * treeData : Tree Data
+   *
+   */
   isMoveNodeAllowed: PropTypes.func,
-  /** Callback function used for specifying rules on copy and paste */
+  /** Callback function on cut paste action or drag and drop
+   * this will trigger before the drop or paste action
+   * function(cutNode , pasteNode)
+   * cutNode : cut node
+   * pasteNode : node where paste action happening
+   */
+  onMoveNode: PropTypes.func,
+  /** Callback function on copy paste action
+   * this will trigger before the paste action after copying a node
+   * function(copiedNode , pasteNode)
+   * copiedNode : copied Node
+   * pasteNode : node where paste action happening
+   */
+  onCopyNode: PropTypes.func,
+
+  /** Callback function used for specifying rules on copy and paste
+   * expect a boolean value. Paste button will be enabled if it returns true
+   * function(copiedNode , pasteNode , treeData)
+   * copiedNode : copied Node
+   * pasteNode : node where paste action happening
+   * treeData : Tree Data
+   */
   isCopyAllowed: PropTypes.func,
-  /** Callback function after completing the overflow action or drag and drop  */
+  /** Callback function after completing the overflow action or drag and drop
+   * function(action , treeData , updatedNode , drop/paste node)
+   * action : action name
+   * treeData : Tree Data
+   * updatedNode : this can be renamed node, dragged node , cut/copy node or deleted node
+   * drop/paste node : this can be the node in which dragged or cut or copied node pasted
+   */
   onActionCompletes: PropTypes.func,
 
-  /** Used to specify draggable node */
+  /** Used to specify draggable node
+   * {
+   * operator: 'type', // operator is any property which exist on each tree node.
+   *   values: {
+   *     file: true, // node with type "file" is draggable
+   *     folder: false // // node with type "folder" is not draggable
+   *   }
+   * }
+   */
   dragRules: PropTypes.any,
-  /** Callback function is used to define whether the node is draggable */
+  /** Callback function is used to define whether the node is draggable
+   * This callback can be used if node draggable logic is complex, or not possible to acheive with the help of "dragRules" props
+   * function(node)
+   * node : tree node
+   */
   isDraggable: PropTypes.func,
   /** Used for setting drag and drop behaviour for the tree component
    * none : default value. There is no dragging functionality
@@ -283,26 +375,94 @@ TreeView.propTypes = {
    * external : Dragging is possible. Need to the write common drag and drop html5 function to add the behaviour
    */
   draggable: PropTypes.oneOf(['none', 'internal', 'external']),
-  /** Callback function is used to validate the drop region on drag and drop */
+  /** Callback function is used to validate the drop region on drag and drop
+   * expect an array of boolean value
+   * eg : [canDropInside , canDropInSameLevel]
+   * canDropInside : true mean dragged node can be placed as children of dropNode
+   * canDropInSameLevel : true mean dragged node can be placed above or below the dropNode
+   *
+   * function(draggedNode , dropNode , parentNode , treeData)
+   * draggedNode : dragged Node
+   * dropNode : Mouse Over Node
+   * parentNode : parent node of Mouse Over Node
+   * treeData : tree Data
+   */
   isDropAllowed: PropTypes.func,
-  /** Callback function to add custom drag start function */
+  /** Callback function to add custom drag start function
+   * this will enable only when "draggable" prop should set to "external"
+   * function(node, parentNode, level,event)
+   * node : node
+   * parentNode :Parent Node
+   * level : node level
+   * event : Event
+   */
   onDragStart: PropTypes.func,
-  /** Callback function to add custom drag over function */
+  /** Callback function to add custom drag over function
+   * this will enable only when "draggable" prop should set to "external"
+   * function(node, parentNode, level,event)
+   * node : node
+   * parentNode :Parent Node
+   * level : node level
+   * event : Event
+   */
   onDragOver: PropTypes.func,
-  /** Callback function to add custom drag enter function */
+  /** Callback function to add custom drag enter function
+   * this will enable only when "draggable" prop should set to "external"
+   * function(node, parentNode, level,event)
+   * node : node
+   * parentNode :Parent Node
+   * level : node level
+   * event : Event
+   */
   onDragEnter: PropTypes.func,
-  /** Callback function to add custom drag leave function */
+  /** Callback function to add custom drag leave function
+   * this will enable only when "draggable" prop should set to "external"
+   * function(node, parentNode, level,event)
+   * node : node
+   * parentNode :Parent Node
+   * level : node level
+   * event : Event
+   */
   onDragLeave: PropTypes.func,
-  /** Callback function to add custom drop function */
+  /** Callback function to add custom drop function
+   * this will enable only when "draggable" prop should set to "external"
+   * function(node, parentNode, level,event)
+   * node : node
+   * parentNode :Parent Node
+   * level : node level
+   * event : Event
+   */
   onDrop: PropTypes.func,
-  /** Callback function to add custom drag end function */
+  /** Callback function to add custom drag end function
+   * this will enable only when "draggable" prop should set to "external"
+   * function(node, parentNode, level,event)
+   * node : node
+   * parentNode :Parent Node
+   * level : node level
+   * event : Event
+   */
   onDragEnd: PropTypes.func,
 
-  /** Callback function used to pass custom template. Only expand/collapse icon will be present. */
+  /** Callback function used to pass custom template. Only expand/collapse icon will be present.
+   * function(node, parentNode, level)
+   * node : node
+   * parentNode :Parent Node
+   * level : node level
+   */
   customTemplate: PropTypes.func,
-  /** Callback function used to pass custom template which will place in the right end of the node. This is used to define custom action in which can add link,button,overflow menu etc */
+  /** Callback function used to pass custom template which will place in the right end of the node. This is used to define custom action in which can add link,button,overflow menu etc
+   * function(node, parentNode, level)
+   * node : node
+   * parentNode :Parent Node
+   * level : node level
+   */
   customActionTemplate: PropTypes.func,
-  /** Callback function used to pass custom template for node content */
+  /** Callback function used to pass custom template for node content
+   * function(node, parentNode, level)
+   * node : node
+   * parentNode :Parent Node
+   * level : node level
+   */
   customNodeTemplate: PropTypes.func,
 
   /** Callback function to add double click function */
