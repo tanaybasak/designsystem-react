@@ -107,7 +107,6 @@ const Pagination = ({
   // pages DropDown selected useEffect
   useEffect(() => {
     if (pagesSelected && pagesDropDown && pagesDropDown.length) {
-      console.log(pagesSelected, pagesDropDown);
       adjustRange();
       togglePageDisplay();
       toggleNavButtons();
