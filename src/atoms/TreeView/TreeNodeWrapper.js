@@ -345,7 +345,7 @@ const TreeNodeWrapper = ({
           'drop',
           updatedTree,
           state.draggedNode,
-          node
+          parentNode
         );
       }
     }
