@@ -2,11 +2,35 @@
 import React, { Component } from 'react';
 import Tag from '../../atoms/Tag';
 import Icon from '../../atoms/Icon';
+import Pagination from '../../atoms/Pagination';
+
 
 class TagExample extends Component {
+  state = {
+    totalItems: 300,
+    currentPage: 7,
+    stepper: 10,
+    stepperLimit: 100
+  };
+
+
   render() {
     return (
       <div className="hcl-col-12 mt-5" id="tags-section">
+        <Pagination
+          totalItems={this.state.totalItems}
+          itemsPerPageToSelect={40}
+          itemsPerPageStepper={this.state.stepper}
+          itemsStepperLimit={this.state.stepperLimit}
+          currentPage={this.state.currentPage}
+          itemsPerPageText={'No. of Rows:'}
+          onPageChange={e => {
+            console.log(e);
+          }}
+          onItemsPerPageChange={e => {
+            console.log(e);
+          }}
+        />
         <Tag className="ml-3" title="Primary Tag">
           Primary Tag
         </Tag>

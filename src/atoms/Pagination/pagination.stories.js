@@ -18,7 +18,7 @@ storiesOf('Pagination', module).add(
       itemsPerPageToSelect={number('Items Per Page Selected', 40)}
       onPageChange={action('page change')}
       totalItems={number('Total Items', 103)}
-      currentPage={number('current page', 4)}
+      currentPage={number('current page', 2)}
     />
   ),
   {

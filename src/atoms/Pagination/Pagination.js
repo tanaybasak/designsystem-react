@@ -20,7 +20,9 @@ const Pagination = ({
   const [perPageText, setItemsPerPageText] = useState(itemsPerPageText);
 
   const [itemsPerPageDropDown, setItemsPerPageDropDown] = useState([]);
-  const [itemsPerPageSelected, setItemsPerPageSelected] = useState(itemsPerPageToSelect);
+  const [itemsPerPageSelected, setItemsPerPageSelected] = useState(
+    itemsPerPageToSelect
+  );
   const [totalPages, setTotalPages] = useState(1);
   const [pagesDropDown, setPageItems] = useState([]);
   const [pagesSelected, setPagesSelected] = useState(currentPage);
@@ -77,8 +79,7 @@ const Pagination = ({
         itemsPerPageDropDown.indexOf(itemsPerPageSelected) > -1
       ) {
         setItemsPerPageSelected(itemsPerPageSelected);
-      }
-      else if (itemsPerPageDropDown && itemsPerPageDropDown.length) {
+      } else if (itemsPerPageDropDown && itemsPerPageDropDown.length) {
         setItemsPerPageSelected(itemsPerPageDropDown[0]);
       }
     }
@@ -124,15 +125,15 @@ const Pagination = ({
 
   const togglePageDisplay = () => {
     if (startpagedisplayRef.current && pagesSelected >= totalPages) {
-      startpagedisplayRef.current.innerHTML = totalPages;
+      // startpagedisplayRef.current.innerHTML = totalPages;
     } else if (
       startpagedisplayRef.current &&
       pagesSelected <= totalPages &&
       pagesSelected > 0
     ) {
-      startpagedisplayRef.current.innerHTML = pagesSelected;
+      // startpagedisplayRef.current.innerHTML = pagesSelected;
     } else {
-      startpagedisplayRef.current.innerHTML = 1;
+      // startpagedisplayRef.current.innerHTML = 1;
     }
   };
 
@@ -157,23 +158,36 @@ const Pagination = ({
       let pages = Math.ceil(Number(nItems) / Number(itemsPerPageSelected));
       if (pages > 0) {
         setTotalPages(pages);
+        adjustRange();
       }
     }
   };
 
   const adjustRange = () => {
     if (pageItemsSelectedRef.current && pagesRef.current) {
-      let pageSize = itemsPerPageSelected,
-        pageDropDown = pagesSelected;
+      let pageSize = parseInt(itemsPerPageSelected, 10),
+        pageDropDown = parseInt(pagesSelected, 10);
 
-      let rangeStart = rangeStartRef.current,
-        rangeEnd = rangeEndRef.current;
-      if (rangeStart && rangeEnd) {
-        rangeStart.innerHTML = (pageDropDown - 1) * pageSize + 1;
-        if (pageDropDown * pageSize > totalItems) {
-          rangeEnd.innerHTML = totalItems;
-        } else {
-          rangeEnd.innerHTML = pageDropDown * pageSize;
+      
+      let actualPages = Math.ceil(nItems / pageSize);
+      if (
+        actualPages < pageDropDown &&
+        rangeStartRef.current &&
+        rangeEndRef.current
+      ) {
+        rangeStartRef.current.innerHTML = 1;
+        rangeEndRef.current.innerHTML = pageSize;
+        setPagesSelected(1);
+      } else {
+        let rangeStart = rangeStartRef.current,
+          rangeEnd = rangeEndRef.current;
+        if (rangeStart && rangeEnd) {
+          rangeStart.innerHTML = (pageDropDown - 1) * pageSize + 1;
+          if (pageDropDown * pageSize > totalItems) {
+            rangeEnd.innerHTML = totalItems;
+          } else {
+            rangeEnd.innerHTML = pageDropDown * pageSize;
+          }
         }
       }
     }
@@ -211,17 +225,14 @@ const Pagination = ({
 
   const _onItemsChange = () => {
     if (pageItemsSelectedRef.current) {
-      setItemsPerPageSelected(
+      const selectedVal =
         pageItemsSelectedRef.current.options[
           pageItemsSelectedRef.current.selectedIndex
-        ].value
-      );
+        ].value;
+      setItemsPerPageSelected(selectedVal);
+
       if (onItemsPerPageChange) {
-        onItemsPerPageChange(
-          pageItemsSelectedRef.current.options[
-            pageItemsSelectedRef.current.selectedIndex
-          ].value
-        );
+        onItemsPerPageChange(selectedVal);
       }
     }
   };
@@ -277,15 +288,15 @@ const Pagination = ({
     setPagesSelected(
       pagesRef.current.options[pagesRef.current.selectedIndex].value
     );
-    if (startpagedisplayRef.current) {
-      startpagedisplayRef.current.innerHTML =
-        pagesRef.current.options[pagesRef.current.selectedIndex].value;
-      if (onPageChange) {
-        onPageChange(
-          pagesRef.current.options[pagesRef.current.selectedIndex].value
-        );
-      }
+    // if (startpagedisplayRef.current) {
+    // startpagedisplayRef.current.innerHTML =
+    //   pagesRef.current.options[pagesRef.current.selectedIndex].value;
+    if (onPageChange) {
+      onPageChange(
+        pagesRef.current.options[pagesRef.current.selectedIndex].value
+      );
     }
+    // }
   };
 
   const _onKeyDown = e => {
@@ -343,7 +354,9 @@ const Pagination = ({
       </div>
       <div className={`${prefix}-pagination-right`}>
         <span className={`${prefix}-pagination-text`}>
-          <span className={`${prefix}-page-start`} ref={startpagedisplayRef} />
+          <span className={`${prefix}-page-start`} ref={startpagedisplayRef}>
+            {pagesSelected}
+          </span>
           of
           <span className={`${prefix}-page-end`} ref={totalpagesdisplayRef}>
             {totalPages}
