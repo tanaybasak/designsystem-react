@@ -10,7 +10,8 @@ const Pagination = ({
   itemsPerPageText,
   onPageChange,
   currentPage,
-  onItemsPerPageChange
+  onItemsPerPageChange,
+  itemsPerPageToSelect
 }) => {
   //states
   const [nItems, setNItems] = useState(totalItems); //totalItems State
@@ -19,8 +20,8 @@ const Pagination = ({
   const [perPageText, setItemsPerPageText] = useState(itemsPerPageText);
 
   const [itemsPerPageDropDown, setItemsPerPageDropDown] = useState([]);
-  const [itemsPerPageSelected, setItemsPerPageSelected] = useState(-1);
-  const [totalPages, setTotalPages] = useState(0);
+  const [itemsPerPageSelected, setItemsPerPageSelected] = useState(itemsPerPageToSelect);
+  const [totalPages, setTotalPages] = useState(1);
   const [pagesDropDown, setPageItems] = useState([]);
   const [pagesSelected, setPagesSelected] = useState(currentPage);
 
@@ -70,7 +71,14 @@ const Pagination = ({
   //itemsPerPageDropDown creation effect
   useEffect(() => {
     if (JSON.stringify(itemsPerPageDropDown) !== JSON.stringify([])) {
-      if (itemsPerPageDropDown && itemsPerPageDropDown.length > 0) {
+      if (
+        itemsPerPageDropDown &&
+        itemsPerPageDropDown.length > 0 &&
+        itemsPerPageDropDown.indexOf(itemsPerPageSelected) > -1
+      ) {
+        setItemsPerPageSelected(itemsPerPageSelected);
+      }
+      else if (itemsPerPageDropDown && itemsPerPageDropDown.length) {
         setItemsPerPageSelected(itemsPerPageDropDown[0]);
       }
     }
@@ -78,7 +86,7 @@ const Pagination = ({
 
   //itemsPerPageDropDown selected, nItems change effect
   useEffect(() => {
-    if (itemsPerPageSelected && parseInt(itemsPerPageSelected, 10) != -1) {
+    if (itemsPerPageSelected && parseInt(itemsPerPageSelected, 10) > 0) {
       resetRange();
       calculatePages();
     }
@@ -95,20 +103,19 @@ const Pagination = ({
       JSON.stringify(pagesDropDown) !== JSON.stringify([]) &&
       pagesDropDown.length > 0
     ) {
-      if (pagesSelected > totalPages) {
-        setPagesSelected(parseInt(pagesDropDown[0], 10));
-      }
+      setPagesSelected(parseInt(pagesSelected, 10));
+      toggleNavButtons();
     }
-  }, [pagesDropDown, pagesSelected, totalPages]);
+  }, [pagesDropDown]);
 
   // pages DropDown selected useEffect
   useEffect(() => {
-    if (pagesSelected && pagesDropDown && pagesDropDown.length) {
+    if (pagesSelected) {
       adjustRange();
       togglePageDisplay();
       toggleNavButtons();
     }
-  }, [pagesSelected, pagesDropDown]);
+  }, [pagesSelected]);
 
   //on Load useEffect
   useEffect(() => {
@@ -413,7 +420,9 @@ Pagination.propTypes = {
   /** Accepts Event handler as argument/prop which is triggered after Page Drop-down is changed. */
   onPageChange: PropTypes.func,
   /** current active Page number */
-  currentPage: PropTypes.number
+  currentPage: PropTypes.number,
+  /** itemsPerPageToSelect - The value to be selected from itemsPerPage dropdown */
+  itemsPerPageToSelect: PropTypes.number
 };
 
 Pagination.defaultProps = {
@@ -422,6 +431,7 @@ Pagination.defaultProps = {
   itemsPerPageStepper: 20,
   itemsStepperLimit: 100,
   itemsPerPageText: 'Items per Page:',
+  itemsPerPageToSelect: 20,
   onItemsPerPageChange: () => {},
   onPageChange: () => {}
 };
