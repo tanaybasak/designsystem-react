@@ -2,7 +2,6 @@
 import React, { Component } from 'react';
 import Tag from '../../atoms/Tag';
 import Icon from '../../atoms/Icon';
-import Pagination from '../../atoms/Pagination';
 
 
 class TagExample extends Component {
