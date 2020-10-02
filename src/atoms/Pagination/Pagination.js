@@ -33,7 +33,6 @@ const Pagination = ({
   const pageItemsSelectedRef = useRef();
   const pagesRef = useRef();
   const startpagedisplayRef = useRef();
-  const totalpagesdisplayRef = useRef();
   const rangeStartRef = useRef();
   const rangeEndRef = useRef();
 
@@ -113,7 +112,6 @@ const Pagination = ({
   useEffect(() => {
     if (pagesSelected) {
       adjustRange();
-      togglePageDisplay();
       toggleNavButtons();
     }
   }, [pagesSelected]);
@@ -122,20 +120,6 @@ const Pagination = ({
   useEffect(() => {
     createItemsPerPageValues();
   }, []);
-
-  const togglePageDisplay = () => {
-    if (startpagedisplayRef.current && pagesSelected >= totalPages) {
-      // startpagedisplayRef.current.innerHTML = totalPages;
-    } else if (
-      startpagedisplayRef.current &&
-      pagesSelected <= totalPages &&
-      pagesSelected > 0
-    ) {
-      // startpagedisplayRef.current.innerHTML = pagesSelected;
-    } else {
-      // startpagedisplayRef.current.innerHTML = 1;
-    }
-  };
 
   const createItemsPerPageValues = () => {
     let stepperArray = [stepper];
@@ -168,7 +152,6 @@ const Pagination = ({
       let pageSize = parseInt(itemsPerPageSelected, 10),
         pageDropDown = parseInt(pagesSelected, 10);
 
-      
       let actualPages = Math.ceil(nItems / pageSize);
       if (
         actualPages < pageDropDown &&
@@ -288,15 +271,11 @@ const Pagination = ({
     setPagesSelected(
       pagesRef.current.options[pagesRef.current.selectedIndex].value
     );
-    // if (startpagedisplayRef.current) {
-    // startpagedisplayRef.current.innerHTML =
-    //   pagesRef.current.options[pagesRef.current.selectedIndex].value;
     if (onPageChange) {
       onPageChange(
         pagesRef.current.options[pagesRef.current.selectedIndex].value
       );
     }
-    // }
   };
 
   const _onKeyDown = e => {
@@ -358,18 +337,14 @@ const Pagination = ({
             {pagesSelected}
           </span>
           of
-          <span className={`${prefix}-page-end`} ref={totalpagesdisplayRef}>
-            {totalPages}
-          </span>
+          <span className={`${prefix}-page-end`}>{totalPages}</span>
           pages
         </span>
         <button
           className={`${prefix}-pagination-button-previous`}
           aria-label={`Previous page`}
           ref={previousbtnRef}
-          onClick={e => {
-            _onPreviousClick(e);
-          }}
+          onClick={_onPreviousClick}
         >
           <svg
             className={`${prefix}-pagination-button-icon`}
@@ -398,9 +373,7 @@ const Pagination = ({
           className={`${prefix}-pagination-button-next`}
           aria-label="Next page"
           ref={nextbtnRef}
-          onClick={e => {
-            _onNextClick(e);
-          }}
+          onClick={_onNextClick}
         >
           <svg
             className={`${prefix}-pagination-button-icon`}
