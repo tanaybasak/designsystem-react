@@ -457,7 +457,7 @@ Pagination.defaultProps = {
   itemsPerPageStepper: 20,
   itemsStepperLimit: 100,
   itemsPerPageText: 'Items per Page:',
-  itemsPerPageToSelect: 20,
+  itemsPerPageToSelect: null,
   onItemsPerPageChange: () => {},
   onPageChange: () => {}
 };
