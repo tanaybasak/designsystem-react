@@ -11,6 +11,7 @@ exports[`<Dropdown> component snapshots/renders Dropdown correctly 1`] = `
     data-toggle="dropdown"
     onClick={[Function]}
     onKeyDown={[Function]}
+    type="button"
   >
     Select Option
   </button>

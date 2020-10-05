@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import Tag from '../../atoms/Tag';
 import Icon from '../../atoms/Icon';
 
-
 class TagExample extends Component {
   render() {
     return (
