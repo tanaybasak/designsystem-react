@@ -249,7 +249,16 @@ const Pagination = ({
         );
         if (onPageChange) {
           onPageChange(
-            pagesRef.current.options[pagesRef.current.selectedIndex].value
+            parseInt(
+              pagesRef.current.options[pagesRef.current.selectedIndex].value,
+              10
+            ),
+            parseInt(
+              pageItemsSelectedRef.current.options[
+                pageItemsSelectedRef.current.selectedIndex
+              ].value,
+              10
+            )
           );
         }
       }
@@ -272,7 +281,16 @@ const Pagination = ({
         );
         if (onPageChange) {
           onPageChange(
-            pagesRef.current.options[pagesRef.current.selectedIndex].value
+            parseInt(
+              pagesRef.current.options[pagesRef.current.selectedIndex].value,
+              10
+            ),
+            parseInt(
+              pageItemsSelectedRef.current.options[
+                pageItemsSelectedRef.current.selectedIndex
+              ].value,
+              10
+            )
           );
         }
       }
