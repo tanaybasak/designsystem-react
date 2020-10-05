@@ -471,6 +471,10 @@ const DataTable = ({
   const resizeLineRef = useRef(null);
   const [divider, setDividerVisiblity] = useState(false);
 
+  useEffect(() => {
+    console.log(mouseDownCurrentResizeObj);
+  }, [mouseDownCurrentResizeObj]);
+
   const onColumnMouseDown = (column, idx, e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -478,26 +482,16 @@ const DataTable = ({
     /* For Detecting Second Row Header Resize */
     nThTarget = e.target.parentElement.parentElement.previousElementSibling
       ? e.target.parentElement.parentElement.previousElementSibling.children[
-          parseInt(idx.split(`-`)[1], 10)
+          parseInt(idx, 10)
         ]
       : e.target.parentElement;
-
-    /* Adding class `resizing` for span tags */
-    e.target.parentElement.parentElement.previousElementSibling
-      ? e.target.parentElement.classList.add(`resizing`)
-      : e.target.parentElement.parentElement.nextElementSibling.children[
-          parseInt(idx.split(`-`)[1], 10)
-        ].classList.add(`resizing`);
-
-    console.log(nThTarget);
-    nThTarget.classList.add(`resizing`);
 
     setMouseDownonResize(true);
     setMouseDownResizeObj({
       column,
       idx,
       startX: e.clientX,
-      clientWidth: e.clientWidth,
+      clientWidth: nThTarget ? nThTarget.getBoundingClientRect().width : 0,
       currentElement: nThTarget
     });
   };
@@ -520,11 +514,7 @@ const DataTable = ({
           mouseDownResizeObj.idx,
         'mousemove',
         e => {
-          onPressMouseMove(
-            mouseDownResizeObj.column[`label`] + mouseDownResizeObj.idx,
-            mouseDownResizeObj.startX,
-            e
-          );
+          onPressMouseMove(e);
         },
         false
       );
@@ -584,23 +574,20 @@ const DataTable = ({
   const clearOnMouseUp = () => {
     document.body.classList.remove('resize-table');
     tableRef.current.parentElement.style.position = ``;
-
-    const { currentElement, idx } = mouseDownResizeObj;
-
-    currentElement.classList.remove(`resizing`);
-    currentElement.parentElement.previousElementSibling
-      ? currentElement.classList.remove(`resizing`)
-      : currentElement.parentElement.nextElementSibling.children[
-          parseInt(idx.split(`-`)[1], 10)
-        ].classList.remove(`resizing`);
   };
 
   const onPressMouseMove = useCallback(
-    (label, startX, e) => {
+    e => {
       e.preventDefault();
       e.stopPropagation();
+
+      const { startX, clientWidth } = mouseDownResizeObj;
+
+      let moveLength = e && startX ? e.clientX - startX : 0;
+      let totalLengthMoved = moveLength ? clientWidth + moveLength : 0;
+
       setMouseDownCurrentResizeObj({
-        currentX: e.clientX
+        totalLengthMoved
       });
     },
     [isMouseDownForResize]
@@ -610,6 +597,8 @@ const DataTable = ({
     (label, idx, e) => {
       e.preventDefault();
       e.stopPropagation();
+      mouseDownCurrentResizeObj.currentElement.width = totalLengthMoved;
+
       if (isMouseDownForResize) {
         setMouseDownonResize(false);
       }
@@ -670,6 +659,10 @@ const DataTable = ({
                       : ''
                   }${column.sortable ? ' sortable' : ''}${
                     column.allowResize ? ' resizable' : ''
+                  }${
+                    isMouseDownForResize && mouseDownResizeObj.idx === index
+                      ? ' resizing'
+                      : ''
                   }`}
                   tabIndex={column.sortable ? '0' : null}
                   onClick={column.sortable ? sort.bind(this, column) : null}
@@ -686,25 +679,15 @@ const DataTable = ({
                       </span>
                       {column.allowResize ? (
                         <span
-                          className={`hcl-data-table-resizable${
-                            mouseDownResizeObj.idx === index ? 'resizing' : ''
-                          }`}
+                          className={`hcl-data-table-resizable`}
                           onMouseDown={
                             column.allowResize
-                              ? onColumnMouseDown.bind(
-                                  this,
-                                  column,
-                                  `heading-${index}`
-                                )
+                              ? onColumnMouseDown.bind(this, column, index)
                               : null
                           }
                           onMouseUp={
                             column.allowResize
-                              ? onColumnMouseUp.bind(
-                                  this,
-                                  column,
-                                  `heading-${index}`
-                                )
+                              ? onColumnMouseUp.bind(this, column, index)
                               : null
                           }
                         />
@@ -794,6 +777,10 @@ const DataTable = ({
                         : ''
                     }${column.sortable ? ' sortable' : ''}${
                       column.allowResize ? 'resizable' : ''
+                    }${
+                      isMouseDownForResize && mouseDownResizeObj.idx === index
+                        ? ' resizing'
+                        : ''
                     }`}
                   >
                     <>
@@ -803,20 +790,12 @@ const DataTable = ({
                           className="hcl-data-table-resizable"
                           onMouseDown={
                             column.allowResize
-                              ? onColumnMouseDown.bind(
-                                  this,
-                                  column,
-                                  `heading-${index}`
-                                )
+                              ? onColumnMouseDown.bind(this, column, index)
                               : null
                           }
                           onMouseUp={
                             column.allowResize
-                              ? onColumnMouseUp.bind(
-                                  this,
-                                  column,
-                                  `heading-${index}`
-                                )
+                              ? onColumnMouseUp.bind(this, column, index)
                               : null
                           }
                         />
