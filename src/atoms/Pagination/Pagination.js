@@ -208,14 +208,27 @@ const Pagination = ({
 
   const _onItemsChange = () => {
     if (pageItemsSelectedRef.current) {
-      const selectedVal =
+      const selectedVal = parseInt(
         pageItemsSelectedRef.current.options[
           pageItemsSelectedRef.current.selectedIndex
-        ].value;
+        ].value,
+        10
+      );
       setItemsPerPageSelected(selectedVal);
-
       if (onItemsPerPageChange) {
-        onItemsPerPageChange(selectedVal);
+        let pageSize = parseInt(
+            pageItemsSelectedRef.current.options[
+              pageItemsSelectedRef.current.selectedIndex
+            ].value,
+            10
+          ),
+          pageDropDown = parseInt(pagesSelected, 10);
+        let actualPages = Math.ceil(nItems / pageSize);
+        if (actualPages < pageDropDown) {
+          onItemsPerPageChange(selectedVal, 1);
+        } else {
+          onItemsPerPageChange(selectedVal, parseInt(pagesSelected, 10));
+        }
       }
     }
   };
@@ -273,7 +286,16 @@ const Pagination = ({
     );
     if (onPageChange) {
       onPageChange(
-        pagesRef.current.options[pagesRef.current.selectedIndex].value
+        parseInt(
+          pagesRef.current.options[pagesRef.current.selectedIndex].value,
+          10
+        ),
+        parseInt(
+          pageItemsSelectedRef.current.options[
+            pageItemsSelectedRef.current.selectedIndex
+          ].value,
+          10
+        )
       );
     }
   };

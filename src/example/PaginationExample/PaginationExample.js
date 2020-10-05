@@ -21,11 +21,11 @@ class PaginationExample extends Component {
           itemsStepperLimit={this.state.stepperLimit}
           currentPage={this.state.currentPage}
           itemsPerPageText={'No. of Rows:'}
-          onPageChange={e => {
-            console.log(e);
+          onPageChange={(e, e2) => {
+            console.log(e, e2);
           }}
-          onItemsPerPageChange={e => {
-            console.log(e);
+          onItemsPerPageChange={(e, e2) => {
+            console.log(e, e2);
           }}
         />
       </div>
