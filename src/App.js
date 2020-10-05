@@ -728,11 +728,9 @@ class App extends Component {
                     listItems={overflowlist}
                     attachElementToBody
                     scrollListner
-                    direction="top-right"
+                    direction="bottom-left"
                     customTemplate={
-                      <button className="hcl-btn hcl-ghost">
-                        <i className="pi pi-View" />
-                      </button>
+                      <button className="hcl-btn hcl-ghost">ghost</button>
                     }
                     ellipsisType="vertical"
                     onClick={(item, index, e) => {
@@ -746,9 +744,7 @@ class App extends Component {
                     listItems={overflowlist}
                     direction="top-right"
                     customTemplate={
-                      <button className="hcl-btn hcl-ghost">
-                        <i className="pi pi-View" />
-                      </button>
+                      <button className="hcl-btn hcl-ghost">ghost</button>
                     }
                     ellipsisType="vertical"
                     onClick={(item, index, e) => {
