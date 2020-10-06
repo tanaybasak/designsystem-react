@@ -465,15 +465,10 @@ const DataTable = ({
 
   const [isMouseDownForResize, setMouseDownonResize] = useState(false);
   const [mouseDownResizeObj, setMouseDownResizeObj] = useState({});
-  const [mouseDownCurrentResizeObj, setMouseDownCurrentResizeObj] = useState(
-    {}
-  );
+  // const [mouseDownCurrentResizeObj, setMouseDownCurrentResizeObj] = useState(0);
   const resizeLineRef = useRef(null);
-  const [divider, setDividerVisiblity] = useState(false);
-
-  useEffect(() => {
-    console.log(mouseDownCurrentResizeObj);
-  }, [mouseDownCurrentResizeObj]);
+  // const [resizeDividerVisibility, setResizeDividerVisiblity] = useState(false);
+  const [resizeDividerObj, setResizeDividerObj] = useState({ left: 0 });
 
   const onColumnMouseDown = (column, idx, e) => {
     e.preventDefault();
@@ -486,8 +481,27 @@ const DataTable = ({
         ]
       : e.target.parentElement;
 
-    setMouseDownonResize(true);
+    if (
+      resizeLineRef &&
+      resizeLineRef.current &&
+      tableRef &&
+      tableRef.current
+    ) {
+      let tableEleBounding = tableRef.current.getBoundingClientRect();
+      resizeLineRef.current.style.left =
+        e.clientX - tableEleBounding.left + `px`;
+      let tempObj = { ...resizeDividerObj };
+      setResizeDividerObj({
+        ...tempObj,
+        left: e.clientX - tableEleBounding.left
+      });
+    }
+    setTimeout(() => {
+      setMouseDownonResize(true);
+    }, 0);
+    // setMouseDownonResize(true);
     setMouseDownResizeObj({
+      ...mouseDownResizeObj,
       column,
       idx,
       startX: e.clientX,
@@ -499,7 +513,31 @@ const DataTable = ({
   const onColumnMouseUp = (column, idx, e) => {
     e.preventDefault();
     e.stopPropagation();
+    let tempLeft = { ...resizeDividerObj };
+    console.log(`came in ?????`);
+    clearOnMouseUp();
+    removeListeners(
+      'datatablemouseup-' +
+        mouseDownResizeObj.column[`label`] +
+        mouseDownResizeObj.idx,
+      'mouseup'
+    );
+    removeListeners(
+      'datatablemousemove-' +
+        mouseDownResizeObj.column[`label`] +
+        mouseDownResizeObj.idx,
+      'mousemove'
+    );
+    setResizeDividerObj({
+      ...tempLeft,
+      left: parseInt(resizeLineRef.current.style.left.replace(/px/, ''), 10)
+    });
     setMouseDownonResize(false);
+  };
+
+  const getCurrentDividerObj = () => {
+    let tempObj = { ...resizeDividerObj };
+    return tempObj;
   };
 
   useEffect(() => {
@@ -524,11 +562,7 @@ const DataTable = ({
           mouseDownResizeObj.idx,
         'mouseup',
         e => {
-          onPressMouseUp(
-            mouseDownResizeObj.column[`label`] + mouseDownResizeObj.idx,
-            mouseDownResizeObj.idx,
-            e
-          );
+          onPressMouseUp(e);
         },
         false
       );
@@ -576,49 +610,133 @@ const DataTable = ({
     tableRef.current.parentElement.style.position = ``;
   };
 
-  const onPressMouseMove = useCallback(
-    e => {
-      e.preventDefault();
-      e.stopPropagation();
+  // const onPressMouseMove = useCallback(
+  //   e => {
+  //     e.preventDefault();
+  //     e.stopPropagation();
 
+  //     const { startX, clientWidth } = mouseDownResizeObj;
+
+  //     let moveLength = e && startX ? e.clientX - startX : 0;
+  //     let totalLengthMoved = moveLength ? clientWidth + moveLength : 0;
+  //     console.log(totalLengthMoved);
+  //     setMouseDownCurrentResizeObj(totalLengthMoved);
+  //   },
+  //   [isMouseDownForResize, mouseDownCurrentResizeObj]
+  // );
+
+  let totalLengthMoved = 0;
+  // let resizeDividerPos = { left: 0 };
+  const onPressMouseMove = e => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (isMouseDownForResize) {
       const { startX, clientWidth } = mouseDownResizeObj;
 
       let moveLength = e && startX ? e.clientX - startX : 0;
-      let totalLengthMoved = moveLength ? clientWidth + moveLength : 0;
-
-      setMouseDownCurrentResizeObj({
-        totalLengthMoved
-      });
-    },
-    [isMouseDownForResize]
-  );
-
-  const onPressMouseUp = useCallback(
-    (label, idx, e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      mouseDownCurrentResizeObj.currentElement.width = totalLengthMoved;
-
-      if (isMouseDownForResize) {
-        setMouseDownonResize(false);
+      totalLengthMoved = moveLength ? clientWidth + moveLength : 0;
+      // console.log(`total length before state update ==>`, totalLengthMoved);
+      if (resizeLineRef && resizeLineRef.current) {
+        let { left } = getCurrentDividerObj();
+        resizeLineRef.current.style.left = moveLength + left + `px`;
       }
-    },
-    [isMouseDownForResize]
-  );
+      // setMouseDownCurrentResizeObj(totalLengthMoved);
+      // const tempObj = { ...resizeDividerObj };
+      // setResizeDividerObj({
+      //   ...tempObj,
+      //   left: e.clientX - startX
+      // });
+    }
+  };
+  // [isMouseDownForResize, mouseDownCurrentResizeObj]
+
+  // const onPressMouseUp = useCallback(
+  //   e => {
+  //     e.preventDefault();
+  //     e.stopPropagation();
+
+  //     if (isMouseDownForResize) {
+  //       const { idx } = mouseDownResizeObj;
+
+  //       console.log(mouseDownCurrentResizeObj);
+  //       const tempObj = [...tableConfiguration];
+  //       tempObj.map(item =>
+  //         item.width && item.width.includes('calc') ? delete item.width : item
+  //       );
+  //       tempObj[idx][`width`] = mouseDownCurrentResizeObj + `px`;
+  //       const tempConfig = getColumnStructure(
+  //         [...tempObj],
+  //         expandRowTemplate ? true : false
+  //       );
+  //       setTableConfiguration(tempConfig);
+  //       setMouseDownonResize(false);
+  //     }
+  //   },
+  //   [isMouseDownForResize, mouseDownResizeObj, mouseDownCurrentResizeObj]
+  // );
+
+  const onPressMouseUp = e => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (isMouseDownForResize) {
+      const { idx } = mouseDownResizeObj;
+
+      // console.log(`on mouseup state ===>`, mouseDownCurrentResizeObj);
+      const tempObj = [...tableConfiguration];
+      tempObj.map(item =>
+        item.width && item.width.includes('calc') ? delete item.width : item
+      );
+      // tempObj[idx][`width`] = mouseDownCurrentResizeObj + `px`;
+      tempObj[idx][`width`] = totalLengthMoved + `px`;
+      const tempConfig = getColumnStructure(
+        [...tempObj],
+        expandRowTemplate ? true : false
+      );
+      console.log(resizeLineRef.current.style.left.replace(/px/, ''));
+      console.log(resizeDividerObj);
+      let tempLeft = { ...resizeDividerObj };
+      setResizeDividerObj({
+        ...tempLeft,
+        left: parseInt(resizeLineRef.current.style.left.replace(/px/, ''), 10)
+      });
+      setTableConfiguration(tempConfig);
+      setMouseDownonResize(false);
+    }
+  };
+
+  const onResizeClick = () => {
+    console.log(`came on resize click`);
+    clearOnMouseUp();
+    removeListeners(
+      'datatablemouseup-' +
+        mouseDownResizeObj.column[`label`] +
+        mouseDownResizeObj.idx,
+      'mouseup'
+    );
+    removeListeners(
+      'datatablemousemove-' +
+        mouseDownResizeObj.column[`label`] +
+        mouseDownResizeObj.idx,
+      'mousemove'
+    );
+    setMouseDownonResize(false);
+  };
 
   return (
     <div className={classnames}>
-      {divider && divider.visibility ? (
-        <>
-          <div
-            ref={resizeLineRef}
-            style={{
-              left: divider.left
-            }}
-            className={`resize-line`}
-          ></div>
-        </>
-      ) : null}
+      {/* {resizeDividerVisibility ? (
+        <> */}
+      <div
+        ref={resizeLineRef}
+        style={{
+          display: isMouseDownForResize ? `block` : `none`
+        }}
+        className={`resize-line`}
+      />
+      {/* </>
+      ) : null} */}
       <table
         id={id}
         ref={tableRef}
@@ -659,10 +777,6 @@ const DataTable = ({
                       : ''
                   }${column.sortable ? ' sortable' : ''}${
                     column.allowResize ? ' resizable' : ''
-                  }${
-                    isMouseDownForResize && mouseDownResizeObj.idx === index
-                      ? ' resizing'
-                      : ''
                   }`}
                   tabIndex={column.sortable ? '0' : null}
                   onClick={column.sortable ? sort.bind(this, column) : null}
@@ -680,6 +794,7 @@ const DataTable = ({
                       {column.allowResize ? (
                         <span
                           className={`hcl-data-table-resizable`}
+                          onClick={onResizeClick.bind(this)}
                           onMouseDown={
                             column.allowResize
                               ? onColumnMouseDown.bind(this, column, index)
@@ -777,10 +892,6 @@ const DataTable = ({
                         : ''
                     }${column.sortable ? ' sortable' : ''}${
                       column.allowResize ? 'resizable' : ''
-                    }${
-                      isMouseDownForResize && mouseDownResizeObj.idx === index
-                        ? ' resizing'
-                        : ''
                     }`}
                   >
                     <>

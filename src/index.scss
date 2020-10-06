@@ -36,7 +36,7 @@
         content: ' ';
         display: inline-block;
         // border: 4px solid #0066b3;
-        background: #ADADAD;
+        background: #adadad;
         height: 100%;
         width: 100%;
       }
@@ -65,17 +65,17 @@
         width: 100%;
       }
     }
-  }  
+  }
 }
 
 .resize-line {
-    display: none;
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: inline-block;
-    z-index:5999;
-    background-color: #0066b3;
-    width: 2px;
-    height: 100%;
+  display: none;
+  position: absolute;
+  // top: 0;
+  left: 0;
+  display: inline-block;
+  z-index: 5999;
+  background-color: #0066b3;
+  width: 2px;
+  height: 100%;
 }
