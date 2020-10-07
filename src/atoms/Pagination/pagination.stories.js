@@ -11,10 +11,10 @@ storiesOf('Pagination', module).add(
   () => (
     <Pagination
       itemsPerPageText={text('Items Per Page Text', 'Items per Page:')}
-      itemsStepperLimit={100}
+      itemsStepperLimit={number('Items Per Page Limit', 100)}
       onChange={action('on change')}
       onItemsPerPageChange={action('item per page change')}
-      itemsPerPageStepper={number('Items Per Page', 20)}
+      itemsPerPageStepper={number('Items Per Page Stepper', 20)}
       itemsPerPageToSelect={number('Items Per Page Selected', 40)}
       onPageChange={action('page change')}
       totalItems={number('Total Items', 103)}
