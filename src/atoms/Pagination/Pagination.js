@@ -346,9 +346,6 @@ const Pagination = ({
 
   const onPageChangeCallBack = () => {
     if (onPageChange) {
-      console.log(
-        pagesRef.current.options[pagesRef.current.selectedIndex].value
-      );
       onPageChange(
         parseInt(
           pagesRef.current.options[pagesRef.current.selectedIndex].value,
