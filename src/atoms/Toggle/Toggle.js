@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 
@@ -11,7 +11,12 @@ const Toggle = ({
   toggled,
   ...restProps
 }) => {
-  const [checked, setChecked] = useState(toggled || false);
+  const [checked, setChecked] = useState(toggled);
+
+  useEffect(() => {
+    console.log(toggled)
+    setChecked(toggled);
+  }, [toggled]);
 
   const keyDownOnToggle = e => {
     const key = e.which || e.keyCode;
@@ -80,7 +85,8 @@ Toggle.defaultProps = {
   labelOff: 'Off',
   labelOn: 'On',
   onChange: () => {},
-  disabled: false
+  disabled: false,
+  toggled: false
 };
 
 export default Toggle;
