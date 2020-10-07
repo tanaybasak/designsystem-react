@@ -24,7 +24,7 @@ const Tile = ({
     setChecked(!checked);
   };
 
-  const keyDownOnTile = (e) => {
+  const keyDownOnTile = e => {
     const input = expandableElement.current
       ? expandableElement.current.querySelector('input[type="checkbox"]')
       : selectableElement.current.querySelector('input[type="checkbox"]');
@@ -42,7 +42,7 @@ const Tile = ({
     return (
       <div
         className={classNames}
-        onKeyDown={(event) => {
+        onKeyDown={event => {
           event.stopPropagation();
           const key = event.which || event.keyCode;
           const clickTag = clickableElement.current.querySelector(
@@ -180,7 +180,7 @@ Tile.propTypes = {
   Content for tile. 
   For Expandable: 
   Two children are input. First will be shown prior expand and second will be shown after expand  */
-  children: PropTypes.node.isRequired,
+  children: PropTypes.any.isRequired,
 
   /** Unique Identifier for Tile, applicable only for selectable tile.  */
   id: function (props, propName, componentName) {
@@ -206,13 +206,13 @@ Tile.propTypes = {
         `The prop \`${propName}\` is marked as required in \`${componentName}\`, but its value is \`undefined\`.`
       );
     }
-  },
+  }
 };
 
 Tile.defaultProps = {
   className: '',
   type: 'readable',
-  expandableType: 'bottom',
+  expandableType: 'bottom'
 };
 
 export default Tile;

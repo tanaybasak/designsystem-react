@@ -7,16 +7,12 @@ import Link from './Link';
 
 storiesOf('Link', module).add(
   'default',
-  () => (
-    <Link href={text('URL', '#')}>
-      {text('Label', 'Link')}
-    </Link>
-  ),
+  () => <Link href={text('URL', '#')}>{text('Label', 'Link')}</Link>,
   {
     info: {
       text: `Description About Link Component \n
       
-      import { Link } from '@patron/patron-react/link'`
+      import { Link } from '@patron/patron-react/link';`
     }
   }
 );

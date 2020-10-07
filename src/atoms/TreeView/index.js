@@ -1,3 +1,5 @@
-import TreeView from "./TreeView";
+import TreeView from './TreeView';
+import TreeNodeTemplate from './TreeNodeTemplate';
+import TextEditor from './TextEditor';
 
-export default TreeView;
+export { TreeNodeTemplate, TextEditor, TreeView };

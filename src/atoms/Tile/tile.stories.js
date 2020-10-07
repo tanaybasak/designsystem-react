@@ -17,8 +17,8 @@ storiesOf('Tile', module)
     {
       info: {
         text: `Description About Tile Component \n
-        import { Tile } from '@patron/patron-react/tile'`,
-      },
+        import { Tile } from '@patron/patron-react/tile';`
+      }
     }
   )
   .add(
@@ -33,8 +33,8 @@ storiesOf('Tile', module)
     {
       info: {
         text: `Description About Tile Component \n
-        import { Tile } from '@patron/patron-react/tile'`,
-      },
+        import { Tile } from '@patron/patron-react/tile';`
+      }
     }
   )
   .add(
@@ -49,8 +49,8 @@ storiesOf('Tile', module)
     {
       info: {
         text: `Description About Tile Component \n
-        import { Tile } from '@patron/patron-react/tile'`,
-      },
+        import { Tile } from '@patron/patron-react/tile';`
+      }
     }
   )
   .add(
@@ -68,8 +68,8 @@ storiesOf('Tile', module)
     {
       info: {
         text: `Description About Tile Component \n
-        import { Tile } from '@patron/patron-react/tile'`,
-      },
+        import { Tile } from '@patron/patron-react/tile';`
+      }
     }
   )
   .add(
@@ -87,7 +87,7 @@ storiesOf('Tile', module)
     {
       info: {
         text: `Description About Tile Component \n
-        import { Tile } from '@patron/patron-react/tile'`,
-      },
+        import { Tile } from '@patron/patron-react/tile';`
+      }
     }
   );

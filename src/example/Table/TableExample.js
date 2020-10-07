@@ -5,7 +5,7 @@ import Tag from '../../atoms/Tag';
 import Toggle from '../../atoms/Toggle';
 import Checkbox from '../../atoms/Checkbox';
 import DataTable from '../../atoms/DataTable';
-import Overflowmenu from '../../molecules/Overflowmenu';
+import { Overflowmenu } from '../../molecules/Overflowmenu';
 class TableExample extends Component {
   state = {
     tableData: [],
@@ -17,19 +17,36 @@ class TableExample extends Component {
         renderHtml: row => {
           return <Checkbox id={`${row.id}_checkbox_`} name="testcheck" />;
         },
-        //width: '40px',
-        //pinned: 'left'
+
+        width: '40px'
+        // pinned: 'left'
       },
       {
         label: 'ID',
         field: 'id',
-        // width: '160px',
-        // pinned: 'right'
+        columnHtml: (
+          <Tag
+            className=""
+            closable={false}
+            disabled={false}
+            icon={<i className="p-hclsw p-hclsw-link" tabIndex="0" />}
+            onClose={function noRefCheck() {}}
+            tabIndex={0}
+            text={null}
+            thumbnail={<i className="p-hclsw p-hclsw-checkbox" />}
+            title=""
+            type="primary"
+          >
+            Sample Tag
+          </Tag>
+        ),
+        width: '160px',
+        pinned: 'right'
       },
 
       {
         label: 'Avatar',
-        //pinned: 'left',
+        pinned: 'left',
         renderHtml: model => {
           return (
             <img
@@ -38,7 +55,8 @@ class TableExample extends Component {
             />
           );
         },
-        //width: '60px'
+        columnHtml: <h6> this is temp</h6>,
+        width: '260px'
       },
       {
         label: 'Full Name',
@@ -50,7 +68,7 @@ class TableExample extends Component {
         //       <span>{model.name} {model.name} {model.name} {model.name}{model.name} {model.name} {model.name} {model.name} {model.name} {model.name}</span>
         //     );
         //   },
-        //width: '200px'
+        width: '200px'
       },
       {
         label: 'Private',
@@ -65,13 +83,13 @@ class TableExample extends Component {
             }`}</Tag>
           );
         },
-        //width: '120px'
+        width: '120px'
       },
       {
         label: 'Language',
         field: 'owner.login',
 
-       // width: '120px'
+        width: '120px'
       },
       {
         label: 'Has Issues',
@@ -87,23 +105,23 @@ class TableExample extends Component {
             />
           );
         },
-        //width: '150px'
+        width: '150px'
       },
       {
         label: 'Forks Count',
         field: 'forks_count',
-        //width: '120px'
+        width: '120px'
       },
       {
         label: 'Branch',
         field: 'default_branch',
         sortable: true,
-        //width: '120px'
+        width: '120px'
       },
       {
         label: 'Issues Count',
         field: 'open_issues_count',
-        //width: '120px'
+        width: '120px'
       },
       {
         field: 'overflow',
@@ -111,14 +129,18 @@ class TableExample extends Component {
           return (
             <Overflowmenu
               listItems={overflowlist}
-              //className="overflow-onhover"
-              onClick={e => {
-                console.log(e, row);
+              attachElementToBody={true}
+              scrollListner={true}
+              direction="bottom-right"
+              ellipsisType="vertical"
+              onClick={(item, index, e) => {
+                console.log('OVERFLOW SELECT');
+                console.log(item, index, e);
               }}
             />
           );
         },
-        //width: '80px'
+        width: '500px'
       }
     ]
   };
@@ -155,6 +177,7 @@ class TableExample extends Component {
                 id="sample_table"
                 tableData={this.state.displayData}
                 tableConfig={this.state.tableConfig}
+                stickyHeaderMain={true}
                 // expandRowTemplate={() => {
                 //   return (<Paragraph>
                 //     available, but the majority have suffered alteration

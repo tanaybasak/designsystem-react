@@ -35,7 +35,7 @@ storiesOf('Accordion', module).add(
     info: {
       text: `Description About Accordion Component
       
-      import { Accordion, AccordionItem } from '@patron/patron-react/accordion'
+      import { Accordion, AccordionItem } from '@patron/patron-react/accordion';
       
       `
     }

@@ -6,37 +6,37 @@ import { select, text, boolean } from '@storybook/addon-knobs';
 import Tag from './Tag';
 import Icon from '../../atoms/Icon';
 //@update-path-build-end
-import icons from "../../../.storybook/iconList";
+import icons from '../../../.storybook/iconList';
 const typeOptions = {
   Primary: 'primary',
-  Secondary: 'secondary',
+  Secondary: 'secondary'
 };
 
 storiesOf('Tag', module)
-.add(
-  'default',
-  () => (
-    <Tag
-      closable={boolean('Closable', false)}
-      disabled={boolean('Disabled', false)}
-      onClose={action('OnClose')}
-      tabIndex={0}
-      title={text('Title', '')}
-      type={select('Type', typeOptions, 'primary')}
-    >
-      {text('Label', 'Sample Tag')}
-    </Tag>
-  ),
-  {
-    info: {
-      text: `Description About Tag Component
+  .add(
+    'default',
+    () => (
+      <Tag
+        closable={boolean('Closable', false)}
+        disabled={boolean('Disabled', false)}
+        onClose={action('OnClose')}
+        tabIndex={0}
+        title={text('Title', '')}
+        type={select('Type', typeOptions, 'primary')}
+      >
+        {text('Label', 'Sample Tag')}
+      </Tag>
+    ),
+    {
+      info: {
+        text: `Description About Tag Component
 
-      import { Tag } from '@patron/patron-react/tag'
+      import { Tag } from '@patron/patron-react/tag';
 
-      `,
-    },
-  }
-)
+      `
+      }
+    }
+  )
   .add(
     'with icon',
     () => (
@@ -46,7 +46,10 @@ storiesOf('Tag', module)
         onClose={action('OnClose')}
         tabIndex={0}
         icon={
-          <i className={`pi pi-${select("Icon Class", icons, "user")}`} />
+          <i
+            tabIndex="0"
+            className={`p-hclsw p-hclsw-${select('Icon Class', icons, 'user')}`}
+          />
         }
         title={text('Title', '')}
         type={select('Type', typeOptions, 'primary')}
@@ -58,10 +61,10 @@ storiesOf('Tag', module)
       info: {
         text: `Description About Tag Component
 
-        import { Tag } from '@patron/patron-react/tag'
+        import { Tag } from '@patron/patron-react/tag';
 
-        `,
-      },
+        `
+      }
     }
   )
   .add(
@@ -93,12 +96,14 @@ storiesOf('Tag', module)
       info: {
         text: `Description About Tag Component
   
-          import { Tag } from '@patron/patron-react/tag'
+        import { Tag } from '@patron/patron-react/tag';
+    import { Icon } from '@patron/patron-react/icon';
   
-          `,
-      },
+          `
+      }
     }
-  ).add(
+  )
+  .add(
     'With Thumbnail Src + icon',
     () => (
       <Tag
@@ -118,7 +123,10 @@ storiesOf('Tag', module)
           />
         }
         icon={
-          <i className={`pi pi-${select("Icon Class", icons, "link")}`} />
+          <i
+            tabIndex="0"
+            className={`p-hclsw p-hclsw-${select('Icon Class', icons, 'link')}`}
+          />
         }
         title={text('Title', '')}
         type={select('Type', typeOptions, 'primary')}
@@ -130,9 +138,10 @@ storiesOf('Tag', module)
       info: {
         text: `Description About Tag Component
   
-          import { Tag } from '@patron/patron-react/tag'
+        import { Tag } from '@patron/patron-react/tag';
+    import { Icon } from '@patron/patron-react/icon';
   
-          `,
-      },
+          `
+      }
     }
   );

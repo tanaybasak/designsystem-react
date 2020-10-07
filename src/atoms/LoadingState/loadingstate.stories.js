@@ -19,7 +19,7 @@ storiesOf('LoadingState', module)
       info: {
         text: `Description About LoadingState Component \n
         
-        import { LoadingState } from '@patron/patron-react/loadingstate'
+        import { LoadingState } from '@patron/patron-react/loadingstate';
         
         `
       }
@@ -29,7 +29,7 @@ storiesOf('LoadingState', module)
     info: {
       text: `Description About Breadcrumb LoadingState Component \n
       
-      import { LoadingState } from '@patron/patron-react/loadingstate'
+      import { LoadingState } from '@patron/patron-react/loadingstate';
 
       `
     }
@@ -38,7 +38,7 @@ storiesOf('LoadingState', module)
     info: {
       text: `Description About Tab LoadingState Component \n
       
-      import { LoadingState } from '@patron/patron-react/loadingstate'
+      import { LoadingState } from '@patron/patron-react/loadingstate';
 
         `
     }
@@ -47,7 +47,7 @@ storiesOf('LoadingState', module)
     info: {
       text: `Description About Accordion LoadingState Component\n
       
-      import { LoadingState } from '@patron/patron-react/loadingstate'
+      import { LoadingState } from '@patron/patron-react/loadingstate';
 
         `
     }
@@ -56,7 +56,7 @@ storiesOf('LoadingState', module)
     info: {
       text: `Description About Slider LoadingState Component\n
       
-      import { LoadingState } from '@patron/patron-react/loadingstate'
+      import { LoadingState } from '@patron/patron-react/loadingstate';
 
         `
     }
@@ -67,38 +67,38 @@ storiesOf('LoadingState', module)
       <LoadingState
         type="datatable"
         tableConfig={[
-            {
-              label: 'Name',
-              field: 'name'
-            },
-            {
-              label: 'Protocol',
-              field: 'protocol'
-            },
-            {
-              label: 'Port',
-              field: 'port'
-            },
-            {
-              label: 'Rule',
-              field: 'rule'
-            },
-            {
-              label: 'Attached Groups',
-              field: 'attachedGroups'
-            },
-            {
-              label: 'Status',
-              field: 'status'
-            }
-          ]}
+          {
+            label: 'Name',
+            field: 'name'
+          },
+          {
+            label: 'Protocol',
+            field: 'protocol'
+          },
+          {
+            label: 'Port',
+            field: 'port'
+          },
+          {
+            label: 'Rule',
+            field: 'rule'
+          },
+          {
+            label: 'Attached Groups',
+            field: 'attachedGroups'
+          },
+          {
+            label: 'Status',
+            field: 'status'
+          }
+        ]}
       />
     ),
     {
       info: {
         text: `Description About Slider DataTable Component\n
       
-      import { LoadingState } from '@patron/patron-react/loadingstate'
+      import { LoadingState } from '@patron/patron-react/loadingstate';
 
       `
       }

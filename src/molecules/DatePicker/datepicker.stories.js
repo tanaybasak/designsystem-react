@@ -1,22 +1,17 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { select } from '@storybook/addon-knobs';
+import { select, text } from '@storybook/addon-knobs';
 //@update-path-build-start
 import DatePicker from './DatePicker';
 //@update-path-build-end
-
-const typeOptions = {
-  Top: 'top',
-  Bottom: 'bottom'
-};
 
 const formatOptions = {
   'mm/dd/yyyy': 'mm/dd/yyyy',
   'dd/mm/yyyy': 'dd/mm/yyyy'
 };
 
-storiesOf('Datepicker', module).add(
+storiesOf('DatePicker', module).add(
   'default',
   () => (
     <DatePicker
@@ -36,14 +31,15 @@ storiesOf('Datepicker', module).add(
         'December'
       ]}
       onDateSelect={action('Date Select')}
-      open={select('Direction', typeOptions, 'bottom')}
       weekDays={['S', 'M', 'T', 'W', 'Th', 'F', 'S']}
+      aria-label="Date picker Input label"
+      defaultDate={text('Default Date', '12/30/1990')}
     />
   ),
   {
     info: {
       text: `Description About Datepicker Component\n
-      import { DatePicker } from '@patron/patron-react/datepicker'`
+      import { DatePicker } from '@patron/patron-react/datepicker';`
     }
   }
 );

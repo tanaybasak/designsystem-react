@@ -22,14 +22,14 @@ storiesOf('Notification', module).add(
       type={select('Type', notificationType, 'info')}
       closable={boolean('Closable', true)}
       visible={boolean('Visible', true)}
-      onClose={action(event)}
+      onClose={action('Notification-Close')}
     />
   ),
   {
     info: {
       text: `Description About Notification Component\n
       
-      import { Notification } from '@patron/patron-react/notification'
+      import { Notification } from '@patron/patron-react/notification';
       
       `
     }

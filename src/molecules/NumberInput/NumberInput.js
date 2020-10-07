@@ -115,10 +115,7 @@ const NumberInput = ({
   };
 
   return (
-    <div
-      className={classnames}
-      disabled={disabled ? 'disabled' : null}
-    >
+    <div className={classnames} disabled={disabled ? 'disabled' : null}>
       {label ? <Label htmlFor={id ? id : null}>{label} </Label> : null}
       {helperText ? (
         <FormHelperText className="helper-text">{helperText}</FormHelperText>
@@ -200,7 +197,7 @@ NumberInput.propTypes = {
   id: PropTypes.string,
   /** Title for the Number Input */
   label: PropTypes.string,
-  /** True : Disable the  Number Input  */
+  /** Disables the  Number Input  */
   disabled: PropTypes.bool,
   /** Specifies the maximum value allowed  */
   max: PropTypes.number,
@@ -213,7 +210,7 @@ NumberInput.propTypes = {
   /** Specifies the number is required or not  */
   required: PropTypes.bool,
   /** Used for passing error message  */
-  errorMessage: PropTypes.any
+  errorMessage: PropTypes.object
 };
 
 NumberInput.defaultProps = {

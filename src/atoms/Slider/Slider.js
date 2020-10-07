@@ -25,6 +25,7 @@ const Slider = ({
   helperText,
   errorMessage,
   id,
+  ariaLabel,
   ...restProps
 }) => {
   const [value, setValue] = useState(propsVal || 0);
@@ -148,6 +149,7 @@ const Slider = ({
             step={step}
             value={numberInput}
             data-invalid={validationMessage ? true : false}
+            aria-label={ariaLabel ? ariaLabel : null}
             onChange={event => {
               const value = isNaN(event.target.value)
                 ? numberInput
@@ -189,13 +191,15 @@ Slider.propTypes = {
   /** Title for the Slider */
   label: PropTypes.string,
   /** Used for passing custom error message  */
-  errorMessage: PropTypes.any,
+  errorMessage: PropTypes.object,
   /** Specifies helper text */
   helperText: PropTypes.string,
   /** Unique Id */
   id: PropTypes.string.isRequired,
   /** Specifies the tooltip to be shown on hover  */
-  hover: PropTypes.bool
+  hover: PropTypes.bool,
+  /** Used to define a string that labels the component. */
+  ariaLabel: PropTypes.string
 };
 
 Slider.defaultProps = {

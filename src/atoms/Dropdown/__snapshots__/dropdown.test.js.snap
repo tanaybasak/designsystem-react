@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Dropdown> component snapshots/renders Dropdown correctly 1`] = `
+<div
+  className="hcl-overlay-wrapper hcl-dropdown"
+>
+  <button
+    aria-haspopup="true"
+    aria-label="Select Option"
+    className="hcl-btn hcl-dropdown-toggle"
+    data-toggle="dropdown"
+    onClick={[Function]}
+    onKeyDown={[Function]}
+    type="button"
+  >
+    Select Option
+  </button>
+</div>
+`;

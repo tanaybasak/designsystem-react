@@ -1,16 +1,19 @@
 {
   "parser": "babel-eslint",
-  "plugins": [
-    "jsx-a11y"
-  ],
-  
+  "plugins": ["jsx-a11y", "prettier"],
+
   "env": {
     "browser": true,
     "node": true,
     "es6": true,
     "jest": true
   },
-  "extends": ["eslint:recommended", "plugin:react/recommended","plugin:jsx-a11y/recommended"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "prettier",
+    "plugin:jsx-a11y/recommended"
+  ],
   "settings": {
     "react": {
       "version": "detect"
@@ -23,6 +26,7 @@
         "ignore": ["children"]
       }
     ],
+    "prettier/prettier": ["error", { "singleQuote": true }],
     "react/jsx-pascal-case": 2,
     "react/jsx-closing-bracket-location": 2,
     "jsx-quotes": [2, "prefer-double"],
@@ -37,6 +41,6 @@
     ],
     "react/jsx-boolean-value": 2,
     "react/self-closing-comp": [2, { "component": true, "html": true }],
-    "jsx-a11y/no-onchange":0
+    "jsx-a11y/no-onchange": 0
   }
 }

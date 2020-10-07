@@ -10,6 +10,7 @@ exports[`<Modal> component snapshots/renders Modal correctly 1`] = `
     className="hcl-modal-container hcl-modal-container-lg "
   >
     <button
+      aria-label="modal-close"
       className="hcl-modal-close"
       onClick={[Function]}
       type="button"

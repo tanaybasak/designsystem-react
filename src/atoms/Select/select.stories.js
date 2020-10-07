@@ -12,7 +12,7 @@ const props = {
     onChange: action('onChange')
   }),
   group: () => ({
-    disabled: boolean('Disabled (disabled in <SelectItemGroup>)', false)
+    disabled: boolean('Disabled', false)
   })
 };
 
@@ -20,10 +20,7 @@ storiesOf('Select', module).add(
   'default',
   () => (
     <Select {...props.select()} id="selct-id">
-      <SelectItem
-        value="placeholder-item"
-        text="Choose an option"
-      />
+      <SelectItem value="placeholder-item" text="Choose an option" />
       <SelectItemGroup label="Category 1" {...props.group()}>
         <SelectItem value="option-1" text="Option 1" />
         <SelectItem value="option-2" text="Option 2" />
@@ -37,7 +34,7 @@ storiesOf('Select', module).add(
   {
     info: {
       text: `Description About Select Component\n
-      import { Select, SelectItem, SelectItemGroup } from '@patron/patron-react/select'
+      import { Select, SelectItem, SelectItemGroup } from '@patron/patron-react/select';
       `
     }
   }

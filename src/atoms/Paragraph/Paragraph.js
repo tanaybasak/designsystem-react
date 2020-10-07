@@ -11,7 +11,7 @@ const Paragraph = ({ className, children, ...restProps }) => {
 
 Paragraph.propTypes = {
   /** Paragraph Content */
-  children: PropTypes.node,
+  children: PropTypes.any,
   /** Style class of the component */
   className: PropTypes.string
 };

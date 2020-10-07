@@ -683,6 +683,11 @@ const Tooltip = ({ type, content, direction, children }) => {
   let element = null;
   if (typeof children !== 'string') {
     element = React.Children.map(children, child => {
+      let customClass = child.props.className ? child.props.className : '';
+      if (showTooltip && type === 'definition') {
+        customClass += ` ${prefix}-tooltip-dottedline`;
+      }
+
       return React.cloneElement(child, {
         tabIndex: '0',
         onMouseEnter: type !== 'interactive' ? openTooltip : null,
@@ -692,10 +697,7 @@ const Tooltip = ({ type, content, direction, children }) => {
         onBlur: type !== 'interactive' ? closeTooltipOnBlur : null,
         onKeyPress: type === 'interactive' ? showTooltipOnEnter : null,
         ref: parentRef,
-        className:
-          showTooltip && type === 'definition'
-            ? `${prefix}-tooltip-dottedline`
-            : null
+        className: customClass
       });
     });
   }
@@ -713,8 +715,8 @@ const Tooltip = ({ type, content, direction, children }) => {
       onKeyPress={type === 'interactive' ? showTooltipOnEnter : null}
       className={
         showTooltip && type === 'definition'
-          ? `${prefix}-tooltip-dottedline`
-          : null
+          ? `${prefix}-def-tooltip ${prefix}-tooltip-dottedline`
+          : `${prefix}-def-tooltip`
       }
     >
       {children}

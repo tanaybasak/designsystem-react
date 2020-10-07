@@ -12,7 +12,7 @@ storiesOf('Paragraph', module).add(
     info: {
       text: `Description About Paragraph Component \n
       
-      import { Paragraph } from '@patron/patron-react/paragraph'
+      import { Paragraph } from '@patron/patron-react/paragraph';
       
       `
     }

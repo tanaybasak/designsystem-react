@@ -44,6 +44,7 @@ exports[`<Slider> component snapshots/renders Slider correctly 1`] = `
       100
     </label>
     <input
+      aria-label={null}
       className="hcl-form-control hcl-slider-text-input"
       data-invalid={false}
       max={100}

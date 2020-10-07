@@ -2,12 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 
-const SelectItemGroup = ({
-  disabled,
-  label,
-  ...restProps
-}) => {
- 
+const SelectItemGroup = ({ disabled, label, ...restProps }) => {
   return (
     <optgroup
       className={`${prefix}-select-optgroup`}
@@ -19,14 +14,14 @@ const SelectItemGroup = ({
 };
 
 SelectItemGroup.propTypes = {
-  /* Provide the contents of <SelectItemGroup>  */
+  /** Provide the contents of <SelectItemGroup>  */
   children: PropTypes.node,
 
   /** Label for select, if this props is not passed no label will appear. */
   label: PropTypes.string,
 
-  /* Specify whether the <SelectItemGroup> should be disabled */
-  disabled: PropTypes.bool,
+  /** Specify whether the <SelectItemGroup> should be disabled */
+  disabled: PropTypes.bool
 };
 
 SelectItemGroup.defaultProps = {

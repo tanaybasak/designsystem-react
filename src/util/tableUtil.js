@@ -1,4 +1,7 @@
-export const getColumnStructure = (tableConfig, isExpandRow = false) => {
+import { clone } from './utility';
+
+export const getColumnStructure = (tableConfiguration, isExpandRow = false) => {
+  let tableConfig = clone(tableConfiguration);
   let columnInfo = {
     left: [],
     main: [],
@@ -48,8 +51,9 @@ export const getColumnStructure = (tableConfig, isExpandRow = false) => {
     let leftPinned = false;
     newTempConfig.map((column, index) => {
       if (!column.width) {
-        column.width = `calc((100% - ${allocatedWidth +
-          unitUsed}) / ${totalItemsWithoutWidth})`;
+        column.width = `calc((100% - ${
+          allocatedWidth + unitUsed
+        }) / ${totalItemsWithoutWidth})`;
       }
 
       if (column.pinned === 'left') {
@@ -78,7 +82,7 @@ export const getColumnStructure = (tableConfig, isExpandRow = false) => {
         }
       }
     }
-  } 
+  }
   return newTempConfig;
 };
 

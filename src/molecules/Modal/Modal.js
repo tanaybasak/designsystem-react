@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-import ActionBar from '../../atoms/ActionBar';
+import Actions from '../../atoms/Actions';
 import prefix from '../../settings';
 
 const Modal = ({
@@ -25,7 +25,7 @@ const Modal = ({
 
   useEffect(() => {
     modal.current.focus();
-  },[]);
+  }, []);
 
   const focusTrap = e => {
     const focusableEls = modal.current.querySelectorAll(
@@ -33,10 +33,10 @@ const Modal = ({
     );
     const firstFocusableEl = focusableEls[0];
     const lastFocusableEl = focusableEls[focusableEls.length - 1];
-   
-    if (event.keyCode == 27) {
-      if(keyboard){
-        event.preventDefault();
+
+    if (e.keyCode == 27) {
+      if (keyboard) {
+        e.preventDefault();
         onClose();
       }
     }
@@ -72,10 +72,13 @@ const Modal = ({
         <button
           type="button"
           className={`${prefix}-modal-close`}
+          aria-label="modal-close"
           onClick={onClose}
         />
         {(heading !== '' || label !== '') && (
-          <header className={`${prefix}-modal-header ${prefix}-modal-header-lg`}>
+          <header
+            className={`${prefix}-modal-header ${prefix}-modal-header-lg`}
+          >
             {label !== '' ? (
               <small className={`${prefix}-modal-label`}>{label}</small>
             ) : null}
@@ -83,11 +86,15 @@ const Modal = ({
           </header>
         )}
         {children && (
-          <div className={`${prefix}-modal-content ${prefix}-modal-content-lg`}>{children}</div>
+          <div className={`${prefix}-modal-content ${prefix}-modal-content-lg`}>
+            {children}
+          </div>
         )}
         {actions.length > 0 && (
-          <footer className={`${prefix}-modal-footer ${prefix}-modal-footer-lg`}>
-            <ActionBar actions={actions} />
+          <footer
+            className={`${prefix}-modal-footer ${prefix}-modal-footer-lg`}
+          >
+            <Actions actions={actions} />
           </footer>
         )}
       </div>
@@ -117,7 +124,7 @@ Danger: : To create danger modal. */
 
   /** Class/clasess will be applied on the parent div of Modal */
   className: PropTypes.string,
-
+  /** Closes the modal when escape key is pressed */
   keyboard: PropTypes.bool
 };
 
@@ -128,7 +135,7 @@ Modal.defaultProps = {
   onClose: () => {},
   actions: [],
   className: '',
-  keyboard : true
+  keyboard: true
 };
 
 export default Modal;

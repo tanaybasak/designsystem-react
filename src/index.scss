@@ -7,15 +7,24 @@
   height: 100vh;
 }
 
-.pi-folder,
-.pi-export {
-  color: sandybrown;
-}
+// .p-hclsw-folder,
+// .p-hclsw-export {
+//   color: sandybrown;
+// }
 
-.pi-document {
-  color: skyblue;
-}
+// .p-hclsw-document {
+//   color: skyblue;
+// }
 
 .nodrop-cursor {
   cursor: no-drop;
+}
+
+// .hcl-dropdown-container{
+//     display: inline;
+// }
+
+
+.hcl-spinner-inline > svg {
+    margin-left: unset;
 }

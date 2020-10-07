@@ -32,7 +32,7 @@ storiesOf('Modal', module).add(
   {
     info: {
       text: `Description About Modal Component \n
-      import { Modal } from '@patron/patron-react/modal'`
+      import { Modal } from '@patron/patron-react/modal';`
     }
   }
 );

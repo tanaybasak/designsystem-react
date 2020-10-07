@@ -10,6 +10,7 @@ import logo from './assets/images/logo.png';
 import TableExample from './example/Table';
 import TreeExample from './example/Tree';
 import TimePickerExample from './example/TimePicker';
+import OverlayExample from './example/OverlayExample';
 
 class Home extends Component {
   state = {
@@ -19,11 +20,11 @@ class Home extends Component {
     {
       title: 'Home',
       href: '/',
-      icon: <i className="pi pi-home" />
+      icon: <i className="p-hclsw p-hclsw-home" />
     },
     {
       title: 'Components',
-      icon: <i className="pi pi-new-relases" />,
+      icon: <i className="p-hclsw p-hclsw-release" />,
       children: [
         {
           href: '/tag',
@@ -40,6 +41,10 @@ class Home extends Component {
         {
           href: '/timepicker',
           title: 'Time Picker'
+        },
+        {
+          href: '/overlay',
+          title: 'Overlay'
         }
       ]
     }
@@ -60,15 +65,15 @@ class Home extends Component {
           icons={[
             {
               onClick: event => console.log(event.currentTarget),
-              icon: <button className={`pi pi-settings`} />
+              icon: <button className={`p-hclsw p-hclsw-setting`} />
             },
             {
               onClick: event => console.log(event.currentTarget),
-              icon: <button className={`pi pi-new-relases`} />
+              icon: <button className={`p-hclsw p-hclsw-notification`} />
             },
             {
               onClick: event => console.log(event.currentTarget),
-              icon: <button className={`pi pi-logout`} />
+              icon: <button className={`p-hclsw p-hclsw-logout`} />
             }
           ]}
           data-withsidenav
@@ -78,7 +83,7 @@ class Home extends Component {
           items={this.navigationData}
           expanded={this.state.sidebarExpanded}
           activeLink="/Tag"
-          icon={<i className="pi pi-users_active" />}
+          icon={<i className="p-hclsw p-hclsw-user-active" />}
           sidebarLinkTemplate={link => {
             return <Link to={link.href}>{link.title}</Link>;
           }}
@@ -105,6 +110,7 @@ class Home extends Component {
             <Route exact path="/table" component={TableExample} />
             <Route exact path="/tree" component={TreeExample} />
             <Route exact path="/timepicker" component={TimePickerExample} />
+            <Route exact path="/overlay" component={OverlayExample} />
           </Switch>
         </div>
       </Router>

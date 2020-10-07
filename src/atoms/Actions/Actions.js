@@ -2,7 +2,7 @@ import React from 'react';
 import propTypes from 'prop-types';
 import prefix from '../../settings';
 
-const ActionBar = ({ actions }) => {
+const Actions = ({ actions }) => {
   const actionButtons = () => {
     return actions.map(
       ({
@@ -38,7 +38,7 @@ const ActionBar = ({ actions }) => {
   return <div className={`${prefix}-action-bar`}>{actionButtons()}</div>;
 };
 
-ActionBar.propTypes = {
+Actions.propTypes = {
   actions: propTypes.array.isRequired
 };
-export default ActionBar;
+export default Actions;

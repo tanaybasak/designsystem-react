@@ -14,13 +14,13 @@ const DataTable = ({
   headerSelection,
   onRowSelect,
   triStateSorting,
-  stickyHeaderMain,
   ...restProps
 }) => {
   const [rows, updateTableRowData] = useState(tableData);
   const tableRef = useRef(null);
-  const [tableConfiguration, setTableConfiguration] = useState(tableConfig);
+  const [tableConfiguration, setTableConfiguration] = useState([]);
   const [sortedColumn, updateSortedColumn] = useState({});
+  let customHeaderFlag = false;
 
   useEffect(() => {
     updateTableRowData(tableData);
@@ -28,7 +28,7 @@ const DataTable = ({
 
   useEffect(() => {
     let tempConfig = getColumnStructure(
-      [...tableConfiguration],
+      tableConfig,
       expandRowTemplate ? true : false
     );
     setTableConfiguration(tempConfig);
@@ -63,14 +63,6 @@ const DataTable = ({
     }
     onSort(field.field, tempSortedColumn.order, rows);
     updateSortedColumn(tempSortedColumn);
-  };
-
-  const getValue = (row, key) => {
-    let value = row;
-    key.split('.').map(f => {
-      value = value[f];
-    });
-    return value;
   };
 
   const toggleRow = index => {
@@ -130,8 +122,6 @@ const DataTable = ({
   }
 
   const classnames = `${prefix}-data-table-wrapper data-table-sticky-header${
-    stickyHeaderMain ? ' overflow-unset' : ''
-  }${
     type.includes('borderless') ? ` ${prefix}-data-table-borderless` : ''
   } ${className}`.trim();
 
@@ -147,13 +137,17 @@ const DataTable = ({
         <thead>
           <tr>
             {tableConfiguration.map((column, index) => {
+              customHeaderFlag || column.columnHtml
+                ? (customHeaderFlag = true)
+                : null;
               return (
                 <th
                   key={`heading-${index}`}
                   style={{
                     minWidth: column.width,
                     left: column.marginLeft,
-                    right: column.marginRight
+                    right: column.marginRight,
+                    ...column.styles
                   }}
                   title={column.title ? column.title.toString() : ''}
                   data-column={column.label}
@@ -177,23 +171,55 @@ const DataTable = ({
                   {column.sortable ? (
                     sortedColumn.name === column.field && sortedColumn.order ? (
                       <svg
+                        width="16px"
+                        height="16px"
                         className={`${prefix}-sorting${
                           sortedColumn.order === 'desc' ? ' desc' : ''
                         }`}
-                        width="10"
-                        height="5"
-                        viewBox="0 0 10 5"
+                        viewBox="0 0 16 16"
+                        version="1.1"
                       >
-                        <path d="M0 0l5 4.998L10 0z" fillRule="evenodd" />
+                        <title>Sort Icon</title>
+                        <g
+                          stroke="none"
+                          strokeWidth="1"
+                          fill="none"
+                          fillRule="evenodd"
+                        >
+                          <g
+                            transform="translate(4.000000, 2.000000)"
+                            stroke="#000000"
+                          >
+                            <line x1="4" y1="12" x2="4" y2="1" />
+                            <polyline points="8 4.5 4 0.5 0 4.5" />
+                          </g>
+                        </g>
                       </svg>
                     ) : (
                       <svg
+                        width="16px"
                         className={`${prefix}-sorting`}
-                        height="16px"
-                        viewBox="0 0 1024 1024"
+                        height="12px"
+                        viewBox="0 0 16 16"
                         version="1.1"
                       >
-                        <path d="M512.578 192.991l-256 255.52 512 0L512.578 192.991zM512.578 832.511l256-255.52-512 0L512.578 832.511z" />
+                        <title>Unsorted Icon</title>
+                        <g
+                          stroke="none"
+                          strokeWidth="1"
+                          fill="none"
+                          fillRule="evenodd"
+                        >
+                          <g fill="#000000" fillRule="nonzero">
+                            <g>
+                              <path d="M0.848938817,3.92808987 C0.5730624,4.08135457 0.225174806,3.98195809 0.0719101257,3.70608167 C-0.0813545486,3.43020526 0.0180419086,3.08231766 0.293918326,2.92905298 L5.43677549,0.0719101257 C5.81765046,-0.139687074 6.28571429,0.135723263 6.28571429,0.571428571 L6.28571429,14.8571429 C6.28571429,15.1727341 6.02987697,15.4285714 5.71428571,15.4285714 C5.39869446,15.4285714 5.14285714,15.1727341 5.14285714,14.8571429 L5.14285714,1.54257969 L0.848938817,3.92808987 Z" />
+                              <path
+                                d="M14.857143,1.63915229 L10.602686,4.47545698 C10.3400982,4.65051555 9.98531571,4.57955904 9.81025714,4.31697121 C9.63519857,4.05438338 9.70615509,3.6996009 9.96874291,3.52454236 L15.1116001,0.0959709287 C15.4913456,-0.15719278 16.0000002,0.115030877 16.0000002,0.571428237 L16.0000002,14.8571425 C16.0000002,15.1727338 15.7441629,15.4285711 15.4285716,15.4285711 C15.1129803,15.4285711 14.857143,15.1727338 14.857143,14.8571425 L14.857143,1.63915229 Z"
+                                transform="translate(12.857113, 7.713805) rotate(180.000000) translate(-12.857113, -7.713805) "
+                              />
+                            </g>
+                          </g>
+                        </g>
                       </svg>
                     )
                   ) : null}
@@ -201,6 +227,35 @@ const DataTable = ({
               );
             })}
           </tr>
+          {customHeaderFlag ? (
+            <tr>
+              {tableConfiguration.map((column, index) => {
+                return (
+                  <th
+                    key={`customheader-${index}`}
+                    style={{
+                      minWidth: column.width,
+                      left: column.marginLeft,
+                      right: column.marginRight,
+                      top: '50px',
+                      ...column.styles
+                    }}
+                    className={`${
+                      column.pinned === 'left'
+                        ? 'sticky-div sticky-left-div'
+                        : ''
+                    }${
+                      column.pinned === 'right'
+                        ? 'sticky-div sticky-right-div'
+                        : ''
+                    }${column.sortable ? ' sortable' : ''}`}
+                  >
+                    <div>{column.columnHtml ? column.columnHtml : null}</div>
+                  </th>
+                );
+              })}
+            </tr>
+          ) : null}
         </thead>
         <tbody>
           {rows.map((row, index) => (
@@ -225,7 +280,8 @@ const DataTable = ({
                     style={{
                       minWidth: column.width,
                       left: column.marginLeft,
-                      right: column.marginRight
+                      right: column.marginRight,
+                      ...column.styles
                     }}
                     tabIndex={-1}
                     onKeyDown={onKeyDownOnTable.bind(this, i)}
@@ -246,8 +302,6 @@ const DataTable = ({
                       >
                         <path d="M0 0l5 4.998L10 0z" fillRule="evenodd" />
                       </svg>
-                    ) : column.field.split('.').length > 1 ? (
-                      getValue(row, column.field)
                     ) : (
                       row[column.field]
                     )}
@@ -272,9 +326,11 @@ const DataTable = ({
 DataTable.propTypes = {
   /** Unique id for Table */
   id: PropTypes.string.isRequired,
+  /** Used to define the table type
+   *  eg: zebra, compact, tall, borderless  */
   type: PropTypes.string,
   /** Data for table  */
-  tableData: PropTypes.any,
+  tableData: PropTypes.array,
   /** Column Configuration eg:
    * [ {
    *    label : 'Name', // Column Header
@@ -282,11 +338,11 @@ DataTable.propTypes = {
    *    sortable:true,// Is column Sortable
    *    width:'100px',// Minimum width for the column
    *    renderHtml: (model)=> {return <span>{model.name}</span>} // For passing Custom Html
-   *
+   *    columnHtml: ( <Search ariaLabel="Search" className=""defaultValue="" iconTheme="default" />) // For passing custom html in data column
+   *    pinned: 'right' // Pass 'right' to pin column right or pass 'left' to pin column left
    * }] */
-  tableConfig: PropTypes.any,
-  /** Name of the custom class to apply to the Data Table.
-   * eg: hcl-data-table-zebra, hcl-data-table-compact, hcl-data-table-tall, hcl-data-table-borderless */
+  tableConfig: PropTypes.array,
+  /** Name of the custom class to apply to the Data Table. */
   className: PropTypes.string,
 
   /** Call back function to sort table data
@@ -304,9 +360,7 @@ DataTable.propTypes = {
   /** Used for passing template for Table header  */
   headerSelection: PropTypes.node,
   /** When this property is set, sorting in each column iterates through three sort states: ascending, descending, and unsort.  */
-  triStateSorting: PropTypes.bool,
-  /** Used to fix/stick header on body scroll  */
-  stickyHeaderMain: PropTypes.bool
+  triStateSorting: PropTypes.bool
 };
 
 DataTable.defaultProps = {
@@ -319,8 +373,7 @@ DataTable.defaultProps = {
   onSort: () => {},
   onRowSelect: () => {},
   expandRowTemplate: null,
-  triStateSorting: false,
-  stickyHeaderMain: false
+  triStateSorting: false
 };
 
 export default DataTable;

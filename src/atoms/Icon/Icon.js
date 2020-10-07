@@ -23,12 +23,19 @@ const check = ({ type, children, src }, propName, componentName) => {
 };
 
 Icon.propTypes = {
+  /** Used to define the type of icon */
   type: PropTypes.oneOf(['img', 'svg']).isRequired,
+  /** Specifies an alternate text for an image */
   alt: PropTypes.string.isRequired,
+  /** A tooltip text for an element */
   title: PropTypes.string.isRequired,
+  /** Icon classname */
   className: PropTypes.string,
+  /** Specifies the path to the image */
   src: check,
+  /** Callback function on click */
   onClick: PropTypes.func,
+  /** used to pass svg content */
   children: check
 };
 
