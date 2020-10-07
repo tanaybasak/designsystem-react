@@ -14,7 +14,6 @@ const Toggle = ({
   const [checked, setChecked] = useState(toggled);
 
   useEffect(() => {
-    console.log(toggled)
     setChecked(toggled);
   }, [toggled]);
 
