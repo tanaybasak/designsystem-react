@@ -19,7 +19,7 @@ const Pager = (props, ref) => {
       <select
         className={props.className}
         ref={ref}
-        value={props.value}
+        value={props.value ? props.value : undefined}
         onChange={e => {
           props.onChange(e);
         }}

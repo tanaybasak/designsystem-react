@@ -21,6 +21,7 @@ const Pagination = ({
   const [currentPageSelected, setCurrentPageSelected] = useState(null);
   const [nextButtonDisabled, setNextButtonDisabled] = useState(false);
   const [previousButtonDisabled, setPreviousButtonDisabled] = useState(false);
+  const [pagesArray, setPagesArray] = useState([]);
 
   const pageItemsSelectedRef = useRef(null);
   const pagesRef = useRef(null);
@@ -43,10 +44,13 @@ const Pagination = ({
       currentPage > 0 &&
       totalItems &&
       totalItems > 0 &&
-      itemsPerPageToSelect &&
-      itemsPerPageToSelect > 0
+      (itemsPerPageToSelect || itemsPerPageStepper)
     ) {
-      const totalpages = Math.ceil(totalItems / itemsPerPageToSelect);
+      const totalpages = Math.ceil(
+        totalItems / itemsPerPageStepper
+          ? itemsPerPageStepper
+          : itemsPerPageToSelect
+      );
       if (isFinite(totalpages)) {
         if (currentPage > totalpages) {
           setCurrentPageSelected(1);
@@ -62,9 +66,32 @@ const Pagination = ({
         setPreviousButtonDisabled(
           currentPage === 1 || totalpages === 1 ? true : false
         );
+        if (itemsPerPageStepper && itemsPerPageToSelect) {
+          // both given
+          getPagesArrayVal(itemsPerPageToSelect);
+        } else if (!itemsPerPageToSelect) {
+          getPagesArrayVal(itemsPerPageStepper);
+        }
       }
     }
-  }, [currentPage, totalItems, itemsPerPageToSelect]);
+  }, [currentPage, totalItems, itemsPerPageToSelect, itemsPerPageStepper]);
+
+  const getPagesArrayVal = (sel = undefined) => {
+    const val = Array.from(
+      {
+        length: Math.ceil(
+          totalItems /
+            (sel
+              ? sel
+              : itemsPerPageToSelect
+              ? itemsPerPageToSelect
+              : itemsPerPageStepper)
+        )
+      },
+      (v, k) => k + 1
+    ).slice(0);
+    setPagesArray(val);
+  };
 
   const _onItemsChange = e => {
     const { target } = e;
@@ -74,9 +101,11 @@ const Pagination = ({
         10
       );
       setCurrentItemsPerPageSelected(selectedVal);
-      if (Math.ceil(totalItems / selectedVal) <= currentPageSelected) {
+      if (Math.ceil(totalItems / selectedVal) < currentPageSelected) {
         setCurrentPageSelected(1);
       }
+      setButtonEnableDisable();
+      getPagesArrayVal(selectedVal);
       onItemsPerPageCallBack(selectedVal);
     }
   };
@@ -89,42 +118,150 @@ const Pagination = ({
         10
       );
       setCurrentPageSelected(selectedVal);
+      setButtonEnableDisable();
       onPageChangeCallBack();
     }
   };
 
+  const setButtonEnableDisable = () => {
+    if (pageItemsSelectedRef && pageItemsSelectedRef.current) {
+      const itemsPerPageTemp = parseInt(
+        pageItemsSelectedRef.current.options[
+          pageItemsSelectedRef.current.selectedIndex
+        ].value,
+        10
+      );
+      const currentPageTemp = parseInt(
+        pagesRef.current.options[pagesRef.current.selectedIndex].value,
+        10
+      );
+      const totalpages = Math.ceil(totalItems / itemsPerPageTemp);
+      setNextButtonDisabled(
+        totalpages === currentPageTemp || totalpages === 1 ? true : false
+      );
+      setPreviousButtonDisabled(
+        totalpages < currentPageTemp ||
+          currentPageTemp === 1 ||
+          totalpages === 1
+          ? true
+          : false
+      );
+    }
+  };
+
   const rangeStart = () => {
-    const val = currentPageSelected
-      ? (currentPageSelected - 1) *
-          (currentItemsPerPageSelected
-            ? currentItemsPerPageSelected
-            : itemsPerPageToSelect) +
-        1
-      : (currentPage - 1) *
-          (currentItemsPerPageSelected
-            ? currentItemsPerPageSelected
-            : itemsPerPageToSelect) +
+    let val = itemsPerPageStepper;
+    if (
+      currentPageSelected &&
+      currentItemsPerPageSelected &&
+      !itemsPerPageToSelect
+    ) {
+      val = (currentPageSelected - 1) * currentItemsPerPageSelected + 1;
+    } else if (
+      currentPageSelected &&
+      !currentItemsPerPageSelected &&
+      itemsPerPageToSelect
+    ) {
+      val = (currentPageSelected - 1) * itemsPerPageToSelect + 1;
+    } else if (
+      currentPageSelected &&
+      currentItemsPerPageSelected &&
+      itemsPerPageToSelect
+    ) {
+      val = (currentPageSelected - 1) * currentItemsPerPageSelected + 1;
+    } else if (
+      currentPage &&
+      currentItemsPerPageSelected &&
+      !itemsPerPageToSelect
+    ) {
+      val = (currentPage - 1) * currentItemsPerPageSelected + 1;
+    } else if (
+      currentPage &&
+      !currentItemsPerPageSelected &&
+      itemsPerPageToSelect
+    ) {
+      val = (currentPage - 1) * itemsPerPageToSelect + 1;
+    } else if (
+      currentPage &&
+      currentItemsPerPageSelected &&
+      itemsPerPageToSelect
+    ) {
+      val = (currentPage - 1) * currentItemsPerPageSelected + 1;
+    } else {
+      val =
+        (currentPageSelected ? currentPageSelected - 1 : currentPage - 1) *
+          val +
         1;
+    }
 
     return val;
   };
 
   const rangeEnd = () => {
-    const val = currentPageSelected
-      ? currentPageSelected *
+    let val = itemsPerPageStepper;
+    if (
+      currentPageSelected &&
+      currentItemsPerPageSelected &&
+      itemsPerPageToSelect
+    ) {
+      const isGreater =
+        currentPageSelected *
           (currentItemsPerPageSelected
             ? currentItemsPerPageSelected
             : itemsPerPageToSelect) >
-        totalItems
-        ? totalItems
-        : currentPageSelected * currentItemsPerPageSelected
-      : currentPage *
+        totalItems;
+      if (isGreater) {
+        val = totalItems;
+      } else {
+        val = currentPageSelected * currentItemsPerPageSelected;
+      }
+    } else if (
+      currentPage &&
+      currentItemsPerPageSelected &&
+      itemsPerPageToSelect
+    ) {
+      const isGreater =
+        currentPage *
           (currentItemsPerPageSelected
             ? currentItemsPerPageSelected
             : itemsPerPageToSelect) >
-        totalItems
-      ? totalItems
-      : currentPage * currentItemsPerPageSelected;
+        totalItems;
+      if (isGreater) {
+        val = totalItems;
+      } else {
+        val = currentPage * currentItemsPerPageSelected;
+      }
+    } else if (!itemsPerPageToSelect) {
+      if (currentPageSelected && currentItemsPerPageSelected) {
+        const isGreater =
+          currentPageSelected * currentItemsPerPageSelected > totalItems;
+        if (isGreater) {
+          val = totalItems;
+        } else {
+          val = currentPageSelected * currentItemsPerPageSelected;
+        }
+      } else if (currentPage && currentItemsPerPageSelected) {
+        const isGreater =
+          currentPage * currentItemsPerPageSelected > totalItems;
+        if (isGreater) {
+          val = totalItems;
+        } else {
+          val = currentPage * currentItemsPerPageSelected;
+        }
+      } else if (
+        currentPage &&
+        currentPageSelected &&
+        !currentItemsPerPageSelected
+      ) {
+        const isGreater =
+          currentPageSelected * itemsPerPageStepper > totalItems;
+        if (isGreater) {
+          val = totalItems;
+        } else {
+          val = currentPageSelected * itemsPerPageStepper;
+        }
+      }
+    }
     return val;
   };
 
@@ -140,20 +277,24 @@ const Pagination = ({
 
   const onNextBtnClick = () => {
     if (pagesRef && pagesRef.current) {
-      const incrementedIndex = parseInt(pagesRef.current.selectedIndex, 10) + 1;
+      pagesRef.current.selectedIndex++;
+      const incrementedIndex = parseInt(pagesRef.current.selectedIndex, 10);
       const pageDropDownOption =
         pagesRef.current.options[incrementedIndex + ''];
       setCurrentPageSelected(parseInt(pageDropDownOption.value, 10));
+      setButtonEnableDisable();
       onPageChangeCallBack();
     }
   };
 
   const onPreviousBtnClick = () => {
     if (pagesRef && pagesRef.current) {
-      const decrementedIndex = parseInt(pagesRef.current.selectedIndex, 10) - 1;
+      pagesRef.current.selectedIndex--;
+      const decrementedIndex = parseInt(pagesRef.current.selectedIndex, 10);
       const pageDropDownOption =
         pagesRef.current.options[decrementedIndex + ''];
       setCurrentPageSelected(parseInt(pageDropDownOption.value, 10));
+      setButtonEnableDisable();
       onPageChangeCallBack();
     }
   };
@@ -163,6 +304,7 @@ const Pagination = ({
       parseInt(pageItemsSelectedRef.current.selectedIndex, 10) + 1;
     const pageItemsDropDownOption =
       pageItemsSelectedRef.current.options[incrementedIndex + ''];
+    getPagesArrayVal(parseInt(pageItemsDropDownOption.value, 10));
     setCurrentItemsPerPageSelected(parseInt(pageItemsDropDownOption.value, 10));
     onItemsPerPageCallBack(parseInt(pageItemsDropDownOption.value, 10));
   };
@@ -172,6 +314,7 @@ const Pagination = ({
       parseInt(pageItemsSelectedRef.current.selectedIndex, 10) - 1;
     const pageItemsDropDownOption =
       pageItemsSelectedRef.current.options[decrementedIndex + ''];
+    getPagesArrayVal(parseInt(pageItemsDropDownOption.value, 10));
     setCurrentItemsPerPageSelected(parseInt(pageItemsDropDownOption.value, 10));
     onItemsPerPageCallBack(parseInt(pageItemsDropDownOption.value, 10));
   };
@@ -203,11 +346,14 @@ const Pagination = ({
 
   const onPageChangeCallBack = () => {
     if (onPageChange) {
+      console.log(
+        pagesRef.current.options[pagesRef.current.selectedIndex].value
+      );
       onPageChange(
         parseInt(
           pagesRef.current.options[pagesRef.current.selectedIndex].value,
           10
-        ) + 1,
+        ),
         parseInt(
           pageItemsSelectedRef.current.options[
             pageItemsSelectedRef.current.selectedIndex
@@ -220,7 +366,10 @@ const Pagination = ({
 
   const onItemsPerPageCallBack = (val = null) => {
     if (onItemsPerPageChange && val) {
-      if (val < (currentPageSelected ? currentPageSelected : currentPage)) {
+      if (
+        Math.ceil(totalItems / val) <
+        (currentPageSelected ? currentPageSelected : currentPage)
+      ) {
         onItemsPerPageChange(val, 1);
       } else {
         onItemsPerPageChange(
@@ -269,14 +418,7 @@ const Pagination = ({
             {currentPageSelected ? currentPageSelected : currentPage}
           </span>
           of
-          <span className={`${prefix}-page-end`}>
-            {Math.ceil(
-              totalItems /
-                (currentItemsPerPageSelected
-                  ? currentItemsPerPageSelected
-                  : itemsPerPageToSelect)
-            )}
-          </span>
+          <span className={`${prefix}-page-end`}>{pagesArray.length}</span>
           pages
         </span>
         <button
@@ -305,17 +447,7 @@ const Pagination = ({
             value={currentPageSelected ? currentPageSelected : currentPage}
             onKeyDown={_onKeyDown}
             onChange={_onPagesChange.bind(this)}
-            options={Array.from(
-              {
-                length: Math.ceil(
-                  totalItems /
-                    (currentItemsPerPageSelected
-                      ? currentItemsPerPageSelected
-                      : itemsPerPageToSelect)
-                )
-              },
-              (v, k) => k + 1
-            )}
+            options={pagesArray}
             className={`${prefix}-pagination-select ${prefix}-page-number`}
           />
         </div>

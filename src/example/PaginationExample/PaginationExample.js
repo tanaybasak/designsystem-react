@@ -16,6 +16,19 @@ class PaginationExample extends Component {
       <div className="hcl-col-12 mt-5" id="tags-section">
         <Pagination
           totalItems={this.state.totalItems}
+          itemsPerPageStepper={this.state.stepper}
+          itemsStepperLimit={this.state.stepperLimit}
+          currentPage={this.state.currentPage}
+          itemsPerPageText={'No. of Rows:'}
+          onPageChange={(e, e2) => {
+            console.log(e, e2);
+          }}
+          onItemsPerPageChange={(e, e2) => {
+            console.log(e, e2);
+          }}
+        />
+        <Pagination
+          totalItems={this.state.totalItems}
           itemsPerPageToSelect={this.state.itemsPerPageToSelect}
           itemsPerPageStepper={this.state.stepper}
           itemsStepperLimit={this.state.stepperLimit}
