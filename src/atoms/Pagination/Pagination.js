@@ -46,11 +46,12 @@ const Pagination = ({
       totalItems > 0 &&
       (itemsPerPageToSelect || itemsPerPageStepper)
     ) {
-      const totalpages = Math.ceil(
-        totalItems / itemsPerPageToSelect
-          ? itemsPerPageToSelect
-          : itemsPerPageStepper
-      );
+      let totalpages = 0;
+      if (itemsPerPageToSelect && totalItems && totalItems > 0) {
+        totalpages = Math.ceil(totalItems / itemsPerPageToSelect);
+      } else if (itemsPerPageStepper && totalItems && totalItems > 0) {
+        totalpages = Math.ceil(totalItems / itemsPerPageStepper);
+      }
       if (isFinite(totalpages)) {
         if (currentPage > totalpages) {
           setCurrentPageSelected(1);
@@ -59,6 +60,8 @@ const Pagination = ({
         }
         if (itemsPerPageToSelect && itemsPerPageToSelect > 0) {
           setCurrentItemsPerPageSelected(itemsPerPageToSelect);
+        } else {
+          setCurrentItemsPerPageSelected(itemsPerPageStepper);
         }
         setNextButtonDisabled(
           totalpages === currentPage || totalpages === 1 ? true : false
