@@ -47,9 +47,9 @@ const Pagination = ({
       (itemsPerPageToSelect || itemsPerPageStepper)
     ) {
       const totalpages = Math.ceil(
-        totalItems / itemsPerPageStepper
-          ? itemsPerPageStepper
-          : itemsPerPageToSelect
+        totalItems / itemsPerPageToSelect
+          ? itemsPerPageToSelect
+          : itemsPerPageStepper
       );
       if (isFinite(totalpages)) {
         if (currentPage > totalpages) {
