@@ -1,6 +1,6 @@
 {
   "parser": "babel-eslint",
-  "plugins": ["jsx-a11y", "prettier"],
+  "plugins": ["jsx-a11y", "prettier","html"],
 
   "env": {
     "browser": true,
@@ -12,7 +12,8 @@
     "eslint:recommended",
     "plugin:react/recommended",
     "prettier",
-    "plugin:jsx-a11y/recommended"
+    "plugin:jsx-a11y/recommended",
+    "plugin:react-hooks/recommended"
   ],
   "settings": {
     "react": {
