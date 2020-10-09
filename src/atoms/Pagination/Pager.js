@@ -1,8 +1,8 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
+import PropTypes from 'prop-types';
 import prefix from '../../settings';
 
-const Pager = (props, ref) => {
+const Pager = props => {
   if (
     !props.options &&
     !props.className &&
@@ -18,12 +18,11 @@ const Pager = (props, ref) => {
     <>
       <select
         className={props.className ? props.className : ''}
-        ref={ref}
-        value={props.value ? props.value : ''}
+        value={props.value ? props.value : undefined}
         onChange={e => {
           if (props.onChange) props.onChange(e);
         }}
-        aria-label={props.arialabel}
+        aria-label={props.arialabel ? props.arialabel : ''}
         onKeyDown={e => {
           if (props.onKeyDown) props.onKeyDown(e);
         }}
@@ -47,6 +46,23 @@ const Pager = (props, ref) => {
     </>
   );
 };
-//Warning: forwardRef render functions do not support propTypes or defaultProps. Did you accidentally pass a React component?
 
-export default React.forwardRef(Pager);
+Pager.propTypes = {
+  options: PropTypes.array.isRequired,
+  className: PropTypes.string.isRequired,
+  arialabel: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
+  onKeyDown: PropTypes.func.isRequired,
+  value: PropTypes.number
+};
+
+Pager.defaultProps = {
+  options: [],
+  className: '',
+  arialabel: '',
+  onChange: () => {},
+  onKeyDown: () => {},
+  value: undefined
+};
+
+export default Pager;
