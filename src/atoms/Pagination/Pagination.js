@@ -90,10 +90,16 @@ const Pagination = ({
 
   const onPreviousButtonClick = () => {
     setCurrentPageSelected(currentPageSelected - 1);
+    if (onPageChange) {
+      onPageChange(currentPageSelected - 1, currentItemsPerPageSelected);
+    }
   };
 
   const onNextButtonClick = () => {
     setCurrentPageSelected(currentPageSelected + 1);
+    if (onPageChange) {
+      onPageChange(currentPageSelected + 1, currentItemsPerPageSelected);
+    }
   };
 
   const onPagesKeyDown = e => {
