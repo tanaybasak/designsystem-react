@@ -156,9 +156,7 @@ const Pagination = ({
           <Pager
             arialabel="page items"
             value={
-              currentItemsPerPageSelected
-                ? currentItemsPerPageSelected
-                : undefined
+              currentItemsPerPageSelected ? currentItemsPerPageSelected : ''
             }
             onKeyDown={onPageItemsKeyDown}
             onChange={ItemsPerPageChange.bind(this)}

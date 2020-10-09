@@ -21,11 +21,11 @@ const Pager = (props, ref) => {
         ref={ref}
         value={props.value ? props.value : undefined}
         onChange={e => {
-          props.onChange(e);
+          if (props.onChange) props.onChange(e);
         }}
         aria-label={props.arialabel}
         onKeyDown={e => {
-          props.onKeyDown(e);
+          if (props.onKeyDown) props.onKeyDown(e);
         }}
       >
         {props.options.map((item, idx) => {
