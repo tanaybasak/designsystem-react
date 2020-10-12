@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Pager from './Pager';
 import prefix from '../../settings';
@@ -9,331 +9,190 @@ const Pagination = ({
   itemsStepperLimit,
   itemsPerPageText,
   onPageChange,
-  onItemsPerPageChange
+  onItemsPerPageChange,
+  currentPage,
+  itemsPerPageToSelect
 }) => {
-  //states
-  const [nItems, setNItems] = useState(totalItems); //totalItems State
-  const [stepper, setItemsPerPageStepper] = useState(itemsPerPageStepper); //itemsPerPageStepper State
-  const [stepperLimit, setStepperLimit] = useState(itemsStepperLimit); //itemsStepperLimit State
-  const [perPageText, setItemsPerPageText] = useState(itemsPerPageText);
+  const [
+    currentItemsPerPageSelected,
+    setCurrentItemsPerPageSelected
+  ] = useState(null);
+  const [currentPageSelected, setCurrentPageSelected] = useState(null);
+  const [itemPerPageStepperArray, setItemPerPageStepperArray] = useState([]);
 
-  const [itemsPerPageDropDown, setItemsPerPageDropDown] = useState([]);
-  const [itemsPerPageSelected, setItemsPerPageSelected] = useState(-1);
-  const [totalPages, setTotalPages] = useState(0);
-  const [pagesDropDown, setPageItems] = useState([]);
-  const [pagesSelected, setPagesSelected] = useState(-1);
-
-  //refs
-  const nextbtnRef = useRef();
-  const previousbtnRef = useRef();
-  const pageItemsSelectedRef = useRef();
-  const pagesRef = useRef();
-  const startpagedisplayRef = useRef();
-  const totalpagesdisplayRef = useRef();
-  const rangeStartRef = useRef();
-  const rangeEndRef = useRef();
-
-  // props change - totalItems
   useEffect(() => {
-    if (nItems != totalItems) {
-      setNItems(totalItems);
+    if (currentPage) {
+      setCurrentPageSelected(currentPage);
     }
-  }, [totalItems]);
+  }, [currentPage]);
 
-  //props change - itemsPerPageStepper
   useEffect(() => {
-    if (stepper != itemsPerPageStepper) {
-      setItemsPerPageStepper(itemsPerPageStepper);
-    }
-  }, [itemsPerPageStepper]);
-
-  //props change - itemsStepperLimit
-  useEffect(() => {
-    if (stepperLimit != itemsStepperLimit) {
-      setStepperLimit(itemsStepperLimit);
-    }
-  }, [itemsStepperLimit]);
-
-  //props change - itemsPerPageText
-  useEffect(() => {
-    if (itemsPerPageText !== perPageText) {
-      setItemsPerPageText(itemsPerPageText);
-    }
-  }, [itemsPerPageText]);
-
-  //stepper, stepperLimit change useEffect
-  useEffect(() => {
-    createItemsPerPageValues();
-  }, [stepper, stepperLimit]);
-
-  //itemsPerPageDropDown creation effect
-  useEffect(() => {
-    if (JSON.stringify(itemsPerPageDropDown) !== JSON.stringify([])) {
-      if (itemsPerPageDropDown && itemsPerPageDropDown.length > 0) {
-        setItemsPerPageSelected(itemsPerPageDropDown[0]);
-      }
-    }
-  }, [itemsPerPageDropDown]);
-
-  //itemsPerPageDropDown selected, nItems change effect
-  useEffect(() => {
-    if (itemsPerPageSelected && parseInt(itemsPerPageSelected, 10) != -1) {
-      resetRange();
-      calculatePages();
-    }
-  }, [itemsPerPageSelected, nItems]);
-
-  //total pages useEffect
-  useEffect(() => {
-    setPageItems(Array.from({ length: totalPages }, (v, k) => k + 1));
-  }, [totalPages]);
-
-  // pages Dropdown creation useEffect
-  useEffect(() => {
-    if (
-      JSON.stringify(pagesDropDown) !== JSON.stringify([]) &&
-      pagesDropDown.length > 0
-    ) {
-      setPagesSelected(parseInt(pagesDropDown[0], 10));
-      toggleNavButtons();
-    }
-  }, [pagesDropDown]);
-
-  // pages DropDown selected useEffect
-  useEffect(() => {
-    if (pagesSelected != -1) {
-      adjustRange();
-      togglePageDisplay();
-      toggleNavButtons();
-    }
-  }, [pagesSelected]);
-
-  //on Load useEffect
-  useEffect(() => {
-    createItemsPerPageValues();
-  }, []);
-
-  const togglePageDisplay = () => {
-    if (startpagedisplayRef.current) {
-      startpagedisplayRef.current.innerHTML = pagesSelected;
-    }
-  };
-
-  const createItemsPerPageValues = () => {
-    let stepperArray = [stepper];
-    for (let i = 1; i <= stepperLimit; i++) {
-      if (stepperArray[i - 1] * 2 > stepperLimit) {
+    let stepperArray = [itemsPerPageStepper];
+    for (let i = 1; i <= itemsStepperLimit; i++) {
+      if (stepperArray[i - 1] * 2 > itemsStepperLimit) {
         break;
       }
       stepperArray.push(stepperArray[i - 1] * 2);
     }
-    setItemsPerPageDropDown(stepperArray);
-  };
-
-  const resetRange = () => {
-    rangeStartRef.current.innerHTML = 1;
-    rangeEndRef.current.innerHTML = itemsPerPageSelected;
-  };
-
-  const calculatePages = () => {
-    if (pageItemsSelectedRef.current && nItems) {
-      let pages = Math.ceil(Number(nItems) / Number(itemsPerPageSelected));
-      if (pages > 0) {
-        setTotalPages(pages);
-      }
+    setItemPerPageStepperArray(stepperArray);
+    if (
+      itemsPerPageToSelect &&
+      stepperArray.indexOf(itemsPerPageToSelect) > -1
+    ) {
+      setCurrentItemsPerPageSelected(itemsPerPageToSelect);
+    } else {
+      setCurrentItemsPerPageSelected(stepperArray[0]);
     }
-  };
+  }, [itemsPerPageStepper, itemsStepperLimit, itemsPerPageToSelect]);
 
-  const adjustRange = () => {
-    if (pageItemsSelectedRef.current && pagesRef.current) {
-      let pageSize = itemsPerPageSelected,
-        pageDropDown = pagesSelected;
-
-      let rangeStart = rangeStartRef.current,
-        rangeEnd = rangeEndRef.current;
-      if (rangeStart && rangeEnd) {
-        rangeStart.innerHTML = (pageDropDown - 1) * pageSize + 1;
-        if (pageDropDown * pageSize > totalItems) {
-          rangeEnd.innerHTML = totalItems;
-        } else {
-          rangeEnd.innerHTML = pageDropDown * pageSize;
-        }
-      }
+  useEffect(() => {
+    if (itemsPerPageToSelect) {
+      setCurrentItemsPerPageSelected(itemsPerPageToSelect);
     }
-  };
+  }, [itemsPerPageToSelect]);
 
-  const toggleNavButtons = () => {
-    if (pagesRef.current) {
-      let nextIndex = pagesRef.current.selectedIndex;
-      nextIndex++;
-      if (totalItems === 0 || pagesRef.current.options.length === 1) {
-        // One Option
-        previousbtnRef.current.disabled = true;
-        nextbtnRef.current.disabled = true;
-      } else if (pagesRef.current.selectedIndex === 0) {
-        //First Index
-        previousbtnRef.current.disabled = true;
-        nextbtnRef.current.disabled = false;
-      } else if (nextIndex === pagesRef.current.options.length) {
-        //Last Index
-        nextbtnRef.current.disabled = true;
-        previousbtnRef.current.disabled = false;
-      } else {
-        // Enable Navigation Buttons
-        nextbtnRef.current.disabled = false;
-        previousbtnRef.current.disabled = false;
-      }
-    }
-  };
+  const totalPage =
+    totalItems && currentItemsPerPageSelected
+      ? Math.ceil(totalItems / currentItemsPerPageSelected)
+      : 0;
 
-  const _onItemsChange = () => {
-    if (pageItemsSelectedRef.current) {
-      setItemsPerPageSelected(
-        pageItemsSelectedRef.current.options[
-          pageItemsSelectedRef.current.selectedIndex
-        ].value
-      );
-      if (onItemsPerPageChange) {
-        onItemsPerPageChange(
-          pageItemsSelectedRef.current.options[
-            pageItemsSelectedRef.current.selectedIndex
-          ].value
-        );
-      }
-    }
-  };
+  if (currentPage && currentItemsPerPageSelected && currentPage > totalPage) {
+    // eslint-disable-next-line no-console
+    console.error('Pagination:props data mismatches');
+  }
 
-  const _onPreviousClick = e => {
-    e.preventDefault();
-    if (pagesRef.current) {
-      let pageDropDown =
-        pagesRef.current.options[pagesRef.current.selectedIndex];
-      if (
-        previousbtnRef.current &&
-        !previousbtnRef.current.disabled &&
-        pageDropDown.value > 1
-      ) {
-        pagesRef.current.selectedIndex--;
-        setPagesSelected(
-          pagesRef.current.options[pagesRef.current.selectedIndex].value
-        );
-        if (onPageChange) {
-          onPageChange(
-            pagesRef.current.options[pagesRef.current.selectedIndex].value
-          );
-        }
-      }
-    }
-  };
-
-  const _onNextClick = e => {
-    e.preventDefault();
-    if (pagesRef.current) {
-      let pageDropDown =
-        pagesRef.current.options[pagesRef.current.selectedIndex];
-      if (
-        nextbtnRef.current &&
-        !nextbtnRef.current.disabled &&
-        nItems != pageDropDown.value
-      ) {
-        pagesRef.current.selectedIndex++;
-        setPagesSelected(
-          pagesRef.current.options[pagesRef.current.selectedIndex].value
-        );
-        if (onPageChange) {
-          onPageChange(
-            pagesRef.current.options[pagesRef.current.selectedIndex].value
-          );
-        }
-      }
-    }
-  };
-
-  const _onPagesChange = () => {
-    toggleNavButtons();
-    setPagesSelected(
-      pagesRef.current.options[pagesRef.current.selectedIndex].value
-    );
-    if (startpagedisplayRef.current) {
-      startpagedisplayRef.current.innerHTML =
-        pagesRef.current.options[pagesRef.current.selectedIndex].value;
-      if (onPageChange) {
-        onPageChange(
-          pagesRef.current.options[pagesRef.current.selectedIndex].value
-        );
-      }
-    }
-  };
-
-  const _onKeyDown = e => {
+  const ItemsPerPageChange = e => {
     const { target } = e;
-    const keycode = e.keycode || e.which;
-    const optionsLen = target.options.length;
-    if (keycode === 37) {
-      // PREVIOUS
-      e.preventDefault();
-      const selIndex = target.selectedIndex;
-      if (selIndex > 0) {
-        // OTHER THAN FIRST ELEMENT
-        target.selectedIndex--;
+    setCurrentItemsPerPageSelected(parseInt(target.value));
+    if (Math.ceil(totalItems / parseInt(target.value)) < currentPageSelected) {
+      setCurrentPageSelected(1);
+      if (onItemsPerPageChange) {
+        onItemsPerPageChange(parseInt(target.value), 1);
       }
-      target === pagesRef.current ? _onPagesChange() : _onItemsChange();
-    } else if (keycode === 39) {
-      // NEXT
-      e.preventDefault();
-      if (target.options) {
-        const selIndex = target.selectedIndex;
-        if (optionsLen - 1 !== selIndex) {
-          // OTHER THAN LAST ELEMENT
-          target.selectedIndex++;
-        }
-        target === pagesRef.current ? _onPagesChange() : _onItemsChange();
+    } else {
+      if (onItemsPerPageChange) {
+        onItemsPerPageChange(parseInt(target.value), currentPageSelected);
       }
     }
+  };
+
+  const PageChange = e => {
+    const { target } = e;
+    setCurrentPageSelected(parseInt(target.value));
+    if (onPageChange) {
+      onPageChange(parseInt(target.value), currentItemsPerPageSelected);
+    }
+  };
+
+  const onPreviousButtonClick = () => {
+    setCurrentPageSelected(currentPageSelected - 1);
+    if (onPageChange) {
+      onPageChange(currentPageSelected - 1, currentItemsPerPageSelected);
+    }
+  };
+
+  const onNextButtonClick = () => {
+    setCurrentPageSelected(currentPageSelected + 1);
+    if (onPageChange) {
+      onPageChange(currentPageSelected + 1, currentItemsPerPageSelected);
+    }
+  };
+
+  const onPagesKeyDown = e => {
+    const key = e.keycode || e.which;
+    if (key === 37) {
+      if (currentPageSelected !== 1) {
+        setCurrentPageSelected(currentPageSelected - 1);
+      }
+      e.preventDefault();
+    } else if (key === 39) {
+      if (currentPageSelected < totalPage) {
+        setCurrentPageSelected(currentPageSelected + 1);
+      }
+      e.preventDefault();
+    }
+  };
+
+  const onPageItemsKeyDown = e => {
+    const key = e.keycode || e.which;
+    const { target } = e;
+    const selIndex = target.options.selectedIndex;
+    const options = target.options;
+    if (key === 37) {
+      if (selIndex != 0) {
+        setCurrentItemsPerPageSelected(
+          parseInt(options[selIndex - 1].value, 10)
+        );
+      }
+      e.preventDefault();
+    } else if (key === 39) {
+      if (selIndex < options.length - 1) {
+        setCurrentItemsPerPageSelected(
+          parseInt(options[selIndex + 1].value, 10)
+        );
+      }
+      e.preventDefault();
+    }
+  };
+
+  const getPagesArrayVal = () => {
+    const val = Array.from(
+      {
+        length: totalPage
+      },
+      (v, k) => k + 1
+    ).slice(0);
+    return val;
   };
 
   return (
     <div className={`${prefix}-pagination`}>
       <div className={`${prefix}-pagination-left`}>
-        <div className={`${prefix}-pagination-text`}>{perPageText}</div>
+        <div className={`${prefix}-pagination-text`}>{itemsPerPageText}</div>
         <div className={`${prefix}-pagination-select-wrapper`}>
           <Pager
             arialabel="page items"
-            ref={pageItemsSelectedRef}
-            value={itemsPerPageSelected}
-            onKeyDown={_onKeyDown}
-            onChange={_onItemsChange}
-            options={itemsPerPageDropDown}
+            value={
+              currentItemsPerPageSelected ? currentItemsPerPageSelected : null
+            }
+            onKeyDown={onPageItemsKeyDown}
+            onChange={ItemsPerPageChange.bind(this)}
+            options={itemPerPageStepperArray ? itemPerPageStepperArray : []}
             className={`${prefix}-pagination-select ${prefix}-page-items`}
           />
         </div>
         <span className={`${prefix}-pagination-text`}>
           <span className={`${prefix}-pagination-range`}>
-            <span className={`${prefix}-range-start`} ref={rangeStartRef} />
+            <span className={`${prefix}-range-start`}>
+              {(currentPageSelected - 1) * currentItemsPerPageSelected + 1}
+            </span>
             <span className={`${prefix}-range-separator`}>-</span>
-            <span className={`${prefix}-range-end`} ref={rangeEndRef} />
+            <span className={`${prefix}-range-end`}>
+              {currentPageSelected * currentItemsPerPageSelected > totalItems
+                ? totalItems
+                : currentPageSelected * currentItemsPerPageSelected}
+            </span>
           </span>
           of
-          <span className={`${prefix}-pagination-totalitems`}>{nItems}</span>
+          <span className={`${prefix}-pagination-totalitems`}>
+            {totalItems}
+          </span>
           items
         </span>
       </div>
       <div className={`${prefix}-pagination-right`}>
         <span className={`${prefix}-pagination-text`}>
-          <span className={`${prefix}-page-start`} ref={startpagedisplayRef} />
+          <span className={`${prefix}-page-start`}>{currentPageSelected}</span>
           of
-          <span className={`${prefix}-page-end`} ref={totalpagesdisplayRef}>
-            {totalPages}
-          </span>
+          <span className={`${prefix}-page-end`}>{totalPage}</span>
           pages
         </span>
         <button
+          type={`button`}
           className={`${prefix}-pagination-button-previous`}
           aria-label={`Previous page`}
-          ref={previousbtnRef}
-          onClick={e => {
-            _onPreviousClick(e);
-          }}
+          disabled={currentPageSelected === 1}
+          onClick={onPreviousButtonClick.bind(this)}
         >
           <svg
             className={`${prefix}-pagination-button-icon`}
@@ -350,21 +209,19 @@ const Pagination = ({
         <div className={`${prefix}-pagination-select-wrapper`}>
           <Pager
             arialabel="page number"
-            ref={pagesRef}
-            value={pagesSelected}
-            onKeyDown={_onKeyDown}
-            onChange={_onPagesChange}
-            options={pagesDropDown}
+            value={currentPageSelected ? currentPageSelected : 1}
+            onKeyDown={onPagesKeyDown}
+            onChange={PageChange.bind(this)}
+            options={getPagesArrayVal()}
             className={`${prefix}-pagination-select ${prefix}-page-number`}
           />
         </div>
         <button
+          type={`button`}
           className={`${prefix}-pagination-button-next`}
           aria-label="Next page"
-          ref={nextbtnRef}
-          onClick={e => {
-            _onNextClick(e);
-          }}
+          disabled={currentPageSelected === totalPage}
+          onClick={onNextButtonClick.bind(this)}
         >
           <svg
             className={`${prefix}-pagination-button-icon`}
@@ -395,14 +252,20 @@ Pagination.propTypes = {
   /** Accepts Event handler as argument/prop which is triggered after Items Per Page Dropdown is changed. */
   onItemsPerPageChange: PropTypes.func,
   /** Accepts Event handler as argument/prop which is triggered after Page Drop-down is changed. */
-  onPageChange: PropTypes.func
+  onPageChange: PropTypes.func,
+  /** current active Page number */
+  currentPage: PropTypes.number,
+  /** itemsPerPageToSelect - The value to be selected from itemsPerPage dropdown */
+  itemsPerPageToSelect: PropTypes.number
 };
 
 Pagination.defaultProps = {
   totalItems: 0,
+  currentPage: 1,
   itemsPerPageStepper: 20,
   itemsStepperLimit: 100,
   itemsPerPageText: 'Items per Page:',
+  itemsPerPageToSelect: null,
   onItemsPerPageChange: () => {},
   onPageChange: () => {}
 };

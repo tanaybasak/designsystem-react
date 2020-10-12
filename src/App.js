@@ -45,6 +45,7 @@ class App extends Component {
   state = {
     showOverlay: false,
     totalItems: 300,
+    currentPage: 3,
     stepper: 10,
     stepperLimit: 100,
     radio: {
@@ -1626,10 +1627,21 @@ class App extends Component {
                     Stepper Limit
                   </button>
                 </Paragraph>
+                <Button
+                  onClick={() => {
+                    console.log('Button Clicked');
+                    this.setState({
+                      currentPage: 10
+                    });
+                  }}
+                >
+                  Hello
+                </Button>
                 <Pagination
                   totalItems={this.state.totalItems}
                   itemsPerPageStepper={this.state.stepper}
                   itemsStepperLimit={this.state.stepperLimit}
+                  currentPage={this.state.currentPage}
                   itemsPerPageText={'No. of Rows:'}
                   onPageChange={e => {
                     console.log(e);
@@ -1644,6 +1656,7 @@ class App extends Component {
                   itemsPerPageStepper={25}
                   itemsStepperLimit={500}
                   itemsPerPageText={'Items per page:'}
+                  currentPage={this.state.currentPage}
                   onPageChange={e => {
                     console.log(e);
                   }}
