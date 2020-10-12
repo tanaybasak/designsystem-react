@@ -22,17 +22,9 @@ const Pagination = ({
 
   useEffect(() => {
     if (currentPage) {
-      if (
-        currentItemsPerPageSelected &&
-        totalItems &&
-        Math.ceil(totalItems / currentItemsPerPageSelected) < currentPage
-      ) {
-        setCurrentPageSelected(1);
-      } else {
-        setCurrentPageSelected(currentPage);
-      }
+      setCurrentPageSelected(currentPage);
     }
-  }, [currentPage, currentItemsPerPageSelected]);
+  }, [currentPage]);
 
   useEffect(() => {
     let stepperArray = [itemsPerPageStepper];
@@ -64,10 +56,14 @@ const Pagination = ({
       ? Math.ceil(totalItems / currentItemsPerPageSelected)
       : 0;
 
+  if (currentPage && currentItemsPerPageSelected && currentPage > totalPage) {
+    // eslint-disable-next-line no-console
+    console.error('Pagination:props data mismatches');
+  }
+
   const ItemsPerPageChange = e => {
     const { target } = e;
     setCurrentItemsPerPageSelected(parseInt(target.value));
-
     if (Math.ceil(totalItems / parseInt(target.value)) < currentPageSelected) {
       setCurrentPageSelected(1);
       if (onItemsPerPageChange) {
@@ -149,11 +145,6 @@ const Pagination = ({
     return val;
   };
 
-  const rangeStart = () => {
-    let val = (currentPageSelected - 1) * currentItemsPerPageSelected + 1;
-    return val;
-  };
-
   return (
     <div className={`${prefix}-pagination`}>
       <div className={`${prefix}-pagination-left`}>
@@ -172,7 +163,9 @@ const Pagination = ({
         </div>
         <span className={`${prefix}-pagination-text`}>
           <span className={`${prefix}-pagination-range`}>
-            <span className={`${prefix}-range-start`}>{rangeStart()}</span>
+            <span className={`${prefix}-range-start`}>
+              {(currentPageSelected - 1) * currentItemsPerPageSelected + 1}
+            </span>
             <span className={`${prefix}-range-separator`}>-</span>
             <span className={`${prefix}-range-end`}>
               {currentPageSelected * currentItemsPerPageSelected > totalItems
