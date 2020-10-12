@@ -473,6 +473,8 @@ const DataTable = ({
   const onColumnMouseDown = (column, idx, e) => {
     e.preventDefault();
     e.stopPropagation();
+    const { button } = e;
+    if (button !== 0) return;
     let nThTarget;
     /* For Detecting Second Row Header Resize */
     nThTarget = e.target.parentElement.parentElement.previousElementSibling
