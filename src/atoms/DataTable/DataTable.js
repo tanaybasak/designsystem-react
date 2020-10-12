@@ -436,7 +436,7 @@ const DataTable = ({
                         ? 'sticky-div sticky-right-div'
                         : ''
                     }${column.sortable ? ' sortable' : ''}${
-                      column.allowResize ? 'resizable' : ''
+                      column.allowResize ? ' resizable' : ''
                     }`}
                   >
                     <>

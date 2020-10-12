@@ -16,10 +16,9 @@ class TableExample extends Component {
         field: 'checkbox',
         renderHtml: row => {
           return <Checkbox id={`${row.id}_checkbox_`} name="testcheck" />;
-        }
-
-        // width: '40px',
-        // pinned: 'left'
+        },
+        width: '40px',
+        pinned: 'left'
       },
       {
         label: 'ID',
@@ -40,14 +39,14 @@ class TableExample extends Component {
             Sample Tag
           </Tag>
         ),
-        allowResize: true
-        // width: '160px',
-        // pinned: 'left'
+        allowResize: true,
+        width: '160px',
+        pinned: 'left'
       },
 
       {
         label: 'Avatar',
-        // pinned: 'left',
+        pinned: 'left',
         allowResize: true,
         renderHtml: model => {
           return (
@@ -57,20 +56,21 @@ class TableExample extends Component {
             />
           );
         },
-        columnHtml: <h6> this is temp</h6>
-        // width: '260px'
+        columnHtml: <h6> this is temp</h6>,
+        width: '260px'
       },
       {
         label: 'Full Name',
         field: 'name',
-        sortable: true
+        sortable: true,
+        allowResize: true,
         // pinned: 'left',
         // renderHtml: model => {
         //     return (
         //       <span>{model.name} {model.name} {model.name} {model.name}{model.name} {model.name} {model.name} {model.name} {model.name} {model.name}</span>
         //     );
         //   },
-        // width: '200px'
+        width: '200px'
       },
       {
         label: 'Private',
@@ -84,14 +84,14 @@ class TableExample extends Component {
               model.owner.site_admin ? 'Yes' : 'No'
             }`}</Tag>
           );
-        }
-        // width: '120px'
+        },
+        width: '120px'
       },
       {
         label: 'Language',
-        field: 'owner.login'
+        field: 'owner.login',
 
-        // width: '120px'
+        width: '120px'
       },
       {
         label: 'Has Issues',
@@ -106,25 +106,25 @@ class TableExample extends Component {
               toggled={model.has_issues}
             />
           );
-        }
-        // width: '150px'
+        },
+        width: '150px'
       },
       {
         label: 'Forks Count',
-        field: 'forks_count'
-        // width: '120px'
+        field: 'forks_count',
+        width: '120px'
       },
       {
         label: 'Branch',
         field: 'default_branch',
-        sortable: true
-        // width: '120px'
+        sortable: true,
+        width: '120px'
       },
       {
         label: 'Issues Count',
-        field: 'open_issues_count'
-        // width: '420px',
-        // pinned: 'right'
+        field: 'open_issues_count',
+        width: '420px',
+        pinned: 'right'
       },
       {
         field: 'overflow',
@@ -142,8 +142,8 @@ class TableExample extends Component {
               }}
             />
           );
-        }
-        // width: '400px'
+        },
+        width: '400px'
       }
     ]
   };

@@ -79,3 +79,37 @@
   width: 2px;
   height: 100%;
 }
+
+.sticky-div {
+  &.sticky-right-div {
+    &::after {
+      pointer-events: none;
+      content: '';
+      transition: box-shadow 0.3s;
+      position: absolute;
+      top: 0;
+      bottom: -2px;
+      width: 20px;
+      left: -1px;
+      transform: translateX(-100%);
+      box-shadow: inset -10px 0 8px -8px green;
+    }
+  }
+}
+
+.sticky-div {
+  &.sticky-left-div {
+    &::after {
+      pointer-events: none;
+      content: '';
+      transition: box-shadow 0.3s;
+      position: absolute;
+      top: 0;
+      bottom: -2px;
+      width: 20px;
+      right: -1px;
+      transform: translateX(100%);
+      box-shadow: inset 10px 0 8px -8px green;
+    }
+  }
+}
