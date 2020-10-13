@@ -155,6 +155,7 @@ const DataTable = ({
     type.includes('borderless') ? ` ${prefix}-data-table-borderless` : ''
   } ${className}`.trim();
 
+  /* Table re-size starts */
   const [isMouseDownForResize, setMouseDownonResize] = useState(false);
   const resizeLineRef = useRef(null);
 
@@ -278,6 +279,7 @@ const DataTable = ({
     document.body.classList.remove('resize-table');
     tableRef.current.parentElement.style.position = ``;
   };
+  /* Table re-size ends */
 
   return (
     <div className={classnames}>
