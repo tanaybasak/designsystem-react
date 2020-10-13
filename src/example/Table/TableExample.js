@@ -10,6 +10,7 @@ class TableExample extends Component {
   state = {
     tableData: [],
     totalItems: 0,
+    initSortedColumn: { order: 'asc', name: 'name' },
     displayData: [],
     tableConfig: [
       {
@@ -25,21 +26,21 @@ class TableExample extends Component {
         label: 'ID',
         field: 'id',
         columnHtml: (
-          <Tag
-            className=""
-            closable={false}
-            disabled={false}
-            icon={<i className="p-hclsw p-hclsw-link" tabIndex="0" />}
-            onClose={function noRefCheck() {}}
-            tabIndex={0}
-            text={null}
-            thumbnail={<i className="p-hclsw p-hclsw-checkbox" />}
-            title=""
-            type="primary"
-          >
-            Sample Tag
-          </Tag>
-        ),
+            <Tag
+              className=""
+              closable={false}
+              disabled={false}
+              icon={<i className="p-hclsw p-hclsw-link" tabIndex="0" />}
+              onClose={function noRefCheck() {}}
+              tabIndex={0}
+              text={null}
+              thumbnail={<i className="p-hclsw p-hclsw-checkbox" />}
+              title=""
+              type="primary"
+            >
+              Sample Tag
+            </Tag>
+          ),
         width: '160px',
         pinned: 'right'
       },
@@ -177,7 +178,7 @@ class TableExample extends Component {
                 id="sample_table"
                 tableData={this.state.displayData}
                 tableConfig={this.state.tableConfig}
-                stickyHeaderMain={true}
+                initSortedColumn={this.state.initSortedColumn}
                 // expandRowTemplate={() => {
                 //   return (<Paragraph>
                 //     available, but the majority have suffered alteration
