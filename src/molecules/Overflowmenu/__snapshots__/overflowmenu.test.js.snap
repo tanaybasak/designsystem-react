@@ -14,7 +14,7 @@ exports[`<Overflowmenu> component snapshots/renders Overflowmenu correctly 1`] =
             
             "
     onClick={[Function]}
-    role="Overflow Menu"
+    type="button"
   />
 </div>
 `;

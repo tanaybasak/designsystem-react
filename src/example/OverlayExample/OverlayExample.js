@@ -191,9 +191,9 @@ class OverlayExample extends Component {
           attachElementToBody={true}
           direction="bottom-right"
           customTemplate={
-            <button className="hcl-btn hcl-ghost">
+            <Button className="hcl-btn hcl-ghost">
               <i className="p-hclsw p-hclsw-release"></i>
-            </button>
+            </Button>
           }
           ellipsisType="vertical"
           onClick={(item, index, e) => {

@@ -20,7 +20,7 @@
         "ignore": ["children"]
       }
     ],
-    "prettier/prettier": ["error", {"singleQuote": true}],
+    "prettier/prettier": ["error", { "singleQuote": true }],
     "react/jsx-pascal-case": 2,
     "react/jsx-closing-bracket-location": 2,
     "jsx-quotes": [2, "prefer-double"],
