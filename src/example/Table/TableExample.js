@@ -17,8 +17,8 @@ class TableExample extends Component {
         renderHtml: row => {
           return <Checkbox id={`${row.id}_checkbox_`} name="testcheck" />;
         },
-        width: '40px',
-        pinned: 'left'
+        width: '40px'
+        // pinned: 'left'
       },
       {
         label: 'ID',
@@ -46,7 +46,7 @@ class TableExample extends Component {
 
       {
         label: 'Avatar',
-        pinned: 'left',
+        // pinned: 'left',
         allowResize: true,
         renderHtml: model => {
           return (
@@ -56,8 +56,8 @@ class TableExample extends Component {
             />
           );
         },
-        columnHtml: <h6> this is temp</h6>,
-        width: '260px'
+        columnHtml: <h6> this is temp</h6>
+        // width: '260px'
       },
       {
         label: 'Full Name',
@@ -123,8 +123,8 @@ class TableExample extends Component {
       {
         label: 'Issues Count',
         field: 'open_issues_count',
-        width: '420px',
-        pinned: 'right'
+        width: '420px'
+        // pinned: 'right'
       },
       {
         field: 'overflow',
