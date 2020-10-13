@@ -4,7 +4,6 @@ import prefix from '../../settings';
 import { getColumnStructure } from '../../util/tableUtil';
 import { addListener, removeListeners } from '../../util/eventManager';
 
-let uniquetableId = 0;
 const DataTable = ({
   id,
   type,
@@ -24,7 +23,6 @@ const DataTable = ({
   const [sortedColumn, updateSortedColumn] = useState({});
   const [isPinned, setIsPinned] = useState(false);
   const [tableWidthPostRender, setTableWidthPostRender] = useState(`auto`);
-  const [tableId] = useState(uniquetableId++);
 
   const calculateIsPinned = () => {
     // console.log(`calulating pinned ?`);
@@ -175,6 +173,9 @@ const DataTable = ({
     setMouseDownonResize(true);
     document.body.classList.add('resize-table');
     tableRef.current.parentElement.style.position = `relative`;
+    totalLengthMoved = column.width
+      ? parseInt(column.width.replace(/px/g, ''), 10)
+      : 10;
 
     let nThTarget;
     /* For Detecting Second Row Header Resize */
@@ -214,7 +215,6 @@ const DataTable = ({
 
         let moveLength = e && startX ? e.clientX - startX : 0;
         totalLengthMoved = moveLength ? clientWidth + moveLength : 0;
-        // console.log(`total length before state update ==>`, totalLengthMoved);
         if (resizeLineRef && resizeLineRef.current) {
           let { left } = resizeDividerData;
           resizeLineRef.current.style.left = moveLength + left + `px`;
