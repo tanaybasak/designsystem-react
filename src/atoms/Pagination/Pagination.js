@@ -8,6 +8,7 @@ const Pagination = ({
   itemsPerPageStepper,
   itemsStepperLimit,
   itemsPerPageText,
+  position,
   onPageChange,
   onItemsPerPageChange,
   currentPage,
@@ -144,49 +145,26 @@ const Pagination = ({
     ).slice(0);
     return val;
   };
-
-  return (
-    <div className={`${prefix}-pagination`}>
-      <div className={`${prefix}-pagination-left`}>
-        <div className={`${prefix}-pagination-text`}>{itemsPerPageText}</div>
-        <div className={`${prefix}-pagination-select-wrapper`}>
-          <Pager
-            arialabel="page items"
-            value={
-              currentItemsPerPageSelected ? currentItemsPerPageSelected : null
-            }
-            onKeyDown={onPageItemsKeyDown}
-            onChange={ItemsPerPageChange.bind(this)}
-            options={itemPerPageStepperArray ? itemPerPageStepperArray : []}
-            className={`${prefix}-pagination-select ${prefix}-page-items`}
-          />
-        </div>
+  const numberOfPages = () => {
+    return (
+      <>
         <span className={`${prefix}-pagination-text`}>
-          <span className={`${prefix}-pagination-range`}>
-            <span className={`${prefix}-range-start`}>
-              {(currentPageSelected - 1) * currentItemsPerPageSelected + 1}
-            </span>
-            <span className={`${prefix}-range-separator`}>-</span>
-            <span className={`${prefix}-range-end`}>
-              {currentPageSelected * currentItemsPerPageSelected > totalItems
-                ? totalItems
-                : currentPageSelected * currentItemsPerPageSelected}
-            </span>
+          <span
+            className={`${prefix}-page-start`}
+            style={{ marginLeft: '1rem' }}
+          >
+            {currentPageSelected}
           </span>
-          of
-          <span className={`${prefix}-pagination-totalitems`}>
-            {totalItems}
-          </span>
-          items
-        </span>
-      </div>
-      <div className={`${prefix}-pagination-right`}>
-        <span className={`${prefix}-pagination-text`}>
-          <span className={`${prefix}-page-start`}>{currentPageSelected}</span>
           of
           <span className={`${prefix}-page-end`}>{totalPage}</span>
           pages
         </span>
+      </>
+    );
+  };
+  const navPagination = () => {
+    return (
+      <>
         <button
           type={`button`}
           className={`${prefix}-pagination-button-previous`}
@@ -235,6 +213,109 @@ const Pagination = ({
             />
           </svg>
         </button>
+      </>
+    );
+  };
+  const numberOfRows = () => {
+    return (
+      <>
+        <div
+          className={`${prefix}-pagination-text`}
+          style={{ marginLeft: '1rem' }}
+        >
+          {itemsPerPageText}
+        </div>
+        <div className={`${prefix}-pagination-select-wrapper`}>
+          <Pager
+            arialabel="page items"
+            value={
+              currentItemsPerPageSelected ? currentItemsPerPageSelected : null
+            }
+            onKeyDown={onPageItemsKeyDown}
+            onChange={ItemsPerPageChange.bind(this)}
+            options={itemPerPageStepperArray ? itemPerPageStepperArray : []}
+            className={`${prefix}-pagination-select ${prefix}-page-items`}
+          />
+        </div>
+      </>
+    );
+  };
+  const itemsName = () => {
+    return (
+      <>
+        <span className={`${prefix}-pagination-text`}>
+          <span className={`${prefix}-pagination-range`}>
+            <span className={`${prefix}-range-start`}>
+              {(currentPageSelected - 1) * currentItemsPerPageSelected + 1}
+            </span>
+            <span className={`${prefix}-range-separator`}>-</span>
+            <span className={`${prefix}-range-end`}>
+              {currentPageSelected * currentItemsPerPageSelected > totalItems
+                ? totalItems
+                : currentPageSelected * currentItemsPerPageSelected}
+            </span>
+          </span>
+          of
+          <span className={`${prefix}-pagination-totalitems`}>
+            {totalItems}
+          </span>
+          items
+        </span>
+      </>
+    );
+  };
+
+  const abc = fnstring => {
+    switch (fnstring) {
+      case 'numberOfRows':
+        return numberOfRows();
+      case 'navPagination':
+        return navPagination();
+      case 'numberOfPages':
+        return numberOfPages();
+      case 'itemsName':
+        return itemsName();
+    }
+  };
+
+  return (
+    <div className={`${prefix}-pagination`}>
+      <div className={`${prefix}-pagination-left`} style={{ padding: '0rem' }}>
+        {position.left.map((item, index) => {
+          if (item === 'numberOfRows' || item === 'navPagination') {
+            return (
+              <div key={index} className="hcl-pagination-right">
+                {abc(item)}
+              </div>
+            );
+          } else {
+            return (
+              <div className="hcl-pagination-rightborder" key={index}>
+                {abc(item)}
+              </div>
+            );
+          }
+        })}
+      </div>
+      <div className={`${prefix}-pagination-right`}>
+        {position.right.map((item, index) => {
+          if (item === 'numberOfRows' || item === 'navPagination') {
+            return (
+              <div
+                key={index}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  height: '100%'
+                }}
+              >
+                {abc(item)}
+              </div>
+            );
+          } else {
+            return <div key={index}>{abc(item)}</div>;
+          }
+        })}
       </div>
     </div>
   );
@@ -256,7 +337,8 @@ Pagination.propTypes = {
   /** current active Page number */
   currentPage: PropTypes.number,
   /** itemsPerPageToSelect - The value to be selected from itemsPerPage dropdown */
-  itemsPerPageToSelect: PropTypes.number
+  itemsPerPageToSelect: PropTypes.number,
+  position: PropTypes.object
 };
 
 Pagination.defaultProps = {

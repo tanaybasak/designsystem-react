@@ -7,6 +7,19 @@
   height: 100vh;
 }
 
+.hcl-pagination-left .hcl-pagination-select-wrapper:after {
+  border-right: none;
+}
+
+.hcl-pagination-rightborder {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  &::after {
+    border-right: 1px solid var(--default_border_xlow);
+  }
+}
+
 // .p-hclsw-folder,
 // .p-hclsw-export {
 //   color: sandybrown;
@@ -24,7 +37,6 @@
 //     display: inline;
 // }
 
-
 .hcl-spinner-inline > svg {
-    margin-left: unset;
+  margin-left: unset;
 }
