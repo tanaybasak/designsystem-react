@@ -164,7 +164,7 @@ const DataTable = ({
   let totalLengthMoved = 0;
   let isMouseDown = false;
 
-  const onColumnMouseDown2 = (column, idx, e) => {
+  const onColumnMouseDown = (column, idx, e) => {
     e.preventDefault();
     e.stopPropagation();
     const { button } = e;
@@ -349,7 +349,7 @@ const DataTable = ({
                           className={`hcl-data-table-resizable`}
                           onMouseDown={
                             column.allowResize
-                              ? onColumnMouseDown2.bind(this, column, index)
+                              ? onColumnMouseDown.bind(this, column, index)
                               : null
                           }
                         />
@@ -448,7 +448,7 @@ const DataTable = ({
                           className="hcl-data-table-resizable"
                           onMouseDown={
                             column.allowResize
-                              ? onColumnMouseDown2.bind(this, column, index)
+                              ? onColumnMouseDown.bind(this, column, index)
                               : null
                           }
                         />
