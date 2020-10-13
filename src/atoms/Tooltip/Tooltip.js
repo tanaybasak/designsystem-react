@@ -60,7 +60,7 @@ const Tooltip = ({ type, content, direction, children }) => {
   };
 
   const handleScroll = () => {
-    if (tooltipContainerRef.current) {
+    if (tooltipContainerRef.current && parentRef.current) {
       const parentPosition = parentRef.current.getBoundingClientRect();
       showTooltipMain(parentPosition, positionDirection, 10, type);
     }
@@ -637,20 +637,23 @@ const Tooltip = ({ type, content, direction, children }) => {
     return newDirection;
   };
 
-  const openTooltip = () => {
+  const openTooltip = e => {
+    parentRef.current = e.currentTarget;
     if (!focusTootlip) {
       mouseOut = false;
       toggleTooltip(true);
     }
   };
 
-  const openTooltipFocus = () => {
+  const openTooltipFocus = e => {
+    parentRef.current = e.currentTarget;
     focusTootlip = true;
     mouseOut = false;
     toggleTooltip(true);
   };
 
   const closeTooltip = () => {
+    parentRef.current = null;
     if (!focusTootlip) {
       mouseOut = true;
       setTimeout(() => {
@@ -664,17 +667,20 @@ const Tooltip = ({ type, content, direction, children }) => {
   };
 
   const closeTooltipOnBlur = () => {
+    parentRef.current = null;
     focusTootlip = false;
     if (!contentIn) {
       toggleTooltip(false);
     }
   };
 
-  const openInteractiveTooltip = () => {
+  const openInteractiveTooltip = e => {
+    parentRef.current = e.currentTarget;
     toggleTooltip(true);
   };
 
   const showTooltipOnEnter = event => {
+    parentRef.current = event.currentTarget;
     if (event.charCode === 13) {
       openTooltip();
     }
@@ -687,7 +693,6 @@ const Tooltip = ({ type, content, direction, children }) => {
       if (showTooltip && type === 'definition') {
         customClass += ` ${prefix}-tooltip-dottedline`;
       }
-
       return React.cloneElement(child, {
         tabIndex: '0',
         onMouseEnter: type !== 'interactive' ? openTooltip : null,
@@ -696,7 +701,6 @@ const Tooltip = ({ type, content, direction, children }) => {
         onFocus: type !== 'interactive' ? openTooltipFocus : null,
         onBlur: type !== 'interactive' ? closeTooltipOnBlur : null,
         onKeyPress: type === 'interactive' ? showTooltipOnEnter : null,
-        ref: parentRef,
         className: customClass
       });
     });
@@ -705,7 +709,6 @@ const Tooltip = ({ type, content, direction, children }) => {
   return typeof children === 'string' ? (
     <span
       tabIndex="0"
-      ref={parentRef}
       onClick={type === 'interactive' ? openInteractiveTooltip : null}
       onMouseEnter={type !== 'interactive' ? openTooltip : null}
       onMouseLeave={type !== 'interactive' ? closeTooltip : null}
