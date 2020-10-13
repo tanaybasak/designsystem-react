@@ -21,6 +21,8 @@ import Modal from './molecules/Modal';
 import { Tabs, Tab } from './molecules/Tab';
 import Slider from './atoms/Slider';
 import { Overflowmenu } from './molecules/Overflowmenu';
+import { MenuList, Item } from './atoms/MenuList';
+
 import overflowlist from './molecules/Overflowmenu/sample-overflow-list.json';
 import { ContentSwitcher, Switch } from './molecules/ContentSwitcher';
 import Search from './atoms/Search';
@@ -1947,6 +1949,41 @@ class App extends Component {
                       </Button>
                     </ToolBarActions>
                   </ToolBar>
+                </div>
+              </div>
+
+              {/* MenuList */}
+              <div className="hcl-col-12 mt-5" id="overflow-menu-section">
+                <h5>Overflow Menu</h5>
+                <div >
+                  <MenuList>
+                    <Item className="custom-item">
+                      <button className="hcl-btn hcl-ghost">ghost</button>
+                    </Item>
+                    <Item>
+                      <button className="hcl-btn hcl-ghost">ghost</button>
+                    </Item>
+                    <Item>
+                    <button className="hcl-btn hcl-ghost">ghost</button>
+                    </Item>
+                  </MenuList>
+                </div>
+
+                <div >
+                  <MenuList>
+                    <Item className="custom-item">
+                    <button className="hcl-btn hcl-ghost">ghost</button>
+
+                    </Item>
+                    <Item>
+                    <button className="hcl-btn hcl-ghost">ghost</button>
+
+                    </Item>
+                    <Item>
+                    <button className="hcl-btn hcl-ghost">ghost</button>
+
+                    </Item>
+                  </MenuList>
                 </div>
               </div>
 
