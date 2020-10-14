@@ -57,20 +57,22 @@ class TableExample extends Component {
           );
         },
         columnHtml: <h6> this is temp</h6>,
-        width: '260px'
+        width: '260px',
+        minResizeWidth: 40, // not less than that
+        maxResizeWidth: 40 // not to restrict
       },
       {
         label: 'Full Name',
         field: 'name',
         sortable: true,
-        allowResize: true,
-        pinned: 'left',
+        allowResize: true
+        // pinned: 'left',
         // renderHtml: model => {
         //     return (
         //       <span>{model.name} {model.name} {model.name} {model.name}{model.name} {model.name} {model.name} {model.name} {model.name} {model.name}</span>
         //     );
         //   },
-        width: '200px'
+        // width: '200px'
       },
       {
         label: 'Private',
@@ -84,14 +86,14 @@ class TableExample extends Component {
               model.owner.site_admin ? 'Yes' : 'No'
             }`}</Tag>
           );
-        },
-        width: '120px'
+        }
+        // width: '120px'
       },
       {
         label: 'Language',
-        field: 'owner.login',
+        field: 'owner.login'
 
-        width: '120px'
+        // width: '120px'
       },
       {
         label: 'Has Issues',
@@ -106,13 +108,13 @@ class TableExample extends Component {
               toggled={model.has_issues}
             />
           );
-        },
-        width: '150px'
+        }
+        // width: '150px'
       },
       {
         label: 'Forks Count',
-        field: 'forks_count',
-        width: '120px'
+        field: 'forks_count'
+        // width: '120px'
       },
       {
         label: 'Branch',
@@ -122,8 +124,8 @@ class TableExample extends Component {
       },
       {
         label: 'Issues Count',
-        field: 'open_issues_count',
-        width: '420px'
+        field: 'open_issues_count'
+        // width: '420px'
         // pinned: 'right'
       },
       {
@@ -142,8 +144,8 @@ class TableExample extends Component {
               }}
             />
           );
-        },
-        width: '400px'
+        }
+        // width: '400px'
       }
     ]
   };
@@ -180,6 +182,7 @@ class TableExample extends Component {
               id="sample_table"
               tableData={this.state.displayData}
               tableConfig={this.state.tableConfig}
+              resizable
               // expandRowTemplate={() => {
               //   return (<Paragraph>
               //     available, but the majority have suffered alteration

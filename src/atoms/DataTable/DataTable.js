@@ -15,12 +15,15 @@ const DataTable = ({
   headerSelection,
   onRowSelect,
   triStateSorting,
+  // eslint-disable-next-line no-unused-vars
+  resizable,
   ...restProps
 }) => {
   const [rows, updateTableRowData] = useState(tableData);
   const tableRef = useRef(null);
   const [tableConfiguration, setTableConfiguration] = useState([]);
   const [sortedColumn, updateSortedColumn] = useState({});
+  // const [resizableState, setResizableState] = useState(resizable);
 
   let customHeaderFlag = false;
 
@@ -253,42 +256,14 @@ const DataTable = ({
     document.body.classList.remove('resize-table');
     tableRef.current.parentElement.style.position = ``;
   };
-  const onHeaderMouseEnter = (idx, e) => {
+  const onHeaderMouseEnter = e => {
     const { currentTarget } = e;
     currentTarget.classList.add('hovered');
-
-    if (currentTarget.parentElement.nextElementSibling) {
-      const nextTH =
-        currentTarget.parentElement.nextElementSibling.children[
-          parseInt(idx, 10)
-        ];
-      nextTH ? nextTH.classList.add('hovered') : null;
-    } else if (currentTarget.parentElement.previousElementSibling) {
-      const previousTH =
-        currentTarget.parentElement.previousElementSibling.children[
-          parseInt(idx, 10)
-        ];
-      previousTH ? previousTH.classList.add('hovered') : null;
-    }
   };
 
-  const onHeaderMouseLeave = (idx, e) => {
+  const onHeaderMouseLeave = e => {
     const { currentTarget } = e;
     currentTarget.classList.remove('hovered');
-
-    if (currentTarget.parentElement.nextElementSibling) {
-      const nextTH =
-        currentTarget.parentElement.nextElementSibling.children[
-          parseInt(idx, 10)
-        ];
-      nextTH ? nextTH.classList.remove('hovered') : null;
-    } else if (currentTarget.parentElement.previousElementSibling) {
-      const previousTH =
-        currentTarget.parentElement.previousElementSibling.children[
-          parseInt(idx, 10)
-        ];
-      previousTH ? previousTH.classList.remove('hovered') : null;
-    }
   };
   /* Table re-size ends */
 
@@ -341,14 +316,10 @@ const DataTable = ({
                     column.sortable ? sortOnEnter.bind(this, column) : null
                   }
                   onMouseEnter={
-                    column.allowResize
-                      ? onHeaderMouseEnter.bind(this, index)
-                      : null
+                    column.allowResize ? onHeaderMouseEnter.bind(this) : null
                   }
                   onMouseLeave={
-                    column.allowResize
-                      ? onHeaderMouseLeave.bind(this, index)
-                      : null
+                    column.allowResize ? onHeaderMouseLeave.bind(this) : null
                   }
                 >
                   {headerSelection && column.field === 'checkbox' ? (
@@ -456,32 +427,8 @@ const DataTable = ({
                     }${column.sortable ? ' sortable' : ''}${
                       column.allowResize ? ' resizable' : ''
                     }`}
-                    onMouseEnter={
-                      column.allowResize
-                        ? onHeaderMouseEnter.bind(this, index)
-                        : null
-                    }
-                    onMouseLeave={
-                      column.allowResize
-                        ? onHeaderMouseLeave.bind(this, index)
-                        : null
-                    }
                   >
-                    <>
-                      {column.columnHtml ? column.columnHtml : null}
-                      {column.allowResize ? (
-                        <span
-                          className="hcl-data-table-resizable"
-                          onMouseDown={
-                            column.allowResize
-                              ? onColumnMouseDown.bind(this, column, index)
-                              : null
-                          }
-                        >
-                          <span className={`resize-handle`} />
-                        </span>
-                      ) : null}
-                    </>
+                    {column.columnHtml ? column.columnHtml : null}
                   </th>
                 );
               })}
@@ -571,6 +518,7 @@ DataTable.propTypes = {
    *    renderHtml: (model)=> {return <span>{model.name}</span>} // For passing Custom Html
    *    columnHtml: ( <Search ariaLabel="Search" className=""defaultValue="" iconTheme="default" />) // For passing custom html in data column
    *    pinned: 'right' // Pass 'right' to pin column right or pass 'left' to pin column left
+   *    allowResize: true // Pass true to make column resizable.
    * }] */
   tableConfig: PropTypes.array,
   /** Name of the custom class to apply to the Data Table. */
@@ -591,7 +539,9 @@ DataTable.propTypes = {
   /** Used for passing template for Table header  */
   headerSelection: PropTypes.node,
   /** When this property is set, sorting in each column iterates through three sort states: ascending, descending, and unsort.  */
-  triStateSorting: PropTypes.bool
+  triStateSorting: PropTypes.bool,
+  /** To Enable resize for all table columns. For individual column config, check tableData props. */
+  resizable: PropTypes.bool
 };
 
 DataTable.defaultProps = {
@@ -604,7 +554,8 @@ DataTable.defaultProps = {
   onSort: () => {},
   onRowSelect: () => {},
   expandRowTemplate: null,
-  triStateSorting: false
+  triStateSorting: false,
+  resizable: false
 };
 
 export default DataTable;
