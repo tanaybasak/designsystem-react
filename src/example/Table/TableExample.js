@@ -39,9 +39,9 @@ class TableExample extends Component {
             Sample Tag
           </Tag>
         ),
-        allowResize: true,
-        width: '160px',
-        pinned: 'left'
+        allowResize: true
+        // width: '160px',
+        // pinned: 'left'
       },
 
       {
@@ -56,15 +56,15 @@ class TableExample extends Component {
             />
           );
         },
-        columnHtml: <h6> this is temp</h6>
-        // width: '260px'
+        columnHtml: <h6> this is temp</h6>,
+        width: '260px'
       },
       {
         label: 'Full Name',
         field: 'name',
         sortable: true,
         allowResize: true,
-        // pinned: 'left',
+        pinned: 'left',
         // renderHtml: model => {
         //     return (
         //       <span>{model.name} {model.name} {model.name} {model.name}{model.name} {model.name} {model.name} {model.name} {model.name} {model.name}</span>

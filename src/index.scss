@@ -19,3 +19,61 @@
 .nodrop-cursor {
   cursor: no-drop;
 }
+
+// .hcl-data-table-wrapper
+//   .hcl-data-table
+//   tr
+//   th.resizable
+//   > span.hcl-data-table-resizable {
+//   user-select: none;
+//   display: inline-block;
+//   position: absolute;
+//   width: 7px !important;
+//   height: 100%;
+//   bottom: 0;
+//   right: 0;
+//   z-index: 1;
+//   cursor: col-resize;
+//   background: transparent !important;
+// }
+
+// .hcl-data-table-wrapper
+//   .hcl-data-table
+//   tr
+//   th.resizable:hover
+//   > span.hcl-data-table-resizable
+//   span.resize-handle {
+//   user-select: none;
+//   display: inline-block;
+//   position: absolute;
+//   width: 2px;
+//   height: 100%;
+//   bottom: 0;
+//   right: 0;
+//   z-index: 2;
+//   cursor: col-resize;
+//   background: red !important;
+// }
+
+// .hcl-data-table-wrapper
+//   .hcl-data-table
+//   tr
+//   th.resizable:hover
+//   > span.hcl-data-table-resizable:hover
+//   span.resize-handle:after {
+//   content: '';
+//   display: inline-block;
+//   background: green;
+//   height: 100%;
+//   width: 100%;
+// }
+
+/* not required just background changed which affects my testing, but change the background to none or transparent.*/
+
+// .hcl-data-table-wrapper
+//   .hcl-data-table
+//   tr
+//   th.resizable:hover
+//   > span.hcl-data-table-resizable:after {
+//   background: none !important;
+// }

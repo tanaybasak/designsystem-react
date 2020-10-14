@@ -21,32 +21,6 @@ const DataTable = ({
   const tableRef = useRef(null);
   const [tableConfiguration, setTableConfiguration] = useState([]);
   const [sortedColumn, updateSortedColumn] = useState({});
-  const [isPinned, setIsPinned] = useState(false);
-  const [tableWidthPostRender, setTableWidthPostRender] = useState(`auto`);
-
-  const calculateIsPinned = () => {
-    // console.log(`calulating pinned ?`);
-    setIsPinned(
-      tableConfiguration.some(column =>
-        column.pinned
-          ? column.pinned === `left` || column.pinned === `right`
-          : false
-      )
-    );
-  };
-
-  const calculateTableWidth = () => {
-    let temptableWidthPostRender =
-      tableRef && tableRef.current ? tableRef.current.clientWidth : undefined;
-    setTableWidthPostRender(temptableWidthPostRender + `px`);
-  };
-
-  useEffect(() => {
-    if (rows.length > 0) {
-      calculateTableWidth();
-      calculateIsPinned();
-    }
-  }, [rows]);
 
   let customHeaderFlag = false;
 
@@ -180,11 +154,11 @@ const DataTable = ({
 
     let nThTarget;
     /* For Detecting Second Row Header Resize */
-    nThTarget = e.target.parentElement.parentElement.previousElementSibling
-      ? e.target.parentElement.parentElement.previousElementSibling.children[
-          parseInt(idx, 10)
-        ]
-      : e.target.parentElement;
+    nThTarget = e.currentTarget.parentElement.parentElement
+      .previousElementSibling
+      ? e.currentTarget.parentElement.parentElement.previousElementSibling
+          .children[parseInt(idx, 10)]
+      : e.currentTarget.parentElement;
 
     if (
       resizeLineRef &&
@@ -279,6 +253,43 @@ const DataTable = ({
     document.body.classList.remove('resize-table');
     tableRef.current.parentElement.style.position = ``;
   };
+  const onHeaderMouseEnter = (idx, e) => {
+    const { currentTarget } = e;
+    currentTarget.classList.add('hovered');
+
+    if (currentTarget.parentElement.nextElementSibling) {
+      const nextTH =
+        currentTarget.parentElement.nextElementSibling.children[
+          parseInt(idx, 10)
+        ];
+      nextTH ? nextTH.classList.add('hovered') : null;
+    } else if (currentTarget.parentElement.previousElementSibling) {
+      const previousTH =
+        currentTarget.parentElement.previousElementSibling.children[
+          parseInt(idx, 10)
+        ];
+      previousTH ? previousTH.classList.add('hovered') : null;
+    }
+  };
+
+  const onHeaderMouseLeave = (idx, e) => {
+    const { currentTarget } = e;
+    currentTarget.classList.remove('hovered');
+
+    if (currentTarget.parentElement.nextElementSibling) {
+      const nextTH =
+        currentTarget.parentElement.nextElementSibling.children[
+          parseInt(idx, 10)
+        ];
+      nextTH ? nextTH.classList.remove('hovered') : null;
+    } else if (currentTarget.parentElement.previousElementSibling) {
+      const previousTH =
+        currentTarget.parentElement.previousElementSibling.children[
+          parseInt(idx, 10)
+        ];
+      previousTH ? previousTH.classList.remove('hovered') : null;
+    }
+  };
   /* Table re-size ends */
 
   return (
@@ -295,13 +306,6 @@ const DataTable = ({
         ref={tableRef}
         className={tableClass}
         role="grid"
-        style={{
-          tableLayout: isPinned ? `fixed` : `auto`,
-          width:
-            isPinned && tableWidthPostRender != `auto`
-              ? tableWidthPostRender
-              : `inherit`
-        }}
         {...restProps}
       >
         <thead>
@@ -336,6 +340,16 @@ const DataTable = ({
                   onKeyDown={
                     column.sortable ? sortOnEnter.bind(this, column) : null
                   }
+                  onMouseEnter={
+                    column.allowResize
+                      ? onHeaderMouseEnter.bind(this, index)
+                      : null
+                  }
+                  onMouseLeave={
+                    column.allowResize
+                      ? onHeaderMouseLeave.bind(this, index)
+                      : null
+                  }
                 >
                   {headerSelection && column.field === 'checkbox' ? (
                     headerSelection
@@ -352,7 +366,9 @@ const DataTable = ({
                               ? onColumnMouseDown.bind(this, column, index)
                               : null
                           }
-                        />
+                        >
+                          <span className={`resize-handle`} />
+                        </span>
                       ) : null}
                     </>
                   )}
@@ -440,6 +456,16 @@ const DataTable = ({
                     }${column.sortable ? ' sortable' : ''}${
                       column.allowResize ? ' resizable' : ''
                     }`}
+                    onMouseEnter={
+                      column.allowResize
+                        ? onHeaderMouseEnter.bind(this, index)
+                        : null
+                    }
+                    onMouseLeave={
+                      column.allowResize
+                        ? onHeaderMouseLeave.bind(this, index)
+                        : null
+                    }
                   >
                     <>
                       {column.columnHtml ? column.columnHtml : null}
@@ -451,7 +477,9 @@ const DataTable = ({
                               ? onColumnMouseDown.bind(this, column, index)
                               : null
                           }
-                        />
+                        >
+                          <span className={`resize-handle`} />
+                        </span>
                       ) : null}
                     </>
                   </th>
