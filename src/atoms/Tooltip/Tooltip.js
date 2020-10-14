@@ -67,7 +67,7 @@ const Tooltip = ({ type, content, direction, children }) => {
   };
 
   useEffect(() => {
-    if (showTooltip) {
+    if (showTooltip && parentRef.current) {
       const parentPosition = parentRef.current.getBoundingClientRect();
       diff = undefined;
       const newDirection = getDirection(parentPosition, 10, direction);
@@ -695,12 +695,18 @@ const Tooltip = ({ type, content, direction, children }) => {
       }
       return React.cloneElement(child, {
         tabIndex: '0',
-        onMouseEnter: type !== 'interactive' ? openTooltip : null,
-        onClick: type === 'interactive' ? openInteractiveTooltip : null,
-        onMouseLeave: type !== 'interactive' ? closeTooltip : null,
-        onFocus: type !== 'interactive' ? openTooltipFocus : null,
-        onBlur: type !== 'interactive' ? closeTooltipOnBlur : null,
-        onKeyPress: type === 'interactive' ? showTooltipOnEnter : null,
+        onMouseEnter:
+          type !== 'interactive' ? openTooltip : child.props.onMouseEnter,
+        onClick:
+          type === 'interactive' ? openInteractiveTooltip : child.props.onClick,
+        onMouseLeave:
+          type !== 'interactive' ? closeTooltip : child.props.onMouseLeave,
+        onFocus:
+          type !== 'interactive' ? openTooltipFocus : child.props.onFocus,
+        onBlur:
+          type !== 'interactive' ? closeTooltipOnBlur : child.props.onBlur,
+        onKeyPress:
+          type === 'interactive' ? showTooltipOnEnter : child.props.onKeyPress,
         className: customClass
       });
     });
