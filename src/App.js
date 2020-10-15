@@ -72,7 +72,12 @@ class App extends Component {
   };
 
   position = {
-    left: ['navPagination', 'itemsName', 'numberOfPages', 'numberOfRows'],
+    left: [
+      'itemsPerPageSelection',
+      'itemsPerPageInfo',
+      'pageSelection',
+      'pageInfo'
+    ],
     right: []
   };
 
@@ -1661,7 +1666,6 @@ class App extends Component {
                   totalItems={61302}
                   itemsPerPageStepper={25}
                   itemsStepperLimit={500}
-                  position={this.position}
                   itemsPerPageText={'Items per page:'}
                   currentPage={this.state.currentPage}
                   onPageChange={e => {
