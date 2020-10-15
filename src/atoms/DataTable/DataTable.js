@@ -590,7 +590,7 @@ DataTable.propTypes = {
   headerSelection: PropTypes.node,
   /** When this property is set, sorting in each column iterates through three sort states: ascending, descending, and unsort.  */
   triStateSorting: PropTypes.bool,
-  /** To Enable resize for all table columns. For individual column config, check tableData props. */
+  /** To Enable resize for all table columns. For individual column config, check tableData's allowResize prop. */
   resizable: PropTypes.bool
 };
 
