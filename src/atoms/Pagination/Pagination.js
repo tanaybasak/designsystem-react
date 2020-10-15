@@ -271,40 +271,44 @@ const Pagination = ({
   return (
     <div className={`${prefix}-pagination`}>
       <div className={`${prefix}-pagination-left`}>
-        {position.left.map((item, index) => {
-          return (
-            <div
-              className={
-                item === 'pageNumberSelection'
-                  ? `${prefix}-pagination-left-wrapper`
-                  : position.left.length - 1 != index
-                  ? `${prefix}-pagination-left-wrapper`
-                  : `${prefix}-pagination-wrapper`
-              }
-              key={index}
-            >
-              {pageAlign(item)}
-            </div>
-          );
-        })}
+        {position.left
+          ? position.left.map((item, index) => {
+              return (
+                <div
+                  className={
+                    item === 'pageNumberSelection'
+                      ? `${prefix}-pagination-left-wrapper`
+                      : position.left.length - 1 != index
+                      ? `${prefix}-pagination-left-wrapper`
+                      : `${prefix}-pagination-wrapper`
+                  }
+                  key={index}
+                >
+                  {pageAlign(item)}
+                </div>
+              );
+            })
+          : null}
       </div>
       <div className={`${prefix}-pagination-right`}>
-        {position.right.map((item, index) => {
-          return (
-            <div
-              className={
-                item === 'pageNumberSelection'
-                  ? `${prefix}-pagination-right-wrapper`
-                  : index
-                  ? `${prefix}-pagination-right-wrapper`
-                  : `${prefix}-pagination-wrapper`
-              }
-              key={index}
-            >
-              {pageAlign(item)}
-            </div>
-          );
-        })}
+        {position.right
+          ? position.right.map((item, index) => {
+              return (
+                <div
+                  className={
+                    item === 'pageNumberSelection'
+                      ? `${prefix}-pagination-right-wrapper`
+                      : index
+                      ? `${prefix}-pagination-right-wrapper`
+                      : `${prefix}-pagination-wrapper`
+                  }
+                  key={index}
+                >
+                  {pageAlign(item)}
+                </div>
+              );
+            })
+          : null}
       </div>
     </div>
   );
