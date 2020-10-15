@@ -39,9 +39,9 @@ class TableExample extends Component {
             Sample Tag
           </Tag>
         ),
-        allowResize: true
-        // width: '160px',
-        // pinned: 'left'
+        allowResize: true,
+        width: '160px',
+        pinned: 'left'
       },
 
       {

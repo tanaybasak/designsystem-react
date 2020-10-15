@@ -15,7 +15,6 @@ const DataTable = ({
   headerSelection,
   onRowSelect,
   triStateSorting,
-  // eslint-disable-next-line no-unused-vars
   resizable,
   ...restProps
 }) => {
@@ -347,7 +346,10 @@ const DataTable = ({
                       ? 'sticky-div sticky-right-div'
                       : ''
                   }${column.sortable ? ' sortable' : ''}${
-                    column.allowResize ? ' resizable' : ''
+                    (resizable && column['allowResize'] !== false) ||
+                    !!column['allowResize']
+                      ? ' resizable'
+                      : ''
                   }`}
                   tabIndex={column.sortable ? '0' : null}
                   onClick={column.sortable ? sort.bind(this, column) : null}
@@ -355,10 +357,16 @@ const DataTable = ({
                     column.sortable ? sortOnEnter.bind(this, column) : null
                   }
                   onMouseEnter={
-                    column.allowResize ? onHeaderMouseEnter.bind(this) : null
+                    (resizable && column['allowResize'] !== false) ||
+                    !!column.allowResize
+                      ? onHeaderMouseEnter.bind(this)
+                      : null
                   }
                   onMouseLeave={
-                    column.allowResize ? onHeaderMouseLeave.bind(this) : null
+                    (resizable && column['allowResize'] !== false) ||
+                    !!column['allowResize']
+                      ? onHeaderMouseLeave.bind(this)
+                      : null
                   }
                 >
                   {headerSelection && column.field === 'checkbox' ? (
@@ -368,14 +376,15 @@ const DataTable = ({
                       <span className="hcl-data-table-header">
                         {column.label}
                       </span>
-                      {column.allowResize ? (
+                      {(resizable && column['allowResize'] !== false) ||
+                      !!column['allowResize'] ? (
                         <span
                           className={`hcl-data-table-resizable`}
-                          onMouseDown={
-                            column.allowResize
-                              ? onColumnMouseDown.bind(this, column, index)
-                              : null
-                          }
+                          onMouseDown={onColumnMouseDown.bind(
+                            this,
+                            column,
+                            index
+                          )}
                         >
                           <span className={`resize-handle`} />
                         </span>
