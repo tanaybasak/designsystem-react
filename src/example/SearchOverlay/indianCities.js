@@ -1,0 +1,37 @@
+export default[
+    {id:'1' , city : 'Agra'},
+    {id:'2' , city : 'Allahabad'},
+    {id:'3' , city :'Aligarh'},
+    {id:'4' , city :'Ambedkar Nagar'},
+    {id:'5' , city :'Auraiya'},
+    {id:'6' , city :'Azamgarh'},
+    {id:'7' , city : 'Barabanki'},
+    {id:'8' , city : 'Bijnor'},
+    {id:'9' , city : 'Ballia'},
+    {id:'10' , city : 'Banda'},
+    {id:'11' , city : 'Nagar'},
+    {id:'12' , city : 'Etawah'},
+    {id:'13' , city :'Firozabad'},
+    {id:'14' , city :'Farrukhabad'},
+    {id:'15' , city : 'Fatehpur'},
+    {id:'16' , city : 'Faizabad'},
+    {id:'17' , city : 'Gautam Buddh Nagar'},
+    {id:'19' , city : 'Gonda'},
+    {id:'20' , city : 'Ghazipur'},
+    {id:'21' , city :'Gorakhpur'},
+    {id:'22' , city :'Ghaziabad'},
+    {id:'23' , city : 'Hamirpur'},
+    {id:'24' , city : 'Hardoi'},
+    {id:'25' , city :  'Mahamaya Nagar'},
+    {id:'26' , city :  'Jhansi'},
+    {id:'27' , city :  'Jalaun'},
+    {id:'28' , city :  'Jyotiba Phule Nagar'},
+    {id:'29' , city :  'Jaunpur district'},
+    {id:'30' , city :  'Ramabai Nagar (Kanpur Dehat)'},
+    {id:'31' , city :   'Kannauj'},
+    {id:'32' , city :  'Kanpur'},
+    {id:'33' , city :  'Kaushambi'}
+   ];
+
+
+

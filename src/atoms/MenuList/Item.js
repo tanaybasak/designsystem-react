@@ -13,22 +13,30 @@ const Item = ({
   link,
   ...rest
 }) => {
-  const classNames = [`${prefix}-menu-option-item`];
+ 
+  const classNames = [];
   if (danger) {
-    classNames.push(`${prefix}-menu-option-danger`);
+    classNames.push(`${prefix}-overflow-option-danger`);
   }
   if (disabled) {
-    classNames.push(`${prefix}-menu-option-disabled`);
+    classNames.push(`${prefix}-overflow-option-disabled`);
   }
   if (separator) {
-    classNames.push(`${prefix}-menu-option-separator`);
+    classNames.push(`${prefix}-overflow-option-separator`);
   }
   if (className) {
     classNames.push(className);
   }
 
+
   return (
-    <li className={`${prefix}-menuItem`}> {children} </li>
+    
+    <li className={classNames.join(' ')}  
+    onClick={e => {
+      if (onClick) {
+        onClick(item, e);
+      }
+    }}> {children} </li>
   );
 };
 

@@ -12,6 +12,7 @@ import TreeExample from './example/Tree';
 import TimePickerExample from './example/TimePicker';
 import OverlayExample from './example/OverlayExample';
 import PaginationExample from './example/PaginationExample';
+import SearchOverlayExample from './example/SearchOverlay';
 
 class Home extends Component {
   state = {
@@ -46,6 +47,10 @@ class Home extends Component {
         {
           href: '/overlay',
           title: 'Overlay'
+        },
+        {
+          href: '/searchoverlay',
+          title: 'Search Overlay'
         },
         {
           href: '/pagination',
@@ -116,6 +121,7 @@ class Home extends Component {
             <Route exact path="/tree" component={TreeExample} />
             <Route exact path="/timepicker" component={TimePickerExample} />
             <Route exact path="/overlay" component={OverlayExample} />
+            <Route exact path="/searchoverlay" component={SearchOverlayExample} />
             <Route exact path="/pagination" component={PaginationExample} />
           </Switch>
         </div>

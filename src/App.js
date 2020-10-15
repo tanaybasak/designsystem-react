@@ -1954,9 +1954,8 @@ class App extends Component {
 
               {/* MenuList */}
               <div className="hcl-col-12 mt-5" id="overflow-menu-section">
-                <h5>Overflow Menu</h5>
-                <div >
-                  <MenuList>
+                <h5>Menu List</h5>
+                  <MenuList display="true">
                     <Item className="custom-item">
                       <button className="hcl-btn hcl-ghost">ghost</button>
                     </Item>
@@ -1967,11 +1966,8 @@ class App extends Component {
                     <button className="hcl-btn hcl-ghost">ghost</button>
                     </Item>
                   </MenuList>
-                </div>
-
-                <div >
-                  <MenuList>
-                    <Item className="custom-item">
+                  <MenuList display="true">
+                    <Item className="custom-item" >
                     <button className="hcl-btn hcl-ghost">ghost</button>
 
                     </Item>
@@ -1979,12 +1975,11 @@ class App extends Component {
                     <button className="hcl-btn hcl-ghost">ghost</button>
 
                     </Item>
-                    <Item>
+                    <Item disabled={true}>
                     <button className="hcl-btn hcl-ghost">ghost</button>
 
                     </Item>
                   </MenuList>
-                </div>
               </div>
 
               <div className="hcl-row">
