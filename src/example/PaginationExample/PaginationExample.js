@@ -8,9 +8,13 @@ class PaginationExample extends Component {
     currentPage: 4,
     stepper: 10,
     stepperLimit: 100,
-    itemsPerPageToSelect: 20, 
+    itemsPerPageToSelect: 20,
     position: {
-      left: ['itemsPerPageSelection','itemsPerPageInfo','pageNumberSelection'],
+      left: [
+        'itemsPerPageSelection',
+        'itemsPerPageInfo',
+        'pageNumberSelection'
+      ],
       right: ['pageNumberInfo']
     }
   };
