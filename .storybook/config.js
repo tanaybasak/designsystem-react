@@ -1,5 +1,6 @@
 import { configure, addParameters, addDecorator } from '@storybook/react';
 import customTheme from './sample-theme';
+import cssVars from 'css-vars-ponyfill';
 import { withKnobs } from '@storybook/addon-knobs';
 import { withInfo } from '@storybook/addon-info';
 import { withA11y } from '@storybook/addon-a11y';
@@ -7,7 +8,9 @@ import '../src/story.css';
 import './config.css';
 import '@patron/patron-css/patron/index.css';
 import '@patron/patron-icon/dist/patron-font.css';
-
+cssVars({
+  rootElement: document // default
+});
 addParameters({
   options: {
     theme: customTheme,

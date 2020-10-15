@@ -38,7 +38,7 @@ export default function FileUploader({
       : [...filelist];
     setFileList(tempFileLists);
     onChange(tempFileLists, event);
-    event.target.value = null;
+    //event.target.value = null;
   };
 
   const removeFile = (event, name) => {
