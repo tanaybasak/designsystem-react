@@ -131,7 +131,10 @@ const DataTable = ({
   } ${className}`.trim();
 
   /* Table re-size starts */
-  const [isMouseDownForResize, setMouseDownonResize] = useState(false);
+  const [isMouseDownForResize, setMouseDownonResize] = useState({
+    flag: false,
+    index: -1
+  });
   const resizeLineRef = useRef(null);
 
   let resizeDividerData = {};
@@ -150,7 +153,7 @@ const DataTable = ({
       maxResizeFlag = false;
 
     isMouseDown = true;
-    setMouseDownonResize(true);
+    setMouseDownonResize({ flag: true, index: idx });
     document.body.classList.add('resize-table');
     tableRef.current.parentElement.style.position = `relative`;
     totalLengthMoved = column.width
@@ -264,7 +267,7 @@ const DataTable = ({
         'mousemove'
       );
       await setTableConfiguration(tempConfig);
-      await setMouseDownonResize(false);
+      await setMouseDownonResize({ flag: false, index: idx });
       /* Callback post updating state */
       if (moveLength !== 0) {
         // console.log(tableConfiguration);
@@ -310,7 +313,7 @@ const DataTable = ({
       <div
         ref={resizeLineRef}
         style={{
-          display: isMouseDownForResize ? `block` : `none`
+          display: isMouseDownForResize.flag ? `block` : `none`
         }}
         className={`resize-line`}
       />
@@ -350,7 +353,7 @@ const DataTable = ({
                     !!column['allowResize']
                       ? ' resizable'
                       : ''
-                  }`}
+                  }${isMouseDownForResize.index === index ? ' hovered' : ''}`}
                   tabIndex={column.sortable ? '0' : null}
                   onClick={column.sortable ? sort.bind(this, column) : null}
                   onKeyDown={
