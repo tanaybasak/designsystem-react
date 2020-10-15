@@ -131,10 +131,7 @@ const DataTable = ({
   } ${className}`.trim();
 
   /* Table re-size starts */
-  const [isMouseDownForResize, setMouseDownonResize] = useState({
-    flag: false,
-    index: -1
-  });
+  const [isMouseDownForResize, setMouseDownonResize] = useState(false);
   const resizeLineRef = useRef(null);
 
   let resizeDividerData = {};
@@ -153,7 +150,7 @@ const DataTable = ({
       maxResizeFlag = false;
 
     isMouseDown = true;
-    setMouseDownonResize({ flag: true, index: idx });
+    setMouseDownonResize(true);
     document.body.classList.add('resize-table');
     tableRef.current.parentElement.style.position = `relative`;
     totalLengthMoved = column.width
@@ -166,6 +163,8 @@ const DataTable = ({
       ? e.currentTarget.parentElement.parentElement.previousElementSibling
           .children[parseInt(idx, 10)]
       : e.currentTarget.parentElement;
+
+    nThTarget.classList.add('hovered');
 
     if (
       resizeLineRef &&
@@ -267,7 +266,7 @@ const DataTable = ({
         'mousemove'
       );
       await setTableConfiguration(tempConfig);
-      await setMouseDownonResize({ flag: false, index: idx });
+      await setMouseDownonResize(false);
       /* Callback post updating state */
       if (moveLength !== 0) {
         // console.log(tableConfiguration);
@@ -297,15 +296,6 @@ const DataTable = ({
     document.body.classList.remove('resize-table');
     tableRef.current.parentElement.style.position = ``;
   };
-  const onHeaderMouseEnter = e => {
-    const { currentTarget } = e;
-    currentTarget.classList.add('hovered');
-  };
-
-  const onHeaderMouseLeave = e => {
-    const { currentTarget } = e;
-    currentTarget.classList.remove('hovered');
-  };
   /* Table re-size ends */
 
   return (
@@ -313,7 +303,7 @@ const DataTable = ({
       <div
         ref={resizeLineRef}
         style={{
-          display: isMouseDownForResize.flag ? `block` : `none`
+          display: isMouseDownForResize ? `block` : `none`
         }}
         className={`resize-line`}
       />
@@ -353,23 +343,11 @@ const DataTable = ({
                     !!column['allowResize']
                       ? ' resizable'
                       : ''
-                  }${isMouseDownForResize.index === index ? ' hovered' : ''}`}
+                  }`}
                   tabIndex={column.sortable ? '0' : null}
                   onClick={column.sortable ? sort.bind(this, column) : null}
                   onKeyDown={
                     column.sortable ? sortOnEnter.bind(this, column) : null
-                  }
-                  onMouseEnter={
-                    (resizable && column['allowResize'] !== false) ||
-                    !!column.allowResize
-                      ? onHeaderMouseEnter.bind(this)
-                      : null
-                  }
-                  onMouseLeave={
-                    (resizable && column['allowResize'] !== false) ||
-                    !!column['allowResize']
-                      ? onHeaderMouseLeave.bind(this)
-                      : null
                   }
                 >
                   {headerSelection && column.field === 'checkbox' ? (
