@@ -23,7 +23,6 @@ const DataTable = ({
   const tableRef = useRef(null);
   const [tableConfiguration, setTableConfiguration] = useState([]);
   const [sortedColumn, updateSortedColumn] = useState({});
-  // const [resizableState, setResizableState] = useState(resizable);
 
   let customHeaderFlag = false;
 
@@ -146,6 +145,10 @@ const DataTable = ({
     e.stopPropagation();
     const { button } = e;
     if (button !== 0) return;
+    let nThTarget,
+      moveLength = 0,
+      minResizeFlag = false,
+      maxResizeFlag = false;
 
     isMouseDown = true;
     setMouseDownonResize(true);
@@ -155,7 +158,6 @@ const DataTable = ({
       ? parseInt(column.width.replace(/px/g, ''), 10)
       : 10;
 
-    let nThTarget;
     /* For Detecting Second Row Header Resize */
     nThTarget = e.currentTarget.parentElement.parentElement
       .previousElementSibling
@@ -184,6 +186,7 @@ const DataTable = ({
       mouseDownColumnData['currentElement'] = nThTarget;
     }
 
+    /* On Mouse move */
     const onPressMouseMove = e => {
       e.preventDefault();
       e.stopPropagation();
@@ -191,28 +194,59 @@ const DataTable = ({
       if (isMouseDown) {
         const { startX, clientWidth } = mouseDownColumnData;
 
-        let moveLength = e && startX ? e.clientX - startX : 0;
+        moveLength = e && startX ? e.clientX - startX : 0;
         totalLengthMoved = moveLength ? clientWidth + moveLength : 0;
-        if (resizeLineRef && resizeLineRef.current) {
-          let { left } = resizeDividerData;
+        let { left } = resizeDividerData;
+        if (
+          column &&
+          column.minResizeWidth &&
+          totalLengthMoved &&
+          totalLengthMoved < column.minResizeWidth
+        ) {
+          /* on minimum resize, adjust resizer */
+          minResizeFlag = true;
+          resizeLineRef.current.style.left =
+            left - clientWidth + column.minResizeWidth + `px`;
+        } else if (
+          column &&
+          column.minResizeWidth &&
+          totalLengthMoved &&
+          totalLengthMoved > column.maxResizeWidth
+        ) {
+          /* on max resize */
+          maxResizeFlag = true;
+          resizeLineRef.current.style.left =
+            left + (column.maxResizeWidth - clientWidth) + `px`;
+        } else {
+          maxResizeFlag = false;
+          minResizeFlag = false;
           resizeLineRef.current.style.left = moveLength + left + `px`;
         }
       }
     };
 
-    const onPressMouseUp = e => {
+    /* On Mouse up */
+    const onPressMouseUp = async e => {
       e.preventDefault();
       e.stopPropagation();
 
       if (!isMouseDown) return;
 
-      const { idx } = mouseDownColumnData;
+      const { idx, clientWidth } = mouseDownColumnData;
 
       const tempObj = [...tableConfiguration];
       tempObj.map(item =>
         item.width && item.width.includes('calc') ? delete item.width : item
       );
-      tempObj[idx][`width`] = totalLengthMoved + `px`;
+      if (minResizeFlag) {
+        tempObj[idx][`width`] =
+          clientWidth - (clientWidth - column.minResizeWidth) + `px`;
+      } else if (maxResizeFlag) {
+        tempObj[idx][`width`] =
+          clientWidth + (column.maxResizeWidth - clientWidth) + `px`;
+      } else {
+        tempObj[idx][`width`] = totalLengthMoved + `px`;
+      }
       const tempConfig = getColumnStructure(
         [...tempObj],
         expandRowTemplate ? true : false
@@ -222,15 +256,20 @@ const DataTable = ({
         resizeLineRef.current.style.left.replace(/px/, ''),
         10
       );
-      setTableConfiguration(tempConfig);
+      isMouseDown = false;
       clearOnMouseUp();
+      nThTarget ? nThTarget.classList.remove('hovered') : null;
       removeListeners('datatablemouseup-' + column[`label`] + idx, 'mouseup');
       removeListeners(
         'datatablemousemove-' + column[`label`] + idx,
         'mousemove'
       );
-      isMouseDown = false;
-      setMouseDownonResize(false);
+      await setTableConfiguration(tempConfig);
+      await setMouseDownonResize(false);
+      /* Callback post updating state */
+      if (moveLength !== 0) {
+        // console.log(tableConfiguration);
+      }
     };
 
     /* Adding Event Listeners */
@@ -519,6 +558,8 @@ DataTable.propTypes = {
    *    columnHtml: ( <Search ariaLabel="Search" className=""defaultValue="" iconTheme="default" />) // For passing custom html in data column
    *    pinned: 'right' // Pass 'right' to pin column right or pass 'left' to pin column left
    *    allowResize: true // Pass true to make column resizable.
+   *    minResizeWidth: '40px', // minimum resize width
+   *    maxResizeWidth: '120px', // maximum resize width
    * }] */
   tableConfig: PropTypes.array,
   /** Name of the custom class to apply to the Data Table. */

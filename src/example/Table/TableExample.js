@@ -59,7 +59,7 @@ class TableExample extends Component {
         columnHtml: <h6> this is temp</h6>,
         width: '260px',
         minResizeWidth: 40, // not less than that
-        maxResizeWidth: 40 // not to restrict
+        maxResizeWidth: 350 // not to restrict
       },
       {
         label: 'Full Name',
