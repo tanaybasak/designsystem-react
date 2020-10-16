@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
-
+import { Close } from '../../util/icons';
 const Search = ({
   type,
   size,
@@ -114,7 +114,9 @@ const Search = ({
         disabled={disabled}
         onMouseDown={clearSearch}
         tabIndex="-1"
-      />
+      >
+        {Close}
+      </button>
     </div>
   );
 };
