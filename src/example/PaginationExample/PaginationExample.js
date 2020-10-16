@@ -36,7 +36,7 @@ class PaginationExample extends Component {
             console.log(e, e2);
           }}
         />
-        {/* <Pagination
+        <Pagination
           totalItems={this.state.totalItems}
           itemsPerPageToSelect={this.state.itemsPerPageToSelect}
           itemsPerPageStepper={this.state.stepper}
@@ -49,7 +49,7 @@ class PaginationExample extends Component {
           onItemsPerPageChange={(e, e2) => {
             console.log(e, e2);
           }}
-        /> */}
+        />
       </div>
     );
   }
