@@ -2,6 +2,37 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 
+
+// const Item = React.forwardRef((props, ref) => {
+//   const classNames = [];
+//   if (props.danger) {
+//     classNames.push(`${prefix}-overflow-option-danger`);
+//   }
+//   if (props.disabled) {
+//     classNames.push(`${prefix}-overflow-option-disabled`);
+//   }
+//   if (props.separator) {
+//     classNames.push(`${prefix}-overflow-option-separator`);
+//   }
+//   if (props.className) {
+//     classNames.push(props.className);
+//   }
+
+//   return (
+    
+//     <li className={classNames.join(' ')}  
+//     tabIndex = "0"
+//     ref={ref}
+//     onClick={e => {
+//       if (onClick) {
+//         props.onClick(item, e);
+//       }
+//     }}> {props.children} </li>
+//   );
+
+
+// })
+
 const Item = ({
   item,
   onClick,
@@ -32,6 +63,7 @@ const Item = ({
   return (
     
     <li className={classNames.join(' ')}  
+    tabIndex = "0"
     onClick={e => {
       if (onClick) {
         onClick(item, e);

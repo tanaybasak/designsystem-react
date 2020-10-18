@@ -103,7 +103,8 @@ const Search = ({
         onChange={event => {
           setValue(event.currentTarget.value);
           if (restProps.onChange) {
-            restProps.onChange(event.currentTarget.value);
+            // restProps.onChange(event.currentTarget.value);
+            restProps.onChange(event);
           }
         }}
         aria-label={ariaLabel ? ariaLabel : null}
