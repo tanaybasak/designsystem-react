@@ -36,6 +36,7 @@ import prefix from '../../settings';
 const Item = ({
   item,
   onClick,
+  onKeyDown,
   disabled,
   danger,
   separator,
@@ -68,6 +69,11 @@ const Item = ({
       if (onClick) {
         onClick(item, e);
       }
+    }}
+    onKeyDown={e => {
+      if (onKeyDown) {
+        onKeyDown(item, e);
+      }
     }}> {children} </li>
   );
 };
@@ -77,6 +83,8 @@ Item.propTypes = {
   item: PropTypes.any,
   /** @ignore */
   onClick: PropTypes.func,
+  /** @ignore */
+  onKeyDown: PropTypes.func,
   /** Used to disable the menu item */
   disabled: PropTypes.bool,
   /** Used to apply danger style to menu item */
@@ -94,6 +102,7 @@ Item.propTypes = {
 Item.defaultProps = {
   item: {},
   onClick: () => {},
+  onKeyDown: () => {},
   disabled: false,
   danger: false,
   separator: false,

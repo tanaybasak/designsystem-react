@@ -14,7 +14,8 @@ class SearchOverlayExample extends Component {
     showMenu: false,
     targetElement: null,
     suggestions: [],
-    text: ''
+    text: '',
+    selectedValue : ''
   };
 
   displayMenuList = e => {
@@ -45,17 +46,7 @@ class SearchOverlayExample extends Component {
     }
   };
 
-  focusNode = (listItem, direction = 'next') => {
-    
-    // const prevElem = listItem.previousElementSibling;
-    // if (direction === 'next') {
-    //   if (!nextElem) {
-    //     this.focusNode(listItem.parentElement.firstElementChild);
-    //   } else {
-    //     this.focusNode(listItem.parentElement.children[0].focus());
-    //   }
-    // }
-  };
+ 
 
   keyDownMenu = e => {
     const key = e.which || e.keyCode;
@@ -82,6 +73,16 @@ class SearchOverlayExample extends Component {
         e.preventDefault();
         break;
       }
+      case 13: {
+        console.log(document.activeElement);
+        this.setState(() => ({
+          showMenu: false,
+          suggestions: [],
+          selectedValue : document.activeElement.textContent
+        }));
+        e.preventDefault();
+        break;
+      }
       default:
         break;
     }
@@ -102,17 +103,21 @@ class SearchOverlayExample extends Component {
           e.preventDefault();
           break;
         }
+       
         default:
           break;
       }
     }
   };
 
+ 
+
 
   suggestionSelected = value => {
     this.setState(() => ({
       showMenu: false,
-      suggestions: []
+      suggestions: [],
+      selectedValue : value
     }));
   };
 
@@ -147,7 +152,7 @@ class SearchOverlayExample extends Component {
             data-invalid="true"
             onChange={this.displayMenuList.bind(this)}
             onKeyDown={this.keyDown }
-
+            value = {this.state.selectedValue}
           />
 
           <Overlay
