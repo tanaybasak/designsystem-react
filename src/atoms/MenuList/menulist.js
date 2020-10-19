@@ -7,7 +7,7 @@ import prefix from '../../settings';
 
 
 const MenuList = React.forwardRef((props, ref) => {
-  const classnames = [`${prefix}-menulist`];
+  const classnames = [`${prefix}-dropdown-menu`];
   if (props.className) {
     classnames.push(props.className);
   }

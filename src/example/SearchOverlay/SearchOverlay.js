@@ -167,7 +167,7 @@ class SearchOverlayExample extends Component {
             }}
           >
             <MenuList
-              className={`${prefix}-dropdown-menu`}
+              className={`${prefix}-search-overlay`}
               ref={this.menulistRef}
               onKeyDown={this.keyDownMenu }
             >
