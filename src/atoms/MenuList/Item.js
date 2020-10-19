@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 
-
 // const Item = React.forwardRef((props, ref) => {
 //   const classNames = [];
 //   if (props.danger) {
@@ -19,8 +18,8 @@ import prefix from '../../settings';
 //   }
 
 //   return (
-    
-//     <li className={classNames.join(' ')}  
+
+//     <li className={classNames.join(' ')}
 //     tabIndex = "0"
 //     ref={ref}
 //     onClick={e => {
@@ -29,7 +28,6 @@ import prefix from '../../settings';
 //       }
 //     }}> {props.children} </li>
 //   );
-
 
 // })
 
@@ -45,7 +43,6 @@ const Item = ({
   link,
   ...rest
 }) => {
- 
   const classNames = [];
   if (danger) {
     classNames.push(`${prefix}-overflow-option-danger`);
@@ -60,21 +57,24 @@ const Item = ({
     classNames.push(className);
   }
 
-
   return (
-    
-    <li className={classNames.join(' ')}  
-    tabIndex = "0"
-    onClick={e => {
-      if (onClick) {
-        onClick(item, e);
-      }
-    }}
-    onKeyDown={e => {
-      if (onKeyDown) {
-        onKeyDown(item, e);
-      }
-    }}> {children} </li>
+    <li
+      className={classNames.join(' ')}
+      tabIndex="0"
+      onClick={e => {
+        if (onClick) {
+          onClick(item, e);
+        }
+      }}
+      onKeyDown={e => {
+        if (onKeyDown) {
+          onKeyDown(item, e);
+        }
+      }}
+    >
+      {' '}
+      {children}{' '}
+    </li>
   );
 };
 

@@ -3,17 +3,11 @@ import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 
-
-
-
 const MenuList = React.forwardRef((props, ref) => {
   const classnames = [`${prefix}-dropdown-menu`];
   if (props.className) {
     classnames.push(props.className);
   }
-
-
-
 
   return (
     <ul
@@ -21,17 +15,11 @@ const MenuList = React.forwardRef((props, ref) => {
       {...props}
       aria-labelledby="menulist"
       className={classnames.join(' ')}
-
     >
       {props.children}
     </ul>
   );
-  })
-
-
-
-
-
+});
 
 // const MenuList = ({ className, children, id, ...restProps }) => {
 //   const menuRef = useRef(null);
@@ -40,11 +28,8 @@ const MenuList = React.forwardRef((props, ref) => {
 //     classnames.push(className);
 //   }
 
-
-
-
 //   const keyDownOnOverflow = e => {
-    
+
 //     const key = e.which || e.keyCode;
 //     console.log(key);
 //     const listItem = e.target.parentElement;
@@ -65,8 +50,6 @@ const MenuList = React.forwardRef((props, ref) => {
 //     //     break;
 //     // }
 //   };
-
-
 
 //   return (
 //     <ul

@@ -15,7 +15,7 @@ class SearchOverlayExample extends Component {
     targetElement: null,
     suggestions: [],
     text: '',
-    selectedValue : ''
+    selectedValue: ''
   };
 
   displayMenuList = e => {
@@ -46,8 +46,6 @@ class SearchOverlayExample extends Component {
     }
   };
 
- 
-
   keyDownMenu = e => {
     const key = e.which || e.keyCode;
     var elemSelected = document.activeElement;
@@ -59,16 +57,15 @@ class SearchOverlayExample extends Component {
         } else {
           elemSelected.nextElementSibling.focus();
         }
-        
+
         e.preventDefault();
         break;
       }
       case 38: {
         if (elemSelected.previousElementSibling == null) {
           menulistRefnc.lastElementChild.focus();
-        }  else {
-        elemSelected.previousElementSibling.focus();
-
+        } else {
+          elemSelected.previousElementSibling.focus();
         }
         e.preventDefault();
         break;
@@ -78,7 +75,7 @@ class SearchOverlayExample extends Component {
         this.setState(() => ({
           showMenu: false,
           suggestions: [],
-          selectedValue : document.activeElement.textContent
+          selectedValue: document.activeElement.textContent
         }));
         e.preventDefault();
         break;
@@ -103,21 +100,18 @@ class SearchOverlayExample extends Component {
           e.preventDefault();
           break;
         }
-       
+
         default:
           break;
       }
     }
   };
 
- 
-
-
   suggestionSelected = value => {
     this.setState(() => ({
       showMenu: false,
       suggestions: [],
-      selectedValue : value
+      selectedValue: value
     }));
   };
 
@@ -132,7 +126,6 @@ class SearchOverlayExample extends Component {
             key={cities.id}
             className={`${prefix}-dropdown-item`}
             onClick={e => this.suggestionSelected(cities.city)}
-           
           >
             {cities.city}
           </Item>
@@ -151,8 +144,8 @@ class SearchOverlayExample extends Component {
             id="search-textInput"
             data-invalid="true"
             onChange={this.displayMenuList.bind(this)}
-            onKeyDown={this.keyDown }
-            value = {this.state.selectedValue}
+            onKeyDown={this.keyDown}
+            value={this.state.selectedValue}
           />
 
           <Overlay
@@ -169,7 +162,7 @@ class SearchOverlayExample extends Component {
             <MenuList
               className={`${prefix}-search-overlay`}
               ref={this.menulistRef}
-              onKeyDown={this.keyDownMenu }
+              onKeyDown={this.keyDownMenu}
             >
               {this.renderSuggestions()}
             </MenuList>

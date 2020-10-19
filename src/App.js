@@ -1955,31 +1955,28 @@ class App extends Component {
               {/* MenuList */}
               <div className="hcl-col-12 mt-5" id="overflow-menu-section">
                 <h5>Menu List</h5>
-                  <MenuList display="true">
-                    <Item className="custom-item">
-                      <button className="hcl-btn hcl-ghost">ghost</button>
-                    </Item>
-                    <Item>
-                      <button className="hcl-btn hcl-ghost">ghost</button>
-                    </Item>
-                    <Item>
+                <MenuList display="true">
+                  <Item className="custom-item">
                     <button className="hcl-btn hcl-ghost">ghost</button>
-                    </Item>
-                  </MenuList>
-                  <MenuList display="true">
-                    <Item className="custom-item" >
+                  </Item>
+                  <Item>
                     <button className="hcl-btn hcl-ghost">ghost</button>
-
-                    </Item>
-                    <Item>
+                  </Item>
+                  <Item>
                     <button className="hcl-btn hcl-ghost">ghost</button>
-
-                    </Item>
-                    <Item disabled={true}>
+                  </Item>
+                </MenuList>
+                <MenuList display="true">
+                  <Item className="custom-item">
                     <button className="hcl-btn hcl-ghost">ghost</button>
-
-                    </Item>
-                  </MenuList>
+                  </Item>
+                  <Item>
+                    <button className="hcl-btn hcl-ghost">ghost</button>
+                  </Item>
+                  <Item disabled>
+                    <button className="hcl-btn hcl-ghost">ghost</button>
+                  </Item>
+                </MenuList>
               </div>
 
               <div className="hcl-row">

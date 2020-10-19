@@ -121,7 +121,11 @@ class Home extends Component {
             <Route exact path="/tree" component={TreeExample} />
             <Route exact path="/timepicker" component={TimePickerExample} />
             <Route exact path="/overlay" component={OverlayExample} />
-            <Route exact path="/searchoverlay" component={SearchOverlayExample} />
+            <Route
+              exact
+              path="/searchoverlay"
+              component={SearchOverlayExample}
+            />
             <Route exact path="/pagination" component={PaginationExample} />
           </Switch>
         </div>
