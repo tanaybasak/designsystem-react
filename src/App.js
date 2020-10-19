@@ -43,6 +43,7 @@ import Password from './atoms/Password';
 
 class App extends Component {
   state = {
+    indeterminate: false,
     showOverlay: false,
     totalItems: 300,
     currentPage: 3,
@@ -493,12 +494,22 @@ class App extends Component {
                 <legend className="hcl-legend">
                   Checkbox - Horizontally arranged (default)
                 </legend>
+                <Button
+                  onClick={() => {
+                    this.setState({ indeterminate: !this.state.indeterminate });
+                  }}
+                ></Button>
                 <div className="hcl-checkbox-group">
                   <Checkbox
                     id="checkbox1"
+                    // indeterminate
+                    indeterminate={this.state.indeterminate}
                     label="1 (default)"
-                    onChange={() => {
-                      console.log('Default Checkbox.');
+                    onChange={e => {
+                      console.log('Default Checkbox.', e.currentTarget.indeterminate);
+                      this.setState({
+                        indeterminate: e.currentTarget.indeterminate
+                      })
                     }}
                   />
                   <Checkbox

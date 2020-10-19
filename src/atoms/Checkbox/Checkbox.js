@@ -2,7 +2,13 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 
-export default function Checkbox({ className, checked, label, ...restProps }) {
+export default function Checkbox({
+  className,
+  checked,
+  label,
+  indeterminate,
+  ...restProps
+}) {
   const [isChecked, setChecked] = useState(checked || false);
   const classnames = `${prefix}-checkbox-item ${className}`.trim();
 
@@ -16,17 +22,21 @@ export default function Checkbox({ className, checked, label, ...restProps }) {
         className={`${prefix}-checkbox`}
         type="checkbox"
         checked={isChecked}
+        // indeterminate={isIndeterminate}
+        //ref={setCheckboxRef}
+        ref={el => el && (el.indeterminate = indeterminate)}
         {...restProps}
         onChange={event => {
           setChecked(!isChecked);
-          if (restProps.onChange) {
-            restProps.onChange(event);
-          }
+          //if (restProps.onChange) {
+          restProps.onChange(event);
+          // }
         }}
       />
       <label className={`${prefix}-checkbox-label`} htmlFor={restProps.id}>
         {label}
       </label>
+      {/* <h4>{isIndeterminate}</h4> */}
     </div>
   );
 }
@@ -40,6 +50,8 @@ Checkbox.propTypes = {
   label: PropTypes.string,
   /** Unique string for the Checkbox. */
   id: PropTypes.string.isRequired,
+  /** isIndeterminate state for Checkbox */
+  indeterminate: PropTypes.bool,
   /** Accepts event handler as prop/argument. */
   onChange: PropTypes.func,
   /** Control Checked state for Checkbox */
@@ -55,5 +67,6 @@ Checkbox.defaultProps = {
   disabled: false,
   label: '',
   onChange: () => {},
-  checked: false
+  checked: false,
+  indeterminate: false
 };
