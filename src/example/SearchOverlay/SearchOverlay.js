@@ -71,7 +71,6 @@ class SearchOverlayExample extends Component {
         break;
       }
       case 13: {
-        console.log(document.activeElement);
         this.setState(() => ({
           showMenu: false,
           suggestions: [],

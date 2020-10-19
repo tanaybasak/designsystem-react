@@ -2,35 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 
-// const Item = React.forwardRef((props, ref) => {
-//   const classNames = [];
-//   if (props.danger) {
-//     classNames.push(`${prefix}-overflow-option-danger`);
-//   }
-//   if (props.disabled) {
-//     classNames.push(`${prefix}-overflow-option-disabled`);
-//   }
-//   if (props.separator) {
-//     classNames.push(`${prefix}-overflow-option-separator`);
-//   }
-//   if (props.className) {
-//     classNames.push(props.className);
-//   }
-
-//   return (
-
-//     <li className={classNames.join(' ')}
-//     tabIndex = "0"
-//     ref={ref}
-//     onClick={e => {
-//       if (onClick) {
-//         props.onClick(item, e);
-//       }
-//     }}> {props.children} </li>
-//   );
-
-// })
-
 const Item = ({
   item,
   onClick,
@@ -39,9 +10,7 @@ const Item = ({
   danger,
   separator,
   children,
-  className,
-  link,
-  ...rest
+  className
 }) => {
   const classNames = [];
   if (danger) {
@@ -72,8 +41,7 @@ const Item = ({
         }
       }}
     >
-      {' '}
-      {children}{' '}
+      {children}
     </li>
   );
 };
@@ -94,9 +62,7 @@ Item.propTypes = {
   /** Used to pass children */
   children: PropTypes.any,
   /** Used to pass custom classname */
-  className: PropTypes.string,
-  /** Used to pass the link. It will redirect to the link on click */
-  link: PropTypes.string
+  className: PropTypes.string
 };
 
 Item.defaultProps = {
@@ -107,8 +73,7 @@ Item.defaultProps = {
   danger: false,
   separator: false,
   children: null,
-  className: '',
-  link: null
+  className: ''
 };
 
 export default Item;
