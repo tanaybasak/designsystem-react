@@ -8,6 +8,7 @@ const Pagination = ({
   itemsPerPageStepper,
   itemsStepperLimit,
   itemsPerPageText,
+  position,
   onPageChange,
   onItemsPerPageChange,
   currentPage,
@@ -144,49 +145,21 @@ const Pagination = ({
     ).slice(0);
     return val;
   };
-
-  return (
-    <div className={`${prefix}-pagination`}>
-      <div className={`${prefix}-pagination-left`}>
-        <div className={`${prefix}-pagination-text`}>{itemsPerPageText}</div>
-        <div className={`${prefix}-pagination-select-wrapper`}>
-          <Pager
-            arialabel="page items"
-            value={
-              currentItemsPerPageSelected ? currentItemsPerPageSelected : null
-            }
-            onKeyDown={onPageItemsKeyDown}
-            onChange={ItemsPerPageChange.bind(this)}
-            options={itemPerPageStepperArray ? itemPerPageStepperArray : []}
-            className={`${prefix}-pagination-select ${prefix}-page-items`}
-          />
-        </div>
-        <span className={`${prefix}-pagination-text`}>
-          <span className={`${prefix}-pagination-range`}>
-            <span className={`${prefix}-range-start`}>
-              {(currentPageSelected - 1) * currentItemsPerPageSelected + 1}
-            </span>
-            <span className={`${prefix}-range-separator`}>-</span>
-            <span className={`${prefix}-range-end`}>
-              {currentPageSelected * currentItemsPerPageSelected > totalItems
-                ? totalItems
-                : currentPageSelected * currentItemsPerPageSelected}
-            </span>
-          </span>
-          of
-          <span className={`${prefix}-pagination-totalitems`}>
-            {totalItems}
-          </span>
-          items
-        </span>
-      </div>
-      <div className={`${prefix}-pagination-right`}>
+  const numberOfPages = () => {
+    return (
+      <>
         <span className={`${prefix}-pagination-text`}>
           <span className={`${prefix}-page-start`}>{currentPageSelected}</span>
           of
           <span className={`${prefix}-page-end`}>{totalPage}</span>
           pages
         </span>
+      </>
+    );
+  };
+  const navPagination = () => {
+    return (
+      <>
         <button
           type={`button`}
           className={`${prefix}-pagination-button-previous`}
@@ -235,6 +208,107 @@ const Pagination = ({
             />
           </svg>
         </button>
+      </>
+    );
+  };
+  const numberOfRows = () => {
+    return (
+      <>
+        <div className={`${prefix}-pagination-label`}>{itemsPerPageText}</div>
+        <div className={`${prefix}-pagination-select-wrapper`}>
+          <Pager
+            arialabel="page items"
+            value={
+              currentItemsPerPageSelected ? currentItemsPerPageSelected : null
+            }
+            onKeyDown={onPageItemsKeyDown}
+            onChange={ItemsPerPageChange.bind(this)}
+            options={itemPerPageStepperArray ? itemPerPageStepperArray : []}
+            className={`${prefix}-pagination-select ${prefix}-page-items`}
+          />
+        </div>
+      </>
+    );
+  };
+  const itemsName = () => {
+    return (
+      <>
+        <span className={`${prefix}-pagination-text`}>
+          <span className={`${prefix}-pagination-range`}>
+            <span className={`${prefix}-range-start`}>
+              {(currentPageSelected - 1) * currentItemsPerPageSelected + 1}
+            </span>
+            <span className={`${prefix}-range-separator`}>-</span>
+            <span className={`${prefix}-range-end`}>
+              {currentPageSelected * currentItemsPerPageSelected > totalItems
+                ? totalItems
+                : currentPageSelected * currentItemsPerPageSelected}
+            </span>
+          </span>
+          of
+          <span className={`${prefix}-pagination-totalitems`}>
+            {totalItems}
+          </span>
+          items
+        </span>
+      </>
+    );
+  };
+
+  const pageAlign = fnstring => {
+    switch (fnstring) {
+      case 'itemsPerPageSelection':
+        return numberOfRows();
+      case 'pageNumberSelection':
+        return navPagination();
+      case 'pageNumberInfo':
+        return numberOfPages();
+      case 'itemsPerPageInfo':
+        return itemsName();
+    }
+  };
+
+  return (
+    <div className={`${prefix}-pagination`}>
+      <div className={`${prefix}-pagination-left`}>
+        {position.left
+          ? position.left.map((item, index) => {
+              return (
+                <div
+                  className={
+                    item === 'pageNumberSelection'
+                      ? `${prefix}-pagination-left-wrapper`
+                      : position.left.length - 1 != index
+                      ? `${prefix}-pagination-left-wrapper`
+                      : `${prefix}-pagination-wrapper`
+                  }
+                  key={index}
+                >
+                  {pageAlign(item)}
+                </div>
+              );
+            })
+          : null}
+      </div>
+      <div className={`${prefix}-pagination-right`}>
+        {position.right
+          ? position.right.map((item, index) => {
+              return (
+                <div
+                  className={
+                    item === 'pageNumberSelection'
+                      ? `${prefix}-pagination-right-wrapper`
+                      : index
+                      ? `${prefix}-pagination-right-wrapper`
+                      : `${prefix}-pagination-wrapper`
+                  }
+                  key={index}
+                >
+                  {pageAlign(item)}
+                </div>
+              );
+            })
+          : null}
       </div>
     </div>
   );
@@ -256,7 +330,12 @@ Pagination.propTypes = {
   /** current active Page number */
   currentPage: PropTypes.number,
   /** itemsPerPageToSelect - The value to be selected from itemsPerPage dropdown */
-  itemsPerPageToSelect: PropTypes.number
+  itemsPerPageToSelect: PropTypes.number,
+  /** position - Holds the customisable content names to be placed in left and right side of pagination. If empty object, nothing will be rendered*/
+  position: PropTypes.shape({
+    left: PropTypes.arrayOf(PropTypes.string),
+    right: PropTypes.arrayOf(PropTypes.string)
+  })
 };
 
 Pagination.defaultProps = {
@@ -267,7 +346,11 @@ Pagination.defaultProps = {
   itemsPerPageText: 'Items per Page:',
   itemsPerPageToSelect: null,
   onItemsPerPageChange: () => {},
-  onPageChange: () => {}
+  onPageChange: () => {},
+  position: {
+    left: ['itemsPerPageSelection', 'itemsPerPageInfo'],
+    right: ['pageNumberInfo', 'pageNumberSelection']
+  }
 };
 
 export default Pagination;

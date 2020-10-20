@@ -1,10 +1,15 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { text, number } from '@storybook/addon-knobs';
+import { text, number, object } from '@storybook/addon-knobs';
 //@update-path-build-start
 import Pagination from './Pagination';
 //@update-path-build-end
+
+const position = {
+  left: ['itemsPerPageSelection', 'itemsPerPageInfo', 'pageNumberSelection'],
+  right: ['pageNumberInfo']
+};
 
 storiesOf('Pagination', module).add(
   'default',
@@ -13,6 +18,7 @@ storiesOf('Pagination', module).add(
       itemsPerPageText={text('Items Per Page Text', 'Items per Page:')}
       itemsStepperLimit={number('Items Per Page Limit', 100)}
       onChange={action('on change')}
+      position={object('Position', position)}
       onItemsPerPageChange={action('item per page change')}
       itemsPerPageStepper={number('Items Per Page Stepper', 20)}
       itemsPerPageToSelect={number('Items Per Page Selected', 40)}
