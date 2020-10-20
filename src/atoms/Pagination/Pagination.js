@@ -331,8 +331,11 @@ Pagination.propTypes = {
   currentPage: PropTypes.number,
   /** itemsPerPageToSelect - The value to be selected from itemsPerPage dropdown */
   itemsPerPageToSelect: PropTypes.number,
-  /** position - Holds the customisable content names to be placed in left and right side of pagination*/
-  position: PropTypes.object
+  /** position - Holds the customisable content names to be placed in left and right side of pagination. If empty object, nothing will be rendered*/
+  position: PropTypes.shape({
+    left: PropTypes.arrayOf(PropTypes.string),
+    right: PropTypes.arrayOf(PropTypes.string)
+  })
 };
 
 Pagination.defaultProps = {
