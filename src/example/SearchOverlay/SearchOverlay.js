@@ -141,7 +141,6 @@ class SearchOverlayExample extends Component {
             type="text"
             placeholder="search"
             id="search-textInput"
-            data-invalid="true"
             onChange={this.displayMenuList.bind(this)}
             onKeyDown={this.keyDown}
             value={this.state.selectedValue}
@@ -167,32 +166,6 @@ class SearchOverlayExample extends Component {
             </MenuList>
           </Overlay>
         </div>
-
-        {/* <div className="hcl-col-6 mt-5">
-          <Search
-            onChange={this.displayMenuList}
-            placeholder="Search"
-            ariaLabel="Search"
-            type="clickable"
-            onKeyUp={this.keyUpButton.bind(this)}
-          />
-
-          <Overlay
-            attachElementToBody={true}
-            showOverlay={this.state.showMenu}
-            targetElement={this.state.targetElement}
-            onToggle={this.onclose}
-            style={{
-              width: this.state.targetElement
-                ? this.state.targetElement.offsetWidth + 'px'
-                : '0'
-            }}
-          >
-            <MenuList className={`${prefix}-dropdown-menu`}>
-              {this.renderSuggestions()}
-            </MenuList>
-          </Overlay>
-          </div> */}
       </div>
     );
   }
