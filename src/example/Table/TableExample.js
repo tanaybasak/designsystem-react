@@ -10,6 +10,7 @@ class TableExample extends Component {
   state = {
     tableData: [],
     totalItems: 0,
+    initSortedColumn: { order: 'asc', name: 'name' },
     displayData: [],
     tableConfig: [
       {
@@ -177,7 +178,7 @@ class TableExample extends Component {
                 id="sample_table"
                 tableData={this.state.displayData}
                 tableConfig={this.state.tableConfig}
-                stickyHeaderMain={true}
+                initSortedColumn={this.state.initSortedColumn}
                 // expandRowTemplate={() => {
                 //   return (<Paragraph>
                 //     available, but the majority have suffered alteration

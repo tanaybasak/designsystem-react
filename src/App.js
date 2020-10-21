@@ -21,6 +21,8 @@ import Modal from './molecules/Modal';
 import { Tabs, Tab } from './molecules/Tab';
 import Slider from './atoms/Slider';
 import { Overflowmenu } from './molecules/Overflowmenu';
+import { MenuList, Item } from './atoms/MenuList';
+
 import overflowlist from './molecules/Overflowmenu/sample-overflow-list.json';
 import { ContentSwitcher, Switch } from './molecules/ContentSwitcher';
 import Search from './atoms/Search';
@@ -69,6 +71,16 @@ class App extends Component {
     password: {
       disabled: false
     }
+  };
+
+  position = {
+    left: [
+      'itemsPerPageSelection',
+      'itemsPerPageInfo',
+      'pageSelection',
+      'pageInfo'
+    ],
+    right: []
   };
 
   itemList = [
@@ -1641,6 +1653,7 @@ class App extends Component {
                   totalItems={this.state.totalItems}
                   itemsPerPageStepper={this.state.stepper}
                   itemsStepperLimit={this.state.stepperLimit}
+                  position={this.position}
                   currentPage={this.state.currentPage}
                   itemsPerPageText={'No. of Rows:'}
                   onPageChange={e => {
@@ -1948,6 +1961,33 @@ class App extends Component {
                     </ToolBarActions>
                   </ToolBar>
                 </div>
+              </div>
+
+              {/* MenuList */}
+              <div className="hcl-col-12 mt-5" id="overflow-menu-section">
+                <h5>Menu List</h5>
+                <MenuList display="true">
+                  <Item className="custom-item">
+                    <button className="hcl-btn hcl-ghost">ghost</button>
+                  </Item>
+                  <Item>
+                    <button className="hcl-btn hcl-ghost">ghost</button>
+                  </Item>
+                  <Item>
+                    <button className="hcl-btn hcl-ghost">ghost</button>
+                  </Item>
+                </MenuList>
+                <MenuList display="true">
+                  <Item className="custom-item">
+                    <button className="hcl-btn hcl-ghost">ghost</button>
+                  </Item>
+                  <Item>
+                    <button className="hcl-btn hcl-ghost">ghost</button>
+                  </Item>
+                  <Item disabled>
+                    <button className="hcl-btn hcl-ghost">ghost</button>
+                  </Item>
+                </MenuList>
               </div>
 
               <div className="hcl-row">

@@ -60,14 +60,14 @@ const Tooltip = ({ type, content, direction, children }) => {
   };
 
   const handleScroll = () => {
-    if (tooltipContainerRef.current) {
+    if (tooltipContainerRef.current && parentRef.current) {
       const parentPosition = parentRef.current.getBoundingClientRect();
       showTooltipMain(parentPosition, positionDirection, 10, type);
     }
   };
 
   useEffect(() => {
-    if (showTooltip) {
+    if (showTooltip && parentRef.current) {
       const parentPosition = parentRef.current.getBoundingClientRect();
       diff = undefined;
       const newDirection = getDirection(parentPosition, 10, direction);
@@ -637,20 +637,23 @@ const Tooltip = ({ type, content, direction, children }) => {
     return newDirection;
   };
 
-  const openTooltip = () => {
+  const openTooltip = e => {
+    parentRef.current = e.currentTarget;
     if (!focusTootlip) {
       mouseOut = false;
       toggleTooltip(true);
     }
   };
 
-  const openTooltipFocus = () => {
+  const openTooltipFocus = e => {
+    parentRef.current = e.currentTarget;
     focusTootlip = true;
     mouseOut = false;
     toggleTooltip(true);
   };
 
   const closeTooltip = () => {
+    parentRef.current = null;
     if (!focusTootlip) {
       mouseOut = true;
       setTimeout(() => {
@@ -664,17 +667,20 @@ const Tooltip = ({ type, content, direction, children }) => {
   };
 
   const closeTooltipOnBlur = () => {
+    parentRef.current = null;
     focusTootlip = false;
     if (!contentIn) {
       toggleTooltip(false);
     }
   };
 
-  const openInteractiveTooltip = () => {
+  const openInteractiveTooltip = e => {
+    parentRef.current = e.currentTarget;
     toggleTooltip(true);
   };
 
   const showTooltipOnEnter = event => {
+    parentRef.current = event.currentTarget;
     if (event.charCode === 13) {
       openTooltip();
     }
@@ -687,16 +693,20 @@ const Tooltip = ({ type, content, direction, children }) => {
       if (showTooltip && type === 'definition') {
         customClass += ` ${prefix}-tooltip-dottedline`;
       }
-
       return React.cloneElement(child, {
         tabIndex: '0',
-        onMouseEnter: type !== 'interactive' ? openTooltip : null,
-        onClick: type === 'interactive' ? openInteractiveTooltip : null,
-        onMouseLeave: type !== 'interactive' ? closeTooltip : null,
-        onFocus: type !== 'interactive' ? openTooltipFocus : null,
-        onBlur: type !== 'interactive' ? closeTooltipOnBlur : null,
-        onKeyPress: type === 'interactive' ? showTooltipOnEnter : null,
-        ref: parentRef,
+        onMouseEnter:
+          type !== 'interactive' ? openTooltip : child.props.onMouseEnter,
+        onClick:
+          type === 'interactive' ? openInteractiveTooltip : child.props.onClick,
+        onMouseLeave:
+          type !== 'interactive' ? closeTooltip : child.props.onMouseLeave,
+        onFocus:
+          type !== 'interactive' ? openTooltipFocus : child.props.onFocus,
+        onBlur:
+          type !== 'interactive' ? closeTooltipOnBlur : child.props.onBlur,
+        onKeyPress:
+          type === 'interactive' ? showTooltipOnEnter : child.props.onKeyPress,
         className: customClass
       });
     });
@@ -705,7 +715,6 @@ const Tooltip = ({ type, content, direction, children }) => {
   return typeof children === 'string' ? (
     <span
       tabIndex="0"
-      ref={parentRef}
       onClick={type === 'interactive' ? openInteractiveTooltip : null}
       onMouseEnter={type !== 'interactive' ? openTooltip : null}
       onMouseLeave={type !== 'interactive' ? closeTooltip : null}
