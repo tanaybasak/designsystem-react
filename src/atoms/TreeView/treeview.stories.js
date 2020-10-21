@@ -439,6 +439,7 @@ storiesOf('Tree', module)
             <Button
               type="ghost"
               small
+              style={{ margin: 0 }}
               className="hcl-secondary-bg-hover"
               aria-label="add file"
             >
@@ -449,6 +450,7 @@ storiesOf('Tree', module)
               <Button
                 type="ghost"
                 small
+                style={{ margin: 0 }}
                 className="hcl-secondary-bg-hover"
                 aria-label="delete file"
               >
