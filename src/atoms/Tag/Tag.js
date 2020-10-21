@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
-
+import { Close } from '../../util/icons';
 const Tag = ({
   className,
   children,
@@ -65,12 +65,12 @@ const Tag = ({
       {element}
       {closable ? (
         <span
-          className={`${prefix}-close`}
+          className={`${prefix}-tag-close`}
           aria-label={!disabled ? 'close' : null}
           onClick={onClose}
           onKeyDown={keyListener}
           tabIndex={!disabled ? '0' : null}
-        />
+        >{Close}</span>
       ) : null}
     </button>
   );

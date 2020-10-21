@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import Actions from '../../atoms/Actions';
 import prefix from '../../settings';
-
+import { Close } from '../../util/icons';
 const Modal = ({
   type,
   label,
@@ -74,7 +74,9 @@ const Modal = ({
           className={`${prefix}-modal-close`}
           aria-label="modal-close"
           onClick={onClose}
-        />
+        >
+          {Close}
+        </button>
         {(heading !== '' || label !== '') && (
           <header
             className={`${prefix}-modal-header ${prefix}-modal-header-lg`}
