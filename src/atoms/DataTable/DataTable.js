@@ -16,6 +16,7 @@ const DataTable = ({
   onRowSelect,
   triStateSorting,
   resizable,
+  isHeaderSticky,
   ...restProps
 }) => {
   const [rows, updateTableRowData] = useState(tableData);
@@ -126,7 +127,13 @@ const DataTable = ({
     tableClass += ` ${prefix}-data-table-zebra`;
   }
 
-  const classnames = `${prefix}-data-table-wrapper data-table-sticky-header${
+  // const classnames = `${prefix}-data-table-wrapper data-table-sticky-header${
+  //   type.includes('borderless') ? ` ${prefix}-data-table-borderless` : ''
+  // } ${className}`.trim();
+
+  const classnames = `${prefix}-data-table-wrapper${
+    isHeaderSticky ? ' data-table-sticky-header' : ' data-table-header'
+  }${
     type.includes('borderless') ? ` ${prefix}-data-table-borderless` : ''
   } ${className}`.trim();
 
@@ -572,7 +579,9 @@ DataTable.propTypes = {
   /** When this property is set, sorting in each column iterates through three sort states: ascending, descending, and unsort.  */
   triStateSorting: PropTypes.bool,
   /** To Enable resize for all table columns. For individual column config, check tableConfig's allowResize prop. */
-  resizable: PropTypes.bool
+  resizable: PropTypes.bool,
+  /** For Sticky Headers. */
+  isHeaderSticky: PropTypes.bool
 };
 
 DataTable.defaultProps = {
@@ -586,7 +595,8 @@ DataTable.defaultProps = {
   onRowSelect: () => {},
   expandRowTemplate: null,
   triStateSorting: false,
-  resizable: false
+  resizable: false,
+  isHeaderSticky: false
 };
 
 export default DataTable;
