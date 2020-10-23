@@ -518,10 +518,6 @@ class App extends Component {
                     indeterminate={this.state.indeterminate}
                     label="1 (default)"
                     onChange={e => {
-                      console.log(
-                        'Default Checkbox.',
-                        e.currentTarget.indeterminate
-                      );
                       this.setState({
                         indeterminate: e.currentTarget.indeterminate
                       });

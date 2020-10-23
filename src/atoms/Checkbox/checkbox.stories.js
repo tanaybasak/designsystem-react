@@ -27,6 +27,27 @@ storiesOf('Checkbox', module)
     }
   )
   .add(
+    'indeterminate',
+    () => (
+      <Checkbox
+        disabled={boolean('Disabled', false)}
+        id="checkbox1"
+        indeterminate={boolean('Indeterminate', true)}
+        checked={boolean('Checked', false)}
+        label={text('Label', 'Checkbox Label')}
+        onChange={action('Checkbox-OnChange')}
+        value="check1"
+      />
+    ),
+    {
+      info: {
+        text: `Description About Checkbox Component \n
+  
+      import { Checkbox } from '@patron/patron-react/checkbox';`
+      }
+    }
+  )
+  .add(
     'horizontal',
     () => (
       <div className="hcl-checkbox-group">
