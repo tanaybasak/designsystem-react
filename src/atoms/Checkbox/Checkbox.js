@@ -48,7 +48,7 @@ Checkbox.propTypes = {
   label: PropTypes.string,
   /** Unique string for the Checkbox. */
   id: PropTypes.string.isRequired,
-  /** isIndeterminate state for Checkbox */
+  /** indeterminate state for Checkbox */
   indeterminate: PropTypes.bool,
   /** Accepts event handler as prop/argument. */
   onChange: PropTypes.func,
