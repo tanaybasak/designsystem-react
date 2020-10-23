@@ -18,6 +18,16 @@ class SearchOverlayExample extends Component {
     selectedValue: ''
   };
 
+  displayMenuOnClick = e => {
+    const tarElm = e.currentTarget;
+    let suggestions = Cities;
+    this.setState(() => ({
+      suggestions,
+      showMenu: suggestions.length > 0 ? true : false,
+      targetElement: tarElm
+    }));
+  };
+
   displayMenuList = e => {
     const tarElm = e.currentTarget;
     let suggestions = [];
@@ -25,14 +35,12 @@ class SearchOverlayExample extends Component {
     if (value.length > 0) {
       const regex = new RegExp(`^${value}`, `i`);
       suggestions = Cities.sort().filter(v => regex.test(v.city));
-    } else {
-      suggestions = [];
     }
 
     this.setState(() => ({
       suggestions,
       text: value,
-      showMenu: suggestions.length > 0 ? true : false,
+      showMenu: value.length > 0 ? true : false,
       targetElement: tarElm
     }));
   };
@@ -116,7 +124,14 @@ class SearchOverlayExample extends Component {
 
   renderSuggestions = () => {
     if (this.state.suggestions.length === 0) {
-      return null;
+      return (
+        <>
+            <Item  className={`${prefix}-dropdown-item`} disabled= {true} >
+              No results Found ...
+            </Item>
+          
+        </>
+      )
     }
     return (
       <>
@@ -143,6 +158,7 @@ class SearchOverlayExample extends Component {
             id="search-textInput"
             onChange={this.displayMenuList.bind(this)}
             onKeyDown={this.keyDown}
+            onClick={this.displayMenuOnClick.bind(this)}
             value={this.state.selectedValue}
           />
 
