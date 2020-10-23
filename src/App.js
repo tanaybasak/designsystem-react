@@ -514,7 +514,6 @@ class App extends Component {
                 <div className="hcl-checkbox-group">
                   <Checkbox
                     id="checkbox1"
-                    // indeterminate
                     indeterminate={this.state.indeterminate}
                     label="1 (default)"
                     onChange={e => {
