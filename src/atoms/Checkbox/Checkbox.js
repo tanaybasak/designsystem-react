@@ -22,15 +22,13 @@ export default function Checkbox({
         className={`${prefix}-checkbox`}
         type="checkbox"
         checked={isChecked}
-        // indeterminate={isIndeterminate}
-        //ref={setCheckboxRef}
         ref={el => el && (el.indeterminate = indeterminate)}
         {...restProps}
         onChange={event => {
           setChecked(!isChecked);
-          //if (restProps.onChange) {
-          restProps.onChange(event);
-          // }
+          if (restProps.onChange) {
+            restProps.onChange(event);
+          }
         }}
       />
       <label className={`${prefix}-checkbox-label`} htmlFor={restProps.id}>
