@@ -34,7 +34,6 @@ export default function Checkbox({
       <label className={`${prefix}-checkbox-label`} htmlFor={restProps.id}>
         {label}
       </label>
-      {/* <h4>{isIndeterminate}</h4> */}
     </div>
   );
 }
