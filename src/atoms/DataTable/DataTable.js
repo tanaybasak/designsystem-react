@@ -17,6 +17,7 @@ const DataTable = ({
   triStateSorting,
   resizable,
   isHeaderSticky,
+  onColumnAfterResize,
   ...restProps
 }) => {
   const [rows, updateTableRowData] = useState(tableData);
@@ -132,7 +133,11 @@ const DataTable = ({
   // } ${className}`.trim();
 
   const classnames = `${prefix}-data-table-wrapper${
-    isHeaderSticky ? ' data-table-sticky-header' : ' data-table-header'
+    isHeaderSticky
+      ? ' data-table-sticky-header'
+      : resizable
+      ? ' data-table-header'
+      : ''
   }${
     type.includes('borderless') ? ` ${prefix}-data-table-borderless` : ''
   } ${className}`.trim();
@@ -274,6 +279,8 @@ const DataTable = ({
       );
       await setTableConfiguration(tempConfig);
       await setMouseDownonResize(false);
+      if (onColumnAfterResize)
+        onColumnAfterResize({ field: column['field'], width: column['width'] });
       /* Callback post updating state */
       if (moveLength !== 0) {
         // console.log(tableConfiguration);
@@ -558,7 +565,20 @@ DataTable.propTypes = {
    *    minResizeWidth: '40px', // minimum resize width
    *    maxResizeWidth: '120px', // maximum resize width
    * }] */
-  tableConfig: PropTypes.array,
+  tableConfig: PropTypes.arrayOf(
+    PropTypes.shape({
+      label: PropTypes.string,
+      field: PropTypes.string.isRequired,
+      sortable: PropTypes.bool,
+      width: PropTypes.string,
+      pinned: PropTypes.oneOf(['right', 'left']),
+      allowResize: PropTypes.bool,
+      minResizeWidth: PropTypes.string,
+      maxResizeWidth: PropTypes.string,
+      renderHtml: PropTypes.func,
+      columnHtml: PropTypes.func
+    })
+  ),
   /** Name of the custom class to apply to the Data Table. */
   className: PropTypes.string,
 
@@ -581,7 +601,9 @@ DataTable.propTypes = {
   /** To Enable resize for all table columns. For individual column config, check tableConfig's allowResize prop. */
   resizable: PropTypes.bool,
   /** For Sticky Headers. */
-  isHeaderSticky: PropTypes.bool
+  isHeaderSticky: PropTypes.bool,
+  /** Event after Column Resize. */
+  onColumnAfterResize: PropTypes.func
 };
 
 DataTable.defaultProps = {
@@ -596,7 +618,8 @@ DataTable.defaultProps = {
   expandRowTemplate: null,
   triStateSorting: false,
   resizable: false,
-  isHeaderSticky: false
+  isHeaderSticky: false,
+  onColumnAfterResize: () => {}
 };
 
 export default DataTable;

@@ -46,6 +46,7 @@ class TableExample extends Component {
 
       {
         label: 'Avatar',
+        field: 'Avatar',
         // pinned: 'left',
         allowResize: true,
         renderHtml: model => {
@@ -76,6 +77,7 @@ class TableExample extends Component {
       },
       {
         label: 'Private',
+        field: 'private',
         renderHtml: model => {
           let classname = 'primary';
           if (!model.owner.site_admin) {
@@ -172,6 +174,10 @@ class TableExample extends Component {
       .catch(error => {});
   };
 
+  colResize = data => {
+    console.log(data);
+  };
+
   render() {
     return (
       // <main className="hcl-content-main">
@@ -221,6 +227,7 @@ class TableExample extends Component {
                   });
                 }
               }}
+              onColumnAfterResize={this.colResize}
               headerSelection={<Checkbox id={`header_checkbox`} />}
             />
           </div>

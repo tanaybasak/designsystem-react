@@ -470,6 +470,7 @@ storiesOf('DataTable', module)
           <Checkbox aria-label="header checkbox" id={`header_checkbox`} />
         }
         resizable
+        onColumnAfterResize={action('column-resized')}
       />
     ),
     {
