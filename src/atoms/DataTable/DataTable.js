@@ -463,7 +463,6 @@ const DataTable = ({
                       minWidth: column.width,
                       left: column.marginLeft,
                       right: column.marginRight,
-                      top: '50px',
                       ...column.styles
                     }}
                     className={`${
