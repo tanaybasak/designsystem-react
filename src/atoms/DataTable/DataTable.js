@@ -307,7 +307,7 @@ const DataTable = ({
   let dropDirection;
 
   const onDragStart = e => {
-    e.currentTarget.classList.add('dragged-col');
+    e.currentTarget.classList.add('hcl-dragged-col');
     e.dataTransfer.effectAllowed = 'move';
     dragSrcEl = e.currentTarget;
     e.dataTransfer.setData('text/html', e.currentTarget.innerHTML);
@@ -328,7 +328,7 @@ const DataTable = ({
 
   const onDragEnd = e => {
     resizeLineRef.current.style.display = 'none';
-    e.currentTarget.classList.remove('dragged-col');
+    e.currentTarget.classList.remove('hcl-dragged-col');
   };
 
   const getIndex = label => {
@@ -422,7 +422,7 @@ const DataTable = ({
                     !!column['allowResize']
                       ? ' resizable'
                       : ''
-                  }${columnDraggable ? ' draggable' : ''}
+                  }${columnDraggable ? ' hcl-draggable' : ''}
                   `}
                   tabIndex={column.sortable ? '0' : null}
                   onClick={column.sortable ? sort.bind(this, column) : null}
