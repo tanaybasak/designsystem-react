@@ -39,6 +39,7 @@ import Footer from './molecules/Footer';
 import { ActionBar, ActionSummary, ActionList } from './molecules/ActionBar';
 import { ToolBar, ToolBarActions } from './molecules/ToolBar';
 import Password from './atoms/Password';
+import DataTable from './atoms/DataTable';
 //import Overlay from './atoms/Overlay';
 
 class App extends Component {
@@ -317,6 +318,141 @@ class App extends Component {
     return (
       <>
         <main className="hcl-content-main">
+          <DataTable
+            columnDraggable
+            className=""
+            expandRowTemplate={null}
+            headerSelection={null}
+            id="data_table_1"
+            onRowSelect={function noRefCheck() {}}
+            onSort={function noRefCheck() {}}
+            tableConfig={[
+              {
+                field: 'name',
+                label: 'Name',
+                sortable: true
+              },
+              {
+                field: 'protocol',
+                label: 'Protocol'
+              },
+              {
+                field: 'port',
+                label: 'Port'
+              },
+              {
+                field: 'rule',
+                label: 'Rule'
+              },
+              {
+                field: 'attachedGroups',
+                label: 'Attached Groups'
+              },
+              {
+                field: 'status',
+                label: 'Status'
+              }
+            ]}
+            tableData={[
+              {
+                attachedGroups: 'Maureen VM Groups',
+                id: 1,
+                name: 'Load Balancer 1',
+                port: '80',
+                protocol: 'HTTP',
+                rule: 'Round Robin',
+                status: 'Active'
+              },
+              {
+                attachedGroups: 'Maureen VM Groups',
+                id: 2,
+                name: 'Load Balancer 2',
+                port: '100',
+                protocol: 'FTP',
+                rule: 'Round Robin',
+                status: 'InActive'
+              },
+              {
+                attachedGroups: 'Maureen VM Groups',
+                id: 3,
+                name: 'Load Balancer 3',
+                port: '80',
+                protocol: 'HTTP',
+                rule: 'Round Robin',
+                status: 'Active'
+              }
+            ]}
+            triStateSorting={false}
+            type=""
+          />
+
+          <DataTable
+            columnDraggable
+            className=""
+            expandRowTemplate={null}
+            headerSelection={null}
+            id="data_table_1"
+            onRowSelect={function noRefCheck() {}}
+            onSort={function noRefCheck() {}}
+            tableConfig={[
+              {
+                field: 'name',
+                label: 'Name',
+                sortable: true
+              },
+              {
+                field: 'protocol',
+                label: 'Protocol'
+              },
+              {
+                field: 'port',
+                label: 'Port'
+              },
+              {
+                field: 'rule',
+                label: 'Rule'
+              },
+              {
+                field: 'attachedGroups',
+                label: 'Attached Groups'
+              },
+              {
+                field: 'status',
+                label: 'Status'
+              }
+            ]}
+            tableData={[
+              {
+                attachedGroups: 'Maureen VM Groups',
+                id: 1,
+                name: 'Load Balancer 1',
+                port: '80',
+                protocol: 'HTTP',
+                rule: 'Round Robin',
+                status: 'Active'
+              },
+              {
+                attachedGroups: 'Maureen VM Groups',
+                id: 2,
+                name: 'Load Balancer 2',
+                port: '100',
+                protocol: 'FTP',
+                rule: 'Round Robin',
+                status: 'InActive'
+              },
+              {
+                attachedGroups: 'Maureen VM Groups',
+                id: 3,
+                name: 'Load Balancer 3',
+                port: '80',
+                protocol: 'HTTP',
+                rule: 'Round Robin',
+                status: 'Active'
+              }
+            ]}
+            triStateSorting={false}
+            type=""
+          />
           <section className="hcl-container pt-5 mb-5">
             <div className="hcl-row m-0">
               {/* Input Field */}

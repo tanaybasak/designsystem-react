@@ -183,6 +183,7 @@ class TableExample extends Component {
               tableData={this.state.displayData}
               tableConfig={this.state.tableConfig}
               resizable
+              columnDraggable
               // expandRowTemplate={() => {
               //   return (<Paragraph>
               //     available, but the majority have suffered alteration
