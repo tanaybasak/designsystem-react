@@ -483,4 +483,27 @@ storiesOf('DataTable', module)
       `
       }
     }
+  ).add(
+    'with column reorder',
+    () => (
+      <DataTable
+        id="data_table_1"
+        type={`${boolean('Border', true) ? '' : 'borderless'}${
+          boolean('Zebra', false) ? ' zebra' : ''
+        }${select('Class Name', classOptions, '')}`}
+        tableData={tableData}
+        tableConfig={tableConfig}
+        onSort={action('Sort Action')}
+        columnDraggable
+      />
+    ),
+    {
+      info: {
+        text: `Description About DataTable Component
+
+      import { DataTable } from '@patron/patron-react/datatable';
+      
+      `
+      }
+    }
   );
