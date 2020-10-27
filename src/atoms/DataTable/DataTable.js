@@ -18,6 +18,7 @@ const DataTable = ({
   resizable,
   isHeaderSticky,
   onColumnAfterResize,
+  initSortedColumn,
   ...restProps
 }) => {
   const [rows, updateTableRowData] = useState(tableData);
@@ -30,6 +31,12 @@ const DataTable = ({
   useEffect(() => {
     updateTableRowData(tableData);
   }, [tableData]);
+
+  useEffect(() => {
+    if (initSortedColumn) {
+      updateSortedColumn(initSortedColumn);
+    }
+  }, [initSortedColumn]);
 
   useEffect(() => {
     let tempConfig = getColumnStructure(
@@ -486,7 +493,11 @@ const DataTable = ({
                   <td
                     key={`col-${index}-${i}`}
                     title={
-                      row[column.field] ? row[column.field].toString() : ''
+                      column.renderHtml
+                        ? null
+                        : row[column.field]
+                        ? row[column.field].toString()
+                        : ''
                     }
                     data-label={column.field}
                     className={`${
@@ -603,7 +614,15 @@ DataTable.propTypes = {
   /** For Sticky Headers. */
   isHeaderSticky: PropTypes.bool,
   /** Event after Column Resize. */
-  onColumnAfterResize: PropTypes.func
+  onColumnAfterResize: PropTypes.func,
+  /** Used to initialize the sorting icon.
+   * eg:
+   * {
+   *    order: 'asc', // sorting order. possible values are 'asc' and 'desc'
+   *    name: 'name'  // Field Name
+   * }
+   */
+  initSortedColumn: PropTypes.object
 };
 
 DataTable.defaultProps = {
@@ -619,7 +638,8 @@ DataTable.defaultProps = {
   triStateSorting: false,
   resizable: false,
   isHeaderSticky: false,
-  onColumnAfterResize: () => {}
+  onColumnAfterResize: () => {},
+  initSortedColumn: {}
 };
 
 export default DataTable;

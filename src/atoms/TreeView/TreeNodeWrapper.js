@@ -87,8 +87,8 @@ const TreeNodeWrapper = ({
               level: level
             }
           });
-          updateLoadingState(false);
         }
+        updateLoadingState(false);
       }
     } else {
       dispatch({

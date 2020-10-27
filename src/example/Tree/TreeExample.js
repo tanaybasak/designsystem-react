@@ -17,7 +17,7 @@ const getCustomTree = () => {
       //draggableX:false,
       //icon: 'p-hclsw p-hclsw-export',
       //collapsedIcon:'p-hclsw p-hclsw-folder',
-      //id: `node-${i}`,
+      key: `node-${i}`,
       hasChildren: true
     };
     maintreeObj.children = [];
@@ -27,21 +27,21 @@ const getCustomTree = () => {
         //draggableX:false,
         //expandIcon: 'p-hclsw p-hclsw-export',
         //collapsedIcon:'p-hclsw p-hclsw-folder',
-        type: 'folder'
-        //id: `node-${i}-${j}`
+        type: 'folder',
+        key: `node-${i}-${j}`
       };
       childtreeObj.children = [];
-      for (let k = 0; k < 2; k++) {
-        let grandChild = {
-          name: 'Tree 1 Grand Child Name ' + i + '-' + j + '-' + k,
-          type: 'file'
-          //draggableX:true,
-          //icon: 'p-hclsw p-hclsw-document',
-          //id: `node-${i}-${j}-${k}`
-        };
+      // for (let k = 0; k < 2; k++) {
+      //   let grandChild = {
+      //     name: 'Tree 1 Grand Child Name ' + i + '-' + j + '-' + k,
+      //     type: 'file'
+      //     //draggableX:true,
+      //     //icon: 'p-hclsw p-hclsw-document',
+      //     //id: `node-${i}-${j}-${k}`
+      //   };
 
-        childtreeObj.children.push(grandChild);
-      }
+      //   childtreeObj.children.push(grandChild);
+      // }
       maintreeObj.children.push(childtreeObj);
     }
 
@@ -56,6 +56,7 @@ let dynamicId = 1;
 class TreeExample extends Component {
   state = {
     //nodeSelected: null,
+    selectedItems: {},
     toast: {
       visible: false,
       type: 'success'
@@ -153,6 +154,44 @@ class TreeExample extends Component {
           return false;
         }
       );
+  };
+
+  handleCheckbox = (currentNode, parentNode, level, checked) => {
+    let tempSelected = { ...this.state.selectedItems };
+    if (!parentNode) {
+      currentNode.children.map(child => {
+        if (checked) {
+          tempSelected[child.key] = 'checked';
+        } else {
+          tempSelected[child.key] = 'unchecked';
+        }
+      });
+      tempSelected[currentNode.key] = checked ? 'checked' : 'unchecked';
+      this.setState({
+        selectedItems: tempSelected
+      });
+    } else {
+      tempSelected[currentNode.key] = checked ? 'checked' : 'unchecked';
+
+      let newArr = [];
+      parentNode.children.map(c => {
+        newArr.push(tempSelected[c.key]);
+      });
+
+      const allChecked = newArr.every(e => e === 'checked');
+      const allUnChecked = newArr.every(e => e === 'unchecked');
+
+      if (allChecked) {
+        tempSelected[parentNode.key] = 'checked';
+      } else if (!allUnChecked) {
+        tempSelected[parentNode.key] = 'indeterminate';
+      } else {
+        tempSelected[parentNode.key] = 'unchecked';
+      }
+      this.setState({
+        selectedItems: tempSelected
+      });
+    }
   };
 
   render() {
@@ -542,6 +581,40 @@ class TreeExample extends Component {
                     nodeSelected: v1
                   });
                 }
+              }}
+            />
+          </div>
+          <div className="hcl-col-4 mb-2">
+            <TreeView
+              treeData={this.state.treeData}
+              customTemplate={(node, parentNode, level) => {
+                return (
+                  <TreeNodeTemplate>
+                    <Checkbox
+                      id={node.key}
+                      label={`${node.name}`}
+                      checked={
+                        this.state.selectedItems[node.key] === 'checked'
+                          ? true
+                          : false
+                      }
+                      indeterminate={
+                        this.state.selectedItems[node.key] === 'indeterminate'
+                          ? true
+                          : false
+                      }
+                      value={node.key}
+                      onChange={e => {
+                        this.handleCheckbox(
+                          node,
+                          parentNode,
+                          level,
+                          e.currentTarget.checked
+                        );
+                      }}
+                    />
+                  </TreeNodeTemplate>
+                );
               }}
             />
           </div>

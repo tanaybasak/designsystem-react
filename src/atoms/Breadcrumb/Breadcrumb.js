@@ -5,7 +5,6 @@ import { Overflowmenu } from '../../molecules/Overflowmenu';
 
 function Breadcrumb({ activeIndex, onSelection, id, className, children }) {
   const [isActive, setActive] = useState(activeIndex);
-
   const childCount = React.Children.count(children);
   let renderedOverflowMenu = false;
   let propChildren = children;

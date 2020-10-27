@@ -91,7 +91,7 @@ storiesOf('OverflowMenu', module)
     {
       info: {
         text: `Description About Overflowmenu Component \n
-    import { Overflowmenu } from '@patron/patron-react/overflowmenu';`
+    import { Overflowmenu , MenuItem } from '@patron/patron-react/overflowmenu';`
       }
     }
   )
