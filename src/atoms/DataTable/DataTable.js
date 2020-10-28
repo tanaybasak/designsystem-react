@@ -22,6 +22,7 @@ const DataTable = ({
   isHeaderSticky,
   onColumnAfterResize,
   initSortedColumn,
+  onColoumnReorder,
   ...restProps
 }) => {
   const [rows, updateTableRowData] = useState(tableData);
@@ -409,6 +410,7 @@ const DataTable = ({
       }
     }
     setTableConfiguration(tempTableConfig);
+    onColoumnReorder(tempTableConfig);
   };
   /* Table column re-order ends */
 
@@ -771,7 +773,9 @@ DataTable.propTypes = {
    *    name: 'name'  // Field Name
    * }
    */
-  initSortedColumn: PropTypes.object
+  initSortedColumn: PropTypes.object,
+  /** onColoumnReorder will be tiggered on each column reorder and receive updated tableConfig as parameter*/
+  onColoumnReorder: PropTypes.func
 };
 
 DataTable.defaultProps = {
@@ -790,7 +794,8 @@ DataTable.defaultProps = {
   showDraggableIcon: true,
   isHeaderSticky: false,
   onColumnAfterResize: () => {},
-  initSortedColumn: {}
+  initSortedColumn: {},
+  onColoumnReorder: () => {}
 };
 
 export default DataTable;
