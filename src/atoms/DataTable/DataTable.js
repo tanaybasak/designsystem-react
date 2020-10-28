@@ -293,7 +293,6 @@ const DataTable = ({
         onColumnAfterResize({ field: column['field'], width: column['width'] });
       /* Callback post updating state */
       if (moveLength !== 0) {
-        // console.log(tableConfiguration);
       }
     };
 
@@ -409,8 +408,6 @@ const DataTable = ({
         moveElementInArray(tempTableConfig, indexDragged, indexInsertedBefore);
       }
     }
-    console.log('tempTableConfig', tempTableConfig);
-
     setTableConfiguration(tempTableConfig);
   };
   /* Table column re-order ends */
