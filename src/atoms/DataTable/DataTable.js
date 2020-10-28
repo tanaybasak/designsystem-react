@@ -19,6 +19,7 @@ const DataTable = ({
   resizable,
   columnDraggable,
   showDraggableIcon,
+  initSortedColumn,
   ...restProps
 }) => {
   const [rows, updateTableRowData] = useState(tableData);
@@ -31,6 +32,12 @@ const DataTable = ({
   useEffect(() => {
     updateTableRowData(tableData);
   }, [tableData]);
+
+  useEffect(() => {
+    if (initSortedColumn) {
+      updateSortedColumn(initSortedColumn);
+    }
+  }, [initSortedColumn]);
 
   useEffect(() => {
     let tempConfig = getColumnStructure(
@@ -623,7 +630,11 @@ const DataTable = ({
                   <td
                     key={`col-${index}-${i}`}
                     title={
-                      row[column.field] ? row[column.field].toString() : ''
+                      column.renderHtml
+                        ? null
+                        : row[column.field]
+                        ? row[column.field].toString()
+                        : ''
                     }
                     data-label={column.field}
                     className={`${
@@ -727,7 +738,15 @@ DataTable.propTypes = {
   /** When this property is set, columns become draggable and can be swiched with other column  */
   columnDraggable: PropTypes.bool,
   /** When this property is set, icnon for coloumn reorder will apprear; default value is 'true'  */
-  showDraggableIcon: PropTypes.bool
+  showDraggableIcon: PropTypes.bool,
+  /** Used to initialize the sorting icon.
+   * eg:
+   * {
+   *    order: 'asc', // sorting order. possible values are 'asc' and 'desc'
+   *    name: 'name'  // Field Name
+   * }
+   */
+  initSortedColumn: PropTypes.object
 };
 
 DataTable.defaultProps = {
@@ -743,7 +762,8 @@ DataTable.defaultProps = {
   triStateSorting: false,
   resizable: false,
   columnDraggable: false,
-  showDraggableIcon: true
+  showDraggableIcon: true,
+  initSortedColumn: {}
 };
 
 export default DataTable;

@@ -10,6 +10,7 @@ class TableExample extends Component {
   state = {
     tableData: [],
     totalItems: 0,
+    initSortedColumn: { order: 'asc', name: 'name' },
     displayData: [],
     tableConfig: [
       {
@@ -174,59 +175,59 @@ class TableExample extends Component {
 
   render() {
     return (
-      // <main className="hcl-content-main">
-      <section className="hcl-container pt-5 mb-5">
-        <div className="hcl-row m-0">
-          <div className="hcl-col-12 mt-5 mb-5" id="dataTableElement">
-            <DataTable
-              id="sample_table"
-              tableData={this.state.displayData}
-              tableConfig={this.state.tableConfig}
-              resizable
-              columnDraggable
-              // expandRowTemplate={() => {
-              //   return (<Paragraph>
-              //     available, but the majority have suffered alteration
-              //     in some form, by injected humour, or randomised words
-              //     which don&apos;t look even slightly believable. If you
-              //     are going to use a passage of Lorem Ipsum, you need to
-              //     be sure there isn&apos;t anything embarrassing hidden
-              //     in the middle of text. All the Lorem Ipsum generators
-              //     on the Internet tend to repeat predefined chunks as
-              //     necessary, making this the first true generator on the
-              //     Internet. It uses a dictionary of over 200 Latin
-              //     words, combined with a handful of model sentence
-              //     structures, to generate Lorem Ipsum which looks
-              //     reasonable. The generated Lorem Ipsum is therefore
-              //     always free from repetition, injected humour, or
-              //     non-characteristic words etc.
-              //   </Paragraph>);
-              // }}
-              type="zebra borderless"
-              onSort={(field, order) => {
-                if (order === null) {
-                  this.setState({
-                    displayData: [...this.state.tableData]
-                  });
-                } else {
-                  let newData = [...this.state.displayData].sort((a, b) => {
-                    if (a[field].toLowerCase() > b[field].toLowerCase())
-                      return order === 'asc' ? 1 : -1;
-                    if (b[field].toLowerCase() > a[field].toLowerCase())
-                      return order === 'asc' ? -1 : 1;
-                    return 0;
-                  });
-                  this.setState({
-                    displayData: newData
-                  });
-                }
-              }}
-              headerSelection={<Checkbox id={`header_checkbox`} />}
-            />
+      <main className="hcl-content-main">
+        <section className="hcl-container pt-5 mb-5">
+          <div className="hcl-row m-0">
+            <div className="hcl-col-12 mt-5 mb-5" id="dataTableElement">
+              <DataTable
+                id="sample_table"
+                tableData={this.state.displayData}
+                tableConfig={this.state.tableConfig}
+                initSortedColumn={this.state.initSortedColumn}
+                columnDraggable
+                // expandRowTemplate={() => {
+                //   return (<Paragraph>
+                //     available, but the majority have suffered alteration
+                //     in some form, by injected humour, or randomised words
+                //     which don&apos;t look even slightly believable. If you
+                //     are going to use a passage of Lorem Ipsum, you need to
+                //     be sure there isn&apos;t anything embarrassing hidden
+                //     in the middle of text. All the Lorem Ipsum generators
+                //     on the Internet tend to repeat predefined chunks as
+                //     necessary, making this the first true generator on the
+                //     Internet. It uses a dictionary of over 200 Latin
+                //     words, combined with a handful of model sentence
+                //     structures, to generate Lorem Ipsum which looks
+                //     reasonable. The generated Lorem Ipsum is therefore
+                //     always free from repetition, injected humour, or
+                //     non-characteristic words etc.
+                //   </Paragraph>);
+                // }}
+                type="zebra borderless"
+                onSort={(field, order) => {
+                  if (order === null) {
+                    this.setState({
+                      displayData: [...this.state.tableData]
+                    });
+                  } else {
+                    let newData = [...this.state.displayData].sort((a, b) => {
+                      if (a[field].toLowerCase() > b[field].toLowerCase())
+                        return order === 'asc' ? 1 : -1;
+                      if (b[field].toLowerCase() > a[field].toLowerCase())
+                        return order === 'asc' ? -1 : 1;
+                      return 0;
+                    });
+                    this.setState({
+                      displayData: newData
+                    });
+                  }
+                }}
+                headerSelection={<Checkbox id={`header_checkbox`} />}
+              />
+            </div>
           </div>
-        </div>
-      </section>
-      // </main>
+        </section>
+      </main>
     );
   }
 }
