@@ -182,7 +182,7 @@ class TableExample extends Component {
             <div className="hcl-col-12 mt-5 mb-5" id="dataTableElement">
               <DataTable
               resizable
-              showDraggableIcon ={false}
+              // showDraggableIcon ={false}
                 id="sample_table"
                 tableData={this.state.displayData}
                 tableConfig={this.state.tableConfig}
