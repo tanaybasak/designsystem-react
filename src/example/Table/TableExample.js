@@ -24,6 +24,7 @@ class TableExample extends Component {
       {
         label: 'ID',
         field: 'id',
+        allowResize: false,
         columnHtml: (
           <Tag
             className=""
@@ -40,15 +41,16 @@ class TableExample extends Component {
             Sample Tag
           </Tag>
         ),
-        allowResize: true,
+        
         width: '160px',
         pinned: 'left'
       },
 
       {
         label: 'Avatar',
-        // pinned: 'left',
-        allowResize: true,
+        field : 'avtar',
+        pinned: 'right',
+        
         renderHtml: model => {
           return (
             <img
@@ -66,7 +68,6 @@ class TableExample extends Component {
         label: 'Full Name',
         field: 'name',
         sortable: true,
-        allowResize: true
         // pinned: 'left',
         // renderHtml: model => {
         //     return (
@@ -77,6 +78,7 @@ class TableExample extends Component {
       },
       {
         label: 'Private',
+        field: 'private',
         renderHtml: model => {
           let classname = 'primary';
           if (!model.owner.site_admin) {
@@ -175,11 +177,12 @@ class TableExample extends Component {
 
   render() {
     return (
-      <main className="hcl-content-main">
         <section className="hcl-container pt-5 mb-5">
           <div className="hcl-row m-0">
             <div className="hcl-col-12 mt-5 mb-5" id="dataTableElement">
               <DataTable
+              resizable
+              showDraggableIcon ={false}
                 id="sample_table"
                 tableData={this.state.displayData}
                 tableConfig={this.state.tableConfig}
@@ -227,7 +230,6 @@ class TableExample extends Component {
             </div>
           </div>
         </section>
-      </main>
     );
   }
 }

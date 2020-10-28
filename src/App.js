@@ -339,11 +339,12 @@ class App extends Component {
             id="data_table_1"
             onRowSelect={function noRefCheck() {}}
             onSort={function noRefCheck() {}}
+            resizable={true}
             tableConfig={[
               {
                 field: 'name',
                 label: 'Name',
-                sortable: true
+                sortable: true,
               },
               {
                 field: 'protocol',

@@ -320,12 +320,16 @@ const DataTable = ({
     e.dataTransfer.setData('text/html', e.currentTarget.innerHTML);
   };
 
-  const onDragOver = e => {
+  const onDragOver = (pinned, e) => {
+    if (pinned) {
+      return;
+    }
     e.preventDefault();
     let domRect = e.currentTarget.getBoundingClientRect();
     let tableEleBounding = tableRef.current.getBoundingClientRect();
     tableRef.current.parentElement.style.position = `relative`;
     resizeLineRef.current.style.display = 'block';
+    e.currentTarget.style.cursor = 'grabbing';
     if (domRect.x + domRect.width / 2 < e.clientX) {
       dropDirection = 'right';
       resizeLineRef.current.style.left =
@@ -337,16 +341,21 @@ const DataTable = ({
     }
   };
 
+  const onDragLeave = e => {
+    resizeLineRef.current.style.display = 'none';
+  };
+
   const onDragEnd = e => {
     resizeLineRef.current.style.display = 'none';
     tableRef.current.parentElement.style.position = ``;
     e.currentTarget.classList.remove('dragged-col');
+    e.currentTarget.style.cursor = 'pointer';
   };
 
-  const getIndex = label => {
+  const getIndex = field => {
     let indexField;
     tableConfiguration.forEach((config, index) => {
-      if (config.label === label) {
+      if (config.field === field) {
         indexField = index;
       }
     });
@@ -363,6 +372,7 @@ const DataTable = ({
     let indexInsertedBeforeCol = e.currentTarget.getAttribute('data-column');
     let indexInsertedBefore = getIndex(indexInsertedBeforeCol);
     let tempTableConfig = [...tableConfiguration];
+    e.currentTarget.style.cursor = 'pointer';
 
     if (dropDirection === 'right') {
       if (indexDragged < indexInsertedBefore) {
@@ -385,6 +395,8 @@ const DataTable = ({
         moveElementInArray(tempTableConfig, indexDragged, indexInsertedBefore);
       }
     }
+    console.log('tempTableConfig', tempTableConfig);
+
     setTableConfiguration(tempTableConfig);
   };
   /* Table column re-order ends */
@@ -422,7 +434,7 @@ const DataTable = ({
                     ...column.styles
                   }}
                   title={column.title ? column.title.toString() : ''}
-                  data-column={column.label}
+                  data-column={column.field}
                   className={`${
                     column.pinned === 'left' ? 'sticky-div sticky-left-div' : ''
                   }${
@@ -441,21 +453,12 @@ const DataTable = ({
                   onKeyDown={
                     column.sortable ? sortOnEnter.bind(this, column) : null
                   }
-                  draggable={
-                    columnDraggable &&
-                    column.field !== 'overflow' &&
-                    !column.pinned
-                      ? true
-                      : false
-                  }
+                  draggable={columnDraggable && !column.pinned ? true : false}
                   onDragStart={onDragStart}
-                  onDragOver={onDragOver}
+                  onDragLeave={onDragLeave}
+                  onDragOver={onDragOver.bind(this, column.pinned)}
                   onDrop={
-                    columnDraggable &&
-                    column.field !== 'overflow' &&
-                    !column.pinned
-                      ? onDrop
-                      : undefined
+                    columnDraggable && !column.pinned ? onDrop : undefined
                   }
                   onDragEnd={onDragEnd}
                 >
@@ -465,7 +468,6 @@ const DataTable = ({
                     <>
                       {showDraggableIcon &&
                       columnDraggable &&
-                      column.field !== 'overflow' &&
                       !column.pinned ? (
                         <svg
                           className="mr-1"
