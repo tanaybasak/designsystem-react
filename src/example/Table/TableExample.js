@@ -175,6 +175,10 @@ class TableExample extends Component {
       .catch(error => {});
   };
 
+  colResize = data => {
+    console.log(data);
+  };
+
   render() {
     return (
         <section className="hcl-container pt-5 mb-5">
@@ -186,6 +190,8 @@ class TableExample extends Component {
                 id="sample_table"
                 tableData={this.state.displayData}
                 tableConfig={this.state.tableConfig}
+                resizable
+                onColumnAfterResize={this.colResize}
                 initSortedColumn={this.state.initSortedColumn}
                 columnDraggable
                 // expandRowTemplate={() => {

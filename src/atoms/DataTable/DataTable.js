@@ -19,6 +19,8 @@ const DataTable = ({
   resizable,
   columnDraggable,
   showDraggableIcon,
+  isHeaderSticky,
+  onColumnAfterResize,
   initSortedColumn,
   ...restProps
 }) => {
@@ -136,7 +138,17 @@ const DataTable = ({
     tableClass += ` ${prefix}-data-table-zebra`;
   }
 
-  const classnames = `${prefix}-data-table-wrapper data-table-sticky-header${
+  // const classnames = `${prefix}-data-table-wrapper data-table-sticky-header${
+  //   type.includes('borderless') ? ` ${prefix}-data-table-borderless` : ''
+  // } ${className}`.trim();
+
+  const classnames = `${prefix}-data-table-wrapper${
+    isHeaderSticky
+      ? ' data-table-sticky-header'
+      : resizable
+      ? ' data-table-header'
+      : ''
+  }${
     type.includes('borderless') ? ` ${prefix}-data-table-borderless` : ''
   } ${className}`.trim();
 
@@ -277,6 +289,8 @@ const DataTable = ({
       );
       await setTableConfiguration(tempConfig);
       await setMouseDownonResize(false);
+      if (onColumnAfterResize)
+        onColumnAfterResize({ field: column['field'], width: column['width'] });
       /* Callback post updating state */
       if (moveLength !== 0) {
         // console.log(tableConfiguration);
@@ -598,7 +612,6 @@ const DataTable = ({
                       minWidth: column.width,
                       left: column.marginLeft,
                       right: column.marginRight,
-                      top: '50px',
                       ...column.styles
                     }}
                     className={`${
@@ -711,7 +724,20 @@ DataTable.propTypes = {
    *    minResizeWidth: '40px', // minimum resize width
    *    maxResizeWidth: '120px', // maximum resize width
    * }] */
-  tableConfig: PropTypes.array,
+  tableConfig: PropTypes.arrayOf(
+    PropTypes.shape({
+      label: PropTypes.string,
+      field: PropTypes.string.isRequired,
+      sortable: PropTypes.bool,
+      width: PropTypes.string,
+      pinned: PropTypes.oneOf(['right', 'left']),
+      allowResize: PropTypes.bool,
+      minResizeWidth: PropTypes.string,
+      maxResizeWidth: PropTypes.string,
+      renderHtml: PropTypes.func,
+      columnHtml: PropTypes.func
+    })
+  ),
   /** Name of the custom class to apply to the Data Table. */
   className: PropTypes.string,
 
@@ -737,6 +763,12 @@ DataTable.propTypes = {
   columnDraggable: PropTypes.bool,
   /** When this property is set, icnon for coloumn reorder will apprear; default value is 'true'  */
   showDraggableIcon: PropTypes.bool,
+  /** To Enable resize for all table columns. For individual column config, check tableConfig's allowResize prop. */
+  resizable: PropTypes.bool,
+  /** For Sticky Headers. */
+  isHeaderSticky: PropTypes.bool,
+  /** Event after Column Resize. */
+  onColumnAfterResize: PropTypes.func,
   /** Used to initialize the sorting icon.
    * eg:
    * {
@@ -761,6 +793,8 @@ DataTable.defaultProps = {
   resizable: false,
   columnDraggable: false,
   showDraggableIcon: true,
+  isHeaderSticky: false,
+  onColumnAfterResize: () => {},
   initSortedColumn: {}
 };
 
