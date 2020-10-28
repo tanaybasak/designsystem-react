@@ -763,8 +763,6 @@ DataTable.propTypes = {
   columnDraggable: PropTypes.bool,
   /** When this property is set, icnon for coloumn reorder will apprear; default value is 'true'  */
   showDraggableIcon: PropTypes.bool,
-  /** To Enable resize for all table columns. For individual column config, check tableConfig's allowResize prop. */
-  resizable: PropTypes.bool,
   /** For Sticky Headers. */
   isHeaderSticky: PropTypes.bool,
   /** Event after Column Resize. */
