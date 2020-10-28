@@ -18,7 +18,6 @@ class TableExample extends Component {
         renderHtml: row => {
           return <Checkbox id={`${row.id}_checkbox_`} name="testcheck" />;
         },
-
         width: '40px'
         // pinned: 'left'
       },
@@ -41,13 +40,16 @@ class TableExample extends Component {
             Sample Tag
           </Tag>
         ),
+        allowResize: true,
         width: '160px',
-        pinned: 'right'
+        pinned: 'left'
       },
 
       {
         label: 'Avatar',
-        pinned: 'left',
+        field: 'Avatar',
+        // pinned: 'left',
+        allowResize: true,
         renderHtml: model => {
           return (
             <img
@@ -57,22 +59,26 @@ class TableExample extends Component {
           );
         },
         columnHtml: <h6> this is temp</h6>,
-        width: '260px'
+        width: '260px',
+        minResizeWidth: 40, // not less than that
+        maxResizeWidth: 350 // not to restrict
       },
       {
         label: 'Full Name',
         field: 'name',
         sortable: true,
-        //pinned: 'left',
+        allowResize: true
+        // pinned: 'left',
         // renderHtml: model => {
         //     return (
         //       <span>{model.name} {model.name} {model.name} {model.name}{model.name} {model.name} {model.name} {model.name} {model.name} {model.name}</span>
         //     );
         //   },
-        width: '200px'
+        // width: '200px'
       },
       {
         label: 'Private',
+        field: 'private',
         renderHtml: model => {
           let classname = 'primary';
           if (!model.owner.site_admin) {
@@ -83,14 +89,14 @@ class TableExample extends Component {
               model.owner.site_admin ? 'Yes' : 'No'
             }`}</Tag>
           );
-        },
-        width: '120px'
+        }
+        // width: '120px'
       },
       {
         label: 'Language',
-        field: 'owner.login',
+        field: 'owner.login'
 
-        width: '120px'
+        // width: '120px'
       },
       {
         label: 'Has Issues',
@@ -105,13 +111,13 @@ class TableExample extends Component {
               toggled={model.has_issues}
             />
           );
-        },
-        width: '150px'
+        }
+        // width: '150px'
       },
       {
         label: 'Forks Count',
-        field: 'forks_count',
-        width: '120px'
+        field: 'forks_count'
+        // width: '120px'
       },
       {
         label: 'Branch',
@@ -121,8 +127,9 @@ class TableExample extends Component {
       },
       {
         label: 'Issues Count',
-        field: 'open_issues_count',
-        width: '120px'
+        field: 'open_issues_count'
+        // width: '420px'
+        // pinned: 'right'
       },
       {
         field: 'overflow',
@@ -140,8 +147,8 @@ class TableExample extends Component {
               }}
             />
           );
-        },
-        width: '500px'
+        }
+        // width: '400px'
       }
     ]
   };
@@ -168,6 +175,10 @@ class TableExample extends Component {
       .catch(error => {});
   };
 
+  colResize = data => {
+    console.log(data);
+  };
+
   render() {
     return (
       <main className="hcl-content-main">
@@ -178,6 +189,8 @@ class TableExample extends Component {
                 id="sample_table"
                 tableData={this.state.displayData}
                 tableConfig={this.state.tableConfig}
+                resizable
+                onColumnAfterResize={this.colResize}
                 initSortedColumn={this.state.initSortedColumn}
                 // expandRowTemplate={() => {
                 //   return (<Paragraph>

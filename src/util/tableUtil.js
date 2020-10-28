@@ -42,7 +42,7 @@ export const getColumnStructure = (tableConfiguration, isExpandRow = false) => {
       if (column.pinned !== 'left' && column.pinned !== 'right') {
         allocatedWidth += parseInt(column.width);
       }
-      unitUsed = column.width.replace(/[0-9]/g, '');
+      unitUsed = column.width.replace(/[0-9calc()\s\-/%]/g, '');
       totalItemsWithoutWidth--;
     }
   });

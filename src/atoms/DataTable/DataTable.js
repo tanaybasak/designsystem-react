@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 import { getColumnStructure } from '../../util/tableUtil';
+import { addListener, removeListeners } from '../../util/eventManager';
 
 const DataTable = ({
   id,
@@ -14,6 +15,9 @@ const DataTable = ({
   headerSelection,
   onRowSelect,
   triStateSorting,
+  resizable,
+  isHeaderSticky,
+  onColumnAfterResize,
   initSortedColumn,
   ...restProps
 }) => {
@@ -21,6 +25,7 @@ const DataTable = ({
   const tableRef = useRef(null);
   const [tableConfiguration, setTableConfiguration] = useState([]);
   const [sortedColumn, updateSortedColumn] = useState({});
+
   let customHeaderFlag = false;
 
   useEffect(() => {
@@ -43,7 +48,9 @@ const DataTable = ({
 
   useEffect(() => {
     if (
-      tableRef.current.parentElement.offsetWidth < tableRef.current.offsetWidth
+      tableRef.current.parentElement.offsetWidth <
+        tableRef.current.offsetWidth &&
+      rows.length > 0
     ) {
       tableRef.current.parentElement.style.overflow = 'auto';
     }
@@ -128,12 +135,199 @@ const DataTable = ({
     tableClass += ` ${prefix}-data-table-zebra`;
   }
 
-  const classnames = `${prefix}-data-table-wrapper data-table-sticky-header${
+  // const classnames = `${prefix}-data-table-wrapper data-table-sticky-header${
+  //   type.includes('borderless') ? ` ${prefix}-data-table-borderless` : ''
+  // } ${className}`.trim();
+
+  const classnames = `${prefix}-data-table-wrapper${
+    isHeaderSticky
+      ? ' data-table-sticky-header'
+      : resizable
+      ? ' data-table-header'
+      : ''
+  }${
     type.includes('borderless') ? ` ${prefix}-data-table-borderless` : ''
   } ${className}`.trim();
 
+  /* Table re-size starts */
+  const [isMouseDownForResize, setMouseDownonResize] = useState(false);
+  const resizeLineRef = useRef(null);
+
+  let resizeDividerData = {};
+  let mouseDownColumnData = {};
+  let totalLengthMoved = 0;
+  let isMouseDown = false;
+
+  const onColumnMouseDown = (column, idx, e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const { button } = e;
+    if (button !== 0) return;
+    let nThTarget,
+      moveLength = 0,
+      minResizeFlag = false,
+      maxResizeFlag = false;
+
+    isMouseDown = true;
+    setMouseDownonResize(true);
+    document.body.classList.add('resize-table');
+    tableRef.current.parentElement.style.position = `relative`;
+    totalLengthMoved = column.width
+      ? parseInt(column.width.replace(/px/g, ''), 10)
+      : 10;
+
+    /* For Detecting Second Row Header Resize */
+    nThTarget = e.currentTarget.parentElement.parentElement
+      .previousElementSibling
+      ? e.currentTarget.parentElement.parentElement.previousElementSibling
+          .children[parseInt(idx, 10)]
+      : e.currentTarget.parentElement;
+
+    nThTarget.classList.add('hovered');
+
+    if (
+      resizeLineRef &&
+      resizeLineRef.current &&
+      tableRef &&
+      tableRef.current
+    ) {
+      let tableEleBounding = tableRef.current.getBoundingClientRect();
+      resizeLineRef.current.style.left =
+        e.clientX - tableEleBounding.left + `px`;
+      resizeDividerData['left'] = e.clientX - tableEleBounding.left;
+
+      /* MouseDownColumn data collected */
+      mouseDownColumnData['column'] = column;
+      mouseDownColumnData['idx'] = idx;
+      mouseDownColumnData['startX'] = e.clientX;
+      mouseDownColumnData['clientWidth'] = nThTarget
+        ? nThTarget.getBoundingClientRect().width
+        : 0;
+      mouseDownColumnData['currentElement'] = nThTarget;
+    }
+
+    /* On Mouse move */
+    const onPressMouseMove = e => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      if (isMouseDown) {
+        const { startX, clientWidth } = mouseDownColumnData;
+
+        moveLength = e && startX ? e.clientX - startX : 0;
+        totalLengthMoved = moveLength ? clientWidth + moveLength : 0;
+        let { left } = resizeDividerData;
+        if (
+          column &&
+          column.minResizeWidth &&
+          totalLengthMoved &&
+          totalLengthMoved < column.minResizeWidth
+        ) {
+          /* on minimum resize, adjust resizer */
+          minResizeFlag = true;
+          resizeLineRef.current.style.left =
+            left - clientWidth + column.minResizeWidth + `px`;
+        } else if (
+          column &&
+          column.minResizeWidth &&
+          totalLengthMoved &&
+          totalLengthMoved > column.maxResizeWidth
+        ) {
+          /* on max resize */
+          maxResizeFlag = true;
+          resizeLineRef.current.style.left =
+            left + (column.maxResizeWidth - clientWidth) + `px`;
+        } else {
+          maxResizeFlag = false;
+          minResizeFlag = false;
+          resizeLineRef.current.style.left = moveLength + left + `px`;
+        }
+      }
+    };
+
+    /* On Mouse up */
+    const onPressMouseUp = async e => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      if (!isMouseDown) return;
+
+      const { idx, clientWidth } = mouseDownColumnData;
+
+      const tempObj = [...tableConfiguration];
+      tempObj.map(item =>
+        item.width && item.width.includes('calc') ? delete item.width : item
+      );
+      if (minResizeFlag) {
+        tempObj[idx][`width`] =
+          clientWidth - (clientWidth - column.minResizeWidth) + `px`;
+      } else if (maxResizeFlag) {
+        tempObj[idx][`width`] =
+          clientWidth + (column.maxResizeWidth - clientWidth) + `px`;
+      } else {
+        tempObj[idx][`width`] = totalLengthMoved + `px`;
+      }
+      const tempConfig = getColumnStructure(
+        [...tempObj],
+        expandRowTemplate ? true : false
+      );
+
+      resizeDividerData['left'] = parseInt(
+        resizeLineRef.current.style.left.replace(/px/, ''),
+        10
+      );
+      isMouseDown = false;
+      clearOnMouseUp();
+      nThTarget ? nThTarget.classList.remove('hovered') : null;
+      removeListeners('datatablemouseup-' + column[`label`] + idx, 'mouseup');
+      removeListeners(
+        'datatablemousemove-' + column[`label`] + idx,
+        'mousemove'
+      );
+      await setTableConfiguration(tempConfig);
+      await setMouseDownonResize(false);
+      if (onColumnAfterResize)
+        onColumnAfterResize({ field: column['field'], width: column['width'] });
+      /* Callback post updating state */
+      if (moveLength !== 0) {
+        // console.log(tableConfiguration);
+      }
+    };
+
+    /* Adding Event Listeners */
+    addListener(
+      'datatablemousemove-' + column[`label`] + idx,
+      'mousemove',
+      e => {
+        onPressMouseMove(e);
+      },
+      false
+    );
+    addListener(
+      'datatablemouseup-' + column[`label`] + idx,
+      'mouseup',
+      e => {
+        onPressMouseUp(e);
+      },
+      false
+    );
+  };
+
+  const clearOnMouseUp = () => {
+    document.body.classList.remove('resize-table');
+    tableRef.current.parentElement.style.position = ``;
+  };
+  /* Table re-size ends */
+
   return (
     <div className={classnames}>
+      <div
+        ref={resizeLineRef}
+        style={{
+          display: isMouseDownForResize ? `block` : `none`
+        }}
+        className={`resize-line`}
+      />
       <table
         id={id}
         ref={tableRef}
@@ -152,6 +346,7 @@ const DataTable = ({
                   key={`heading-${index}`}
                   style={{
                     minWidth: column.width,
+                    width: column.width,
                     left: column.marginLeft,
                     right: column.marginRight,
                     ...column.styles
@@ -164,16 +359,40 @@ const DataTable = ({
                     column.pinned === 'right'
                       ? 'sticky-div sticky-right-div'
                       : ''
-                  }${column.sortable ? ' sortable' : ''}`}
+                  }${column.sortable ? ' sortable' : ''}${
+                    (resizable && column['allowResize'] !== false) ||
+                    !!column['allowResize']
+                      ? ' resizable'
+                      : ''
+                  }`}
                   tabIndex={column.sortable ? '0' : null}
                   onClick={column.sortable ? sort.bind(this, column) : null}
                   onKeyDown={
                     column.sortable ? sortOnEnter.bind(this, column) : null
                   }
                 >
-                  {headerSelection && column.field === 'checkbox'
-                    ? headerSelection
-                    : column.label}
+                  {headerSelection && column.field === 'checkbox' ? (
+                    headerSelection
+                  ) : (
+                    <>
+                      <span className="hcl-data-table-header">
+                        {column.label}
+                      </span>
+                      {(resizable && column['allowResize'] !== false) ||
+                      !!column['allowResize'] ? (
+                        <span
+                          className={`hcl-data-table-resizable`}
+                          onMouseDown={onColumnMouseDown.bind(
+                            this,
+                            column,
+                            index
+                          )}
+                        >
+                          <span className={`resize-handle`} />
+                        </span>
+                      ) : null}
+                    </>
+                  )}
 
                   {column.sortable ? (
                     sortedColumn.name === column.field && sortedColumn.order ? (
@@ -244,7 +463,6 @@ const DataTable = ({
                       minWidth: column.width,
                       left: column.marginLeft,
                       right: column.marginRight,
-                      top: '50px',
                       ...column.styles
                     }}
                     className={`${
@@ -255,9 +473,11 @@ const DataTable = ({
                       column.pinned === 'right'
                         ? 'sticky-div sticky-right-div'
                         : ''
-                    }${column.sortable ? ' sortable' : ''}`}
+                    }${column.sortable ? ' sortable' : ''}${
+                      column.allowResize ? ' resizable' : ''
+                    }`}
                   >
-                    <div>{column.columnHtml ? column.columnHtml : null}</div>
+                    {column.columnHtml ? column.columnHtml : null}
                   </th>
                 );
               })}
@@ -351,8 +571,24 @@ DataTable.propTypes = {
    *    renderHtml: (model)=> {return <span>{model.name}</span>} // For passing Custom Html
    *    columnHtml: ( <Search ariaLabel="Search" className=""defaultValue="" iconTheme="default" />) // For passing custom html in data column
    *    pinned: 'right' // Pass 'right' to pin column right or pass 'left' to pin column left
+   *    allowResize: true // Pass true to make column resizable.
+   *    minResizeWidth: '40px', // minimum resize width
+   *    maxResizeWidth: '120px', // maximum resize width
    * }] */
-  tableConfig: PropTypes.array,
+  tableConfig: PropTypes.arrayOf(
+    PropTypes.shape({
+      label: PropTypes.string,
+      field: PropTypes.string.isRequired,
+      sortable: PropTypes.bool,
+      width: PropTypes.string,
+      pinned: PropTypes.oneOf(['right', 'left']),
+      allowResize: PropTypes.bool,
+      minResizeWidth: PropTypes.string,
+      maxResizeWidth: PropTypes.string,
+      renderHtml: PropTypes.func,
+      columnHtml: PropTypes.func
+    })
+  ),
   /** Name of the custom class to apply to the Data Table. */
   className: PropTypes.string,
 
@@ -372,6 +608,12 @@ DataTable.propTypes = {
   headerSelection: PropTypes.node,
   /** When this property is set, sorting in each column iterates through three sort states: ascending, descending, and unsort.  */
   triStateSorting: PropTypes.bool,
+  /** To Enable resize for all table columns. For individual column config, check tableConfig's allowResize prop. */
+  resizable: PropTypes.bool,
+  /** For Sticky Headers. */
+  isHeaderSticky: PropTypes.bool,
+  /** Event after Column Resize. */
+  onColumnAfterResize: PropTypes.func,
   /** Used to initialize the sorting icon.
    * eg:
    * {
@@ -393,6 +635,9 @@ DataTable.defaultProps = {
   onRowSelect: () => {},
   expandRowTemplate: null,
   triStateSorting: false,
+  resizable: false,
+  isHeaderSticky: false,
+  onColumnAfterResize: () => {},
   initSortedColumn: {}
 };
 
