@@ -757,12 +757,12 @@ DataTable.propTypes = {
   headerSelection: PropTypes.node,
   /** When this property is set, sorting in each column iterates through three sort states: ascending, descending, and unsort.  */
   triStateSorting: PropTypes.bool,
-  /** To Enable resize for all table columns. For individual column config, check tableData's allowResize prop. */
-  resizable: PropTypes.bool,
   /** When this property is set, columns become draggable and can be swiched with other column  */
   columnDraggable: PropTypes.bool,
   /** When this property is set, icnon for coloumn reorder will apprear; default value is 'true'  */
   showDraggableIcon: PropTypes.bool,
+  /** To Enable resize for all table columns. For individual column config, check tableConfig's allowResize prop. */
+  resizable: PropTypes.bool,
   /** For Sticky Headers. */
   isHeaderSticky: PropTypes.bool,
   /** Event after Column Resize. */
