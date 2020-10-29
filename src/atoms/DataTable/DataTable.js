@@ -355,7 +355,7 @@ const DataTable = ({
     }
   };
 
-  const onDragLeave = e => {
+  const onDragLeave = () => {
     resizeLineRef.current.style.display = 'none';
   };
 

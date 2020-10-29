@@ -484,7 +484,8 @@ storiesOf('DataTable', module)
       `
       }
     }
-  ).add(
+  )
+  .add(
     'with column reorder',
     () => (
       <DataTable
