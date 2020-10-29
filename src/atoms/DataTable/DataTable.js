@@ -22,7 +22,7 @@ const DataTable = ({
   isHeaderSticky,
   onColumnAfterResize,
   initSortedColumn,
-  onColoumnReorder,
+  onColumnReorder,
   ...restProps
 }) => {
   const [rows, updateTableRowData] = useState(tableData);
@@ -407,7 +407,7 @@ const DataTable = ({
       }
     }
     setTableConfiguration(tempTableConfig);
-    onColoumnReorder(tempTableConfig);
+    onColumnReorder(tempTableConfig);
   };
   /* Table column re-order ends */
 
@@ -717,8 +717,8 @@ DataTable.propTypes = {
    *    columnHtml: ( <Search ariaLabel="Search" className=""defaultValue="" iconTheme="default" />) // For passing custom html in data column
    *    pinned: 'right' // Pass 'right' to pin column right or pass 'left' to pin column left
    *    allowResize: true // Pass true to make column resizable.
-   *    minResizeWidth: '40px', // minimum resize width
-   *    maxResizeWidth: '120px', // maximum resize width
+   *    minResizeWidth: 40, // minimum resize width
+   *    maxResizeWidth: 120, // maximum resize width
    * }] */
   tableConfig: PropTypes.arrayOf(
     PropTypes.shape({
@@ -728,10 +728,10 @@ DataTable.propTypes = {
       width: PropTypes.string,
       pinned: PropTypes.oneOf(['right', 'left']),
       allowResize: PropTypes.bool,
-      minResizeWidth: PropTypes.string,
-      maxResizeWidth: PropTypes.string,
+      minResizeWidth: PropTypes.number,
+      maxResizeWidth: PropTypes.number,
       renderHtml: PropTypes.func,
-      columnHtml: PropTypes.func
+      columnHtml: PropTypes.node
     })
   ),
   /** Name of the custom class to apply to the Data Table. */
@@ -771,8 +771,8 @@ DataTable.propTypes = {
    * }
    */
   initSortedColumn: PropTypes.object,
-  /** onColoumnReorder will be tiggered on each column reorder and receive updated tableConfig as parameter*/
-  onColoumnReorder: PropTypes.func
+  /** onColumnReorder will be tiggered on each column reorder and receive updated tableConfig as parameter*/
+  onColumnReorder: PropTypes.func
 };
 
 DataTable.defaultProps = {
@@ -792,7 +792,7 @@ DataTable.defaultProps = {
   isHeaderSticky: false,
   onColumnAfterResize: () => {},
   initSortedColumn: {},
-  onColoumnReorder: () => {}
+  onColumnReorder: () => {}
 };
 
 export default DataTable;

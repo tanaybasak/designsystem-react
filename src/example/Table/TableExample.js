@@ -194,7 +194,7 @@ class TableExample extends Component {
               onColumnAfterResize={this.colResize}
               initSortedColumn={this.state.initSortedColumn}
               columnDraggable
-              onColoumnReorder={dataTableConfig => {
+              onColumnReorder={dataTableConfig => {
                 console.log('dataTableConfig', dataTableConfig);
               }}
               // expandRowTemplate={() => {
