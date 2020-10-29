@@ -444,6 +444,7 @@ storiesOf('DataTable', module)
           <Checkbox aria-label="header checkbox" id={`header_checkbox`} />
         }
         onSort={action('Sort Action')}
+        isHeaderSticky
       />
     ),
     {
@@ -481,6 +482,30 @@ storiesOf('DataTable', module)
     import {Toggle} from '@patron/patron-react/toggle';
     import {Overflowmenu} from '@patron/patron-react/overflowmenu';
     import {Tag} from '@patron/patron-react/tag';
+      `
+      }
+    }
+  )
+  .add(
+    'with column reorder',
+    () => (
+      <DataTable
+        id="data_table_1"
+        type={`${boolean('Border', true) ? '' : 'borderless'}${
+          boolean('Zebra', false) ? ' zebra' : ''
+        }${select('Class Name', classOptions, '')}`}
+        tableData={tableData}
+        tableConfig={tableConfig}
+        onSort={action('Sort Action')}
+        columnDraggable
+      />
+    ),
+    {
+      info: {
+        text: `Description About DataTable Component
+
+      import { DataTable } from '@patron/patron-react/datatable';
+      
       `
       }
     }
