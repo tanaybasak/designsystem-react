@@ -498,6 +498,7 @@ storiesOf('DataTable', module)
         tableConfig={tableConfig}
         onSort={action('Sort Action')}
         columnDraggable
+        onColumnReorder={action('column-reorder')}
       />
     ),
     {
