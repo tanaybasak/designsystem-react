@@ -444,6 +444,7 @@ storiesOf('DataTable', module)
           <Checkbox aria-label="header checkbox" id={`header_checkbox`} />
         }
         onSort={action('Sort Action')}
+        isHeaderSticky
       />
     ),
     {

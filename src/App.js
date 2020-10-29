@@ -2074,7 +2074,7 @@ class App extends Component {
           id="data_table_1"
           onRowSelect={function noRefCheck() {}}
           onSort={function noRefCheck() {}}
-          resizable={true}
+          resizable
           tableConfig={[
             {
               field: 'name',
