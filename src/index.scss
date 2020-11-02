@@ -28,3 +28,14 @@
 .hcl-spinner-inline > svg {
   margin-left: unset;
 }
+
+
+
+.hcl-modal-container {
+  
+  &-warning {
+  
+      border-top: 0.25rem solid #fffcd5 !important;
+
+  }
+}

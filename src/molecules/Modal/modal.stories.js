@@ -8,7 +8,8 @@ import Modal from './Modal';
 
 const typeOptions = {
   Danger: 'danger',
-  Default: 'default'
+  Default: 'default',
+  Warning: 'warning'
 };
 
 const actions = [

@@ -22,6 +22,9 @@ const Modal = ({
   if (type === 'danger') {
     classNames.push(`${prefix}-modal-container-danger`);
   }
+  if (type === 'warning') {
+    classNames.push(`${prefix}-modal-container-warning`);
+  }
 
   useEffect(() => {
     modal.current.focus();
