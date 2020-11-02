@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import prefix from '../../settings';
 import Checkbox from '../Checkbox';
 import Overlay from '../Overlay';
-
+import { Close } from '../../util/icons';
 let dropdownIdRef = 0;
 const Dropdown = ({
   type,
@@ -208,7 +208,7 @@ const Dropdown = ({
                 {selectedCount}
               </span>
               <span
-                className={`${prefix}-close`}
+                className={`${prefix}-tag-close`}
                 aria-label="close-icon"
                 onKeyDown={event => {
                   if (event.key === 'Enter') {
@@ -218,7 +218,9 @@ const Dropdown = ({
                 }}
                 onClick={clearSelection}
                 tabIndex="0"
-              />
+              >
+                {Close}
+              </span>
             </button>
           ) : null}
           {label}

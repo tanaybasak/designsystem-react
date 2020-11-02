@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
-import { Info, Success, Danger, Warning } from '../../util/icons';
+import { Info, Success, Danger, Warning, Close } from '../../util/icons';
 
 const useIcon = kindProp =>
   ({
@@ -45,7 +45,9 @@ export default function Toast({
           type="button"
           aria-label="close"
           onClick={onClose}
-        />
+        >
+          {Close}
+        </button>
       ) : null}
     </div>
   ) : null;

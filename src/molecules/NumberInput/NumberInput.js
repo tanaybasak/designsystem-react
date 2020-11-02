@@ -63,10 +63,10 @@ const NumberInput = ({
 
   const increment = event => {
     event.preventDefault();
-    if (inputRef.current.stepUp) {
+    try {
       inputRef.current.stepUp();
       setValue(inputRef.current.value);
-    } else {
+    } catch (e) {
       stepUp(
         inputRef.current,
         inputRef.current.step === '' ? 1 : inputRef.current.step
@@ -80,15 +80,16 @@ const NumberInput = ({
 
   const decrement = event => {
     event.preventDefault();
-    if (inputRef.current.stepDown) {
+    try {
       inputRef.current.stepDown();
       setValue(inputRef.current.value);
-    } else {
+    } catch (e) {
       stepDown(
         inputRef.current,
         inputRef.current.step === '' ? 1 : inputRef.current.step
       );
     }
+
     inputRef.current.focus();
     if (restProps.onChange) {
       restProps.onChange(inputRef.current.value);
@@ -152,7 +153,7 @@ const NumberInput = ({
             <svg
               focusable="false"
               preserveAspectRatio="xMidYMid meet"
-              xmlns="http://www.w3.org/2000/svg"
+              xmlns="https://www.w3.org/2000/svg"
               viewBox="0 0 8 4"
               aria-hidden="true"
             >
@@ -170,7 +171,7 @@ const NumberInput = ({
             <svg
               focusable="false"
               preserveAspectRatio="xMidYMid meet"
-              xmlns="http://www.w3.org/2000/svg"
+              xmlns="https://www.w3.org/2000/svg"
               viewBox="0 0 8 4"
               aria-hidden="true"
             >
