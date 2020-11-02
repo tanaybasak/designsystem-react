@@ -70,7 +70,9 @@ const Tag = ({
           onClick={onClose}
           onKeyDown={keyListener}
           tabIndex={!disabled ? '0' : null}
-        >{Close}</span>
+        >
+          {Close}
+        </span>
       ) : null}
     </button>
   );
