@@ -18,13 +18,13 @@ class TableExample extends Component {
         renderHtml: row => {
           return <Checkbox id={`${row.id}_checkbox_`} name="testcheck" />;
         },
-
         width: '40px'
         // pinned: 'left'
       },
       {
         label: 'ID',
         field: 'id',
+        allowResize: false,
         columnHtml: (
           <Tag
             className=""
@@ -41,13 +41,16 @@ class TableExample extends Component {
             Sample Tag
           </Tag>
         ),
+
         width: '160px',
-        pinned: 'right'
+        pinned: 'left'
       },
 
       {
         label: 'Avatar',
-        pinned: 'left',
+        field: 'avtar',
+        pinned: 'right',
+
         renderHtml: model => {
           return (
             <img
@@ -57,22 +60,25 @@ class TableExample extends Component {
           );
         },
         columnHtml: <h6> this is temp</h6>,
-        width: '260px'
+        width: '260px',
+        minResizeWidth: 40, // not less than that
+        maxResizeWidth: 350 // not to restrict
       },
       {
         label: 'Full Name',
         field: 'name',
-        sortable: true,
-        //pinned: 'left',
+        sortable: true
+        // pinned: 'left',
         // renderHtml: model => {
         //     return (
         //       <span>{model.name} {model.name} {model.name} {model.name}{model.name} {model.name} {model.name} {model.name} {model.name} {model.name}</span>
         //     );
         //   },
-        width: '200px'
+        // width: '200px'
       },
       {
         label: 'Private',
+        field: 'private',
         renderHtml: model => {
           let classname = 'primary';
           if (!model.owner.site_admin) {
@@ -83,14 +89,14 @@ class TableExample extends Component {
               model.owner.site_admin ? 'Yes' : 'No'
             }`}</Tag>
           );
-        },
-        width: '120px'
+        }
+        // width: '120px'
       },
       {
         label: 'Language',
-        field: 'owner.login',
+        field: 'owner.login'
 
-        width: '120px'
+        // width: '120px'
       },
       {
         label: 'Has Issues',
@@ -105,13 +111,13 @@ class TableExample extends Component {
               toggled={model.has_issues}
             />
           );
-        },
-        width: '150px'
+        }
+        // width: '150px'
       },
       {
         label: 'Forks Count',
-        field: 'forks_count',
-        width: '120px'
+        field: 'forks_count'
+        // width: '120px'
       },
       {
         label: 'Branch',
@@ -121,8 +127,9 @@ class TableExample extends Component {
       },
       {
         label: 'Issues Count',
-        field: 'open_issues_count',
-        width: '120px'
+        field: 'open_issues_count'
+        // width: '420px'
+        // pinned: 'right'
       },
       {
         field: 'overflow',
@@ -140,8 +147,8 @@ class TableExample extends Component {
               }}
             />
           );
-        },
-        width: '500px'
+        }
+        // width: '400px'
       }
     ]
   };
@@ -168,60 +175,70 @@ class TableExample extends Component {
       .catch(error => {});
   };
 
+  colResize = data => {
+    console.log(data);
+  };
+
   render() {
     return (
-      <main className="hcl-content-main">
-        <section className="hcl-container pt-5 mb-5">
-          <div className="hcl-row m-0">
-            <div className="hcl-col-12 mt-5 mb-5" id="dataTableElement">
-              <DataTable
-                id="sample_table"
-                tableData={this.state.displayData}
-                tableConfig={this.state.tableConfig}
-                initSortedColumn={this.state.initSortedColumn}
-                // expandRowTemplate={() => {
-                //   return (<Paragraph>
-                //     available, but the majority have suffered alteration
-                //     in some form, by injected humour, or randomised words
-                //     which don&apos;t look even slightly believable. If you
-                //     are going to use a passage of Lorem Ipsum, you need to
-                //     be sure there isn&apos;t anything embarrassing hidden
-                //     in the middle of text. All the Lorem Ipsum generators
-                //     on the Internet tend to repeat predefined chunks as
-                //     necessary, making this the first true generator on the
-                //     Internet. It uses a dictionary of over 200 Latin
-                //     words, combined with a handful of model sentence
-                //     structures, to generate Lorem Ipsum which looks
-                //     reasonable. The generated Lorem Ipsum is therefore
-                //     always free from repetition, injected humour, or
-                //     non-characteristic words etc.
-                //   </Paragraph>);
-                // }}
-                type="zebra borderless"
-                onSort={(field, order) => {
-                  if (order === null) {
-                    this.setState({
-                      displayData: [...this.state.tableData]
-                    });
-                  } else {
-                    let newData = [...this.state.displayData].sort((a, b) => {
-                      if (a[field].toLowerCase() > b[field].toLowerCase())
-                        return order === 'asc' ? 1 : -1;
-                      if (b[field].toLowerCase() > a[field].toLowerCase())
-                        return order === 'asc' ? -1 : 1;
-                      return 0;
-                    });
-                    this.setState({
-                      displayData: newData
-                    });
-                  }
-                }}
-                headerSelection={<Checkbox id={`header_checkbox`} />}
-              />
-            </div>
+      <section className="hcl-container pt-5 mb-5">
+        <div className="hcl-row m-0">
+          <div className="hcl-col-12 mt-5 mb-5" id="dataTableElement">
+            <DataTable
+              resizable
+              // showDraggableIcon ={false}
+              id="sample_table"
+              tableData={this.state.displayData}
+              tableConfig={this.state.tableConfig}
+              resizable
+              onColumnAfterResize={this.colResize}
+              initSortedColumn={this.state.initSortedColumn}
+              columnDraggable
+              onColumnReorder={dataTableConfig => {
+                console.log('dataTableConfig', dataTableConfig);
+              }}
+              // expandRowTemplate={() => {
+              //   return (<Paragraph>
+              //     available, but the majority have suffered alteration
+              //     in some form, by injected humour, or randomised words
+              //     which don&apos;t look even slightly believable. If you
+              //     are going to use a passage of Lorem Ipsum, you need to
+              //     be sure there isn&apos;t anything embarrassing hidden
+              //     in the middle of text. All the Lorem Ipsum generators
+              //     on the Internet tend to repeat predefined chunks as
+              //     necessary, making this the first true generator on the
+              //     Internet. It uses a dictionary of over 200 Latin
+              //     words, combined with a handful of model sentence
+              //     structures, to generate Lorem Ipsum which looks
+              //     reasonable. The generated Lorem Ipsum is therefore
+              //     always free from repetition, injected humour, or
+              //     non-characteristic words etc.
+              //   </Paragraph>);
+              // }}
+              type="zebra borderless"
+              onSort={(field, order) => {
+                if (order === null) {
+                  this.setState({
+                    displayData: [...this.state.tableData]
+                  });
+                } else {
+                  let newData = [...this.state.displayData].sort((a, b) => {
+                    if (a[field].toLowerCase() > b[field].toLowerCase())
+                      return order === 'asc' ? 1 : -1;
+                    if (b[field].toLowerCase() > a[field].toLowerCase())
+                      return order === 'asc' ? -1 : 1;
+                    return 0;
+                  });
+                  this.setState({
+                    displayData: newData
+                  });
+                }
+              }}
+              headerSelection={<Checkbox id={`header_checkbox`} />}
+            />
           </div>
-        </section>
-      </main>
+        </div>
+      </section>
     );
   }
 }

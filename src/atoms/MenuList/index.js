@@ -1,3 +1,3 @@
-import MenuList from './Menulist';
+import MenuList from './MenuList';
 import Item from './Item';
 export { MenuList, Item };

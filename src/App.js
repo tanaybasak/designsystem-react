@@ -45,6 +45,7 @@ import Password from './atoms/Password';
 
 class App extends Component {
   state = {
+    indeterminate: false,
     showOverlay: false,
     totalItems: 300,
     currentPage: 3,
@@ -502,6 +503,27 @@ class App extends Component {
               </div>
               {/* Checkbox */}
               <div className="hcl-col-12 mt-5" id="checkbox-section">
+                <legend className="hcl-legend">Checkbox - INDETERMINATE</legend>
+                <Button
+                  onClick={() => {
+                    this.setState({ indeterminate: !this.state.indeterminate });
+                  }}
+                />
+                <div className="hcl-checkbox-group">
+                  <Checkbox
+                    id="checkbox1"
+                    indeterminate={this.state.indeterminate}
+                    label="1 (default)"
+                    onChange={e => {
+                      this.setState({
+                        indeterminate: e.currentTarget.indeterminate
+                      });
+                    }}
+                  />
+                </div>
+              </div>
+
+              <div className="hcl-col-12 mt-5" id="checkbox-section">
                 <legend className="hcl-legend">
                   Checkbox - Horizontally arranged (default)
                 </legend>
@@ -509,8 +531,10 @@ class App extends Component {
                   <Checkbox
                     id="checkbox1"
                     label="1 (default)"
-                    onChange={() => {
-                      console.log('Default Checkbox.');
+                    onChange={e => {
+                      this.setState({
+                        indeterminate: e.currentTarget.indeterminate
+                      });
                     }}
                   />
                   <Checkbox
