@@ -9,10 +9,11 @@ import { Select, SelectItem, SelectItemGroup } from './index';
 const props = {
   select: () => ({
     label: text('Label', 'Select Option'),
-    onChange: action('onChange')
+    onChange: action('onChange'),
+    disabled: boolean('disabled', false)
   }),
   group: () => ({
-    disabled: boolean('Disabled', false)
+    disabled: boolean('disabled', false)
   })
 };
 
