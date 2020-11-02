@@ -13,7 +13,7 @@ const props = {
     disabled: boolean('disabled', false)
   }),
   group: () => ({
-    disabled: boolean('disabled', false)
+    disabled: boolean('Disabled', false)
   })
 };
 
