@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 
-const Select = ({ label, onChange, id, className, ...restProps }) => {
+const Select = ({ label, onChange, id, className,disabled, ...restProps }) => {
+
   const onSelect = event => {
     const itemSelected = {
       value:
@@ -13,13 +14,18 @@ const Select = ({ label, onChange, id, className, ...restProps }) => {
     onChange(itemSelected);
   };
 
+
+  
   const classnames = `${prefix}-select ${className}`.trim();
+  
+  
 
   return (
     <>
       {label ? <label htmlFor={id}>{label}</label> : null}
       <select
         id={id}
+        disabled = {disabled}
         className={classnames}
         onChange={onSelect}
         {...restProps}
