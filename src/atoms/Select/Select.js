@@ -51,7 +51,7 @@ Select.defaultProps = {
   onChange: () => {},
   className: '',
   id: null,
-  disabled : false
+  disabled: false
 };
 
 export default Select;
