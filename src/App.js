@@ -275,7 +275,7 @@ class App extends Component {
       <svg
         focusable="false"
         preserveAspectRatio="xMidYMid meet"
-        xmlns="http://www.w3.org/2000/svg"
+        xmlns="https://www.w3.org/2000/svg"
         width="16"
         height="16"
         viewBox="0 0 16 16"
@@ -293,7 +293,7 @@ class App extends Component {
         data-type="icon"
         focusable="false"
         preserveAspectRatio="xMidYMid meet"
-        xmlns="http://www.w3.org/2000/svg"
+        xmlns="https://www.w3.org/2000/svg"
         width="16"
         height="16"
         viewBox="0 0 16 16"
@@ -487,7 +487,7 @@ class App extends Component {
                     width="16"
                     height="16"
                     viewBox="0 0 16 16"
-                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns="https://www.w3.org/2000/svg"
                     aria-hidden="true"
                   >
                     <path
@@ -1818,7 +1818,7 @@ class App extends Component {
                           width="16"
                           height="16"
                           viewBox="0 0 16 16"
-                          xmlns="http://www.w3.org/2000/svg"
+                          xmlns="https://www.w3.org/2000/svg"
                           aria-hidden="true"
                         >
                           <path
@@ -1840,7 +1840,7 @@ class App extends Component {
                           width="16"
                           height="16"
                           viewBox="0 0 16 16"
-                          xmlns="http://www.w3.org/2000/svg"
+                          xmlns="https://www.w3.org/2000/svg"
                           aria-hidden="true"
                         >
                           <path
@@ -1862,7 +1862,7 @@ class App extends Component {
                           width="16"
                           height="16"
                           viewBox="0 0 16 16"
-                          xmlns="http://www.w3.org/2000/svg"
+                          xmlns="https://www.w3.org/2000/svg"
                           aria-hidden="true"
                         >
                           <path

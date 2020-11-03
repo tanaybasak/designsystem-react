@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 import Paragraph from '../../atoms/Paragraph/Paragraph';
-
+import { Close } from '../../util/icons';
 export default function FileUploader({
   id,
   className,
@@ -38,7 +38,7 @@ export default function FileUploader({
       : [...filelist];
     setFileList(tempFileLists);
     onChange(tempFileLists, event);
-    event.target.value = null;
+    //event.target.value = null;
   };
 
   const removeFile = (event, name) => {
@@ -100,7 +100,9 @@ export default function FileUploader({
                     onClick={e => removeFile(e, fileList.name)}
                     type="button"
                     className={`${prefix}-file-close`}
-                  />
+                  >
+                    {Close}
+                  </button>
                 </div>
               ))
             : null}
