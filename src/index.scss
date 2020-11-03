@@ -6,4 +6,24 @@
 #root {
   height: 100vh;
 }
+/*Tabs testing */
+.hcl-tabs-nav-item {
+  border-bottom: 2px solid transparent;
+}
 
+.hcl-tabs-nav-item:focus:hover {
+  border-bottom: 2px solid #0066b0;
+}
+
+.hcl-tabs-nav-link:focus {
+  outline: none;
+}
+
+.hcl-tabs-nav-link {
+  user-select: none;
+}
+
+.hcl-tabs-nav-item.active:focus {
+  border-bottom: 2px solid transparent;
+}
+/*Tabs testing */

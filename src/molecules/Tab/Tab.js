@@ -20,57 +20,48 @@ const keyListener = e => {
 
 const focusNode = (node, direction = 'next') => {
   if (direction === 'next') {
-    if (!node.parentElement.nextElementSibling) {
+    if (!node.nextElementSibling) {
       if (
-        node.parentElement.parentElement.firstElementChild.classList.contains(
+        node.parentElement.firstElementChild.classList.contains(
           `${prefix}-tabs-disabled`
         )
       ) {
-        focusNode(
-          node.parentElement.parentElement.firstElementChild.firstElementChild
-        );
+        focusNode(node.parentElement.firstElementChild);
       } else {
-        node.parentElement.parentElement.firstElementChild.firstElementChild.focus();
+        node.parentElement.firstElementChild.focus();
       }
     } else if (
-      node.parentElement.nextElementSibling &&
-      node.parentElement.nextElementSibling.classList.contains(
-        `${prefix}-tabs-disabled`
-      )
+      node.nextElementSibling &&
+      node.nextElementSibling.classList.contains(`${prefix}-tabs-disabled`)
     ) {
-      focusNode(node.parentElement.nextElementSibling.firstElementChild);
+      focusNode(node.nextElementSibling);
     } else {
-      if (node.parentElement.nextElementSibling) {
-        node.parentElement.nextElementSibling.firstElementChild.focus();
+      if (node.nextElementSibling) {
+        node.nextElementSibling.focus();
       }
     }
   } else if (direction === 'previous') {
-    if (!node.parentElement.previousElementSibling) {
+    if (!node.previousElementSibling) {
       if (
-        node.parentElement.parentElement.lastElementChild.classList.contains(
+        node.parentElement.lastElementChild.classList.contains(
           `${prefix}-tabs-disabled`
         )
       ) {
         focusNode(
-          node.parentElement.parentElement.lastElementChild.firstElementChild,
+          node.parentElement.lastElementChild.firstElementChild,
           'previous'
         );
       } else {
-        node.parentElement.parentElement.lastElementChild.firstElementChild.focus();
+        node.parentElement.lastElementChild.focus();
       }
     } else if (
-      node.parentElement.previousElementSibling &&
-      node.parentElement.previousElementSibling.classList.contains(
-        `${prefix}-tabs-disabled`
-      )
+      node.previousElementSibling &&
+      node.previousElementSibling.classList.contains(`${prefix}-tabs-disabled`)
     ) {
-      focusNode(
-        node.parentElement.previousElementSibling.firstElementChild,
-        'previous'
-      );
+      focusNode(node.previousElementSibling, 'previous');
     } else {
-      if (node.parentElement.previousElementSibling) {
-        node.parentElement.previousElementSibling.firstElementChild.focus();
+      if (node.previousElementSibling) {
+        node.previousElementSibling.focus();
       }
     }
   }
@@ -83,14 +74,10 @@ function Tab({ label, onClick, active, isDisabled }) {
         isDisabled ? `${prefix}-tabs-disabled` : ''
       }`}
       onClick={onClick}
+      tabIndex={0}
+      onKeyDown={keyListener}
     >
-      <a
-        className={`${prefix}-tabs-nav-link`}
-        onKeyDown={keyListener}
-        tabIndex={0}
-      >
-        {label}
-      </a>
+      <a className={`${prefix}-tabs-nav-link`}>{label}</a>
     </li>
   );
 }
