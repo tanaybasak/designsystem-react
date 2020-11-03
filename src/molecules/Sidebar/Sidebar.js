@@ -114,6 +114,22 @@ const Sidebar = ({
 
   const getSidebarLink = (item, categoryIndex) => {
     if ((item.children && item.children.length) || !sidebarLinkTemplate) {
+      let flag = false;
+      if (activeItem) {
+        if (item.children) {
+          flag = item.children.some(child => child.href === activeItem.href);
+        } else if (item.title === activeItem.title) {
+          flag = true;
+        }
+      }
+
+      const highlightedClass =
+        expnd && item.expanded === false && flag
+          ? ' highlight'
+          : flag && !expnd
+          ? ' highlight'
+          : ' ';
+
       return (
         <a
           onClick={
@@ -123,6 +139,7 @@ const Sidebar = ({
           }
           tabIndex="0"
           title={item.title}
+          className={`hcl-sidebar-item` + highlightedClass}
           onKeyDown={keyDown.bind(this, item, categoryIndex)}
           href={item.href}
         >
@@ -135,7 +152,6 @@ const Sidebar = ({
                 }`
               })
             : null}
-
           <span
             className={`hcl-sidebar-link${
               item.iconClass || item.icon ? '' : ' no-icon'
@@ -143,7 +159,6 @@ const Sidebar = ({
           >
             {item.title}
           </span>
-
           {item.children && item.children.length ? (
             <Icon
               type="svg"
@@ -159,9 +174,13 @@ const Sidebar = ({
       );
     } else {
       let template = sidebarLinkTemplate(item);
+      const highlightedClass =
+        activeItem && !expnd && item.title === activeItem.title
+          ? ' highlight'
+          : '';
       return React.cloneElement(template, {
         tabIndex: '0',
-        className: `${prefix}-sidebar-link`,
+        className: `${prefix}-sidebar-item` + highlightedClass,
         onKeyDown: keyDown.bind(this, item, null),
         onClick: itemClicked.bind(this, item),
         title: item.title,
