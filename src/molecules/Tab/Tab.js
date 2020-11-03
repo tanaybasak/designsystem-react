@@ -104,7 +104,7 @@ Tab.propTypes = {
 
 false – ‘active’ is removed from the current element.  */
   active: PropTypes.bool,
-  /** Accepts Click handler as prop/Argument. */
+  /** @ignore */
   onClick: PropTypes.func
 };
 Tab.defaultProps = {
