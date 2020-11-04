@@ -66,13 +66,13 @@ const focusNode = (node, direction = 'next') => {
     }
   }
 };
-function Tab({ label, onClick, active, isDisabled }) {
+function Tab({ label, onClick, active, isDisabled, className }) {
   return (
     <li
       role="tab"
-      className={`${prefix}-tabs-nav-item ${active ? 'active' : ''} ${
-        isDisabled ? `${prefix}-tabs-disabled` : ''
-      }`}
+      className={`${prefix}-tabs-nav-item${active ? ' active' : ''}${
+        isDisabled ? ` ${prefix}-tabs-disabled` : ''
+      } ${className}`.trim()}
       onClick={onClick}
       tabIndex={0}
       onKeyDown={keyListener}
@@ -85,6 +85,7 @@ function Tab({ label, onClick, active, isDisabled }) {
 Tab.propTypes = {
   /** Text used to Differentiate Each Tab. */
   label: PropTypes.string,
+  className: PropTypes.string,
   /** Disables Tab if 'true'*/
   isDisabled: PropTypes.bool,
   /** true – ‘active’ class is added to the current element 
@@ -96,6 +97,7 @@ false – ‘active’ is removed from the current element.  */
 };
 Tab.defaultProps = {
   label: '',
+  className: '',
   isDisabled: false,
   active: true,
   onClick: () => {}

@@ -7,7 +7,7 @@ function Tabs({ activeIndex, onChange, children }) {
 
   const modifiedChildren = React.Children.map(children, (child, index) => {
     if (child) {
-      const { isDisabled, label } = child.props;
+      const { isDisabled, label, className } = child.props;
       return cloneElement(child, {
         onClick: e => {
           if (!isDisabled) {
@@ -16,7 +16,8 @@ function Tabs({ activeIndex, onChange, children }) {
           }
         },
         key: 'tab' + index,
-        active: isActive === index
+        active: isActive === index,
+        className: className
       });
     }
   });
