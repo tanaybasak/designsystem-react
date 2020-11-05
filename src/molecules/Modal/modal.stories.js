@@ -23,7 +23,7 @@ storiesOf('Modal', module).add(
       actions={object('Actions', actions)}
       heading={text('Heading', 'Heading')}
       label={text('Label', 'label')}
-      showClose={boolean('showClose', false)}
+      showClose={boolean('showClose', true)}
       onClose={action('Modal on Close')}
       type={select('Type', typeOptions, 'danger')}
     >
