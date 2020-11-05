@@ -967,7 +967,7 @@ class App extends Component {
                     console.log(`Label => ${e.label} Index => ${e.tabIndex}`);
                   }}
                 >
-                  <Tab label="Tab List 1">
+                  <Tab label="Tab List 1" className="testing">
                     Content 1
                     <Accordion>
                       <AccordionItem

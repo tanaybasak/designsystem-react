@@ -18,7 +18,6 @@ storiesOf('Pagination', module)
       <Pagination
         itemsPerPageText={text('Items Per Page Text', 'Items per Page:')}
         itemsStepperLimit={number('Items Per Page Limit', 100)}
-        onChange={action('on change')}
         onItemsPerPageChange={action('item per page change')}
         itemsPerPageStepper={number('Items Per Page Stepper', 20)}
         itemsPerPageToSelect={number('Items Per Page Selected', 40)}
@@ -41,7 +40,6 @@ storiesOf('Pagination', module)
       <Pagination
         itemsPerPageText={text('Items Per Page Text', 'Items per Page:')}
         itemsStepperLimit={number('Items Per Page Limit', 100)}
-        onChange={action('on change')}
         position={object('Position', position)}
         onItemsPerPageChange={action('item per page change')}
         itemsPerPageStepper={number('Items Per Page Stepper', 20)}
