@@ -116,10 +116,9 @@ const Sidebar = ({
   };
 
   const getSidebarLink = (item, categoryIndex, parentItem) => {
+    let highlightedClass = ' ';
+    const itemMatchedToParent = activeItem && activeItem.parent === item.title;
     if ((item.children && item.children.length) || !sidebarLinkTemplate) {
-      let highlightedClass = ' ';
-      const itemMatchedToParent =
-        activeItem && activeItem.parent === item.title;
       if (itemMatchedToParent) {
         if (item.expanded === false) highlightedClass = ' highlight';
         else if (!expnd) highlightedClass = ' highlight';
@@ -169,10 +168,9 @@ const Sidebar = ({
       );
     } else {
       let template = sidebarLinkTemplate(item);
-      const highlightedClass =
-        !expnd && activeItem && activeItem.parent === item.title
-          ? ' highlight'
-          : '';
+      if (itemMatchedToParent && !expnd) {
+        highlightedClass = ' highlight';
+      }
       return React.cloneElement(template, {
         tabIndex: '0',
         className: `${prefix}-sidebar-item ${highlightedClass}`,
