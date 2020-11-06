@@ -117,12 +117,13 @@ const Sidebar = ({
 
   const getSidebarLink = (item, categoryIndex, parentItem) => {
     if ((item.children && item.children.length) || !sidebarLinkTemplate) {
-      const highlightedClass =
-        expnd && item.expanded === false && activeItem.parent === item.title
-          ? ' highlight'
-          : !expnd && activeItem && activeItem.parent === item.title
-          ? ' highlight'
-          : ' ';
+      let highlightedClass = ' ';
+      const itemMatchedToParent =
+        activeItem && activeItem.parent === item.title;
+      if (itemMatchedToParent) {
+        if (item.expanded === false) highlightedClass = ' highlight';
+        else if (!expnd) highlightedClass = ' highlight';
+      }
 
       return (
         <a
