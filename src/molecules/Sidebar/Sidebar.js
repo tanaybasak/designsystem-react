@@ -64,6 +64,7 @@ const Sidebar = ({
         return link.href === activeLink;
       });
       if (activeItem) {
+        activeItem.parent = activeItem.title;
         setActiveItem(activeItem);
       } else {
         sidebarList.map((link, index) => {
@@ -75,6 +76,7 @@ const Sidebar = ({
               let tempItem = [...sidebarList];
               tempItem[index].expanded = true;
               updateSidebarList([...tempItem]);
+              activeItem.parent = link.title;
               setActiveItem(activeItem);
             }
           }
@@ -104,7 +106,8 @@ const Sidebar = ({
     updateSidebarList([...tempItem]);
   };
 
-  const itemClicked = (item, event) => {
+  const itemClicked = (item, parentItem, event) => {
+    item.parent = parentItem ? parentItem.title : item.title;
     setActiveItem(item);
     onClick(item, event);
     if (window.innerWidth < 992) {
@@ -112,21 +115,12 @@ const Sidebar = ({
     }
   };
 
-  const getSidebarLink = (item, categoryIndex) => {
+  const getSidebarLink = (item, categoryIndex, parentItem) => {
     if ((item.children && item.children.length) || !sidebarLinkTemplate) {
-      let flag = false;
-      if (activeItem) {
-        if (item.children) {
-          flag = item.children.some(child => child.href === activeItem.href);
-        } else if (item.title === activeItem.title) {
-          flag = true;
-        }
-      }
-
       const highlightedClass =
-        expnd && item.expanded === false && flag
+        expnd && item.expanded === false && activeItem.parent === item.title
           ? ' highlight'
-          : flag && !expnd
+          : !expnd && activeItem && activeItem.parent === item.title
           ? ' highlight'
           : ' ';
 
@@ -135,12 +129,12 @@ const Sidebar = ({
           onClick={
             item.children && item.children.length
               ? expandSidebarCategory.bind(this, categoryIndex)
-              : itemClicked.bind(this, item)
+              : itemClicked.bind(this, item, parentItem)
           }
           tabIndex="0"
           title={item.title}
-          className={`hcl-sidebar-item` + highlightedClass}
-          onKeyDown={keyDown.bind(this, item, categoryIndex)}
+          className={`hcl-sidebar-item${highlightedClass}`}
+          onKeyDown={keyDown.bind(this, item, categoryIndex, parentItem)}
           href={item.href}
         >
           {item.icon
@@ -175,14 +169,14 @@ const Sidebar = ({
     } else {
       let template = sidebarLinkTemplate(item);
       const highlightedClass =
-        activeItem && !expnd && item.title === activeItem.title
+        !expnd && activeItem && activeItem.parent === item.title
           ? ' highlight'
           : '';
       return React.cloneElement(template, {
         tabIndex: '0',
-        className: `${prefix}-sidebar-item` + highlightedClass,
-        onKeyDown: keyDown.bind(this, item, null),
-        onClick: itemClicked.bind(this, item),
+        className: `${prefix}-sidebar-item ${highlightedClass}`,
+        onKeyDown: keyDown.bind(this, item, null, parentItem),
+        onClick: itemClicked.bind(this, item, parentItem),
         title: item.title,
         children: (
           <>
@@ -215,7 +209,7 @@ const Sidebar = ({
     }
   };
 
-  const keyDown = (item, categoryIndex, e) => {
+  const keyDown = (item, categoryIndex, parentItem, e) => {
     var key = e.which || e.keyCode;
     const nodeElement = e.currentTarget;
     switch (key) {
@@ -223,6 +217,7 @@ const Sidebar = ({
         if (item.children && item.children.length && categoryIndex) {
           expandSidebarCategory(categoryIndex, e);
         } else {
+          item.parent = parentItem ? parentItem.title : item.title;
           setActiveItem(item);
           nodeElement.click();
         }
@@ -372,7 +367,7 @@ const Sidebar = ({
                           }`}
                           key={`sidebar_category_children_${categoryIndex}_${subItemIndex}`}
                         >
-                          {getSidebarLink(subItem)}
+                          {getSidebarLink(subItem, null, item)}
                         </li>
                       );
                     })}
