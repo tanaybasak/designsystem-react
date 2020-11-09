@@ -145,9 +145,9 @@ const Tooltip = ({ type, content, direction, children }) => {
             icon,
             'left',
             parentCoords.left +
-            parentCoords.width / 2 -
-            arrowSize -
-            tooltipAdjustment
+              parentCoords.width / 2 -
+              arrowSize -
+              tooltipAdjustment
           );
         } else if (diff >= 1 && diff < tooltipAdjustment) {
           diff = tooltipAdjustment - diff;
@@ -156,9 +156,9 @@ const Tooltip = ({ type, content, direction, children }) => {
             icon,
             'left',
             parentCoords.left +
-            parentCoords.width / 2 -
-            arrowSize -
-            (tooltipAdjustment + diff)
+              parentCoords.width / 2 -
+              arrowSize -
+              (tooltipAdjustment + diff)
           );
 
           diff = -tooltipAdjustment;
@@ -178,10 +178,10 @@ const Tooltip = ({ type, content, direction, children }) => {
             icon,
             'right',
             window.innerWidth -
-            parentCoords.right +
-            parentCoords.width / 2 -
-            arrowSize -
-            tooltipAdjustment
+              parentCoords.right +
+              parentCoords.width / 2 -
+              arrowSize -
+              tooltipAdjustment
           );
         } else if (
           right < window.innerWidth &&
@@ -191,10 +191,10 @@ const Tooltip = ({ type, content, direction, children }) => {
             icon,
             'right',
             window.innerWidth -
-            parentCoords.right +
-            parentCoords.width / 2 -
-            arrowSize -
-            (tooltipAdjustment + (window.innerWidth - right))
+              parentCoords.right +
+              parentCoords.width / 2 -
+              arrowSize -
+              (tooltipAdjustment + (window.innerWidth - right))
           );
           diff = tooltipAdjustment;
         } else {
@@ -203,9 +203,9 @@ const Tooltip = ({ type, content, direction, children }) => {
             icon,
             'right',
             window.innerWidth -
-            parentCoords.right +
-            parentCoords.width / 2 -
-            arrowSize
+              parentCoords.right +
+              parentCoords.width / 2 -
+              arrowSize
           );
         }
         break;
@@ -218,9 +218,9 @@ const Tooltip = ({ type, content, direction, children }) => {
             icon,
             'top',
             parentCoords.top +
-            parentCoords.height / 2 -
-            arrowSize -
-            tooltipAdjustment
+              parentCoords.height / 2 -
+              arrowSize -
+              tooltipAdjustment
           );
         } else if (diff >= 1 && diff < tooltipAdjustment) {
           diff = tooltipAdjustment - diff;
@@ -228,9 +228,9 @@ const Tooltip = ({ type, content, direction, children }) => {
             icon,
             'top',
             parentCoords.top +
-            parentCoords.height / 2 -
-            arrowSize -
-            tooltipAdjustment
+              parentCoords.height / 2 -
+              arrowSize -
+              tooltipAdjustment
           );
 
           diff = -diff;
@@ -250,9 +250,9 @@ const Tooltip = ({ type, content, direction, children }) => {
             icon,
             'bottom',
             window.innerHeight -
-            (parentCoords.bottom - parentCoords.height / 2) -
-            arrowSize -
-            tooltipAdjustment
+              (parentCoords.bottom - parentCoords.height / 2) -
+              arrowSize -
+              tooltipAdjustment
           );
         } else if (
           bottom < window.innerHeight &&
@@ -262,10 +262,10 @@ const Tooltip = ({ type, content, direction, children }) => {
             icon,
             'bottom',
             window.innerHeight -
-            (parentCoords.bottom - parentCoords.height / 2) -
-            arrowSize -
-            tooltipAdjustment -
-            (window.innerHeight - bottom)
+              (parentCoords.bottom - parentCoords.height / 2) -
+              arrowSize -
+              tooltipAdjustment -
+              (window.innerHeight - bottom)
           );
           diff = tooltipAdjustment;
         } else {
@@ -274,8 +274,8 @@ const Tooltip = ({ type, content, direction, children }) => {
             icon,
             'bottom',
             window.innerHeight -
-            (parentCoords.bottom - parentCoords.height / 2) -
-            arrowSize
+              (parentCoords.bottom - parentCoords.height / 2) -
+              arrowSize
           );
         }
         break;
@@ -730,13 +730,13 @@ const Tooltip = ({ type, content, direction, children }) => {
         : null}
     </span>
   ) : (
-      <React.Fragment>
-        {element}
-        {showTooltip
-          ? TooltipContainer(content, type, tooltipContainerRef)
-          : null}
-      </React.Fragment>
-    );
+    <React.Fragment>
+      {element}
+      {showTooltip
+        ? TooltipContainer(content, type, tooltipContainerRef)
+        : null}
+    </React.Fragment>
+  );
 };
 
 Tooltip.propTypes = {
