@@ -64,7 +64,7 @@ const Sidebar = ({
         return link.href === activeLink;
       });
       if (activeItem) {
-        activeItem.parent = activeItem.title;
+        activeItem.parentItem = activeItem;
         setActiveItem(activeItem);
       } else {
         sidebarList.map((link, index) => {
@@ -76,7 +76,7 @@ const Sidebar = ({
               let tempItem = [...sidebarList];
               tempItem[index].expanded = true;
               updateSidebarList([...tempItem]);
-              activeItem.parent = link.title;
+              activeItem.parentItem = link;
               setActiveItem(activeItem);
             }
           }
@@ -107,7 +107,7 @@ const Sidebar = ({
   };
 
   const itemClicked = (item, parentItem, event) => {
-    item.parent = parentItem ? parentItem.title : item.title;
+    item.parentItem = parentItem ? parentItem : item;
     setActiveItem(item);
     onClick(item, event);
     if (window.innerWidth < 992) {
@@ -117,7 +117,8 @@ const Sidebar = ({
 
   const getSidebarLink = (item, categoryIndex, parentItem) => {
     let highlightedClass = ' ';
-    const itemMatchedToParent = activeItem && activeItem.parent === item.title;
+    const itemMatchedToParent = activeItem && activeItem.parentItem === item;
+
     if ((item.children && item.children.length) || !sidebarLinkTemplate) {
       if (itemMatchedToParent) {
         if (item.expanded === false) highlightedClass = ' highlight';
@@ -216,7 +217,7 @@ const Sidebar = ({
         if (item.children && item.children.length && categoryIndex) {
           expandSidebarCategory(categoryIndex, e);
         } else {
-          item.parent = parentItem ? parentItem.title : item.title;
+          item.parentItem = parentItem ? parentItem : item;
           setActiveItem(item);
           nodeElement.click();
         }
