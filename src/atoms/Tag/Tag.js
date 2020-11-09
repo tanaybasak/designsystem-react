@@ -15,12 +15,6 @@ const Tag = ({
   ...restProps
 }) => {
   const classnames = `${prefix}-tag hcl-tag-${type} ${className}`.trim();
-  const keyListener = event => {
-    if (event.keyCode === 13) {
-      event.preventDefault();
-      event.target.click();
-    }
-  };
 
   let element = null;
   icon
@@ -46,12 +40,7 @@ const Tag = ({
     : null;
 
   return (
-    <button
-      type="button"
-      className={classnames}
-      disabled={disabled}
-      {...restProps}
-    >
+    <span className={classnames} disabled={disabled} {...restProps}>
       {thumbnail
         ? React.cloneElement(thumbnail, {
             className: `${prefix}-tag-thumbnail${
@@ -64,17 +53,17 @@ const Tag = ({
       </span>
       {element}
       {closable ? (
-        <span
+        <button
           className={`${prefix}-tag-close`}
           aria-label={!disabled ? 'close' : null}
           onClick={onClose}
-          onKeyDown={keyListener}
+          type="button"
           tabIndex={!disabled ? '0' : null}
         >
           {Close}
-        </span>
+        </button>
       ) : null}
-    </button>
+    </span>
   );
 };
 
@@ -82,7 +71,7 @@ Tag.propTypes = {
   /** Custom class for tag */
   className: PropTypes.string,
   /** Text value for tag */
-  children: PropTypes.string,
+  children: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   /** Text value for tag */
   text: PropTypes.string,
   /** Type of Tag eg: 'primary', 'secondary' */

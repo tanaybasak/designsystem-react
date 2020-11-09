@@ -2,32 +2,28 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 
-const Pager = props => {
-  if (
-    !props.options &&
-    !props.className &&
-    !props.onChange &&
-    !props.onKeyDown &&
-    props.options.length <= 0 &&
-    !props.value
-  ) {
-    return null;
-  }
-
+const Pager = ({
+  options,
+  className,
+  onKeyDown,
+  value,
+  onChange,
+  arialabel
+}) => {
   return (
     <>
       <select
-        className={props.className ? props.className : ''}
-        value={props.value ? props.value : undefined}
+        className={className ? className : ''}
+        value={value ? value : undefined}
         onChange={e => {
-          if (props.onChange) props.onChange(e);
+          if (onChange) onChange(e);
         }}
-        aria-label={props.arialabel ? props.arialabel : ''}
+        aria-label={arialabel ? arialabel : ''}
         onKeyDown={e => {
-          if (props.onKeyDown) props.onKeyDown(e);
+          if (onKeyDown) onKeyDown(e);
         }}
       >
-        {props.options.map((item, idx) => {
+        {options.map((item, idx) => {
           return (
             <option key={idx} value={item}>
               {item}
