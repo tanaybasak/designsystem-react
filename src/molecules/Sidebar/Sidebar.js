@@ -116,7 +116,7 @@ const Sidebar = ({
   };
 
   const getSidebarLink = (item, categoryIndex, parentItem) => {
-    let highlightedClass;
+    let highlightedClass = '';
     const itemMatchedToParent = activeItem && activeItem.parentItem === item;
 
     if ((item.children && item.children.length) || !sidebarLinkTemplate) {
