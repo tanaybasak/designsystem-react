@@ -11,19 +11,19 @@ const items = [
   {
     children: [
       {
-        href: '#',
+        href: '#1',
         title: 'Child Item 1'
       },
       {
-        href: '#',
+        href: '#2',
         title: 'Child Item 2'
       },
       {
-        href: '#',
+        href: '#3',
         title: 'Child Item 3'
       },
       {
-        href: '#',
+        href: '#4',
         title: 'Child Item 4'
       }
     ],
@@ -33,24 +33,29 @@ const items = [
   {
     children: [
       {
-        href: '#',
+        href: '#5',
         title: 'Child Item 1'
       },
       {
-        href: '#',
+        href: '#6',
         title: 'Child Item 2'
       },
       {
-        href: '#',
+        href: '#7',
         title: 'Child Item 3'
       },
       {
-        href: '#',
+        href: '#9',
         title: 'Child Item 4'
       }
     ],
     icon: <i className={`p-hclsw p-hclsw-${icons[1]}`} />,
     title: 'Category Two'
+  },
+  {
+    icon: <i className={`p-hclsw p-hclsw-${icons[1]}`} />,
+    title: 'Category Three',
+    href: '#10'
   }
 ];
 
