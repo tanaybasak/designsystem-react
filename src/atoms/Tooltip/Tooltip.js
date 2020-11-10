@@ -71,10 +71,7 @@ const Tooltip = ({ type, content, direction, children }) => {
       const parentPosition = parentRef.current.getBoundingClientRect();
       diff = undefined;
       const newDirection = getDirection(parentPosition, 10, direction);
-      tooltipContainerRef.current.children[0].setAttribute(
-        'data-direction',
-        newDirection
-      );
+      tooltipContainerRef.current.children[0].dataset.direction = newDirection;
       tooltipContainerRef.current.style.minWidth =
         tooltipContainerRef.current.offsetWidth + 'px';
       positionDirection = getDirectionPosition(parentPosition, newDirection);
