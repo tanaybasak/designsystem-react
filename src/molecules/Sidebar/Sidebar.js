@@ -214,7 +214,7 @@ const Sidebar = ({
     const nodeElement = e.currentTarget;
     switch (key) {
       case 13: {
-        if (item.children && item.children.length && categoryIndex) {
+        if (item.children && item.children.length && categoryIndex != null) {
           expandSidebarCategory(categoryIndex, e);
         } else {
           item.parentItem = parentItem ? parentItem : item;
