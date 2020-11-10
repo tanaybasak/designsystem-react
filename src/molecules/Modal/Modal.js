@@ -8,6 +8,7 @@ const Modal = ({
   label,
   heading,
   children,
+  showClose,
   onClose,
   actions,
   keyboard,
@@ -69,14 +70,16 @@ const Modal = ({
       onKeyDown={focusTrap}
     >
       <div className={classNames.join(' ')}>
-        <button
-          type="button"
-          className={`${prefix}-modal-close`}
-          aria-label="modal-close"
-          onClick={onClose}
-        >
-          {Close}
-        </button>
+        {showClose ? (
+          <button
+            type="button"
+            className={`${prefix}-modal-close`}
+            aria-label="modal-close"
+            onClick={onClose}
+          >
+            {Close}
+          </button>
+        ) : null}
         {(heading !== '' || label !== '') && (
           <header
             className={`${prefix}-modal-header ${prefix}-modal-header-lg`}
@@ -115,6 +118,9 @@ Danger: : To create danger modal. */
   /** To create heading of the modal. */
   heading: PropTypes.string,
 
+  /** To toggle close button of the modal. */
+  showClose: PropTypes.bool,
+
   /** A callback function which will be executed once modal is closed. */
   onClose: PropTypes.func,
 
@@ -134,6 +140,7 @@ Modal.defaultProps = {
   type: 'default',
   label: '',
   heading: '',
+  showClose: true,
   onClose: () => {},
   actions: [],
   className: '',

@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { select, text, object } from '@storybook/addon-knobs';
+import { select, text, object, boolean } from '@storybook/addon-knobs';
 //@update-path-build-start
 import Modal from './Modal';
 //@update-path-build-end
@@ -23,6 +23,7 @@ storiesOf('Modal', module).add(
       actions={object('Actions', actions)}
       heading={text('Heading', 'Heading')}
       label={text('Label', 'label')}
+      showClose={boolean('showClose', true)}
       onClose={action('Modal on Close')}
       type={select('Type', typeOptions, 'danger')}
     >
