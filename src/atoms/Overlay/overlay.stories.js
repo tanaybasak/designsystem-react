@@ -9,18 +9,24 @@ import Notification from '../../atoms/Notification/Notification';
 storiesOf('Overlay', module).add(
   'default',
   () => (
-    <Overlay
-      showOverlay={boolean('Show Overlay', true)}
-      attachElementToBody
-      scrollListner
-    >
-      <Notification
-        subtitle="Notification Sub Title"
-        title="Notification Title"
-        type="info"
-        visible
-      />
-    </Overlay>
+    <>
+      <button className="hcl-btn hcl-primary" id="targetBtn">
+        Target
+      </button>
+      <Overlay
+        showOverlay={boolean('Show Overlay', false)}
+        attachElementToBody
+        scrollListner
+        targetElement={document.getElementById('targetBtn')}
+      >
+        <Notification
+          subtitle="Notification Sub Title"
+          title="Notification Title"
+          type="info"
+          visible
+        />
+      </Overlay>
+    </>
   ),
   {
     info: {
