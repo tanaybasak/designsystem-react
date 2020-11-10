@@ -92,7 +92,7 @@ class Home extends Component {
           title="Patronus"
           items={this.navigationData}
           expanded={this.state.sidebarExpanded}
-          activeLink="/Tag"
+          activeLink="/tag"
           icon={<i className="p-hclsw p-hclsw-user-active" />}
           sidebarLinkTemplate={link => {
             return <Link to={link.href}>{link.title}</Link>;

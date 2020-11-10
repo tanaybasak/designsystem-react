@@ -64,6 +64,7 @@ const Sidebar = ({
         return link.href === activeLink;
       });
       if (activeItem) {
+        activeItem.parentItem = activeItem;
         setActiveItem(activeItem);
       } else {
         sidebarList.map((link, index) => {
@@ -75,6 +76,7 @@ const Sidebar = ({
               let tempItem = [...sidebarList];
               tempItem[index].expanded = true;
               updateSidebarList([...tempItem]);
+              activeItem.parentItem = link;
               setActiveItem(activeItem);
             }
           }
@@ -104,7 +106,8 @@ const Sidebar = ({
     updateSidebarList([...tempItem]);
   };
 
-  const itemClicked = (item, event) => {
+  const itemClicked = (item, parentItem, event) => {
+    item.parentItem = parentItem ? parentItem : item;
     setActiveItem(item);
     onClick(item, event);
     if (window.innerWidth < 992) {
@@ -112,18 +115,27 @@ const Sidebar = ({
     }
   };
 
-  const getSidebarLink = (item, categoryIndex) => {
+  const getSidebarLink = (item, categoryIndex, parentItem) => {
+    let highlightedClass = '';
+    const itemMatchedToParent = activeItem && activeItem.parentItem === item;
+
     if ((item.children && item.children.length) || !sidebarLinkTemplate) {
+      if (itemMatchedToParent) {
+        if (item.expanded === false) highlightedClass = ' highlight';
+        else if (!expnd) highlightedClass = ' highlight';
+      }
+
       return (
         <a
           onClick={
             item.children && item.children.length
               ? expandSidebarCategory.bind(this, categoryIndex)
-              : itemClicked.bind(this, item)
+              : itemClicked.bind(this, item, parentItem)
           }
           tabIndex="0"
           title={item.title}
-          onKeyDown={keyDown.bind(this, item, categoryIndex)}
+          className={`hcl-sidebar-item${highlightedClass}`}
+          onKeyDown={keyDown.bind(this, item, categoryIndex, parentItem)}
           href={item.href}
         >
           {item.icon
@@ -135,7 +147,6 @@ const Sidebar = ({
                 }`
               })
             : null}
-
           <span
             className={`hcl-sidebar-link${
               item.iconClass || item.icon ? '' : ' no-icon'
@@ -143,7 +154,6 @@ const Sidebar = ({
           >
             {item.title}
           </span>
-
           {item.children && item.children.length ? (
             <Icon
               type="svg"
@@ -159,11 +169,14 @@ const Sidebar = ({
       );
     } else {
       let template = sidebarLinkTemplate(item);
+      if (itemMatchedToParent && !expnd) {
+        highlightedClass = ' highlight';
+      }
       return React.cloneElement(template, {
         tabIndex: '0',
-        className: `${prefix}-sidebar-link`,
-        onKeyDown: keyDown.bind(this, item, null),
-        onClick: itemClicked.bind(this, item),
+        className: `${prefix}-sidebar-item ${highlightedClass}`,
+        onKeyDown: keyDown.bind(this, item, null, parentItem),
+        onClick: itemClicked.bind(this, item, parentItem),
         title: item.title,
         children: (
           <>
@@ -196,14 +209,15 @@ const Sidebar = ({
     }
   };
 
-  const keyDown = (item, categoryIndex, e) => {
+  const keyDown = (item, categoryIndex, parentItem, e) => {
     var key = e.which || e.keyCode;
     const nodeElement = e.currentTarget;
     switch (key) {
       case 13: {
-        if (item.children && item.children.length && categoryIndex) {
+        if (item.children && item.children.length && categoryIndex !== null) {
           expandSidebarCategory(categoryIndex, e);
         } else {
+          item.parentItem = parentItem ? parentItem : item;
           setActiveItem(item);
           nodeElement.click();
         }
@@ -353,7 +367,7 @@ const Sidebar = ({
                           }`}
                           key={`sidebar_category_children_${categoryIndex}_${subItemIndex}`}
                         >
-                          {getSidebarLink(subItem)}
+                          {getSidebarLink(subItem, null, item)}
                         </li>
                       );
                     })}
