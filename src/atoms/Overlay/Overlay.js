@@ -213,7 +213,7 @@ Overlay.propTypes = {
   onToggle: PropTypes.func,
   /** Used to attach element to body tag */
   attachElementToBody: PropTypes.bool,
-  /** On Toggle callback will trigger on click of escape key */
+  /** onToggle callback will trigger on click of escape key */
   closeOnEscape: PropTypes.bool,
   /** Used to pass custom classname */
   className: PropTypes.string,
