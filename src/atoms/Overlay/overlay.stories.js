@@ -11,7 +11,7 @@ storiesOf('Overlay', module).add(
   () => (
     <>
       <button className="hcl-btn hcl-primary" id="targetBtn">
-        Target
+        Toggle Overlay From Knobs
       </button>
       <Overlay
         showOverlay={boolean('Show Overlay', false)}
