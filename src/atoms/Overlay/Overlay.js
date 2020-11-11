@@ -207,7 +207,7 @@ Overlay.propTypes = {
     'bottom-right',
     'bottom-left'
   ]),
-  /** Overlay content position will change on scroll when attachElementToBody is property is true */
+  /** Overlay content position will change on scroll when attachElementToBody property is true */
   scrollListner: PropTypes.bool,
   /** Callback function used to toggle the overlay content  */
   onToggle: PropTypes.func,
