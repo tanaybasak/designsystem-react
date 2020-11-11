@@ -196,7 +196,7 @@ const Overlay = ({
 Overlay.propTypes = {
   /** Used to pass overlay content */
   children: PropTypes.element,
-  /** Used to show overlay content */
+  /** Used to toggle overlay content */
   showOverlay: PropTypes.bool,
   /** target element where overlay to be positioned */
   targetElement: PropTypes.object,
