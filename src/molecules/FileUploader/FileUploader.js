@@ -5,6 +5,7 @@ import Paragraph from '../../atoms/Paragraph/Paragraph';
 import { Close } from '../../util/icons';
 export default function FileUploader({
   id,
+  name,
   className,
   label,
   children,
@@ -71,6 +72,7 @@ export default function FileUploader({
           type="file"
           className={`${prefix}-file-input`}
           id={id}
+          name={name}
           tabIndex={tabIndex}
           onChange={getFileList}
           disabled={disabled}
@@ -115,6 +117,8 @@ export default function FileUploader({
 FileUploader.propTypes = {
   /** Unique id for File Uploader */
   id: PropTypes.string.isRequired,
+  /** Name of uploading file */
+  name: PropTypes.string,
   /** Name of the custom class to apply to the File Uploader Button
    * eg:
    * Primary: 'hcl-btn hcl-primary',
@@ -149,6 +153,7 @@ FileUploader.propTypes = {
 
 FileUploader.defaultProps = {
   id: null,
+  name: '',
   className: '',
   label: '',
   children: null,
