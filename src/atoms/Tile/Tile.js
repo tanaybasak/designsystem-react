@@ -21,6 +21,13 @@ const Tile = ({
 
   const toggle = () => {
     setChecked(!checked);
+    selectableElement.current ? selectHandler() : null;
+  };
+
+  const selectHandler = () => {
+    !checked
+      ? selectableElement.current.classList.add(`${prefix}-tile-active`)
+      : selectableElement.current.classList.remove(`${prefix}-tile-active`);
   };
 
   const keyDownOnTile = e => {
@@ -32,6 +39,7 @@ const Tile = ({
       e.preventDefault();
       if (input) {
         setChecked(!checked);
+        selectableElement.current ? selectHandler() : null;
       }
     }
   };
@@ -49,9 +57,10 @@ const Tile = ({
     selectTileCount += 1;
     classNames = `${prefix}-tile-selectable ${className}`.trim();
     return (
-      <div onKeyDown={keyDownOnTile} ref={selectableElement} {...restProps}>
+      <div onKeyDown={keyDownOnTile} {...restProps}>
         <label
           tabIndex="0"
+          ref={selectableElement}
           className={classNames}
           htmlFor={`select-tile-${selectTileCount}`}
         >
