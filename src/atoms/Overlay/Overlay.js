@@ -194,20 +194,30 @@ const Overlay = ({
 };
 
 Overlay.propTypes = {
+  /** Used to pass overlay content */
   children: PropTypes.element,
+  /** Used to toggle overlay content */
   showOverlay: PropTypes.bool,
+  /** target element where overlay to be positioned */
   targetElement: PropTypes.object,
+  /** Direction of overlay content */
   direction: PropTypes.oneOf([
     'top-right',
     'top-left',
     'bottom-right',
     'bottom-left'
   ]),
+  /** Overlay content position will change on scroll when attachElementToBody property is true */
   scrollListner: PropTypes.bool,
+  /** Callback function used to toggle the overlay content  */
   onToggle: PropTypes.func,
+  /** Used to attach element to body tag */
   attachElementToBody: PropTypes.bool,
+  /** onToggle callback will trigger on click of escape key */
   closeOnEscape: PropTypes.bool,
+  /** Used to pass custom classname */
   className: PropTypes.string,
+  /** used to provide elements, where overlay content will not removed on click of these elements */
   preventCloseElements: PropTypes.array
 };
 
@@ -224,4 +234,4 @@ Overlay.defaultProps = {
   preventCloseElements: null
 };
 
-export default React.memo(Overlay);
+export default Overlay;

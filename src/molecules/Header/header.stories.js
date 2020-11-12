@@ -26,12 +26,7 @@ storiesOf('Header', module).add(
           icon: <button className="p-hclsw p-hclsw-logout" title="logout" />
         }
       ]}
-      logo={
-        <img
-          alt="Logo"
-          src="https://www.hcl.com/sites/default/files/main-logo-wh.png"
-        />
-      }
+      logo={<img alt="Logo" src={require('../../assets/images/logo.png')} />}
       searchComponent={
         <Search
           className=""
