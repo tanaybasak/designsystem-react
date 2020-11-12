@@ -61,7 +61,7 @@ const getClonedModel = model => {
   model.children &&
     model.children.length > 0 &&
     model.children.map(data => {
-      getClonedModel(data);
+      return getClonedModel(data);
     });
 
   return model;
