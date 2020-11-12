@@ -138,6 +138,9 @@ const DataTable = ({
   if (type.includes('zebra')) {
     tableClass += ` ${prefix}-data-table-zebra`;
   }
+  if (resizable) {
+    tableClass += ` ${prefix}-data-table-fixed`;
+  }
 
   // const classnames = `${prefix}-data-table-wrapper data-table-sticky-header${
   //   type.includes('borderless') ? ` ${prefix}-data-table-borderless` : ''
