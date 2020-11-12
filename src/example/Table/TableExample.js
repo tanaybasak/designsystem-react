@@ -18,7 +18,8 @@ class TableExample extends Component {
         renderHtml: row => {
           return <Checkbox id={`${row.id}_checkbox_`} name="testcheck" />;
         },
-        width: '40px'
+        width: '40px',
+        headerClass: 'header-checkbox'
         // pinned: 'left'
       },
       {

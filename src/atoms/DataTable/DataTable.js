@@ -456,7 +456,9 @@ const DataTable = ({
                     !!column['allowResize']
                       ? ' resizable'
                       : ''
-                  }${columnDraggable ? ' draggable' : ''}
+                  }${columnDraggable ? ' draggable' : ''}${
+                    column.headerClass ? ' ' + column.headerClass : ''
+                  }
                   `}
                   tabIndex={column.sortable ? '0' : null}
                   onClick={column.sortable ? sort.bind(this, column) : null}
@@ -719,6 +721,7 @@ DataTable.propTypes = {
    *    allowResize: true // Pass true to make column resizable.
    *    minResizeWidth: 40, // minimum resize width
    *    maxResizeWidth: 120, // maximum resize width
+   *    headerClass: 'custom-class-name', // For passing custom class name
    * }] */
   tableConfig: PropTypes.arrayOf(
     PropTypes.shape({
@@ -731,7 +734,8 @@ DataTable.propTypes = {
       minResizeWidth: PropTypes.number,
       maxResizeWidth: PropTypes.number,
       renderHtml: PropTypes.func,
-      columnHtml: PropTypes.node
+      columnHtml: PropTypes.node,
+      headerClass: PropTypes.string
     })
   ),
   /** Name of the custom class to apply to the Data Table. */
