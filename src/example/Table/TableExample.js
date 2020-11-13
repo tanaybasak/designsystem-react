@@ -192,6 +192,7 @@ class TableExample extends Component {
               tableData={this.state.displayData}
               tableConfig={this.state.tableConfig}
               resizable
+              isHeaderSticky
               onColumnAfterResize={this.colResize}
               initSortedColumn={this.state.initSortedColumn}
               columnDraggable
