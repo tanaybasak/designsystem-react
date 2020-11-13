@@ -43,7 +43,7 @@ class TableExample extends Component {
             Sample Tag
           </Tag>
         ),
-
+        bodyCellClass: 'custom-body-id-class',
         width: '60px',
         pinned: 'left'
       },
