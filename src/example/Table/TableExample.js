@@ -19,13 +19,14 @@ class TableExample extends Component {
           return <Checkbox id={`${row.id}_checkbox_`} name="testcheck" />;
         },
         width: '40px',
-        headerClass: 'header-checkbox'
+        headerClass: 'custom-header-checkbox',
+        bodyClass: 'custom-body-checkbox'
         // pinned: 'left'
       },
       {
         label: 'ID',
         field: 'id',
-        allowResize: false,
+        allowResize: true,
         columnHtml: (
           <Tag
             className=""
@@ -43,7 +44,7 @@ class TableExample extends Component {
           </Tag>
         ),
 
-        width: '160px',
+        width: '60px',
         pinned: 'left'
       },
 
@@ -95,9 +96,8 @@ class TableExample extends Component {
       },
       {
         label: 'Language',
-        field: 'owner.login'
-
-        // width: '120px'
+        field: 'owner.login',
+        width: '420px'
       },
       {
         label: 'Has Issues',
@@ -112,13 +112,13 @@ class TableExample extends Component {
               toggled={model.has_issues}
             />
           );
-        }
-        // width: '150px'
+        },
+        width: '550px'
       },
       {
         label: 'Forks Count',
-        field: 'forks_count'
-        // width: '120px'
+        field: 'forks_count',
+        width: '120px'
       },
       {
         label: 'Branch',
@@ -128,8 +128,8 @@ class TableExample extends Component {
       },
       {
         label: 'Issues Count',
-        field: 'open_issues_count'
-        // width: '420px'
+        field: 'open_issues_count',
+        width: '420px'
         // pinned: 'right'
       },
       {
@@ -148,8 +148,8 @@ class TableExample extends Component {
               }}
             />
           );
-        }
-        // width: '400px'
+        },
+        width: '400px'
       }
     ]
   };
