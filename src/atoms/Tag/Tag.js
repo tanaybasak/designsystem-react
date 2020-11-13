@@ -40,7 +40,12 @@ const Tag = ({
     : null;
 
   return (
-    <span className={classnames} disabled={disabled} {...restProps}>
+    <span
+      className={classnames}
+      disabled={disabled}
+      {...restProps}
+      onClick={disabled ? null : restProps.onClick}
+    >
       {thumbnail
         ? React.cloneElement(thumbnail, {
             className: `${prefix}-tag-thumbnail${
