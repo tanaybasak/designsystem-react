@@ -330,7 +330,8 @@ const tableConfigwithResize = [
   },
   {
     label: 'Protocol',
-    field: 'protocol'
+    field: 'protocol',
+    columnHtml: <h6> this is temp</h6>
   },
   {
     label: 'Port',
