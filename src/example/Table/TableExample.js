@@ -69,14 +69,14 @@ class TableExample extends Component {
       {
         label: 'Full Name',
         field: 'name',
-        sortable: true
+        sortable: true,
         // pinned: 'left',
         // renderHtml: model => {
         //     return (
         //       <span>{model.name} {model.name} {model.name} {model.name}{model.name} {model.name} {model.name} {model.name} {model.name} {model.name}</span>
         //     );
         //   },
-        // width: '200px'
+        width: '200px'
       },
       {
         label: 'Private',
@@ -91,8 +91,8 @@ class TableExample extends Component {
               model.owner.site_admin ? 'Yes' : 'No'
             }`}</Tag>
           );
-        }
-        // width: '120px'
+        },
+        width: '120px'
       },
       {
         label: 'Language',
