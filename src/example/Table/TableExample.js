@@ -20,7 +20,7 @@ class TableExample extends Component {
         },
         width: '40px',
         headerClass: 'custom-header-checkbox',
-        bodyClass: 'custom-body-checkbox'
+        bodyCellClass: 'custom-body-checkbox'
         // pinned: 'left'
       },
       {

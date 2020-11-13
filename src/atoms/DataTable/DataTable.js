@@ -663,8 +663,8 @@ const DataTable = ({
                   if (column.pinned === 'right') {
                     tdclassName.push('sticky-div sticky-right-div');
                   }
-                  if (column.bodyClass) {
-                    tdclassName.push(column.bodyClass);
+                  if (column.bodyCellClass) {
+                    tdclassName.push(column.bodyCellClass);
                   }
                   return (
                     <td
@@ -746,7 +746,7 @@ DataTable.propTypes = {
    *    minResizeWidth: 40, // minimum resize width
    *    maxResizeWidth: 120, // maximum resize width
    *    headerClass: 'custom-class-name', // For passing custom class name for <th> under <thead> element
-   *    bodyClass: 'custom-class-name', // For passing custom class name for <td> under <tbody> element
+   *    bodyCellClass: 'custom-class-name', // For passing custom class name for <td> under <tbody> element
    * }] */
   tableConfig: PropTypes.arrayOf(
     PropTypes.shape({
@@ -761,7 +761,7 @@ DataTable.propTypes = {
       renderHtml: PropTypes.func,
       columnHtml: PropTypes.node,
       headerClass: PropTypes.string,
-      bodyClass: PropTypes.string
+      bodyCellClass: PropTypes.string
     })
   ),
   /** Name of the custom class to apply to the Data Table. */
