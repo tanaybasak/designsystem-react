@@ -455,8 +455,8 @@ const DataTable = ({
               if (columnDraggable) {
                 thClassName.push('draggable');
               }
-              if (column.headerClass) {
-                thClassName.push(column.headerClass);
+              if (column.headerCellClass) {
+                thClassName.push(column.headerCellClass);
               }
               return (
                 <th
@@ -630,8 +630,8 @@ const DataTable = ({
                 ) {
                   thclassName.push('resizable');
                 }
-                if (column.headerClass) {
-                  thclassName.push(column.headerClass);
+                if (column.headerCellClass) {
+                  thclassName.push(column.headerCellClass);
                 }
                 return (
                   <th
@@ -745,7 +745,7 @@ DataTable.propTypes = {
    *    allowResize: true // Pass true to make column resizable.
    *    minResizeWidth: 40, // minimum resize width
    *    maxResizeWidth: 120, // maximum resize width
-   *    headerClass: 'custom-class-name', // For passing custom class name for <th> under <thead> element
+   *    headerCellClass: 'custom-class-name', // For passing custom class name for <th> under <thead> element
    *    bodyCellClass: 'custom-class-name', // For passing custom class name for <td> under <tbody> element
    * }] */
   tableConfig: PropTypes.arrayOf(
@@ -760,7 +760,7 @@ DataTable.propTypes = {
       maxResizeWidth: PropTypes.number,
       renderHtml: PropTypes.func,
       columnHtml: PropTypes.node,
-      headerClass: PropTypes.string,
+      headerCellClass: PropTypes.string,
       bodyCellClass: PropTypes.string
     })
   ),

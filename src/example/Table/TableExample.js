@@ -19,7 +19,7 @@ class TableExample extends Component {
           return <Checkbox id={`${row.id}_checkbox_`} name="testcheck" />;
         },
         width: '40px',
-        headerClass: 'custom-header-checkbox',
+        headerCellClass: 'custom-header-checkbox',
         bodyCellClass: 'custom-body-checkbox'
         // pinned: 'left'
       },
