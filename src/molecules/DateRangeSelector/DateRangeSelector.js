@@ -8,6 +8,12 @@ import FormHelperText from '../../atoms/FormHelperText';
 import SelectPanel from '../DateSelector/SelectPanel';
 import DateRangeFooter from './DateRangeFooter';
 import DateRangeInput from './DateRangeInput';
+import {
+  isValidDate,
+  createDateObj,
+  convertToDateObj,
+  convertToDateString
+} from '../../util/utility';
 
 const DateRangeSelector = ({
   id,
@@ -45,12 +51,6 @@ const DateRangeSelector = ({
     year: endDate.getFullYear()
   });
 
-  // const [startYearSelected, setStartYearSelected] = useState(
-  //   String(date.getFullYear())
-  // );
-  // const [endYearSelected, setEndYearSelected] = useState(
-  //   String(date.getFullYear())
-  // );
   const [showDateContainer, setShowDateContainer] = useState(false);
   const [startDateSelected, setStartDateSelected] = useState(null);
   const [endDateSelected, setEndDateSelected] = useState(null);
@@ -58,8 +58,6 @@ const DateRangeSelector = ({
     true
   );
   const [isEndDateSelectedValid, setIsEndDateSelectedValid] = useState(true);
-  const [isValidStartYear, setIsValidStartYear] = useState(true);
-  const [isValidEndYear, setIsValidEndYear] = useState(true);
   const datepickerStartInput = useRef(null);
   const datepickerEndInput = useRef(null);
   const [targetEl, setTargetEl] = useState(null);
@@ -124,12 +122,7 @@ const DateRangeSelector = ({
   };
 
   const toggleDateContainer = target => {
-    setIsValidStartYear(true);
-    setIsValidEndYear(true);
-    // setStartYearSelected(String(startDateObj.year));
-    // setEndYearSelected(String(endDateObj.year));
     setShowDateContainer(!showDateContainer);
-    // console.log('target.current', target.current);
     setTargetEl(target.current);
   };
 
@@ -137,19 +130,12 @@ const DateRangeSelector = ({
     if (event.target.getAttribute('paneltype') === 'startpanel') {
       setStartDateSelected(event.target.getAttribute('date'));
       setIsStartDateSelectedValid(true);
-      setIsValidStartYear(true);
     } else if (event.target.getAttribute('paneltype') === 'endpanel') {
       setEndDateSelected(event.target.getAttribute('date'));
       setIsEndDateSelectedValid(true);
-      setIsValidEndYear(true);
     }
     setFlag(!flag);
-    // setShowDateContainer(false);
-    // onDateSelect(event.target.getAttribute('date'));
   };
-
-  // console.log('startDateSelected', startDateSelected);
-  // console.log('endDateSelected', endDateSelected);
 
   const updateFormattedDate = (mm, dd, yyyy, type) => {
     const tempDate = new Date(yyyy, mm - 1, dd);
@@ -161,9 +147,6 @@ const DateRangeSelector = ({
     let dateStr = String(date);
     monthStr.length === 1 ? (monthStr = monthStr.padStart(2, '0')) : null;
     dateStr.length === 1 ? (dateStr = dateStr.padStart(2, '0')) : null;
-    // if (type === 'start') {
-    // } else if (type === 'end') {
-    // }
     type === 'start'
       ? setStartDateObj({
           day: day,
@@ -177,24 +160,17 @@ const DateRangeSelector = ({
           date: date,
           year: year
         });
-    // type === 'start' ? setStartYearSelected(yyyy) : setEndYearSelected(yyyy);
-    // setYearSelected(yyyy);
+
     switch (format) {
       case 'mm/dd/yyyy':
         type === 'start'
           ? setStartDateSelected(`${monthStr}/${dateStr}/${year}`)
           : setEndDateSelected(`${monthStr}/${dateStr}/${year}`);
-        // dateSelected === ''
-        //   ? null
-        //   : onDateSelect(`${monthStr}/${dateStr}/${year}`);
         break;
       case 'dd/mm/yyyy':
         type === 'start'
           ? setStartDateSelected(`${dateStr}/${monthStr}/${year}`)
           : setEndDateSelected(`${dateStr}/${monthStr}/${year}`);
-        // dateSelected === ''
-        //   ? null
-        //   : onDateSelect(`${dateStr}/${monthStr}/${year}`);
         break;
     }
   };
@@ -211,17 +187,14 @@ const DateRangeSelector = ({
             startDateSelected={startDateSelected}
             endDateSelected={endDateSelected}
             toggleDateContainer={toggleDateContainer}
-            // datepickerInput={datepickerInput}
-            defaultStartDate={defaultStartDate}
-            defaultEndDate={defaultEndDate}
+            defaultStartDate={convertToDateString(defaultStartDate, format)}
+            defaultEndDate={convertToDateString(defaultEndDate, format)}
             setShowDateContaine={setShowDateContainer}
             setIsStartDateSelectedValid={setIsStartDateSelectedValid}
             setIsEndDateSelectedValid={setIsEndDateSelectedValid}
             format={format}
             setStartDateSelected={setStartDateSelected}
             setEndDateSelected={setEndDateSelected}
-            // setStartYearSelected={setStartYearSelected}
-            // setEndYearSelected={setEndYearSelected}
             updateFormattedDate={updateFormattedDate}
             datepickerEndInput={datepickerEndInput}
             datepickerStartInput={datepickerStartInput}
@@ -242,7 +215,6 @@ const DateRangeSelector = ({
                   <SelectPanel
                     currDateObj={startDateObj}
                     setCurrDateObj={setStartDateObj}
-                    // setYearSelected={setStartYearSelected}
                     format={format}
                     onDateSelection={onDateSelection}
                     dateSelected={startDateSelected}
@@ -250,11 +222,15 @@ const DateRangeSelector = ({
                     panelType="startpanel"
                     startDateSelected={startDateSelected}
                     endDateSelected={endDateSelected}
+                    startDateObj={startDateObj}
+                    endDateObj={endDateObj}
+                    setStartDateObj={setStartDateObj}
+                    setEndDateObj={setEndDateObj}
+                    type="rangepicker"
                   />
                   <SelectPanel
                     currDateObj={endDateObj}
                     setCurrDateObj={setEndDateObj}
-                    // setYearSelected={setEndYearSelected}
                     format={format}
                     onDateSelection={onDateSelection}
                     dateSelected={endDateSelected}
@@ -262,19 +238,27 @@ const DateRangeSelector = ({
                     panelType="endpanel"
                     startDateSelected={startDateSelected}
                     endDateSelected={endDateSelected}
+                    startDateObj={startDateObj}
+                    endDateObj={endDateObj}
+                    setStartDateObj={setStartDateObj}
+                    setEndDateObj={setEndDateObj}
+                    type="rangepicker"
                   />
                 </div>
                 <DateRangeFooter
                   onDone={() => {
                     setShowDateContainer(false);
                     onDateRangeSelect({
-                      start: startDateSelected,
-                      end: endDateSelected
+                      start: convertToDateObj(format, startDateSelected),
+                      end: convertToDateObj(format, endDateSelected)
                     });
                   }}
                   onCancel={() => {
                     setShowDateContainer(false);
                   }}
+                  endDateSelected={endDateSelected}
+                  startDateSelected={startDateSelected}
+                  format={format}
                 ></DateRangeFooter>
               </div>
             </div>
@@ -357,6 +341,6 @@ DateRangeSelector.defaultProps = {
   format: 'MM/DD/YYYY',
   onDateRangeSelect: () => {},
   className: '',
-  id: null,
+  id: null
 };
 export default DateRangeSelector;

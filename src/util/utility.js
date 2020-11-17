@@ -113,3 +113,19 @@ export const convertToDateString = (dateObj, format, saperator = '/') => {
 
   return dateStr;
 };
+
+export const monthDiff = (d1, d2) => {
+  // d1 is start and d2 is end. d1 should always less than d2 otherwise it will return 0.
+  let months;
+  months = (d2.getFullYear() - d1.getFullYear()) * 12;
+  months -= d1.getMonth();
+  months += d2.getMonth();
+  return months <= 0 ? 0 : months;
+};
+
+export const dayDiff = (d1, d2) => {
+  // d1 is start and d2 is end. d1 should always less than d2 otherwise it will return 0.
+  const diffTime = Math.abs(d2 - d1);
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  return diffDays;
+};

@@ -21,7 +21,8 @@ const PanelBottom = ({
     datePicked: `${prefix}-dateSelector-date-picked`,
     todayHighlight: `${prefix}-dateSelector-dates-today`,
     // dateUnSelected: `${prefix}-dateSelector-date`,
-    fade: `${prefix}-dateSelector-date-fade`
+    fade: `${prefix}-dateSelector-date-fade`,
+    edge: `${prefix}-dateSelector-date-edge`
   };
 
   const createDateNodelist = () => {
@@ -86,49 +87,59 @@ const PanelBottom = ({
         year =
           currDateObj.month === 11 ? currDateObj.year + 1 : currDateObj.year;
     }
-    const date = `${month}/${day}/${year}`;
-    const formattedDate = getFormattedDate(month, day, year);
-    // console.log(
-    //   'Check',
-    //   panelType === 'startpanel' &&
-    //     convertToDateObj(format, dateSelected) <
-    //       convertToDateObj(format, endDateSelected)
-    // );
+    let date;
+    switch (format) {
+      case 'mm/dd/yyyy':
+        date = `${month}/${day}/${year}`;
+        break;
 
-    // console.log(
-    //   'Check',
-    //   panelType === 'startpanel' &&
-    //     convertToDateObj(format, formattedDate) <
-    //       convertToDateObj(format, endDateSelected)
-    // );
+      case 'dd/mm/yyyy':
+        date = `${day}/${month}/${year}`;
+        break;
+    }
+    // const date = `${month}/${day}/${year}`;
+    const formattedDate = getFormattedDate(month, day, year);
 
     let classDetails = [];
     if (type !== 'current') {
       classDetails.push(DOMstrings.fade);
     }
-
-    if (
+    const isTodayDate =
       year === todayDate.getFullYear() &&
       Number(month) === todayDate.getMonth() + 1 &&
-      Number(day) === todayDate.getDate()
-    ) {
-      classDetails.push(DOMstrings.todayHighlight);
-    }
+      Number(day) === todayDate.getDate();
+    // if (isTodayDate) {
+    //   classDetails.push(DOMstrings.todayHighlight);
+    // }
     if (date === dateSelected) {
       classDetails.push(DOMstrings.datePicked);
     }
     if (
       startDateSelected &&
       endDateSelected &&
-      convertToDateObj(format, startDateSelected) <=
+      convertToDateObj(format, startDateSelected) <
         convertToDateObj(format, formattedDate) &&
-      convertToDateObj(format, formattedDate) <=
+      convertToDateObj(format, formattedDate) <
         convertToDateObj(format, endDateSelected)
     ) {
       classDetails.push(DOMstrings.datePicked);
     }
+    if (startDateSelected === date || endDateSelected === date) {
+      classDetails.push(DOMstrings.edge);
+    }
 
-    return (
+    return isTodayDate ? (
+      <div key={formattedDate} className={classDetails.join(' ')}>
+        <span
+          className="hcl-dateSelector-date-today"
+          date={formattedDate}
+          paneltype={panelType}
+          onClick={onDateSelection}
+        >
+          {day}
+        </span>
+      </div>
+    ) : (
       <span
         className={classDetails.join(' ')}
         date={formattedDate}
@@ -175,13 +186,13 @@ const PanelBottom = ({
           key={`month-${index}`}
           month={index}
           onClick={() => {
+            setView('date');
             setCurrDateObj({
-              day: currDateObj.day,
+              // day: currDateObj.day,
               month: index,
               date: currDateObj.date,
               year: currDateObj.year
             });
-            setView('date');
           }}
         >
           {month}

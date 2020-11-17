@@ -29,7 +29,7 @@ const DateSelectorExample = ({}) => {
               'DEC'
             ]}
             format="dd/mm/yyyy"
-            // defaultDate={todayDate}
+            defaultDate={todayDate}
             sidePanel={
               <ul className="hcl-dateSelector-sidebar">
                 <li

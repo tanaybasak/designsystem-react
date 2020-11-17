@@ -35,7 +35,7 @@ const DateSelector = ({
     date: date.getDate(),
     year: date.getFullYear()
   });
-
+console.log('currDateObj',currDateObj)
   // const [yearSelected, setYearSelected] = useState(String(date.getFullYear()));
   const [showDateContainer, setShowDateContainer] = useState(false);
 
@@ -99,7 +99,6 @@ const DateSelector = ({
       date: date,
       year: year
     });
-    // setYearSelected(yyyy);
     switch (format) {
       case 'mm/dd/yyyy':
         setDateSelected(`${monthStr}/${dateStr}/${year}`);
@@ -188,11 +187,11 @@ DateSelector.propTypes = {
   format: PropTypes.string,
 
   /** This props allows user to pass default date */
-  defaultDate: PropTypes.string,
+  defaultDate: PropTypes.any,
 
   /** className/clasess will be applied on the parent div of DateSelector */
   className: PropTypes.string,
-
+    
   /** Used for defining the position of DateSelector */
   direction: PropTypes.oneOf([
     'top-right',

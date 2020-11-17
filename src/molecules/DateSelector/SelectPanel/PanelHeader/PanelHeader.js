@@ -10,6 +10,8 @@ const PanelHeader = ({
   setCurrDateObj,
   // setYearSelected,
   months,
+  monthDifference,
+  panelType,
   ...restProps
 }) => {
   const dateViewChangeHandler = event => {
@@ -103,7 +105,11 @@ const PanelHeader = ({
       <div className="hcl-dateSelector-year-month">
         <Button
           className="hcl-dateSelector-month-prev"
-          disabled={false}
+          disabled={
+            panelType === 'endpanel' && monthDifference === 1 && view === 'date'
+              ? true
+              : false
+          }
           onClick={
             view === 'date'
               ? dateViewChangeHandler
@@ -210,7 +216,13 @@ const PanelHeader = ({
         </div>
         <Button
           className="hcl-dateSelector-month-next"
-          disabled={false}
+          disabled={
+            panelType === 'startpanel' &&
+            monthDifference === 1 &&
+            view === 'date'
+              ? true
+              : false
+          }
           onClick={
             view === 'date'
               ? dateViewChangeHandler
@@ -258,11 +270,11 @@ const PanelHeader = ({
 };
 
 PanelHeader.propTypes = {
-  view:PropTypes.string.isRequired,
-  setView:PropTypes.func.isRequired,
-  currDateObj:PropTypes.object.isRequired,
-  setCurrDateObj:PropTypes.func.isRequired,
+  view: PropTypes.string.isRequired,
+  setView: PropTypes.func.isRequired,
+  currDateObj: PropTypes.object.isRequired,
+  setCurrDateObj: PropTypes.func.isRequired,
   // setYearSelected:PropTypes.string,
-  months:PropTypes.array.isRequired,
+  months: PropTypes.array.isRequired
 };
 export default PanelHeader;
