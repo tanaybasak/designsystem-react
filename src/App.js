@@ -337,6 +337,7 @@ class App extends Component {
               <DateSelector
                 type="datepicker"
                 format="mm/dd/yyyy"
+                defaultDate="01/12/2019"
                 sidePanel={
                   <ul className="hcl-dateSelector-sidebar">
                     <li tabIndex="0">Today</li>
@@ -346,6 +347,9 @@ class App extends Component {
                     <li tabIndex="0">Next Friday</li>
                   </ul>
                 }
+                onDateSelect={(date)=>{
+                   console.log(date)
+                }}
               ></DateSelector>{' '}
             </div>
             <div className="hcl-row mb-4">

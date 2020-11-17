@@ -21,8 +21,6 @@ const DateRangeSelector = ({
   sidePanel,
   defaultStartDate,
   defaultEndDate,
-  label,
-  helperText,
   id,
   ...restProps
 }) => {
