@@ -691,7 +691,6 @@ const Tooltip = ({ type, content, direction, children }) => {
         customClass += ` ${prefix}-tooltip-dottedline`;
       }
       return React.cloneElement(child, {
-        tabIndex: '0',
         onMouseEnter:
           type !== 'interactive' ? openTooltip : child.props.onMouseEnter,
         onClick:
