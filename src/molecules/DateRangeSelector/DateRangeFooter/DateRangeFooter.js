@@ -13,7 +13,7 @@ const DateRangeFooter = ({
   ...restProps
 }) => {
   let range = 0;
-  if (startDateSelected && startDateSelected) {
+  if (startDateSelected && endDateSelected) {
     const endDateObj = convertToDateObj(format, endDateSelected);
     const startDateObj = convertToDateObj(format, startDateSelected);
     range = dayDiff(startDateObj, endDateObj);
