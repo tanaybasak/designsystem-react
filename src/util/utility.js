@@ -78,3 +78,14 @@ export const clone = items => {
   });
   return result;
 };
+
+export const convertToDateObj = (format, str, saperator = '/') => {
+  const strArray = str.split(saperator);
+  let dateObj;
+  if (format === 'mm/dd/yyyy') {
+    dateObj = new Date(strArray[2], strArray[0], strArray[1]);
+  } else if (format === 'dd/mm/yyyy') {
+    dateObj = new Date(strArray[2], strArray[1], strArray[0]);
+  }
+  return dateObj;
+};

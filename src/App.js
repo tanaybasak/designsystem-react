@@ -42,6 +42,8 @@ import { ActionBar, ActionSummary, ActionList } from './molecules/ActionBar';
 import { ToolBar, ToolBarActions } from './molecules/ToolBar';
 import Password from './atoms/Password';
 //import Overlay from './atoms/Overlay';
+import DateSelector from './molecules/DateSelector';
+import DateRangeSelector from './molecules/DateRangeSelector';
 
 class App extends Component {
   state = {
@@ -331,6 +333,56 @@ class App extends Component {
       <>
         <main className="hcl-content-main">
           <section className="hcl-container pt-5 mb-5">
+            <div className="hcl-row mb-4">
+              <DateSelector
+                type="datepicker"
+                format="mm/dd/yyyy"
+                sidePanel={
+                  <ul className="hcl-dateSelector-sidebar">
+                    <li tabIndex="0">Today</li>
+                    <li tabIndex="0">Yesterday</li>
+                    <li tabIndex="0">Tomorrow</li>
+                    <li tabIndex="0">Last Friday</li>
+                    <li tabIndex="0">Next Friday</li>
+                  </ul>
+                }
+              ></DateSelector>{' '}
+            </div>
+            <div className="hcl-row mb-4">
+              <DateSelector
+                type="datepicker"
+                format="mm/dd/yyyy"
+              ></DateSelector>{' '}
+            </div>
+            <div className="hcl-row m-0">
+              <DateRangeSelector
+                type="rangepicker"
+                format="mm/dd/yyyy"
+                sidePanel={
+                  <ul className="hcl-dateSelector-sidebar">
+                    <li tabIndex="0">Last Week</li>
+                    <li tabIndex="0">Last Month</li>
+                    <li tabIndex="0">Next Week</li>
+                    <li tabIndex="0">Next Month</li>
+                    <li tabIndex="0">Next 20 days</li>
+                    <li tabIndex="0">Custom</li>
+                  </ul>
+                }
+                onDateRangeSelect={(dateRange)=>{
+                  console.log('dateRange',dateRange)
+                }}
+                defaultStartDate="11/01/2020"
+                defaultEndDate="12/02/2020"
+              ></DateRangeSelector>
+            </div>
+
+            {/* <div className="hcl-row mt-8">
+              <DateRangeSelector
+                type="rangepicker"
+                format="mm/dd/yyyy"
+              ></DateRangeSelector>
+            </div> */}
+
             <div className="hcl-row m-0">
               {/* Input Field */}
               <div className="hcl-form-group hcl-col-12" id="form-section">
