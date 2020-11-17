@@ -10,6 +10,7 @@ import DateRangeFooter from './DateRangeFooter';
 import DateRangeInput from './DateRangeInput';
 
 const DateRangeSelector = ({
+  id,
   weekDays,
   months,
   format,
@@ -21,7 +22,6 @@ const DateRangeSelector = ({
   sidePanel,
   defaultStartDate,
   defaultEndDate,
-  id,
   ...restProps
 }) => {
   const date = new Date();
@@ -45,12 +45,12 @@ const DateRangeSelector = ({
     year: endDate.getFullYear()
   });
 
-  const [startYearSelected, setStartYearSelected] = useState(
-    String(date.getFullYear())
-  );
-  const [endYearSelected, setEndYearSelected] = useState(
-    String(date.getFullYear())
-  );
+  // const [startYearSelected, setStartYearSelected] = useState(
+  //   String(date.getFullYear())
+  // );
+  // const [endYearSelected, setEndYearSelected] = useState(
+  //   String(date.getFullYear())
+  // );
   const [showDateContainer, setShowDateContainer] = useState(false);
   const [startDateSelected, setStartDateSelected] = useState(null);
   const [endDateSelected, setEndDateSelected] = useState(null);
@@ -126,8 +126,8 @@ const DateRangeSelector = ({
   const toggleDateContainer = target => {
     setIsValidStartYear(true);
     setIsValidEndYear(true);
-    setStartYearSelected(String(startDateObj.year));
-    setEndYearSelected(String(endDateObj.year));
+    // setStartYearSelected(String(startDateObj.year));
+    // setEndYearSelected(String(endDateObj.year));
     setShowDateContainer(!showDateContainer);
     // console.log('target.current', target.current);
     setTargetEl(target.current);
@@ -177,7 +177,7 @@ const DateRangeSelector = ({
           date: date,
           year: year
         });
-    type === 'start' ? setStartYearSelected(yyyy) : setEndYearSelected(yyyy);
+    // type === 'start' ? setStartYearSelected(yyyy) : setEndYearSelected(yyyy);
     // setYearSelected(yyyy);
     switch (format) {
       case 'mm/dd/yyyy':
@@ -220,8 +220,8 @@ const DateRangeSelector = ({
             format={format}
             setStartDateSelected={setStartDateSelected}
             setEndDateSelected={setEndDateSelected}
-            setStartYearSelected={setStartYearSelected}
-            setEndYearSelected={setEndYearSelected}
+            // setStartYearSelected={setStartYearSelected}
+            // setEndYearSelected={setEndYearSelected}
             updateFormattedDate={updateFormattedDate}
             datepickerEndInput={datepickerEndInput}
             datepickerStartInput={datepickerStartInput}
@@ -242,7 +242,7 @@ const DateRangeSelector = ({
                   <SelectPanel
                     currDateObj={startDateObj}
                     setCurrDateObj={setStartDateObj}
-                    setYearSelected={setStartYearSelected}
+                    // setYearSelected={setStartYearSelected}
                     format={format}
                     onDateSelection={onDateSelection}
                     dateSelected={startDateSelected}
@@ -254,7 +254,7 @@ const DateRangeSelector = ({
                   <SelectPanel
                     currDateObj={endDateObj}
                     setCurrDateObj={setEndDateObj}
-                    setYearSelected={setEndYearSelected}
+                    // setYearSelected={setEndYearSelected}
                     format={format}
                     onDateSelection={onDateSelection}
                     dateSelected={endDateSelected}
@@ -291,6 +291,9 @@ const DateRangeSelector = ({
 };
 
 DateRangeSelector.propTypes = {
+  /** To set id on parent div of DateSelector Component  */
+  id: PropTypes.string,
+
   /** Days in week.  Array input can be on the basis of language selected.  */
   weekDays: PropTypes.array,
 
@@ -298,12 +301,12 @@ DateRangeSelector.propTypes = {
   months: PropTypes.array,
 
   /**
-   MM/DD/YYYY:  One of the format available.
-   DD/MM/YYYY: One of the format available. */
+   mm/dd/yyyy:  One of the format available.
+   dd/mm/yyyy: One of the format available. */
   format: PropTypes.string,
 
-  /** Callback function which will be executed on date selection  */
-  onDateSelect: PropTypes.func,
+  /** Callback function which will be executed on date range selection  */
+  onDateRangeSelect: PropTypes.func,
 
   /** className/clasess will be applied on the parent div of DateRangeSelector */
   className: PropTypes.string,
@@ -321,14 +324,15 @@ DateRangeSelector.propTypes = {
 
   /** Date picker Container position will changed on scroll. This is applicable when DateRangeSelector container is attached to body */
   scrollListner: PropTypes.bool,
-  /** Label for time picker, if not provided no label will be added.   */
-  label: PropTypes.string,
-  /** Specifies helper text */
-  // helperText: PropTypes.string,
-  /** Unique Id */
-  id: PropTypes.string,
-  /** This props allows user to pass default date */
-  defaultDate: PropTypes.string
+
+  /** To pass sidepanel node */
+  sidePanel: PropTypes.node,
+
+  /** This props allows user to pass default start date */
+  defaultStartDate: PropTypes.any,
+
+  /** This props allows user to pass default start date */
+  defaultEndDate: PropTypes.any
 };
 
 DateRangeSelector.defaultProps = {
@@ -351,11 +355,8 @@ DateRangeSelector.defaultProps = {
   attachElementToBody: false,
   scrollListner: false,
   format: 'MM/DD/YYYY',
-  onDateSelect: () => {},
+  onDateRangeSelect: () => {},
   className: '',
-  label: null,
-  // helperText: null,
   id: null,
-  defaultDate: ''
 };
 export default DateRangeSelector;

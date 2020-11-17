@@ -236,9 +236,16 @@ const PanelBottom = ({
 };
 
 PanelBottom.propTypes = {
-  // dateSelected: PropTypes.string.isRequired,
-  // format: PropTypes.string.isRequired
-  // currDateObj: PropTypes.object,
+  view: PropTypes.string.isRequired,
+  setView: PropTypes.func.isRequired,
+  currDateObj: PropTypes.object.isRequired,
+  setCurrDateObj: PropTypes.func.isRequired,
+  onDateSelection: PropTypes.func,
+  dateSelected: PropTypes.string,
+  format: PropTypes.string.isRequired,
+  panelType: PropTypes.string,
+  startDateSelected: PropTypes.string,
+  endDateSelected: PropTypes.string
 };
 
 export default PanelBottom;

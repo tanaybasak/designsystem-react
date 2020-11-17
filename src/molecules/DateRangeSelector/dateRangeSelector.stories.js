@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { select, text } from '@storybook/addon-knobs';
 //@update-path-build-start
-import DatePicker from './DatePicker';
+import DateRangeSelector from './DateRangeSelector';
 //@update-path-build-end
 
 const formatOptions = {
@@ -11,35 +11,31 @@ const formatOptions = {
   'dd/mm/yyyy': 'dd/mm/yyyy'
 };
 
-storiesOf('DatePicker', module).add(
+storiesOf('DateRangeSelector', module).add(
   'default',
   () => (
-    <DatePicker
-      format={select('Date Format', formatOptions, 'mm/dd/yyyy')}
-      months={[
-        'January',
-        'February',
-        'March',
-        'April',
-        'May',
-        'June',
-        'July',
-        'August',
-        'September',
-        'October',
-        'November',
-        'December'
-      ]}
-      onDateSelect={action('Date Select')}
-      weekDays={['S', 'M', 'T', 'W', 'Th', 'F', 'S']}
-      aria-label="Date picker Input label"
-      defaultDate={text('Default Date', '12/30/1990')}
-    />
+    <DateRangeSelector
+      type="rangepicker"
+      format="mm/dd/yyyy"
+      sidePanel={
+        <ul className="hcl-dateSelector-sidebar">
+          <li tabIndex="0">Last Week</li>
+          <li tabIndex="0">Last Month</li>
+          <li tabIndex="0">Next Week</li>
+          <li tabIndex="0">Next Month</li>
+          <li tabIndex="0">Next 20 days</li>
+          <li tabIndex="0">Custom</li>
+        </ul>
+      }
+      onDateRangeSelect={action('onDateRangeSelect triggered')}
+      // defaultStartDate="11/01/2020"
+      // defaultEndDate="12/02/2020"
+    ></DateRangeSelector>
   ),
   {
     info: {
-      text: `Description About Datepicker Component\n
-      import { DatePicker } from '@patron/patron-react/datepicker';`
+      text: `Description About DateRangeSelector Component\n
+      import { DateRangeSelector } from '@patron/patron-react/daterangeselector';`
     }
   }
 );

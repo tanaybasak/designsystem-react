@@ -8,7 +8,7 @@ const PanelHeader = ({
   setView,
   currDateObj,
   setCurrDateObj,
-  setYearSelected,
+  // setYearSelected,
   months,
   ...restProps
 }) => {
@@ -43,7 +43,7 @@ const PanelHeader = ({
       date: tempDate.getDate(),
       year: tempDate.getFullYear()
     });
-    setYearSelected(String(tempDate.getFullYear()));
+    // setYearSelected(String(tempDate.getFullYear()));
   };
 
   const monthViewChangeHandler = event => {
@@ -257,16 +257,12 @@ const PanelHeader = ({
   );
 };
 
-// const initWeekDaysPanel = () => {
-//   WEEKDAYS.forEach(weekDay => {
-//     getElement(DOMstrings.weekDaysPanel).insertAdjacentHTML(
-//       'beforeend',
-//       `<span>${weekDay}</span>`
-//     );
-//   });
-// };
-
 PanelHeader.propTypes = {
-  // currDateObj: PropTypes.object,
+  view:PropTypes.string.isRequired,
+  setView:PropTypes.func.isRequired,
+  currDateObj:PropTypes.object.isRequired,
+  setCurrDateObj:PropTypes.func.isRequired,
+  // setYearSelected:PropTypes.string,
+  months:PropTypes.array.isRequired,
 };
 export default PanelHeader;

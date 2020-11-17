@@ -7,7 +7,7 @@ import PanelBottom from './PanelBottom';
 const SelectPanel = ({
   currDateObj,
   setCurrDateObj,
-  setYearSelected,
+  // setYearSelected,
   format,
   onDateSelection,
   dateSelected,
@@ -18,7 +18,6 @@ const SelectPanel = ({
   className,
   ...restProps
 }) => {
-  // console.log('dateSelected',dateSelected)
   const [view, setView] = useState('date');
   return (
     <div className={`hcl-dateSelector-panel ${className}`}>
@@ -27,7 +26,7 @@ const SelectPanel = ({
         setView={setView}
         currDateObj={currDateObj}
         setCurrDateObj={setCurrDateObj}
-        setYearSelected={setYearSelected}
+        // setYearSelected={setYearSelected}
         months={months}
       />
       <PanelBottom
@@ -47,8 +46,17 @@ const SelectPanel = ({
 };
 
 SelectPanel.propTypes = {
-  // dateSelected: PropTypes.string.isRequired,
-  // format: PropTypes.string.isRequired,
-  // currDateObj: PropTypes.object,
+  currDateObj: PropTypes.object.isRequired,
+  setCurrDateObj: PropTypes.func.isRequired,
+  // setYearSelected: PropTypes.func.isRequired,
+  format: PropTypes.string.isRequired,
+  onDateSelection: PropTypes.func.isRequired,
+  dateSelected: PropTypes.string,
+  months: PropTypes.array.isRequired,
+  panelType: PropTypes.string,
+  startDateSelected: PropTypes.string,
+  endDateSelected: PropTypes.string,
+  className: PropTypes.string
 };
+
 export default SelectPanel;

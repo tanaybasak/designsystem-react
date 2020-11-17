@@ -17,14 +17,14 @@ const DateRangeInput = ({
   format,
   setStartDateSelected,
   setEndDateSelected,
-  setStartYearSelected,
-  setEndYearSelected,
+  // setStartYearSelected,
+  // setEndYearSelected,
   updateFormattedDate,
   datepickerStartInput,
   datepickerEndInput
-
 }) => {
-  const onEnterPressInputDate = event => {ß
+  const onEnterPressInputDate = event => {
+    ß;
     setShowDateContainer(false);
 
     if (event.key === 'Enter') {
@@ -54,8 +54,6 @@ const DateRangeInput = ({
       }
     }
   };
-
- 
 
   return (
     <>
@@ -128,6 +126,24 @@ const DateRangeInput = ({
   );
 };
 
-DateRangeInput.propTypes = {};
+DateRangeInput.propTypes = {
+  startDateSelected: PropTypes.string,
+  endDateSelected: PropTypes.string,
+  toggleDateContainer: PropTypes.func.isRequired,
+  // datepickerInput,
+  defaultStartDate: PropTypes.string,
+  defaultEndDate: PropTypes.string,
+  setShowDateContainer: PropTypes.func,
+  setIsStartDateSelectedValid: PropTypes.func.isRequired,
+  setIsEndDateSelectedValid: PropTypes.func.isRequired,
+  format: PropTypes.string.isRequired,
+  setStartDateSelected: PropTypes.func.isRequired,
+  setEndDateSelected: PropTypes.func.isRequired,
+  // setStartYearSelected,
+  // setEndYearSelected,
+  updateFormattedDate: PropTypes.func.isRequired,
+  datepickerStartInput: PropTypes.object.isRequired,
+  datepickerEndInput: PropTypes.object.isRequired
+};
 
 export default DateRangeInput;

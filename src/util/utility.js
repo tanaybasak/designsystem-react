@@ -83,9 +83,33 @@ export const convertToDateObj = (format, str, saperator = '/') => {
   const strArray = str.split(saperator);
   let dateObj;
   if (format === 'mm/dd/yyyy') {
-    dateObj = new Date(strArray[2], strArray[0], strArray[1]);
+    dateObj = new Date(strArray[2], strArray[0] - 1, strArray[1]);
   } else if (format === 'dd/mm/yyyy') {
-    dateObj = new Date(strArray[2], strArray[1], strArray[0]);
+    dateObj = new Date(strArray[2], strArray[1] - 1, strArray[0]);
   }
   return dateObj;
+};
+
+export const createDateObj = (date, month, year) => {
+  return new Date(year, month - 1, date);
+};
+
+export const convertToDateString = (dateObj, format, saperator = '/') => {
+  let dateStr;
+
+  if (dateObj) {
+    if (format === 'mm/dd/yyyy') {
+      dateStr = `${
+        dateObj.getMonth() + 1
+      }${saperator}${dateObj.getDate()}${saperator}${dateObj.getFullYear()}`;
+    } else if (format === 'dd/mm/yyyy') {
+      dateStr = `${dateObj.getDate()}${saperator}${
+        dateObj.getMonth() + 1
+      }${saperator}${dateObj.getFullYear()}`;
+    }
+  } else {
+    dateStr = '';
+  }
+
+  return dateStr;
 };

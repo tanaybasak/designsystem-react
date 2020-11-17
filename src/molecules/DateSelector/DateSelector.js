@@ -1,7 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
-import { isValidDate } from '../../util/utility';
+import {
+  isValidDate,
+  createDateObj,
+  convertToDateObj,
+  convertToDateString
+} from '../../util/utility';
 import Overlay from '../../atoms/Overlay';
 import Label from '../../atoms/Label';
 import FormHelperText from '../../atoms/FormHelperText';
@@ -10,18 +15,17 @@ import SelectPanel from './SelectPanel';
 import DateSelectorInput from './DateSelectorInput';
 
 const DateSelector = ({
-  type,
+  id,
   weekDays,
   months,
   format,
-  onDateSelect,
   defaultDate,
   className,
   direction,
   scrollListner,
   attachElementToBody,
   sidePanel,
-  id,
+  onDateSelect,
   ...restProps
 }) => {
   const date = new Date();
@@ -32,7 +36,7 @@ const DateSelector = ({
     year: date.getFullYear()
   });
 
-  const [yearSelected, setYearSelected] = useState(String(date.getFullYear()));
+  // const [yearSelected, setYearSelected] = useState(String(date.getFullYear()));
   const [showDateContainer, setShowDateContainer] = useState(false);
 
   const [dateSelected, setDateSelected] = useState('');
@@ -74,7 +78,7 @@ const DateSelector = ({
 
   const toggleDateContainer = target => {
     setIsValidYear(true);
-    setYearSelected(String(currDateObj.year));
+    // setYearSelected(String(currDateObj.year));
     setShowDateContainer(!showDateContainer);
     setTargetEl(target.current);
   };
@@ -95,21 +99,18 @@ const DateSelector = ({
       date: date,
       year: year
     });
-    setYearSelected(yyyy);
+    // setYearSelected(yyyy);
     switch (format) {
       case 'mm/dd/yyyy':
         setDateSelected(`${monthStr}/${dateStr}/${year}`);
-        dateSelected === ''
-          ? null
-          : onDateSelect(`${monthStr}/${dateStr}/${year}`);
         break;
       case 'dd/mm/yyyy':
         setDateSelected(`${dateStr}/${monthStr}/${year}`);
-        dateSelected === ''
-          ? null
-          : onDateSelect(`${dateStr}/${monthStr}/${year}`);
         break;
     }
+    dateSelected === ''
+      ? null
+      : onDateSelect(createDateObj(Number(dateStr), Number(monthStr), year));
   };
 
   const onDateSelection = event => {
@@ -117,7 +118,7 @@ const DateSelector = ({
     setIsDateSelectedValid(true);
     setIsValidYear(true);
     setShowDateContainer(false);
-    onDateSelect(event.target.getAttribute('date'));
+    onDateSelect(convertToDateObj(format, event.target.getAttribute('date')));
   };
 
   return (
@@ -129,11 +130,12 @@ const DateSelector = ({
             dateSelected={dateSelected}
             toggleDateContainer={toggleDateContainer}
             datepickerInput={datepickerInput}
-            defaultDate={defaultDate}
+            defaultDate={convertToDateString(defaultDate, format)}
             setDateSelected={setDateSelected}
             updateFormattedDate={updateFormattedDate}
             setShowDateContainer={setShowDateContainer}
             setIsDateSelectedValid={setIsDateSelectedValid}
+            className={className}
           />
 
           <Overlay
@@ -150,7 +152,7 @@ const DateSelector = ({
               <SelectPanel
                 currDateObj={currDateObj}
                 setCurrDateObj={setCurrDateObj}
-                setYearSelected={setYearSelected}
+                // setYearSelected={setYearSelected}
                 format={format}
                 onDateSelection={onDateSelection}
                 dateSelected={dateSelected}
@@ -171,6 +173,9 @@ const DateSelector = ({
 };
 
 DateSelector.propTypes = {
+  /** To set id on parent div of DateSelector Component  */
+  id: PropTypes.string,
+
   /** Days in week.  Array input can be on the basis of language selected.  */
   weekDays: PropTypes.array,
 
@@ -178,12 +183,12 @@ DateSelector.propTypes = {
   months: PropTypes.array,
 
   /**
-   MM/DD/YYYY:  One of the format available.
-   DD/MM/YYYY: One of the format available. */
+   mm/dd/yyyy:  One of the format available.
+   dd/mm/yyyy: One of the format available. */
   format: PropTypes.string,
 
-  /** Callback function which will be executed on date selection  */
-  onDateSelect: PropTypes.func,
+  /** This props allows user to pass default date */
+  defaultDate: PropTypes.string,
 
   /** className/clasess will be applied on the parent div of DateSelector */
   className: PropTypes.string,
@@ -196,22 +201,21 @@ DateSelector.propTypes = {
     'bottom-left'
   ]),
 
+  /** Date picker Container position will changed on scroll. This is applicable when DateSelector container is attached to body */
+  scrollListner: PropTypes.bool,
+
   /** Used to attach the DateSelector container to body */
   attachElementToBody: PropTypes.bool,
 
-  /** Date picker Container position will changed on scroll. This is applicable when DateSelector container is attached to body */
-  scrollListner: PropTypes.bool,
-  /** Label for time picker, if not provided no label will be added.   */
-  label: PropTypes.string,
-  /** Specifies helper text */
-  // helperText: PropTypes.string,
-  /** Unique Id */
-  id: PropTypes.string,
-  /** This props allows user to pass default date */
-  defaultDate: PropTypes.string
+  /** To pass sidepanel node */
+  sidePanel:PropTypes.node,
+
+  /** Callback function which will be executed on date selection  */
+  onDateSelect: PropTypes.func
 };
 
 DateSelector.defaultProps = {
+  id: null,
   weekDays: ['S', 'M', 'T', 'W', 'Th', 'F', 'S'],
   months: [
     'JAN',
@@ -227,15 +231,13 @@ DateSelector.defaultProps = {
     'NOV',
     'DEC'
   ],
-  direction: 'bottom-left',
-  attachElementToBody: false,
-  scrollListner: false,
-  format: 'MM/DD/YYYY',
-  onDateSelect: () => {},
+  format: 'mm/dd/yyyy',
+  defaultDate: '',
   className: '',
-  label: null,
-  // helperText: null,
-  id: null,
-  defaultDate: ''
+  direction: 'bottom-left',
+  scrollListner: false,
+  attachElementToBody: false,
+  sidePanel: null,
+  onDateSelect: () => {},
 };
 export default DateSelector;

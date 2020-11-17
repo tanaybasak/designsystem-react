@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 // import prefix from '../../../../settings';
-import { convertToDateObj,isValidDate } from '../../../util/utility';
+import { convertToDateObj, isValidDate } from '../../../util/utility';
 
 const DateSelectorInput = ({
   format,
@@ -13,7 +13,7 @@ const DateSelectorInput = ({
   updateFormattedDate,
   setShowDateContainer,
   setIsDateSelectedValid,
-  ...restProps
+  className
 }) => {
   const onEnterPressInputDate = event => {
     setShowDateContainer(false);
@@ -39,7 +39,7 @@ const DateSelectorInput = ({
     <>
       <input
         type="text"
-        className="hcl-dateSelector-input"
+        className={`hcl-dateSelector-input ${className}`}
         placeholder={format}
         autoComplete="off"
         aria-label="Date Selector label"
@@ -54,7 +54,6 @@ const DateSelectorInput = ({
         }}
         onKeyPress={onEnterPressInputDate}
         ref={datepickerInput}
-        {...restProps}
       />
       <svg
         className="hcl-dateSelector-container-svg hcl-dateSelector-date-icon"
@@ -78,9 +77,16 @@ const DateSelectorInput = ({
 };
 
 DateSelectorInput.propTypes = {
-  // dateSelected: PropTypes.string.isRequired,
-  // format: PropTypes.string.isRequired
-  // currDateObj: PropTypes.object,
+  format: PropTypes.string.isRequired,
+  dateSelected: PropTypes.string.isRequired,
+  toggleDateContainer: PropTypes.func.isRequired,
+  datepickerInput: PropTypes.object.isRequired,
+  defaultDate: PropTypes.string.isRequired,
+  setDateSelected: PropTypes.func.isRequired,
+  updateFormattedDate: PropTypes.func.isRequired,
+  setShowDateContainer: PropTypes.func.isRequired,
+  setIsDateSelectedValid: PropTypes.func.isRequired,
+  className: PropTypes.string.isRequired
 };
 
 export default DateSelectorInput;
