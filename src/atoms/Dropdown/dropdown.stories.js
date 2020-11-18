@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { object, text } from '@storybook/addon-knobs';
+import { boolean, object, text } from '@storybook/addon-knobs';
 //@update-path-build-start
 import Dropdown from './Dropdown';
 //@update-path-build-end
@@ -33,6 +33,7 @@ storiesOf('Dropdown', module)
         items={object('Items', items)}
         label={text('Label', 'Dropdown Label')}
         onChange={action('Dropdown-Onchange')}
+        disabled={boolean('disabled', false)}
       />
     ),
     {
@@ -50,7 +51,8 @@ storiesOf('Dropdown', module)
         items={object('Items', items)}
         label={text('Label', 'Dropdown Label')}
         selectedItem={text('Item', 'option-2')}
-        onChange={action('Dropdown-Onchange')}
+        onChange={action('Dropdown-Onchange')}        
+        disabled={boolean('disabled', false)}
       />
     ),
     {
@@ -68,6 +70,7 @@ storiesOf('Dropdown', module)
         items={object('Items', items)}
         label={text('Label', 'MultiSelect Label')}
         onChange={action('Dropdown-Onchange')}
+        disabled={boolean('disabled', false)}
       />
     ),
     {
