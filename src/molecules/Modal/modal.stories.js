@@ -13,7 +13,7 @@ const typeOptions = {
 };
 
 const actions = [
-  { label: 'Save', primary: true, disabled: true },
+  { label: 'Save', danger: true, disabled: true },
   { label: 'Close', primary: false }
 ];
 
