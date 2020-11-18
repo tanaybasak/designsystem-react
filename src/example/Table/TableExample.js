@@ -35,13 +35,15 @@ class TableExample extends Component {
             />
           );
         },
-        width: '40px'
+        width: '40px',
+        headerCellClass: 'custom-header-checkbox',
+        bodyCellClass: 'custom-body-checkbox'
         // pinned: 'left'
       },
       {
         label: 'ID',
         field: 'id',
-        allowResize: false,
+        allowResize: true,
         columnHtml: (
           <Tag
             className=""
@@ -58,8 +60,8 @@ class TableExample extends Component {
             Sample Tag
           </Tag>
         ),
-
-        width: '160px',
+        bodyCellClass: 'custom-body-id-class',
+        width: '60px',
         pinned: 'left'
       },
 
@@ -84,14 +86,14 @@ class TableExample extends Component {
       {
         label: 'Full Name',
         field: 'name',
-        sortable: true
+        sortable: true,
         // pinned: 'left',
         // renderHtml: model => {
         //     return (
         //       <span>{model.name} {model.name} {model.name} {model.name}{model.name} {model.name} {model.name} {model.name} {model.name} {model.name}</span>
         //     );
         //   },
-        // width: '200px'
+        width: '200px'
       },
       {
         label: 'Private',
@@ -106,14 +108,13 @@ class TableExample extends Component {
               model.owner.site_admin ? 'Yes' : 'No'
             }`}</Tag>
           );
-        }
-        // width: '120px'
+        },
+        width: '120px'
       },
       {
         label: 'Language',
-        field: 'owner.login'
-
-        // width: '120px'
+        field: 'owner.login',
+        width: '420px'
       },
       {
         label: 'Has Issues',
@@ -128,13 +129,13 @@ class TableExample extends Component {
               toggled={model.has_issues}
             />
           );
-        }
-        // width: '150px'
+        },
+        width: '550px'
       },
       {
         label: 'Forks Count',
-        field: 'forks_count'
-        // width: '120px'
+        field: 'forks_count',
+        width: '120px'
       },
       {
         label: 'Branch',
@@ -144,8 +145,8 @@ class TableExample extends Component {
       },
       {
         label: 'Issues Count',
-        field: 'open_issues_count'
-        // width: '420px'
+        field: 'open_issues_count',
+        width: '420px'
         // pinned: 'right'
       },
       {
@@ -164,8 +165,8 @@ class TableExample extends Component {
               }}
             />
           );
-        }
-        // width: '400px'
+        },
+        width: '400px'
       }
     ]
   };
@@ -208,6 +209,7 @@ class TableExample extends Component {
               tableData={this.state.displayData}
               tableConfig={this.state.tableConfig}
               resizable
+              isHeaderSticky
               onColumnAfterResize={this.colResize}
               initSortedColumn={this.state.initSortedColumn}
               columnDraggable
