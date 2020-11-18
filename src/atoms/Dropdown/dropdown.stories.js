@@ -51,7 +51,7 @@ storiesOf('Dropdown', module)
         items={object('Items', items)}
         label={text('Label', 'Dropdown Label')}
         selectedItem={text('Item', 'option-2')}
-        onChange={action('Dropdown-Onchange')}        
+        onChange={action('Dropdown-Onchange')}
         disabled={boolean('disabled', false)}
       />
     ),

@@ -187,7 +187,7 @@ const Dropdown = ({
   if (isOpen) {
     classNames.push(`${prefix}-overlay-wrapper-active`);
   }
-  if(disabled) {
+  if (disabled) {
     multidropClassnames.push(`${prefix}-dropdown-disabled`);
   }
   if (className) {
@@ -347,7 +347,8 @@ Dropdown.propTypes = {
   /** Dropdown Container position will changed on scroll. This is applicable when Dropdown container is attached to body */
   scrollListner: PropTypes.bool,
 
-  /**  */
+  /** Disabled property for dropdown */
+  disabled: PropTypes.bool
 };
 
 Dropdown.defaultProps = {
