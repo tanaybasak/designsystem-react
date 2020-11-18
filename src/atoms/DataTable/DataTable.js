@@ -432,7 +432,7 @@ const DataTable = ({
         {...restProps}
       >
         <thead>
-          <tr tabIndex={0}>
+          <tr>
             {tableConfiguration.map((column, index) => {
               customHeaderFlag || column.columnHtml
                 ? (customHeaderFlag = true)
@@ -613,7 +613,7 @@ const DataTable = ({
             })}
           </tr>
           {customHeaderFlag ? (
-            <tr tabIndex={0}>
+            <tr>
               {tableConfiguration.map((column, index) => {
                 const thclassName = [];
                 if (column.pinned === 'left') {
@@ -658,7 +658,9 @@ const DataTable = ({
               <tr
                 tabIndex={0}
                 className={
-                  selectedItem && selectedItem[row.id] ? 'row-active' : null
+                  selectedItem && selectedItem[row.id]
+                    ? `${prefix}-active-row`
+                    : null
                 }
                 onClick={onRowSelect ? onRowSelect.bind(this, row) : null}
               >
