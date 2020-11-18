@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import prefix from '../../settings';
 import Checkbox from '../Checkbox';
 import Overlay from '../Overlay';
-
+import Tag from '../Tag/Tag';
 let dropdownIdRef = 0;
 const Dropdown = ({
   type,
@@ -125,6 +125,13 @@ const Dropdown = ({
   };
 
   const keydownButton = e => {
+    if (
+      e.target &&
+      e.target.classList &&
+      e.target.classList.contains(`${prefix}-tag-close`)
+    ) {
+      return;
+    }
     const key = e.which || e.keyCode;
     const listItems = dropDownRef.current;
     if (isOpen) {
@@ -196,30 +203,19 @@ const Dropdown = ({
           aria-haspopup="true"
         >
           {selectedCount > 0 ? (
-            <button
-              className={`${prefix}-tag ${prefix}-tag-primary`}
-              title="primary-closeable"
-              tabIndex="-1"
+            <Tag
+              closable
+              tabIndex={-1}
+              onClose={e => {
+                e.preventDefault();
+                e.stopPropagation();
+                clearSelection(e);
+              }}
+              title={selectedCount + ''}
+              type="primary"
             >
-              <span
-                aria-label={`${selectedCount}-selected options`}
-                className={`${prefix}-tag-text`}
-              >
-                {selectedCount}
-              </span>
-              <span
-                className={`${prefix}-close`}
-                aria-label="close-icon"
-                onKeyDown={event => {
-                  if (event.key === 'Enter') {
-                    event.preventDefault();
-                    clearSelection(event);
-                  }
-                }}
-                onClick={clearSelection}
-                tabIndex="0"
-              />
-            </button>
+              {selectedCount}
+            </Tag>
           ) : null}
           {label}
         </div>

@@ -6,36 +6,3 @@
 #root {
   height: 100vh;
 }
-
-
-// .p-hclsw-folder,
-// .p-hclsw-export {
-//   color: sandybrown;
-// }
-
-// .p-hclsw-document {
-//   color: skyblue;
-// }
-
-.nodrop-cursor {
-  cursor: no-drop;
-}
-
-// .hcl-dropdown-container{
-//     display: inline;
-// }
-
-.hcl-spinner-inline > svg {
-  margin-left: unset;
-}
-
-
-
-.hcl-modal-container {
-  
-  &-warning {
-  
-      border-top: 0.25rem solid #fffcd5 !important;
-
-  }
-}

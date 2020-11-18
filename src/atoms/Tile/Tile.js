@@ -14,7 +14,6 @@ const Tile = ({
   ...restProps
 }) => {
   let classNames = null;
-  const clickableElement = useRef(null);
   const expandableElement = useRef(null);
   const selectableElement = useRef(null);
 
@@ -40,28 +39,9 @@ const Tile = ({
   const clickableTile = () => {
     classNames = `${prefix}-tile-clickable ${className}`.trim();
     return (
-      <div
-        className={classNames}
-        onKeyDown={event => {
-          event.stopPropagation();
-          const key = event.which || event.keyCode;
-          const clickTag = clickableElement.current.querySelector(
-            `#${prefix}-tile-clickTag`
-          );
-          if (key === 13 || key === 32) {
-            if (clickTag) {
-              clickTag.click();
-            }
-          }
-        }}
-        tabIndex="0"
-        ref={clickableElement}
-        {...restProps}
-      >
-        <a id={`${prefix}-tile-clickTag`} tabIndex="-1" href={href}>
-          {children}
-        </a>
-      </div>
+      <a className={classNames} href={href} tabIndex="0" {...restProps}>
+        {children}
+      </a>
     );
   };
 

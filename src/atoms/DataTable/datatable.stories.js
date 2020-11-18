@@ -321,7 +321,34 @@ const tableConfig = [
     field: 'status'
   }
 ];
-
+const tableConfigwithResize = [
+  {
+    label: 'Name',
+    field: 'name',
+    sortable: true,
+    allowResize: false
+  },
+  {
+    label: 'Protocol',
+    field: 'protocol'
+  },
+  {
+    label: 'Port',
+    field: 'port'
+  },
+  {
+    label: 'Rule',
+    field: 'rule'
+  },
+  {
+    label: 'Attached Groups',
+    field: 'attachedGroups'
+  },
+  {
+    label: 'Status',
+    field: 'status'
+  }
+];
 const classOptions = {
   Compact: ' compact',
   Tall: ' tall',
@@ -417,6 +444,7 @@ storiesOf('DataTable', module)
           <Checkbox aria-label="header checkbox" id={`header_checkbox`} />
         }
         onSort={action('Sort Action')}
+        isHeaderSticky
       />
     ),
     {
@@ -427,6 +455,58 @@ storiesOf('DataTable', module)
     import {Toggle} from '@patron/patron-react/toggle';
     import {Overflowmenu} from '@patron/patron-react/overflowmenu';
     import {Tag} from '@patron/patron-react/tag';
+      `
+      }
+    }
+  )
+  .add(
+    'with resize',
+    () => (
+      <DataTable
+        id="custom-datatable-pin"
+        tableData={object('Table Data', tableData)}
+        tableConfig={tableConfigwithResize}
+        type={text('Type', 'zebra borderless')}
+        headerSelection={
+          <Checkbox aria-label="header checkbox" id={`header_checkbox`} />
+        }
+        resizable
+        onColumnAfterResize={action('column-resized')}
+      />
+    ),
+    {
+      info: {
+        text: `Description About DataTable Component \n
+        import { DataTable } from '@patron/patron-react/datatable';
+    import {Checkbox} from '@patron/patron-react/checkbox';
+    import {Toggle} from '@patron/patron-react/toggle';
+    import {Overflowmenu} from '@patron/patron-react/overflowmenu';
+    import {Tag} from '@patron/patron-react/tag';
+      `
+      }
+    }
+  )
+  .add(
+    'with column reorder',
+    () => (
+      <DataTable
+        id="data_table_1"
+        type={`${boolean('Border', true) ? '' : 'borderless'}${
+          boolean('Zebra', false) ? ' zebra' : ''
+        }${select('Class Name', classOptions, '')}`}
+        tableData={tableData}
+        tableConfig={tableConfig}
+        onSort={action('Sort Action')}
+        columnDraggable
+        onColumnReorder={action('column-reorder')}
+      />
+    ),
+    {
+      info: {
+        text: `Description About DataTable Component
+
+      import { DataTable } from '@patron/patron-react/datatable';
+      
       `
       }
     }

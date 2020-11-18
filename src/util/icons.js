@@ -5,7 +5,7 @@ export const Info = (
   <svg
     focusable="false"
     preserveAspectRatio="xMidYMid meet"
-    xmlns="http://www.w3.org/2000/svg"
+    xmlns="https://www.w3.org/2000/svg"
     width="20"
     height="20"
     viewBox="0 0 32 32"
@@ -21,7 +21,7 @@ export const Success = (
   <svg
     focusable="false"
     preserveAspectRatio="xMidYMid meet"
-    xmlns="http://www.w3.org/2000/svg"
+    xmlns="https://www.w3.org/2000/svg"
     width="20"
     height="20"
     viewBox="0 0 20 20"
@@ -43,7 +43,7 @@ export const Danger = (
   <svg
     focusable="false"
     preserveAspectRatio="xMidYMid meet"
-    xmlns="http://www.w3.org/2000/svg"
+    xmlns="https://www.w3.org/2000/svg"
     width="20"
     height="20"
     viewBox="0 0 20 20"
@@ -64,7 +64,7 @@ export const Warning = (
   <svg
     focusable="false"
     preserveAspectRatio="xMidYMid meet"
-    xmlns="http://www.w3.org/2000/svg"
+    xmlns="https://www.w3.org/2000/svg"
     width="20"
     height="20"
     viewBox="0 0 20 20"
@@ -77,6 +77,14 @@ export const Warning = (
       d="M9.2 5h1.5v7H9.2V5zm.8 11c-.6 0-1-.4-1-1s.4-1 1-1 1 .4 1 1-.4 1-1 1z"
       data-icon-path="inner-path"
       opacity="0"
+    />
+  </svg>
+);
+export const Close = (
+  <svg version="1.1" xmlns="https://www.w3.org/2000/svg" viewBox="0 0 16 16">
+    <polygon
+      points="15.393,2.021 13.979,0.607 8,6.586 2.021,0.607 0.607,2.021 6.586,8 0.607,13.979 2.021,15.393 8,9.414 
+           13.979,15.393 15.393,13.979 9.414,8 "
     />
   </svg>
 );

@@ -37,7 +37,6 @@ function Breadcrumb({ activeIndex, onSelection, id, className, children }) {
     } else if (index === 0 || !(index < childCount - 2)) {
       return cloneElement(child, {
         onClick: e => {
-          e.preventDefault();
           setActive(index);
           if (child.props.onClick) {
             child.props.onClick(e);
