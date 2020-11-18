@@ -23,6 +23,7 @@ const DataTable = ({
   onColumnAfterResize,
   initSortedColumn,
   onColumnReorder,
+  selectedItem,
   ...restProps
 }) => {
   const [rows, updateTableRowData] = useState(tableData);
@@ -428,7 +429,7 @@ const DataTable = ({
         {...restProps}
       >
         <thead>
-          <tr>
+          <tr tabIndex={0}>
             {tableConfiguration.map((column, index) => {
               customHeaderFlag || column.columnHtml
                 ? (customHeaderFlag = true)
@@ -599,7 +600,7 @@ const DataTable = ({
             })}
           </tr>
           {customHeaderFlag ? (
-            <tr>
+            <tr tabIndex={0}>
               {tableConfiguration.map((column, index) => {
                 return (
                   <th
@@ -632,7 +633,13 @@ const DataTable = ({
         <tbody>
           {rows.map((row, index) => (
             <React.Fragment key={`row-${index}`}>
-              <tr onClick={onRowSelect ? onRowSelect.bind(this, row) : null}>
+              <tr
+                tabIndex={0}
+                className={
+                  selectedItem && selectedItem[row.id] ? 'row-active' : null
+                }
+                onClick={onRowSelect ? onRowSelect.bind(this, row) : null}
+              >
                 {tableConfiguration.map((column, i) => (
                   <td
                     key={`col-${index}-${i}`}
@@ -685,7 +692,7 @@ const DataTable = ({
                 ))}
               </tr>
               {expandRowTemplate && row.expanded ? (
-                <tr className={`${prefix}-expanded-row`}>
+                <tr tabIndex={0} className={`${prefix}-expanded-row`}>
                   <td colSpan={tableConfiguration.length}>
                     <div>{expandRowTemplate(row)}</div>
                   </td>
@@ -772,7 +779,9 @@ DataTable.propTypes = {
    */
   initSortedColumn: PropTypes.object,
   /** onColumnReorder will be tiggered on each column reorder and receive updated tableConfig as parameter*/
-  onColumnReorder: PropTypes.func
+  onColumnReorder: PropTypes.func,
+  /** id of item for default selection */
+  selectedItem: PropTypes.oneOfType([PropTypes.string, PropTypes.array])
 };
 
 DataTable.defaultProps = {
