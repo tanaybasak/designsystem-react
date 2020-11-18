@@ -13,8 +13,8 @@ const typeOptions = {
 };
 
 const actions = [
-  { label: 'Save', danger: true, disabled: true },
-  { label: 'Close', primary: false }
+  { label: 'Save', primary: true, disabled: true },
+  { label: 'Close', secondary: false }
 ];
 
 storiesOf('Modal', module).add(
