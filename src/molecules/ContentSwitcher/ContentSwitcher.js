@@ -73,12 +73,9 @@ function ContentSwitcher({ className, activeIndex, onChange, children }) {
       onKeyDown: keyDownOnContextSwitch
     });
   });
-
+  const classnames = `${prefix}-content-switcher ${className.trim()}`;
   return (
-    <div
-      className={`${prefix}-content-switcher ${className ? className : ''}`}
-      role="tablist"
-    >
+    <div className={classnames} role="tablist">
       {modifiedChildren}
     </div>
   );
