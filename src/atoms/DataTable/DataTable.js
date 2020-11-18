@@ -130,17 +130,14 @@ const DataTable = ({
     }
   };
 
-  let tableClass = [`${prefix}-data-table`];
+  let tableClass = `${prefix}-data-table`;
   if (type.includes('compact')) {
-    tableClass.push(`${prefix}-data-table-compact`);
+    tableClass += ` ${prefix}-data-table-compact`;
   } else if (type.includes('tall')) {
-    tableClass.push(`${prefix}-data-table-tall`);
+    tableClass += ` ${prefix}-data-table-tall`;
   }
   if (type.includes('zebra')) {
-    tableClass.push(`${prefix}-data-table-zebra`);
-  }
-  if (resizable) {
-    tableClass.push(`${prefix}-data-table-fixed`);
+    tableClass += ` ${prefix}-data-table-zebra`;
   }
 
   // const classnames = `${prefix}-data-table-wrapper data-table-sticky-header${
@@ -427,7 +424,7 @@ const DataTable = ({
       <table
         id={id}
         ref={tableRef}
-        className={tableClass.join(` `)}
+        className={tableClass}
         role="grid"
         {...restProps}
       >
@@ -437,28 +434,6 @@ const DataTable = ({
               customHeaderFlag || column.columnHtml
                 ? (customHeaderFlag = true)
                 : null;
-              const thClassName = [];
-              if (column.pinned === 'left') {
-                thClassName.push('sticky-div sticky-left-div');
-              }
-              if (column.pinned === 'right') {
-                thClassName.push('sticky-div sticky-right-div');
-              }
-              if (column.sortable) {
-                thClassName.push('sortable');
-              }
-              if (
-                (resizable && column['allowResize'] !== false) ||
-                !!column['allowResize']
-              ) {
-                thClassName.push('resizable');
-              }
-              if (columnDraggable) {
-                thClassName.push('draggable');
-              }
-              if (column.headerCellClass) {
-                thClassName.push(column.headerCellClass);
-              }
               return (
                 <th
                   key={`heading-${index}`}
@@ -471,7 +446,19 @@ const DataTable = ({
                   }}
                   title={column.title ? column.title.toString() : ''}
                   data-column={column.field}
-                  className={thClassName.join(' ')}
+                  className={`${
+                    column.pinned === 'left' ? 'sticky-div sticky-left-div' : ''
+                  }${
+                    column.pinned === 'right'
+                      ? 'sticky-div sticky-right-div'
+                      : ''
+                  }${column.sortable ? ' sortable' : ''}${
+                    (resizable && column['allowResize'] !== false) ||
+                    !!column['allowResize']
+                      ? ' resizable'
+                      : ''
+                  }${columnDraggable ? ' draggable' : ''}
+                  `}
                   tabIndex={column.sortable ? '0' : null}
                   onClick={column.sortable ? sort.bind(this, column) : null}
                   onKeyDown={
@@ -615,25 +602,6 @@ const DataTable = ({
           {customHeaderFlag ? (
             <tr tabIndex={0}>
               {tableConfiguration.map((column, index) => {
-                const thclassName = [];
-                if (column.pinned === 'left') {
-                  thclassName.push('sticky-div sticky-left-div');
-                }
-                if (column.pinned === 'right') {
-                  thclassName.push('sticky-div sticky-right-div');
-                }
-                if (column.sortable) {
-                  thclassName.push('sortable');
-                }
-                if (
-                  (resizable && column['allowResize'] !== false) ||
-                  !!column['allowResize']
-                ) {
-                  thclassName.push('resizable');
-                }
-                if (column.headerCellClass) {
-                  thclassName.push(column.headerCellClass);
-                }
                 return (
                   <th
                     key={`customheader-${index}`}
@@ -643,7 +611,17 @@ const DataTable = ({
                       right: column.marginRight,
                       ...column.styles
                     }}
-                    className={thclassName.join(' ')}
+                    className={`${
+                      column.pinned === 'left'
+                        ? 'sticky-div sticky-left-div'
+                        : ''
+                    }${
+                      column.pinned === 'right'
+                        ? 'sticky-div sticky-right-div'
+                        : ''
+                    }${column.sortable ? ' sortable' : ''}${
+                      column.allowResize ? ' resizable' : ''
+                    }`}
                   >
                     {column.columnHtml ? column.columnHtml : null}
                   </th>
@@ -655,7 +633,6 @@ const DataTable = ({
         <tbody>
           {rows.map((row, index) => (
             <React.Fragment key={`row-${index}`}>
-<<<<<<< HEAD
               <tr
                 tabIndex={0}
                 className={
@@ -713,63 +690,6 @@ const DataTable = ({
                     )}
                   </td>
                 ))}
-=======
-              <tr onClick={onRowSelect ? onRowSelect.bind(this, row) : null}>
-                {tableConfiguration.map((column, i) => {
-                  const tdclassName = [];
-                  if (column.pinned === 'left') {
-                    tdclassName.push('sticky-div sticky-left-div');
-                  }
-                  if (column.pinned === 'right') {
-                    tdclassName.push('sticky-div sticky-right-div');
-                  }
-                  if (column.bodyCellClass) {
-                    tdclassName.push(column.bodyCellClass);
-                  }
-                  return (
-                    <td
-                      key={`col-${index}-${i}`}
-                      title={
-                        column.renderHtml
-                          ? null
-                          : row[column.field]
-                          ? row[column.field].toString()
-                          : ''
-                      }
-                      data-label={column.field}
-                      className={tdclassName.join(' ')}
-                      style={{
-                        minWidth: column.width,
-                        left: column.marginLeft,
-                        right: column.marginRight,
-                        ...column.styles
-                      }}
-                      tabIndex={-1}
-                      onKeyDown={onKeyDownOnTable.bind(this, i)}
-                    >
-                      {column.renderHtml ? (
-                        column.renderHtml(row)
-                      ) : column.field === 'expand' ? (
-                        <svg
-                          onClick={toggleRow.bind(this, index)}
-                          className={`${
-                            row.expanded
-                              ? `${prefix}-collapse-row`
-                              : `${prefix}-expand-row`
-                          }`}
-                          width="10"
-                          height="5"
-                          viewBox="0 0 10 5"
-                        >
-                          <path d="M0 0l5 4.998L10 0z" fillRule="evenodd" />
-                        </svg>
-                      ) : (
-                        row[column.field]
-                      )}
-                    </td>
-                  );
-                })}
->>>>>>> 3cc39c077b209da72b94de6602bb3e140c9aac8b
               </tr>
               {expandRowTemplate && row.expanded ? (
                 <tr tabIndex={0} className={`${prefix}-expanded-row`}>
@@ -806,8 +726,6 @@ DataTable.propTypes = {
    *    allowResize: true // Pass true to make column resizable.
    *    minResizeWidth: 40, // minimum resize width
    *    maxResizeWidth: 120, // maximum resize width
-   *    headerCellClass: 'custom-class-name', // For passing custom class name for <th> under <thead> element
-   *    bodyCellClass: 'custom-class-name', // For passing custom class name for <td> under <tbody> element
    * }] */
   tableConfig: PropTypes.arrayOf(
     PropTypes.shape({
@@ -820,9 +738,7 @@ DataTable.propTypes = {
       minResizeWidth: PropTypes.number,
       maxResizeWidth: PropTypes.number,
       renderHtml: PropTypes.func,
-      columnHtml: PropTypes.node,
-      headerCellClass: PropTypes.string,
-      bodyCellClass: PropTypes.string
+      columnHtml: PropTypes.node
     })
   ),
   /** Name of the custom class to apply to the Data Table. */
