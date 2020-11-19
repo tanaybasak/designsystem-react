@@ -1,14 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../../settings';
-// import { convertToDateObj } from '../../../../util/utility';
-import { isValidDate } from '../../../util/utility';
+import { isValidDate, convertToDateObj } from '../../../util/utility';
 
 const DateRangeInput = ({
   startDateSelected,
   endDateSelected,
   toggleDateContainer,
-  // datepickerInput,
   defaultStartDate,
   defaultEndDate,
   setShowDateContainer,
@@ -17,14 +15,14 @@ const DateRangeInput = ({
   format,
   setStartDateSelected,
   setEndDateSelected,
-  // setStartYearSelected,
-  // setEndYearSelected,
   updateFormattedDate,
   datepickerStartInput,
-  datepickerEndInput
+  datepickerEndInput,
+  onDateRangeSelect,
+  isStartDateSelectedValid,
+  isEndDateSelectedValid
 }) => {
   const onEnterPressInputDate = event => {
-    ß;
     setShowDateContainer(false);
 
     if (event.key === 'Enter') {
@@ -45,6 +43,16 @@ const DateRangeInput = ({
             updateFormattedDate(dateArray[1], dateArray[0], dateArray[2], type);
             break;
         }
+        if (
+          startDateSelected &&
+          endDateSelected &&
+          isStartDateSelectedValid &&
+          isEndDateSelectedValid
+        )
+          onDateRangeSelect({
+            start: convertToDateObj(format, startDateSelected),
+            end: convertToDateObj(format, endDateSelected)
+          });
       } else {
         if (type === 'start') {
           setStartDateSelected(event.target.value);
@@ -130,7 +138,6 @@ DateRangeInput.propTypes = {
   startDateSelected: PropTypes.string,
   endDateSelected: PropTypes.string,
   toggleDateContainer: PropTypes.func.isRequired,
-  // datepickerInput,
   defaultStartDate: PropTypes.string,
   defaultEndDate: PropTypes.string,
   setShowDateContainer: PropTypes.func,
@@ -139,8 +146,6 @@ DateRangeInput.propTypes = {
   format: PropTypes.string.isRequired,
   setStartDateSelected: PropTypes.func.isRequired,
   setEndDateSelected: PropTypes.func.isRequired,
-  // setStartYearSelected,
-  // setEndYearSelected,
   updateFormattedDate: PropTypes.func.isRequired,
   datepickerStartInput: PropTypes.object.isRequired,
   datepickerEndInput: PropTypes.object.isRequired

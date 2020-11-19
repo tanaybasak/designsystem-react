@@ -2,15 +2,12 @@ import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 import {
-  isValidDate,
   createDateObj,
   convertToDateObj,
   convertToDateString
 } from '../../util/utility';
 import Overlay from '../../atoms/Overlay';
-import Label from '../../atoms/Label';
 import FormHelperText from '../../atoms/FormHelperText';
-// import DateInput from '../DateSelector/DateInput';
 import SelectPanel from './SelectPanel';
 import DateSelectorInput from './DateSelectorInput';
 
@@ -35,16 +32,11 @@ const DateSelector = ({
     date: date.getDate(),
     year: date.getFullYear()
   });
-console.log('currDateObj',currDateObj)
-  // const [yearSelected, setYearSelected] = useState(String(date.getFullYear()));
   const [showDateContainer, setShowDateContainer] = useState(false);
-
   const [dateSelected, setDateSelected] = useState('');
-
   const [isDateSelectedValid, setIsDateSelectedValid] = useState(true);
   const [isValidYear, setIsValidYear] = useState(true);
   const datepickerInput = useRef(null);
-
   const [targetEl, setTargetEl] = useState(null);
 
   useEffect(() => {
@@ -78,7 +70,6 @@ console.log('currDateObj',currDateObj)
 
   const toggleDateContainer = target => {
     setIsValidYear(true);
-    // setYearSelected(String(currDateObj.year));
     setShowDateContainer(!showDateContainer);
     setTargetEl(target.current);
   };
@@ -148,16 +139,17 @@ console.log('currDateObj',currDateObj)
           >
             <div className="hcl-dateSelector-panel-wrapper">
               {sidePanel}
-              <SelectPanel
-                currDateObj={currDateObj}
-                setCurrDateObj={setCurrDateObj}
-                // setYearSelected={setYearSelected}
-                format={format}
-                onDateSelection={onDateSelection}
-                dateSelected={dateSelected}
-                months={months}
-                className="hcl-border-left"
-              />
+              <div className="hcl-dateSelector-panel-right">
+                <SelectPanel
+                  currDateObj={currDateObj}
+                  setCurrDateObj={setCurrDateObj}
+                  format={format}
+                  onDateSelection={onDateSelection}
+                  dateSelected={dateSelected}
+                  months={months}
+                  weekDays={weekDays}
+                />
+              </div>
             </div>
           </Overlay>
           {!isDateSelectedValid ? (
@@ -191,7 +183,7 @@ DateSelector.propTypes = {
 
   /** className/clasess will be applied on the parent div of DateSelector */
   className: PropTypes.string,
-    
+
   /** Used for defining the position of DateSelector */
   direction: PropTypes.oneOf([
     'top-right',
@@ -207,7 +199,7 @@ DateSelector.propTypes = {
   attachElementToBody: PropTypes.bool,
 
   /** To pass sidepanel node */
-  sidePanel:PropTypes.node,
+  sidePanel: PropTypes.node,
 
   /** Callback function which will be executed on date selection  */
   onDateSelect: PropTypes.func
@@ -237,6 +229,6 @@ DateSelector.defaultProps = {
   scrollListner: false,
   attachElementToBody: false,
   sidePanel: null,
-  onDateSelect: () => {},
+  onDateSelect: () => {}
 };
 export default DateSelector;

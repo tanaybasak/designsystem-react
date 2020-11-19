@@ -4,15 +4,13 @@ import prefix from '../../settings';
 import Overlay from '../../atoms/Overlay';
 import Label from '../../atoms/Label';
 import FormHelperText from '../../atoms/FormHelperText';
-// import DateInput from '../DateRangeSelector/DateInput';
 import SelectPanel from '../DateSelector/SelectPanel';
 import DateRangeFooter from './DateRangeFooter';
 import DateRangeInput from './DateRangeInput';
 import {
-  isValidDate,
-  createDateObj,
   convertToDateObj,
-  convertToDateString
+  convertToDateString,
+  dayDiff
 } from '../../util/utility';
 
 const DateRangeSelector = ({
@@ -117,8 +115,34 @@ const DateRangeSelector = ({
     }
   }, [defaultEndDate]);
 
+  let range=0;
+
+  if (startDateSelected && endDateSelected) {
+    const endDateObj = convertToDateObj(format, endDateSelected);
+    const startDateObj = convertToDateObj(format, startDateSelected);
+    range = dayDiff(startDateObj, endDateObj);
+  }
+
   const onToggle = status => {
     setShowDateContainer(status);
+  };
+
+  const onCancel = status => {
+    setShowDateContainer(false);
+    setStartDateObj({
+      day: date.getDay(),
+      month: date.getMonth(),
+      date: date.getDate(),
+      year: date.getFullYear()
+    });
+    setEndDateObj({
+      day: endDate.getDay(),
+      month: endDate.getMonth(),
+      date: endDate.getDate(),
+      year: endDate.getFullYear()
+    });
+    setStartDateSelected(null);
+    setEndDateSelected(null);
   };
 
   const toggleDateContainer = target => {
@@ -189,7 +213,7 @@ const DateRangeSelector = ({
             toggleDateContainer={toggleDateContainer}
             defaultStartDate={convertToDateString(defaultStartDate, format)}
             defaultEndDate={convertToDateString(defaultEndDate, format)}
-            setShowDateContaine={setShowDateContainer}
+            setShowDateContainer={setShowDateContainer}
             setIsStartDateSelectedValid={setIsStartDateSelectedValid}
             setIsEndDateSelectedValid={setIsEndDateSelectedValid}
             format={format}
@@ -198,6 +222,9 @@ const DateRangeSelector = ({
             updateFormattedDate={updateFormattedDate}
             datepickerEndInput={datepickerEndInput}
             datepickerStartInput={datepickerStartInput}
+            isStartDateSelectedValid={isStartDateSelectedValid}
+            isEndDateSelectedValid={isEndDateSelectedValid}
+            onDateRangeSelect={onDateRangeSelect}
           />
           <Overlay
             attachElementToBody={attachElementToBody}
@@ -210,7 +237,7 @@ const DateRangeSelector = ({
           >
             <div className="hcl-dateSelector-panel-wrapper">
               {sidePanel}
-              <div className="hcl-flex-col hcl-dateSelector-panel-right hcl-border-left">
+              <div className="hcl-flex-col hcl-dateSelector-panel-right ">
                 <div className="hcl-flex-row">
                   <SelectPanel
                     currDateObj={startDateObj}
@@ -219,6 +246,7 @@ const DateRangeSelector = ({
                     onDateSelection={onDateSelection}
                     dateSelected={startDateSelected}
                     months={months}
+                    weekDays={weekDays}
                     panelType="startpanel"
                     startDateSelected={startDateSelected}
                     endDateSelected={endDateSelected}
@@ -227,6 +255,8 @@ const DateRangeSelector = ({
                     setStartDateObj={setStartDateObj}
                     setEndDateObj={setEndDateObj}
                     type="rangepicker"
+                    range={range}
+                    onDateRangeSelect={onDateRangeSelect}
                   />
                   <SelectPanel
                     currDateObj={endDateObj}
@@ -235,6 +265,7 @@ const DateRangeSelector = ({
                     onDateSelection={onDateSelection}
                     dateSelected={endDateSelected}
                     months={months}
+                    weekDays={weekDays}
                     panelType="endpanel"
                     startDateSelected={startDateSelected}
                     endDateSelected={endDateSelected}
@@ -243,6 +274,7 @@ const DateRangeSelector = ({
                     setStartDateObj={setStartDateObj}
                     setEndDateObj={setEndDateObj}
                     type="rangepicker"
+                    range={range}
                   />
                 </div>
                 <DateRangeFooter
@@ -253,12 +285,11 @@ const DateRangeSelector = ({
                       end: convertToDateObj(format, endDateSelected)
                     });
                   }}
-                  onCancel={() => {
-                    setShowDateContainer(false);
-                  }}
+                  onCancel={onCancel}
                   endDateSelected={endDateSelected}
                   startDateSelected={startDateSelected}
                   format={format}
+                  range={range}
                 ></DateRangeFooter>
               </div>
             </div>

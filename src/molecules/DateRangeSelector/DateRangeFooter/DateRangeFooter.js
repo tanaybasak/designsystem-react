@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Button from '../../../atoms/Button';
 // import prefix from '../../../../settings';
-import { convertToDateObj, dayDiff } from '../../../util/utility';
 
 const DateRangeFooter = ({
   onCancel,
@@ -10,27 +9,36 @@ const DateRangeFooter = ({
   startDateSelected,
   endDateSelected,
   format,
+  range,
   ...restProps
 }) => {
-  let range = 0;
-  if (startDateSelected && endDateSelected) {
-    const endDateObj = convertToDateObj(format, endDateSelected);
-    const startDateObj = convertToDateObj(format, startDateSelected);
-    range = dayDiff(startDateObj, endDateObj);
-  }
+ 
   return (
     <div className="hcl-dateSelector-footer">
       <div className="hcl-dateSelector-footer-range">
-        <span> Range:</span>
-        <span> {`${range} days`}</span>
+        {range >= 0 ? (
+          <>
+            <span> Range:</span>
+            <span> {`${range + 1} days`}</span>
+          </>
+        ) : (
+          <span className="hcl-dateSelector-footer-error">Start date should be less than end date</span>
+        )}
       </div>
       <div>
         <button className="hcl-btn hcl-ghost mr-4" onClick={onCancel}>
           Cancel
         </button>
-        <button className="hcl-btn hcl-primary" onClick={onDone}>
+        <Button
+          className=""
+          disabled={range < 0 ? true : false}
+          onClick={onDone}
+          small={false}
+          title="Default"
+          type="primary"
+        >
           Done
-        </button>
+        </Button>
       </div>
     </div>
   );

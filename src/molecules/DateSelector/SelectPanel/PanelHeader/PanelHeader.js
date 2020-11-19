@@ -8,8 +8,8 @@ const PanelHeader = ({
   setView,
   currDateObj,
   setCurrDateObj,
-  // setYearSelected,
   months,
+  weekDays,
   monthDifference,
   panelType,
   ...restProps
@@ -45,7 +45,12 @@ const PanelHeader = ({
       date: tempDate.getDate(),
       year: tempDate.getFullYear()
     });
-    // setYearSelected(String(tempDate.getFullYear()));
+  };
+
+  const createWeekDaysHeader = () => {
+    return weekDays.map((weekDay, index) => {
+      return <span key={`week-day-${index}`}>{weekDay}</span>;
+    });
   };
 
   const monthViewChangeHandler = event => {
@@ -105,11 +110,11 @@ const PanelHeader = ({
       <div className="hcl-dateSelector-year-month">
         <Button
           className="hcl-dateSelector-month-prev"
-          disabled={
-            panelType === 'endpanel' && monthDifference === 1 && view === 'date'
-              ? true
-              : false
-          }
+          // disabled={
+          //   panelType === 'endpanel' && monthDifference === 1 && view === 'date'
+          //     ? true
+          //     : false
+          // }
           onClick={
             view === 'date'
               ? dateViewChangeHandler
@@ -216,13 +221,13 @@ const PanelHeader = ({
         </div>
         <Button
           className="hcl-dateSelector-month-next"
-          disabled={
-            panelType === 'startpanel' &&
-            monthDifference === 1 &&
-            view === 'date'
-              ? true
-              : false
-          }
+          // disabled={
+          //   panelType === 'startpanel' &&
+          //   monthDifference === 1 &&
+          //   view === 'date'
+          //     ? true
+          //     : false
+          // }
           onClick={
             view === 'date'
               ? dateViewChangeHandler
@@ -256,13 +261,14 @@ const PanelHeader = ({
       </div>
       {view === 'date' ? (
         <div className="hcl-dateSelector-days hcl-roboto-medium">
-          <span>S</span>
+          {/* <span>S</span>
           <span>M</span>
           <span>T</span>
           <span>W</span>
           <span>Th</span>
           <span>F</span>
-          <span>S</span>
+          <span>S</span> */}
+          {createWeekDaysHeader()}
         </div>
       ) : null}
     </>

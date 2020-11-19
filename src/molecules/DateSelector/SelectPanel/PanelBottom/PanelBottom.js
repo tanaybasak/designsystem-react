@@ -14,13 +14,14 @@ const PanelBottom = ({
   panelType,
   startDateSelected,
   endDateSelected,
+  weekDays,
+  months,
   ...restProps
 }) => {
   let dateNodeList = [];
   let DOMstrings = {
     datePicked: `${prefix}-dateSelector-date-picked`,
     todayHighlight: `${prefix}-dateSelector-dates-today`,
-    // dateUnSelected: `${prefix}-dateSelector-date`,
     fade: `${prefix}-dateSelector-date-fade`,
     edge: `${prefix}-dateSelector-date-edge`
   };
@@ -59,7 +60,6 @@ const PanelBottom = ({
     for (let i = 1; i < numOfDaysFromNextMonth; i++) {
       dateNodeList.push(createDayHTML('next', i));
     }
-    // console.log('dateNodeList',dateNodeList)
     return dateNodeList;
   };
 
@@ -97,10 +97,9 @@ const PanelBottom = ({
         date = `${day}/${month}/${year}`;
         break;
     }
-    // const date = `${month}/${day}/${year}`;
     const formattedDate = getFormattedDate(month, day, year);
 
-    let classDetails = [];
+    let classDetails = ['hcl-dateSelector-date'];
     if (type !== 'current') {
       classDetails.push(DOMstrings.fade);
     }
@@ -108,9 +107,6 @@ const PanelBottom = ({
       year === todayDate.getFullYear() &&
       Number(month) === todayDate.getMonth() + 1 &&
       Number(day) === todayDate.getDate();
-    // if (isTodayDate) {
-    //   classDetails.push(DOMstrings.todayHighlight);
-    // }
     if (date === dateSelected) {
       classDetails.push(DOMstrings.datePicked);
     }
@@ -166,20 +162,20 @@ const PanelBottom = ({
   };
 
   const createMonthNodeList = () => {
-    const months = [
-      'JAN',
-      'FEB',
-      'MAR',
-      'APR',
-      'MAY',
-      'JUN',
-      'JUL',
-      'AUG',
-      'SEP',
-      'OCT',
-      'NOV',
-      'DEC'
-    ];
+    // const months = [
+    //   'JAN',
+    //   'FEB',
+    //   'MAR',
+    //   'APR',
+    //   'MAY',
+    //   'JUN',
+    //   'JUL',
+    //   'AUG',
+    //   'SEP',
+    //   'OCT',
+    //   'NOV',
+    //   'DEC'
+    // ];
     const nodeList = months.map((month, index) => {
       return (
         <span
@@ -187,11 +183,12 @@ const PanelBottom = ({
           month={index}
           onClick={() => {
             setView('date');
+            let tempDate = new Date(currDateObj.year, index, currDateObj.date);
             setCurrDateObj({
-              // day: currDateObj.day,
-              month: index,
-              date: currDateObj.date,
-              year: currDateObj.year
+              day: tempDate.getDay(),
+              month: tempDate.getMonth(),
+              date: tempDate.getDate(),
+              year: tempDate.getFullYear()
             });
           }}
         >
@@ -206,16 +203,21 @@ const PanelBottom = ({
   const createYearNodeList = () => {
     let nodeList = [];
     for (let i = 0; i < 20; i++) {
+      let tempDate = new Date(
+        currDateObj.year + i,
+        currDateObj.month,
+        currDateObj.date
+      );
       nodeList.push(
         <span
           key={`month-${i}`}
           year={currDateObj.year + i}
           onClick={() => {
             setCurrDateObj({
-              day: currDateObj.day,
-              month: currDateObj.month,
-              date: currDateObj.date,
-              year: currDateObj.year + i
+              day: tempDate.getDay(),
+              month: tempDate.getMonth(),
+              date: tempDate.getDate(),
+              year: tempDate.getFullYear()
             });
             setView('date');
           }}

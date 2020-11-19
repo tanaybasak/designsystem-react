@@ -96,7 +96,7 @@ export const createDateObj = (date, month, year) => {
 
 export const convertToDateString = (dateObj, format, saperator = '/') => {
   let dateStr;
-
+  // console.log('dateObj', dateObj);
   if (dateObj) {
     if (format === 'mm/dd/yyyy') {
       dateStr = `${
@@ -110,7 +110,7 @@ export const convertToDateString = (dateObj, format, saperator = '/') => {
   } else {
     dateStr = '';
   }
-
+  // console.log('dateObj', dateStr);
   return dateStr;
 };
 
@@ -124,8 +124,25 @@ export const monthDiff = (d1, d2) => {
 };
 
 export const dayDiff = (d1, d2) => {
-  // d1 is start and d2 is end. d1 should always less than d2 otherwise it will return 0.
-  const diffTime = Math.abs(d2 - d1);
-  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  // console.log('d1', d1);
+  // console.log('d2', d2);
+  let diffDays;
+  if (
+    d1.getDate() === d2.getDate() &&
+    d1.getMonth() === d2.getMonth() &&
+    d1.getFullYear() === d2.getFullYear()
+  ) {
+    diffDays = 0;
+  } else {
+    let diffTime;
+    if (d1 < d2) {
+      diffTime = Math.abs(d2 - d1);
+      diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    } else {
+      diffTime = Math.abs(d1 - d2);
+      diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) * -1;
+    }
+    // console.log(diffDays);
+  }
   return diffDays;
 };
