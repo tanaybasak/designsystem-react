@@ -15,7 +15,9 @@ const Button = ({
     'primary-danger': 'hcl-primary hcl-danger',
     secondary: 'hcl-secondary',
     'secondary-danger': 'hcl-secondary hcl-danger',
-    ghost: 'hcl-ghost'
+    ghost: 'hcl-ghost',
+    warning: 'hcl-warning',
+    neutral: 'hcl-neutral'
   };
 
   const classNameType = classNameOptions[type] ? classNameOptions[type] : '';
