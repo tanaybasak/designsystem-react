@@ -195,7 +195,11 @@ const Dropdown = ({
   }
 
   return (
-    <div className={classNames.join(' ')} {...restProps}>
+    <div
+      className={classNames.join(' ')}
+      style={{ cursor: disabled && 'not-allowed' }}
+      {...restProps}
+    >
       {dropdownType === 'multi' ? (
         <div
           className={multidropClassnames.join(' ')}
