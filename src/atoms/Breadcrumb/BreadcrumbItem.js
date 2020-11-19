@@ -3,14 +3,7 @@ import PropTypes from 'prop-types';
 import prefix from '../../settings';
 import Link from '../Link';
 
-function BreadcrumbItem({
-  onClick,
-  children,
-  href,
-  itemClass,
-  active,
-  ...restProps
-}) {
+function BreadcrumbItem({ onClick, children, href, itemClass, active }) {
   const defaultStyle = {
     breadcrumbItem: `${prefix}-breadcrumb-item`,
     breadcrumbLink: `${prefix}-link`
