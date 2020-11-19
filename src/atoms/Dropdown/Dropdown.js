@@ -189,17 +189,14 @@ const Dropdown = ({
   }
   if (disabled) {
     multidropClassnames.push(`${prefix}-dropdown-disabled`);
-    classNames.push(`${prefix}-disable-cursor`)
+    classNames.push(`${prefix}-disable-cursor`);
   }
   if (className) {
     classNames.push(className);
   }
 
   return (
-    <div
-      className={classNames.join(' ')}
-      {...restProps}
-    >
+    <div className={classNames.join(' ')} {...restProps}>
       {dropdownType === 'multi' ? (
         <div
           className={multidropClassnames.join(' ')}
