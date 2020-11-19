@@ -189,6 +189,7 @@ const Dropdown = ({
   }
   if (disabled) {
     multidropClassnames.push(`${prefix}-dropdown-disabled`);
+    classNames.push(`${prefix}-disable-cursor`)
   }
   if (className) {
     classNames.push(className);
@@ -197,7 +198,6 @@ const Dropdown = ({
   return (
     <div
       className={classNames.join(' ')}
-      style={{ cursor: disabled && 'not-allowed' }}
       {...restProps}
     >
       {dropdownType === 'multi' ? (
