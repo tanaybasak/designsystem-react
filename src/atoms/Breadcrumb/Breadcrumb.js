@@ -17,7 +17,8 @@ function Breadcrumb({ activeIndex, onSelection, id, className, children }) {
       React.Children.forEach(propChildren, innerChild => {
         _listItems.push({
           name: innerChild.props.children,
-          link: innerChild.props.href
+          link: innerChild.props.href,
+          ...innerChild.props
         });
       });
       return (
