@@ -189,6 +189,7 @@ const Dropdown = ({
   }
   if (disabled) {
     multidropClassnames.push(`${prefix}-dropdown-disabled`);
+    classNames.push(`${prefix}-disable-cursor`);
   }
   if (className) {
     classNames.push(className);
