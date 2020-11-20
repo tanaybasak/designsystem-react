@@ -1,3 +1,19 @@
 #story-root{
     padding: 40px;
 }
+
+
+
+
+.hcl-progressbar-label, .hcl-progressbar-subtext {
+    font-size: 12px;
+    font-weight: 400;
+    color: #363636;
+}
+.hcl-progressbar-label-value, .hcl-progressbar-subtext-value {
+    float: right;
+}
+.hcl-progressbar-content {
+    background-color: #e0e0de;
+    height: 0.25rem;
+}
