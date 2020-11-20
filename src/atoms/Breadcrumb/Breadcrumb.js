@@ -43,7 +43,11 @@ function Breadcrumb({ activeIndex, onSelection, id, className, children }) {
             child.props.onClick(e);
           }
           onSelection(
-            { name: child.props.children, link: child.props.href },
+            {
+              name: child.props.children,
+              link: child.props.href,
+              ...child.props
+            },
 
             e
           );

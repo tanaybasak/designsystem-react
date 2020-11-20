@@ -650,10 +650,10 @@ class App extends Component {
                 <Breadcrumb
                   id="small-navigator"
                   className="custom-breadcrumb-top"
-                  activeIndex={Math.floor(Math.random() * 3)}
+                  activeIndex={2}
                   onSelection={(item, idx, e) => console.log(item, idx, e)}
                 >
-                  <BreadcrumbItem className="custom-item" href="#">
+                  <BreadcrumbItem itemClass="custom-item" href="#">
                     Breadcrumb 1
                   </BreadcrumbItem>
                   <BreadcrumbItem href="#">Breadcrumb 2</BreadcrumbItem>
@@ -665,23 +665,19 @@ class App extends Component {
                 <Breadcrumb
                   id="small-navigator"
                   className="custom-breadcrumb-top"
-                  activeIndex={Math.floor(Math.random() * 3)}
+                  activeIndex={0}
                   onSelection={(item, e) => console.log(item, e)}
                 >
-                  <BreadcrumbItem className="custom-item">
+                  <BreadcrumbItem itemClass="custom-item">
                     Breadcrumb 1
                   </BreadcrumbItem>
-                  <BreadcrumbItem>Breadcrumb 2</BreadcrumbItem>
+                  <BreadcrumbItem id={34}>Breadcrumb 2</BreadcrumbItem>
                   <BreadcrumbItem>Breadcrumb 3</BreadcrumbItem>
                   <BreadcrumbItem>Breadcrumb 4</BreadcrumbItem>
-                  <BreadcrumbItem href="#asdf">Breadcrumb 5</BreadcrumbItem>
-                  <BreadcrumbItem
-                    onClick={e => {
-                      console.log('sdfsdf', e);
-                    }}
-                  >
-                    Breadcrumb 6
+                  <BreadcrumbItem href="#asdf" id={45}>
+                    Breadcrumb 5
                   </BreadcrumbItem>
+                  <BreadcrumbItem>Breadcrumb 6</BreadcrumbItem>
                 </Breadcrumb>
               </div>
               {/* Spinner */}
