@@ -12,6 +12,8 @@ const PanelHeader = ({
   weekDays,
   monthDifference,
   panelType,
+  minDate,
+  maxDate,
   ...restProps
 }) => {
   const dateViewChangeHandler = event => {
@@ -105,6 +107,65 @@ const PanelHeader = ({
     }
   };
 
+  const ifPreviousDisabled = () => {
+    let isDisabled = false;
+    if (view === 'date') {
+      if (minDate.getFullYear() > currDateObj.year) {
+        isDisabled = true;
+      } else {
+        if (minDate.getFullYear() === currDateObj.year) {
+          if (minDate.getMonth() >= currDateObj.month) {
+            isDisabled = true;
+          }
+        }
+      }
+    }
+
+    if (view === 'month') {
+      if (minDate.getFullYear() >= currDateObj.year) {
+        isDisabled = true;
+      }
+    }
+
+    if (view === 'year') {
+      if (minDate.getFullYear() >= currDateObj.year) {
+        isDisabled = true;
+      }
+    }
+
+    return isDisabled;
+  };
+
+  const ifNextDisabled = () => {
+    let isDisabled;
+    if (view === 'date') {
+      if (maxDate.getFullYear() < currDateObj.year) {
+        isDisabled = true;
+      } else {
+        if (maxDate.getFullYear() === currDateObj.year) {
+          if (maxDate.getMonth() <= currDateObj.month) {
+            isDisabled = true;
+          }
+        }
+      }
+    }
+
+    if (view === 'month') {
+      if (maxDate.getFullYear() <= currDateObj.year) {
+        isDisabled = true;
+      }
+    }
+
+
+    if (view === 'year') {
+      if (maxDate.getFullYear() <= currDateObj.year + 19) {
+        isDisabled = true;
+      }
+    }
+
+    return isDisabled;
+  };
+
   return (
     <>
       <div className="hcl-dateSelector-year-month">
@@ -122,6 +183,7 @@ const PanelHeader = ({
               ? monthViewChangeHandler
               : yearViewChangeHandler
           }
+          disabled={ifPreviousDisabled()}
           small={false}
           title="Default"
           type="ghost"
@@ -228,6 +290,7 @@ const PanelHeader = ({
           //     ? true
           //     : false
           // }
+          disabled={ifNextDisabled()}
           onClick={
             view === 'date'
               ? dateViewChangeHandler

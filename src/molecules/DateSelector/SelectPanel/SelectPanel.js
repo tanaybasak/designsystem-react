@@ -22,6 +22,8 @@ const SelectPanel = ({
   type,
   range,
   weekDays,
+  minDate,
+  maxDate,
   ...restProps
 }) => {
   const [view, setView] = useState('date');
@@ -37,6 +39,8 @@ const SelectPanel = ({
         panelType={panelType}
         range={range}
         weekDays={weekDays}
+        minDate={minDate}
+        maxDate={maxDate}
       />
       <PanelBottom
         view={view}
@@ -51,6 +55,8 @@ const SelectPanel = ({
         endDateSelected={endDateSelected}
         range={range}
         months={months}
+        minDate={minDate}
+        maxDate={maxDate}
        
       />
     </div>

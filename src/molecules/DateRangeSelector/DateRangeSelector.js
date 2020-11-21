@@ -26,9 +26,12 @@ const DateRangeSelector = ({
   sidePanel,
   defaultStartDate,
   defaultEndDate,
+  minDate,
+  maxDate,
   ...restProps
 }) => {
-  const date = new Date();
+  const date = new Date(2020,11,15);
+
   const [startDateObj, setStartDateObj] = useState({
     day: date.getDay(),
     month: date.getMonth(),
@@ -59,7 +62,14 @@ const DateRangeSelector = ({
   const datepickerStartInput = useRef(null);
   const datepickerEndInput = useRef(null);
   const [targetEl, setTargetEl] = useState(null);
-  const [flag, setFlag] = useState(false);
+
+  // const [flag, setFlag] = useState(false);
+
+  const [numOfSelectedDated, setNumOfSelectedDated] = useState(0);
+
+  // console.log('startDateSelected', startDateSelected);
+  // console.log('endDateSelected', endDateSelected);
+  // console.log('numOfSelectedDated', numOfSelectedDated);
 
   useEffect(() => {
     if (defaultStartDate && defaultStartDate !== '') {
@@ -115,7 +125,7 @@ const DateRangeSelector = ({
     }
   }, [defaultEndDate]);
 
-  let range=0;
+  let range = 0;
 
   if (startDateSelected && endDateSelected) {
     const endDateObj = convertToDateObj(format, endDateSelected);
@@ -125,6 +135,31 @@ const DateRangeSelector = ({
 
   const onToggle = status => {
     setShowDateContainer(status);
+  };
+
+  const daysInMonth = (month, year) => {
+    return new Date(year, month, 0).getDate();
+  };
+
+  const getMaxDate = () => {
+    // console.log('daysInMonth', daysInMonth(date.getMonth(),date.getFullYear()));
+    let d1 = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+
+    // console.log(
+    //   'getMaxDate',
+    //   new Date(d1.getFullYear(), d1.getMonth(), d1.getDate())
+    // );
+    return new Date(d1.getFullYear(), d1.getMonth(), d1.getDate());
+  };
+
+  const getMinDate = () => {
+    let d1 = new Date(
+      date.getMonth() === 11 ? date.getFullYear() + 1 : date.getFullYear(),
+      date.getMonth() === 11 ? 0 : date.getMonth() + 1,
+      1
+    );
+
+    return d1;
   };
 
   const onCancel = status => {
@@ -151,14 +186,48 @@ const DateRangeSelector = ({
   };
 
   const onDateSelection = event => {
-    if (event.target.getAttribute('paneltype') === 'startpanel') {
-      setStartDateSelected(event.target.getAttribute('date'));
-      setIsStartDateSelectedValid(true);
-    } else if (event.target.getAttribute('paneltype') === 'endpanel') {
-      setEndDateSelected(event.target.getAttribute('date'));
-      setIsEndDateSelectedValid(true);
+    let datePicked;
+    switch (numOfSelectedDated) {
+      case 0:
+        datePicked = event.target.getAttribute('date');
+        setStartDateSelected(datePicked);
+        setIsStartDateSelectedValid(true);
+        if (startDateSelected !== null) {
+          setEndDateSelected(null);
+        }
+        setNumOfSelectedDated(numOfSelectedDated + 1);
+        // numOfSelectedDated++;
+        break;
+
+      case 1:
+        datePicked = event.target.getAttribute('date');
+        if (
+          convertToDateObj(format, datePicked) >=
+          convertToDateObj(format, startDateSelected)
+        ) {
+          setEndDateSelected(datePicked);
+          setIsEndDateSelectedValid(true);
+        } else {
+          setEndDateSelected(startDateSelected);
+          setStartDateSelected(datePicked);
+          setIsEndDateSelectedValid(true);
+        }
+        setNumOfSelectedDated(numOfSelectedDated - 1);
+        // numOfSelectedDated--;
+        break;
+
+      case 2:
+        break;
     }
-    setFlag(!flag);
+
+    // if (event.target.getAttribute('paneltype') === 'startpanel') {
+    //   setStartDateSelected(event.target.getAttribute('date'));
+    //   setIsStartDateSelectedValid(true);
+    // } else if (event.target.getAttribute('paneltype') === 'endpanel') {
+    //   setEndDateSelected(event.target.getAttribute('date'));
+    //   setIsEndDateSelectedValid(true);
+    // }
+    // setFlag(!flag);
   };
 
   const updateFormattedDate = (mm, dd, yyyy, type) => {
@@ -225,6 +294,8 @@ const DateRangeSelector = ({
             isStartDateSelectedValid={isStartDateSelectedValid}
             isEndDateSelectedValid={isEndDateSelectedValid}
             onDateRangeSelect={onDateRangeSelect}
+            maxDate={maxDate}
+            minDate={minDate}
           />
           <Overlay
             attachElementToBody={attachElementToBody}
@@ -257,6 +328,8 @@ const DateRangeSelector = ({
                     type="rangepicker"
                     range={range}
                     onDateRangeSelect={onDateRangeSelect}
+                    maxDate={getMaxDate()}
+                    minDate={minDate}
                   />
                   <SelectPanel
                     currDateObj={endDateObj}
@@ -275,6 +348,8 @@ const DateRangeSelector = ({
                     setEndDateObj={setEndDateObj}
                     type="rangepicker"
                     range={range}
+                    maxDate={maxDate}
+                    minDate={getMinDate()}
                   />
                 </div>
                 <DateRangeFooter
@@ -372,6 +447,8 @@ DateRangeSelector.defaultProps = {
   format: 'MM/DD/YYYY',
   onDateRangeSelect: () => {},
   className: '',
-  id: null
+  id: null,
+  minDate: new Date(1000, 0, 1),
+  maxDate: new Date(9999, 12, 31)
 };
 export default DateRangeSelector;

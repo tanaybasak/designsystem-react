@@ -23,8 +23,13 @@ const DateSelector = ({
   attachElementToBody,
   sidePanel,
   onDateSelect,
+  minDate,
+  maxDate,
   ...restProps
 }) => {
+  console.log()
+  // console.log('minDate',minDate);
+  // console.log('maxDate',maxDate);
   const date = new Date();
   const [currDateObj, setCurrDateObj] = useState({
     day: date.getDay(),
@@ -32,6 +37,7 @@ const DateSelector = ({
     date: date.getDate(),
     year: date.getFullYear()
   });
+  console.log('currDateObj',currDateObj)
   const [showDateContainer, setShowDateContainer] = useState(false);
   const [dateSelected, setDateSelected] = useState('');
   const [isDateSelectedValid, setIsDateSelectedValid] = useState(true);
@@ -126,6 +132,8 @@ const DateSelector = ({
             setShowDateContainer={setShowDateContainer}
             setIsDateSelectedValid={setIsDateSelectedValid}
             className={className}
+            minDate={minDate}
+            maxDate={maxDate}
           />
 
           <Overlay
@@ -148,6 +156,8 @@ const DateSelector = ({
                   dateSelected={dateSelected}
                   months={months}
                   weekDays={weekDays}
+                  minDate={minDate}
+                  maxDate={maxDate}
                 />
               </div>
             </div>
@@ -229,6 +239,8 @@ DateSelector.defaultProps = {
   scrollListner: false,
   attachElementToBody: false,
   sidePanel: null,
-  onDateSelect: () => {}
+  onDateSelect: () => {},
+  minDate: new Date (1000, 0, 1),
+  maxDate: new Date (9999, 12, 31),
 };
 export default DateSelector;

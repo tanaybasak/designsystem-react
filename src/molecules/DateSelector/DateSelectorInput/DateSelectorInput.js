@@ -36,7 +36,7 @@ const DateSelectorInput = ({
     }
   };
   return (
-    <>
+    <div className="hcl-form-group">
       <input
         type="text"
         className={`hcl-dateSelector-input ${className}`}
@@ -72,7 +72,7 @@ const DateSelectorInput = ({
         />
         <path d="M11.5,2H11V1H10V2H6V1H5V2H4.5A2.5,2.5,0,0,0,2,4.5v7A2.5,2.5,0,0,0,4.5,14h7A2.5,2.5,0,0,0,14,11.5v-7A2.5,2.5,0,0,0,11.5,2Zm-7,1H5V4H6V3h4V4h1V3h.5A1.5,1.5,0,0,1,13,4.5V5H3V4.5A1.5,1.5,0,0,1,4.5,3Zm7,10h-7A1.5,1.5,0,0,1,3,11.5V6H13v5.5A1.5,1.5,0,0,1,11.5,13Z" />
       </svg>
-    </>
+    </div>
   );
 };
 

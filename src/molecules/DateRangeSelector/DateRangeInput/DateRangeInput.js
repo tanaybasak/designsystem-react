@@ -66,7 +66,7 @@ const DateRangeInput = ({
   return (
     <>
       <div className="hcl-flex-row">
-        <div className="hcl-flex-col">
+        <div className="hcl-flex-col hcl-form-group">
           <label className="mb-3 hcl-dateSelector-label">Start</label>
           <input
             type="text"
@@ -89,10 +89,11 @@ const DateRangeInput = ({
           />
         </div>
 
-        <div className="hcl-flex-col">
+        <div className="hcl-flex-col hcl-form-group">
           <label className="mb-3 hcl-dateSelector-label">End</label>
           <input
             type="text"
+            data-invalid={!isEndDateSelectedValid}
             data-type="end"
             className="hcl-dateSelector-input hcl-dateSelector-range-input"
             placeholder="mm/dd /yyyy"

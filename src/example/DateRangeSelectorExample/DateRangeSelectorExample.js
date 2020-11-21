@@ -33,7 +33,7 @@ const DateRangeSelectorExample = ({}) => {
         ></DateRangeSelector>
       </div>
 
-      <div className="hcl-col-12 mb-9">
+        {/*   <div className="hcl-col-12 mb-9">
         <div className="mb-5">Without left panel and with default date</div>
         <DateRangeSelector
           id="date-selector-id"
@@ -60,7 +60,7 @@ const DateRangeSelectorExample = ({}) => {
           defaultEndDate={new Date(2020, 11, 15)}
         ></DateRangeSelector>
       </div>
-      <div className="hcl-col-12 mb-9">
+  <div className="hcl-col-12 mb-9">
         <div className="mb-5">With left panel and with default date</div>
         <DateRangeSelector
           id="date-selector-id"
@@ -165,7 +165,7 @@ const DateRangeSelectorExample = ({}) => {
           defaultStartDate={startDate}
           defaultEndDate={endDate}
         ></DateRangeSelector>
-      </div>
+      </div> */}
     </div>
   );
 };

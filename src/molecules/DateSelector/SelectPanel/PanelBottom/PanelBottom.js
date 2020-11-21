@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../../../settings';
-import { convertToDateObj } from '../../../../util/utility';
+import { convertToDateObj, createDateObj } from '../../../../util/utility';
 
 const PanelBottom = ({
   view,
@@ -16,6 +16,8 @@ const PanelBottom = ({
   endDateSelected,
   weekDays,
   months,
+  minDate,
+  maxDate,
   ...restProps
 }) => {
   let dateNodeList = [];
@@ -108,7 +110,7 @@ const PanelBottom = ({
       Number(month) === todayDate.getMonth() + 1 &&
       Number(day) === todayDate.getDate();
     if (date === dateSelected) {
-      classDetails.push(DOMstrings.datePicked);
+      classDetails.push(DOMstrings.edge);
     }
     if (
       startDateSelected &&
@@ -124,27 +126,44 @@ const PanelBottom = ({
       classDetails.push(DOMstrings.edge);
     }
 
+    // console.log(
+    //   'convertToDateObj(format, formattedDate)',
+    //   convertToDateObj(format, formattedDate)
+    // );
+
     return isTodayDate ? (
       <div key={formattedDate} className={classDetails.join(' ')}>
-        <span
-          className="hcl-dateSelector-date-today"
+        <button
+          className="hcl-dateSelector-date-today hcl-btn hcl-ghost"
           date={formattedDate}
           paneltype={panelType}
           onClick={onDateSelection}
+          disabled={
+            convertToDateObj(format, formattedDate) >= minDate &&
+            maxDate >= convertToDateObj(format, formattedDate)
+              ? false
+              : true
+          }
         >
           {day}
-        </span>
+        </button>
       </div>
     ) : (
-      <span
-        className={classDetails.join(' ')}
+      <button
+        className={`${classDetails.join(' ')} hcl-btn hcl-ghost`}
         date={formattedDate}
         key={formattedDate}
         paneltype={panelType}
         onClick={onDateSelection}
+        disabled={
+          convertToDateObj(format, formattedDate) >= minDate &&
+          maxDate >= convertToDateObj(format, formattedDate)
+            ? false
+            : true
+        }
       >
         {day}
-      </span>
+      </button>
     );
   };
 
@@ -162,25 +181,37 @@ const PanelBottom = ({
   };
 
   const createMonthNodeList = () => {
-    // const months = [
-    //   'JAN',
-    //   'FEB',
-    //   'MAR',
-    //   'APR',
-    //   'MAY',
-    //   'JUN',
-    //   'JUL',
-    //   'AUG',
-    //   'SEP',
-    //   'OCT',
-    //   'NOV',
-    //   'DEC'
-    // ];
+    // console.log('currDateObj', currDateObj);
+
     const nodeList = months.map((month, index) => {
+      let isDisabled = false;
+
+      if (minDate.getFullYear() > currDateObj.year) {
+        isDisabled = true;
+      } else {
+        if (minDate.getFullYear() === currDateObj.year) {
+          if (minDate.getMonth() > index) {
+            isDisabled = true;
+          }
+        }
+      }
+
+      if (maxDate.getFullYear() < currDateObj.year) {
+        isDisabled = true;
+      } else {
+        if (maxDate.getFullYear() === currDateObj.year) {
+          if (maxDate.getMonth() < index) {
+            isDisabled = true;
+          }
+        }
+      }
+
       return (
-        <span
+        <button
           key={`month-${index}`}
           month={index}
+          className="hcl-btn hcl-ghost"
+          disabled={isDisabled}
           onClick={() => {
             setView('date');
             let tempDate = new Date(currDateObj.year, index, currDateObj.date);
@@ -193,7 +224,7 @@ const PanelBottom = ({
           }}
         >
           {month}
-        </span>
+        </button>
       );
     });
 
@@ -209,9 +240,16 @@ const PanelBottom = ({
         currDateObj.date
       );
       nodeList.push(
-        <span
+        <button
           key={`month-${i}`}
+          className="hcl-btn hcl-ghost"
           year={currDateObj.year + i}
+          disabled={
+            currDateObj.year + i > maxDate.getFullYear() ||
+            currDateObj.year + i < minDate.getFullYear()
+              ? true
+              : false
+          }
           onClick={() => {
             setCurrDateObj({
               day: tempDate.getDay(),
@@ -223,7 +261,7 @@ const PanelBottom = ({
           }}
         >
           {currDateObj.year + i}
-        </span>
+        </button>
       );
     }
     return nodeList;
