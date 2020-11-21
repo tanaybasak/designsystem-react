@@ -33,7 +33,7 @@ const DateSelectorExample = ({}) => {
           // maxDate={new Date(2065, 10, 22)}
         ></DateSelector>
       </div>
-      {/* <div className=" hcl-col-12 mb-9">
+      <div className=" hcl-col-12 mb-9">
         <div className="mb-5">Without left panel and with default date</div>
         <DateSelector
           id="date-selector-id"
@@ -141,7 +141,7 @@ const DateSelectorExample = ({}) => {
             console.log(date);
           }}
         ></DateSelector>
-      </div> */}
+      </div> 
     </div>
   );
 };
