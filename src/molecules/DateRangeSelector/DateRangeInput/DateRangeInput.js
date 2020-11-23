@@ -121,6 +121,10 @@ const DateRangeInput = ({
         viewBox="0 0 16 16"
         width="13.83"
         height="13.96"
+        onClick={event => {
+          event.stopPropagation();
+          toggleDateContainer(datepickerEndInput);
+        }}
       >
         <rect
           id="f26ee432-18e2-4e60-b70a-247a0b605d39"

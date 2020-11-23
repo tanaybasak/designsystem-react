@@ -30,7 +30,7 @@ const DateRangeSelector = ({
   maxDate,
   ...restProps
 }) => {
-  const date = new Date(2020,11,15);
+  const date = new Date;
 
   const [startDateObj, setStartDateObj] = useState({
     day: date.getDay(),
@@ -51,6 +51,8 @@ const DateRangeSelector = ({
     date: endDate.getDate(),
     year: endDate.getFullYear()
   });
+
+  // console.log('endDateObj',endDateObj);
 
   const [showDateContainer, setShowDateContainer] = useState(false);
   const [startDateSelected, setStartDateSelected] = useState(null);
@@ -143,7 +145,16 @@ const DateRangeSelector = ({
 
   const getMaxDate = () => {
     // console.log('daysInMonth', daysInMonth(date.getMonth(),date.getFullYear()));
-    let d1 = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+    let d1;
+    if (defaultStartDate) {
+      d1 = new Date(
+        defaultStartDate.getFullYear(),
+        defaultStartDate.getMonth() + 1,
+        0
+      );
+    } else {
+      d1 = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+    }
 
     // console.log(
     //   'getMaxDate',
@@ -153,11 +164,16 @@ const DateRangeSelector = ({
   };
 
   const getMinDate = () => {
-    let d1 = new Date(
-      date.getMonth() === 11 ? date.getFullYear() + 1 : date.getFullYear(),
-      date.getMonth() === 11 ? 0 : date.getMonth() + 1,
-      1
-    );
+    let d1;
+    if (defaultEndDate) {
+      d1 = new Date(defaultEndDate.getFullYear(), defaultEndDate.getMonth(), 1);
+    } else {
+      d1 = new Date(
+        date.getMonth() === 11 ? date.getFullYear() + 1 : date.getFullYear(),
+        date.getMonth() === 11 ? 0 : date.getMonth() + 1,
+        1
+      );
+    }
 
     return d1;
   };
@@ -240,19 +256,28 @@ const DateRangeSelector = ({
     let dateStr = String(date);
     monthStr.length === 1 ? (monthStr = monthStr.padStart(2, '0')) : null;
     dateStr.length === 1 ? (dateStr = dateStr.padStart(2, '0')) : null;
-    type === 'start'
+    // type === 'start'
+    //   ? setStartDateObj({
+    //       day: day,
+    //       month: month,
+    //       date: date,
+    //       year: year
+    //     })
+    //   : setEndDateObj({
+    //       day: day,
+    //       month: month,
+    //       date: date,
+    //       year: year
+    //     });
+
+       type === 'start'
       ? setStartDateObj({
           day: day,
           month: month,
           date: date,
           year: year
         })
-      : setEndDateObj({
-          day: day,
-          month: month,
-          date: date,
-          year: year
-        });
+      : null;
 
     switch (format) {
       case 'mm/dd/yyyy':

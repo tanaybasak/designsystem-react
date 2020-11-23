@@ -54,22 +54,6 @@ const DateSelectorExample = ({}) => {
           ]}
           format="mm/dd/yyyy"
           defaultDate={defaultDate}
-          sidePanel={
-            <ul className="hcl-dateSelector-sidebar">
-              <li
-                tabIndex="0"
-                onClick={() => {
-                  setDefaultDate(new Date());
-                }}
-              >
-                Today
-              </li>
-              <li tabIndex="0">Yesterday</li>
-              <li tabIndex="0">Tomorrow</li>
-              <li tabIndex="0">Last Friday</li>
-              <li tabIndex="0">Next Friday</li>
-            </ul>
-          }
           onDateSelect={date => {
             console.log(date);
           }}
