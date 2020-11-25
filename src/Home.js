@@ -11,6 +11,7 @@ import TableExample from './example/Table';
 import TreeExample from './example/Tree';
 import TimePickerExample from './example/TimePicker';
 import OverlayExample from './example/OverlayExample';
+import CheckboxExample from './example/CheckboxExample';
 import PaginationExample from './example/PaginationExample';
 import SearchOverlayExample from './example/SearchOverlay';
 import DateRangeSelectorExample from './example/DateRangeSelectorExample';
@@ -65,6 +66,10 @@ class Home extends Component {
         {
           href: '/daterangeselector',
           title: 'DateRangeSelector'
+        },
+        {
+          href: '/checkbox',
+          title: 'Checkbox + tooltip'
         }
       ]
     }
@@ -137,6 +142,7 @@ class Home extends Component {
               path="/daterangeselector"
               component={DateRangeSelectorExample}
             />
+            <Route exact path="/checkbox" component={CheckboxExample} />
             <Route
               exact
               path="/searchoverlay"
