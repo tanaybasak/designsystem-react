@@ -30,7 +30,7 @@ const DateRangeSelector = ({
   maxDate,
   ...restProps
 }) => {
-  const date = new Date;
+  const date = new Date();
 
   const [startDateObj, setStartDateObj] = useState({
     day: date.getDay(),
@@ -167,6 +167,18 @@ const DateRangeSelector = ({
     let d1;
     if (defaultEndDate) {
       d1 = new Date(defaultEndDate.getFullYear(), defaultEndDate.getMonth(), 1);
+      if (
+        defaultEndDate.getFullYear() === defaultStartDate.getFullYear() &&
+        defaultEndDate.getMonth() === defaultStartDate.getMonth()
+      ) {
+        d1 = new Date(
+          defaultEndDate.getMonth() === 11
+            ? defaultEndDate.getFullYear() + 1
+            : defaultEndDate.getFullYear(),
+          defaultEndDate.getMonth() === 11 ? 0 : defaultEndDate.getMonth() + 1,
+          1
+        );
+      }
     } else {
       d1 = new Date(
         date.getMonth() === 11 ? date.getFullYear() + 1 : date.getFullYear(),
@@ -174,6 +186,8 @@ const DateRangeSelector = ({
         1
       );
     }
+
+    console.log('d1', d1);
 
     return d1;
   };
@@ -270,7 +284,7 @@ const DateRangeSelector = ({
     //       year: year
     //     });
 
-       type === 'start'
+    type === 'start'
       ? setStartDateObj({
           day: day,
           month: month,
