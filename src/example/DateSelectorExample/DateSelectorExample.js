@@ -125,7 +125,7 @@ const DateSelectorExample = ({}) => {
             console.log(date);
           }}
         ></DateSelector>
-      </div> 
+      </div>
     </div>
   );
 };

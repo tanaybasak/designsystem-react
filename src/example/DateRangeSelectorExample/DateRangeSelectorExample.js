@@ -33,7 +33,7 @@ const DateRangeSelectorExample = ({}) => {
         ></DateRangeSelector>
       </div>
 
-       <div className="hcl-col-12 mb-9">
+      <div className="hcl-col-12 mb-9">
         <div className="mb-5">Without left panel and with default date</div>
         <DateRangeSelector
           id="date-selector-id"
@@ -60,8 +60,8 @@ const DateRangeSelectorExample = ({}) => {
           defaultEndDate={new Date(2020, 10, 18)}
         ></DateRangeSelector>
       </div>
-      
-   <div className="hcl-col-12 mb-9">
+
+      <div className="hcl-col-12 mb-9">
         <div className="mb-5">With left panel and with default date</div>
         <DateRangeSelector
           id="date-selector-id"
@@ -137,8 +137,16 @@ const DateRangeSelectorExample = ({}) => {
                 tabIndex="0"
                 onClick={() => {
                   let date = new Date();
-                  let firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
-                  let lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+                  let firstDay = new Date(
+                    date.getFullYear(),
+                    date.getMonth(),
+                    1
+                  );
+                  let lastDay = new Date(
+                    date.getFullYear(),
+                    date.getMonth() + 1,
+                    0
+                  );
                   setEndDate(lastDay);
                   setStartDate(firstDay);
                 }}
@@ -166,7 +174,7 @@ const DateRangeSelectorExample = ({}) => {
           defaultStartDate={startDate}
           defaultEndDate={endDate}
         ></DateRangeSelector>
-      </div>  
+      </div>
     </div>
   );
 };

@@ -10,11 +10,8 @@ const PanelHeader = ({
   setCurrDateObj,
   months,
   weekDays,
-  monthDifference,
-  panelType,
   minDate,
-  maxDate,
-  ...restProps
+  maxDate
 }) => {
   const dateViewChangeHandler = event => {
     event.stopPropagation();
@@ -156,7 +153,6 @@ const PanelHeader = ({
       }
     }
 
-
     if (view === 'year') {
       if (maxDate.getFullYear() <= currDateObj.year + 19) {
         isDisabled = true;
@@ -194,9 +190,8 @@ const PanelHeader = ({
             height="16"
             id="bd87ab4c-5665-4d97-8204-964dbb1387ec"
             data-name="Refresh-line-icon"
-            xmlns="http://www.w3.org/2000/svg"
+            xmlns="https://www.w3.org/2000/svg"
             viewBox="0 0 16 16"
-            height="20"
           >
             <rect
               id="a37e92ae-7a1a-4290-b76e-5382d19e71ed"
@@ -228,7 +223,7 @@ const PanelHeader = ({
                   height="16"
                   id="ef373a64-617c-4deb-8356-779b7514bad4"
                   data-name="Refresh-line-icon"
-                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns="https://www.w3.org/2000/svg"
                   viewBox="0 0 16 16"
                 >
                   <rect
@@ -258,7 +253,7 @@ const PanelHeader = ({
                   height="16"
                   id="ef373a64-617c-4deb-8356-779b7514bad4"
                   data-name="Refresh-line-icon"
-                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns="https://www.w3.org/2000/svg"
                   viewBox="0 0 16 16"
                 >
                   <rect
@@ -307,8 +302,7 @@ const PanelHeader = ({
             className="hcl-btn-icon"
             width="16"
             height="16"
-            height="20"
-            xmlns="http://www.w3.org/2000/svg"
+            xmlns="https://www.w3.org/2000/svg"
             viewBox="0 0 16 16"
           >
             <rect
@@ -344,6 +338,10 @@ PanelHeader.propTypes = {
   currDateObj: PropTypes.object.isRequired,
   setCurrDateObj: PropTypes.func.isRequired,
   // setYearSelected:PropTypes.string,
-  months: PropTypes.array.isRequired
+  months: PropTypes.array.isRequired,
+
+  weekDays: PropTypes.array,
+  minDate: PropTypes.instanceOf(Date),
+  maxDate: PropTypes.instanceOf(Date)
 };
 export default PanelHeader;

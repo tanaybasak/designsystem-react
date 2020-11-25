@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { select, text,object } from '@storybook/addon-knobs';
+import { text, object } from '@storybook/addon-knobs';
 //@update-path-build-start
 import DateSelector from './DateSelector';
 //@update-path-build-end
@@ -36,7 +36,7 @@ storiesOf('DateSelector', module).add(
       months={object('months', months)}
       format="mm/dd/yyyy"
       onDateSelect={action('onDateSelect triggered')}
-    ></DateSelector>
+    />
   ),
   {
     info: {

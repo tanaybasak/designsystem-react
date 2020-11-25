@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../../../settings';
-import { convertToDateObj, createDateObj } from '../../../../util/utility';
+import { convertToDateObj } from '../../../../util/utility';
 
 const PanelBottom = ({
   view,
@@ -14,11 +14,9 @@ const PanelBottom = ({
   panelType,
   startDateSelected,
   endDateSelected,
-  weekDays,
   months,
   minDate,
-  maxDate,
-  ...restProps
+  maxDate
 }) => {
   let dateNodeList = [];
   let DOMstrings = {
@@ -126,8 +124,6 @@ const PanelBottom = ({
       classDetails.push(DOMstrings.edge);
     }
 
-  
-
     return isTodayDate ? (
       <div key={formattedDate} className={classDetails.join(' ')}>
         <button
@@ -178,7 +174,6 @@ const PanelBottom = ({
   };
 
   const createMonthNodeList = () => {
-
     const nodeList = months.map((month, index) => {
       let isDisabled = false;
 
@@ -292,7 +287,10 @@ PanelBottom.propTypes = {
   format: PropTypes.string.isRequired,
   panelType: PropTypes.string,
   startDateSelected: PropTypes.string,
-  endDateSelected: PropTypes.string
+  endDateSelected: PropTypes.string,
+  months: PropTypes.any,
+  minDate: PropTypes.instanceOf(Date),
+  maxDate: PropTypes.instanceOf(Date)
 };
 
 export default PanelBottom;

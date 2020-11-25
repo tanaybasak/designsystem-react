@@ -3,16 +3,7 @@ import PropTypes from 'prop-types';
 import Button from '../../../atoms/Button';
 // import prefix from '../../../../settings';
 
-const DateRangeFooter = ({
-  onCancel,
-  onDone,
-  startDateSelected,
-  endDateSelected,
-  format,
-  range,
-  ...restProps
-}) => {
- 
+const DateRangeFooter = ({ onCancel, onDone, range }) => {
   return (
     <div className="hcl-dateSelector-footer">
       <div className="hcl-dateSelector-footer-range">
@@ -22,7 +13,9 @@ const DateRangeFooter = ({
             <span> {`${range + 1} days`}</span>
           </>
         ) : (
-          <span className="hcl-dateSelector-footer-error">Start date should be less than end date</span>
+          <span className="hcl-dateSelector-footer-error">
+            Start date should be less than end date
+          </span>
         )}
       </div>
       <div>
@@ -45,9 +38,9 @@ const DateRangeFooter = ({
 };
 
 DateRangeFooter.propTypes = {
-  // dateSelected: PropTypes.string.isRequired,
-  // format: PropTypes.string.isRequired
-  // currDateObj: PropTypes.object,
+  onCancel: PropTypes.func,
+  onDone: PropTypes.func,
+  range: PropTypes.any
 };
 
 export default DateRangeFooter;

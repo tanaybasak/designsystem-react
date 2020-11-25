@@ -1,8 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import prefix from '../../settings';
 import Overlay from '../../atoms/Overlay';
-import Label from '../../atoms/Label';
 import FormHelperText from '../../atoms/FormHelperText';
 import SelectPanel from '../DateSelector/SelectPanel';
 import DateRangeFooter from './DateRangeFooter';
@@ -27,8 +25,7 @@ const DateRangeSelector = ({
   defaultStartDate,
   defaultEndDate,
   minDate,
-  maxDate,
-  ...restProps
+  maxDate
 }) => {
   const date = new Date();
 
@@ -52,7 +49,6 @@ const DateRangeSelector = ({
     year: endDate.getFullYear()
   });
 
-
   const [showDateContainer, setShowDateContainer] = useState(false);
   const [startDateSelected, setStartDateSelected] = useState(null);
   const [endDateSelected, setEndDateSelected] = useState(null);
@@ -67,7 +63,6 @@ const DateRangeSelector = ({
   // const [flag, setFlag] = useState(false);
 
   const [numOfSelectedDated, setNumOfSelectedDated] = useState(0);
-
 
   useEffect(() => {
     if (defaultStartDate && defaultStartDate !== '') {
@@ -135,10 +130,6 @@ const DateRangeSelector = ({
     setShowDateContainer(status);
   };
 
-  const daysInMonth = (month, year) => {
-    return new Date(year, month, 0).getDate();
-  };
-
   const getMaxDate = () => {
     let d1;
     if (defaultStartDate) {
@@ -150,7 +141,6 @@ const DateRangeSelector = ({
     } else {
       d1 = new Date(date.getFullYear(), date.getMonth() + 1, 0);
     }
-
 
     return new Date(d1.getFullYear(), d1.getMonth(), d1.getDate());
   };
@@ -182,7 +172,7 @@ const DateRangeSelector = ({
     return d1;
   };
 
-  const onCancel = status => {
+  const onCancel = () => {
     setShowDateContainer(false);
     setStartDateObj({
       day: date.getDay(),
@@ -394,7 +384,7 @@ const DateRangeSelector = ({
                   startDateSelected={startDateSelected}
                   format={format}
                   range={range}
-                ></DateRangeFooter>
+                />
               </div>
             </div>
           </Overlay>
@@ -451,7 +441,11 @@ DateRangeSelector.propTypes = {
   defaultStartDate: PropTypes.any,
 
   /** This props allows user to pass default start date */
-  defaultEndDate: PropTypes.any
+  defaultEndDate: PropTypes.any,
+  /** Min date */
+  minDate: PropTypes.instanceOf(Date),
+  /** Max date */
+  maxDate: PropTypes.instanceOf(Date)
 };
 
 DateRangeSelector.defaultProps = {

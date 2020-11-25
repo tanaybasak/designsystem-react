@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { select, text,object } from '@storybook/addon-knobs';
+import { text, object } from '@storybook/addon-knobs';
 //@update-path-build-start
 import DateRangeSelector from './DateRangeSelector';
 //@update-path-build-end
@@ -37,7 +37,7 @@ storiesOf('DateRangeSelector', module).add(
       type="rangepicker"
       format="mm/dd/yyyy"
       onDateRangeSelect={action('onDateRangeSelect triggered')}
-    ></DateRangeSelector>
+    />
   ),
   {
     info: {

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import prefix from '../../../settings';
 import PanelHeader from './PanelHeader';
 import PanelBottom from './PanelBottom';
 
@@ -15,16 +14,10 @@ const SelectPanel = ({
   startDateSelected,
   endDateSelected,
   className,
-  startDateObj,
-  endDateObj,
-  setStartDateObj,
-  setEndDateObj,
-  type,
   range,
   weekDays,
   minDate,
-  maxDate,
-  ...restProps
+  maxDate
 }) => {
   const [view, setView] = useState('date');
 
@@ -57,7 +50,6 @@ const SelectPanel = ({
         months={months}
         minDate={minDate}
         maxDate={maxDate}
-       
       />
     </div>
   );
@@ -73,7 +65,11 @@ SelectPanel.propTypes = {
   panelType: PropTypes.string,
   startDateSelected: PropTypes.string,
   endDateSelected: PropTypes.string,
-  className: PropTypes.string
+  className: PropTypes.string,
+  range: PropTypes.any,
+  weekDays: PropTypes.any,
+  minDate: PropTypes.instanceOf(Date),
+  maxDate: PropTypes.instanceOf(Date)
 };
 
 export default SelectPanel;

@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import prefix from '../../settings';
 import {
   createDateObj,
   convertToDateObj,
@@ -24,8 +23,7 @@ const DateSelector = ({
   sidePanel,
   onDateSelect,
   minDate,
-  maxDate,
-  ...restProps
+  maxDate
 }) => {
   const date = new Date();
   const [currDateObj, setCurrDateObj] = useState({
@@ -37,6 +35,7 @@ const DateSelector = ({
   const [showDateContainer, setShowDateContainer] = useState(false);
   const [dateSelected, setDateSelected] = useState('');
   const [isDateSelectedValid, setIsDateSelectedValid] = useState(true);
+  // eslint-disable-next-line no-unused-vars
   const [isValidYear, setIsValidYear] = useState(true);
   const datepickerInput = useRef(null);
   const [targetEl, setTargetEl] = useState(null);
@@ -208,7 +207,11 @@ DateSelector.propTypes = {
   sidePanel: PropTypes.node,
 
   /** Callback function which will be executed on date selection  */
-  onDateSelect: PropTypes.func
+  onDateSelect: PropTypes.func,
+  /** Min date */
+  minDate: PropTypes.instanceOf(Date),
+  /** Max date */
+  maxDate: PropTypes.instanceOf(Date)
 };
 
 DateSelector.defaultProps = {
@@ -236,7 +239,7 @@ DateSelector.defaultProps = {
   attachElementToBody: false,
   sidePanel: null,
   onDateSelect: () => {},
-  minDate: new Date (1000, 0, 1),
-  maxDate: new Date (9999, 12, 31),
+  minDate: new Date(1000, 0, 1),
+  maxDate: new Date(9999, 12, 31)
 };
 export default DateSelector;

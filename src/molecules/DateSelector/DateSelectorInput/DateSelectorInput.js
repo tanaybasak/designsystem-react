@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 // import prefix from '../../../../settings';
-import { convertToDateObj, isValidDate } from '../../../util/utility';
+import { isValidDate } from '../../../util/utility';
 
 const DateSelectorInput = ({
   format,
@@ -58,7 +58,7 @@ const DateSelectorInput = ({
       <svg
         className="hcl-dateSelector-container-svg hcl-dateSelector-date-icon"
         data-name="Refresh-line-icon"
-        xmlns="http://www.w3.org/2000/svg"
+        xmlns="https://www.w3.org/2000/svg"
         viewBox="0 0 16 16"
         width="13.83"
         height="13.96"

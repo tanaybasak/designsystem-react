@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import prefix from '../../../settings';
 import { isValidDate, convertToDateObj } from '../../../util/utility';
 
 const DateRangeInput = ({
@@ -117,7 +116,7 @@ const DateRangeInput = ({
       <svg
         className="hcl-dateSelector-container-svg hcl-dateSelector-range-icon"
         data-name="Refresh-line-icon"
-        xmlns="http://www.w3.org/2000/svg"
+        xmlns="https://www.w3.org/2000/svg"
         viewBox="0 0 16 16"
         width="13.83"
         height="13.96"
@@ -153,7 +152,10 @@ DateRangeInput.propTypes = {
   setEndDateSelected: PropTypes.func.isRequired,
   updateFormattedDate: PropTypes.func.isRequired,
   datepickerStartInput: PropTypes.object.isRequired,
-  datepickerEndInput: PropTypes.object.isRequired
+  datepickerEndInput: PropTypes.object.isRequired,
+  onDateRangeSelect: PropTypes.func,
+  isStartDateSelectedValid: PropTypes.bool,
+  isEndDateSelectedValid: PropTypes.bool
 };
 
 export default DateRangeInput;
