@@ -52,7 +52,6 @@ const DateRangeSelector = ({
     year: endDate.getFullYear()
   });
 
-  // console.log('endDateObj',endDateObj);
 
   const [showDateContainer, setShowDateContainer] = useState(false);
   const [startDateSelected, setStartDateSelected] = useState(null);
@@ -69,9 +68,6 @@ const DateRangeSelector = ({
 
   const [numOfSelectedDated, setNumOfSelectedDated] = useState(0);
 
-  // console.log('startDateSelected', startDateSelected);
-  // console.log('endDateSelected', endDateSelected);
-  // console.log('numOfSelectedDated', numOfSelectedDated);
 
   useEffect(() => {
     if (defaultStartDate && defaultStartDate !== '') {
@@ -144,7 +140,6 @@ const DateRangeSelector = ({
   };
 
   const getMaxDate = () => {
-    // console.log('daysInMonth', daysInMonth(date.getMonth(),date.getFullYear()));
     let d1;
     if (defaultStartDate) {
       d1 = new Date(
@@ -156,10 +151,7 @@ const DateRangeSelector = ({
       d1 = new Date(date.getFullYear(), date.getMonth() + 1, 0);
     }
 
-    // console.log(
-    //   'getMaxDate',
-    //   new Date(d1.getFullYear(), d1.getMonth(), d1.getDate())
-    // );
+
     return new Date(d1.getFullYear(), d1.getMonth(), d1.getDate());
   };
 
@@ -186,8 +178,6 @@ const DateRangeSelector = ({
         1
       );
     }
-
-    console.log('d1', d1);
 
     return d1;
   };

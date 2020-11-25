@@ -126,10 +126,7 @@ const PanelBottom = ({
       classDetails.push(DOMstrings.edge);
     }
 
-    // console.log(
-    //   'convertToDateObj(format, formattedDate)',
-    //   convertToDateObj(format, formattedDate)
-    // );
+  
 
     return isTodayDate ? (
       <div key={formattedDate} className={classDetails.join(' ')}>
@@ -181,7 +178,6 @@ const PanelBottom = ({
   };
 
   const createMonthNodeList = () => {
-    // console.log('currDateObj', currDateObj);
 
     const nodeList = months.map((month, index) => {
       let isDisabled = false;

@@ -27,9 +27,6 @@ const DateSelector = ({
   maxDate,
   ...restProps
 }) => {
-  console.log()
-  // console.log('minDate',minDate);
-  // console.log('maxDate',maxDate);
   const date = new Date();
   const [currDateObj, setCurrDateObj] = useState({
     day: date.getDay(),
@@ -37,7 +34,6 @@ const DateSelector = ({
     date: date.getDate(),
     year: date.getFullYear()
   });
-  console.log('currDateObj',currDateObj)
   const [showDateContainer, setShowDateContainer] = useState(false);
   const [dateSelected, setDateSelected] = useState('');
   const [isDateSelectedValid, setIsDateSelectedValid] = useState(true);
