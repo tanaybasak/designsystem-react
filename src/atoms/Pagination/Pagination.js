@@ -18,7 +18,7 @@ const Pagination = ({
     currentItemsPerPageSelected,
     setCurrentItemsPerPageSelected
   ] = useState(null);
-  const [currentPageSelected, setCurrentPageSelected] = useState(null);
+  const [currentPageSelected, setCurrentPageSelected] = useState(0);
   const [itemPerPageStepperArray, setItemPerPageStepperArray] = useState([]);
 
   useEffect(() => {
@@ -59,7 +59,7 @@ const Pagination = ({
 
   if (currentPage && currentItemsPerPageSelected && currentPage > totalPage) {
     // eslint-disable-next-line no-console
-    console.error('Pagination:props data mismatches');
+    // console.error('Pagination:props data mismatches');
   }
 
   const ItemsPerPageChange = e => {
@@ -137,19 +137,23 @@ const Pagination = ({
   };
 
   const getPagesArrayVal = () => {
-    const val = Array.from(
-      {
-        length: totalPage
-      },
-      (v, k) => k + 1
-    ).slice(0);
+    let val = totalPage
+      ? Array.from(
+          {
+            length: totalPage
+          },
+          (v, k) => k + 1
+        )
+      : Array.from(Array(1).keys());
     return val;
   };
   const numberOfPages = () => {
     return (
       <>
         <span className={`${prefix}-pagination-text`}>
-          <span className={`${prefix}-page-start`}>{currentPageSelected}</span>
+          <span className={`${prefix}-page-start`}>
+            {totalItems ? currentPageSelected : totalPage}
+          </span>
           of
           <span className={`${prefix}-page-end`}>{totalPage}</span>
           pages
@@ -164,7 +168,7 @@ const Pagination = ({
           type={`button`}
           className={`${prefix}-pagination-button-previous`}
           aria-label={`Previous page`}
-          disabled={currentPageSelected === 1}
+          disabled={currentPageSelected === 1 || totalPage === 0}
           onClick={onPreviousButtonClick.bind(this)}
         >
           <svg
@@ -193,7 +197,7 @@ const Pagination = ({
           type={`button`}
           className={`${prefix}-pagination-button-next`}
           aria-label="Next page"
-          disabled={currentPageSelected === totalPage}
+          disabled={currentPageSelected === totalPage || totalPage === 0}
           onClick={onNextButtonClick.bind(this)}
         >
           <svg
@@ -234,22 +238,29 @@ const Pagination = ({
     return (
       <>
         <span className={`${prefix}-pagination-text`}>
-          <span className={`${prefix}-pagination-range`}>
-            <span className={`${prefix}-range-start`}>
-              {(currentPageSelected - 1) * currentItemsPerPageSelected + 1}
-            </span>
-            <span className={`${prefix}-range-separator`}>-</span>
-            <span className={`${prefix}-range-end`}>
-              {currentPageSelected * currentItemsPerPageSelected > totalItems
-                ? totalItems
-                : currentPageSelected * currentItemsPerPageSelected}
-            </span>
-          </span>
-          of
-          <span className={`${prefix}-pagination-totalitems`}>
-            {totalItems}
-          </span>
-          items
+          {totalItems ? (
+            <>
+              <span className={`${prefix}-pagination-range`}>
+                <span className={`${prefix}-range-start`}>
+                  {(currentPageSelected - 1) * currentItemsPerPageSelected + 1}
+                </span>
+                <span className={`${prefix}-range-separator`}>-</span>
+                <span className={`${prefix}-range-end`}>
+                  {currentPageSelected * currentItemsPerPageSelected >
+                  totalItems
+                    ? totalItems
+                    : currentPageSelected * currentItemsPerPageSelected}
+                </span>
+              </span>
+              of
+              <span className={`${prefix}-pagination-totalitems`}>
+                {totalItems}
+              </span>
+              items
+            </>
+          ) : (
+            'No items to dispaly'
+          )}
         </span>
       </>
     );
