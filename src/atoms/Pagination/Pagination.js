@@ -138,7 +138,7 @@ const Pagination = ({
   };
 
   const getPagesArrayVal = () => {
-    let val = totalPage
+    const val = totalPage
       ? Array.from(
           {
             length: totalPage
