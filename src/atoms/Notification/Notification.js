@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
+import Link from '../Link';
 import { Info, Success, Danger, Warning, Close } from '../../util/icons';
 
 const useIcon = kindProp =>
@@ -19,6 +20,7 @@ export default function Notification({
   icon,
   closable,
   onClose,
+  actionLink,
   visible
 }) {
   const classnames = `${prefix}-notification ${
@@ -35,6 +37,16 @@ export default function Notification({
           <div className={`${prefix}-notification-subtitle`}>{subtitle}</div>
         </div>
       </div>
+      {actionLink ? (
+        <Link
+          href={actionLink}
+          className={`${prefix}-notification-action`}
+          target="_blank"
+        >
+          Action
+        </Link>
+      ) : null}
+
       {closable ? (
         <button
           className={`${prefix}-notification-close`}
@@ -65,7 +77,9 @@ Notification.propTypes = {
   /** to show notification */
   visible: PropTypes.bool.isRequired,
   /** Callback to invoke when a notification is closed. */
-  onClose: PropTypes.func
+  onClose: PropTypes.func,
+  /** hyperlink - The URL of the Action link*/
+  actionLink: PropTypes.string
 };
 
 Notification.defaultProps = {
@@ -74,5 +88,6 @@ Notification.defaultProps = {
   className: '',
   icon: null,
   closable: true,
+  actionLink: '',
   onClose: () => {}
 };

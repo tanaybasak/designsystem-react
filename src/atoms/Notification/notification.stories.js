@@ -21,6 +21,7 @@ storiesOf('Notification', module).add(
       subtitle={text('Subtitle', 'Notification Sub Title')}
       type={select('Type', notificationType, 'info')}
       closable={boolean('Closable', true)}
+      actionLink={text('URL', '#')}
       visible={boolean('Visible', true)}
       onClose={action('Notification-Close')}
     />
