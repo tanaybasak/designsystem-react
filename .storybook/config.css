@@ -1,19 +1,22 @@
-#story-root{
-    padding: 40px;
+#story-root {
+  padding: 40px;
 }
 
 
-
-
-.hcl-progressbar-label, .hcl-progressbar-subtext {
-    font-size: 12px;
-    font-weight: 400;
-    color: #363636;
+.hcl-progressbar-circle-container {
+  vertical-align: middle;
+  display: inline-block;
 }
-.hcl-progressbar-label-value, .hcl-progressbar-subtext-value {
-    float: right;
+.hcl-progressbar-circle .hcl-progressbar-circle-inner {
+  fill: none;
+  stroke: var(--default_bg_high);
 }
-.hcl-progressbar-content {
-    background-color: #e0e0de;
-    height: 0.25rem;
+.hcl-progressbar-circle-outer {
+  fill: none;
+  stroke: var(--primary_bg);
+}
+.hcl-progressbar-circle-text {
+  font-size: 1rem;
+  text-anchor: middle;
+  fill: blue !important;
 }

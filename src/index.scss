@@ -8,20 +8,23 @@
 }
 
 
-
-.hcl-progressbar {
-  &-label,
-  &-subtext {
-    font-size: 12px;
-    font-weight: 400;
-    color: #363636;
-
-    &-value {
-      float: right;
-    }
+.#{$prefix}-progressbar-circle {
+  margin-right: 5px;
+  &-container {
+    vertical-align: middle;
+    display: inline-block;
   }
-  &-content {
-    background-color: #e0e0de;
-    height: 0.25rem;
+  .#{$prefix}-progressbar-circle-inner {
+    fill: none;
+    stroke: var(--default_bg_high);
+  }
+  &-outer {
+    fill: none;
+    stroke: var(--primary_bg);
+  }
+  &-text {
+    font-size: 1rem;
+    text-anchor: middle;
+    fill: #fff;
   }
 }

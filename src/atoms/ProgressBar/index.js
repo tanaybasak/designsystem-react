@@ -1,2 +1,2 @@
-import DeterminateProgressBar from './DeterminateProgressBar.js';
-export default DeterminateProgressBar;
+import LinearProgressBar from './LinearProgressBar.js';
+export default LinearProgressBar;
