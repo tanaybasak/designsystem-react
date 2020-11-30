@@ -26,26 +26,26 @@ const CircleProgressBar = ({
     circleRef.current.style = 'transition: stroke-dashoffset 850ms ease-in-out';
     if (labelPosition == 'left' && (size == 48 || size == 96)) {
       setBottomElement(null);
-      setTopElement(React.createElement('label', { className: `mr-1 ${prefix}-progressbar-circle-text` }, label));
+      setTopElement(React.createElement('label', { className: `mr-1 ${prefix}-progressbar-circle-container-text` }, label));
     } else if (labelPosition == 'right' && (size == 48 || size == 96 )) {
       setTopElement(null);
       setBottomElement(
-        React.createElement('label', { className: 'ml-1' }, label)
+        React.createElement('label', { className: `ml-1 ${prefix}-progressbar-circle-container-text` }, label)
       );
     } else if (labelPosition == 'bottom' && (size == 48 || size == 96)) {
       setTopElement(null);
       setBottomElement(
-        React.createElement('div', { className: 'mt-1' }, label)
+        React.createElement('div', { className: `mt-1 ${prefix}-progressbar-circle-container-text` }, label)
       );
     } else if (labelPosition == 'top' && (size == 48 || size == 96)) {
       setBottomElement(null);
-      setTopElement(React.createElement('div', { className: 'mb-1' }, label));
+      setTopElement(React.createElement('div', { className: `mb-1 ${prefix}-progressbar-circle-container-text` }, label));
     } else if ((labelPosition == 'left' || labelPosition == 'bottom'  ) && size == 16) {
       setBottomElement(null);
-      setTopElement(React.createElement('label', { className: 'mr-1' }, [progresslabel,breakLine, progressElement]));
+      setTopElement(React.createElement('label', { className: `mr-1 ${prefix}-progressbar-circle-container-text` }, [progresslabel,breakLine, progressElement]));
     } else if((labelPosition == 'right' || labelPosition == 'top' ) && size == 16) {
       setTopElement(null);
-      setBottomElement(React.createElement('label', { className: 'ml-1' }, [progresslabel,breakLine, progressElement]));
+      setBottomElement(React.createElement('label', { className: `ml-1 ${prefix}-progressbar-circle-container-text` }, [progresslabel,breakLine, progressElement]));
     }
   }, [
     setOffset,
