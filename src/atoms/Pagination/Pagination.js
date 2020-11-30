@@ -12,6 +12,7 @@ const Pagination = ({
   onPageChange,
   onItemsPerPageChange,
   currentPage,
+  noItemDisplayText,
   itemsPerPageToSelect
 }) => {
   const [
@@ -259,7 +260,7 @@ const Pagination = ({
               items
             </>
           ) : (
-            'No items to dispaly'
+            noItemDisplayText
           )}
         </span>
       </>
@@ -334,6 +335,8 @@ Pagination.propTypes = {
   itemsStepperLimit: PropTypes.number,
   /** Text to display to the left of the No. of items Dropdown */
   itemsPerPageText: PropTypes.string,
+  /** Text to display when totalItem is zero */
+  noItemDisplayText: PropTypes.string,
   /** Accepts Event handler as argument/prop which is triggered after Items Per Page Dropdown is changed. */
   onItemsPerPageChange: PropTypes.func,
   /** Accepts Event handler as argument/prop which is triggered after Page Drop-down is changed. */
@@ -355,6 +358,7 @@ Pagination.defaultProps = {
   itemsPerPageStepper: 20,
   itemsStepperLimit: 100,
   itemsPerPageText: 'Items per Page:',
+  noItemDisplayText: 'No items to display',
   itemsPerPageToSelect: null,
   onItemsPerPageChange: () => {},
   onPageChange: () => {},

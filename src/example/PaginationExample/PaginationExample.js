@@ -24,43 +24,43 @@ class PaginationExample extends Component {
     return (
       <div className="hcl-col-12 mt-5" id="tags-section">
         <Paragraph className="p-2 m-1">
-        <button
-          className="hcl-btn hcl-secondary"
-          onClick={() => {
-            let { totalItems } = this.state;
-            totalItems += 50;
-            this.setState({
-              ...this.state,
-              totalItems: totalItems
-            });
-          }}
-        >
-          Total Items
-        </button>
-        <button
-          className="ml-2 hcl-btn hcl-secondary"
-          onClick={() => {
-            let { stepper } = this.state;
-            stepper += 5;
-            this.setState({ ...this.state, stepper: stepper });
-          }}
-        >
-          Change Stepper
-        </button>
-        <button
-          className="ml-2 hcl-btn hcl-secondary"
-          onClick={() => {
-            let { stepperLimit } = this.state;
-            stepperLimit += 50;
-            this.setState({
-              ...this.state,
-              stepperLimit: stepperLimit
-            });
-          }}
-        >
-          Stepper Limit
-        </button>
-      </Paragraph>
+          <button
+            className="hcl-btn hcl-secondary"
+            onClick={() => {
+              let { totalItems } = this.state;
+              totalItems += 50;
+              this.setState({
+                ...this.state,
+                totalItems: totalItems
+              });
+            }}
+          >
+            Total Items
+          </button>
+          <button
+            className="ml-2 hcl-btn hcl-secondary"
+            onClick={() => {
+              let { stepper } = this.state;
+              stepper += 5;
+              this.setState({ ...this.state, stepper: stepper });
+            }}
+          >
+            Change Stepper
+          </button>
+          <button
+            className="ml-2 hcl-btn hcl-secondary"
+            onClick={() => {
+              let { stepperLimit } = this.state;
+              stepperLimit += 50;
+              this.setState({
+                ...this.state,
+                stepperLimit: stepperLimit
+              });
+            }}
+          >
+            Stepper Limit
+          </button>
+        </Paragraph>
         <Pagination
           totalItems={this.state.totalItems}
           itemsPerPageStepper={this.state.stepper}
