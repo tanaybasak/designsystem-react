@@ -14,6 +14,8 @@ import OverlayExample from './example/OverlayExample';
 import CheckboxExample from './example/CheckboxExample';
 import PaginationExample from './example/PaginationExample';
 import SearchOverlayExample from './example/SearchOverlay';
+import DateRangeSelectorExample from './example/DateRangeSelectorExample';
+import DateSelectorExample from './example/DateSelectorExample';
 
 class Home extends Component {
   state = {
@@ -56,6 +58,14 @@ class Home extends Component {
         {
           href: '/pagination',
           title: 'Pagination'
+        },
+        {
+          href: '/dateselector',
+          title: 'DateSelector'
+        },
+        {
+          href: '/daterangeselector',
+          title: 'DateRangeSelector'
         },
         {
           href: '/checkbox',
@@ -126,6 +136,12 @@ class Home extends Component {
             <Route exact path="/tree" component={TreeExample} />
             <Route exact path="/timepicker" component={TimePickerExample} />
             <Route exact path="/overlay" component={OverlayExample} />
+            <Route exact path="/dateselector" component={DateSelectorExample} />
+            <Route
+              exact
+              path="/daterangeselector"
+              component={DateRangeSelectorExample}
+            />
             <Route exact path="/checkbox" component={CheckboxExample} />
             <Route
               exact

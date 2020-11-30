@@ -1,9 +1,15 @@
-import React, { useState, cloneElement } from 'react';
+import React, { useState, useEffect, cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 
 function Tabs({ activeIndex, onChange, children }) {
-  const [isActive, setActive] = useState(activeIndex);
+  const [isActive, setActive] = useState(0);
+
+  useEffect(() => {
+    if (activeIndex > -1 && activeIndex < children.length) {
+      setActive(activeIndex);
+    }
+  }, [activeIndex]);
 
   const modifiedChildren = React.Children.map(children, (child, index) => {
     if (child) {

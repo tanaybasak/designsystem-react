@@ -3,7 +3,14 @@ import PropTypes from 'prop-types';
 import prefix from '../../settings';
 import Link from '../Link';
 
-function BreadcrumbItem({ onClick, children, href, itemClass, ...restProps }) {
+function BreadcrumbItem({
+  onClick,
+  children,
+  href,
+  itemClass,
+  active,
+  ...restProps
+}) {
   const defaultStyle = {
     breadcrumbItem: `${prefix}-breadcrumb-item`,
     breadcrumbLink: `${prefix}-link`
@@ -13,8 +20,9 @@ function BreadcrumbItem({ onClick, children, href, itemClass, ...restProps }) {
     <li
       className={`${defaultStyle.breadcrumbItem} ${
         itemClass ? itemClass : ''
-      } ${restProps.active ? prefix + '-breadcrumb-item-active' : ''}`}
+      } ${active ? prefix + '-breadcrumb-item-active' : ''}`}
       onClick={onClick}
+      {...restProps}
     >
       <Link
         href={href ? href : null}
@@ -37,12 +45,15 @@ BreadcrumbItem.propTypes = {
   href: PropTypes.string,
   /** Class/clasess will be applied on the breadcrumb item  */
   itemClass: PropTypes.string,
-  /** Callback function on selecting item*/
+  /** @ignore */
+  active: PropTypes.bool,
+  /** Callback function on selecting item - (to be deprecated soon, instead use onSelection in Breadcrumb component )*/
   onClick: PropTypes.func
 };
 BreadcrumbItem.defaultProps = {
   href: '',
   itemClass: '',
+  active: false,
   onClick: () => {}
 };
 
