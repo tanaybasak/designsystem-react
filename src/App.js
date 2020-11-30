@@ -71,7 +71,8 @@ class App extends Component {
     sidebarExpanded: false,
     password: {
       disabled: false
-    }
+    },
+    tabidx: 0
   };
 
   position = {
@@ -957,8 +958,23 @@ class App extends Component {
               </div>
               <div className="hcl-col-12 mt-5 colBorder p-5" id="tabs-section">
                 {/* Tab Component */}
+                <h1>Tab Example</h1>
+                <Button
+                  onClick={() => {
+                    this.setState({ ...this.state, tabidx: 0 });
+                  }}
+                >
+                  0
+                </Button>
+                <Button
+                  onClick={() => {
+                    this.setState({ ...this.state, tabidx: 1 });
+                  }}
+                >
+                  1
+                </Button>
                 <Tabs
-                  activeIndex={0}
+                  activeIndex={this.state.tabidx}
                   onChange={e => {
                     console.log(`Label => ${e.label} Index => ${e.tabIndex}`);
                   }}
