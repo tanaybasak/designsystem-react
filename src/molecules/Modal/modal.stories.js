@@ -8,12 +8,13 @@ import Modal from './Modal';
 
 const typeOptions = {
   Danger: 'danger',
-  Default: 'default'
+  Default: 'default',
+  Warning: 'warning'
 };
 
 const actions = [
   { label: 'Save', primary: true, disabled: true },
-  { label: 'Close', primary: false }
+  { label: 'Close', secondary: false }
 ];
 
 storiesOf('Modal', module).add(

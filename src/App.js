@@ -889,7 +889,7 @@ class App extends Component {
                 {/* Danger type Modals */}
                 {this.state.modal === 1 && (
                   <Modal
-                    type="danger"
+                    type="warning"
                     label="optional label"
                     keyboard
                     heading="Heading comes here."

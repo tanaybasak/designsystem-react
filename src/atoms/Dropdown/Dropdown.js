@@ -189,6 +189,7 @@ const Dropdown = ({
   }
   if (disabled) {
     multidropClassnames.push(`${prefix}-dropdown-disabled`);
+    classNames.push(`${prefix}-disable-cursor`);
   }
   if (className) {
     classNames.push(className);
@@ -200,7 +201,7 @@ const Dropdown = ({
         <div
           className={multidropClassnames.join(' ')}
           data-toggle="dropdown"
-          tabIndex="0"
+          tabIndex={!disabled ? '0' : null}
           role="button"
           ref={dropDown}
           onKeyDown={keydownButton}
