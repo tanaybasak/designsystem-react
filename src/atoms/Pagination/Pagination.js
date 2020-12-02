@@ -60,7 +60,7 @@ const Pagination = ({
 
   if (currentPage && currentItemsPerPageSelected && currentPage > totalPage) {
     // eslint-disable-next-line no-console
-    // console.error('Pagination:props data mismatches');
+    console.error('Pagination:props data mismatches');
   }
 
   const ItemsPerPageChange = e => {
