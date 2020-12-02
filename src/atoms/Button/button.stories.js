@@ -11,7 +11,9 @@ const classOptions = [
   'primary-danger',
   'secondary',
   'secondary-danger',
-  'ghost'
+  'ghost',
+  'warning',
+  'neutral'
 ];
 
 storiesOf('Button', module).add(

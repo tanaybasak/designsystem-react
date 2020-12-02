@@ -11,6 +11,8 @@ const Actions = ({ actions }) => {
         primary = false,
         danger = false,
         disabled = false,
+        warning = false,
+        neutral = false,
         ...restProps
       }) => {
         const classNames = [`${prefix}-btn ${prefix}-modal-btn`];
@@ -18,6 +20,14 @@ const Actions = ({ actions }) => {
 
         if (danger) {
           classNames.push(`${prefix}-danger`);
+        }
+
+        if (warning) {
+          classNames.push(`${prefix}-warning`);
+        }
+
+        if (neutral) {
+          classNames.push(`${prefix}-neutral`);
         }
 
         return (
