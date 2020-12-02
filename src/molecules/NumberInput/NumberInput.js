@@ -66,6 +66,9 @@ const NumberInput = ({
     try {
       inputRef.current.stepUp();
       setValue(inputRef.current.value);
+      if (restProps.onChange) {
+        restProps.onChange(inputRef.current.value);
+      }
     } catch (e) {
       stepUp(
         inputRef.current,
@@ -73,9 +76,6 @@ const NumberInput = ({
       );
     }
     inputRef.current.focus();
-    if (restProps.onChange) {
-      restProps.onChange(inputRef.current.value);
-    }
   };
 
   const decrement = event => {
@@ -83,6 +83,9 @@ const NumberInput = ({
     try {
       inputRef.current.stepDown();
       setValue(inputRef.current.value);
+      if (restProps.onChange) {
+        restProps.onChange(inputRef.current.value);
+      }
     } catch (e) {
       stepDown(
         inputRef.current,
@@ -91,9 +94,6 @@ const NumberInput = ({
     }
 
     inputRef.current.focus();
-    if (restProps.onChange) {
-      restProps.onChange(inputRef.current.value);
-    }
   };
 
   const stepUp = (input, step) => {
@@ -103,7 +103,11 @@ const NumberInput = ({
     ) {
       return;
     }
-    setValue(Number(input.value) + Number(step));
+    const newValue = Number(input.value) + Number(step) + '';
+    setValue(newValue);
+    if (restProps.onChange) {
+      restProps.onChange(newValue);
+    }
   };
   const stepDown = (input, step) => {
     if (
@@ -112,7 +116,11 @@ const NumberInput = ({
     ) {
       return;
     }
-    setValue(Number(input.value) - Number(step));
+    const newValue = Number(input.value) - Number(step) + '';
+    setValue(newValue);
+    if (restProps.onChange) {
+      restProps.onChange(newValue);
+    }
   };
 
   return (
