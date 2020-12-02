@@ -6,3 +6,23 @@
 #root {
   height: 100vh;
 }
+
+.hcl-inline-icon svg{
+  width: 0.75rem;
+  height: 0.75rem;
+}
+
+.hcl-icon {
+  border: 1px solid black;
+  display: inline-block;
+  background-color: white;
+  margin: 4px;
+  width: 2rem;
+  height: 2rem;
+}
+
+.hcl-icon.white{
+  background-color: var(--interactive_border);
+  fill: white;
+  margin-left: 0px;
+}

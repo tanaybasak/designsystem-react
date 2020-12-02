@@ -80,6 +80,27 @@ export const Warning = (
     />
   </svg>
 );
+
+export const checkmark = (
+  <svg
+    id="icon"
+    style={{fill:'#fff;'}}
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 16 16"
+  >
+    <rect
+      id="_Transparent_Rectangle_"
+      data-name="&lt;Transparent Rectangle&gt;"
+      width="16"
+      height="16"
+      fill="none"
+    />
+    <path
+      id="checkmark"
+      d="M5.89,12.91,1,8l.71-.71L5.89,11.5l8.4-8.41L15,3.8Z"
+    />
+  </svg>
+);
 export const Close = (
   <svg version="1.1" xmlns="https://www.w3.org/2000/svg" viewBox="0 0 16 16">
     <polygon
