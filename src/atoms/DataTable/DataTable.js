@@ -24,6 +24,7 @@ const DataTable = ({
   initSortedColumn,
   onColumnReorder,
   selectedItem,
+  uniqueKey,
   ...restProps
 }) => {
   const [rows, updateTableRowData] = useState(tableData);
@@ -658,7 +659,7 @@ const DataTable = ({
               <tr
                 tabIndex={0}
                 className={
-                  selectedItem && selectedItem[row.id]
+                  selectedItem && selectedItem[row[uniqueKey]]
                     ? `${prefix}-active-row`
                     : null
                 }
@@ -812,8 +813,10 @@ DataTable.propTypes = {
   initSortedColumn: PropTypes.object,
   /** onColumnReorder will be tiggered on each column reorder and receive updated tableConfig as parameter*/
   onColumnReorder: PropTypes.func,
-  /** id of item for default selection */
-  selectedItem: PropTypes.oneOfType([PropTypes.string, PropTypes.array])
+  /** Unique Key name for updating selectedItem in items data */
+  uniqueKey: PropTypes.string,
+  /** unique id of item for default selection eg: {[id]: true } */
+  selectedItem: PropTypes.object
 };
 
 DataTable.defaultProps = {
@@ -833,6 +836,7 @@ DataTable.defaultProps = {
   isHeaderSticky: false,
   onColumnAfterResize: () => {},
   initSortedColumn: {},
+  uniqueKey: 'id',
   onColumnReorder: () => {}
 };
 
