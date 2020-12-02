@@ -68,9 +68,6 @@ module.exports.commonConfig = {
                                 require('postcss-preset-env')({ browsers: 'last 2 versions' })
                             ]
                         }
-                    },
-                    {
-                        loader: 'sass-loader'
                     }
                 ]
             },

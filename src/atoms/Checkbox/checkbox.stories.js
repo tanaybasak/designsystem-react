@@ -1,11 +1,16 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { text, boolean } from '@storybook/addon-knobs';
+import { text, boolean, select } from '@storybook/addon-knobs';
 //@update-path-build-start
 import Checkbox from './Checkbox';
 //@update-path-build-end
-
+const directionOption = {
+  Top: 'top',
+  Bottom: 'bottom',
+  Left: 'left',
+  Right: 'right'
+};
 storiesOf('Checkbox', module)
   .add(
     'default',
@@ -114,6 +119,34 @@ storiesOf('Checkbox', module)
         text: `Description About Checkbox Component \n
   
         import { Checkbox } from '@patron/patron-react/checkbox';`
+      }
+    }
+  )
+  .add(
+    'with tooltip',
+    () => (
+      <Checkbox
+        disabled={boolean('Disabled', false)}
+        id="checkbox1"
+        label={text('Label', 'Checkbox Label')}
+        tooltipTitle={text(
+          'Tooltip Title',
+          'Breif Definition of the dotted underlined word.'
+        )}
+        tooltipDirection={select(
+          'Tooltip Direction',
+          directionOption,
+          'bottom'
+        )}
+        onChange={action('Checkbox-OnChange')}
+        value="check1"
+      />
+    ),
+    {
+      info: {
+        text: `Description About Checkbox Component \n
+
+      import { Checkbox } from '@patron/patron-react/checkbox';`
       }
     }
   );

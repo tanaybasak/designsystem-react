@@ -13,6 +13,7 @@ const Dropdown = ({
   onChange,
   config,
   selectedItem,
+  disabled,
   className,
   attachElementToBody,
   scrollListner,
@@ -182,8 +183,13 @@ const Dropdown = ({
   };
 
   const classNames = [`${prefix}-overlay-wrapper`, `${prefix}-dropdown`];
+  const multidropClassnames = [`${prefix}-btn`, `${prefix}-dropdown-toggle`];
   if (isOpen) {
     classNames.push(`${prefix}-overlay-wrapper-active`);
+  }
+  if (disabled) {
+    multidropClassnames.push(`${prefix}-dropdown-disabled`);
+    classNames.push(`${prefix}-disable-cursor`);
   }
   if (className) {
     classNames.push(className);
@@ -193,9 +199,9 @@ const Dropdown = ({
     <div className={classNames.join(' ')} {...restProps}>
       {dropdownType === 'multi' ? (
         <div
-          className={`${prefix}-btn ${prefix}-dropdown-toggle`}
+          className={multidropClassnames.join(' ')}
           data-toggle="dropdown"
-          tabIndex="0"
+          tabIndex={!disabled ? '0' : null}
           role="button"
           ref={dropDown}
           onKeyDown={keydownButton}
@@ -224,6 +230,7 @@ const Dropdown = ({
           className={`${prefix}-btn ${prefix}-dropdown-toggle`}
           data-toggle="dropdown"
           ref={dropDown}
+          disabled={disabled}
           onKeyDown={keydownButton}
           onClick={toggleDropDown}
           aria-label={label}
@@ -339,12 +346,16 @@ Dropdown.propTypes = {
   attachElementToBody: PropTypes.bool,
 
   /** Dropdown Container position will changed on scroll. This is applicable when Dropdown container is attached to body */
-  scrollListner: PropTypes.bool
+  scrollListner: PropTypes.bool,
+
+  /** Disabled property for dropdown */
+  disabled: PropTypes.bool
 };
 
 Dropdown.defaultProps = {
   type: 'bottom',
   label: 'Select Option',
+  disabled: false,
   onChange: () => {},
   className: '',
   dropdownType: '',
