@@ -7,7 +7,7 @@ import { checkmark, Close } from '../../util/icons';
 const InlineEdit = ({
   onClose,
   onTextUpdate,
-  // formStatus,
+  formStatus,
   // errorMessage,
   ...restProps
 }) => {
@@ -54,20 +54,36 @@ const InlineEdit = ({
             {...restProps}
             onBlur={updateTextNodeOnBlur}
             onKeyDown={updateTreenodeNameOnEnter}
-            //data-invalid={formStatus}
+            data-invalid={formStatus}
             onClick={stopPropagation}
           />
         </div>
         <div
           className="hcl-inline-icon"
           style={{
-            border: '1px solid black',
+            boxShadow: '0 .25rem .5rem .15rem var(--default_shadow)',
             position: 'absolute',
             right: '0'
           }}
         >
-          <button className="hcl-icon">{Close}</button>
-          <button className="hcl-icon white">{checkmark}</button>
+          <button
+            type="button"
+            className={`${prefix}-icon close`}
+            aria-label="inline-close"
+            onClick={onClose}
+          >
+            {Close}
+          </button>
+          <button
+            type="button"
+            className={`${prefix}-icon check`}
+            aria-label="inline-check"
+            onClick={event => {
+              onTextUpdate(event.currentTarget.value);
+            }}
+          >
+            {checkmark}
+          </button>
         </div>
       </div>
     </>
@@ -76,15 +92,15 @@ const InlineEdit = ({
 
 InlineEdit.propTypes = {
   onClose: PropTypes.func,
-  onTextUpdate: PropTypes.func
-  //formStatus: PropTypes.bool,
+  onTextUpdate: PropTypes.func,
+  formStatus: PropTypes.bool
   // errorMessage: PropTypes.any
 };
 
 InlineEdit.defaultProps = {
   onClose: () => {},
-  onTextUpdate: () => {}
-  //formStatus: false,
+  onTextUpdate: () => {},
+  formStatus: false
   //errorMessage: null
 };
 

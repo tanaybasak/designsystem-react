@@ -15,7 +15,7 @@ class InlineEditExample extends Component {
           <InlineEdit
             value={this.state.value}
             onTextUpdate={e => {
-              console.log('changed text: ', e);
+              console.log('updated text: ', e);
             }}
             // formStatus=""
             // errorMessage=""
