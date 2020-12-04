@@ -4,15 +4,17 @@ import prefix from '../../settings';
 import TextInput from '../TextInput';
 import { checkmark, Close } from '../../util/icons';
 import Overlay from '../Overlay';
+import Spinner from '../Spinner';
 
 const InlineEdit = ({
   onClose,
   onTextUpdate,
   formStatus,
   errorMessage,
+  loader,
   ...restProps
 }) => {
-  const textEditorRef = useRef(null);
+  const inlineEditorRef = useRef(null);
   const [displayActionPanel, setDisplayActionPanel] = useState(false);
   const [matchedValue, setMatchedValue] = useState(true);
   const [overlayTargetEl, setOverlayTargetEl] = useState(null);
@@ -37,14 +39,10 @@ const InlineEdit = ({
     }
   };
 
-  const updateTextNodeOnBlur = event => {
-    onTextUpdate(event.currentTarget.value);
-  };
-
   useEffect(() => {
-    textEditorRef.current.firstElementChild.focus();
-    textEditorRef.current.firstElementChild.select();
-    setOverlayTargetEl(textEditorRef.current.firstElementChild);
+    inlineEditorRef.current.firstElementChild.focus();
+    inlineEditorRef.current.firstElementChild.select();
+    setOverlayTargetEl(inlineEditorRef.current.firstElementChild);
     setDisplayActionPanel(true);
     return function cleanup() {};
   }, []);
@@ -52,11 +50,10 @@ const InlineEdit = ({
   const classNames = [`${prefix}-overlay-wrapper`];
 
   return (
-    <div className={classNames.join(' ')} ref={textEditorRef}>
+    <div className={classNames.join(' ')} ref={inlineEditorRef}>
       <TextInput
         type="text"
         {...restProps}
-        onBlur={updateTextNodeOnBlur}
         onKeyDown={updateTreenodeNameOnEnter}
         data-invalid={formStatus}
         onClick={stopPropagation}
@@ -66,6 +63,13 @@ const InlineEdit = ({
             : setMatchedValue(true);
         }}
       />
+      {loader && (
+        <Spinner
+          style={{ top: '0.75rem', left: '9rem', position: 'absolute' }}
+          small
+        />
+      )}
+
       <Overlay
         direction={'bottom-right'}
         showOverlay={displayActionPanel}
@@ -92,8 +96,8 @@ const InlineEdit = ({
                 type="button"
                 className={`${prefix}-inline-btn ${prefix}-inline-check`}
                 aria-label="inline-check"
-                onClick={event => {
-                  onTextUpdate(event.currentTarget.value);
+                onClick={() => {
+                  onTextUpdate(inlineEditorRef.current.firstElementChild.value);
                 }}
                 disabled={errorMessage || matchedValue ? true : false}
               >
@@ -115,14 +119,16 @@ InlineEdit.propTypes = {
   /** To add a red border on input field upon displaying error message. */
   formStatus: PropTypes.bool,
   /** Error message content which has to be displayed. */
-  errorMessage: PropTypes.any
+  errorMessage: PropTypes.any,
+  loader: PropTypes.bool
 };
 
 InlineEdit.defaultProps = {
   onClose: () => {},
   onTextUpdate: () => {},
   formStatus: false,
-  errorMessage: null
+  errorMessage: null,
+  loader: false
 };
 
 export default InlineEdit;
