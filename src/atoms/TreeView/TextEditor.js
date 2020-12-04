@@ -61,7 +61,9 @@ const TextEditor = ({
       {errorMessage ? (
         <Overlay
           showOverlay={showOverlay}
-          targetElement={textEditorRef ? textEditorRef.current : null}
+          targetElement={
+            textEditorRef ? textEditorRef.current.currentTarget : null
+          }
           attachElementToBody
           style={{ width: width }}
         >

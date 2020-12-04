@@ -84,7 +84,7 @@ export const Warning = (
 export const checkmark = (
   <svg
     id="icon"
-    style={{ fill: '#fff;' }}
+    style={{ fill: '#fff' }}
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 16 16"
   >
