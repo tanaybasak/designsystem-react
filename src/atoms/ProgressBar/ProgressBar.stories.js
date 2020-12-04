@@ -30,10 +30,10 @@ storiesOf('ProgressBar', module)
   'linear',
   () => (
       <LinearProgressBar
-        label={text('label', 'Downloading..')}
-        value={number('value', 30)}
-        max={number('max', 100)}
-        subText={text('subText', 'Subtext Data')}
+        label={text('label',  'Downloading')}
+        value={number('value', 0.3)}
+        rightText={text('rightText', '30%')}
+        subText={text('subText', 'newELement')}
         type ={select('type', typeOptions, 'determinate')}
       />
   ),
@@ -48,9 +48,8 @@ storiesOf('ProgressBar', module)
   'circle',
   () => (
       <CircleProgressBar
-        progress={number('value', 70)}
+        progress={number('value', 0.7)}
         size={select('circleSize', sizeOptions, '16')}
-        max={number('max', 100)}
         label={text('label', 'Downloading..')}
         labelPosition={select('labelPosition',labelOptions, 'left')}
         type ={select('type', typeOptions, 'determinate')}

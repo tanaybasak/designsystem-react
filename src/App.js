@@ -907,6 +907,9 @@ class App extends Component {
                     <Paragraph>
                       Danger Modal with save and close buttons
                     </Paragraph>
+                    <Tooltip content="Filter" direction="right" type="icon">
+                      {tooltipIcon}
+                    </Tooltip>
                   </Modal>
                 )}
                 {this.state.modal === 2 && (

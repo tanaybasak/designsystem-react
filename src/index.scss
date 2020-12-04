@@ -7,24 +7,3 @@
   height: 100vh;
 }
 
-
-.#{$prefix}-progressbar-circle {
-  margin-right: 5px;
-  &-container {
-    vertical-align: middle;
-    display: inline-block;
-  }
-  .#{$prefix}-progressbar-circle-inner {
-    fill: none;
-    stroke: var(--default_bg_high);
-  }
-  &-outer {
-    fill: none;
-    stroke: var(--primary_bg);
-  }
-  &-text {
-    font-size: 1rem;
-    text-anchor: middle;
-    fill: #fff;
-  }
-}

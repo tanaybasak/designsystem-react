@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 const CircleProgressBar = ({
   size,
   progress,
-  max,
   type,
   label,
   labelPosition
@@ -17,11 +16,13 @@ const CircleProgressBar = ({
   const center = size / 2;
   const radius = size / 2 - 2.5;
   const circumference = 2 * Math.PI * radius;
-  const progressElement  = React.createElement('span',  { className: `${prefix}-progressbar-circle-text` }, progress + '%');
+  progress = progress > 1 ? 1 : progress; 
+  const prg = progress * 100;
+  const progressElement  = React.createElement('span',  { className: `${prefix}-progressbar-circle-text` }, prg + '%');
   const progresslabel = React.createElement('span',  { className: `${prefix}-progressbar-circle-text` }, label); 
   const breakLine =  React.createElement('br', null , null); 
   useEffect(() => {
-    const progressOffset = ((max - progress) / max) * circumference;
+    const progressOffset = ((100 - prg) / 100) * circumference;
     setOffset(progressOffset);
     circleRef.current.style = 'transition: stroke-dashoffset 850ms ease-in-out';
     if (labelPosition == 'left' && (size == 48 || size == 96)) {
@@ -54,7 +55,6 @@ const CircleProgressBar = ({
     progress,
     circumference,
     offset,
-    max,
     label,
     labelPosition
   ]);
@@ -90,7 +90,7 @@ const CircleProgressBar = ({
               x={`${center}`}
               y={`${center}`}
             >
-              {progress}%
+              {prg}%
             </text>
           )}
         </svg>
@@ -110,7 +110,6 @@ CircleProgressBar.propTypes = {
 CircleProgressBar.defaultProps = {
   size: 48,
   progress: 70,
-  max: 100,
   type: 'determinate',
   label: 'Downloading..'
 };
