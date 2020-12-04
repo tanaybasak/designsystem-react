@@ -72,7 +72,8 @@ class App extends Component {
     sidebarExpanded: false,
     password: {
       disabled: false
-    }
+    },
+    tabidx: 0
   };
 
   position = {
@@ -659,10 +660,10 @@ class App extends Component {
                 <Breadcrumb
                   id="small-navigator"
                   className="custom-breadcrumb-top"
-                  activeIndex={Math.floor(Math.random() * 3)}
+                  activeIndex={2}
                   onSelection={(item, idx, e) => console.log(item, idx, e)}
                 >
-                  <BreadcrumbItem className="custom-item" href="#">
+                  <BreadcrumbItem itemClass="custom-item" href="#">
                     Breadcrumb 1
                   </BreadcrumbItem>
                   <BreadcrumbItem href="#">Breadcrumb 2</BreadcrumbItem>
@@ -674,23 +675,19 @@ class App extends Component {
                 <Breadcrumb
                   id="small-navigator"
                   className="custom-breadcrumb-top"
-                  activeIndex={Math.floor(Math.random() * 3)}
+                  activeIndex={0}
                   onSelection={(item, e) => console.log(item, e)}
                 >
-                  <BreadcrumbItem className="custom-item">
+                  <BreadcrumbItem itemClass="custom-item">
                     Breadcrumb 1
                   </BreadcrumbItem>
-                  <BreadcrumbItem>Breadcrumb 2</BreadcrumbItem>
+                  <BreadcrumbItem id={34}>Breadcrumb 2</BreadcrumbItem>
                   <BreadcrumbItem>Breadcrumb 3</BreadcrumbItem>
                   <BreadcrumbItem>Breadcrumb 4</BreadcrumbItem>
-                  <BreadcrumbItem href="#asdf">Breadcrumb 5</BreadcrumbItem>
-                  <BreadcrumbItem
-                    onClick={e => {
-                      console.log('sdfsdf', e);
-                    }}
-                  >
-                    Breadcrumb 6
+                  <BreadcrumbItem href="#asdf" id={45}>
+                    Breadcrumb 5
                   </BreadcrumbItem>
+                  <BreadcrumbItem>Breadcrumb 6</BreadcrumbItem>
                 </Breadcrumb>
               </div>
               {/* Spinner */}
@@ -973,8 +970,23 @@ class App extends Component {
               </div>
               <div className="hcl-col-12 mt-5 colBorder p-5" id="tabs-section">
                 {/* Tab Component */}
+                <h1>Tab Example</h1>
+                <Button
+                  onClick={() => {
+                    this.setState({ ...this.state, tabidx: 0 });
+                  }}
+                >
+                  0
+                </Button>
+                <Button
+                  onClick={() => {
+                    this.setState({ ...this.state, tabidx: 1 });
+                  }}
+                >
+                  1
+                </Button>
                 <Tabs
-                  activeIndex={0}
+                  activeIndex={this.state.tabidx}
                   onChange={e => {
                     console.log(`Label => ${e.label} Index => ${e.tabIndex}`);
                   }}
