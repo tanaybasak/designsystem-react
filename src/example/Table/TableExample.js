@@ -10,13 +10,30 @@ class TableExample extends Component {
   state = {
     tableData: [],
     totalItems: 0,
+    selectedItem: {},
     initSortedColumn: { order: 'asc', name: 'name' },
     displayData: [],
     tableConfig: [
       {
         field: 'checkbox',
         renderHtml: row => {
-          return <Checkbox id={`${row.id}_checkbox_`} name="testcheck" />;
+          return (
+            <Checkbox
+              id={`${row.id}_checkbox_`}
+              name="testcheck"
+              onChange={e => {
+                const tempSelectedObj = { ...this.state.selectedItem };
+                if (e.target.checked) {
+                  tempSelectedObj[row.id] = e.target.checked;
+                } else {
+                  delete tempSelectedObj[row.id];
+                }
+                this.setState({
+                  selectedItem: tempSelectedObj
+                });
+              }}
+            />
+          );
         },
         width: '40px',
         headerCellClass: 'custom-header-checkbox',
@@ -196,6 +213,7 @@ class TableExample extends Component {
               onColumnAfterResize={this.colResize}
               initSortedColumn={this.state.initSortedColumn}
               columnDraggable
+              selectedItem={this.state.selectedItem}
               onColumnReorder={dataTableConfig => {
                 console.log('dataTableConfig', dataTableConfig);
               }}
