@@ -26,6 +26,9 @@ const Pagination = ({
     if (currentPage) {
       setCurrentPageSelected(currentPage);
     }
+    if (currentPage < 1) {
+      setCurrentPageSelected(1);
+    }
   }, [currentPage]);
 
   useEffect(() => {

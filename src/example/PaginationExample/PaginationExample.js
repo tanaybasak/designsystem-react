@@ -6,7 +6,7 @@ import Paragraph from '../../atoms/Paragraph';
 class PaginationExample extends Component {
   state = {
     totalItems: 300,
-    currentPage: 2,
+    currentPage: 16,
     stepper: 10,
     stepperLimit: 100,
     itemsPerPageToSelect: 20,
