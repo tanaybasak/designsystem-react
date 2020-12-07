@@ -75,6 +75,7 @@ const InlineEdit = ({
               className={`${prefix}-inline-btn ${prefix}-inline-custom-btn`}
               aria-label="inline-btn"
               onClick={onClick}
+              disabled={loader ? true : false}
             >
               {icon}
             </button>
@@ -126,6 +127,7 @@ const InlineEdit = ({
                 className={`${prefix}-inline-btn ${prefix}-inline-close`}
                 aria-label="inline-close"
                 onClick={onClose}
+                disabled={loader ? true : false}
               >
                 {inlineClose}
               </button>
@@ -136,7 +138,7 @@ const InlineEdit = ({
                 onClick={() => {
                   onTextUpdate(inlineEditorRef.current.firstElementChild.value);
                 }}
-                disabled={errorMessage || matchedValue ? true : false}
+                disabled={errorMessage || matchedValue || loader ? true : false}
               >
                 {checkmark}
               </button>
