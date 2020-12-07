@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import InlineEdit from '../../atoms/InlineEdit';
 import { edit } from '../../util/icons';
+import Icon from '../../atoms/Icon';
 
 class InlineEditExample extends Component {
   state = {
@@ -19,6 +20,17 @@ class InlineEditExample extends Component {
             <InlineEdit
               value={this.state.value}
               loader={this.state.loader}
+              customIcon={
+                <Icon
+                  type="svg"
+                  alt="alt"
+                  title="title"
+                  viewBox="0 0 512 512"
+                  className="toggleIcon"
+                >
+                  <polygon points="160,128.4 192.3,96 352,256 352,256 352,256 192.3,416 160,383.6 287.3,256 " />
+                </Icon>
+              }
               onTextUpdate={e => {
                 this.setState({ loader: true });
                 setTimeout(() => {
@@ -26,9 +38,9 @@ class InlineEditExample extends Component {
                     isEditing: false,
                     value: e,
                     isHovering: false,
-                    loader: true
+                    loader: false
                   });
-                }, 5000);
+                }, 2000);
               }}
               onClose={() => {
                 this.setState({ isEditing: false, loader: false });

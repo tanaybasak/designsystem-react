@@ -84,21 +84,37 @@ export const Warning = (
 export const checkmark = (
   <svg
     id="icon"
+    data-name="Refresh-line-icon"
     style={{ fill: '#fff' }}
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 16 16"
   >
     <rect
-      id="_Transparent_Rectangle_"
-      data-name="&lt;Transparent Rectangle&gt;"
+      id="bc9aeae6-0749-4482-9f8a-860157ee50ed"
+      data-name="&lt;Transparent Rectangleh&gt;"
       width="16"
       height="16"
       fill="none"
     />
-    <path
-      id="checkmark"
-      d="M5.89,12.91,1,8l.71-.71L5.89,11.5l8.4-8.41L15,3.8Z"
+    <path d="M5.89,12.91,1,8l.71-.71L5.89,11.5l8.4-8.41L15,3.8Z" />
+  </svg>
+);
+
+export const inlineClose = (
+  <svg
+    id="icon"
+    data-name="Refresh-line-icon"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 16 16"
+  >
+    <rect
+      id="b67bf25b-c337-4b60-84fc-c1fe9a376cc5"
+      data-name="&lt;Transparent Rectangleh&gt;"
+      width="16"
+      height="16"
+      fill="none"
     />
+    <path d="M8.71,8,13,12.29l-.71.71L8,8.71,3.71,13,3,12.29,7.29,8,3,3.71,3.71,3,8,7.29,12.29,3l.71.71Z" />
   </svg>
 );
 

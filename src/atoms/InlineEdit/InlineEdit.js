@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 import TextInput from '../TextInput';
-import { checkmark, Close } from '../../util/icons';
+import { checkmark, inlineClose } from '../../util/icons';
 import Overlay from '../Overlay';
 import Spinner from '../Spinner';
 
@@ -10,8 +10,10 @@ const InlineEdit = ({
   onClose,
   onTextUpdate,
   formStatus,
+  customIcon,
   errorMessage,
   loader,
+  onClick,
   ...restProps
 }) => {
   const inlineEditorRef = useRef(null);
@@ -46,6 +48,40 @@ const InlineEdit = ({
     setDisplayActionPanel(true);
     return function cleanup() {};
   }, []);
+
+  let customElement = null;
+  customIcon
+    ? (customElement = React.Children.map(customIcon, child => {
+        if (child.props.children && child.props.children.length) {
+          return child.props.children.map((item, index) => {
+            const icon = React.cloneElement(item);
+            return (
+              <button
+                key={index}
+                type="button"
+                className={`${prefix}-inline-btn ${prefix}-inline-custom-btn`}
+                aria-label="inline-btn"
+                onClick={onClick}
+              >
+                {icon}
+              </button>
+            );
+          });
+        } else {
+          const icon = React.cloneElement(child);
+          return (
+            <button
+              type="button"
+              className={`${prefix}-inline-btn ${prefix}-inline-custom-btn`}
+              aria-label="inline-btn"
+              onClick={onClick}
+            >
+              {icon}
+            </button>
+          );
+        }
+      }))
+    : null;
 
   const classNames = [`${prefix}-overlay-wrapper`];
 
@@ -84,13 +120,14 @@ const InlineEdit = ({
           ) : null}
           <div className={`${prefix}-inline-wrapper`}>
             <span className={`${prefix}-inline-panel`}>
+              {customElement}
               <button
                 type="button"
                 className={`${prefix}-inline-btn ${prefix}-inline-close`}
                 aria-label="inline-close"
                 onClick={onClose}
               >
-                {Close}
+                {inlineClose}
               </button>
               <button
                 type="button"
@@ -120,15 +157,22 @@ InlineEdit.propTypes = {
   formStatus: PropTypes.bool,
   /** Error message content which has to be displayed. */
   errorMessage: PropTypes.any,
+  /** Used to pass custom icon template */
+  customIcon: PropTypes.element,
+  /** A callback function which will be executed once custom button is clicked. */
+  onClick: PropTypes.func.isRequired,
+  /** loader is shown upon click */
   loader: PropTypes.bool
 };
 
 InlineEdit.defaultProps = {
   onClose: () => {},
+  onClick: () => {},
   onTextUpdate: () => {},
   formStatus: false,
   errorMessage: null,
-  loader: false
+  loader: false,
+  customIcon: null
 };
 
 export default InlineEdit;
