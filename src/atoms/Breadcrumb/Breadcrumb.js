@@ -55,7 +55,7 @@ function Breadcrumb({ activeIndex, onSelection, id, className, children }) {
         key: index,
         children: child.props.children,
         href: child.props.href,
-        itemClass: child.props.className,
+        itemClass: child.props.itemClass,
         active: isActive === index
       });
     }
