@@ -22,7 +22,7 @@ class InlineEditExample extends Component {
               value={this.state.value}
               loader={this.state.loader}
               customIcon={
-                <Button type="neutral">
+                <Button type="neutral" disabled={this.state.loader ? true: false}>
                   <Icon
                     type="svg"
                     alt="alt"
