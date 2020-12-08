@@ -5,6 +5,7 @@ import TextInput from '../TextInput';
 import { checkmark, inlineClose } from '../../util/icons';
 import Overlay from '../Overlay';
 import Spinner from '../Spinner';
+import Button from '../Button';
 
 const InlineEdit = ({
   onClose,
@@ -56,29 +57,30 @@ const InlineEdit = ({
           return child.props.children.map((item, index) => {
             const icon = React.cloneElement(item);
             return (
-              <button
+              <Button
                 key={index}
-                type="button"
-                className={`${prefix}-inline-btn ${prefix}-inline-custom-btn`}
-                aria-label="inline-btn"
+                type="neutral"
+                className={`${prefix}-inline-btn`}
+                disabled={loader ? true : false}
                 onClick={onClick}
+                aria-label="inline-button"
               >
                 {icon}
-              </button>
+              </Button>
             );
           });
         } else {
           const icon = React.cloneElement(child);
           return (
-            <button
-              type="button"
-              className={`${prefix}-inline-btn ${prefix}-inline-custom-btn`}
-              aria-label="inline-btn"
-              onClick={onClick}
+            <Button
+              type="neutral"
+              className={`${prefix}-inline-btn`}
               disabled={loader ? true : false}
+              onClick={onClick}
+              aria-label="inline-button"
             >
               {icon}
-            </button>
+            </Button>
           );
         }
       }))
@@ -117,26 +119,26 @@ const InlineEdit = ({
           <div className={`${prefix}-inline-wrapper`}>
             <span className={`${prefix}-inline-panel`}>
               {customElement}
-              <button
-                type="button"
-                className={`${prefix}-inline-btn ${prefix}-inline-close`}
-                aria-label="inline-close"
-                onClick={onClose}
+              <Button
+                type="neutral"
+                className={`${prefix}-inline-btn`}
                 disabled={loader ? true : false}
+                onClick={onClose}
+                aria-label="inline-close"
               >
                 {inlineClose}
-              </button>
-              <button
-                type="button"
-                className={`${prefix}-inline-btn ${prefix}-inline-check`}
-                aria-label="inline-check"
+              </Button>
+              <Button
+                type="primary"
+                className={`${prefix}-inline-btn`}
+                disabled={errorMessage || matchedValue || loader ? true : false}
                 onClick={() => {
                   onTextUpdate(inlineEditorRef.current.firstElementChild.value);
                 }}
-                disabled={errorMessage || matchedValue || loader ? true : false}
+                aria-label="inline-check"
               >
                 {checkmark}
-              </button>
+              </Button>
             </span>
           </div>
         </>
