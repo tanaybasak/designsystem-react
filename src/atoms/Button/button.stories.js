@@ -16,11 +16,14 @@ const classOptions = [
   'neutral'
 ];
 
+const typeOptions = ['button', 'reset', 'submit'];
+
 storiesOf('Button', module).add(
   'default',
   () => (
     <Button
       type={select('Type', classOptions, 'primary')}
+      kind={select('Kind', typeOptions, '')}
       title="Default"
       disabled={boolean('Disabled', false)}
       small={boolean('Small', false)}
