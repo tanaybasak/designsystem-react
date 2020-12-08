@@ -14,7 +14,6 @@ const InlineEdit = ({
   customIcon,
   errorMessage,
   loader,
-  onClick,
   ...restProps
 }) => {
   const inlineEditorRef = useRef(null);
@@ -55,33 +54,19 @@ const InlineEdit = ({
     ? (customElement = React.Children.map(customIcon, child => {
         if (child.props.children && child.props.children.length) {
           return child.props.children.map((item, index) => {
-            const icon = React.cloneElement(item);
-            return (
-              <Button
-                key={index}
-                type="neutral"
-                className={`${prefix}-inline-btn`}
-                disabled={loader ? true : false}
-                onClick={onClick}
-                aria-label="inline-button"
-              >
-                {icon}
-              </Button>
-            );
+            return React.cloneElement(item, {
+              key: index,
+              className: `${prefix}-inline-btn${
+                item.props.className ? ' ' + item.props.className : ''
+              }`
+            });
           });
         } else {
-          const icon = React.cloneElement(child);
-          return (
-            <Button
-              type="neutral"
-              className={`${prefix}-inline-btn`}
-              disabled={loader ? true : false}
-              onClick={onClick}
-              aria-label="inline-button"
-            >
-              {icon}
-            </Button>
-          );
+          return React.cloneElement(child, {
+            className: `${prefix}-inline-btn${
+              child.props.className ? ' ' + child.props.className : ''
+            }`
+          });
         }
       }))
     : null;
@@ -156,17 +141,14 @@ InlineEdit.propTypes = {
   formStatus: PropTypes.bool,
   /** Error message content which has to be displayed. */
   errorMessage: PropTypes.any,
-  /** Used to pass custom icon template */
+  /** Used to pass custom button template */
   customIcon: PropTypes.element,
-  /** A callback function which will be executed once custom button is clicked. */
-  onClick: PropTypes.func.isRequired,
   /** loader is shown upon click */
   loader: PropTypes.bool
 };
 
 InlineEdit.defaultProps = {
   onClose: () => {},
-  onClick: () => {},
   onTextUpdate: () => {},
   formStatus: false,
   errorMessage: null,
