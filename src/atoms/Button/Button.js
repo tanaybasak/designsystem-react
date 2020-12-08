@@ -38,7 +38,7 @@ Button.propTypes = {
   /** type of button eg : primary , primary-danger , secondary-danger , secondary, ghost  */
   type: PropTypes.string,
   /** kind of button  eg : button, submit, reset */
-  kind: PropTypes.string,
+  kind: PropTypes.oneOf(['button', 'submit', 'reset']),
   /** Style class of the component */
   className: PropTypes.string,
   /** small button  */
