@@ -49,6 +49,9 @@ export default function FileUploader({
     if (index !== -1) {
       newFileList.splice(index, 1);
       setFileList(newFileList);
+      if (!multiple) {
+        fileContainer.current.querySelector('input').value = '';
+      }
     }
     onChange(newFileList, event);
   };
