@@ -100,12 +100,7 @@ const InlineEdit = ({
             : setMatchedValue(true);
         }}
       />
-      {loader && (
-        <Spinner
-          style={{ top: '0.75rem', left: '9rem', position: 'absolute' }}
-          small
-        />
-      )}
+      {loader && <Spinner className={`${prefix}-inline-loader`} small />}
 
       <Overlay
         direction={'bottom-right'}
