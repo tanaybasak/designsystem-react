@@ -11,22 +11,19 @@ function BreadcrumbItem({
   active,
   ...restProps
 }) {
-  const defaultStyle = {
-    breadcrumbItem: `${prefix}-breadcrumb-item`,
-    breadcrumbLink: `${prefix}-link`
-  };
+  let breadcrumbStyle = [`${prefix}-breadcrumb-item`];
+  if (itemClass) {
+    breadcrumbStyle.push(itemClass);
+  }
+  if (active) {
+    breadcrumbStyle.push(`${prefix}-breadcrumb-item-active`);
+  }
 
   return (
-    <li
-      className={`${defaultStyle.breadcrumbItem} ${itemClass ? itemClass : ''}${
-        active ? ` ${prefix}-breadcrumb-item-active` : ''
-      }`}
-      onClick={onClick}
-      {...restProps}
-    >
+    <li className={breadcrumbStyle.join(' ')} onClick={onClick} {...restProps}>
       <Link
         href={href ? href : null}
-        className={`${defaultStyle.breadcrumbLink}`}
+        className={`${prefix}-link`}
         tabIndex="0"
         onKeyDown={event => {
           if (event.keyCode === 13) {
