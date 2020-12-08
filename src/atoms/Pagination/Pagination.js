@@ -12,18 +12,22 @@ const Pagination = ({
   onPageChange,
   onItemsPerPageChange,
   currentPage,
+  noItemDisplayText,
   itemsPerPageToSelect
 }) => {
   const [
     currentItemsPerPageSelected,
     setCurrentItemsPerPageSelected
   ] = useState(null);
-  const [currentPageSelected, setCurrentPageSelected] = useState(null);
+  const [currentPageSelected, setCurrentPageSelected] = useState(0);
   const [itemPerPageStepperArray, setItemPerPageStepperArray] = useState([]);
 
   useEffect(() => {
     if (currentPage) {
       setCurrentPageSelected(currentPage);
+    }
+    if (currentPage < 1) {
+      setCurrentPageSelected(1);
     }
   }, [currentPage]);
 
@@ -137,19 +141,23 @@ const Pagination = ({
   };
 
   const getPagesArrayVal = () => {
-    const val = Array.from(
-      {
-        length: totalPage
-      },
-      (v, k) => k + 1
-    ).slice(0);
+    const val = totalPage
+      ? Array.from(
+          {
+            length: totalPage
+          },
+          (v, k) => k + 1
+        )
+      : Array.from(Array(1).keys());
     return val;
   };
   const numberOfPages = () => {
     return (
       <>
         <span className={`${prefix}-pagination-text`}>
-          <span className={`${prefix}-page-start`}>{currentPageSelected}</span>
+          <span className={`${prefix}-page-start`}>
+            {totalItems ? currentPageSelected : totalPage}
+          </span>
           of
           <span className={`${prefix}-page-end`}>{totalPage}</span>
           pages
@@ -164,7 +172,7 @@ const Pagination = ({
           type={`button`}
           className={`${prefix}-pagination-button-previous`}
           aria-label={`Previous page`}
-          disabled={currentPageSelected === 1}
+          disabled={currentPageSelected === 1 || totalPage === 0}
           onClick={onPreviousButtonClick.bind(this)}
         >
           <svg
@@ -193,7 +201,7 @@ const Pagination = ({
           type={`button`}
           className={`${prefix}-pagination-button-next`}
           aria-label="Next page"
-          disabled={currentPageSelected === totalPage}
+          disabled={currentPageSelected === totalPage || totalPage === 0}
           onClick={onNextButtonClick.bind(this)}
         >
           <svg
@@ -234,22 +242,29 @@ const Pagination = ({
     return (
       <>
         <span className={`${prefix}-pagination-text`}>
-          <span className={`${prefix}-pagination-range`}>
-            <span className={`${prefix}-range-start`}>
-              {(currentPageSelected - 1) * currentItemsPerPageSelected + 1}
-            </span>
-            <span className={`${prefix}-range-separator`}>-</span>
-            <span className={`${prefix}-range-end`}>
-              {currentPageSelected * currentItemsPerPageSelected > totalItems
-                ? totalItems
-                : currentPageSelected * currentItemsPerPageSelected}
-            </span>
-          </span>
-          of
-          <span className={`${prefix}-pagination-totalitems`}>
-            {totalItems}
-          </span>
-          items
+          {totalItems ? (
+            <>
+              <span className={`${prefix}-pagination-range`}>
+                <span className={`${prefix}-range-start`}>
+                  {(currentPageSelected - 1) * currentItemsPerPageSelected + 1}
+                </span>
+                <span className={`${prefix}-range-separator`}>-</span>
+                <span className={`${prefix}-range-end`}>
+                  {currentPageSelected * currentItemsPerPageSelected >
+                  totalItems
+                    ? totalItems
+                    : currentPageSelected * currentItemsPerPageSelected}
+                </span>
+              </span>
+              of
+              <span className={`${prefix}-pagination-totalitems`}>
+                {totalItems}
+              </span>
+              items
+            </>
+          ) : (
+            noItemDisplayText
+          )}
         </span>
       </>
     );
@@ -323,6 +338,8 @@ Pagination.propTypes = {
   itemsStepperLimit: PropTypes.number,
   /** Text to display to the left of the No. of items Dropdown */
   itemsPerPageText: PropTypes.string,
+  /** Text to display when totalItem is zero */
+  noItemDisplayText: PropTypes.string,
   /** Accepts Event handler as argument/prop which is triggered after Items Per Page Dropdown is changed. */
   onItemsPerPageChange: PropTypes.func,
   /** Accepts Event handler as argument/prop which is triggered after Page Drop-down is changed. */
@@ -344,6 +361,7 @@ Pagination.defaultProps = {
   itemsPerPageStepper: 20,
   itemsStepperLimit: 100,
   itemsPerPageText: 'Items per Page:',
+  noItemDisplayText: 'No items to display',
   itemsPerPageToSelect: null,
   onItemsPerPageChange: () => {},
   onPageChange: () => {},
