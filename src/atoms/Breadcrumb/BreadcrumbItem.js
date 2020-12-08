@@ -18,9 +18,9 @@ function BreadcrumbItem({
 
   return (
     <li
-      className={`${defaultStyle.breadcrumbItem} ${
-        itemClass ? itemClass : ''
-      } ${active ? prefix + '-breadcrumb-item-active' : ''}`}
+      className={`${defaultStyle.breadcrumbItem} ${itemClass ? itemClass : ''}${
+        active ? ' ' + prefix + '-breadcrumb-item-active' : ''
+      }`}
       onClick={onClick}
       {...restProps}
     >
