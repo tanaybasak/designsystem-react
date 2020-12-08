@@ -84,7 +84,7 @@ const InlineEdit = ({
       }))
     : null;
 
-  const classNames = [`${prefix}-overlay-wrapper`];
+  const classNames = [`${prefix}-overlay-wrapper ${prefix}-inline-overlay`];
 
   return (
     <div className={classNames.join(' ')} ref={inlineEditorRef}>
