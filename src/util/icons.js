@@ -86,7 +86,7 @@ export const checkmark = (
     id="icon"
     data-name="Refresh-line-icon"
     className="hcl-btn-icon"
-    xmlns="http://www.w3.org/2000/svg"
+    xmlns="https://www.w3.org/2000/svg"
     viewBox="0 0 16 16"
   >
     <rect
@@ -105,7 +105,7 @@ export const inlineClose = (
     id="icon"
     className="hcl-btn-icon"
     data-name="Refresh-line-icon"
-    xmlns="http://www.w3.org/2000/svg"
+    xmlns="https://www.w3.org/2000/svg"
     viewBox="0 0 16 16"
   >
     <rect
@@ -123,7 +123,7 @@ export const edit = (
   <svg
     id="icon"
     style={{ fill: '#474747' }}
-    xmlns="http://www.w3.org/2000/svg"
+    xmlns="https://www.w3.org/2000/svg"
     viewBox="0 0 16 16"
   >
     <rect
