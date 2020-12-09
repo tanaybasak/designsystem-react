@@ -23,6 +23,8 @@ const DataTable = ({
   onColumnAfterResize,
   initSortedColumn,
   onColumnReorder,
+  selectedItem,
+  uniqueKey,
   ...restProps
 }) => {
   const [rows, updateTableRowData] = useState(tableData);
@@ -654,7 +656,15 @@ const DataTable = ({
         <tbody>
           {rows.map((row, index) => (
             <React.Fragment key={`row-${index}`}>
-              <tr onClick={onRowSelect ? onRowSelect.bind(this, row) : null}>
+              <tr
+                tabIndex={0}
+                className={
+                  selectedItem && selectedItem[row[uniqueKey]]
+                    ? `${prefix}-active-row`
+                    : null
+                }
+                onClick={onRowSelect ? onRowSelect.bind(this, row) : null}
+              >
                 {tableConfiguration.map((column, i) => {
                   const tdclassName = [];
                   if (column.pinned === 'left') {
@@ -711,7 +721,7 @@ const DataTable = ({
                 })}
               </tr>
               {expandRowTemplate && row.expanded ? (
-                <tr className={`${prefix}-expanded-row`}>
+                <tr tabIndex={0} className={`${prefix}-expanded-row`}>
                   <td colSpan={tableConfiguration.length}>
                     <div>{expandRowTemplate(row)}</div>
                   </td>
@@ -802,7 +812,11 @@ DataTable.propTypes = {
    */
   initSortedColumn: PropTypes.object,
   /** onColumnReorder will be tiggered on each column reorder and receive updated tableConfig as parameter*/
-  onColumnReorder: PropTypes.func
+  onColumnReorder: PropTypes.func,
+  /** Unique Key name for updating selectedItem in items data */
+  uniqueKey: PropTypes.string,
+  /** unique id of item for default selection eg: {[id]: true } */
+  selectedItem: PropTypes.object
 };
 
 DataTable.defaultProps = {
@@ -822,6 +836,7 @@ DataTable.defaultProps = {
   isHeaderSticky: false,
   onColumnAfterResize: () => {},
   initSortedColumn: {},
+  uniqueKey: 'id',
   onColumnReorder: () => {}
 };
 

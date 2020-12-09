@@ -17,7 +17,7 @@ storiesOf('Breadcrumb', module)
           activeIndex={1}
           onSelection={action('breadcrumb selection')}
         >
-          <BreadcrumbItem className="custom-item" href="#">
+          <BreadcrumbItem itemClass="custom-item" href="#">
             {text('Label 1', 'Breadcrumb 1')}
           </BreadcrumbItem>
           <BreadcrumbItem href="#">
@@ -49,7 +49,7 @@ storiesOf('Breadcrumb', module)
           activeIndex={0}
           onSelection={action('breadcrumb selection')}
         >
-          <BreadcrumbItem className="custom-item" href="#">
+          <BreadcrumbItem itemClass="custom-item" href="#">
             {text('Label 1', 'Breadcrumb 1')}
           </BreadcrumbItem>
           <BreadcrumbItem href="#">
