@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import prefix from '../../settings';
 import PropTypes from 'prop-types';
 
-const LinearProgressBar = ({ value, label, subText, type, rightText }) => {
+const LinearProgressBar = ({ value, label, subText, type, customContent }) => {
   const [finalVal, updateFinalValue] = useState(0);
 
   const progressStyle = {
@@ -10,18 +10,11 @@ const LinearProgressBar = ({ value, label, subText, type, rightText }) => {
     height: '100%',
     transition: 'width 1s ease-in-out'
   };
- 
+
   useEffect(() => {
-   value = value > 1 ? 1 : value;
-      updateFinalValue(value * 100 + '%')
-  }, [
-    updateFinalValue,
-    value,
-    label,
-    subText,
-    type,
-    rightText
-  ]);
+    value = value > 1 ? 1 : value;
+    updateFinalValue(value * 100 + '%');
+  }, [updateFinalValue, value, label, subText, type, customContent]);
   return type === 'determinate' ? (
     <div className={`${prefix}-progressbar-linear`}>
       <div className={`${prefix}-progressbar-linear-label mb-2`}>
@@ -29,14 +22,14 @@ const LinearProgressBar = ({ value, label, subText, type, rightText }) => {
           {label}
         </span>
         <span className={`${prefix}-progressbar-linear-label-value`}>
-          {rightText}
+          {customContent}
         </span>
       </div>
       <div className={`${prefix}-progressbar-linear-content`}>
         <div
           className={`${prefix}-progressbar-linear-style`}
           style={progressStyle}
-        ></div>
+        />
       </div>
       {subText ? (
         <div className={`${prefix}-progressbar-linear-subtext mt-2`}>
@@ -62,7 +55,9 @@ LinearProgressBar.propTypes = {
   /** subtext for the progressbar */
   subText: PropTypes.element,
   /** type of progress bar */
-  type: PropTypes.string
+  type: PropTypes.string,
+  /** Custom content on the right */
+  customContent: PropTypes.string
 };
 
 LinearProgressBar.defaultProps = {

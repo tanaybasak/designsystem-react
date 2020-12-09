@@ -574,14 +574,17 @@ class App extends Component {
                 </div>
               </div>
 
-             
-             
-             {/* Progress Bar */}
-             
-             <div className="hcl-col-12 mt-5" id="progressbar">
-               <DeterminateProgressBar label="Progress ..." value="70" max="100" subText="new progress" />
-             </div>
-             
+              {/* Progress Bar */}
+
+              <div className="hcl-col-12 mt-5" id="progressbar">
+                <DeterminateProgressBar
+                  label="Progress ..."
+                  value="70"
+                  max="100"
+                  subText="new progress"
+                />
+              </div>
+
               {/* Radio Button */}
               <div className="hcl-col-12 mt-5" id="radio-section">
                 <Radio
