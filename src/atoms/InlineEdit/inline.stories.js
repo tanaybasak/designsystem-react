@@ -31,8 +31,8 @@ storiesOf('InlineEdit', module).add(
     info: {
       text: `Description About InlineEdit Component \n 
 
-      import { InlineEdit } from '@patron/patron-react/InlineEdit';
-      import { Button } from '@patron/patron-react/Button';
+      import { InlineEdit } from '@patron/patron-react/inlineEdit';
+      import { Button } from '@patron/patron-react/button';
       `
     }
   }
