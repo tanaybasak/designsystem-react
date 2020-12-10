@@ -16,6 +16,7 @@ import PaginationExample from './example/PaginationExample';
 import SearchOverlayExample from './example/SearchOverlay';
 import DateRangeSelectorExample from './example/DateRangeSelectorExample';
 import DateSelectorExample from './example/DateSelectorExample';
+import InlineEditExample from './example/InlineEdit';
 
 class Home extends Component {
   state = {
@@ -34,6 +35,10 @@ class Home extends Component {
         {
           href: '/tag',
           title: 'Tag'
+        },
+        {
+          href: '/inlineEdit',
+          title: 'InlineEdit'
         },
         {
           href: '/table',
@@ -132,6 +137,7 @@ class Home extends Component {
           <Switch>
             <Route exact path="/" component={App} />
             <Route exact path="/tag" component={TagExample} />
+            <Route exact path="/inlineedit" component={InlineEditExample} />
             <Route exact path="/table" component={TableExample} />
             <Route exact path="/tree" component={TreeExample} />
             <Route exact path="/timepicker" component={TimePickerExample} />
