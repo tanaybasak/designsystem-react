@@ -745,6 +745,7 @@ class App extends Component {
                   subtitle="Lorem Ipsum is simply dummy text of the printing and typesetting industry."
                   type="warning"
                   closable
+                  actionLink="#"
                   visible={this.state.notification.visible}
                   onClose={this._hideNotification}
                 />

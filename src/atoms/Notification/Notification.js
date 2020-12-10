@@ -18,6 +18,7 @@ export default function Notification({
   subtitle,
   className,
   icon,
+  actionLabel,
   closable,
   onClose,
   actionLink,
@@ -34,19 +35,18 @@ export default function Notification({
         </div>
         <div className={`${prefix}-notification-text-wrapper`}>
           <p className={`${prefix}-notification-title`}>{title}</p>
+          {actionLink ? (
+            <Link
+              href={actionLink}
+              className={`${prefix}-notification-action`}
+              target="_blank"
+            >
+              {actionLabel}
+            </Link>
+          ) : null}
           <div className={`${prefix}-notification-subtitle`}>{subtitle}</div>
         </div>
       </div>
-      {actionLink ? (
-        <Link
-          href={actionLink}
-          className={`${prefix}-notification-action`}
-          target="_blank"
-        >
-          Action
-        </Link>
-      ) : null}
-
       {closable ? (
         <button
           className={`${prefix}-notification-close`}
@@ -79,7 +79,9 @@ Notification.propTypes = {
   /** Callback to invoke when a notification is closed. */
   onClose: PropTypes.func,
   /** hyperlink - The URL of the Action link*/
-  actionLink: PropTypes.string
+  actionLink: PropTypes.string,
+  /** actionLabel - Label for the Action */
+  actionLabel: PropTypes.string
 };
 
 Notification.defaultProps = {
@@ -87,6 +89,7 @@ Notification.defaultProps = {
   subtitle: '',
   className: '',
   icon: null,
+  actionLabel: 'Action',
   closable: true,
   actionLink: '',
   onClose: () => {}
