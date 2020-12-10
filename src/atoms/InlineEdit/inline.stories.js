@@ -24,6 +24,7 @@ storiesOf('InlineEdit', module).add(
       }
       errorMessage={text('Error message', '')}
       onClose={action('Inline-Close')}
+      loader={boolean('Loader', false)}
     />
   ),
   {
