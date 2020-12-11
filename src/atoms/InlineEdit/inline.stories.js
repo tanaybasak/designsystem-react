@@ -24,14 +24,15 @@ storiesOf('InlineEdit', module).add(
       }
       errorMessage={text('Error message', '')}
       onClose={action('Inline-Close')}
+      loader={boolean('Loader', false)}
     />
   ),
   {
     info: {
       text: `Description About InlineEdit Component \n 
 
-      import { InlineEdit } from '@patron/patron-react/InlineEdit';
-      import { Button } from '@patron/patron-react/Button';
+      import { InlineEdit } from '@patron/patron-react/inlineEdit';
+      import { Button } from '@patron/patron-react/button';
       `
     }
   }
