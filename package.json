@@ -1,6 +1,6 @@
 {
   "name": "@patron/patron-react-dev",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -77,8 +77,8 @@
     "regenerator-runtime": "^0.13.5",
     "replace": "^1.2.0",
     "rimraf": "^2.6.3",
-    "semver": "^7.3.2",
-    "simple-git": "^2.23.0",
+    "semver": "^7.3.4",
+    "simple-git": "^2.27.0",
     "style-loader": "^0.23.1",
     "terser-webpack-plugin": "^1.2.3",
     "uglifyjs-webpack-plugin": "^2.1.2",
