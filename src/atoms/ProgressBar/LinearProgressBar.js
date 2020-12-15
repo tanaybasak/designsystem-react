@@ -41,7 +41,70 @@ const LinearProgressBar = ({ value, label, subText, type, customContent }) => {
       )}
     </div>
   ) : (
-    <div> newElement</div>
+    <>
+      <div className={`${prefix}-progressbar-linear-label`}>
+        <span className={`${prefix}-progressbar-linear-label-content`}>
+          {label}
+        </span>
+      </div>
+      <div className={`${prefix}-indeterm-pb-linear`}>
+        <svg
+          className={`${prefix}-linear`}
+          preserveAspectRatio="none"
+          viewBox="0 0 125 4"
+        >
+          <line
+            className={`${prefix}-linear-bgline ${prefix}-linear-line`}
+            x1="0"
+            y1="2"
+            x2="125"
+            y2="2"
+          />
+          <line
+            class={`${prefix}-linear-mainline-one ${prefix}-linear-line`}
+            x1="0"
+            y1="2"
+            x2="125"
+            y2="2"
+          />
+          <line
+            className={`${prefix}-linear-mainline-two ${prefix}-linear-line`}
+            x1="0"
+            y1="2"
+            x2="125"
+            y2="2"
+          />
+          <line
+            className={`${prefix}-linear-dot ${prefix}-linear-dot-one ${prefix}-linear-line`}
+            x1="0"
+            y1="2"
+            x2="125"
+            y2="2"
+          />
+          <line
+            className={`${prefix}-linear-dot ${prefix}-linear-dot-two ${prefix}-linear-line`}
+            x1="0"
+            y1="2"
+            x2="125"
+            y2="2"
+          />
+          <line
+            className={`${prefix}-linear-dot ${prefix}-linear-dot-three ${prefix}-linear-line`}
+            x1="0"
+            y1="2"
+            x2="125"
+            y2="2"
+          />
+        </svg>
+      </div>
+      {subText ? (
+        <div className={`${prefix}-progressbar-linear-subtext mt-2`}>
+          {subText}
+        </div>
+      ) : (
+        ''
+      )}
+    </>
   );
 };
 
@@ -61,8 +124,7 @@ LinearProgressBar.propTypes = {
 };
 
 LinearProgressBar.defaultProps = {
-  value: 30,
-  max: 100,
+  value: 0.3,
   label: 'Downloading...'
 };
 

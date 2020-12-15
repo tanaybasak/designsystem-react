@@ -6,11 +6,6 @@ import LinearProgressBar from './LinearProgressBar';
 import CircleProgressBar from './CircleProgressBar';
 //@update-path-build-end
 
-const sizeOptions = {
-  round16: '16',
-  round48: '48',
-  round96: '96'
-};
 
 const labelOptions = {
   left: 'left',
@@ -29,10 +24,10 @@ storiesOf('ProgressBar', module)
     'linear',
     () => (
       <LinearProgressBar
-        label={text('label', 'Downloading')}
+        label={text('label', 'Downloading..')}
         value={number('value', 0.3)}
         rightText={text('rightText', '30%')}
-        subText={text('subText', 'newELement')}
+        subText={text('subText', 'Subtext')}
         type={select('type', typeOptions, 'determinate')}
       />
     ),
@@ -49,7 +44,6 @@ storiesOf('ProgressBar', module)
     () => (
       <CircleProgressBar
         progress={number('value', 0.7)}
-        size={select('circleSize', sizeOptions, '16')}
         label={text('label', 'Downloading..')}
         labelPosition={select('labelPosition', labelOptions, 'left')}
         type={select('type', typeOptions, 'determinate')}
