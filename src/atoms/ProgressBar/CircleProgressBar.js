@@ -2,7 +2,13 @@ import React, { useState, useEffect, useRef } from 'react';
 import prefix from '../../settings';
 import PropTypes from 'prop-types';
 
-const CircleProgressBar = ({ progress, type, label, labelPosition }) => {
+const CircleProgressBar = ({
+  progress,
+  type,
+  label,
+  labelPosition,
+  customContent
+}) => {
   const [offset, setOffset] = useState(0);
   const [topelement, setTopElement] = useState(null);
   const [bottomelement, setBottomElement] = useState(null);
@@ -12,13 +18,15 @@ const CircleProgressBar = ({ progress, type, label, labelPosition }) => {
   const [size, setSize] = useState(48);
   const svgRef = useRef(null);
   const circleRef = useRef(null);
+  const circleContainer = useRef(null);
+  const svgContainer = useRef(null);
 
   progress = progress > 1 ? 1 : progress;
   const prg = progress * 100;
   const progressElement = React.createElement(
     'span',
     { className: `${prefix}-progressbar-circle-text` },
-    prg + '%'
+    customContent
   );
   const progresslabel = React.createElement(
     'span',
@@ -27,36 +35,42 @@ const CircleProgressBar = ({ progress, type, label, labelPosition }) => {
   );
   const breakLine = React.createElement('br', null, null);
   useEffect(() => {
-    if(svgRef.current){
-    setSize(svgRef.current.clientHeight);
-  }
+    if (svgRef.current) {
+      setSize(svgRef.current.clientHeight);
+    }
     setCenter(size / 2);
     setRadius(size / 2 - 2.5);
     setCircumference(2 * Math.PI * (size / 2 - 2.5));
     const progressOffset = ((100 - prg) / 100) * circumference;
     setOffset(progressOffset);
-    if(circleRef.current)
-    circleRef.current.style = 'transition: stroke-dashoffset 850ms ease-in-out';
+    if (circleRef.current)
+      circleRef.current.style =
+        'transition: stroke-dashoffset 850ms ease-in-out';
     if (labelPosition == 'left' && (size == 48 || size == 96)) {
       setBottomElement(null);
+      circleContainer.current.classList.remove(`${prefix}-pb-top-bottom`);
       setTopElement(
         React.createElement(
-          'label',
-          { className: `mr-1 ${prefix}-progressbar-circle-text` },
+          'div',
+          {
+            className: `mr-1 ${prefix}-progressbar-circle-text ${prefix}-pb-displayLeft`
+          },
           label
         )
       );
     } else if (labelPosition == 'right' && (size == 48 || size == 96)) {
       setTopElement(null);
+      circleContainer.current.classList.remove(`${prefix}-pb-top-bottom`);
       setBottomElement(
         React.createElement(
-          'label',
+          'div',
           { className: `ml-1 ${prefix}-progressbar-circle-text` },
           label
         )
       );
     } else if (labelPosition == 'bottom' && (size == 48 || size == 96)) {
       setTopElement(null);
+      circleContainer.current.classList.add(`${prefix}-pb-top-bottom`);
       setBottomElement(
         React.createElement(
           'div',
@@ -66,6 +80,7 @@ const CircleProgressBar = ({ progress, type, label, labelPosition }) => {
       );
     } else if (labelPosition == 'top' && (size == 48 || size == 96)) {
       setBottomElement(null);
+      circleContainer.current.classList.add(`${prefix}-pb-top-bottom`);
       setTopElement(
         React.createElement(
           'div',
@@ -75,24 +90,26 @@ const CircleProgressBar = ({ progress, type, label, labelPosition }) => {
       );
     } else if (
       (labelPosition == 'left' || labelPosition == 'bottom') &&
-      size == 19
+      size == 16
     ) {
       setBottomElement(null);
+      circleContainer.current.classList.remove(`${prefix}-pb-top-bottom`);
       setTopElement(
         React.createElement(
-          'label',
+          'div',
           { className: `mr-1 ${prefix}-progressbar-circle-text` },
           [progresslabel, breakLine, progressElement]
         )
       );
     } else if (
       (labelPosition == 'right' || labelPosition == 'top') &&
-      size == 19
+      size == 16
     ) {
       setTopElement(null);
+      circleContainer.current.classList.remove(`${prefix}-pb-top-bottom`);
       setBottomElement(
         React.createElement(
-          'label',
+          'div',
           { className: `ml-1 ${prefix}-progressbar-circle-text` },
           [progresslabel, breakLine, progressElement]
         )
@@ -106,45 +123,48 @@ const CircleProgressBar = ({ progress, type, label, labelPosition }) => {
     circumference,
     offset,
     label,
-    labelPosition
+    labelPosition,
+    customContent
   ]);
   return (
     <>
-      {label.length && type == 'determinate' ? topelement : null}
       {type == 'determinate' ? (
-        <span className={`${prefix}-determ-pb-circle`}>
-          <svg
-            className={`${prefix}-progressbar-circle`}
-            width={size}
-            height={size}
-            ref={svgRef}
+        <div className={`${prefix}-circle-pb`} ref={circleContainer}>
+          {label.length && type == 'determinate' ? topelement : null}
+          <div
+            className={`${prefix}-determ-pb-circle-small`}
+            ref={svgContainer}
           >
-            <circle
-              className={`${prefix}-progressbar-circle-inner`}
-              cx={center}
-              cy={center}
-              r={radius}
-            />
-            <circle
-              className={`${prefix}-progressbar-circle-outer`}
-              ref={circleRef}
-              cx={center}
-              cy={center}
-              r={radius}
-              strokeDasharray={circumference}
-              strokeDashoffset={offset}
-            />
-            {size == 19 ? null : (
-              <text
-                className={`${prefix}-progressbar-circle-text`}
-                x={`${center}`}
-                y={`${center}`}
-              >
-                {prg}%
-              </text>
+            <svg
+              className={`${prefix}-progressbar-circle`}
+              width={size}
+              height={size}
+              ref={svgRef}
+            >
+              <circle
+                className={`${prefix}-progressbar-circle-inner`}
+                cx={center}
+                cy={center}
+                r={radius}
+              />
+              <circle
+                className={`${prefix}-progressbar-circle-outer`}
+                ref={circleRef}
+                cx={center}
+                cy={center}
+                r={radius}
+                strokeDasharray={circumference}
+                strokeDashoffset={offset}
+              />
+            </svg>
+            {size == 16 ? null : (
+              <div className={`${prefix}-progressbar-circle-customContent`}>
+                {customContent}
+              </div>
             )}
-          </svg>
-        </span>
+          </div>
+          {label.length && type == 'determinate' ? bottomelement : null}
+        </div>
       ) : (
         <div class="hcl-indeterm-pb-circle">
           <svg class="hcl-circle-pb-svg" viewBox="25 25 50 50">
@@ -161,7 +181,6 @@ const CircleProgressBar = ({ progress, type, label, labelPosition }) => {
           </svg>
         </div>
       )}
-      {label.length && type == 'determinate'? bottomelement : null}
     </>
   );
 };

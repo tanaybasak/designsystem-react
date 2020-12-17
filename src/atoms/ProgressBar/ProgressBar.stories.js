@@ -47,6 +47,7 @@ storiesOf('ProgressBar', module)
         label={text('label', 'Downloading..')}
         labelPosition={select('labelPosition', labelOptions, 'left')}
         type={select('type', typeOptions, 'determinate')}
+        customContent={text('customContent', '70%')}
       />
     ),
     {
