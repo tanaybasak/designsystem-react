@@ -26,7 +26,7 @@ storiesOf('ProgressBar', module)
       <LinearProgressBar
         label={text('label', 'Downloading..')}
         value={number('value', 0.3)}
-        rightText={text('rightText', '30%')}
+        customContent={text('customContent', '70%')}
         subText={text('subText', 'Subtext')}
         type={select('type', typeOptions, 'determinate')}
       />
@@ -34,7 +34,6 @@ storiesOf('ProgressBar', module)
     {
       info: {
         text: `Description About ProgressBar Component \n
-      
       import { LinearProgressBar } from '@patron/patron-react/progressbar'`
       }
     }
@@ -53,7 +52,6 @@ storiesOf('ProgressBar', module)
     {
       info: {
         text: `Description About ProgressBar Component \n
-      
       import { CircleProgressBar } from '@patron/patron-react/progressbar'`
       }
     }
