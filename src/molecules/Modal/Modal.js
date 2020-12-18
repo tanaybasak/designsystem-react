@@ -12,11 +12,13 @@ const Modal = ({
   onClose,
   actions,
   keyboard,
+  resizeable,
   className,
   ...restProps
 }) => {
   const modal = useRef(null);
   const modalContainer = useRef(null);
+  const modalResize = useRef(null);
   const classNames = [
     `${prefix}-modal-container ${prefix}-modal-container-lg ${className}`
   ];
@@ -33,8 +35,26 @@ const Modal = ({
   }
 
   useEffect(() => {
+    modalResize.current.addEventListener('mousedown', initResize, false);
     modal.current.focus();
   }, []);
+
+  const initResize = () => {
+    window.addEventListener('mousemove', resize, false);
+    window.addEventListener('mouseup', stopResize, false);
+  };
+
+  const resize = e => {
+    modalContainer.current.style.width =
+      e.clientX - modalContainer.current.offsetLeft + 'px';
+    modalContainer.current.style.height =
+      e.clientY - modalContainer.current.offsetTop + 'px';
+  };
+
+  const stopResize = () => {
+    window.removeEventListener('mousemove', resize, false);
+    window.removeEventListener('mouseup', stopResize, false);
+  };
 
   const focusTrap = e => {
     const focusableEls = modal.current.querySelectorAll(
@@ -110,6 +130,9 @@ const Modal = ({
             <Actions actions={actions} />
           </footer>
         )}
+        {resizeable ? (
+          <div className={`${prefix}-modal-resize`} ref={modalResize} />
+        ) : null}
       </div>
     </section>
   );
@@ -137,6 +160,9 @@ Danger: : To create danger modal. */
 
   /** To pass content to modal. */
   children: PropTypes.node.isRequired,
+
+  /** Resize the modal */
+  resizeable: PropTypes.bool,
 
   /** Class/clasess will be applied on the parent div of Modal */
   className: PropTypes.string,
