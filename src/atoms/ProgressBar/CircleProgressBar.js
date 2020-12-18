@@ -166,18 +166,38 @@ const CircleProgressBar = ({
           {label.length && type == 'determinate' ? bottomelement : null}
         </div>
       ) : (
-        <div class="hcl-indeterm-pb-circle">
-          <svg class="hcl-circle-pb-svg" viewBox="25 25 50 50">
-            <circle class="hcl-pb-bgcircle pb-circle" cx="50" cy="50" r="20" />
+        <div className={`${prefix}-indeterm-pb-circle`}>
+          <svg className={`${prefix}-circle-pb-svg`} viewBox="25 25 50 50">
             <circle
-              class="hcl-pb-maincircle pb-circle"
+              className={`${prefix}-pb-bgcircle pb-circle`}
               cx="50"
               cy="50"
               r="20"
             />
-            <circle class="hcl-pb-dot1 dot pb-circle" cx="50" cy="50" r="20" />
-            <circle class="hcl-pb-dot2 dot pb-circle" cx="50" cy="50" r="20" />
-            <circle class="hcl-pb-dot3 dot pb-circle" cx="50" cy="50" r="20" />
+            <circle
+              className={`${prefix}-pb-maincircle pb-circle`}
+              cx="50"
+              cy="50"
+              r="20"
+            />
+            <circle
+              className={`${prefix}-pb-dot1 dot pb-circle`}
+              cx="50"
+              cy="50"
+              r="20"
+            />
+            <circle
+              className={`${prefix}-pb-dot2 dot pb-circle`}
+              cx="50"
+              cy="50"
+              r="20"
+            />
+            <circle
+              className={`${prefix}-pb-dot3 dot pb-circle`}
+              cx="50"
+              cy="50"
+              r="20"
+            />
           </svg>
         </div>
       )}
@@ -190,7 +210,8 @@ CircleProgressBar.propTypes = {
   progress: PropTypes.number,
   type: PropTypes.string,
   label: PropTypes.string,
-  labelPosition: PropTypes.string
+  labelPosition: PropTypes.string,
+  customContent: PropTypes.element
 };
 
 CircleProgressBar.defaultProps = {

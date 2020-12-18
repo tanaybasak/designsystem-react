@@ -6,7 +6,6 @@ import LinearProgressBar from './LinearProgressBar';
 import CircleProgressBar from './CircleProgressBar';
 //@update-path-build-end
 
-
 const labelOptions = {
   left: 'left',
   right: 'right',

@@ -61,7 +61,7 @@ const LinearProgressBar = ({ value, label, subText, type, customContent }) => {
             y2="2"
           />
           <line
-            class={`${prefix}-linear-mainline-one ${prefix}-linear-line`}
+            className={`${prefix}-linear-mainline-one ${prefix}-linear-line`}
             x1="0"
             y1="2"
             x2="125"
