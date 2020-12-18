@@ -2,7 +2,13 @@ import React, { useState, useEffect } from 'react';
 import prefix from '../../settings';
 import PropTypes from 'prop-types';
 
-const LinearProgressBar = ({ progress, label, subText, type, customContent }) => {
+const LinearProgressBar = ({
+  progress,
+  label,
+  subText,
+  type,
+  customContent
+}) => {
   const [finalVal, updateFinalValue] = useState(0);
 
   const progressStyle = {
@@ -124,8 +130,8 @@ LinearProgressBar.propTypes = {
 LinearProgressBar.defaultProps = {
   progress: 0.3,
   label: 'Downloading...',
-  customContent:'30%',
-  subText:'subtext'
+  customContent: '30%',
+  subText: 'subtext'
 };
 
 export default LinearProgressBar;
