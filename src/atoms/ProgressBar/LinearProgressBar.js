@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import prefix from '../../settings';
 import PropTypes from 'prop-types';
 
-const LinearProgressBar = ({ value, label, subText, type, customContent }) => {
+const LinearProgressBar = ({ progress, label, subText, type, customContent }) => {
   const [finalVal, updateFinalValue] = useState(0);
 
   const progressStyle = {
@@ -12,9 +12,9 @@ const LinearProgressBar = ({ value, label, subText, type, customContent }) => {
   };
 
   useEffect(() => {
-    value = value > 1 ? 1 : value;
-    updateFinalValue(value * 100 + '%');
-  }, [updateFinalValue, value, label, subText, type, customContent]);
+    progress = progress > 1 ? 1 : progress;
+    updateFinalValue(progress * 100 + '%');
+  }, [updateFinalValue, progress, label, subText, type, customContent]);
   return type === 'determinate' ? (
     <div className={`${prefix}-progressbar-linear`}>
       <div className={`${prefix}-progressbar-linear-label mb-2`}>
@@ -110,9 +110,7 @@ const LinearProgressBar = ({ value, label, subText, type, customContent }) => {
 
 LinearProgressBar.propTypes = {
   /** value of the progressbar */
-  value: PropTypes.number,
-  /** maximum value of the progressbar */
-  max: PropTypes.number,
+  progress: PropTypes.number,
   /** label of the progressbar */
   label: PropTypes.element,
   /** subtext for the progressbar */
@@ -124,8 +122,10 @@ LinearProgressBar.propTypes = {
 };
 
 LinearProgressBar.defaultProps = {
-  value: 0.3,
-  label: 'Downloading...'
+  progress: 0.3,
+  label: 'Downloading...',
+  customContent:'30%',
+  subText:'subtext'
 };
 
 export default LinearProgressBar;
