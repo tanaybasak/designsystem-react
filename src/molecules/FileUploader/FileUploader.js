@@ -49,8 +49,13 @@ export default function FileUploader({
     if (index !== -1) {
       newFileList.splice(index, 1);
       setFileList(newFileList);
+      clearInputElement();
     }
     onChange(newFileList, event);
+  };
+
+  const clearInputElement = () => {
+    fileContainer.current.querySelector('input').value = '';
   };
 
   return (
