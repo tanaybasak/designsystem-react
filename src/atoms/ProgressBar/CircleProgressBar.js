@@ -208,12 +208,13 @@ const CircleProgressBar = ({
 CircleProgressBar.propTypes = {
   /** size of the progressbar */
   size: PropTypes.number,
+
   /** value of the progressbar */
-
   progress: PropTypes.number,
-  /** type of the progressbar */
 
+  /** type of the progressbar */
   type: PropTypes.string,
+
   /** label of the progressbar */
   label: PropTypes.string,
 
