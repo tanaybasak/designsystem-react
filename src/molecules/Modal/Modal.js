@@ -16,6 +16,7 @@ const Modal = ({
   ...restProps
 }) => {
   const modal = useRef(null);
+  const modalContainer = useRef(null);
   const classNames = [
     `${prefix}-modal-container ${prefix}-modal-container-lg ${className}`
   ];
@@ -25,6 +26,10 @@ const Modal = ({
   }
   if (type === 'warning') {
     classNames.push(`${prefix}-modal-container-warning`);
+  }
+
+  if (type === 'ghost') {
+    classNames.push(`${prefix}-modal-container-ghost`);
   }
 
   useEffect(() => {
@@ -72,7 +77,7 @@ const Modal = ({
       ref={modal}
       onKeyDown={focusTrap}
     >
-      <div className={classNames.join(' ')}>
+      <div className={classNames.join(' ')} ref={modalContainer}>
         {showClose ? (
           <button
             type="button"

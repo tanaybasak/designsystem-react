@@ -9,7 +9,8 @@ import Modal from './Modal';
 const typeOptions = {
   Danger: 'danger',
   Default: 'default',
-  Warning: 'warning'
+  Warning: 'warning',
+  Ghost: 'ghost'
 };
 
 const actions = [
@@ -27,6 +28,7 @@ storiesOf('Modal', module).add(
       showClose={boolean('showClose', true)}
       onClose={action('Modal on Close')}
       type={select('Type', typeOptions, 'danger')}
+      resizeable={boolean('resizeable', true)}
     >
       <p>This is test Content</p>
     </Modal>
