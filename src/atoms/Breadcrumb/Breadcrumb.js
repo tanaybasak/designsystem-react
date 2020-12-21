@@ -17,7 +17,8 @@ function Breadcrumb({ activeIndex, onSelection, id, className, children }) {
       React.Children.forEach(propChildren, innerChild => {
         _listItems.push({
           name: innerChild.props.children,
-          link: innerChild.props.href
+          link: innerChild.props.href,
+          ...innerChild.props
         });
       });
       return (
@@ -42,7 +43,11 @@ function Breadcrumb({ activeIndex, onSelection, id, className, children }) {
             child.props.onClick(e);
           }
           onSelection(
-            { name: child.props.children, link: child.props.href },
+            {
+              name: child.props.children,
+              link: child.props.href,
+              ...child.props
+            },
 
             e
           );
@@ -50,7 +55,7 @@ function Breadcrumb({ activeIndex, onSelection, id, className, children }) {
         key: index,
         children: child.props.children,
         href: child.props.href,
-        itemClass: child.props.className,
+        itemClass: child.props.itemClass,
         active: isActive === index
       });
     }
