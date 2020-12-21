@@ -1,7 +1,6 @@
 import React from 'react'
 import Heading from './Heading'
 import { mount } from 'enzyme';
-import { exportAllDeclaration } from '@babel/types';
 
 test("can provide a label",()=>{
     const wrapper = mount(<Heading type="h1">Patronus</Heading>) 
