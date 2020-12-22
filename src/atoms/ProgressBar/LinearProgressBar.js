@@ -25,24 +25,24 @@ const LinearProgressBar = ({
       <svg
         className={`${prefix}-pb-linear`}
         preserveAspectRatio="none"
-        viewBox="0 0 100 4"
+        viewBox="0 0 125 4"
       >
         <line
           className={`${prefix}-pb-linear-bgline hcl-pb-linear-line`}
           x1="0"
           y1="2"
-          x2="100"
+          x2="125"
           y2="2"
         />
         <line
           className={`${prefix}-pb-linear-mainline hcl-pb-linear-line`}
-          x1={finalVal}
+          x1="0"
           y1="2"
-          x2="0"
+          x2={finalVal}
           y2="2"
         />
       </svg>
-      <div className={`${prefix}-pb-linear-subtext mt-2`}>Subtext</div>
+      <div className={`${prefix}-pb-linear-subtext mt-2`}>{subText}</div>
     </div>
   ) : (
     <div className={`${prefix}-pb-linear-wrapper`}>

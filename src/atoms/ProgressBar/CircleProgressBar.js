@@ -27,8 +27,23 @@ const CircleProgressBar = ({
     <>
       {type == 'determinate' ? (
         <div
-          className={`${prefix}-pb-circle-wrapper ${prefix}-pb-label-leftRight`}
+          className={`${prefix}-pb-circle-wrapper ${
+            labelPosition == 'left' || labelPosition == 'right'
+              ? `${prefix}-pb-label-leftRight`
+              : ``
+          } `}
         >
+          {labelPosition == 'left' || labelPosition == 'top' ? (
+            <div className={`${prefix}-pb-label-content`}>
+              <div
+                className={`${prefix}-pb-label-text ${
+                  labelPosition == 'top' ? `ml-3` : ``
+                }`}
+              >
+                {label}
+              </div>
+            </div>
+          ) : null}
           <div className={`${prefix}-pb-circle-large`}>
             <svg
               className={`${prefix}-pb-circle-svg-determ`}
@@ -55,9 +70,17 @@ const CircleProgressBar = ({
               <div className={`${prefix}-pb-circle-text`}>{customContent}</div>
             )}
           </div>
-          <div className={`${prefix}-pb-label-content`}>
-            <div className={`${prefix}-pb-label-text`}>{label}</div>
-          </div>
+          {labelPosition == 'right' || labelPosition == 'bottom' ? (
+            <div className={`${prefix}-pb-label-content`}>
+              <div
+                className={`${prefix}-pb-label-text ${
+                  labelPosition == 'bottom' ? `ml-3` : ``
+                }`}
+              >
+                {label}
+              </div>
+            </div>
+          ) : null}
         </div>
       ) : (
         <div className={`${prefix}-pb-circle`}>
