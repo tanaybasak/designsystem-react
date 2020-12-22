@@ -28,9 +28,8 @@ storiesOf('Modal', module).add(
       showClose={boolean('showClose', true)}
       onClose={action('Modal on Close')}
       type={select('Type', typeOptions, 'danger')}
-      resizeable={boolean('resizeable', true)}
     >
-      <p>This is test Content</p>
+      <p>This is a new modal</p>
     </Modal>
   ),
   {
