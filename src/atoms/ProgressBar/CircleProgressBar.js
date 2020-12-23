@@ -29,7 +29,7 @@ const CircleProgressBar = ({
         <div
           className={`${prefix}-pb-circle-wrapper ${
             labelPosition == 'left' || labelPosition == 'right'
-              ? `${prefix}-pb-label-leftRight`
+              ? `${prefix}-pb-label-inline`
               : ``
           } `}
         >
@@ -46,7 +46,7 @@ const CircleProgressBar = ({
           ) : null}
           <div className={`${prefix}-pb-circle-large`}>
             <svg
-              className={`${prefix}-pb-circle-svg-determ`}
+              className={`${prefix}-pb-circle-determinate`}
               ref={svgRef}
               viewBox="25 25 50 50"
             >
@@ -85,7 +85,7 @@ const CircleProgressBar = ({
       ) : (
         <div className={`${prefix}-pb-circle`}>
           <svg
-            className={`${prefix}-pb-circle-svg-indeterm`}
+            className={`${prefix}-pb-circle-indeterminate`}
             viewBox="25 25 50 50"
           >
             <circle

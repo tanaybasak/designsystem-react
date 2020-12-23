@@ -15,7 +15,7 @@ const LinearProgressBar = ({
     updateFinalValue(progress * 100 + '%');
   }, [updateFinalValue, progress, label, subText, type, customContent]);
   return type === 'determinate' ? (
-    <div className={`${prefix}-pb-linear-wrapper`} id="pbar-linear-determ">
+    <div className={`${prefix}-pb-linear-wrapper`}>
       <div className={`${prefix}-pb-linear-label`}>
         <span className={`${prefix}-pb-linear-label-content`}>{label}</span>
         <span className={`${prefix}-pb-linear-label-value`}>
