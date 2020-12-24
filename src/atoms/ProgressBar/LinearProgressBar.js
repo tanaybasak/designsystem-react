@@ -113,10 +113,10 @@ LinearProgressBar.propTypes = {
 };
 
 LinearProgressBar.defaultProps = {
-  progress: 0.3,
+  progress: 0,
   label: 'Downloading...',
-  customContent: <p>40%</p>,
-  subText: 'subtext'
+  customContent: null,
+  subText: 'Subtext'
 };
 
 export default LinearProgressBar;

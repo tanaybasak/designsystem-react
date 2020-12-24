@@ -148,10 +148,10 @@ CircleProgressBar.propTypes = {
 };
 
 CircleProgressBar.defaultProps = {
-  progress: 0.7,
+  progress: 0,
   type: 'determinate',
   label: 'Downloading..',
-  customContent: <p>40%</p>
+  customContent: null
 };
 
 export default CircleProgressBar;
