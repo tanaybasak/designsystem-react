@@ -1,2 +1,3 @@
 import LinearProgressBar from './LinearProgressBar.js';
-export default LinearProgressBar;
+import CircleProgressBar from './CircleProgressBar.js';
+export { LinearProgressBar, CircleProgressBar };
