@@ -1,5 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
+import { text } from '@storybook/addon-knobs';
 //@update-path-build-start
 import Tile from './Tile';
 //@update-path-build-end
@@ -56,14 +57,12 @@ storiesOf('Tile', module)
   .add(
     'expandable',
     () => (
-      <Tile id="hcl-expandable-id" type="expandable">
-        <div>
-          <p>Content shown prior expand</p>
-        </div>
-        <div>
-          <p>Content shown after expand</p>
-        </div>
-      </Tile>
+      <Tile
+        id="hcl-expandable-id"
+        type="expandable"
+        foldContentAbove={text('Content Above', 'Content Above')}
+        foldContentBelow={text('Content Below', 'Content Below')}
+      />
     ),
     {
       info: {
@@ -75,14 +74,13 @@ storiesOf('Tile', module)
   .add(
     'expandable- top left arrow',
     () => (
-      <Tile id="hcl-expandable-id" type="expandable" expandableType="top">
-        <div>
-          <p>Content shown prior expand</p>
-        </div>
-        <div>
-          <p>Content shown after expand</p>
-        </div>
-      </Tile>
+      <Tile
+        id="hcl-expandable-id-2"
+        type="expandable"
+        expandableType="top"
+        foldContentAbove={text('Content Above', 'Content Above')}
+        foldContentBelow={text('Content Below', 'Content below')}
+      />
     ),
     {
       info: {

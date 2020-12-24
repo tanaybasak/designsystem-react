@@ -11,6 +11,8 @@ const Tile = ({
   expandableType,
   id,
   href,
+  foldContentAbove,
+  foldContentBelow,
   ...restProps
 }) => {
   let classNames = null;
@@ -114,8 +116,12 @@ const Tile = ({
               />
             </svg>
           </label>
-          <div className={`${prefix}-tile-content`}>{children[0]}</div>
-          <div className={`${prefix}-tile-hide`}>{children[1]}</div>
+          <div className={`${prefix}-tile-content`}>
+            {foldContentAbove ? foldContentAbove : null}
+          </div>
+          <div className={`${prefix}-tile-hide`}>
+            {foldContentBelow ? foldContentBelow : null}
+          </div>
         </div>
       </div>
     );
@@ -132,15 +138,10 @@ const Tile = ({
 
   return (
     <>
-      {children
-        ? type === 'clickable'
-          ? clickableTile()
-          : type === 'selectable'
-          ? selectableTile()
-          : type === 'expandable'
-          ? expandableTile()
-          : readableTile()
-        : null}
+      {children && type === 'clickable' ? clickableTile() : null}
+      {children && type === 'selectable' ? selectableTile() : null}
+      {children && type === 'readable' ? readableTile() : null}
+      {type === 'expandable' ? expandableTile() : null}
     </>
   );
 };
@@ -157,12 +158,14 @@ Tile.propTypes = {
 
   /** expandableType: top or bottom arrow option. */
   expandableType: PropTypes.string,
+  /**  Content above expandable tile */
+  foldContentAbove: PropTypes.node,
+  /**  Content below expandable tile */
+  foldContentBelow: PropTypes.node,
 
   /** For Readable, Clickable & Selectable Tile:  
-  Content for tile. 
-  For Expandable: 
-  Two children are input. First will be shown prior expand and second will be shown after expand  */
-  children: PropTypes.any.isRequired,
+  Content for tile. */
+  children: PropTypes.any,
 
   /** Unique Identifier for Tile, applicable only for selectable tile.  */
   id: function (props, propName, componentName) {
@@ -194,7 +197,9 @@ Tile.propTypes = {
 Tile.defaultProps = {
   className: '',
   type: 'readable',
-  expandableType: 'bottom'
+  expandableType: 'bottom',
+  foldContentAbove: null,
+  foldContentBelow: null
 };
 
 export default Tile;
