@@ -573,7 +573,6 @@ class App extends Component {
                 </div>
               </div>
 
-
               {/* Radio Button */}
               <div className="hcl-col-12 mt-5" id="radio-section">
                 <Radio
