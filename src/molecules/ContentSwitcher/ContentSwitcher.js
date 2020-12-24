@@ -59,7 +59,7 @@ const keyDownOnContextSwitch = e => {
       break;
   }
 };
-function ContentSwitcher({ activeIndex, onChange, children }) {
+function ContentSwitcher({ className, activeIndex, onChange, children }) {
   const [activeSwitch, changeSwitch] = useState(activeIndex);
 
   const modifiedChildren = React.Children.map(children, (child, index) => {
@@ -74,8 +74,14 @@ function ContentSwitcher({ activeIndex, onChange, children }) {
     });
   });
 
+  const classNames = [`${prefix}-content-switcher`];
+
+  if (className) {
+    classNames.push(className);
+  }
+
   return (
-    <div className={`${prefix}-content-switcher`} role="tablist">
+    <div className={classNames.join(' ')} role="tablist">
       {modifiedChildren}
     </div>
   );
@@ -87,11 +93,14 @@ ContentSwitcher.propTypes = {
   /** Accepts event handler as prop/argument. */
   onChange: PropTypes.func,
   /** self Children i.e Switch Component. */
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
+  /** Class/clasess will be applied on the parent div of ContentSwitcher  */
+  className: PropTypes.string
 };
 
 ContentSwitcher.defaultProps = {
   activeIndex: 0,
+  className: '',
   onChange: () => {}
 };
 

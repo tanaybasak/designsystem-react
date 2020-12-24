@@ -22,6 +22,7 @@ storiesOf('Pagination', module)
         itemsPerPageStepper={number('Items Per Page Stepper', 20)}
         itemsPerPageToSelect={number('Items Per Page Selected', 40)}
         onPageChange={action('page change')}
+        noItemDisplayText={text('NoItemText', 'Zero item to display')}
         totalItems={number('Total Items', 103)}
         currentPage={number('current page', 2)}
       />

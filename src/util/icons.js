@@ -80,6 +80,64 @@ export const Warning = (
     />
   </svg>
 );
+
+export const checkmark = (
+  <svg
+    id="icon"
+    data-name="Refresh-line-icon"
+    xmlns="https://www.w3.org/2000/svg"
+    viewBox="0 0 16 16"
+  >
+    <rect
+      id="bc9aeae6-0749-4482-9f8a-860157ee50ed"
+      data-name="&lt;Transparent Rectangleh&gt;"
+      width="16"
+      height="16"
+      fill="none"
+    />
+    <path d="M5.89,12.91,1,8l.71-.71L5.89,11.5l8.4-8.41L15,3.8Z" />
+  </svg>
+);
+
+export const inlineClose = (
+  <svg
+    id="icon"
+    data-name="Refresh-line-icon"
+    xmlns="https://www.w3.org/2000/svg"
+    viewBox="0 0 16 16"
+  >
+    <rect
+      id="b67bf25b-c337-4b60-84fc-c1fe9a376cc5"
+      data-name="&lt;Transparent Rectangleh&gt;"
+      width="16"
+      height="16"
+      fill="none"
+    />
+    <path d="M8.71,8,13,12.29l-.71.71L8,8.71,3.71,13,3,12.29,7.29,8,3,3.71,3.71,3,8,7.29,12.29,3l.71.71Z" />
+  </svg>
+);
+
+export const edit = (
+  <svg
+    id="icon"
+    style={{ fill: '#474747' }}
+    xmlns="https://www.w3.org/2000/svg"
+    viewBox="0 0 16 16"
+  >
+    <rect
+      id="_Transparent_Rectangle_"
+      data-name="&lt;Transparent Rectangle&gt;"
+      width="16"
+      height="16"
+      fill="none"
+    />
+    <path
+      id="edit-alt"
+      d="M13.56,3.52,12.48,2.44a1.5,1.5,0,0,0-2.13,0l-8.2,8.21A.47.47,0,0,0,2,11v2.5a.5.5,0,0,0,.5.5H5a.47.47,0,0,0,.35-.15l8.21-8.2a1.51,1.51,0,0,0,0-2.13Zm-9.85,7,6-6,1.79,1.79-6,6ZM3,11.21,4.79,13H3Zm9.85-6.27h0l-.6.61-1.8-1.8.61-.6a.5.5,0,0,1,.71,0l1.08,1.08a.49.49,0,0,1,.15.35A.49.49,0,0,1,12.85,4.94Z"
+    />
+  </svg>
+);
+
 export const Close = (
   <svg version="1.1" xmlns="https://www.w3.org/2000/svg" viewBox="0 0 16 16">
     <polygon
