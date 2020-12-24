@@ -78,6 +78,7 @@ const InlineEdit = ({
       <TextInput
         type="text"
         {...restProps}
+        className={`${prefix}-inline-text`}
         onKeyDown={updateTreenodeNameOnEnter}
         data-invalid={formStatus}
         onClick={stopPropagation}

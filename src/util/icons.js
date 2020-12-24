@@ -84,6 +84,7 @@ export const Warning = (
 export const checkmark = (
   <svg
     id="icon"
+    className="hcl-btn-icon"
     data-name="Refresh-line-icon"
     xmlns="https://www.w3.org/2000/svg"
     viewBox="0 0 16 16"
