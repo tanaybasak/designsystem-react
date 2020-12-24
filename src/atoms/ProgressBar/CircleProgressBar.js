@@ -23,7 +23,7 @@ const CircleProgressBar = ({
     if (svgRef && type == 'determinate') {
       setSize(svgRef.current.clientHeight);
     }
-    setOffset(progressOffset);
+    setOffset(-progressOffset);
   }, [setSize, progress, label, labelPosition, customContent]);
   return (
     <>

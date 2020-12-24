@@ -12,7 +12,7 @@ const LinearProgressBar = ({
   const [finalVal, updateFinalValue] = useState(0);
   useEffect(() => {
     progress = progress > 1 ? 1 : progress;
-    updateFinalValue(progress * 100 + '%');
+    updateFinalValue(100 - progress * 100);
   }, [updateFinalValue, progress, label, subText, type, customContent]);
   return type === 'determinate' ? (
     <div className={`${prefix}-pb-linear-wrapper`}>
@@ -25,21 +25,22 @@ const LinearProgressBar = ({
       <svg
         className={`${prefix}-pb-linear ${prefix}-pb-linear-determinate`}
         preserveAspectRatio="none"
-        viewBox="0 0 125 4"
+        viewBox="0 0 100 4"
       >
         <line
           className={`${prefix}-pb-linear-bgline hcl-pb-linear-line`}
           x1="0"
           y1="2"
-          x2="125"
+          x2="100"
           y2="2"
         />
         <line
           className={`${prefix}-pb-linear-mainline hcl-pb-linear-line`}
           x1="0"
           y1="2"
-          x2={finalVal}
+          x2="100"
           y2="2"
+          strokeDashoffset={finalVal}
         />
       </svg>
       <div className={`${prefix}-pb-linear-subtext mt-2`}>{subText}</div>
