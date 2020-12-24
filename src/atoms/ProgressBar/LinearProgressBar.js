@@ -23,7 +23,7 @@ const LinearProgressBar = ({
         </span>
       </div>
       <svg
-        className={`${prefix}-pb-linear`}
+        className={`${prefix}-pb-linear ${prefix}-pb-linear-determinate`}
         preserveAspectRatio="none"
         viewBox="0 0 125 4"
       >
@@ -47,7 +47,7 @@ const LinearProgressBar = ({
   ) : (
     <div className={`${prefix}-pb-linear-wrapper`}>
       <svg
-        className={`${prefix}-pb-linear`}
+        className={`${prefix}-pb-linear ${prefix}-pb-linear-indeterminate`}
         preserveAspectRatio="none"
         viewBox="0 0 125 4"
       >
