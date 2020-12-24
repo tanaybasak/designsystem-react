@@ -1473,7 +1473,7 @@ class App extends Component {
                     type="expandable"
                     expandableType="top"
                     id="expandable-tile-2"
-                    foldContentAbove={<p>Part A</p>}
+                    foldContentAbove={'Part A'}
                     foldContentBelow={<p>Part B</p>}
                   />
                 </div>
