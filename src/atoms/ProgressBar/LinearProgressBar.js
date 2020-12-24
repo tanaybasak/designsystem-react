@@ -102,19 +102,19 @@ LinearProgressBar.propTypes = {
   /** value of the progressbar */
   progress: PropTypes.number,
   /** label of the progressbar */
-  label: PropTypes.element,
+  label: PropTypes.string,
   /** subtext for the progressbar */
-  subText: PropTypes.element,
+  subText: PropTypes.string,
   /** type of progress bar */
   type: PropTypes.string,
-  /** Custom content on the right */
-  customContent: PropTypes.string
+  /** Custom content for the progressbar */
+  customContent: PropTypes.element
 };
 
 LinearProgressBar.defaultProps = {
   progress: 0.3,
   label: 'Downloading...',
-  customContent: '30%',
+  customContent: <p>40%</p>,
   subText: 'subtext'
 };
 

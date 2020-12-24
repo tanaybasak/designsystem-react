@@ -20,7 +20,9 @@ const CircleProgressBar = ({
   const progressOffset = ((100 - prg) / 100) * circumference;
 
   useEffect(() => {
-    setSize(svgRef.current.clientHeight);
+    if (svgRef && type == 'determinate') {
+      setSize(svgRef.current.clientHeight);
+    }
     setOffset(progressOffset);
   }, [setSize, progress, label, labelPosition, customContent]);
   return (
@@ -148,7 +150,8 @@ CircleProgressBar.propTypes = {
 CircleProgressBar.defaultProps = {
   progress: 0.7,
   type: 'determinate',
-  label: 'Downloading..'
+  label: 'Downloading..',
+  customContent: <p>40%</p>
 };
 
 export default CircleProgressBar;
