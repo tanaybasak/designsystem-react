@@ -52,7 +52,9 @@ const Tile = ({
       <div onKeyDown={keyDownOnTile} ref={selectableElement} {...restProps}>
         <label
           tabIndex="0"
-          className={classNames}
+          className={
+            checked ? `${classNames} ${prefix}-tile-active` : `${classNames}`
+          }
           htmlFor={`select-tile-${selectTileCount}`}
         >
           <input
