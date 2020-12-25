@@ -151,7 +151,8 @@ CircleProgressBar.defaultProps = {
   progress: 0,
   type: 'determinate',
   label: 'Downloading..',
-  customContent: null
+  customContent: null,
+  labelPosition: 'right'
 };
 
 export default CircleProgressBar;
