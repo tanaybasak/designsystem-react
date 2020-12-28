@@ -17,6 +17,7 @@ import SearchOverlayExample from './example/SearchOverlay';
 import DateRangeSelectorExample from './example/DateRangeSelectorExample';
 import DateSelectorExample from './example/DateSelectorExample';
 import InlineEditExample from './example/InlineEdit';
+import ProgressBarExample from './example/ProgressBar';
 
 class Home extends Component {
   state = {
@@ -71,6 +72,10 @@ class Home extends Component {
         {
           href: '/daterangeselector',
           title: 'DateRangeSelector'
+        },
+        {
+          href: '/progressbar',
+          title: 'Progress Bar'
         },
         {
           href: '/checkbox',
@@ -155,6 +160,7 @@ class Home extends Component {
               component={SearchOverlayExample}
             />
             <Route exact path="/pagination" component={PaginationExample} />
+            <Route exact path="/progressbar" component={ProgressBarExample} />
           </Switch>
         </div>
       </Router>
