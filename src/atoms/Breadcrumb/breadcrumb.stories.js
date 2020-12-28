@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { text } from '@storybook/addon-knobs';
+import { text, number } from '@storybook/addon-knobs';
 //@update-path-build-start
 import { Breadcrumb, BreadcrumbItem } from './index';
 //@update-path-build-end
@@ -15,6 +15,7 @@ storiesOf('Breadcrumb', module)
           id="small-navigator"
           className="custom-breadcrumb-top"
           activeIndex={1}
+          displayMax={number('display Max', 3)}
           onSelection={action('breadcrumb selection')}
         >
           <BreadcrumbItem itemClass="custom-item" href="#">
@@ -47,6 +48,7 @@ storiesOf('Breadcrumb', module)
           id="small-navigator"
           className="custom-breadcrumb-top"
           activeIndex={0}
+          displayMax={number('display Max', 3)}
           onSelection={action('breadcrumb selection')}
         >
           <BreadcrumbItem itemClass="custom-item" href="#">
