@@ -15,7 +15,11 @@ const LinearProgressBar = ({
     updateFinalValue(100 - progress * 100);
   }, [updateFinalValue, progress, label, subText, type, customContent]);
   return type === 'determinate' ? (
-    <div className={`${prefix}-pb-linear-wrapper`}>
+    <div
+      className={`${prefix}-pb-linear-wrapper`}
+      aria-valuenow={finalVal}
+      role="progressbar"
+    >
       <div className={`${prefix}-pb-linear-label`}>
         <span className={`${prefix}-pb-linear-label-content`}>{label}</span>
         <span className={`${prefix}-pb-linear-label-value`}>
@@ -46,7 +50,7 @@ const LinearProgressBar = ({
       <div className={`${prefix}-pb-linear-subtext mt-2`}>{subText}</div>
     </div>
   ) : (
-    <div className={`${prefix}-pb-linear-wrapper`}>
+    <div className={`${prefix}-pb-linear-wrapper`} role="progressbar">
       <svg
         className={`${prefix}-pb-linear ${prefix}-pb-linear-indeterminate`}
         preserveAspectRatio="none"

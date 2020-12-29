@@ -46,7 +46,11 @@ const CircleProgressBar = ({
               </div>
             </div>
           ) : null}
-          <div className={`${prefix}-pb-circle-large`}>
+          <div
+            className={`${prefix}-pb-circle-large`}
+            aria-valuenow={prg}
+            role="progressbar"
+          >
             <svg
               className={`${prefix}-pb-circle-determinate`}
               ref={svgRef}
@@ -85,7 +89,7 @@ const CircleProgressBar = ({
           ) : null}
         </div>
       ) : (
-        <div className={`${prefix}-pb-circle`}>
+        <div className={`${prefix}-pb-circle`} role="progressbar">
           <svg
             className={`${prefix}-pb-circle-indeterminate`}
             viewBox="25 25 50 50"
