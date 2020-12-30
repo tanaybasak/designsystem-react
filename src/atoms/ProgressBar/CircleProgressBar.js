@@ -132,9 +132,6 @@ const CircleProgressBar = ({
 };
 
 CircleProgressBar.propTypes = {
-  /** size of the progressbar */
-  size: PropTypes.number,
-
   /** value of the progressbar ranging from 0 to 1  */
   progress: PropTypes.number,
 
