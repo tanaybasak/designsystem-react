@@ -104,15 +104,15 @@ const LinearProgressBar = ({
 };
 
 LinearProgressBar.propTypes = {
-  /** value of the progressbar */
+  /** value of the progressbar ranging from 0 to 1  */
   progress: PropTypes.number,
   /** label of the progressbar */
   label: PropTypes.string,
   /** subtext for the progressbar */
   subText: PropTypes.string,
-  /** type of progress bar */
+  /** type of the progressbar (eg : determinate / indeterminate) */
   type: PropTypes.string,
-  /** Custom content for the progressbar */
+  /** customContent of the progressbar (html element) */
   customContent: PropTypes.element
 };
 
@@ -120,7 +120,8 @@ LinearProgressBar.defaultProps = {
   progress: 0,
   label: 'Downloading...',
   customContent: null,
-  subText: 'Subtext'
+  subText: 'Subtext',
+  type: 'determinate'
 };
 
 export default LinearProgressBar;

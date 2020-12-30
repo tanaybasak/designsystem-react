@@ -135,19 +135,19 @@ CircleProgressBar.propTypes = {
   /** size of the progressbar */
   size: PropTypes.number,
 
-  /** value of the progressbar */
+  /** value of the progressbar ranging from 0 to 1  */
   progress: PropTypes.number,
 
-  /** type of the progressbar */
+  /** type of the progressbar (eg : determinate / indeterminate) */
   type: PropTypes.string,
 
   /** label of the progressbar */
   label: PropTypes.string,
 
-  /** labelPosition of the progressbar */
+  /** labelPosition of the progressbar (eg : left/right/top/bottom) */
   labelPosition: PropTypes.string,
 
-  /** customContent of the progressbar */
+  /** customContent of the progressbar (html element) */
   customContent: PropTypes.element
 };
 
