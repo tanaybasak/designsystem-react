@@ -9,7 +9,8 @@ import Modal from './Modal';
 const typeOptions = {
   Danger: 'danger',
   Default: 'default',
-  Warning: 'warning'
+  Warning: 'warning',
+  Ghost: 'ghost'
 };
 
 const actions = [
@@ -28,7 +29,7 @@ storiesOf('Modal', module).add(
       onClose={action('Modal on Close')}
       type={select('Type', typeOptions, 'danger')}
     >
-      <p>This is test Content</p>
+      <p>This is a new modal</p>
     </Modal>
   ),
   {
