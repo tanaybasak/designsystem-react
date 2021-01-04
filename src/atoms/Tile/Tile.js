@@ -88,40 +88,38 @@ const Tile = ({
     const classNameType = expandableType === 'top' ? 'arrow-top-left' : '';
     classNames = `${prefix}-tile-expandable ${className} ${classNameType}`.trim();
     return (
-      <div className={`${prefix}-row`}>
-        <div
-          className={classNames}
+      <div
+        className={classNames}
+        tabIndex="0"
+        ref={expandableElement}
+        {...restProps}
+      >
+        <input
+          id={`${id}`}
+          className={`${prefix}-tile-input`}
+          type="checkbox"
+          onChange={toggle}
+          title="tile"
+          checked={checked}
+        />
+        <label
+          htmlFor={`${id}`}
+          onKeyDown={keyDownOnTile}
+          className={`${prefix}-tile-arrow`}
           tabIndex="0"
-          ref={expandableElement}
-          {...restProps}
         >
-          <input
-            id={`${id}`}
-            className={`${prefix}-tile-input`}
-            type="checkbox"
-            onChange={toggle}
-            title="tile"
-            checked={checked}
-          />
-          <label
-            htmlFor={`${id}`}
-            onKeyDown={keyDownOnTile}
-            className={`${prefix}-tile-arrow`}
-            tabIndex="0"
-          >
-            <svg width="12" height="7" viewBox="0 0 12 7">
-              <path
-                fillRule="nonzero"
-                d="M6.002 5.55L11.27 0l.726.685L6.003 7 0 .685.726 0z"
-              />
-            </svg>
-          </label>
-          <div className={`${prefix}-tile-content`}>
-            {foldContentAbove ? foldContentAbove : null}
-          </div>
-          <div className={`${prefix}-tile-hide`}>
-            {foldContentBelow ? foldContentBelow : null}
-          </div>
+          <svg width="12" height="7" viewBox="0 0 12 7">
+            <path
+              fillRule="nonzero"
+              d="M6.002 5.55L11.27 0l.726.685L6.003 7 0 .685.726 0z"
+            />
+          </svg>
+        </label>
+        <div className={`${prefix}-tile-content`}>
+          {foldContentAbove ? foldContentAbove : null}
+        </div>
+        <div className={`${prefix}-tile-hide`}>
+          {foldContentBelow ? foldContentBelow : null}
         </div>
       </div>
     );
