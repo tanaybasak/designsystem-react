@@ -33,7 +33,7 @@ const CircleProgressBar = ({
       setSize(svgRef.current.clientHeight);
     }
     setOffset(progressOffset);
-  }, [setSize, progress, label, labelPosition, customContent]);
+  }, [setSize, progress, label, labelPosition, customContent, progressSize]);
   return (
     <>
       {type == 'determinate' ? (
@@ -156,16 +156,17 @@ CircleProgressBar.propTypes = {
   className: PropTypes.string,
 
   /** Size of Progressbar */
-  progressSize: PropTypes.string
+  progressSize: PropTypes.oneOf(['small', 'default', 'large'])
 };
 
 CircleProgressBar.defaultProps = {
   progress: 0,
   type: 'determinate',
   label: 'Downloading..',
-  customContent: null,
+  customContent: <div>70%</div>,
   labelPosition: 'right',
-  className: ''
+  className: '',
+  progressSize: 'default'
 };
 
 export default CircleProgressBar;

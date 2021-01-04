@@ -124,7 +124,7 @@ LinearProgressBar.propTypes = {
 LinearProgressBar.defaultProps = {
   progress: 0,
   label: 'Downloading...',
-  customContent: null,
+  customContent: <div>70%</div>,
   subText: 'Subtext',
   type: 'determinate',
   className: ''
