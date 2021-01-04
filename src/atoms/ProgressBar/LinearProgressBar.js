@@ -114,7 +114,7 @@ LinearProgressBar.propTypes = {
   /** subtext for the progressbar */
   subText: PropTypes.string,
   /** type of the progressbar (eg : determinate / indeterminate) */
-  type: PropTypes.string,
+  type: PropTypes.oneOf(['determinate', 'indeterminate']),
   /** customContent of the progressbar (html element) */
   customContent: PropTypes.element,
   /** Class/clasess will be applied on the parent div of Progressbar */

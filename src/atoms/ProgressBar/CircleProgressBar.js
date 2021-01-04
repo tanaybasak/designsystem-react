@@ -141,13 +141,13 @@ CircleProgressBar.propTypes = {
   progress: PropTypes.number,
 
   /** type of the progressbar (eg : determinate / indeterminate) */
-  type: PropTypes.string,
+  type: PropTypes.oneOf(['determinate', 'indeterminate']),
 
   /** label of the progressbar */
   label: PropTypes.string,
 
   /** labelPosition of the progressbar (eg : left/right/top/bottom) */
-  labelPosition: PropTypes.string,
+  labelPosition: PropTypes.oneOf(['left', 'right', 'top', 'bottom']),
 
   /** customContent of the progressbar (html element) */
   customContent: PropTypes.element,
