@@ -1456,7 +1456,12 @@ class App extends Component {
                 </div>
                 <div className="hcl-col-12 mt-5 mb-5">
                   {/* expandable bottom right arrow tile */}
-                  <Tile type="expandable" id="expandable-tile-1">
+                  <Tile
+                    type="expandable"
+                    id="expandable-tile-1"
+                    foldContentAbove={<p>Part A</p>}
+                    foldContentBelow={<p>Part B</p>}
+                  >
                     {/* container for default content */}
                     <div>
                       <p>Content shown prior expand </p>
@@ -1471,16 +1476,9 @@ class App extends Component {
                     type="expandable"
                     expandableType="top"
                     id="expandable-tile-2"
-                  >
-                    {/* container for default content */}
-                    <div>
-                      <p>Content shown prior expand </p>
-                    </div>
-                    {/* container for content which will be added once expanded */}
-                    <div>
-                      <p>Content shown after expand </p>
-                    </div>
-                  </Tile>
+                    foldContentAbove={'Part A'}
+                    foldContentBelow={<p>Part B</p>}
+                  />
                 </div>
               </section>
             </div>
