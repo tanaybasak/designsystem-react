@@ -11,8 +11,8 @@ const Timeline = ({ listItems }) => {
 
   useEffect(() => {
     window.addEventListener('scroll', onScrollHandler);
-    // onScrollHandler();
-  });
+    return () => window.removeEventListener('scroll', onScrollHandler);
+  }, []);
 
   const closestToTop = heightArray => {
     let selection = hightlight;
@@ -30,7 +30,7 @@ const Timeline = ({ listItems }) => {
     if (event) {
       let heightArray = [];
       listItems.forEach(item => {
-        let elm = document.getElementById(item);
+        let elm = document.getElementById(item.link);
         if (elm) {
           heightArray.push({
             type: item.label,

@@ -18,6 +18,7 @@ import DateRangeSelectorExample from './example/DateRangeSelectorExample';
 import DateSelectorExample from './example/DateSelectorExample';
 import InlineEditExample from './example/InlineEdit';
 import ProgressBarExample from './example/ProgressBar';
+import TimelineExample from './example/TimelineExample';
 
 class Home extends Component {
   state = {
@@ -76,6 +77,10 @@ class Home extends Component {
         {
           href: '/progressbar',
           title: 'Progress Bar'
+        },
+        {
+          href: '/timeline',
+          title: 'Timeline'
         },
         {
           href: '/checkbox',
@@ -161,6 +166,7 @@ class Home extends Component {
             />
             <Route exact path="/pagination" component={PaginationExample} />
             <Route exact path="/progressbar" component={ProgressBarExample} />
+            <Route exact path="/timeline" component={TimelineExample} />
           </Switch>
         </div>
       </Router>

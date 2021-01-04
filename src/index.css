@@ -6,3 +6,10 @@
 #root {
   height: 100vh;
 }
+
+
+.hcl-timeline-wrapper {
+  position: fixed;
+  top: 400px;
+  right: 27px;
+}
