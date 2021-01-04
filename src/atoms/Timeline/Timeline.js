@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import capitalizeFirstLetter from '../../util/capitalize';
 import PropTypes from 'prop-types';
+import prefix from '../../settings';
 
-const Timeline = listItems => {
-  const [hightlight, setHighlight] = useState('overview');
-  const list = listItems.listItems;
-  const changeHightlight = e => {
-    let href = e.target.getAttribute('href');
-    href = href.substr(1, href.length);
-    href = href.split('-').join(' ');
-    setHighlight(href);
+const Timeline = ({ listItems }) => {
+  const [hightlight, setHighlight] = useState(listItems[0].label);
+
+  const changeHightlight = value => {
+    setHighlight(value.link);
   };
 
   useEffect(() => {
@@ -32,11 +29,11 @@ const Timeline = listItems => {
   const onScrollHandler = event => {
     if (event) {
       let heightArray = [];
-      list.forEach(item => {
+      listItems.forEach(item => {
         let elm = document.getElementById(item);
         if (elm) {
           heightArray.push({
-            type: item,
+            type: item.label,
             height: Math.abs(elm.getBoundingClientRect().y)
           });
         }
@@ -47,40 +44,38 @@ const Timeline = listItems => {
   };
 
   const makeNavigation = () => {
-    return list.map((value, key) => {
-      let hrefValue = value.replace(' ', '-');
-      const isActiveClass = value === hightlight ? 'isActive' : '';
-      const capitalValue = capitalizeFirstLetter(value);
+    return listItems.map((value, key) => {
+      const isActiveClass = value.label === hightlight ? 'isActive' : '';
       return (
         <li className={isActiveClass} key={key}>
           <a
-            href={'#' + hrefValue}
-            title={value}
+            href={'#' + value.link}
+            title={value.label}
             onClick={() => {
-              changeHightlight(event);
+              changeHightlight(value);
             }}
           >
-            {capitalValue}
-            {/* {value} */}
+            {value.label}
           </a>
         </li>
       );
     });
   };
   return (
-    <div className="toc-affix" role="navigation">
-      <ul className="toc">{makeNavigation()}</ul>
+    <div className={`${prefix}-timeline-wrapper`} role="navigation">
+      <ul className={`${prefix}-timeline`}>{makeNavigation()}</ul>
     </div>
   );
 };
 
 Timeline.propTypes = {
   /** List items for Timeline. */
-  listItems: PropTypes.array
-};
-
-Timeline.defaultProps = {
-  listItems: ['overview', 'general-guidelines', 'documentation']
+  listItems: PropTypes.arrayOf(
+    PropTypes.shape({
+      label: PropTypes.string,
+      link: PropTypes.string
+    })
+  )
 };
 
 export default Timeline;
