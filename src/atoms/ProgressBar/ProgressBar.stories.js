@@ -13,6 +13,12 @@ const labelOptions = {
   bottom: 'bottom'
 };
 
+const sizeOptions = {
+  small: 'small',
+  large: 'large',
+  default: 'default'
+};
+
 const typeOptions = {
   determinate: 'determinate',
   interdeterminate: 'interdeterminate'
@@ -44,6 +50,7 @@ storiesOf('ProgressBar', module)
         label={text('label', 'Downloading..')}
         labelPosition={select('labelPosition', labelOptions, 'left')}
         type={select('type', typeOptions, 'determinate')}
+        progressSize={select('progressSize', sizeOptions, 'default')}
       />
     ),
     {

@@ -6,10 +6,13 @@ const LinearProgressBar = ({
   progress,
   label,
   subText,
+  className,
   type,
   customContent
 }) => {
   const [finalVal, updateFinalValue] = useState(0);
+  const classnames = `${prefix}-pb-linear ${className}`.trim();
+
   useEffect(() => {
     progress = progress > 1 ? 1 : progress;
     updateFinalValue(100 - progress * 100);
@@ -27,7 +30,7 @@ const LinearProgressBar = ({
         </span>
       </div>
       <svg
-        className={`${prefix}-pb-linear ${prefix}-pb-linear-determinate`}
+        className={`${classnames} ${prefix}-pb-linear-determinate`}
         preserveAspectRatio="none"
         viewBox="0 0 100 4"
       >
@@ -52,7 +55,7 @@ const LinearProgressBar = ({
   ) : (
     <div className={`${prefix}-pb-linear-wrapper`} role="progressbar">
       <svg
-        className={`${prefix}-pb-linear ${prefix}-pb-linear-indeterminate`}
+        className={`${classnames} ${prefix}-pb-linear-indeterminate`}
         preserveAspectRatio="none"
         viewBox="0 0 125 4"
       >
@@ -113,7 +116,9 @@ LinearProgressBar.propTypes = {
   /** type of the progressbar (eg : determinate / indeterminate) */
   type: PropTypes.string,
   /** customContent of the progressbar (html element) */
-  customContent: PropTypes.element
+  customContent: PropTypes.element,
+  /** Class/clasess will be applied on the parent div of Progressbar */
+  className: PropTypes.string
 };
 
 LinearProgressBar.defaultProps = {
@@ -121,7 +126,8 @@ LinearProgressBar.defaultProps = {
   label: 'Downloading...',
   customContent: null,
   subText: 'Subtext',
-  type: 'determinate'
+  type: 'determinate',
+  className: ''
 };
 
 export default LinearProgressBar;

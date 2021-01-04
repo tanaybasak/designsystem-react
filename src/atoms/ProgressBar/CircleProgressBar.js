@@ -7,12 +7,21 @@ const CircleProgressBar = ({
   type,
   label,
   labelPosition,
-  customContent
+  customContent,
+  className,
+  progressSize
 }) => {
   const [offset, setOffset] = useState(0);
   const [size, setSize] = useState(48);
   const svgRef = useRef(null);
   const circleRef = useRef(null);
+  const classnames = `${prefix}-pb-circle${
+    progressSize === 'small'
+      ? '-small'
+      : progressSize === 'large'
+      ? '-large'
+      : ''
+  } ${className}`.trim();
 
   progress = progress > 1 ? 1 : progress;
   const prg = progress * 100;
@@ -46,11 +55,7 @@ const CircleProgressBar = ({
               </div>
             </div>
           ) : null}
-          <div
-            className={`${prefix}-pb-circle-large`}
-            aria-valuenow={prg}
-            role="progressbar"
-          >
+          <div className={classnames} aria-valuenow={prg} role="progressbar">
             <svg
               className={`${prefix}-pb-circle-determinate`}
               ref={svgRef}
@@ -89,7 +94,7 @@ const CircleProgressBar = ({
           ) : null}
         </div>
       ) : (
-        <div className={`${prefix}-pb-circle`} role="progressbar">
+        <div className={classnames} role="progressbar">
           <svg
             className={`${prefix}-pb-circle-indeterminate`}
             viewBox="25 25 50 50"
@@ -145,7 +150,13 @@ CircleProgressBar.propTypes = {
   labelPosition: PropTypes.string,
 
   /** customContent of the progressbar (html element) */
-  customContent: PropTypes.element
+  customContent: PropTypes.element,
+
+  /** Class/clasess will be applied on the parent div of Progressbar */
+  className: PropTypes.string,
+
+  /** Size of Progressbar */
+  progressSize: PropTypes.string
 };
 
 CircleProgressBar.defaultProps = {
@@ -153,7 +164,8 @@ CircleProgressBar.defaultProps = {
   type: 'determinate',
   label: 'Downloading..',
   customContent: null,
-  labelPosition: 'right'
+  labelPosition: 'right',
+  className: ''
 };
 
 export default CircleProgressBar;
