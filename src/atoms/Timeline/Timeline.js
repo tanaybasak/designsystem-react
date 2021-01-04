@@ -69,13 +69,13 @@ const Timeline = ({ listItems }) => {
 };
 
 Timeline.propTypes = {
-  /** List items for Timeline. */
+  /** List items for Timeline eg:[{label : 'Overview', link: 'Overview'}]. */
   listItems: PropTypes.arrayOf(
     PropTypes.shape({
       label: PropTypes.string,
       link: PropTypes.string
     })
-  )
+  ).isRequired
 };
 
 export default Timeline;
