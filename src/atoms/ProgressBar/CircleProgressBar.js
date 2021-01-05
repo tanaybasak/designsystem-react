@@ -21,7 +21,9 @@ const CircleProgressBar = ({
       : progressSize === 'large'
       ? '-large'
       : ''
-  } ${className}`.trim();
+  } ${className} ${
+    labelPosition == 'bottom' && size == 48 ? `ml-3` : ``
+  }`.trim();
 
   progress = progress > 1 ? 1 : progress;
   const prg = progress * 100;
@@ -39,7 +41,10 @@ const CircleProgressBar = ({
       {type == 'determinate' ? (
         <div
           className={`${prefix}-pb-circle-wrapper ${
-            labelPosition == 'left' || labelPosition == 'right'
+            labelPosition == 'left' ||
+            labelPosition == 'right' ||
+            ((labelPosition == 'top' || labelPosition == 'bottom') &&
+              size == 16)
               ? `${prefix}-pb-label-inline`
               : ``
           } `}
@@ -48,7 +53,7 @@ const CircleProgressBar = ({
             <div className={`${prefix}-pb-label-content`}>
               <div
                 className={`${prefix}-pb-label-text ${
-                  labelPosition == 'top' ? `ml-3` : ``
+                  labelPosition == 'top' && size == 96 ? `ml-3` : ``
                 }`}
               >
                 {label}
@@ -85,7 +90,7 @@ const CircleProgressBar = ({
             <div className={`${prefix}-pb-label-content`}>
               <div
                 className={`${prefix}-pb-label-text ${
-                  labelPosition == 'bottom' ? `ml-3` : ``
+                  labelPosition == 'bottom' && size == 96 ? `ml-3` : ``
                 }`}
               >
                 {label}
