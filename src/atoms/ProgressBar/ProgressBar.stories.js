@@ -25,7 +25,7 @@ storiesOf('ProgressBar', module)
     () => (
       <LinearProgressBar
         label={text('label', 'Downloading..')}
-        progress={number('value', 0.7)}
+        progress={number('value', 0)}
         subText={text('subText', 'Subtext')}
         type={'determinate'}
         customContent={<div>70%</div>}
@@ -40,15 +40,7 @@ storiesOf('ProgressBar', module)
   )
   .add(
     'linear-indeterminate',
-    () => (
-      <LinearProgressBar
-        label={text('label', 'Downloading..')}
-        progress={number('value', 0.7)}
-        subText={text('subText', 'Subtext')}
-        type={'indeterminate'}
-        customContent={<div>70%</div>}
-      />
-    ),
+    () => <LinearProgressBar type={'indeterminate'} />,
     {
       info: {
         text: `Description About ProgressBar Component \n
@@ -60,12 +52,12 @@ storiesOf('ProgressBar', module)
     'circle-determinate',
     () => (
       <CircleProgressBar
-        progress={number('value', 0.7)}
+        progress={number('value', 0)}
         label={text('label', 'Downloading..')}
         labelPosition={select('labelPosition', labelOptions, 'left')}
         type={'determinate'}
         progressSize={select('progressSize', sizeOptions, 'default')}
-        customContent={<div>70%</div>}
+        customContent={<div>0%</div>}
       />
     ),
     {
@@ -77,16 +69,7 @@ storiesOf('ProgressBar', module)
   )
   .add(
     'circle-indeterminate',
-    () => (
-      <CircleProgressBar
-        progress={number('value', 0.7)}
-        label={text('label', 'Downloading..')}
-        labelPosition={select('labelPosition', labelOptions, 'left')}
-        type={'indeterminate'}
-        progressSize={select('progressSize', sizeOptions, 'default')}
-        customContent={<div>70%</div>}
-      />
-    ),
+    () => <CircleProgressBar type={'indeterminate'} />,
     {
       info: {
         text: `Description About ProgressBar Component \n

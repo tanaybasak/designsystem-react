@@ -10,7 +10,7 @@ const LinearProgressBar = ({
   type,
   customContent
 }) => {
-  const [finalVal, updateFinalValue] = useState(0);
+  const [finalVal, updateFinalValue] = useState(100);
   const classnames = [`${prefix}-pb-linear`];
 
   if (className) {

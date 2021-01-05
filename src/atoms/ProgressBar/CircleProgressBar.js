@@ -12,9 +12,6 @@ const CircleProgressBar = ({
   progressSize
 }) => {
   const [size, setSize] = useState(48);
-  const [offset, setOffset] = useState('');
-  const [circumference, setCircumference] = useState('');
-  const [prg, setPrg] = useState('');
   const svgRef = useRef(null);
   const classnames = [];
 
@@ -29,14 +26,12 @@ const CircleProgressBar = ({
     classnames.push(className);
   }
 
+  const circumferenceValue = 2 * Math.PI * 20;
+  const [offset, setOffset] = useState(circumferenceValue);
+
   useEffect(() => {
     progress = progress > 1 ? 1 : progress;
-    const prgPercent = progress * 100;
-    const circumferenceValue = 2 * Math.PI * 20;
-    const progressOffset = ((100 - prgPercent) / 100) * circumferenceValue;
-
-    setPrg(prgPercent);
-    setCircumference(circumferenceValue);
+    const progressOffset = ((100 - progress * 100) / 100) * circumferenceValue;
     setOffset(progressOffset);
   }, [progress]);
 
@@ -71,7 +66,7 @@ const CircleProgressBar = ({
           ) : null}
           <div
             className={classnames.join(' ')}
-            aria-valuenow={prg}
+            aria-valuenow={progress * 100}
             role="progressbar"
           >
             <svg
@@ -91,7 +86,7 @@ const CircleProgressBar = ({
                 cy="50"
                 r="20"
                 strokeDashoffset={offset}
-                strokeDasharray={circumference}
+                strokeDasharray={circumferenceValue}
               />
             </svg>
             {size == 16 ? null : (
