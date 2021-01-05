@@ -30,9 +30,10 @@ storiesOf('ProgressBar', module)
     () => (
       <LinearProgressBar
         label={text('label', 'Downloading..')}
-        progress={number('value', 0.3)}
+        progress={number('value', 0.7)}
         subText={text('subText', 'Subtext')}
         type={select('type', typeOptions, 'determinate')}
+        customContent={<div>30%</div>}
       />
     ),
     {
@@ -51,6 +52,7 @@ storiesOf('ProgressBar', module)
         labelPosition={select('labelPosition', labelOptions, 'left')}
         type={select('type', typeOptions, 'determinate')}
         progressSize={select('progressSize', sizeOptions, 'default')}
+        customContent={<div>70%</div>}
       />
     ),
     {

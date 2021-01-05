@@ -10,11 +10,11 @@ const CircleProgressBar = ({
   customContent,
   className,
   progressSize
+
 }) => {
   const [offset, setOffset] = useState(0);
   const [size, setSize] = useState(48);
   const svgRef = useRef(null);
-  const circleRef = useRef(null);
   const classnames = `${prefix}-pb-circle${
     progressSize === 'small'
       ? '-small'
@@ -35,7 +35,7 @@ const CircleProgressBar = ({
       setSize(svgRef.current.clientHeight);
     }
     setOffset(progressOffset);
-  }, [setSize, progress, label, labelPosition, customContent, progressSize]);
+  }, []);
   return (
     <>
       {type == 'determinate' ? (
@@ -68,7 +68,6 @@ const CircleProgressBar = ({
             >
               <circle
                 className={`${prefix}-pb-bgcircle pb-circle-inner`}
-                ref={circleRef}
                 cx="50"
                 cy="50"
                 r="20"
@@ -167,8 +166,8 @@ CircleProgressBar.propTypes = {
 CircleProgressBar.defaultProps = {
   progress: 0,
   type: 'determinate',
-  label: 'Downloading..',
-  customContent: <div>70%</div>,
+  label: '',
+  customContent: null,
   labelPosition: 'right',
   className: '',
   progressSize: 'default'
