@@ -2,7 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 // import { array } from '@storybook/addon-knobs';
 //@update-path-build-start
-import Timeline from './Timeline';
+import InPageNavigation from './InPageNavigation';
 //@update-path-build-end
 import { object } from '@storybook/addon-knobs';
 
@@ -21,13 +21,13 @@ const timelineObject = [
   }
 ];
 
-storiesOf('Timeline', module).add(
+storiesOf('InPageNavigation', module).add(
   'default',
-  () => <Timeline listItems={object('ListItems', timelineObject)} />,
+  () => <InPageNavigation listItems={object('ListItems', timelineObject)} />,
   {
     info: {
       text: `Description About Tile Component \n
-        import { Timeline } from '@patron/patron-react/timeline';`
+        import { InPageNavigation } from '@patron/patron-react/InPageNavigation';`
     }
   }
 );

@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 
-const Timeline = ({ listItems }) => {
-  const [hightlight, setHighlight] = useState(listItems[0].label);
+const InPageNavigation = ({ listItems }) => {
+  const [hightlight, setHighlight] = useState(
+    listItems.length ? listItems[0].label : ''
+  );
 
   const changeHightlight = value => {
     setHighlight(value.link);
@@ -44,22 +46,24 @@ const Timeline = ({ listItems }) => {
   };
 
   const makeNavigation = () => {
-    return listItems.map((value, key) => {
-      const isActiveClass = value.label === hightlight ? 'isActive' : '';
-      return (
-        <li className={isActiveClass} key={key}>
-          <a
-            href={'#' + value.link}
-            title={value.label}
-            onClick={() => {
-              changeHightlight(value);
-            }}
-          >
-            {value.label}
-          </a>
-        </li>
-      );
-    });
+    return listItems.length
+      ? listItems.map((value, key) => {
+          const isActiveClass = value.label === hightlight ? 'isActive' : '';
+          return (
+            <li className={isActiveClass} key={key}>
+              <a
+                href={'#' + value.link}
+                title={value.label}
+                onClick={() => {
+                  changeHightlight(value);
+                }}
+              >
+                {value.label}
+              </a>
+            </li>
+          );
+        })
+      : null;
   };
   return (
     <div className={`${prefix}-timeline-wrapper`} role="navigation">
@@ -68,7 +72,7 @@ const Timeline = ({ listItems }) => {
   );
 };
 
-Timeline.propTypes = {
+InPageNavigation.propTypes = {
   /** List items for Timeline eg:[{label : 'Overview', link: 'Overview'}]. */
   listItems: PropTypes.arrayOf(
     PropTypes.shape({
@@ -78,4 +82,4 @@ Timeline.propTypes = {
   ).isRequired
 };
 
-export default Timeline;
+export default InPageNavigation;

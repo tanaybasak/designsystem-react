@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Timeline from '../../atoms/Timeline';
-class TimelineExample extends Component {
+import InPageNavigation from '../../atoms/InPageNavigation';
+class InPageNavigationExample extends Component {
   render() {
     const timelineObject = [
       {
@@ -17,8 +17,8 @@ class TimelineExample extends Component {
       }
     ];
     return (
-      <div className="mt-5 p-5" id="timeline-section">
-        <label className="hcl-label">Timeline Example</label>
+      <div className="mt-5 p-5" id="inPageNavigation-section">
+        <label className="hcl-label">In-PageNavigation Example</label>
         <div className="hcl-col-10">
           <div id="Overview" className="p-10">
             Lorem Ipsum is simply dummy text of the printing and typesetting
@@ -190,11 +190,11 @@ class TimelineExample extends Component {
           </div>
         </div>
         <div className="hcl-col-2">
-          <Timeline listItems={timelineObject} />
+          <InPageNavigation listItems={timelineObject} />
         </div>
       </div>
     );
   }
 }
 
-export default TimelineExample;
+export default InPageNavigationExample;
