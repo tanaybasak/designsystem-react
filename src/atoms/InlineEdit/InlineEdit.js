@@ -1,7 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
-import TextInput from '../TextInput';
 import { checkmark, inlineClose } from '../../util/icons';
 import Overlay from '../Overlay';
 import Spinner from '../Spinner';
@@ -10,30 +9,35 @@ import Button from '../Button';
 const InlineEdit = ({
   onClose,
   onTextUpdate,
-  formStatus,
   customIcon,
   errorMessage,
   loader,
+  children,
   ...restProps
 }) => {
   const inlineEditorRef = useRef(null);
   const [displayActionPanel, setDisplayActionPanel] = useState(false);
   const [matchedValue, setMatchedValue] = useState(true);
+
+  const [value, setValue] = useState(null);
+
   const [overlayTargetEl, setOverlayTargetEl] = useState(null);
   const stopPropagation = e => {
     e.stopPropagation();
   };
 
+  //console.log('errorMessage', errorMessage);
+
   const updateTreenodeNameOnEnter = event => {
     event.stopPropagation();
     if (event.key === 'Enter') {
-      if (restProps.value !== event.currentTarget.value) {
-        setMatchedValue(false);
-        onTextUpdate(event.currentTarget.value);
-      } else {
-        setMatchedValue(true);
-      }
-
+      //   if (restProps.value !== event.currentTarget.value) {
+      //     setMatchedValue(false);
+      //     onTextUpdate(event.currentTarget.value);
+      //   } else {
+      //     setMatchedValue(true);
+      //   }
+      onTextUpdate(value);
       event.preventDefault();
     } else if (event.key === 'Escape') {
       onClose();
@@ -42,8 +46,13 @@ const InlineEdit = ({
   };
 
   useEffect(() => {
-    inlineEditorRef.current.firstElementChild.focus();
-    inlineEditorRef.current.firstElementChild.select();
+    try {
+      inlineEditorRef.current.firstElementChild.focus();
+      inlineEditorRef.current.firstElementChild.select();
+    } catch (e) {
+      console.log(e);
+    }
+
     setOverlayTargetEl(inlineEditorRef.current.firstElementChild);
     setDisplayActionPanel(true);
     return function cleanup() {};
@@ -73,9 +82,43 @@ const InlineEdit = ({
 
   const classNames = [`${prefix}-overlay-wrapper ${prefix}-inline-overlay`];
 
+  const getChildren = () => {
+    if (children.type.name === 'Dropdown') {
+      return cloneElement(children, {
+        onVisibleChange: status => {
+          setDisplayActionPanel(!status);
+        },
+        onChange: value => {
+          setValue(value);
+          setMatchedValue(false);
+        }
+      });
+    } else if (children.type.name === 'TextInput') {
+      return cloneElement(children, {
+        onChange: e => {
+          setValue(e.currentTarget.value);
+          setMatchedValue(false);
+        },
+        onKeyDown: updateTreenodeNameOnEnter
+      });
+    } else if (children.type.name === 'DateSelector') {
+      return cloneElement(children, {
+        onDateSelect: e => {
+          setValue(e);
+          setMatchedValue(false);
+        },
+        onVisibleChange: status => {
+          setDisplayActionPanel(!status);
+        }
+      });
+    } else {
+      return children;
+    }
+  };
+
   return (
     <div className={classNames.join(' ')} ref={inlineEditorRef}>
-      <TextInput
+      {/* <TextInput
         type="text"
         {...restProps}
         className={`${prefix}-inline-text`}
@@ -87,7 +130,9 @@ const InlineEdit = ({
             ? setMatchedValue(false)
             : setMatchedValue(true);
         }}
-      />
+      /> */}
+      {getChildren()}
+      {/* {children} */}
       {loader && <Spinner className={`${prefix}-inline-loader`} small />}
 
       <Overlay
@@ -119,7 +164,7 @@ const InlineEdit = ({
                 className={`${prefix}-inline-btn`}
                 disabled={errorMessage || matchedValue || loader ? true : false}
                 onClick={() => {
-                  onTextUpdate(inlineEditorRef.current.firstElementChild.value);
+                  onTextUpdate(value);
                 }}
                 aria-label="inline-check"
               >
@@ -138,23 +183,22 @@ InlineEdit.propTypes = {
   onClose: PropTypes.func,
   /** A callback function which will be executed once check or Enter button is clicked. */
   onTextUpdate: PropTypes.func,
-  /** To add a red border on input field upon displaying error message. */
-  formStatus: PropTypes.bool,
   /** Error message content which has to be displayed. */
   errorMessage: PropTypes.any,
   /** Used to pass custom button template */
   customIcon: PropTypes.element,
   /** loader is shown upon click */
-  loader: PropTypes.bool
+  loader: PropTypes.bool,
+  children: PropTypes.any
 };
 
 InlineEdit.defaultProps = {
   onClose: () => {},
   onTextUpdate: () => {},
-  formStatus: false,
   errorMessage: null,
   loader: false,
-  customIcon: null
+  customIcon: null,
+  children: null
 };
 
 export default InlineEdit;

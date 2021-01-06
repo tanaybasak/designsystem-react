@@ -4,13 +4,45 @@ import InlineEdit from '../../atoms/InlineEdit';
 import { edit } from '../../util/icons';
 import Icon from '../../atoms/Icon';
 import Button from '../../atoms/Button';
+import TextInput from '../../atoms/TextInput';
+import Dropdown from '../../atoms/Dropdown';
+import DateSelector from '../../molecules/DateSelector';
 
 class InlineEditExample extends Component {
   state = {
-    value: 'content',
+    value: 'Option 2',
     isHovering: false,
     isEditing: false,
-    loader: false
+    loader: false,
+    formStatus: false,
+    selectedItem: 'option-2',
+    errorMessage: null,
+    items: [
+      {
+        id: 'option-1',
+        text: 'Option 1'
+      },
+      {
+        id: 'option-2',
+        text: 'Option 2'
+      },
+      {
+        id: 'option-3',
+        text: 'Option 3'
+      },
+      {
+        id: 'option-4',
+        text: 'Option 4'
+      },
+      {
+        id: 'option-5',
+        text: 'Option 5'
+      },
+      {
+        id: 'option-6',
+        text: 'Option 6'
+      }
+    ]
   };
 
   render() {
@@ -19,8 +51,8 @@ class InlineEditExample extends Component {
         <div className="hcl-col-4 mt-5" id="inline-section">
           {this.state.isEditing ? (
             <InlineEdit
-              value={this.state.value}
               loader={this.state.loader}
+              errorMessage={this.state.errorMessage}
               customIcon={
                 <Button
                   type="neutral"
@@ -38,21 +70,102 @@ class InlineEditExample extends Component {
                 </Button>
               }
               onTextUpdate={e => {
+                console.log(e);
                 this.setState({ loader: true });
+
+                /** Dropdown */
+                // setTimeout(() => {
+                //   this.setState({
+                //     isEditing: false,
+                //     value: e.text,
+                //     selectedItem:e.id,
+                //     isHovering: false,
+                //     loader: false
+                //   });
+                // }, 2000);
+
+                /** Text Input */
+                // if (e.length > 4) {
+                //   setTimeout(() => {
+                //     this.setState({
+                //       isEditing: false,
+                //       value: e,
+                //       isHovering: false,
+                //       formStatus: false,
+                //       errorMessage: null,
+                //       loader: false
+                //     });
+                //   }, 2000);
+                // } else {
+                //   setTimeout(() => {
+                //     this.setState({
+                //       formStatus: true,
+                //       errorMessage: 'Enter more than 3',
+                //       loader: false
+                //     });
+                //   }, 2000);
+                // }
+
+
+                /** DatePIcker */
                 setTimeout(() => {
                   this.setState({
                     isEditing: false,
-                    value: e,
+                    value: e.toDateString(),
                     isHovering: false,
                     loader: false
                   });
                 }, 2000);
+
+
               }}
               onClose={() => {
-                this.setState({ isEditing: false, loader: false });
+                this.setState({
+                  isEditing: false,
+                  loader: false,
+                  formStatus: false,
+                  errorMessage: null
+                });
                 console.log('close is called');
               }}
-            />
+            >
+              <DateSelector
+                id="date-selector-id"
+                weekDays={['S', 'M', 'T', 'W', 'Th', 'F', 'S']}
+                months={[
+                  'JAN',
+                  'FEB',
+                  'MAR',
+                  'APR',
+                  'MAY',
+                  'JUN',
+                  'JUL',
+                  'AUG',
+                  'SEP',
+                  'OCT',
+                  'NOV',
+                  'DEC'
+                ]}
+                format="mm/dd/yyyy"
+                //   onDateSelect={date => {
+                //     console.log(date);
+                //   }}
+                // minDate={new Date(2020, 10, 5)}
+                // maxDate={new Date(2065, 10, 22)}
+              ></DateSelector>
+
+              {/* <TextInput
+                value={this.state.value}
+                data-invalid={this.state.formStatus}
+              /> */}
+              {/* <Dropdown
+                type="top"
+                items={this.state.items}
+                label="Top DropDown"
+                selectedItem={this.state.selectedItem}
+                
+              /> */}
+            </InlineEdit>
           ) : (
             <div
               style={{ height: '4rem', display: 'inline-block' }}
