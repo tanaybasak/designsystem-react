@@ -25,7 +25,7 @@ storiesOf('ProgressBar', module)
     () => (
       <LinearProgressBar
         label={text('label', 'Downloading..')}
-        progress={number('value', 0)}
+        progress={number('value', 0.7)}
         subText={text('subText', 'Subtext')}
         type={'determinate'}
         customContent={<div>70%</div>}
@@ -52,12 +52,12 @@ storiesOf('ProgressBar', module)
     'circle-determinate',
     () => (
       <CircleProgressBar
-        progress={number('value', 0)}
+        progress={number('value', 0.7)}
         label={text('label', 'Downloading..')}
         labelPosition={select('labelPosition', labelOptions, 'left')}
         type={'determinate'}
         progressSize={select('progressSize', sizeOptions, 'default')}
-        customContent={<div>0%</div>}
+        customContent={<div>70%</div>}
       />
     ),
     {
