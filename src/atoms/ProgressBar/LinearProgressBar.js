@@ -28,7 +28,11 @@ const LinearProgressBar = ({
       role="progressbar"
     >
       <div className={`${prefix}-pb-linear-label`}>
-        <span className={`${prefix}-pb-linear-label-content`}>{label}</span>
+        <span
+          className={`${prefix}-pb-linear-label-content ${prefix}-pb-linear-ellipsis`}
+        >
+          {label}
+        </span>
         <span className={`${prefix}-pb-linear-label-value`}>
           {customContent}
         </span>
@@ -54,7 +58,11 @@ const LinearProgressBar = ({
           strokeDashoffset={finalVal}
         />
       </svg>
-      <div className={`${prefix}-pb-linear-subtext mt-2`}>{subText}</div>
+      <div
+        className={`${prefix}-pb-linear-subtext ${prefix}-pb-linear-ellipsis mt-2`}
+      >
+        {subText}
+      </div>
     </div>
   ) : (
     <div className={`${prefix}-pb-linear-wrapper`} role="progressbar">
