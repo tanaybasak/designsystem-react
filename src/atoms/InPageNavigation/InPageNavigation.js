@@ -66,8 +66,8 @@ const InPageNavigation = ({ listItems }) => {
       : null;
   };
   return (
-    <div className={`${prefix}-timeline-wrapper`} role="navigation">
-      <ul className={`${prefix}-timeline`}>{makeNavigation()}</ul>
+    <div className={`${prefix}-inpage-navigation-wrapper`} role="navigation">
+      <ul className={`${prefix}-inpage-navigation`}>{makeNavigation()}</ul>
     </div>
   );
 };
