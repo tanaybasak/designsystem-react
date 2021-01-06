@@ -1,6 +1,5 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-// import { array } from '@storybook/addon-knobs';
 //@update-path-build-start
 import InPageNavigation from './InPageNavigation';
 //@update-path-build-end
