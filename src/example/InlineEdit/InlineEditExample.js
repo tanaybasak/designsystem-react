@@ -7,198 +7,219 @@ import Button from '../../atoms/Button';
 import TextInput from '../../atoms/TextInput';
 import Dropdown from '../../atoms/Dropdown';
 import DateSelector from '../../molecules/DateSelector';
-
+import './inlineEdit.css';
+import Tag from '../../atoms/Tag/Tag';
 class InlineEditExample extends Component {
   state = {
-    value: 'Option 2',
-    isHovering: false,
-    isEditing: false,
-    loader: false,
-    formStatus: false,
-    selectedItem: 'option-2',
+    editingFormType: null,
+    showBusyLoader: false,
+    formValue: {
+      title: 'inline editor not working',
+      type: { id: 'story', text: 'Story' },
+      framework: [{ id: 'angular', text: 'Angular' },{ id: 'vanilla', text: 'Vanilla' }]
+    },
+    types: [
+      { id: 'epic', text: 'Epic' },
+      { id: 'story', text: 'Story' },
+      { id: 'task', text: 'Task' },
+      { id: 'bug', text: 'Bug' }
+    ],
+    frameworks: [
+      { id: 'angular', text: 'Angular' },
+      { id: 'react', text: 'React' },
+      { id: 'vuejs', text: 'Vue JS' },
+      { id: 'vanilla', text: 'Vanilla' }
+    ],
     errorMessage: null,
-    items: [
-      {
-        id: 'option-1',
-        text: 'Option 1'
-      },
-      {
-        id: 'option-2',
-        text: 'Option 2'
-      },
-      {
-        id: 'option-3',
-        text: 'Option 3'
-      },
-      {
-        id: 'option-4',
-        text: 'Option 4'
-      },
-      {
-        id: 'option-5',
-        text: 'Option 5'
-      },
-      {
-        id: 'option-6',
-        text: 'Option 6'
-      }
-    ]
+    titleFormStatus: false
+  };
+
+  inlineEditButton = type => {
+    return (
+      <button
+        type="button"
+        aria-label="inline-close"
+        className="inline-edit-button"
+        onClick={() => this.setState({ editingFormType: type })}
+      >
+        {edit}
+      </button>
+    );
+  };
+
+  /** Title Inline Editor Section */
+
+  updateTitleText = newTitle => {
+    this.setState({ showBusyLoader: true });
+    if (newTitle.length > 3) {
+      setTimeout(() => {
+        const tempFormValues = { ...this.state.formValue };
+        tempFormValues['title'] = newTitle;
+        this.setState({
+          editingFormType: null,
+          formValue: tempFormValues,
+          titleFormStatus: false,
+          errorMessage: null,
+          showBusyLoader: false
+        });
+      }, 2000);
+    } else {
+      setTimeout(() => {
+        this.setState({
+          titleFormStatus: true,
+          errorMessage: 'Please enter more than 3 character',
+          showBusyLoader: false
+        });
+      }, 2000);
+    }
+  };
+
+  reset = () => {
+    this.setState({
+      editingFormType: null,
+      titleFormStatus: false,
+      errorMessage: null
+    });
+  };
+
+  /** Type Inline Editor Section */
+
+  updateIssueType = type => {
+    this.setState({ showBusyLoader: true });
+
+    setTimeout(() => {
+      const tempFormValues = { ...this.state.formValue };
+      tempFormValues['type'] = type;
+
+      this.setState({
+        editingFormType: null,
+        formValue: tempFormValues,
+        showBusyLoader: false
+      });
+    }, 2000);
+  };
+
+  /** Type Inline Editor Section */
+
+  updateFramework = type => {
+
+    
+    const newFramework = [];
+    this.state.frameworks.map( framework => {
+        if(type.includes(framework.id)){
+            newFramework.push(framework)
+        }
+    })
+    
+    this.setState({ showBusyLoader: true });
+
+    setTimeout(() => {
+      const tempFormValues = { ...this.state.formValue };
+      tempFormValues['framework'] = newFramework;
+
+      this.setState({
+        editingFormType: null,
+        formValue: tempFormValues,
+        showBusyLoader: false
+      });
+    }, 2000);
   };
 
   render() {
     return (
-      <>
-        <div className="hcl-col-4 mt-5" id="inline-section">
-          {this.state.isEditing ? (
-            <InlineEdit
-              loader={this.state.loader}
-              errorMessage={this.state.errorMessage}
-              customIcon={
-                <Button
-                  type="neutral"
-                  disabled={this.state.loader ? true : false}
-                >
-                  <Icon
-                    type="svg"
-                    alt="alt"
-                    title="title"
-                    viewBox="0 0 512 512"
-                    className="toggleIcon"
+      <section id="formcomp" className="m-1 p-5 colBorder inline-edit-form">
+        <form className="m-5">
+          <div className="hcl-form-group">
+            <div className="hcl-row">
+              <div className="hcl-col-3">
+                <label>Title</label>
+              </div>
+              <div className="hcl-col-9">
+                {this.state.editingFormType === 'title' ? (
+                  <InlineEdit
+                    loader={this.state.showBusyLoader}
+                    errorMessage={this.state.errorMessage}
+                    onTextUpdate={this.updateTitleText}
+                    onClose={this.reset}
                   >
-                    <polygon points="160,128.4 192.3,96 352,256 352,256 352,256 192.3,416 160,383.6 287.3,256 " />
-                  </Icon>
-                </Button>
-              }
-              onTextUpdate={e => {
-                console.log(e);
-                this.setState({ loader: true });
-
-                /** Dropdown */
-                // setTimeout(() => {
-                //   this.setState({
-                //     isEditing: false,
-                //     value: e.text,
-                //     selectedItem:e.id,
-                //     isHovering: false,
-                //     loader: false
-                //   });
-                // }, 2000);
-
-                /** Text Input */
-                // if (e.length > 4) {
-                //   setTimeout(() => {
-                //     this.setState({
-                //       isEditing: false,
-                //       value: e,
-                //       isHovering: false,
-                //       formStatus: false,
-                //       errorMessage: null,
-                //       loader: false
-                //     });
-                //   }, 2000);
-                // } else {
-                //   setTimeout(() => {
-                //     this.setState({
-                //       formStatus: true,
-                //       errorMessage: 'Enter more than 3',
-                //       loader: false
-                //     });
-                //   }, 2000);
-                // }
-
-
-                /** DatePIcker */
-                setTimeout(() => {
-                  this.setState({
-                    isEditing: false,
-                    value: e.toDateString(),
-                    isHovering: false,
-                    loader: false
-                  });
-                }, 2000);
-
-
-              }}
-              onClose={() => {
-                this.setState({
-                  isEditing: false,
-                  loader: false,
-                  formStatus: false,
-                  errorMessage: null
-                });
-                console.log('close is called');
-              }}
-            >
-              <DateSelector
-                id="date-selector-id"
-                weekDays={['S', 'M', 'T', 'W', 'Th', 'F', 'S']}
-                months={[
-                  'JAN',
-                  'FEB',
-                  'MAR',
-                  'APR',
-                  'MAY',
-                  'JUN',
-                  'JUL',
-                  'AUG',
-                  'SEP',
-                  'OCT',
-                  'NOV',
-                  'DEC'
-                ]}
-                format="mm/dd/yyyy"
-                //   onDateSelect={date => {
-                //     console.log(date);
-                //   }}
-                // minDate={new Date(2020, 10, 5)}
-                // maxDate={new Date(2065, 10, 22)}
-              ></DateSelector>
-
-              {/* <TextInput
-                value={this.state.value}
-                data-invalid={this.state.formStatus}
-              /> */}
-              {/* <Dropdown
-                type="top"
-                items={this.state.items}
-                label="Top DropDown"
-                selectedItem={this.state.selectedItem}
-                
-              /> */}
-            </InlineEdit>
-          ) : (
-            <div
-              style={{ height: '4rem', display: 'inline-block' }}
-              onMouseEnter={() => this.setState({ isHovering: true })}
-              onMouseLeave={() => this.setState({ isHovering: false })}
-            >
-              <span
-                className="hcl-inline-label"
-                style={
-                  !this.state.isHovering
-                    ? { cursor: 'pointer', position: 'relative', top: '12px' }
-                    : { cursor: 'pointer' }
-                }
-              >
-                {this.state.value}
-              </span>
-              <button
-                type="button"
-                className={
-                  this.state.isHovering
-                    ? `hcl-inline-btn hcl-inline-close`
-                    : null
-                }
-                style={{ cursor: 'pointer' }}
-                aria-label="inline-close"
-                onClick={() => this.setState({ isEditing: true })}
-              >
-                {edit}
-              </button>
+                    <TextInput
+                      value={this.state.formValue.title}
+                      data-invalid={this.state.titleFormStatus}
+                    />
+                  </InlineEdit>
+                ) : (
+                  <div className="hcl-inline-wrapper">
+                    <label>{this.state.formValue.title}</label>
+                    {this.inlineEditButton('title')}
+                  </div>
+                )}
+              </div>
             </div>
-          )}
-        </div>
-      </>
+          </div>
+          <div className="hcl-form-group">
+            <div className="hcl-row">
+              <div className="hcl-col-3">
+                <label>Type</label>
+              </div>
+              <div className="hcl-col-9">
+                {this.state.editingFormType === 'type' ? (
+                  <InlineEdit
+                    loader={this.state.showBusyLoader}
+                    errorMessage={this.state.errorMessage}
+                    onTextUpdate={this.updateIssueType}
+                    onClose={this.reset}
+                  >
+                    <Dropdown
+                      type="top"
+                      items={this.state.types}
+                      label="Top DropDown"
+                      selectedItem={this.state.formValue.type.id}
+                    />
+                  </InlineEdit>
+                ) : (
+                  <div className="hcl-inline-wrapper">
+                    <label>{this.state.formValue.type.text}</label>
+                    {this.inlineEditButton('type')}
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+          <div className="hcl-form-group">
+            <div className="hcl-row">
+              <div className="hcl-col-3">
+                <label>Framework</label>
+              </div>
+              <div className="hcl-col-9">
+                {this.state.editingFormType === 'framework' ? (
+                  <InlineEdit
+                    loader={this.state.showBusyLoader}
+                    errorMessage={this.state.errorMessage}
+                    onTextUpdate={this.updateFramework}
+                    onClose={this.reset}
+                  >
+                    <Dropdown
+                      type="top"
+                      items={this.state.frameworks}
+                      label="Top DropDown"
+                      dropdownType="multi"
+                      selectedItem={this.state.formValue.framework}
+                    />
+                  </InlineEdit>
+                ) : (
+                  <div className="hcl-inline-wrapper">
+                    {this.state.formValue.framework.map((item,index) => {
+                      return <Tag key={`fram${index}`} type="primary">{item.text}</Tag>;
+                    })}
+                    {this.inlineEditButton('framework')}
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+          <button className="hcl-btn hcl-primary">Submit</button>
+        </form>
+      </section>
     );
   }
 }

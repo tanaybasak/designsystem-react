@@ -19,6 +19,8 @@ const InlineEdit = ({
   const [displayActionPanel, setDisplayActionPanel] = useState(false);
   const [matchedValue, setMatchedValue] = useState(true);
 
+  const inlineEditValue = useRef(null);
+  const currentValue = useRef(null);
   const [value, setValue] = useState(null);
 
   const [overlayTargetEl, setOverlayTargetEl] = useState(null);
@@ -31,13 +33,10 @@ const InlineEdit = ({
   const updateTreenodeNameOnEnter = event => {
     event.stopPropagation();
     if (event.key === 'Enter') {
-      //   if (restProps.value !== event.currentTarget.value) {
-      //     setMatchedValue(false);
-      //     onTextUpdate(event.currentTarget.value);
-      //   } else {
-      //     setMatchedValue(true);
-      //   }
-      onTextUpdate(value);
+      if (!isValueEqual()) {
+        onTextUpdate(inlineEditValue.current);
+      }
+
       event.preventDefault();
     } else if (event.key === 'Escape') {
       onClose();
@@ -46,66 +45,84 @@ const InlineEdit = ({
   };
 
   useEffect(() => {
-    try {
+    if (
+      inlineEditorRef &&
+      inlineEditorRef.current &&
+      inlineEditorRef.current.firstElementChild
+    ) {
       inlineEditorRef.current.firstElementChild.focus();
-      inlineEditorRef.current.firstElementChild.select();
-    } catch (e) {
-      console.log(e);
+      if (inlineEditorRef.current.firstElementChild.select) {
+        inlineEditorRef.current.firstElementChild.select();
+      }
+
+      setOverlayTargetEl(inlineEditorRef.current.firstElementChild);
+      setDisplayActionPanel(true);
     }
 
-    setOverlayTargetEl(inlineEditorRef.current.firstElementChild);
-    setDisplayActionPanel(true);
     return function cleanup() {};
   }, []);
 
-  let customElement = null;
-  customIcon
-    ? (customElement = React.Children.map(customIcon, child => {
-        if (child.props.children && child.props.children.length) {
-          return child.props.children.map((item, index) => {
-            return React.cloneElement(item, {
-              key: index,
-              className: `${prefix}-inline-btn${
-                item.props.className ? ' ' + item.props.className : ''
-              }`
-            });
-          });
-        } else {
-          return React.cloneElement(child, {
-            className: `${prefix}-inline-btn${
-              child.props.className ? ' ' + child.props.className : ''
-            }`
-          });
-        }
-      }))
-    : null;
+  //   let customElement = null;
+  //   customIcon
+  //     ? (customElement = React.Children.map(customIcon, child => {
+  //         if (child.props.children && child.props.children.length) {
+  //           return child.props.children.map((item, index) => {
+  //             return React.cloneElement(item, {
+  //               key: index,
+  //               className: `${prefix}-inline-btn${
+  //                 item.props.className ? ' ' + item.props.className : ''
+  //               }`
+  //             });
+  //           });
+  //         } else {
+  //           return React.cloneElement(child, {
+  //             className: `${prefix}-inline-btn${
+  //               child.props.className ? ' ' + child.props.className : ''
+  //             }`
+  //           });
+  //         }
+  //       }))
+  //     : null;
 
-  const classNames = [`${prefix}-overlay-wrapper ${prefix}-inline-overlay`];
+  const classNames = [
+    `${prefix}-overlay-wrapper ${prefix}-inline-editor-wrapper`
+  ];
 
   const getChildren = () => {
     if (children.type.name === 'Dropdown') {
+      currentValue.current = children.props.selectedItem;
       return cloneElement(children, {
         onVisibleChange: status => {
           setDisplayActionPanel(!status);
         },
-        onChange: value => {
-          setValue(value);
-          setMatchedValue(false);
+        onChange: (value, values) => {
+          if (children.props.dropdownType === 'multi') {
+            inlineEditValue.current = values;
+            setMatchedValue(false);
+          } else {
+            inlineEditValue.current = value;
+            setMatchedValue(currentValue.current === value.id);
+          }
+
+          //setValue(value);
         }
       });
     } else if (children.type.name === 'TextInput') {
+      currentValue.current = children.props.value;
       return cloneElement(children, {
         onChange: e => {
-          setValue(e.currentTarget.value);
-          setMatchedValue(false);
+          e.preventDefault();
+          inlineEditValue.current = e.currentTarget.value;
+          //setValue(e.currentTarget.value);
+          setMatchedValue(currentValue.current === e.currentTarget.value);
         },
         onKeyDown: updateTreenodeNameOnEnter
       });
     } else if (children.type.name === 'DateSelector') {
       return cloneElement(children, {
         onDateSelect: e => {
-          setValue(e);
-          setMatchedValue(false);
+          inlineEditValue.current = e;
+          //setMatchedValue(false);
         },
         onVisibleChange: status => {
           setDisplayActionPanel(!status);
@@ -116,43 +133,47 @@ const InlineEdit = ({
     }
   };
 
+  const isValueEqual = () => {
+    return inlineEditValue.current === currentValue.current;
+  };
+
+  const onToggle = status => {
+    if (!status && !isValueEqual()) {
+      if (!inlineEditValue.current) {
+        onClose();
+      } else if (!isValueEqual()) {
+        onTextUpdate(inlineEditValue.current);
+      }
+    }
+  };
+
   return (
     <div className={classNames.join(' ')} ref={inlineEditorRef}>
-      {/* <TextInput
-        type="text"
-        {...restProps}
-        className={`${prefix}-inline-text`}
-        onKeyDown={updateTreenodeNameOnEnter}
-        data-invalid={formStatus}
-        onClick={stopPropagation}
-        onChange={event => {
-          restProps.value !== event.currentTarget.value
-            ? setMatchedValue(false)
-            : setMatchedValue(true);
-        }}
-      /> */}
       {getChildren()}
-      {/* {children} */}
-      {loader && <Spinner className={`${prefix}-inline-loader`} small />}
+      {loader && <Spinner className={`${prefix}-inline-editor-loader`} small />}
 
       <Overlay
         direction={'bottom-right'}
         showOverlay={displayActionPanel}
         targetElement={overlayTargetEl}
+        className="hcl-inline-editor-overlay"
         style={{
           width: overlayTargetEl ? overlayTargetEl.offsetWidth + 'px' : '0'
         }}
+        onToggle={onToggle}
       >
         <>
           {errorMessage ? (
-            <div className={`${prefix}-inline-error`}>{errorMessage}</div>
+            <div className={`${prefix}-inline-editor-error`}>
+              {errorMessage}
+            </div>
           ) : null}
-          <div className={`${prefix}-inline-wrapper`}>
-            <span className={`${prefix}-inline-panel`}>
-              {customElement}
+
+          <div className={`${prefix}-inline-editor-action-wrapper`}>
+            <span className={`${prefix}-inline-editor-action-panel`}>
+              {customIcon}
               <Button
                 type="neutral"
-                className={`${prefix}-inline-btn`}
                 disabled={loader ? true : false}
                 onClick={onClose}
                 aria-label="inline-close"
@@ -161,10 +182,9 @@ const InlineEdit = ({
               </Button>
               <Button
                 type="primary"
-                className={`${prefix}-inline-btn`}
                 disabled={errorMessage || matchedValue || loader ? true : false}
                 onClick={() => {
-                  onTextUpdate(value);
+                  onTextUpdate(inlineEditValue.current);
                 }}
                 aria-label="inline-check"
               >
