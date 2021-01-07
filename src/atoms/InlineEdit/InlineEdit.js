@@ -12,7 +12,9 @@ const InlineEdit = ({
   customIcon,
   errorMessage,
   loader,
-  children
+  children,
+  className,
+  ...restProps
 }) => {
   const inlineEditorRef = useRef(null);
   const [displayActionPanel, setDisplayActionPanel] = useState(false);
@@ -22,6 +24,13 @@ const InlineEdit = ({
   const currentValue = useRef(null);
 
   const [overlayTargetEl, setOverlayTargetEl] = useState(null);
+
+  const classNames = [
+    `${prefix}-overlay-wrapper ${prefix}-inline-editor-wrapper`
+  ];
+  if (className) {
+    classNames.push(className);
+  }
 
   const updateTreenodeNameOnEnter = event => {
     event.stopPropagation();
@@ -55,10 +64,6 @@ const InlineEdit = ({
     return function cleanup() {};
   }, []);
 
-  const classNames = [
-    `${prefix}-overlay-wrapper ${prefix}-inline-editor-wrapper`
-  ];
-
   const getChildren = () => {
     if (children.type.name === 'Dropdown') {
       currentValue.current = children.props.selectedItem;
@@ -87,9 +92,11 @@ const InlineEdit = ({
         onKeyDown: updateTreenodeNameOnEnter
       });
     } else if (children.type.name === 'DateSelector') {
+      currentValue.current = children.props.defaultDate;
       return cloneElement(children, {
-        onDateSelect: e => {
-          inlineEditValue.current = e;
+        onDateSelect: date => {
+          inlineEditValue.current = date;
+          setMatchedValue(currentValue.current === date);
         },
         onVisibleChange: status => {
           setDisplayActionPanel(!status);
@@ -115,15 +122,25 @@ const InlineEdit = ({
   };
 
   return (
-    <div className={classNames.join(' ')} ref={inlineEditorRef}>
-      {getChildren()}
-      {loader && <Spinner className={`${prefix}-inline-editor-loader`} small />}
+    <div className={classNames.join(' ')} ref={inlineEditorRef} {...restProps}>
+      <div
+        className={`${prefix}-inline-editor-component${
+          children.type.name === 'DateSelector'
+            ? ` ${prefix}-inline-editor-component-dt-picker`
+            : ''
+        }`}
+      >
+        {getChildren()}
+        {loader && (
+          <Spinner className={`${prefix}-inline-editor-loader`} small />
+        )}
+      </div>
 
       <Overlay
         direction={'bottom-right'}
         showOverlay={displayActionPanel}
         targetElement={overlayTargetEl}
-        className="hcl-inline-editor-overlay"
+        className={`${prefix}-inline-editor-overlay`}
         style={{
           width: overlayTargetEl ? overlayTargetEl.offsetWidth + 'px' : '0'
         }}
@@ -176,7 +193,10 @@ InlineEdit.propTypes = {
   customIcon: PropTypes.element,
   /** loader is shown upon click */
   loader: PropTypes.bool,
-  children: PropTypes.any
+  /** Class/clasess will be applied on the parent div of Select */
+  className: PropTypes.string,
+  /** Used to pass inline element. eg DateSelector, TextInput, Dropdown */
+  children: PropTypes.element
 };
 
 InlineEdit.defaultProps = {
@@ -185,7 +205,8 @@ InlineEdit.defaultProps = {
   errorMessage: null,
   loader: false,
   customIcon: null,
-  children: null
+  children: null,
+  className: null
 };
 
 export default InlineEdit;

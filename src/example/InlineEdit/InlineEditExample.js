@@ -2,8 +2,6 @@
 import React, { Component } from 'react';
 import InlineEdit from '../../atoms/InlineEdit';
 import { edit } from '../../util/icons';
-import Icon from '../../atoms/Icon';
-import Button from '../../atoms/Button';
 import TextInput from '../../atoms/TextInput';
 import Dropdown from '../../atoms/Dropdown';
 import DateSelector from '../../molecules/DateSelector';
@@ -19,7 +17,8 @@ class InlineEditExample extends Component {
       framework: [
         { id: 'angular', text: 'Angular' },
         { id: 'vanilla', text: 'Vanilla' }
-      ]
+      ],
+      expectedDate: new Date()
     },
     types: [
       { id: 'epic', text: 'Epic' },
@@ -126,9 +125,24 @@ class InlineEditExample extends Component {
     }, 2000);
   };
 
+  updateExpectedDate = newExpectedDate => {
+    this.setState({ showBusyLoader: true });
+
+    setTimeout(() => {
+      const tempFormValues = { ...this.state.formValue };
+      tempFormValues['expectedDate'] = newExpectedDate;
+
+      this.setState({
+        editingFormType: null,
+        formValue: tempFormValues,
+        showBusyLoader: false
+      });
+    }, 2000);
+  };
+
   render() {
     return (
-      <section id="formcomp" className="m-1 p-5 colBorder inline-edit-form">
+      <section className="m-1 p-5 inline-edit-form">
         <form className="m-5">
           <div className="hcl-form-group">
             <div className="hcl-row">
@@ -217,6 +231,34 @@ class InlineEditExample extends Component {
                       );
                     })}
                     {this.inlineEditButton('framework')}
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+          <div className="hcl-form-group">
+            <div className="hcl-row">
+              <div className="hcl-col-3">
+                <label>Exp Date</label>
+              </div>
+              <div className="hcl-col-9">
+                {this.state.editingFormType === 'expectedDate' ? (
+                  <InlineEdit
+                    loader={this.state.showBusyLoader}
+                    errorMessage={this.state.errorMessage}
+                    onTextUpdate={this.updateExpectedDate}
+                    onClose={this.reset}
+                  >
+                    <DateSelector
+                      defaultDate={this.state.formValue.expectedDate}
+                    />
+                  </InlineEdit>
+                ) : (
+                  <div className="hcl-inline-wrapper">
+                    <label>
+                      {this.state.formValue.expectedDate.toLocaleString()}
+                    </label>
+                    {this.inlineEditButton('expectedDate')}
                   </div>
                 )}
               </div>
