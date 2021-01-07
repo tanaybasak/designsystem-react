@@ -16,7 +16,10 @@ class InlineEditExample extends Component {
     formValue: {
       title: 'inline editor not working',
       type: { id: 'story', text: 'Story' },
-      framework: [{ id: 'angular', text: 'Angular' },{ id: 'vanilla', text: 'Vanilla' }]
+      framework: [
+        { id: 'angular', text: 'Angular' },
+        { id: 'vanilla', text: 'Vanilla' }
+      ]
     },
     types: [
       { id: 'epic', text: 'Epic' },
@@ -102,15 +105,13 @@ class InlineEditExample extends Component {
   /** Type Inline Editor Section */
 
   updateFramework = type => {
-
-    
     const newFramework = [];
-    this.state.frameworks.map( framework => {
-        if(type.includes(framework.id)){
-            newFramework.push(framework)
-        }
-    })
-    
+    this.state.frameworks.map(framework => {
+      if (type.includes(framework.id)) {
+        newFramework.push(framework);
+      }
+    });
+
     this.setState({ showBusyLoader: true });
 
     setTimeout(() => {
@@ -208,8 +209,12 @@ class InlineEditExample extends Component {
                   </InlineEdit>
                 ) : (
                   <div className="hcl-inline-wrapper">
-                    {this.state.formValue.framework.map((item,index) => {
-                      return <Tag key={`fram${index}`} type="primary">{item.text}</Tag>;
+                    {this.state.formValue.framework.map((item, index) => {
+                      return (
+                        <Tag key={`fram${index}`} type="primary">
+                          {item.text}
+                        </Tag>
+                      );
                     })}
                     {this.inlineEditButton('framework')}
                   </div>

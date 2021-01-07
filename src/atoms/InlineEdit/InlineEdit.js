@@ -12,8 +12,7 @@ const InlineEdit = ({
   customIcon,
   errorMessage,
   loader,
-  children,
-  ...restProps
+  children
 }) => {
   const inlineEditorRef = useRef(null);
   const [displayActionPanel, setDisplayActionPanel] = useState(false);
@@ -21,14 +20,8 @@ const InlineEdit = ({
 
   const inlineEditValue = useRef(null);
   const currentValue = useRef(null);
-  const [value, setValue] = useState(null);
 
   const [overlayTargetEl, setOverlayTargetEl] = useState(null);
-  const stopPropagation = e => {
-    e.stopPropagation();
-  };
-
-  //console.log('errorMessage', errorMessage);
 
   const updateTreenodeNameOnEnter = event => {
     event.stopPropagation();
@@ -62,28 +55,6 @@ const InlineEdit = ({
     return function cleanup() {};
   }, []);
 
-  //   let customElement = null;
-  //   customIcon
-  //     ? (customElement = React.Children.map(customIcon, child => {
-  //         if (child.props.children && child.props.children.length) {
-  //           return child.props.children.map((item, index) => {
-  //             return React.cloneElement(item, {
-  //               key: index,
-  //               className: `${prefix}-inline-btn${
-  //                 item.props.className ? ' ' + item.props.className : ''
-  //               }`
-  //             });
-  //           });
-  //         } else {
-  //           return React.cloneElement(child, {
-  //             className: `${prefix}-inline-btn${
-  //               child.props.className ? ' ' + child.props.className : ''
-  //             }`
-  //           });
-  //         }
-  //       }))
-  //     : null;
-
   const classNames = [
     `${prefix}-overlay-wrapper ${prefix}-inline-editor-wrapper`
   ];
@@ -103,8 +74,6 @@ const InlineEdit = ({
             inlineEditValue.current = value;
             setMatchedValue(currentValue.current === value.id);
           }
-
-          //setValue(value);
         }
       });
     } else if (children.type.name === 'TextInput') {
@@ -113,7 +82,6 @@ const InlineEdit = ({
         onChange: e => {
           e.preventDefault();
           inlineEditValue.current = e.currentTarget.value;
-          //setValue(e.currentTarget.value);
           setMatchedValue(currentValue.current === e.currentTarget.value);
         },
         onKeyDown: updateTreenodeNameOnEnter
@@ -122,7 +90,6 @@ const InlineEdit = ({
       return cloneElement(children, {
         onDateSelect: e => {
           inlineEditValue.current = e;
-          //setMatchedValue(false);
         },
         onVisibleChange: status => {
           setDisplayActionPanel(!status);
