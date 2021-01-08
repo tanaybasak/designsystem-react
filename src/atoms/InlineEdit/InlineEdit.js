@@ -50,11 +50,12 @@ const InlineEdit = ({
     if (
       inlineEditorRef &&
       inlineEditorRef.current &&
-      inlineEditorRef.current.firstElementChild
+      inlineEditorRef.current.firstElementChild &&
+      inlineEditorRef.current.firstElementChild.firstElementChild
     ) {
-      inlineEditorRef.current.firstElementChild.focus();
-      if (inlineEditorRef.current.firstElementChild.select) {
-        inlineEditorRef.current.firstElementChild.select();
+      inlineEditorRef.current.firstElementChild.firstElementChild.focus();
+      if (inlineEditorRef.current.firstElementChild.firstElementChild.select) {
+        inlineEditorRef.current.firstElementChild.firstElementChild.select();
       }
 
       setOverlayTargetEl(inlineEditorRef.current.firstElementChild);
@@ -127,6 +128,8 @@ const InlineEdit = ({
         className={`${prefix}-inline-editor-component${
           children.type.name === 'DateSelector'
             ? ` ${prefix}-inline-editor-component-dt-picker`
+            : children.type.name === 'TextInput'
+            ? ` ${prefix}-inline-editor-component-text-input`
             : ''
         }`}
       >
