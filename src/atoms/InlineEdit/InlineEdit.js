@@ -1,7 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
-import TextInput from '../TextInput';
 import { checkmark, inlineClose } from '../../util/icons';
 import Overlay from '../Overlay';
 import Spinner from '../Spinner';
@@ -10,28 +9,34 @@ import Button from '../Button';
 const InlineEdit = ({
   onClose,
   onTextUpdate,
-  formStatus,
   customIcon,
   errorMessage,
   loader,
+  children,
+  className,
   ...restProps
 }) => {
   const inlineEditorRef = useRef(null);
   const [displayActionPanel, setDisplayActionPanel] = useState(false);
   const [matchedValue, setMatchedValue] = useState(true);
+
+  const inlineEditValue = useRef(null);
+  const currentValue = useRef(null);
+
   const [overlayTargetEl, setOverlayTargetEl] = useState(null);
-  const stopPropagation = e => {
-    e.stopPropagation();
-  };
+
+  const classNames = [
+    `${prefix}-overlay-wrapper ${prefix}-inline-editor-wrapper`
+  ];
+  if (className) {
+    classNames.push(className);
+  }
 
   const updateTreenodeNameOnEnter = event => {
     event.stopPropagation();
     if (event.key === 'Enter') {
-      if (restProps.value !== event.currentTarget.value) {
-        setMatchedValue(false);
-        onTextUpdate(event.currentTarget.value);
-      } else {
-        setMatchedValue(true);
+      if (!isValueEqual()) {
+        onTextUpdate(inlineEditValue.current);
       }
 
       event.preventDefault();
@@ -42,72 +47,120 @@ const InlineEdit = ({
   };
 
   useEffect(() => {
-    inlineEditorRef.current.firstElementChild.focus();
-    inlineEditorRef.current.firstElementChild.select();
-    setOverlayTargetEl(inlineEditorRef.current.firstElementChild);
-    setDisplayActionPanel(true);
+    if (
+      inlineEditorRef &&
+      inlineEditorRef.current &&
+      inlineEditorRef.current.firstElementChild &&
+      inlineEditorRef.current.firstElementChild.firstElementChild
+    ) {
+      inlineEditorRef.current.firstElementChild.firstElementChild.focus();
+      if (inlineEditorRef.current.firstElementChild.firstElementChild.select) {
+        inlineEditorRef.current.firstElementChild.firstElementChild.select();
+      }
+
+      setOverlayTargetEl(inlineEditorRef.current.firstElementChild);
+      setDisplayActionPanel(true);
+    }
+
     return function cleanup() {};
   }, []);
 
-  let customElement = null;
-  customIcon
-    ? (customElement = React.Children.map(customIcon, child => {
-        if (child.props.children && child.props.children.length) {
-          return child.props.children.map((item, index) => {
-            return React.cloneElement(item, {
-              key: index,
-              className: `${prefix}-inline-btn${
-                item.props.className ? ' ' + item.props.className : ''
-              }`
-            });
-          });
-        } else {
-          return React.cloneElement(child, {
-            className: `${prefix}-inline-btn${
-              child.props.className ? ' ' + child.props.className : ''
-            }`
-          });
+  const getChildren = () => {
+    if (children.type.name === 'Dropdown') {
+      currentValue.current = children.props.selectedItem;
+      return cloneElement(children, {
+        onVisibleChange: status => {
+          setDisplayActionPanel(!status);
+        },
+        onChange: (value, values) => {
+          if (children.props.dropdownType === 'multi') {
+            inlineEditValue.current = values;
+            setMatchedValue(false);
+          } else {
+            inlineEditValue.current = value;
+            setMatchedValue(currentValue.current === value.id);
+          }
         }
-      }))
-    : null;
+      });
+    } else if (children.type.name === 'TextInput') {
+      currentValue.current = children.props.value;
+      return cloneElement(children, {
+        onChange: e => {
+          e.preventDefault();
+          inlineEditValue.current = e.currentTarget.value;
+          setMatchedValue(currentValue.current === e.currentTarget.value);
+        },
+        onKeyDown: updateTreenodeNameOnEnter
+      });
+    } else if (children.type.name === 'DateSelector') {
+      currentValue.current = children.props.defaultDate;
+      return cloneElement(children, {
+        onDateSelect: date => {
+          inlineEditValue.current = date;
+          setMatchedValue(currentValue.current === date);
+        },
+        onVisibleChange: status => {
+          setDisplayActionPanel(!status);
+        }
+      });
+    } else {
+      return children;
+    }
+  };
 
-  const classNames = [`${prefix}-overlay-wrapper ${prefix}-inline-overlay`];
+  const isValueEqual = () => {
+    return inlineEditValue.current === currentValue.current;
+  };
+
+  const onToggle = status => {
+    if (!status && !isValueEqual()) {
+      if (!inlineEditValue.current) {
+        onClose();
+      } else if (!isValueEqual()) {
+        onTextUpdate(inlineEditValue.current);
+      }
+    }
+  };
 
   return (
-    <div className={classNames.join(' ')} ref={inlineEditorRef}>
-      <TextInput
-        type="text"
-        {...restProps}
-        className={`${prefix}-inline-text`}
-        onKeyDown={updateTreenodeNameOnEnter}
-        data-invalid={formStatus}
-        onClick={stopPropagation}
-        onChange={event => {
-          restProps.value !== event.currentTarget.value
-            ? setMatchedValue(false)
-            : setMatchedValue(true);
-        }}
-      />
-      {loader && <Spinner className={`${prefix}-inline-loader`} small />}
+    <div className={classNames.join(' ')} ref={inlineEditorRef} {...restProps}>
+      <div
+        className={`${prefix}-inline-editor-component${
+          children.type.name === 'DateSelector'
+            ? ` ${prefix}-inline-editor-component-dt-picker`
+            : children.type.name === 'TextInput'
+            ? ` ${prefix}-inline-editor-component-text-input`
+            : ''
+        }`}
+      >
+        {getChildren()}
+        {loader && (
+          <Spinner className={`${prefix}-inline-editor-loader`} small />
+        )}
+      </div>
 
       <Overlay
         direction={'bottom-right'}
         showOverlay={displayActionPanel}
         targetElement={overlayTargetEl}
+        className={`${prefix}-inline-editor-overlay`}
         style={{
           width: overlayTargetEl ? overlayTargetEl.offsetWidth + 'px' : '0'
         }}
+        onToggle={onToggle}
       >
         <>
           {errorMessage ? (
-            <div className={`${prefix}-inline-error`}>{errorMessage}</div>
+            <div className={`${prefix}-inline-editor-error`}>
+              {errorMessage}
+            </div>
           ) : null}
-          <div className={`${prefix}-inline-wrapper`}>
-            <span className={`${prefix}-inline-panel`}>
-              {customElement}
+
+          <div className={`${prefix}-inline-editor-action-wrapper`}>
+            <span className={`${prefix}-inline-editor-action-panel`}>
+              {customIcon}
               <Button
                 type="neutral"
-                className={`${prefix}-inline-btn`}
                 disabled={loader ? true : false}
                 onClick={onClose}
                 aria-label="inline-close"
@@ -116,10 +169,9 @@ const InlineEdit = ({
               </Button>
               <Button
                 type="primary"
-                className={`${prefix}-inline-btn`}
                 disabled={errorMessage || matchedValue || loader ? true : false}
                 onClick={() => {
-                  onTextUpdate(inlineEditorRef.current.firstElementChild.value);
+                  onTextUpdate(inlineEditValue.current);
                 }}
                 aria-label="inline-check"
               >
@@ -138,23 +190,26 @@ InlineEdit.propTypes = {
   onClose: PropTypes.func,
   /** A callback function which will be executed once check or Enter button is clicked. */
   onTextUpdate: PropTypes.func,
-  /** To add a red border on input field upon displaying error message. */
-  formStatus: PropTypes.bool,
   /** Error message content which has to be displayed. */
   errorMessage: PropTypes.any,
   /** Used to pass custom button template */
   customIcon: PropTypes.element,
   /** loader is shown upon click */
-  loader: PropTypes.bool
+  loader: PropTypes.bool,
+  /** Class/clasess will be applied on the parent div of Select */
+  className: PropTypes.string,
+  /** Used to pass inline element. eg DateSelector, TextInput, Dropdown */
+  children: PropTypes.element
 };
 
 InlineEdit.defaultProps = {
   onClose: () => {},
   onTextUpdate: () => {},
-  formStatus: false,
   errorMessage: null,
   loader: false,
-  customIcon: null
+  customIcon: null,
+  children: null,
+  className: null
 };
 
 export default InlineEdit;
