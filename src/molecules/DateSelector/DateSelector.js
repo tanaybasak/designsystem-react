@@ -219,6 +219,7 @@ DateSelector.propTypes = {
   minDate: PropTypes.instanceOf(Date),
   /** Max date */
   maxDate: PropTypes.instanceOf(Date),
+  /** Callback on Calender toggle */
   onVisibleChange: PropTypes.func
 };
 

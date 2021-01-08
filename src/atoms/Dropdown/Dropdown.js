@@ -357,7 +357,7 @@ Dropdown.propTypes = {
 
   /** Disabled property for dropdown */
   disabled: PropTypes.bool,
-
+  /** Callback on dropdown toggle */
   onVisibleChange: PropTypes.func
 };
 
