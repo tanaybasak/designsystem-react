@@ -50,7 +50,7 @@ storiesOf('InlineEdit', module)
       info: {
         text: `Description About InlineEdit Component \n 
 
-    import { InlineEdit } from '@patron/patron-react/inlineEdit';
+    import { InlineEdit } from '@patron/patron-react/inlineedit';
     import { TextInput } from '@patron/patron-react/textinput';
       `
       }
@@ -77,7 +77,7 @@ storiesOf('InlineEdit', module)
       info: {
         text: `Description About InlineEdit Component \n 
 
-    import { InlineEdit } from '@patron/patron-react/inlineEdit';
+    import { InlineEdit } from '@patron/patron-react/inlineedit';
     import { Dropdown } from '@patron/patron-react/dropdown';
       `
       }
@@ -99,7 +99,7 @@ storiesOf('InlineEdit', module)
       info: {
         text: `Description About InlineEdit Component \n 
 
-    import { InlineEdit } from '@patron/patron-react/inlineEdit';
+    import { InlineEdit } from '@patron/patron-react/inlineedit';
     import { DateSelector } from '@patron/patron-react/dateselector';
       `
       }
@@ -135,7 +135,7 @@ storiesOf('InlineEdit', module)
       info: {
         text: `Description About InlineEdit Component \n 
 
-    import { InlineEdit } from '@patron/patron-react/inlineEdit';
+    import { InlineEdit } from '@patron/patron-react/inlineedit';
     import { Button } from '@patron/patron-react/button';
     import { TextInput } from '@patron/patron-react/textinput';
       `
