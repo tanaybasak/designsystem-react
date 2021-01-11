@@ -27,9 +27,12 @@
   "author": "hcl-uicoe",
   "license": "ISC",
   "dependencies": {
+    "prismjs": "^1.23.0",
+    "quill": "^1.3.7",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
-    "react-router-dom": "^5.0.0"
+    "react-router-dom": "^5.0.0",
+    "react-simple-code-editor": "^0.11.0"
   },
   "devDependencies": {
     "@babel/core": "^7.8.7",
