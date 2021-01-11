@@ -85,7 +85,7 @@ const CircleProgressBar = ({
                 cx="50"
                 cy="50"
                 r="20"
-                transform="rotate(-90deg)"
+                transform="rotate(-90)"
                 strokeDashoffset={offset}
                 strokeDasharray={circumferenceValue}
               />
