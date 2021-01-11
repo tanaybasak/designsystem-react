@@ -56,9 +56,9 @@ const CircleProgressBar = ({
           {labelPosition == 'left' || labelPosition == 'top' ? (
             <div className={`${prefix}-pb-label-content`}>
               <div
-                className={`${prefix}-pb-label-text ${prefix}-pb-circle-ellipsis ${
+                className={`${prefix}-pb-label-text ${
                   labelPosition == 'top' && size == 96 ? `ml-3` : ``
-                }`}
+                } ${prefix}-pb-circle-ellipsis`}
               >
                 {label}
               </div>
@@ -97,7 +97,7 @@ const CircleProgressBar = ({
           {labelPosition == 'right' || labelPosition == 'bottom' ? (
             <div className={`${prefix}-pb-label-content`}>
               <div
-                className={`${prefix}-pb-label-text ${
+                className={`${prefix}-pb-label-text ${prefix}-pb-circle-ellipsis ${
                   labelPosition == 'bottom' && size == 96 ? `ml-3` : ``
                 }`}
               >
