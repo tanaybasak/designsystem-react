@@ -169,7 +169,7 @@ const InlineEdit = ({
               </Button>
               <Button
                 type="primary"
-                disabled={errorMessage || matchedValue || loader ? true : false}
+                disabled={matchedValue || loader ? true : false}
                 onClick={() => {
                   onTextUpdate(inlineEditValue.current);
                 }}

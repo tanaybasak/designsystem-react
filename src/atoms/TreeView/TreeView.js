@@ -34,7 +34,8 @@ const initialState = {
   dragRules: null,
   overflowOnHover: false,
   type: 'default',
-  draggable: 'none'
+  draggable: 'none',
+  renameNodeId: null
 };
 
 const TreeView = ({
@@ -79,7 +80,8 @@ const TreeView = ({
 
   onDoubleClick,
   onKeyDown,
-  onClick
+  onClick,
+  renameNodeId
 }) => {
   const [state, dispatch] = useReducer(treeReducer, initialState);
 
@@ -146,6 +148,10 @@ const TreeView = ({
       dispatch({ type: 'SET_DRAGGABLE', data: draggable });
     }
   }, [draggable]);
+
+  useEffect(() => {
+    dispatch({ type: 'SET_RENAME_NODE_ID', data: renameNodeId });
+  }, [renameNodeId]);
 
   const classnames = `${prefix}-tree ${className.trim()}`;
   return (
@@ -472,7 +478,9 @@ TreeView.propTypes = {
   /** Callback function to add keydown function */
   onKeyDown: PropTypes.func,
   /** Callback function to add on click function */
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
+
+  renameNodeId: PropTypes.string
 };
 
 TreeView.defaultProps = {
@@ -514,7 +522,8 @@ TreeView.defaultProps = {
   onClick: null,
   isDropAllowed: null,
   getIcons: null,
-  isDraggable: null
+  isDraggable: null,
+  renameNodeId: null
 };
 
 export default TreeView;

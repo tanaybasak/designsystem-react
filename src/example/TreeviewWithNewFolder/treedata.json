@@ -1,0 +1,58 @@
+[
+    {
+      "name": "Main",
+      "type": "folder",
+      "id": "id-1",
+      "children": [
+        {
+          "name": "Folder 1",
+          "type": "folder",
+          "id": "id-2",
+          "children": []
+        },
+        {
+          "name": "File 2",
+          "type": "file",
+          "id": "id-3",
+          "children": []
+        },
+        {
+          "name": "File 3",
+          "type": "file",
+          "id": "id-4",
+          "children": []
+        },
+        {
+          "name": "File 4",
+          "type": "file",
+          "id": "id-5",
+          "children": []
+        }
+      ]
+    },
+    {
+      "name": "Folder 2",
+      "type": "folder",
+      "id": "id-6",
+      "children": [
+        {
+          "name": "Folder 2.1",
+          "type": "folder",
+          "id": "id-7",
+          "children": []
+        },
+        {
+          "name": "Folder 2.2",
+          "type": "folder",
+          "id": "id-10",
+          "children": []
+        }
+      ]
+    },
+    {
+      "name": "File 8",
+      "type": "file",
+      "id": "id-15",
+      "children": []
+    }
+  ]
