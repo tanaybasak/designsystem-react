@@ -19,20 +19,16 @@ const sizeOptions = {
   default: 'default'
 };
 
-const typeOptions = {
-  determinate: 'determinate',
-  interdeterminate: 'interdeterminate'
-};
-
 storiesOf('ProgressBar', module)
   .add(
-    'linear',
+    'linear-determinate',
     () => (
       <LinearProgressBar
         label={text('label', 'Downloading..')}
-        progress={number('value', 0.3)}
+        progress={number('value', 0.7)}
         subText={text('subText', 'Subtext')}
-        type={select('type', typeOptions, 'determinate')}
+        type={'determinate'}
+        customContent={<div>70%</div>}
       />
     ),
     {
@@ -43,16 +39,37 @@ storiesOf('ProgressBar', module)
     }
   )
   .add(
-    'circle',
+    'linear-indeterminate',
+    () => <LinearProgressBar type={'indeterminate'} />,
+    {
+      info: {
+        text: `Description About ProgressBar Component \n
+      import { LinearProgressBar } from '@patron/patron-react/progressbar'`
+      }
+    }
+  )
+  .add(
+    'circle-determinate',
     () => (
       <CircleProgressBar
         progress={number('value', 0.7)}
         label={text('label', 'Downloading..')}
         labelPosition={select('labelPosition', labelOptions, 'left')}
-        type={select('type', typeOptions, 'determinate')}
+        type={'determinate'}
         progressSize={select('progressSize', sizeOptions, 'default')}
+        customContent={<div>70%</div>}
       />
     ),
+    {
+      info: {
+        text: `Description About ProgressBar Component \n
+      import { CircleProgressBar } from '@patron/patron-react/progressbar'`
+      }
+    }
+  )
+  .add(
+    'circle-indeterminate',
+    () => <CircleProgressBar type={'indeterminate'} />,
     {
       info: {
         text: `Description About ProgressBar Component \n

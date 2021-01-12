@@ -10,8 +10,12 @@ const LinearProgressBar = ({
   type,
   customContent
 }) => {
-  const [finalVal, updateFinalValue] = useState(0);
-  const classnames = `${prefix}-pb-linear ${className}`.trim();
+  const [finalVal, updateFinalValue] = useState(100);
+  const classnames = [`${prefix}-pb-linear`];
+
+  if (className) {
+    classnames.push(className);
+  }
 
   useEffect(() => {
     progress = progress > 1 ? 1 : progress;
@@ -24,7 +28,11 @@ const LinearProgressBar = ({
       role="progressbar"
     >
       <div className={`${prefix}-pb-linear-label`}>
-        <span className={`${prefix}-pb-linear-label-content`}>{label}</span>
+        <span
+          className={`${prefix}-pb-linear-label-content ${prefix}-pb-linear-ellipsis`}
+        >
+          {label}
+        </span>
         <span className={`${prefix}-pb-linear-label-value`}>
           {customContent}
         </span>
@@ -50,7 +58,11 @@ const LinearProgressBar = ({
           strokeDashoffset={finalVal}
         />
       </svg>
-      <div className={`${prefix}-pb-linear-subtext mt-2`}>{subText}</div>
+      <div
+        className={`${prefix}-pb-linear-subtext ${prefix}-pb-linear-ellipsis mt-2`}
+      >
+        {subText}
+      </div>
     </div>
   ) : (
     <div className={`${prefix}-pb-linear-wrapper`} role="progressbar">
@@ -109,23 +121,23 @@ const LinearProgressBar = ({
 LinearProgressBar.propTypes = {
   /** value of the progressbar ranging from 0 to 1  */
   progress: PropTypes.number,
-  /** label of the progressbar */
-  label: PropTypes.string,
-  /** subtext for the progressbar */
-  subText: PropTypes.string,
+  /** label of the progressbar is placed in topleft of the progressbar */
+  label: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+  /** subtext for the progressbar is placed in bottomleft of the progressbar */
+  subText: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   /** type of the progressbar (eg : determinate / indeterminate) */
   type: PropTypes.oneOf(['determinate', 'indeterminate']),
-  /** customContent of the progressbar (html element) */
-  customContent: PropTypes.element,
+  /** customContent of the progressbar is placed in topright of the progressbar (html element) */
+  customContent: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   /** Class/clasess will be applied on the parent div of Progressbar */
   className: PropTypes.string
 };
 
 LinearProgressBar.defaultProps = {
   progress: 0,
-  label: 'Downloading...',
-  customContent: <div>70%</div>,
-  subText: 'Subtext',
+  label: null,
+  customContent: null,
+  subText: null,
   type: 'determinate',
   className: ''
 };
