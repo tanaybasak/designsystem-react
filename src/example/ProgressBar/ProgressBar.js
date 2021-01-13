@@ -9,7 +9,7 @@ class ProgressBarExample extends Component {
         <div className="hcl-col-12 mt-5 mb-5">
           <LinearProgressBar
             label="Downloading.."
-            progress="0.3"
+            progress={0.3}
             subText="subtext"
             type="determinate"
           />
