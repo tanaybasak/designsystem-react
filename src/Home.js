@@ -18,7 +18,8 @@ import DateRangeSelectorExample from './example/DateRangeSelectorExample';
 import DateSelectorExample from './example/DateSelectorExample';
 import InlineEditExample from './example/InlineEdit';
 import ProgressBarExample from './example/ProgressBar';
-
+import InPageNavigationExample from './example/InPageNavigationExample';
+import TreeviewWithNewFolder from './example/TreeviewWithNewFolder';
 class Home extends Component {
   state = {
     sidebarExpanded: false
@@ -78,8 +79,16 @@ class Home extends Component {
           title: 'Progress Bar'
         },
         {
+          href: '/in-pageNavigation',
+          title: 'InPageNavigation'
+        },
+        {
           href: '/checkbox',
           title: 'Checkbox + tooltip'
+        },
+        {
+          href: '/treeWithNewFolder',
+          title: 'TreeviewWithNewFolder'
         }
       ]
     }
@@ -161,6 +170,16 @@ class Home extends Component {
             />
             <Route exact path="/pagination" component={PaginationExample} />
             <Route exact path="/progressbar" component={ProgressBarExample} />
+            <Route
+              exact
+              path="/in-PageNavigation"
+              component={InPageNavigationExample}
+            />
+            <Route
+              exact
+              path="/treeWithNewFolder"
+              component={TreeviewWithNewFolder}
+            />
           </Switch>
         </div>
       </Router>
