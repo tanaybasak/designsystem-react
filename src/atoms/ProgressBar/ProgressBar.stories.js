@@ -69,7 +69,12 @@ storiesOf('ProgressBar', module)
   )
   .add(
     'circle-indeterminate',
-    () => <CircleProgressBar type={'indeterminate'} />,
+    () => (
+      <CircleProgressBar
+        type={'indeterminate'}
+        progressSize={select('progressSize', sizeOptions, 'default')}
+      />
+    ),
     {
       info: {
         text: `Description About ProgressBar Component \n

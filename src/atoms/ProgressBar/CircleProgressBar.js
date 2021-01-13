@@ -53,7 +53,7 @@ const CircleProgressBar = ({
               : ``
           } `}
         >
-          {labelPosition == 'left' || labelPosition == 'top' ? (
+          {label && (labelPosition == 'left' || labelPosition == 'top') ? (
             <div className={`${prefix}-pb-label-content`}>
               <div
                 className={`${prefix}-pb-label-text ${
@@ -89,11 +89,15 @@ const CircleProgressBar = ({
                 strokeDasharray={circumferenceValue}
               />
             </svg>
-            {size == 16 ? null : (
-              <div className={`${prefix}-pb-circle-text`}>{customContent}</div>
-            )}
+            {size == 16
+              ? null
+              : customContent && (
+                  <div className={`${prefix}-pb-circle-text`}>
+                    {customContent}
+                  </div>
+                )}
           </div>
-          {labelPosition == 'right' || labelPosition == 'bottom' ? (
+          {label && (labelPosition == 'right' || labelPosition == 'bottom') ? (
             <div className={`${prefix}-pb-label-content`}>
               <div
                 className={`${prefix}-pb-label-text ${prefix}-pb-circle-ellipsis ${
