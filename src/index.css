@@ -12,3 +12,10 @@
   top: 400px;
   right: 27px;
 }
+
+.hcl-form-item .hcl-file-uploader {
+  display: inline-block;
+}
+.hcl-form-item .hcl-file-uploader .hcl-file-input {
+  width: 100%;
+}

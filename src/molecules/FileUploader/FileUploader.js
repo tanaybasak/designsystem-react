@@ -15,6 +15,7 @@ export default function FileUploader({
   fileType,
   tabIndex,
   hideFile,
+  required,
   onChange,
   ...restProps
 }) {
@@ -83,6 +84,7 @@ export default function FileUploader({
           disabled={disabled}
           multiple={multiple}
           accept={fileType}
+          required={required}
         />
         <label
           htmlFor={id}
@@ -153,7 +155,9 @@ FileUploader.propTypes = {
   /** Call back function that is invoked when File Uploader is clicked */
   onChange: PropTypes.func,
   /** Boolean value to hide or show file names selected from File Uploader */
-  hideFile: PropTypes.bool
+  hideFile: PropTypes.bool,
+  /** Boolean value, if true, files must be present before submitting the form */
+  required: PropTypes.bool
 };
 
 FileUploader.defaultProps = {
@@ -168,5 +172,6 @@ FileUploader.defaultProps = {
   fileType: '',
   tabIndex: 0,
   hideFile: false,
+  required: false,
   onChange: () => {}
 };

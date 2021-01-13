@@ -1394,18 +1394,27 @@ class App extends Component {
               </section>
               {/* File Uploader Component */}
               <div className="hcl-col-12 mt-5" id="file-uploader-section">
-                <FileUploader
-                  id="file_uploader"
-                  label="Account photo"
-                  description="only .jpg and .png files. 500kb max file size."
-                  fileType=".jpg,.png"
-                  className="hcl-secondary hcl-sml"
-                  onChange={(FileList, e) => {
-                    console.log('FileList:  ', FileList, 'event', e);
+                <form
+                  onSubmit={e => {
+                    e.preventDefault();
+                    return false;
                   }}
                 >
-                  Add file
-                </FileUploader>
+                  <FileUploader
+                    id="file_uploader"
+                    label="Account photo"
+                    description="only .jpg and .png files. 500kb max file size."
+                    fileType=".jpg,.png"
+                    className="hcl-secondary hcl-sml"
+                    onChange={(FileList, e) => {
+                      console.log('FileList:  ', FileList, 'event', e);
+                    }}
+                    required
+                  >
+                    Add file
+                  </FileUploader>
+                  <button>Submit</button>
+                </form>
               </div>
               {/* Dropdown Component */}
               <div className="hcl-row m-3 hcl-col-12">
