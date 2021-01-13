@@ -27,16 +27,18 @@ const LinearProgressBar = ({
       aria-valuenow={finalVal}
       role="progressbar"
     >
-      <div className={`${prefix}-pb-linear-label`}>
-        <span
-          className={`${prefix}-pb-linear-label-content ${prefix}-pb-linear-ellipsis`}
-        >
-          {label}
-        </span>
-        <span className={`${prefix}-pb-linear-label-value`}>
-          {customContent}
-        </span>
-      </div>
+      {(label || customContent) && (
+        <div className={`${prefix}-pb-linear-label`}>
+          <span
+            className={`${prefix}-pb-linear-label-content ${prefix}-pb-linear-ellipsis`}
+          >
+            {label}
+          </span>
+          <span className={`${prefix}-pb-linear-label-value`}>
+            {customContent}
+          </span>
+        </div>
+      )}
       <svg
         className={`${classnames} ${prefix}-pb-linear-determinate`}
         preserveAspectRatio="none"
@@ -58,11 +60,13 @@ const LinearProgressBar = ({
           strokeDashoffset={finalVal}
         />
       </svg>
-      <div
-        className={`${prefix}-pb-linear-subtext ${prefix}-pb-linear-ellipsis mt-2`}
-      >
-        {subText}
-      </div>
+      {subText && (
+        <div
+          className={`${prefix}-pb-linear-subtext ${prefix}-pb-linear-ellipsis mt-2`}
+        >
+          {subText}
+        </div>
+      )}
     </div>
   ) : (
     <div className={`${prefix}-pb-linear-wrapper`} role="progressbar">
