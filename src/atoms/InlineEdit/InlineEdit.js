@@ -5,6 +5,7 @@ import { checkmark, inlineClose } from '../../util/icons';
 import Overlay from '../Overlay';
 import Spinner from '../Spinner';
 import Button from '../Button';
+import { isDateEqual } from '../../util/utility';
 
 const InlineEdit = ({
   onClose,
@@ -32,15 +33,21 @@ const InlineEdit = ({
     classNames.push(className);
   }
 
+  const isCustomComponent =
+    ['Dropdown', 'TextInput', 'DateSelector'].indexOf(children.type.name) ===
+    -1;
+
   const updateTreenodeNameOnEnter = event => {
     event.stopPropagation();
     if (event.key === 'Enter') {
       if (!isValueEqual()) {
+        setDisplayActionPanel(false);
         onTextUpdate(inlineEditValue.current);
       }
 
       event.preventDefault();
     } else if (event.key === 'Escape') {
+      setDisplayActionPanel(false);
       onClose();
       event.preventDefault();
     }
@@ -57,13 +64,18 @@ const InlineEdit = ({
       if (inlineEditorRef.current.firstElementChild.firstElementChild.select) {
         inlineEditorRef.current.firstElementChild.firstElementChild.select();
       }
-
       setOverlayTargetEl(inlineEditorRef.current.firstElementChild);
       setDisplayActionPanel(true);
     }
 
     return function cleanup() {};
   }, []);
+
+  useEffect(() => {
+    if (errorMessage) {
+      setDisplayActionPanel(true);
+    }
+  }, [errorMessage]);
 
   const getChildren = () => {
     if (children.type.name === 'Dropdown') {
@@ -89,6 +101,7 @@ const InlineEdit = ({
           e.preventDefault();
           inlineEditValue.current = e.currentTarget.value;
           setMatchedValue(currentValue.current === e.currentTarget.value);
+          //setErrorMsg(false);
         },
         onKeyDown: updateTreenodeNameOnEnter
       });
@@ -97,7 +110,9 @@ const InlineEdit = ({
       return cloneElement(children, {
         onDateSelect: date => {
           inlineEditValue.current = date;
-          setMatchedValue(currentValue.current === date);
+          setMatchedValue(
+            isDateEqual(currentValue.current, inlineEditValue.current)
+          );
         },
         onVisibleChange: status => {
           setDisplayActionPanel(!status);
@@ -109,15 +124,28 @@ const InlineEdit = ({
   };
 
   const isValueEqual = () => {
-    return inlineEditValue.current === currentValue.current;
+    if (inlineEditValue.current) {
+      if (children.type.name === 'TextInput') {
+        return inlineEditValue.current === currentValue.current;
+      } else {
+        return matchedValue;
+      }
+    } else {
+      return true;
+    }
   };
 
   const onToggle = status => {
-    if (!status && !isValueEqual()) {
-      if (!inlineEditValue.current) {
+    if (!status) {
+      setDisplayActionPanel(status);
+      if (!isCustomComponent) {
+        if (isValueEqual()) {
+          onClose();
+        } else {
+          onTextUpdate(inlineEditValue.current);
+        }
+      } else {
         onClose();
-      } else if (!isValueEqual()) {
-        onTextUpdate(inlineEditValue.current);
       }
     }
   };
@@ -159,24 +187,32 @@ const InlineEdit = ({
           <div className={`${prefix}-inline-editor-action-wrapper`}>
             <span className={`${prefix}-inline-editor-action-panel`}>
               {customIcon}
-              <Button
-                type="neutral"
-                disabled={loader ? true : false}
-                onClick={onClose}
-                aria-label="inline-close"
-              >
-                {inlineClose}
-              </Button>
-              <Button
-                type="primary"
-                disabled={matchedValue || loader ? true : false}
-                onClick={() => {
-                  onTextUpdate(inlineEditValue.current);
-                }}
-                aria-label="inline-check"
-              >
-                {checkmark}
-              </Button>
+              {!isCustomComponent ? (
+                <>
+                  <Button
+                    type="neutral"
+                    disabled={loader ? true : false}
+                    onClick={() => {
+                      setDisplayActionPanel(false);
+                      onClose();
+                    }}
+                    aria-label="inline-close"
+                  >
+                    {inlineClose}
+                  </Button>
+                  <Button
+                    type="primary"
+                    disabled={matchedValue || loader ? true : false}
+                    onClick={() => {
+                      setDisplayActionPanel(false);
+                      onTextUpdate(inlineEditValue.current);
+                    }}
+                    aria-label="inline-check"
+                  >
+                    {checkmark}
+                  </Button>
+                </>
+              ) : null}
             </span>
           </div>
         </>

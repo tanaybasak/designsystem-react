@@ -7,6 +7,9 @@ import Dropdown from '../../atoms/Dropdown';
 import DateSelector from '../../molecules/DateSelector';
 import './inlineEdit.css';
 import Tag from '../../atoms/Tag/Tag';
+
+import { Select, SelectItem } from '../../atoms/Select';
+import Button from '../../atoms/Button';
 class InlineEditExample extends Component {
   state = {
     editingFormType: null,
@@ -18,7 +21,8 @@ class InlineEditExample extends Component {
         { id: 'angular', text: 'Angular' },
         { id: 'vanilla', text: 'Vanilla' }
       ],
-      expectedDate: new Date()
+      expectedDate: new Date(),
+      country: { id: 'india', text: 'INDIA' }
     },
     types: [
       { id: 'epic', text: 'Epic' },
@@ -32,8 +36,15 @@ class InlineEditExample extends Component {
       { id: 'vuejs', text: 'Vue JS' },
       { id: 'vanilla', text: 'Vanilla' }
     ],
+    countries: [
+      { id: 'us', text: 'US' },
+      { id: 'india', text: 'INDIA' },
+      { id: 'uae', text: 'UAE' },
+      { id: 'japan', text: 'JAPAN' }
+    ],
     errorMessage: null,
-    titleFormStatus: false
+    titleFormStatus: false,
+    temporaryValue: {}
   };
 
   inlineEditButton = type => {
@@ -42,7 +53,16 @@ class InlineEditExample extends Component {
         type="button"
         aria-label="inline-close"
         className="inline-edit-button"
-        onClick={() => this.setState({ editingFormType: type })}
+        onClick={() => {
+          if (type === 'country') {
+            this.setState({
+              editingFormType: type,
+              temporaryValue: this.state.formValue.country
+            });
+          } else {
+            this.setState({ editingFormType: type });
+          }
+        }}
       >
         {edit}
       </button>
@@ -52,7 +72,7 @@ class InlineEditExample extends Component {
   /** Title Inline Editor Section */
 
   updateTitleText = newTitle => {
-    this.setState({ showBusyLoader: true });
+    this.setState({ showBusyLoader: true, errorMessage: null });
     if (newTitle.length > 3) {
       setTimeout(() => {
         const tempFormValues = { ...this.state.formValue };
@@ -69,7 +89,7 @@ class InlineEditExample extends Component {
       setTimeout(() => {
         this.setState({
           titleFormStatus: true,
-          errorMessage: 'Please enter more than 3 character',
+          errorMessage: `Please enter more than 3 character`,
           showBusyLoader: false
         });
       }, 2000);
@@ -259,6 +279,79 @@ class InlineEditExample extends Component {
                       {this.state.formValue.expectedDate.toLocaleString()}
                     </label>
                     {this.inlineEditButton('expectedDate')}
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+          <div className="hcl-form-group">
+            <div className="hcl-row">
+              <div className="hcl-col-3">
+                <label>Country</label>
+              </div>
+              <div className="hcl-col-9">
+                {this.state.editingFormType === 'country' ? (
+                  <InlineEdit
+                    loader={this.state.showBusyLoader}
+                    errorMessage={this.state.errorMessage}
+                    onTextUpdate={() => {
+                      console.log('UPDAZTE');
+                    }}
+                    customIcon={
+                      <>
+                        <Button type="neutral" onClick={this.reset}>
+                          N
+                        </Button>
+                        <Button
+                          type="neutral"
+                          onClick={() => {
+                            this.setState({ showBusyLoader: true });
+                            setTimeout(() => {
+                              const tempFormValues = {
+                                ...this.state.formValue
+                              };
+                              tempFormValues[
+                                'country'
+                              ] = this.state.temporaryValue;
+                              this.setState({
+                                editingFormType: null,
+                                formValue: tempFormValues,
+                                titleFormStatus: false,
+                                errorMessage: null,
+                                showBusyLoader: false
+                              });
+                            }, 2000);
+                          }}
+                        >
+                          Y
+                        </Button>
+                      </>
+                    }
+                    onClose={this.reset}
+                  >
+                    <Select
+                      onChange={val => {
+                        this.setState({
+                          temporaryValue: { id: val.value, text: val.text }
+                        });
+                      }}
+                      value={this.state.temporaryValue.id}
+                    >
+                      {this.state.countries.map((country, index) => {
+                        return (
+                          <SelectItem
+                            text={country.text}
+                            value={country.id}
+                            key={`country-${index}`}
+                          />
+                        );
+                      })}
+                    </Select>
+                  </InlineEdit>
+                ) : (
+                  <div className="hcl-inline-wrapper">
+                    <label>{this.state.formValue.country.text}</label>
+                    {this.inlineEditButton('country')}
                   </div>
                 )}
               </div>
