@@ -110,7 +110,7 @@ const CircleProgressBar = ({
           ) : null}
         </div>
       ) : (
-        <div className={classnames} role="progressbar">
+        <div className={classnames.join(` `)} role="progressbar">
           <svg
             className={`${prefix}-pb-circle-indeterminate`}
             viewBox="25 25 50 50"
