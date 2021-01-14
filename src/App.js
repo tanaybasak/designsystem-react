@@ -892,12 +892,24 @@ class App extends Component {
                     onClose={this.onModalClose}
                     actions={this.modalActions1}
                   >
-                    <Paragraph>
-                      Danger Modal with save and close buttons
-                    </Paragraph>
-                    <Tooltip content="Filter" direction="right" type="icon">
-                      {tooltipIcon}
-                    </Tooltip>
+                    <>
+                      <Paragraph>
+                        Danger Modal with save and close buttons
+                      </Paragraph>
+                      <Tooltip content="Filter" direction="right" type="icon">
+                        {tooltipIcon}
+                      </Tooltip>
+                      <Dropdown
+                        type="top"
+                        items={this.items}
+                        label="Top DropDown"
+                        selectedItem="option-3"
+                        attachElementToBody
+                        onChange={selected => {
+                          console.log('selected item', selected);
+                        }}
+                      />
+                    </>
                   </Modal>
                 )}
                 {this.state.modal === 2 && (

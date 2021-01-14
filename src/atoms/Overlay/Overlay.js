@@ -149,6 +149,7 @@ const Overlay = ({
 
   const keyDownListner = e => {
     if (closeOnEscape && e.keyCode === 27) {
+      e.stopPropagation();
       hideOverlayContainer('escape');
     } else if (e.keyCode === 9) {
       const focusableEls = overlayContainerRef.current.querySelectorAll(
