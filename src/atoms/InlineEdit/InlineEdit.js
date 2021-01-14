@@ -84,6 +84,7 @@ const InlineEdit = ({
         onVisibleChange: status => {
           setDisplayActionPanel(!status);
         },
+        disabled: loader,
         onChange: (value, values) => {
           if (children.props.dropdownType === 'multi') {
             inlineEditValue.current = values;
@@ -103,6 +104,7 @@ const InlineEdit = ({
           setMatchedValue(currentValue.current === e.currentTarget.value);
           //setErrorMsg(false);
         },
+        disabled: loader,
         onKeyDown: updateTreenodeNameOnEnter
       });
     } else if (children.type.name === 'DateSelector') {
@@ -114,6 +116,7 @@ const InlineEdit = ({
             isDateEqual(currentValue.current, inlineEditValue.current)
           );
         },
+        disabled: loader,
         onVisibleChange: status => {
           setDisplayActionPanel(!status);
         }
@@ -150,17 +153,24 @@ const InlineEdit = ({
     }
   };
 
+  const inlineEditorWrapperClassname = [`${prefix}-inline-editor-component`];
+  if (children.type.name === 'DateSelector') {
+    inlineEditorWrapperClassname.push(
+      `${prefix}-inline-editor-component-dt-picker`
+    );
+  }
+  if (children.type.name === 'TextInput') {
+    inlineEditorWrapperClassname.push(
+      `${prefix}-inline-editor-component-text-input`
+    );
+  }
+  if (loader) {
+    inlineEditorWrapperClassname.push(`${prefix}-inline-editor-loader-active`);
+  }
+
   return (
     <div className={classNames.join(' ')} ref={inlineEditorRef} {...restProps}>
-      <div
-        className={`${prefix}-inline-editor-component${
-          children.type.name === 'DateSelector'
-            ? ` ${prefix}-inline-editor-component-dt-picker`
-            : children.type.name === 'TextInput'
-            ? ` ${prefix}-inline-editor-component-text-input`
-            : ''
-        }`}
-      >
+      <div className={inlineEditorWrapperClassname.join(' ')}>
         {getChildren()}
         {loader && (
           <Spinner className={`${prefix}-inline-editor-loader`} small />
