@@ -12,6 +12,9 @@ const Pagination = ({
   onPageChange,
   onItemsPerPageChange,
   currentPage,
+  itemsPerPageInfoText,
+  pageNumberInfoText,
+  pagePrepositionText,
   noItemDisplayText,
   itemsPerPageToSelect
 }) => {
@@ -158,9 +161,9 @@ const Pagination = ({
           <span className={`${prefix}-page-start`}>
             {totalItems ? currentPageSelected : totalPage}
           </span>
-          of
+          {pagePrepositionText}
           <span className={`${prefix}-page-end`}>{totalPage}</span>
-          pages
+          {pageNumberInfoText}
         </span>
       </>
     );
@@ -256,11 +259,11 @@ const Pagination = ({
                     : currentPageSelected * currentItemsPerPageSelected}
                 </span>
               </span>
-              of
+              {pagePrepositionText}
               <span className={`${prefix}-pagination-totalitems`}>
                 {totalItems}
               </span>
-              items
+              {itemsPerPageInfoText}
             </>
           ) : (
             noItemDisplayText
@@ -338,6 +341,12 @@ Pagination.propTypes = {
   itemsStepperLimit: PropTypes.number,
   /** Text to display to the left of the No. of items Dropdown */
   itemsPerPageText: PropTypes.string,
+  /** Text to display to the itemsPerPageInfo */
+  itemsPerPageInfoText: PropTypes.string,
+  /** Text to display to the page Preposition */
+  pagePrepositionText: PropTypes.string,
+  /** Text to display to the page Number Info */
+  pageNumberInfoText: PropTypes.string,
   /** Text to display when totalItem is zero */
   noItemDisplayText: PropTypes.string,
   /** Accepts Event handler as argument/prop which is triggered after Items Per Page Dropdown is changed. */
@@ -361,6 +370,9 @@ Pagination.defaultProps = {
   itemsPerPageStepper: 20,
   itemsStepperLimit: 100,
   itemsPerPageText: 'Items per Page:',
+  itemsPerPageInfoText: 'items',
+  pagePrepositionText: 'of',
+  pageNumberInfoText: 'pages',
   noItemDisplayText: 'No items to display',
   itemsPerPageToSelect: null,
   onItemsPerPageChange: () => {},
