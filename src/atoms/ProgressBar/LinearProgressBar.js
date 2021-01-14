@@ -40,7 +40,7 @@ const LinearProgressBar = ({
         </div>
       )}
       <svg
-        className={`${classnames} ${prefix}-pb-linear-determinate`}
+        className={`${classnames.join(` `)} ${prefix}-pb-linear-determinate`}
         preserveAspectRatio="none"
         viewBox="0 0 100 4"
       >
@@ -71,7 +71,7 @@ const LinearProgressBar = ({
   ) : (
     <div className={`${prefix}-pb-linear-wrapper`} role="progressbar">
       <svg
-        className={`${classnames} ${prefix}-pb-linear-indeterminate`}
+        className={`${classnames.join(` `)} ${prefix}-pb-linear-indeterminate`}
         preserveAspectRatio="none"
         viewBox="0 0 125 4"
       >
