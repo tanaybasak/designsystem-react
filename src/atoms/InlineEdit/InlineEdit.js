@@ -102,7 +102,6 @@ const InlineEdit = ({
           e.preventDefault();
           inlineEditValue.current = e.currentTarget.value;
           setMatchedValue(currentValue.current === e.currentTarget.value);
-          //setErrorMsg(false);
         },
         disabled: loader,
         onKeyDown: updateTreenodeNameOnEnter
