@@ -652,9 +652,13 @@ class App extends Component {
                   id="small-navigator"
                   className="custom-breadcrumb-top"
                   activeIndex={2}
-                  onSelection={(item, idx, e) => console.log(item, idx, e)}
+                  onSelection={(item, idx) => console.log(item, idx)}
                 >
-                  <BreadcrumbItem itemClass="custom-item" href="#">
+                  <BreadcrumbItem
+                    itemClass="custom-item"
+                    href="#"
+                    onClick={e => console.log('hello', e)}
+                  >
                     Breadcrumb 1
                   </BreadcrumbItem>
                   <BreadcrumbItem href="#">Breadcrumb 2</BreadcrumbItem>
