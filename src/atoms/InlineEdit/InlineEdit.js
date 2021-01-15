@@ -41,7 +41,6 @@ const InlineEdit = ({
     event.stopPropagation();
     if (event.key === 'Enter') {
       if (!isValueEqual()) {
-        setDisplayActionPanel(false);
         onTextUpdate(inlineEditValue.current);
       }
 
@@ -139,14 +138,15 @@ const InlineEdit = ({
 
   const onToggle = status => {
     if (!status) {
-      setDisplayActionPanel(status);
       if (!isCustomComponent) {
         if (isValueEqual()) {
+          setDisplayActionPanel(status);
           onClose();
         } else {
           onTextUpdate(inlineEditValue.current);
         }
       } else {
+        setDisplayActionPanel(status);
         onClose();
       }
     }
@@ -213,7 +213,6 @@ const InlineEdit = ({
                     type="primary"
                     disabled={matchedValue || loader ? true : false}
                     onClick={() => {
-                      setDisplayActionPanel(false);
                       onTextUpdate(inlineEditValue.current);
                     }}
                     aria-label="inline-check"

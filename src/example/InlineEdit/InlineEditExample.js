@@ -72,7 +72,7 @@ class InlineEditExample extends Component {
   /** Title Inline Editor Section */
 
   updateTitleText = newTitle => {
-    this.setState({ showBusyLoader: true, errorMessage: null });
+    this.setState({ showBusyLoader: true });
     if (newTitle.length > 3) {
       setTimeout(() => {
         const tempFormValues = { ...this.state.formValue };
