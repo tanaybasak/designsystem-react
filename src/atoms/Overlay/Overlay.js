@@ -55,6 +55,13 @@ const Overlay = ({
     scrollEnd(targetElement);
   };
 
+  const clearEvents = () => {
+    removeListeners('overlayElementId-' + overlayElementId, 'click');
+    if (scrollListner) {
+      removeListeners('overlayElementId-' + overlayElementId, 'scroll');
+    }
+  };
+
   useEffect(() => {
     if (showOverlay) {
       if (overlayContainerRef && overlayContainerRef.current) {
@@ -65,6 +72,7 @@ const Overlay = ({
     } else {
       hideOverlayContainer('stateChange');
     }
+    return clearEvents;
   }, [showOverlay, targetElement]);
 
   const showOverlayContainer = () => {
@@ -101,9 +109,8 @@ const Overlay = ({
   };
 
   const hideOverlayContainer = type => {
-    removeListeners('overlayElementId-' + overlayElementId, 'click');
-    if (scrollListner) {
-      removeListeners('overlayElementId-' + overlayElementId, 'scroll');
+    if (type === 'stateChange') {
+      clearEvents();
     }
     if (onToggle && type !== 'stateChange') {
       onToggle(false, type);
