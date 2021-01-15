@@ -20,16 +20,12 @@ function BreadcrumbItem({
   }
 
   return (
-    <li className={breadcrumbStyle.join(' ')} onClick={onClick} {...restProps}>
+    <li className={breadcrumbStyle.join(' ')} {...restProps}>
       <Link
         href={href ? href : null}
         className={`${prefix}-link`}
         tabIndex="0"
-        onKeyDown={event => {
-          if (event.keyCode === 13) {
-            onClick(event);
-          }
-        }}
+        onClick={onClick}
       >
         {children}
       </Link>
