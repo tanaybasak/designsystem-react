@@ -145,7 +145,7 @@ const InlineEdit = ({
     }
   };
 
-  const onToggle = (status, u) => {
+  const onToggle = status => {
     if (!status) {
       if (!isCustomComponent) {
         if (isValueEqual()) {
