@@ -41,7 +41,7 @@ import Footer from './molecules/Footer';
 import { ActionBar, ActionSummary, ActionList } from './molecules/ActionBar';
 import { ToolBar, ToolBarActions } from './molecules/ToolBar';
 import Password from './atoms/Password';
-import CodeSnippet from './molecules/CodeSnippet'
+import CodeSnippet from './molecules/CodeSnippet';
 //import Overlay from './atoms/Overlay';
 // import CodeSnippet from './atoms/CodeSnippet';
 
@@ -330,13 +330,49 @@ class App extends Component {
       </div>
     );
 
+   const code =    `function add(a, b) {
+    return a + b;
+}
+function add(a, b) {
+return a + b;
+}
+function add(a, b) {
+return a + b;
+}
+function add(a, b) {
+return a + b;
+}
+}
+function add(a, b) {
+return a + b;
+}
+function add(a, b) {
+return a + b;
+}
+function add(a, b) {
+return a + b;
+}
+}
+function add(a, b) {
+return a + b;
+}
+function add(a, b) {  
+return a + b;
+}
+function add(a, b) {
+return a + b;
+last loiine
+}
+  `
+
     return (
       <>
         <main className="hcl-content-main">
           <section className="hcl-container pt-5 mb-5">
             <div className="hcl-row m-0">
+              <CodeSnippet type="edit" value={code}/>
 
-              <CodeSnippet/>
+              <CodeSnippet type="read" value={code}/>
               {/* Input Field */}
 
               <div className="hcl-form-group hcl-col-12" id="form-section">

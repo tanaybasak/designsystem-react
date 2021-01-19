@@ -1,105 +1,9 @@
+.hcl-codesnippet{
+  font-family: 'Roboto Mono';
+  box-shadow: inset 2px 2px 5px 2px rgba(0, 0, 0, 0.2);
+  overflow: auto;
 
-/* App */
-.container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  width: 100%;
-}
-
-.container__content {
-  width: 440px;
-  max-width: 100%;
-  padding: 10px;
-  text-align: center;
-}
-
-
-
-.container__editor textarea {
-  outline: 0;
-}
-
-.button {
-  display: inline-block;
-  padding: 0 6px;
-  text-decoration: none;
-  background: #000;
-  color: #fff;
-}
-
-.button:hover {
-  background: linear-gradient(45deg, #E42B66, #E2433F);
-}
-
-/* Syntax highlighting */
-.token.comment,
-.token.prolog,
-.token.doctype,
-.token.cdata {
-  color: #90a4ae;
-}
-.token.punctuation {
-  color: #9e9e9e;
-}
-.namespace {
-  opacity: 0.7;
-}
-.token.property,
-.token.tag,
-.token.boolean,
-.token.number,
-.token.constant,
-.token.symbol,
-.token.deleted {
-  color: #e91e63;
-}
-.token.selector,
-.token.attr-name,
-.token.string,
-.token.char,
-.token.builtin,
-.token.inserted {
-  color: #4caf50;
-}
-.token.operator,
-.token.entity,
-.token.url,
-.language-css .token.string,
-.style .token.string {
-  color: #795548;
-}
-.token.atrule,
-.token.attr-value,
-.token.keyword {
-  color: #3f51b5;
-}
-.token.function {
-  color: #f44336;
-}
-.token.regex,
-.token.important,
-.token.variable {
-  color: #ff9800;
-}
-.token.important,
-.token.bold {
-  font-weight: bold;
-}
-.token.italic {
-  font-style: italic;
-}
-.token.entity {
-  cursor: help;
-}
-
-
-.container__editor {
-  font-size: 12px;
-  font-variant-ligatures: common-ligatures;
-  background-color: #fafafa;
-  border-radius: 3px;
+  
 }
 
 .container_editor_line_number{
@@ -107,25 +11,33 @@
 }
 
 .container_editor_line_number:before {
-  position: absolute;
-  right: 100%;
-  margin-right: 10px;
-  text-align: right;
-  opacity: .3;
-  user-select: none;
-
   content: counter(line-counter);
-}
+  /* padding: 0 1rem; */
+  opacity: 0.5;
+  width: 2rem;
+  text-align: right;
+  margin-left: auto;
+  /* padding-left: unset; */
+  display: inline-block;
+  padding-right: 1rem;
 
-.container_editor_area {
-  tab-size: 4ch;
-  max-height: 400px;
-  overflow: auto;
-  margin: 1.67em 0;
-  padding-left: 3em;
 }
 
 pre{
-  margin-left: 3rem !important;
   counter-reset: line-counter;
+}
+
+.npm__react-simple-code-editor__textarea{
+  padding-left: 2.5em !important;
+  &:focus{
+    outline: none !important;
+  }
+}
+
+.no-cursor{
+  color: transparent !important;
+}
+
+.textarea{
+
 }

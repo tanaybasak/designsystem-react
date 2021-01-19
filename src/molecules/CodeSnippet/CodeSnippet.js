@@ -8,40 +8,45 @@ import 'prismjs/components/prism-clike';
 import 'prismjs/components/prism-javascript';
 import 'prismjs/themes/prism.css';
 
-import '../CodeSnippet/CodeSnippet.scss'
+import './CodeSnippet.scss';
 
-export default function CodeSnippet({ ...restProps }) {
-  // const code = `function add(a, b) {
-  //   return a + b;
-  // }
-  // `;
-
-  const [code, setCode] = useState(
-    `function add(a, b) {
-      return a + b;
-}
-    `
-  );
+export default function CodeSnippet({
+  type,
+  width,
+  height,
+  onEdit,
+  onCopy,
+  value,
+  ...restProps
+}) {
+  const [code, setCode] = useState(value);
 
   return (
-    <Editor
-      value={code}
-      onValueChange={code => setCode(code)}
-      // highlight={code => highlight(code, languages.js)}
-      highlight={code =>
-        highlight(code, languages.js)
-          .split('\n')
-          .map(
-            line => `<span class="container_editor_line_number">${line}</span>`
-          )
-          .join('\n')
-      }
-      padding={10}
-      // style={{
-      //   fontFamily: '"Fira code", "Fira Mono", monospace',
-      //   fontSize: 12
-      // }}
-    />
+    <div
+      className="hcl-codesnippet"
+
+      style={{
+        height: '30rem',
+        width: '30rem',
+      }}
+    >
+      <Editor
+        value={code}
+        onValueChange={type === 'edit' ? code => setCode(code) : null}
+        highlight={code =>
+          highlight(code, languages.js)
+            .split('\n')
+            .map(
+              line =>
+                `<span class="container_editor_line_number">${line}</span>`
+            )
+            .join('\n')
+        }
+        padding={10}
+        textareaClassName={`textarea ${type === 'read' ? 'no-cursor' : null}` }
+        preClassName="preClassName"
+      />
+    </div>
   );
 }
 
