@@ -52,6 +52,25 @@ const InlineEdit = ({
     }
   };
 
+  const closeOnEscape = () => {
+    event.stopPropagation();
+    if (event.key === 'Escape') {
+      setDisplayActionPanel(false);
+      onClose();
+      event.preventDefault();
+    }
+  };
+
+  const closeOnFocusOut = () => {
+    setTimeout(() => {
+      if (
+        !inlineEditorRef.current.parentElement.contains(document.activeElement)
+      ) {
+        closeOverlay();
+      }
+    });
+  };
+
   useEffect(() => {
     if (
       inlineEditorRef &&
@@ -92,6 +111,8 @@ const InlineEdit = ({
         onVisibleChange: status => {
           setDisplayActionPanel(!status);
         },
+        onKeyDown: closeOnEscape,
+        onBlur: closeOnFocusOut,
         disabled: loader,
         onChange: (value, values) => {
           if (children.props.dropdownType === 'multi') {
@@ -111,6 +132,7 @@ const InlineEdit = ({
           inlineEditValue.current = e.currentTarget.value;
           setMatchedValue(currentValue.current === e.currentTarget.value);
         },
+        onBlur: closeOnFocusOut,
         disabled: loader,
         onKeyDown: updateTreenodeNameOnEnter
       });
@@ -123,6 +145,8 @@ const InlineEdit = ({
             isDateEqual(currentValue.current, inlineEditValue.current)
           );
         },
+        onBlur: closeOnFocusOut,
+        onKeyDown: closeOnEscape,
         disabled: loader,
         onVisibleChange: status => {
           setDisplayActionPanel(!status);
@@ -193,16 +217,7 @@ const InlineEdit = ({
   }
 
   return (
-    <div
-      className={classNames.join(' ')}
-      {...restProps}
-      onKeyUp={e => {
-        console.log(e.keyCode, e.shiftKey);
-        if (e.keyCode === 16 && e.shiftKey) {
-          console.log(e.keyCode);
-        }
-      }}
-    >
+    <div className={classNames.join(' ')} {...restProps}>
       <div
         className={inlineEditorWrapperClassname.join(' ')}
         ref={inlineEditorRef}
