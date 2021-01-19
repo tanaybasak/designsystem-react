@@ -145,19 +145,35 @@ const InlineEdit = ({
     }
   };
 
-  const onToggle = status => {
+  const onToggle = (status, type, direction) => {
     if (!status) {
-      if (!isCustomComponent) {
-        if (isValueEqual()) {
-          setDisplayActionPanel(status);
-          onClose();
-        } else {
-          onTextUpdate(inlineEditValue.current);
+      if (type === 'focusout' && direction === 'backward') {
+        const focusableEls = inlineEditorRef.current.parentElement.querySelectorAll(
+          'a[href]:not([disabled]), button:not([disabled]), textarea:not([disabled]), input[type="text"]:not([disabled]), input[type="radio"]:not([disabled]), input[type="checkbox"]:not([disabled]), select:not([disabled]), [tabindex]'
+        );
+
+        for (let i = 0; i < focusableEls.length; i++) {
+          if (focusableEls[i] === document.activeElement) {
+            focusableEls[i - 1].focus();
+          }
         }
       } else {
+        closeOverlay(status);
+      }
+    }
+  };
+
+  const closeOverlay = status => {
+    if (!isCustomComponent) {
+      if (isValueEqual()) {
         setDisplayActionPanel(status);
         onClose();
+      } else {
+        onTextUpdate(inlineEditValue.current);
       }
+    } else {
+      setDisplayActionPanel(status);
+      onClose();
     }
   };
 
@@ -177,7 +193,16 @@ const InlineEdit = ({
   }
 
   return (
-    <div className={classNames.join(' ')} {...restProps}>
+    <div
+      className={classNames.join(' ')}
+      {...restProps}
+      onKeyUp={e => {
+        console.log(e.keyCode, e.shiftKey);
+        if (e.keyCode === 16 && e.shiftKey) {
+          console.log(e.keyCode);
+        }
+      }}
+    >
       <div
         className={inlineEditorWrapperClassname.join(' ')}
         ref={inlineEditorRef}
