@@ -47,26 +47,42 @@ class InlineEditExample extends Component {
     temporaryValue: {}
   };
 
-  inlineEditButton = type => {
+  enableEditMode = type => {
+    this.setState({ editingFormType: type });
+  };
+
+  enableEditModeOnEnter = (type, e) => {
+    if (e.key === 'Enter') {
+      this.enableEditMode(type);
+    }
+  };
+
+  inlineEditButton = () => {
     return (
       <button
         type="button"
         aria-label="inline-close"
         className="inline-edit-button"
-        onClick={() => {
-          if (type === 'country') {
-            this.setState({
-              editingFormType: type,
-              temporaryValue: this.state.formValue.country
-            });
-          } else {
-            this.setState({ editingFormType: type });
-          }
-        }}
       >
-        {edit}
+        <svg
+          xmlns="https://www.w3.org/2000/svg"
+          id="icon"
+          style={{ fill: '#474747' }}
+          viewBox="0 0 16 16"
+        >
+          <rect width="16" height="16" fill="none" />
+          <path d="M13.56,3.52,12.48,2.44a1.5,1.5,0,0,0-2.13,0l-8.2,8.21A.47.47,0,0,0,2,11v2.5a.5.5,0,0,0,.5.5H5a.47.47,0,0,0,.35-.15l8.21-8.2a1.51,1.51,0,0,0,0-2.13Zm-9.85,7,6-6,1.79,1.79-6,6ZM3,11.21,4.79,13H3Zm9.85-6.27h0l-.6.61-1.8-1.8.61-.6a.5.5,0,0,1,.71,0l1.08,1.08a.49.49,0,0,1,.15.35A.49.49,0,0,1,12.85,4.94Z" />
+        </svg>
       </button>
     );
+  };
+
+  reset = () => {
+    this.setState({
+      editingFormType: null,
+      titleFormStatus: false,
+      errorMessage: null
+    });
   };
 
   /** Title Inline Editor Section */
@@ -89,19 +105,11 @@ class InlineEditExample extends Component {
       setTimeout(() => {
         this.setState({
           titleFormStatus: true,
-          errorMessage: `Please enter more than 3 character`,
+          errorMessage: 'Please enter more than 3 character',
           showBusyLoader: false
         });
       }, 2000);
     }
-  };
-
-  reset = () => {
-    this.setState({
-      editingFormType: null,
-      titleFormStatus: false,
-      errorMessage: null
-    });
   };
 
   /** Type Inline Editor Section */
@@ -160,204 +168,227 @@ class InlineEditExample extends Component {
     }, 2000);
   };
 
+  getDate = date => {
+    return `${('0' + (date.getMonth() + 1)).slice(-2)}/${(
+      '0' + date.getDate()
+    ).slice(-2)}/${date.getFullYear()}`;
+  };
   render() {
     return (
       <section className="m-1 p-5 inline-edit-form">
         <form className="m-5">
-          <div className="hcl-form-group">
-            <div className="hcl-row">
-              <div className="hcl-col-3">
-                <label>Title</label>
-              </div>
-              <div className="hcl-col-9">
-                {this.state.editingFormType === 'title' ? (
-                  <InlineEdit
-                    loader={this.state.showBusyLoader}
-                    errorMessage={this.state.errorMessage}
-                    onTextUpdate={this.updateTitleText}
-                    onClose={this.reset}
-                  >
-                    <TextInput
-                      value={this.state.formValue.title}
-                      data-invalid={this.state.titleFormStatus}
-                    />
-                  </InlineEdit>
-                ) : (
-                  <div className="hcl-inline-wrapper">
-                    <label>{this.state.formValue.title}</label>
-                    {this.inlineEditButton('title')}
-                  </div>
-                )}
-              </div>
+          <div className="form-group">
+            <div className="left-section">
+              <label>Title:</label>
+            </div>
+            <div className="right-section">
+              {this.state.editingFormType === 'title' ? (
+                <InlineEdit
+                  loader={this.state.showBusyLoader}
+                  errorMessage={this.state.errorMessage}
+                  onTextUpdate={this.updateTitleText}
+                  onClose={this.reset}
+                >
+                  <TextInput
+                    value={this.state.formValue.title}
+                    data-invalid={this.state.titleFormStatus}
+                  />
+                </InlineEdit>
+              ) : (
+                <div
+                  className="hcl-inline-wrapper"
+                  onClick={this.enableEditMode.bind(this, 'title')}
+                  tabIndex="0"
+                  onKeyDown={this.enableEditModeOnEnter.bind(this, 'title')}
+                >
+                  <label>{this.state.formValue.title}</label>
+                  {this.inlineEditButton()}
+                </div>
+              )}
             </div>
           </div>
-          <div className="hcl-form-group">
-            <div className="hcl-row">
-              <div className="hcl-col-3">
-                <label>Type</label>
-              </div>
-              <div className="hcl-col-9">
-                {this.state.editingFormType === 'type' ? (
-                  <InlineEdit
-                    loader={this.state.showBusyLoader}
-                    errorMessage={this.state.errorMessage}
-                    onTextUpdate={this.updateIssueType}
-                    onClose={this.reset}
-                  >
-                    <Dropdown
-                      type="top"
-                      items={this.state.types}
-                      label="Top DropDown"
-                      selectedItem={this.state.formValue.type.id}
-                    />
-                  </InlineEdit>
-                ) : (
-                  <div className="hcl-inline-wrapper">
-                    <label>{this.state.formValue.type.text}</label>
-                    {this.inlineEditButton('type')}
-                  </div>
-                )}
-              </div>
+          <div className="form-group">
+            <div className="left-section">
+              <label>Type:</label>
+            </div>
+            <div className="right-section">
+              {this.state.editingFormType === 'type' ? (
+                <InlineEdit
+                  loader={this.state.showBusyLoader}
+                  errorMessage={this.state.errorMessage}
+                  onTextUpdate={this.updateIssueType}
+                  onClose={this.reset}
+                >
+                  <Dropdown
+                    type="top"
+                    items={this.state.types}
+                    label="Top DropDown"
+                    selectedItem={this.state.formValue.type.id}
+                  />
+                </InlineEdit>
+              ) : (
+                <div
+                  className="hcl-inline-wrapper"
+                  onClick={this.enableEditMode.bind(this, 'type')}
+                  tabIndex="0"
+                  onKeyDown={this.enableEditModeOnEnter.bind(this, 'type')}
+                >
+                  <label>{this.state.formValue.type.text}</label>
+                  {this.inlineEditButton()}
+                </div>
+              )}
             </div>
           </div>
-          <div className="hcl-form-group">
-            <div className="hcl-row">
-              <div className="hcl-col-3">
-                <label>Framework</label>
-              </div>
-              <div className="hcl-col-9">
-                {this.state.editingFormType === 'framework' ? (
-                  <InlineEdit
-                    loader={this.state.showBusyLoader}
-                    errorMessage={this.state.errorMessage}
-                    onTextUpdate={this.updateFramework}
-                    onClose={this.reset}
+          <div className="form-group">
+            <div className="left-section">
+              <label>Framework:</label>
+            </div>
+            <div className="right-section">
+              {this.state.editingFormType === 'framework' ? (
+                <InlineEdit
+                  loader={this.state.showBusyLoader}
+                  errorMessage={this.state.errorMessage}
+                  onTextUpdate={this.updateFramework}
+                  onClose={this.reset}
+                >
+                  <Dropdown
+                    type="top"
+                    items={this.state.frameworks}
+                    label="Top DropDown"
+                    dropdownType="multi"
+                    selectedItem={this.state.formValue.framework}
+                  />
+                </InlineEdit>
+              ) : (
+                <div
+                  className="hcl-inline-wrapper"
+                  onClick={this.enableEditMode.bind(this, 'framework')}
+                  tabIndex="0"
+                  onKeyDown={this.enableEditModeOnEnter.bind(this, 'framework')}
+                >
+                  {this.state.formValue.framework.map((item, index) => {
+                    return (
+                      <Tag key={`fram${index}`} type="primary">
+                        {item.text}
+                      </Tag>
+                    );
+                  })}
+                  {this.inlineEditButton()}
+                </div>
+              )}
+            </div>
+          </div>
+          <div className="form-group">
+            <div className="left-section">
+              <label>Exp Date:</label>
+            </div>
+            <div className="right-section">
+              {this.state.editingFormType === 'expectedDate' ? (
+                <InlineEdit
+                  loader={this.state.showBusyLoader}
+                  errorMessage={this.state.errorMessage}
+                  onTextUpdate={this.updateExpectedDate}
+                  onClose={this.reset}
+                >
+                  <DateSelector
+                    defaultDate={this.state.formValue.expectedDate}
+                  />
+                </InlineEdit>
+              ) : (
+                <div
+                  className="hcl-inline-wrapper"
+                  onClick={this.enableEditMode.bind(this, 'expectedDate')}
+                  tabIndex="0"
+                  onKeyDown={this.enableEditModeOnEnter.bind(
+                    this,
+                    'expectedDate'
+                  )}
+                >
+                  <label>
+                    {this.getDate(this.state.formValue.expectedDate)}
+                  </label>
+                  {this.inlineEditButton()}
+                </div>
+              )}
+            </div>
+          </div>
+
+          <div className="form-group">
+            <div className="left-section">
+              <label>Country:</label>
+            </div>
+            <div className="right-section">
+              {this.state.editingFormType === 'country' ? (
+                <InlineEdit
+                  loader={this.state.showBusyLoader}
+                  errorMessage={this.state.errorMessage}
+                  onTextUpdate={() => {
+                    console.log('UPDAZTE');
+                  }}
+                  customIcon={
+                    <>
+                      <Button type="neutral" onClick={this.reset}>
+                        N
+                      </Button>
+                      <Button
+                        type="neutral"
+                        onClick={() => {
+                          this.setState({ showBusyLoader: true });
+                          setTimeout(() => {
+                            const tempFormValues = {
+                              ...this.state.formValue
+                            };
+                            tempFormValues[
+                              'country'
+                            ] = this.state.temporaryValue;
+                            this.setState({
+                              editingFormType: null,
+                              formValue: tempFormValues,
+                              titleFormStatus: false,
+                              errorMessage: null,
+                              showBusyLoader: false
+                            });
+                          }, 2000);
+                        }}
+                      >
+                        Y
+                      </Button>
+                    </>
+                  }
+                  onClose={this.reset}
+                >
+                  <Select
+                    onChange={val => {
+                      this.setState({
+                        temporaryValue: { id: val.value, text: val.text }
+                      });
+                    }}
+                    value={this.state.temporaryValue.id}
                   >
-                    <Dropdown
-                      type="top"
-                      items={this.state.frameworks}
-                      label="Top DropDown"
-                      dropdownType="multi"
-                      selectedItem={this.state.formValue.framework}
-                    />
-                  </InlineEdit>
-                ) : (
-                  <div className="hcl-inline-wrapper">
-                    {this.state.formValue.framework.map((item, index) => {
+                    {this.state.countries.map((country, index) => {
                       return (
-                        <Tag key={`fram${index}`} type="primary">
-                          {item.text}
-                        </Tag>
+                        <SelectItem
+                          text={country.text}
+                          value={country.id}
+                          key={`country-${index}`}
+                        />
                       );
                     })}
-                    {this.inlineEditButton('framework')}
-                  </div>
-                )}
-              </div>
+                  </Select>
+                </InlineEdit>
+              ) : (
+                <div
+                  className="hcl-inline-wrapper"
+                  tabIndex="0"
+                  onClick={this.enableEditMode.bind(this, 'country')}
+                  onKeyDown={this.enableEditModeOnEnter.bind(this, 'country')}
+                >
+                  <label>{this.state.formValue.country.text}</label>
+                  {this.inlineEditButton()}
+                </div>
+              )}
             </div>
           </div>
-          <div className="hcl-form-group">
-            <div className="hcl-row">
-              <div className="hcl-col-3">
-                <label>Exp Date</label>
-              </div>
-              <div className="hcl-col-9">
-                {this.state.editingFormType === 'expectedDate' ? (
-                  <InlineEdit
-                    loader={this.state.showBusyLoader}
-                    errorMessage={this.state.errorMessage}
-                    onTextUpdate={this.updateExpectedDate}
-                    onClose={this.reset}
-                  >
-                    <DateSelector
-                      defaultDate={this.state.formValue.expectedDate}
-                    />
-                  </InlineEdit>
-                ) : (
-                  <div className="hcl-inline-wrapper">
-                    <label>
-                      {this.state.formValue.expectedDate.toLocaleString()}
-                    </label>
-                    {this.inlineEditButton('expectedDate')}
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-          <div className="hcl-form-group">
-            <div className="hcl-row">
-              <div className="hcl-col-3">
-                <label>Country</label>
-              </div>
-              <div className="hcl-col-9">
-                {this.state.editingFormType === 'country' ? (
-                  <InlineEdit
-                    loader={this.state.showBusyLoader}
-                    errorMessage={this.state.errorMessage}
-                    onTextUpdate={() => {
-                      console.log('UPDAZTE');
-                    }}
-                    customIcon={
-                      <>
-                        <Button type="neutral" onClick={this.reset}>
-                          N
-                        </Button>
-                        <Button
-                          type="neutral"
-                          onClick={() => {
-                            this.setState({ showBusyLoader: true });
-                            setTimeout(() => {
-                              const tempFormValues = {
-                                ...this.state.formValue
-                              };
-                              tempFormValues[
-                                'country'
-                              ] = this.state.temporaryValue;
-                              this.setState({
-                                editingFormType: null,
-                                formValue: tempFormValues,
-                                titleFormStatus: false,
-                                errorMessage: null,
-                                showBusyLoader: false
-                              });
-                            }, 2000);
-                          }}
-                        >
-                          Y
-                        </Button>
-                      </>
-                    }
-                    onClose={this.reset}
-                  >
-                    <Select
-                      onChange={val => {
-                        this.setState({
-                          temporaryValue: { id: val.value, text: val.text }
-                        });
-                      }}
-                      value={this.state.temporaryValue.id}
-                    >
-                      {this.state.countries.map((country, index) => {
-                        return (
-                          <SelectItem
-                            text={country.text}
-                            value={country.id}
-                            key={`country-${index}`}
-                          />
-                        );
-                      })}
-                    </Select>
-                  </InlineEdit>
-                ) : (
-                  <div className="hcl-inline-wrapper">
-                    <label>{this.state.formValue.country.text}</label>
-                    {this.inlineEditButton('country')}
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-          <button className="hcl-btn hcl-primary">Submit</button>
         </form>
       </section>
     );

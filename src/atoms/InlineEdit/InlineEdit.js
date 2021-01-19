@@ -56,14 +56,23 @@ const InlineEdit = ({
     if (
       inlineEditorRef &&
       inlineEditorRef.current &&
-      inlineEditorRef.current.firstElementChild &&
-      inlineEditorRef.current.firstElementChild.firstElementChild
+      inlineEditorRef.current.firstElementChild
     ) {
-      inlineEditorRef.current.firstElementChild.firstElementChild.focus();
-      if (inlineEditorRef.current.firstElementChild.firstElementChild.select) {
-        inlineEditorRef.current.firstElementChild.firstElementChild.select();
+      let focusableElement = inlineEditorRef.current.firstElementChild;
+      if (!isCustomComponent) {
+        if (children.type.name === 'Dropdown') {
+          focusableElement = focusableElement.firstElementChild;
+        } else if (children.type.name === 'DateSelector') {
+          focusableElement = focusableElement.querySelector(
+            '.hcl-dateSelector-input '
+          );
+        }
       }
-      setOverlayTargetEl(inlineEditorRef.current.firstElementChild);
+      focusableElement.focus();
+      if (focusableElement.select) {
+        focusableElement.select();
+      }
+      setOverlayTargetEl(inlineEditorRef.current);
       setDisplayActionPanel(true);
     }
 
@@ -168,8 +177,11 @@ const InlineEdit = ({
   }
 
   return (
-    <div className={classNames.join(' ')} ref={inlineEditorRef} {...restProps}>
-      <div className={inlineEditorWrapperClassname.join(' ')}>
+    <div className={classNames.join(' ')} {...restProps}>
+      <div
+        className={inlineEditorWrapperClassname.join(' ')}
+        ref={inlineEditorRef}
+      >
         {getChildren()}
         {loader && (
           <Spinner className={`${prefix}-inline-editor-loader`} small />
@@ -200,6 +212,7 @@ const InlineEdit = ({
                 <>
                   <Button
                     type="neutral"
+                    kind="button"
                     disabled={loader ? true : false}
                     onClick={() => {
                       setDisplayActionPanel(false);
@@ -211,6 +224,7 @@ const InlineEdit = ({
                   </Button>
                   <Button
                     type="primary"
+                    kind="button"
                     disabled={matchedValue || loader ? true : false}
                     onClick={() => {
                       onTextUpdate(inlineEditValue.current);
