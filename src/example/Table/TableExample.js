@@ -62,13 +62,13 @@ class TableExample extends Component {
         ),
         bodyCellClass: 'custom-body-id-class',
         width: '60px',
-        pinned: 'left'
+        // pinned: 'left'
       },
 
       {
         label: 'Avatar',
         field: 'avtar',
-        pinned: 'right',
+        // pinned: 'right',
 
         renderHtml: model => {
           return (
@@ -212,7 +212,7 @@ class TableExample extends Component {
               isHeaderSticky
               onColumnAfterResize={this.colResize}
               initSortedColumn={this.state.initSortedColumn}
-              columnDraggable
+              // columnDraggable
               selectedItem={this.state.selectedItem}
               onColumnReorder={dataTableConfig => {
                 console.log('dataTableConfig', dataTableConfig);

@@ -168,8 +168,10 @@ const DataTable = ({
   let isMouseDown = false;
 
   const onColumnMouseDown = (column, idx, e) => {
-    e.preventDefault();
-    e.stopPropagation();
+    if (!e.type.match(/touch/)) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
     const { button } = e;
     if (button !== 0) return;
     let nThTarget,
@@ -200,6 +202,7 @@ const DataTable = ({
       tableRef &&
       tableRef.current
     ) {
+      alert(resizeLineRef);
       let tableEleBounding = tableRef.current.getBoundingClientRect();
       resizeLineRef.current.style.left =
         e.clientX - tableEleBounding.left + `px`;
@@ -478,14 +481,14 @@ const DataTable = ({
                   onKeyDown={
                     column.sortable ? sortOnEnter.bind(this, column) : null
                   }
-                  draggable={columnDraggable && !column.pinned ? true : false}
-                  onDragStart={onDragStart}
-                  onDragLeave={onDragLeave}
-                  onDragOver={onDragOver.bind(this, column.pinned)}
-                  onDrop={
-                    columnDraggable && !column.pinned ? onDrop : undefined
-                  }
-                  onDragEnd={onDragEnd}
+                  // draggable={columnDraggable && !column.pinned ? true : false}
+                  // onDragStart={onDragStart}
+                  // onDragLeave={onDragLeave}
+                  // onDragOver={onDragOver.bind(this, column.pinned)}
+                  // onDrop={
+                  //   columnDraggable && !column.pinned ? onDrop : undefined
+                  // }
+                  // onDragEnd={onDragEnd}
                 >
                   {headerSelection && column.field === 'checkbox' ? (
                     headerSelection
@@ -550,6 +553,12 @@ const DataTable = ({
                             column,
                             index
                           )}
+                          onTouchStart={onColumnMouseDown.bind(
+                            this,
+                            column,
+                            index
+                          )}
+                          // onTouchEnd={e => e.preventDefault()}
                         >
                           <span className={`resize-handle`} />
                         </span>

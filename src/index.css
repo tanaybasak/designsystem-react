@@ -12,3 +12,12 @@
   top: 400px;
   right: 27px;
 }
+
+body .hcl-data-table-wrapper .hcl-data-table tr th.resizable>span.hcl-data-table-resizable {
+  width:20px !important;
+  background: red !important;
+}
+
+.hcl-data-table-wrapper .hcl-data-table tr th.resizable>span.hcl-data-table-resizable span.resize-handle {
+  width: 20px !important;
+}
