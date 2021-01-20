@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 
-const InPageNavigation = ({ listItems }) => {
+const InPageNavigation = ({ listItems, ...restProps }) => {
   const [hightlight, setHighlight] = useState(
     listItems.length ? listItems[0].label : ''
   );
@@ -67,7 +67,9 @@ const InPageNavigation = ({ listItems }) => {
   };
   return (
     <div className={`${prefix}-inpage-navigation-wrapper`} role="navigation">
-      <ul className={`${prefix}-inpage-navigation`}>{makeNavigation()}</ul>
+      <ul className={`${prefix}-inpage-navigation`} {...restProps}>
+        {makeNavigation()}
+      </ul>
     </div>
   );
 };
