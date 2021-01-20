@@ -41,6 +41,7 @@ export default function CodeSnippet({
           height: height,
           width: width
         }}
+        {...restProps}
       >
         <Editor
           value={code}
