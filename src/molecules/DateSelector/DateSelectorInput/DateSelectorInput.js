@@ -18,6 +18,7 @@ const DateSelectorInput = ({
   const onEnterPressInputDate = event => {
     setShowDateContainer(false);
     if (event.key === 'Enter') {
+      event.preventDefault();
       const isdateValid = isValidDate(event.target.value, format);
       setIsDateSelectedValid(isdateValid);
       if (isdateValid && event.target.value !== '') {

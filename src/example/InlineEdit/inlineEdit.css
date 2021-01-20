@@ -1,9 +1,9 @@
 .inline-edit-form {
-    width: 500px;
+    width: 600px;
     border: 1px solid lightgray;
 }
 
-.inline-edit-button {
+.inline-edit-form .inline-edit-button {
     width: 16px;
     height: 16px;
     background: transparent;
@@ -14,6 +14,36 @@
     visibility: hidden;
 }
 
-.hcl-inline-wrapper:hover .inline-edit-button {
+.inline-edit-form .hcl-inline-wrapper {
+    padding: 8px;
+}
+
+.inline-edit-form .hcl-inline-wrapper>label {
+    cursor: pointer;
+}
+
+.inline-edit-form .hcl-inline-wrapper:hover,
+.inline-edit-form .hcl-inline-wrapper:focus {
+    display: inline-block;
+    background: #edf5ff;
+    cursor: pointer;
+}
+
+.inline-edit-form .hcl-inline-wrapper:hover .inline-edit-button,
+.inline-edit-form .hcl-inline-wrapper:focus .inline-edit-button {
     visibility: visible;
+}
+
+.inline-edit-form .form-group {
+    display: flex;
+    align-items: center;
+    height: 50px;
+}
+
+.inline-edit-form .form-group .left-section {
+    width: 20%;
+}
+
+.inline-edit-form .form-group .right-section {
+    width: 80%;
 }

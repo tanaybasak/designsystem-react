@@ -131,6 +131,7 @@ const PanelBottom = ({
           date={formattedDate}
           paneltype={panelType}
           onClick={onDateSelection}
+          type="button"
           disabled={
             convertToDateObj(format, formattedDate) >= minDate &&
             maxDate >= convertToDateObj(format, formattedDate)
@@ -143,6 +144,7 @@ const PanelBottom = ({
       </div>
     ) : (
       <button
+        type="button"
         className={`${classDetails.join(' ')} hcl-btn hcl-ghost`}
         date={formattedDate}
         key={formattedDate}
@@ -201,6 +203,7 @@ const PanelBottom = ({
         <button
           key={`month-${index}`}
           month={index}
+          type="button"
           className="hcl-btn hcl-ghost"
           disabled={isDisabled}
           onClick={() => {
@@ -233,6 +236,7 @@ const PanelBottom = ({
       nodeList.push(
         <button
           key={`month-${i}`}
+          type="button"
           className="hcl-btn hcl-ghost"
           year={currDateObj.year + i}
           disabled={

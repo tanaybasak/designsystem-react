@@ -5,6 +5,7 @@ import { checkmark, inlineClose } from '../../util/icons';
 import Overlay from '../Overlay';
 import Spinner from '../Spinner';
 import Button from '../Button';
+import { isDateEqual } from '../../util/utility';
 
 const InlineEdit = ({
   onClose,
@@ -32,6 +33,10 @@ const InlineEdit = ({
     classNames.push(className);
   }
 
+  const isCustomComponent =
+    ['Dropdown', 'TextInput', 'DateSelector'].indexOf(children.type.name) ===
+    -1;
+
   const updateTreenodeNameOnEnter = event => {
     event.stopPropagation();
     if (event.key === 'Enter') {
@@ -41,6 +46,7 @@ const InlineEdit = ({
 
       event.preventDefault();
     } else if (event.key === 'Escape') {
+      setDisplayActionPanel(false);
       onClose();
       event.preventDefault();
     }
@@ -50,20 +56,34 @@ const InlineEdit = ({
     if (
       inlineEditorRef &&
       inlineEditorRef.current &&
-      inlineEditorRef.current.firstElementChild &&
-      inlineEditorRef.current.firstElementChild.firstElementChild
+      inlineEditorRef.current.firstElementChild
     ) {
-      inlineEditorRef.current.firstElementChild.firstElementChild.focus();
-      if (inlineEditorRef.current.firstElementChild.firstElementChild.select) {
-        inlineEditorRef.current.firstElementChild.firstElementChild.select();
+      let focusableElement = inlineEditorRef.current.firstElementChild;
+      if (!isCustomComponent) {
+        if (children.type.name === 'Dropdown') {
+          focusableElement = focusableElement.firstElementChild;
+        } else if (children.type.name === 'DateSelector') {
+          focusableElement = focusableElement.querySelector(
+            '.hcl-dateSelector-input '
+          );
+        }
       }
-
-      setOverlayTargetEl(inlineEditorRef.current.firstElementChild);
+      focusableElement.focus();
+      if (focusableElement.select) {
+        focusableElement.select();
+      }
+      setOverlayTargetEl(inlineEditorRef.current);
       setDisplayActionPanel(true);
     }
 
     return function cleanup() {};
   }, []);
+
+  useEffect(() => {
+    if (errorMessage) {
+      setDisplayActionPanel(true);
+    }
+  }, [errorMessage]);
 
   const getChildren = () => {
     if (children.type.name === 'Dropdown') {
@@ -72,6 +92,7 @@ const InlineEdit = ({
         onVisibleChange: status => {
           setDisplayActionPanel(!status);
         },
+        disabled: loader,
         onChange: (value, values) => {
           if (children.props.dropdownType === 'multi') {
             inlineEditValue.current = values;
@@ -90,6 +111,7 @@ const InlineEdit = ({
           inlineEditValue.current = e.currentTarget.value;
           setMatchedValue(currentValue.current === e.currentTarget.value);
         },
+        disabled: loader,
         onKeyDown: updateTreenodeNameOnEnter
       });
     } else if (children.type.name === 'DateSelector') {
@@ -97,8 +119,11 @@ const InlineEdit = ({
       return cloneElement(children, {
         onDateSelect: date => {
           inlineEditValue.current = date;
-          setMatchedValue(currentValue.current === date);
+          setMatchedValue(
+            isDateEqual(currentValue.current, inlineEditValue.current)
+          );
         },
+        disabled: loader,
         onVisibleChange: status => {
           setDisplayActionPanel(!status);
         }
@@ -109,29 +134,53 @@ const InlineEdit = ({
   };
 
   const isValueEqual = () => {
-    return inlineEditValue.current === currentValue.current;
+    if (inlineEditValue.current) {
+      if (children.type.name === 'TextInput') {
+        return inlineEditValue.current === currentValue.current;
+      } else {
+        return matchedValue;
+      }
+    } else {
+      return true;
+    }
   };
 
   const onToggle = status => {
-    if (!status && !isValueEqual()) {
-      if (!inlineEditValue.current) {
+    if (!status) {
+      if (!isCustomComponent) {
+        if (isValueEqual()) {
+          setDisplayActionPanel(status);
+          onClose();
+        } else {
+          onTextUpdate(inlineEditValue.current);
+        }
+      } else {
+        setDisplayActionPanel(status);
         onClose();
-      } else if (!isValueEqual()) {
-        onTextUpdate(inlineEditValue.current);
       }
     }
   };
 
+  const inlineEditorWrapperClassname = [`${prefix}-inline-editor-component`];
+  if (children.type.name === 'DateSelector') {
+    inlineEditorWrapperClassname.push(
+      `${prefix}-inline-editor-component-dt-picker`
+    );
+  }
+  if (children.type.name === 'TextInput') {
+    inlineEditorWrapperClassname.push(
+      `${prefix}-inline-editor-component-text-input`
+    );
+  }
+  if (loader) {
+    inlineEditorWrapperClassname.push(`${prefix}-inline-editor-loader-active`);
+  }
+
   return (
-    <div className={classNames.join(' ')} ref={inlineEditorRef} {...restProps}>
+    <div className={classNames.join(' ')} {...restProps}>
       <div
-        className={`${prefix}-inline-editor-component${
-          children.type.name === 'DateSelector'
-            ? ` ${prefix}-inline-editor-component-dt-picker`
-            : children.type.name === 'TextInput'
-            ? ` ${prefix}-inline-editor-component-text-input`
-            : ''
-        }`}
+        className={inlineEditorWrapperClassname.join(' ')}
+        ref={inlineEditorRef}
       >
         {getChildren()}
         {loader && (
@@ -159,24 +208,33 @@ const InlineEdit = ({
           <div className={`${prefix}-inline-editor-action-wrapper`}>
             <span className={`${prefix}-inline-editor-action-panel`}>
               {customIcon}
-              <Button
-                type="neutral"
-                disabled={loader ? true : false}
-                onClick={onClose}
-                aria-label="inline-close"
-              >
-                {inlineClose}
-              </Button>
-              <Button
-                type="primary"
-                disabled={matchedValue || loader ? true : false}
-                onClick={() => {
-                  onTextUpdate(inlineEditValue.current);
-                }}
-                aria-label="inline-check"
-              >
-                {checkmark}
-              </Button>
+              {!isCustomComponent ? (
+                <>
+                  <Button
+                    type="neutral"
+                    kind="button"
+                    disabled={loader ? true : false}
+                    onClick={() => {
+                      setDisplayActionPanel(false);
+                      onClose();
+                    }}
+                    aria-label="inline-close"
+                  >
+                    {inlineClose}
+                  </Button>
+                  <Button
+                    type="primary"
+                    kind="button"
+                    disabled={matchedValue || loader ? true : false}
+                    onClick={() => {
+                      onTextUpdate(inlineEditValue.current);
+                    }}
+                    aria-label="inline-check"
+                  >
+                    {checkmark}
+                  </Button>
+                </>
+              ) : null}
             </span>
           </div>
         </>

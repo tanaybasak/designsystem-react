@@ -172,6 +172,7 @@ const PanelHeader = ({
           //     ? true
           //     : false
           // }
+          kind="button"
           onClick={
             view === 'date'
               ? dateViewChangeHandler
@@ -209,6 +210,7 @@ const PanelHeader = ({
               <Button
                 className="hcl-dateSelector-curMonth"
                 disabled={false}
+                kind="button"
                 onClick={() => {
                   setView('month');
                 }}
@@ -239,6 +241,7 @@ const PanelHeader = ({
               <Button
                 className="hcl-dateSelector-year"
                 disabled={false}
+                kind="button"
                 onClick={() => {
                   setView('year');
                 }}
@@ -278,6 +281,7 @@ const PanelHeader = ({
         </div>
         <Button
           className="hcl-dateSelector-month-next"
+          kind="button"
           // disabled={
           //   panelType === 'startpanel' &&
           //   monthDifference === 1 &&
