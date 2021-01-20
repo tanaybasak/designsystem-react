@@ -108,12 +108,12 @@ const Overlay = ({
     }
   };
 
-  const hideOverlayContainer = type => {
+  const hideOverlayContainer = (type, direction) => {
     if (type === 'stateChange') {
       clearEvents();
     }
     if (onToggle && type !== 'stateChange') {
-      onToggle(false, type);
+      onToggle(false, type, direction);
     }
   };
 
@@ -167,12 +167,12 @@ const Overlay = ({
 
       if (e.shiftKey) {
         if (document.activeElement === firstFocusableEl) {
-          hideOverlayContainer('focusout');
+          hideOverlayContainer('focusout', 'backward');
           e.preventDefault();
         }
       } else {
         if (document.activeElement === lastFocusableEl) {
-          hideOverlayContainer('focusout');
+          hideOverlayContainer('focusout', 'forward');
           e.preventDefault();
         }
       }

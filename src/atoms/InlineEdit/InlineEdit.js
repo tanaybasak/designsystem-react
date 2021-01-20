@@ -52,6 +52,25 @@ const InlineEdit = ({
     }
   };
 
+  const closeOnEscape = () => {
+    event.stopPropagation();
+    if (event.key === 'Escape') {
+      setDisplayActionPanel(false);
+      onClose();
+      event.preventDefault();
+    }
+  };
+
+  const closeOnFocusOut = () => {
+    setTimeout(() => {
+      if (
+        !inlineEditorRef.current.parentElement.contains(document.activeElement)
+      ) {
+        closeOverlay();
+      }
+    });
+  };
+
   useEffect(() => {
     if (
       inlineEditorRef &&
@@ -92,6 +111,8 @@ const InlineEdit = ({
         onVisibleChange: status => {
           setDisplayActionPanel(!status);
         },
+        onKeyDown: closeOnEscape,
+        onBlur: closeOnFocusOut,
         disabled: loader,
         onChange: (value, values) => {
           if (children.props.dropdownType === 'multi') {
@@ -111,6 +132,7 @@ const InlineEdit = ({
           inlineEditValue.current = e.currentTarget.value;
           setMatchedValue(currentValue.current === e.currentTarget.value);
         },
+        onBlur: closeOnFocusOut,
         disabled: loader,
         onKeyDown: updateTreenodeNameOnEnter
       });
@@ -123,6 +145,8 @@ const InlineEdit = ({
             isDateEqual(currentValue.current, inlineEditValue.current)
           );
         },
+        onBlur: closeOnFocusOut,
+        onKeyDown: closeOnEscape,
         disabled: loader,
         onVisibleChange: status => {
           setDisplayActionPanel(!status);
@@ -145,19 +169,35 @@ const InlineEdit = ({
     }
   };
 
-  const onToggle = status => {
+  const onToggle = (status, type, direction) => {
     if (!status) {
-      if (!isCustomComponent) {
-        if (isValueEqual()) {
-          setDisplayActionPanel(status);
-          onClose();
-        } else {
-          onTextUpdate(inlineEditValue.current);
+      if (type === 'focusout' && direction === 'backward') {
+        const focusableEls = inlineEditorRef.current.parentElement.querySelectorAll(
+          'a[href]:not([disabled]), button:not([disabled]), textarea:not([disabled]), input[type="text"]:not([disabled]), input[type="radio"]:not([disabled]), input[type="checkbox"]:not([disabled]), select:not([disabled]), [tabindex]'
+        );
+
+        for (let i = 0; i < focusableEls.length; i++) {
+          if (focusableEls[i] === document.activeElement) {
+            focusableEls[i - 1].focus();
+          }
         }
       } else {
+        closeOverlay(status);
+      }
+    }
+  };
+
+  const closeOverlay = status => {
+    if (!isCustomComponent) {
+      if (isValueEqual()) {
         setDisplayActionPanel(status);
         onClose();
+      } else {
+        onTextUpdate(inlineEditValue.current);
       }
+    } else {
+      setDisplayActionPanel(status);
+      onClose();
     }
   };
 

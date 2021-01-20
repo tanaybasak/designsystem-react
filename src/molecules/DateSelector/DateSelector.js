@@ -24,7 +24,8 @@ const DateSelector = ({
   onDateSelect,
   minDate,
   maxDate,
-  onVisibleChange
+  onVisibleChange,
+  ...restProps
 }) => {
   const date = new Date();
   const [currDateObj, setCurrDateObj] = useState({
@@ -134,8 +135,7 @@ const DateSelector = ({
             setShowDateContainer={setShowDateContainer}
             setIsDateSelectedValid={setIsDateSelectedValid}
             className={className}
-            minDate={minDate}
-            maxDate={maxDate}
+            {...restProps}
           />
 
           <Overlay
