@@ -41,13 +41,8 @@ import Footer from './molecules/Footer';
 import { ActionBar, ActionSummary, ActionList } from './molecules/ActionBar';
 import { ToolBar, ToolBarActions } from './molecules/ToolBar';
 import Password from './atoms/Password';
-import CodeSnippet from './molecules/CodeSnippet';
-import 'prismjs/components/prism-java';
-// import 'prismjs/components/prism-javascript';
 
 
-//import Overlay from './atoms/Overlay';
-// import CodeSnippet from './atoms/CodeSnippet';
 
 class App extends Component {
   state = {
@@ -334,31 +329,12 @@ class App extends Component {
       </div>
     );
 
-  const code =    `addNewFolderToSelectedNode(treeData, item, newItem) {
-    treeData.map(data => {
-      if (data.id === item.id) {
-        if (data.children && Array.isArray(data.children)) {
-          data.children.push(newItem);
-        } else {
-          data.children = [];
-          data.children.push(newItem);
-        }
-      }
-      if (data.children && data.children.length > 0) {
-        this.addNewFolderToSelectedNode(data.children, item, newItem);
-      }
-    });
-  }
-  `
 
     return (
       <>
         <main className="hcl-content-main">
           <section className="hcl-container pt-5 mb-5">
             <div className="hcl-row m-0">
-              <CodeSnippet  type="edit" value={code} lanaguage="java"/>
-
-              <CodeSnippet type="read" value={code} lanaguage="java"/>
               {/* Input Field */}
 
               <div className="hcl-form-group hcl-col-12" id="form-section">
