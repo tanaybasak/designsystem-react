@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { text, boolean,select } from '@storybook/addon-knobs';
+import { text, boolean, select } from '@storybook/addon-knobs';
 
 //@update-path-build-start
 import CodeSnippet from './CodeSnippet';
@@ -49,8 +49,6 @@ public class Life {
 
         }
     }
-
-  // [...]
 }
 `;
 storiesOf('CodeSnippet', module).add(
@@ -58,7 +56,7 @@ storiesOf('CodeSnippet', module).add(
   () => (
     <CodeSnippet
       type="edit"
-      type={select('Type', ['read','edit'], 'read')}
+      type={select('Type', ['read', 'edit'], 'read')}
       value={text('Code', `${code}`)}
       lanaguage="java"
       width="40rem"
@@ -69,11 +67,9 @@ storiesOf('CodeSnippet', module).add(
   {
     info: {
       text: `Description About CodeSnippet Component \n
-      
-import { CodeSnippet} from '@patron/patron-react/codesnippet';
-import 'prismjs/components/prism-java';
-      
-      `
+
+      import { CodeSnippet} from '@patron/patron-react/codesnippet';
+    import 'prismjs/components/prism-java';`
     }
   }
 );
