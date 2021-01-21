@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import CodeSnippet from '../../molecules/CodeSnippet';
+import 'prismjs/components/prism-java'
 
 const CodeSnippetExample = ({}) => {
   const code = `addNewFolderToSelectedNode(treeData, item, newItem) {
