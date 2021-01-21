@@ -7,6 +7,7 @@ import { highlight, languages } from 'prismjs/components/prism-core';
 
 import 'prismjs/components/prism-clike';
 import 'prismjs/themes/prism.css';
+import 'prismjs/components/prism-javascript';
 
 import { Copy } from '../../util/icons';
 
@@ -22,7 +23,6 @@ export default function CodeSnippet({
   ...restProps
 }) {
   const [code, setCode] = useState(value);
-
   const _copyToClipboard = data => {
     const el = document.createElement('textarea');
     el.value = data;
@@ -33,7 +33,7 @@ export default function CodeSnippet({
     el.select();
     document.execCommand('copy');
     document.body.removeChild(el);
-    onCopy();
+    onCopy(code);
   };
 
   return (
@@ -55,9 +55,9 @@ export default function CodeSnippet({
         <Editor
           value={code}
           onValueChange={type === 'edit' ? code => {setCode(code)
-            onEdit()} : null}
+            onEdit(code)} : null}
           highlight={code =>
-            highlight(code, languages[lanaguage])
+            highlight(code, languages[lanaguage]?  languages[lanaguage] : null)
               .split('\n')
               .map(
                 line =>
@@ -107,5 +107,5 @@ CodeSnippet.defaultProps = {
   onEdit: () => {},
   onCopy: () => {},
   value: '',
-  language: ''
+  language: 'javascript'
 };

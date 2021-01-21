@@ -2,54 +2,86 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { text, boolean, select } from '@storybook/addon-knobs';
-import 'prismjs/components/prism-java';
 
 //@update-path-build-start
 import CodeSnippet from './CodeSnippet';
 //@update-path-build-end
 
-const code = `import java.util.Scanner;
-public class Life {
+const code = `
+class Accordion {
+  constructor(element, options) {
+    this.element = element;
 
-    @Override @Bind("One")
-    public void show(boolean[][] grid){
-        String s = "";
-        for(boolean[] row : grid){
-            for(boolean val : row)
-                if(val)
-                    s += "*";
-                else
-                    s += ".";
-            s += "
-";
+    this.state = {
+      uncontrolled: options.uncontrolled || false,
+      ...options
+    };
+
+    const childs = ele => Array.from(ele.children);
+    this.elements = childs(this.element).flatMap(el =>
+      childs(el).filter(el => (el))
+    );
+  }
+
+  toggleHeight = (item, status, isChanged) => {
+    const collapseElement = item.children[1];
+    if (!status) {
+      if (isChanged) {
+        const content = item.children[1].children[0];
+        collapseElement.style.height = content.offsetHeight + 'px';
+        setTimeout(() => {
+          collapseElement.style.height = 0;
+          collapseElement.style.overflow = 'hidden';
+        });
+      }
+    } else {
+      const content = item.children[1].children[0];
+      collapseElement.style.height = content.offsetHeight + 'px';
+      setTimeout(() => {
+        collapseElement.style.height = 'auto';
+        collapseElement.style.overflow = 'visible';
+      }, 300);
+    }
+  };
+
+  toggleContent = event => {
+    const comp = event.currentTarget;
+    const item = comp.parentNode;
+    const expanded = item.classList.contains('expanded');
+    if (this.state.uncontrolled) {
+      if (expanded) {
+        item.classList.remove('expanded');
+        this.toggleHeight(item, false, expanded);
+      }
+    } else {
+      this.elements.forEach(element => {
+        const itm = element.parentNode;
+        const isChanged = itm.classList.contains('expanded');
+        itm.classList.remove('expanded');
+        this.toggleHeight(itm, false, isChanged);
+      });
+    }
+    if (!expanded) {
+      item.classList.add('expanded');
+      this.toggleHeight(item, true, false);
+    }
+  };
+
+  attachEvents = () => {
+    this.elements.forEach(item => {
+      item.addEventListener('click', this.toggleContent);
+      item.addEventListener('keypress', event => {
+        event.preventDefault();
+        if (event.keyCode === 13) {
+          this.toggleContent(event);
         }
-        System.out.println(s);
-    }
-
-    public static boolean[][] gen(){
-        boolean[][] grid = new boolean[10][10];
-        for(int r = 0; r < 10; r++)
-            for(int c = 0; c < 10; c++)
-                if( Math.random() > 0.7 )
-                    grid[r][c] = true;
-        return grid;
-    }
-
-    public static void main(String[] args){
-        boolean[][] world = gen();
-        show(world);
-        System.out.println();
-        world = nextGen(world);
-        show(world);
-        Scanner s = new Scanner(System.in);
-        while(s.nextLine().length() == 0){
-            System.out.println();
-            world = nextGen(world);
-            show(world);
-
-        }
-    }
+      });
+    });
+  };
 }
+
+export default Accordion;
+
 `;
 storiesOf('CodeSnippet', module).add(
   'default',
@@ -58,8 +90,9 @@ storiesOf('CodeSnippet', module).add(
       type="edit"
       type={select('Type', ['read', 'edit'], 'read')}
       value={text('Code', `${code}`)}
-      lanaguage="java"
+      lanaguage="javascript"
       width="40rem"
+      height="25rem"
       onCopy={action('onCopy triggered')}
       onEdit={action('onEdit triggered')}
     />
@@ -69,7 +102,7 @@ storiesOf('CodeSnippet', module).add(
       text: `Description About CodeSnippet Component \n
 
       import { CodeSnippet} from '@patron/patron-react/codesnippet';
-    import 'prismjs/components/prism-java';`
+    import 'prismjs/components/prism-javascript';`
     }
   }
 );

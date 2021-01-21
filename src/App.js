@@ -334,50 +334,21 @@ class App extends Component {
       </div>
     );
 
-  const code =    `import java.util.Scanner;
-   public class Life {
-   
-       @Override @Bind("One")
-       public void show(boolean[][] grid){
-           String s = "";
-           for(boolean[] row : grid){
-               for(boolean val : row)
-                   if(val)
-                       s += "*";
-                   else
-                       s += ".";
-               s += "
-";
-           }
-           System.out.println(s);
-       }
-   
-       public static boolean[][] gen(){
-           boolean[][] grid = new boolean[10][10];
-           for(int r = 0; r < 10; r++)
-               for(int c = 0; c < 10; c++)
-                   if( Math.random() > 0.7 )
-                       grid[r][c] = true;
-           return grid;
-       }
-   
-       public static void main(String[] args){
-           boolean[][] world = gen();
-           show(world);
-           System.out.println();
-           world = nextGen(world);
-           show(world);
-           Scanner s = new Scanner(System.in);
-           while(s.nextLine().length() == 0){
-               System.out.println();
-               world = nextGen(world);
-               show(world);
-   
-           }
-       }
-   
-     // [...]
-   }
+  const code =    `addNewFolderToSelectedNode(treeData, item, newItem) {
+    treeData.map(data => {
+      if (data.id === item.id) {
+        if (data.children && Array.isArray(data.children)) {
+          data.children.push(newItem);
+        } else {
+          data.children = [];
+          data.children.push(newItem);
+        }
+      }
+      if (data.children && data.children.length > 0) {
+        this.addNewFolderToSelectedNode(data.children, item, newItem);
+      }
+    });
+  }
   `
 
     return (
@@ -385,7 +356,7 @@ class App extends Component {
         <main className="hcl-content-main">
           <section className="hcl-container pt-5 mb-5">
             <div className="hcl-row m-0">
-              <CodeSnippet width="50rem" type="edit" value={code} lanaguage="java"/>
+              <CodeSnippet  type="edit" value={code} lanaguage="java"/>
 
               <CodeSnippet type="read" value={code} lanaguage="java"/>
               {/* Input Field */}
