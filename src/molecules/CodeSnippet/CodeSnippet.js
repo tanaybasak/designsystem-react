@@ -10,7 +10,6 @@ import 'prismjs/themes/prism.css';
 
 import { Copy } from '../../util/icons';
 
-import './CodeSnippet.scss';
 
 export default function CodeSnippet({
   type,
