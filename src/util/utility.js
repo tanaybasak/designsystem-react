@@ -146,3 +146,9 @@ export const dayDiff = (d1, d2) => {
   }
   return diffDays;
 };
+
+export const isDateEqual = (d1, d2) => {
+  d1.setHours(0, 0, 0, 0);
+  d2.setHours(0, 0, 0, 0);
+  return d1.getTime() === d2.getTime();
+};

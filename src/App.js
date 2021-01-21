@@ -708,9 +708,13 @@ class App extends Component {
                   id="small-navigator"
                   className="custom-breadcrumb-top"
                   activeIndex={2}
-                  onSelection={(item, idx, e) => console.log(item, idx, e)}
+                  onSelection={(item, idx) => console.log(item, idx)}
                 >
-                  <BreadcrumbItem itemClass="custom-item" href="#">
+                  <BreadcrumbItem
+                    itemClass="custom-item"
+                    href="#"
+                    onClick={e => console.log('hello', e)}
+                  >
                     Breadcrumb 1
                   </BreadcrumbItem>
                   <BreadcrumbItem href="#">Breadcrumb 2</BreadcrumbItem>
@@ -948,12 +952,24 @@ class App extends Component {
                     onClose={this.onModalClose}
                     actions={this.modalActions1}
                   >
-                    <Paragraph>
-                      Danger Modal with save and close buttons
-                    </Paragraph>
-                    <Tooltip content="Filter" direction="right" type="icon">
-                      {tooltipIcon}
-                    </Tooltip>
+                    <>
+                      <Paragraph>
+                        Danger Modal with save and close buttons
+                      </Paragraph>
+                      <Tooltip content="Filter" direction="right" type="icon">
+                        {tooltipIcon}
+                      </Tooltip>
+                      <Dropdown
+                        type="top"
+                        items={this.items}
+                        label="Top DropDown"
+                        selectedItem="option-3"
+                        attachElementToBody
+                        onChange={selected => {
+                          console.log('selected item', selected);
+                        }}
+                      />
+                    </>
                   </Modal>
                 )}
                 {this.state.modal === 2 && (

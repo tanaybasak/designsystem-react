@@ -201,6 +201,12 @@ export const treeReducer = (state, action) => {
         draggable: action.data
       };
     }
+    case 'SET_RENAME_NODE_ID': {
+      return {
+        ...state,
+        renameNodeId: action.data
+      };
+    }
     default:
       throw new Error('Unexpected action');
   }

@@ -1,0 +1,10 @@
+.tree-wrapper {
+    border: 1px solid lightgray;
+    height: 400px;
+    overflow: auto;
+    padding: 10px;
+}
+
+.tree-newfolder-wrapper {
+    width: 400px;
+}

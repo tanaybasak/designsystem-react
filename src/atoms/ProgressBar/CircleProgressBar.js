@@ -11,31 +11,35 @@ const CircleProgressBar = ({
   className,
   progressSize
 }) => {
-  const [offset, setOffset] = useState(0);
   const [size, setSize] = useState(48);
   const svgRef = useRef(null);
-  const circleRef = useRef(null);
-  const classnames = `${prefix}-pb-circle${
-    progressSize === 'small'
-      ? '-small'
-      : progressSize === 'large'
-      ? '-large'
-      : ''
-  } ${className} ${
-    labelPosition == 'bottom' && size == 48 ? `ml-3` : ``
-  }`.trim();
+  const classnames = [];
 
-  progress = progress > 1 ? 1 : progress;
-  const prg = progress * 100;
-  const circumference = 2 * Math.PI * 20;
-  const progressOffset = ((100 - prg) / 100) * circumference;
+  if (progressSize === 'small') {
+    classnames.push(`${prefix}-pb-circle-small`);
+  } else if (progressSize === 'large') {
+    classnames.push(`${prefix}-pb-circle-large`);
+  } else if (progressSize === 'default') {
+    classnames.push(`${prefix}-pb-circle`);
+  }
+  if (className) {
+    classnames.push(className);
+  }
+
+  const circumferenceValue = 2 * Math.PI * 20;
+  const [offset, setOffset] = useState(circumferenceValue);
+
+  useEffect(() => {
+    progress = progress > 1 ? 1 : progress;
+    const progressOffset = ((100 - progress * 100) / 100) * circumferenceValue;
+    setOffset(progressOffset);
+  }, [progress]);
 
   useEffect(() => {
     if (svgRef && type == 'determinate') {
       setSize(svgRef.current.clientHeight);
     }
-    setOffset(progressOffset);
-  }, [setSize, progress, label, labelPosition, customContent, progressSize]);
+  }, [progressSize]);
   return (
     <>
       {type == 'determinate' ? (
@@ -49,18 +53,22 @@ const CircleProgressBar = ({
               : ``
           } `}
         >
-          {labelPosition == 'left' || labelPosition == 'top' ? (
+          {label && (labelPosition == 'left' || labelPosition == 'top') ? (
             <div className={`${prefix}-pb-label-content`}>
               <div
                 className={`${prefix}-pb-label-text ${
                   labelPosition == 'top' && size == 96 ? `ml-3` : ``
-                }`}
+                } ${prefix}-pb-circle-ellipsis`}
               >
                 {label}
               </div>
             </div>
           ) : null}
-          <div className={classnames} aria-valuenow={prg} role="progressbar">
+          <div
+            className={classnames.join(' ')}
+            aria-valuenow={progress * 100}
+            role="progressbar"
+          >
             <svg
               className={`${prefix}-pb-circle-determinate`}
               ref={svgRef}
@@ -68,7 +76,6 @@ const CircleProgressBar = ({
             >
               <circle
                 className={`${prefix}-pb-bgcircle pb-circle-inner`}
-                ref={circleRef}
                 cx="50"
                 cy="50"
                 r="20"
@@ -79,17 +86,21 @@ const CircleProgressBar = ({
                 cy="50"
                 r="20"
                 strokeDashoffset={offset}
-                strokeDasharray={circumference}
+                strokeDasharray={circumferenceValue}
               />
             </svg>
-            {size == 16 ? null : (
-              <div className={`${prefix}-pb-circle-text`}>{customContent}</div>
-            )}
+            {size == 16
+              ? null
+              : customContent && (
+                  <div className={`${prefix}-pb-circle-text`}>
+                    {customContent}
+                  </div>
+                )}
           </div>
-          {labelPosition == 'right' || labelPosition == 'bottom' ? (
+          {label && (labelPosition == 'right' || labelPosition == 'bottom') ? (
             <div className={`${prefix}-pb-label-content`}>
               <div
-                className={`${prefix}-pb-label-text ${
+                className={`${prefix}-pb-label-text ${prefix}-pb-circle-ellipsis ${
                   labelPosition == 'bottom' && size == 96 ? `ml-3` : ``
                 }`}
               >
@@ -99,7 +110,7 @@ const CircleProgressBar = ({
           ) : null}
         </div>
       ) : (
-        <div className={classnames} role="progressbar">
+        <div className={classnames.join(` `)} role="progressbar">
           <svg
             className={`${prefix}-pb-circle-indeterminate`}
             viewBox="25 25 50 50"
@@ -149,13 +160,13 @@ CircleProgressBar.propTypes = {
   type: PropTypes.oneOf(['determinate', 'indeterminate']),
 
   /** label of the progressbar */
-  label: PropTypes.string,
+  label: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
 
   /** labelPosition of the progressbar (eg : left/right/top/bottom) */
   labelPosition: PropTypes.oneOf(['left', 'right', 'top', 'bottom']),
 
   /** customContent of the progressbar (html element) */
-  customContent: PropTypes.element,
+  customContent: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
 
   /** Class/clasess will be applied on the parent div of Progressbar */
   className: PropTypes.string,
@@ -167,8 +178,8 @@ CircleProgressBar.propTypes = {
 CircleProgressBar.defaultProps = {
   progress: 0,
   type: 'determinate',
-  label: 'Downloading..',
-  customContent: <div>70%</div>,
+  label: null,
+  customContent: null,
   labelPosition: 'right',
   className: '',
   progressSize: 'default'

@@ -13,11 +13,13 @@ const DateSelectorInput = ({
   updateFormattedDate,
   setShowDateContainer,
   setIsDateSelectedValid,
-  className
+  className,
+  ...restProps
 }) => {
   const onEnterPressInputDate = event => {
     setShowDateContainer(false);
     if (event.key === 'Enter') {
+      event.preventDefault();
       const isdateValid = isValidDate(event.target.value, format);
       setIsDateSelectedValid(isdateValid);
       if (isdateValid && event.target.value !== '') {
@@ -54,6 +56,7 @@ const DateSelectorInput = ({
         }}
         onKeyPress={onEnterPressInputDate}
         ref={datepickerInput}
+        {...restProps}
       />
       <svg
         className="hcl-dateSelector-container-svg hcl-dateSelector-date-icon"

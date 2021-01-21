@@ -19,7 +19,7 @@ import DateSelectorExample from './example/DateSelectorExample';
 import InlineEditExample from './example/InlineEdit';
 import ProgressBarExample from './example/ProgressBar';
 import InPageNavigationExample from './example/InPageNavigationExample';
-
+import TreeviewWithNewFolder from './example/TreeviewWithNewFolder';
 class Home extends Component {
   state = {
     sidebarExpanded: false
@@ -85,6 +85,10 @@ class Home extends Component {
         {
           href: '/checkbox',
           title: 'Checkbox + tooltip'
+        },
+        {
+          href: '/treeWithNewFolder',
+          title: 'TreeviewWithNewFolder'
         }
       ]
     }
@@ -170,6 +174,11 @@ class Home extends Component {
               exact
               path="/in-PageNavigation"
               component={InPageNavigationExample}
+            />
+            <Route
+              exact
+              path="/treeWithNewFolder"
+              component={TreeviewWithNewFolder}
             />
           </Switch>
         </div>
