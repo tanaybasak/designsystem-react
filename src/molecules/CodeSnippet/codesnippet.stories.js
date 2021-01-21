@@ -2,10 +2,10 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { text, boolean, select } from '@storybook/addon-knobs';
+import 'prismjs/components/prism-java';
 
 //@update-path-build-start
 import CodeSnippet from './CodeSnippet';
-import 'prismjs/components/prism-java';
 //@update-path-build-end
 
 const code = `import java.util.Scanner;
