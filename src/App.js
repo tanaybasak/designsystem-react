@@ -41,7 +41,6 @@ import Footer from './molecules/Footer';
 import { ActionBar, ActionSummary, ActionList } from './molecules/ActionBar';
 import { ToolBar, ToolBarActions } from './molecules/ToolBar';
 import Password from './atoms/Password';
-//import Overlay from './atoms/Overlay';
 
 class App extends Component {
   state = {
@@ -334,6 +333,7 @@ class App extends Component {
           <section className="hcl-container pt-5 mb-5">
             <div className="hcl-row m-0">
               {/* Input Field */}
+
               <div className="hcl-form-group hcl-col-12" id="form-section">
                 <Label htmlFor="firstname">First Name </Label>
                 <FormHelperText className="helper-text">

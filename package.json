@@ -87,7 +87,9 @@
     "webpack-dev-server": "^3.11.0",
     "webpack-merge": "^4.2.1",
     "whatwg-fetch": "^3.0.0",
-    "xml-loader": "^1.2.1"
+    "xml-loader": "^1.2.1",
+    "prismjs": "^1.23.0",
+    "react-simple-code-editor": "^0.11.0"
   },
   "jest": {
     "clearMocks": true,
