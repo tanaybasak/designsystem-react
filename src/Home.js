@@ -20,6 +20,7 @@ import InlineEditExample from './example/InlineEdit';
 import ProgressBarExample from './example/ProgressBar';
 import InPageNavigationExample from './example/InPageNavigationExample';
 import TreeviewWithNewFolder from './example/TreeviewWithNewFolder';
+import WizardExample from './example/WizardExample';
 class Home extends Component {
   state = {
     sidebarExpanded: false
@@ -34,6 +35,10 @@ class Home extends Component {
       title: 'Components',
       icon: <i className="p-hclsw p-hclsw-release" />,
       children: [
+        {
+          href: '/wizard',
+          title: 'Wizard'
+        },
         {
           href: '/tag',
           title: 'Tag'
@@ -150,6 +155,7 @@ class Home extends Component {
         >
           <Switch>
             <Route exact path="/" component={App} />
+            <Route exact path="/wizard" component={WizardExample} />
             <Route exact path="/tag" component={TagExample} />
             <Route exact path="/inlineedit" component={InlineEditExample} />
             <Route exact path="/table" component={TableExample} />

@@ -41,6 +41,7 @@ import Footer from './molecules/Footer';
 import { ActionBar, ActionSummary, ActionList } from './molecules/ActionBar';
 import { ToolBar, ToolBarActions } from './molecules/ToolBar';
 import Password from './atoms/Password';
+import Wizard from './molecules/Wizard';
 //import Overlay from './atoms/Overlay';
 
 class App extends Component {
@@ -72,7 +73,25 @@ class App extends Component {
     password: {
       disabled: false
     },
-    tabidx: 0
+    tabidx: 0,
+    wizardmodel: [
+      {
+        title: 'Little lillies',
+        description: "It's flowering in monsoon time"
+      },
+      {
+        title: 'Address',
+        description: 'Input your present address'
+      },
+      {
+        title: 'Card',
+        description: 'Enter your card details'
+      },
+      {
+        title: 'Billing Address',
+        description: 'Enter your billing address'
+      }
+    ]
   };
 
   position = {
@@ -332,6 +351,7 @@ class App extends Component {
       <>
         <main className="hcl-content-main">
           <section className="hcl-container pt-5 mb-5">
+            <Wizard model={this.state.wizardmodel} />
             <div className="hcl-row m-0">
               {/* Input Field */}
               <div className="hcl-form-group hcl-col-12" id="form-section">
@@ -1498,7 +1518,6 @@ class App extends Component {
                 </div>
               </section>
             </div>
-
             {/* Accordion Component */}
             <div className="hcl-col-12 mt-5 mb-5">
               <Accordion>
