@@ -28,7 +28,6 @@
   "license": "ISC",
   "dependencies": {
     "prismjs": "^1.23.0",
-    "quill": "^1.3.7",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-router-dom": "^5.0.0",
@@ -40,7 +39,7 @@
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@babel/preset-env": "^7.8.7",
     "@babel/preset-react": "^7.0.0",
-    "@patron/patron-css": "git+https://github01.hclpnp.com/UXUIAssets/patron-css.git#feature-pds-405",
+    "@patron/patron-css": "git+https://github01.hclpnp.com/UXUIAssets/patron-css.git",
     "@patron/patron-icon": "git+https://github01.hclpnp.com/UXUIAssets/patron-icon.git",
     "@storybook/addon-a11y": "^5.3.18",
     "@storybook/addon-actions": "^5.3.18",
