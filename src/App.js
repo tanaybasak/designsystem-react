@@ -42,8 +42,6 @@ import { ActionBar, ActionSummary, ActionList } from './molecules/ActionBar';
 import { ToolBar, ToolBarActions } from './molecules/ToolBar';
 import Password from './atoms/Password';
 
-
-
 class App extends Component {
   state = {
     indeterminate: false,
@@ -323,12 +321,11 @@ class App extends Component {
         >
           <Link href="https://www.google.com" className="pr-5" target="_blank">
             Google
-       </Link>
+          </Link>
           <Button className="hcl-primary">Create</Button>
         </div>
       </div>
     );
-
 
     return (
       <>

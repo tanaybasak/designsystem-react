@@ -1,4 +1,4 @@
-import React, { useState, cloneElement, Children } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 
@@ -11,7 +11,6 @@ import 'prismjs/components/prism-javascript';
 
 import { Copy } from '../../util/icons';
 
-
 export default function CodeSnippet({
   type,
   width,
@@ -19,7 +18,7 @@ export default function CodeSnippet({
   onEdit,
   onCopy,
   value,
-  lanaguage,
+  language,
   ...restProps
 }) {
   const [code, setCode] = useState(value);
@@ -54,10 +53,16 @@ export default function CodeSnippet({
       >
         <Editor
           value={code}
-          onValueChange={type === 'edit' ? code => {setCode(code)
-            onEdit(code)} : null}
+          onValueChange={
+            type === 'edit'
+              ? code => {
+                  setCode(code);
+                  onEdit(code);
+                }
+              : null
+          }
           highlight={code =>
-            highlight(code, languages[lanaguage]?  languages[lanaguage] : null)
+            highlight(code, languages[language] ? languages[language] : null)
               .split('\n')
               .map(
                 line =>

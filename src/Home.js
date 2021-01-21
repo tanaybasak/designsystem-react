@@ -20,7 +20,7 @@ import InlineEditExample from './example/InlineEdit';
 import ProgressBarExample from './example/ProgressBar';
 import InPageNavigationExample from './example/InPageNavigationExample';
 import TreeviewWithNewFolder from './example/TreeviewWithNewFolder';
-import CodeSnippetExample from './example/CodeSnippetExample'
+import CodeSnippetExample from './example/CodeSnippetExample';
 class Home extends Component {
   state = {
     sidebarExpanded: false
@@ -185,11 +185,7 @@ class Home extends Component {
               path="/treeWithNewFolder"
               component={TreeviewWithNewFolder}
             />
-             <Route
-              exact
-              path="/codesnippet"
-              component={CodeSnippetExample}
-            />
+            <Route exact path="/codesnippet" component={CodeSnippetExample} />
           </Switch>
         </div>
       </Router>

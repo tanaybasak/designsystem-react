@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import CodeSnippet from '../../molecules/CodeSnippet';
-import 'prismjs/components/prism-java'
+import 'prismjs/components/prism-java';
 
 const CodeSnippetExample = ({}) => {
   const code = `addNewFolderToSelectedNode(treeData, item, newItem) {
@@ -49,9 +49,9 @@ const CodeSnippetExample = ({}) => {
 
   return (
     <>
-        <CodeSnippet type="edit" value={code} lanaguage="java" width="40rem" />
+      <CodeSnippet type="edit" value={code} language="java" width="40rem" />
 
-        <CodeSnippet type="read" value={code} lanaguage="java" width="40rem"/>
+      <CodeSnippet type="read" value={code} language="java" width="40rem" />
     </>
   );
 };

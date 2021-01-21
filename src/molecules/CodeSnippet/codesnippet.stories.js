@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { text, boolean, select } from '@storybook/addon-knobs';
+import { text, select } from '@storybook/addon-knobs';
 
 //@update-path-build-start
 import CodeSnippet from './CodeSnippet';
@@ -87,10 +87,9 @@ storiesOf('CodeSnippet', module).add(
   'default',
   () => (
     <CodeSnippet
-      type="edit"
       type={select('Type', ['read', 'edit'], 'read')}
       value={text('Code', `${code}`)}
-      lanaguage="javascript"
+      language="javascript"
       width="40rem"
       height="25rem"
       onCopy={action('onCopy triggered')}
