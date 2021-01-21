@@ -95,7 +95,7 @@ CodeSnippet.propTypes = {
   /** Callback funnction which will be triggered on copying CodeSnippet */
   onCopy: PropTypes.func,
   /** Code in CodeSnippet */
-  value: PropTypes.string,
+  value: PropTypes.string.isRequired,
   /** To pass the programming language */
   language: PropTypes.string
 };
