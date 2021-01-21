@@ -42,6 +42,10 @@ import { ActionBar, ActionSummary, ActionList } from './molecules/ActionBar';
 import { ToolBar, ToolBarActions } from './molecules/ToolBar';
 import Password from './atoms/Password';
 import CodeSnippet from './molecules/CodeSnippet';
+import 'prismjs/components/prism-java';
+// import 'prismjs/components/prism-javascript';
+
+
 //import Overlay from './atoms/Overlay';
 // import CodeSnippet from './atoms/CodeSnippet';
 
@@ -324,44 +328,56 @@ class App extends Component {
         >
           <Link href="https://www.google.com" className="pr-5" target="_blank">
             Google
-          </Link>
+       </Link>
           <Button className="hcl-primary">Create</Button>
         </div>
       </div>
     );
 
-   const code =    `function add(a, b) {
-    return a + b;
-}
-function add(a, b) {
-return a + b;
-}
-function add(a, b) {
-return a + b;
-}
-function add(a, b) {
-return a + b;
-}
-}
-function add(a, b) {
-return a + b;
-}
-function add(a, b) {
-return a + b;
-}
-function add(a, b) {
-return a + b;
-}
-}
-function add(a, b) {
-return a + b;
-}
-function add(a, b) {  
-return a + b;
-}
-function add(a, b) {
-return a + b;
-}
+  const code =    `import java.util.Scanner;
+   public class Life {
+   
+       @Override @Bind("One")
+       public void show(boolean[][] grid){
+           String s = "";
+           for(boolean[] row : grid){
+               for(boolean val : row)
+                   if(val)
+                       s += "*";
+                   else
+                       s += ".";
+               s += "
+";
+           }
+           System.out.println(s);
+       }
+   
+       public static boolean[][] gen(){
+           boolean[][] grid = new boolean[10][10];
+           for(int r = 0; r < 10; r++)
+               for(int c = 0; c < 10; c++)
+                   if( Math.random() > 0.7 )
+                       grid[r][c] = true;
+           return grid;
+       }
+   
+       public static void main(String[] args){
+           boolean[][] world = gen();
+           show(world);
+           System.out.println();
+           world = nextGen(world);
+           show(world);
+           Scanner s = new Scanner(System.in);
+           while(s.nextLine().length() == 0){
+               System.out.println();
+               world = nextGen(world);
+               show(world);
+   
+           }
+       }
+   
+     // [...]
+   }
   `
 
     return (
@@ -369,9 +385,9 @@ return a + b;
         <main className="hcl-content-main">
           <section className="hcl-container pt-5 mb-5">
             <div className="hcl-row m-0">
-              <CodeSnippet type="edit" value={code}/>
+              <CodeSnippet width="50rem" type="edit" value={code} lanaguage="java"/>
 
-              <CodeSnippet type="read" value={code}/>
+              <CodeSnippet type="read" value={code} lanaguage="java"/>
               {/* Input Field */}
 
               <div className="hcl-form-group hcl-col-12" id="form-section">

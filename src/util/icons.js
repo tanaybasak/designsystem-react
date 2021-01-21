@@ -17,6 +17,28 @@ export const Info = (
   </svg>
 );
 
+export const Copy = (
+  <svg
+  id="copy"
+  style={{fill:"#0066b0"}}
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 16 16"
+  className="hcl-btn-icon"
+>
+  <rect
+    id="_Transparent_Rectangle_"
+    data-name="&lt;Transparent Rectangle&gt;"
+    width="16"
+    height="16"
+    fill="none"
+  />
+  <path
+    id="copy"
+    d="M11.5,3h-5A2.5,2.5,0,0,0,4,5.5v7A2.5,2.5,0,0,0,6.5,15h5A2.5,2.5,0,0,0,14,12.5v-7A2.5,2.5,0,0,0,11.5,3ZM13,12.5A1.5,1.5,0,0,1,11.5,14h-5A1.5,1.5,0,0,1,5,12.5v-7A1.5,1.5,0,0,1,6.5,4h5A1.5,1.5,0,0,1,13,5.5ZM6,7h6V8H6Zm0,3h5v1H6ZM4.5,2A1.5,1.5,0,0,0,3,3.5V9H2V3.5A2.5,2.5,0,0,1,4.5,1H9V2Z"
+  />
+</svg>
+);
+
 export const Success = (
   <svg
     focusable="false"
