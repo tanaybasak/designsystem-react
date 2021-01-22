@@ -226,7 +226,6 @@ const DataTable = ({
         ? nThTarget.getBoundingClientRect().width
         : 0;
       mouseDownColumnData['currentElement'] = nThTarget;
-      // alert(JSON.stringify(tableEleBounding));
     }
 
     /* On Mouse move */
@@ -521,18 +520,18 @@ const DataTable = ({
                   data-column={column.field}
                   className={thClassName.join(' ')}
                   tabIndex={column.sortable ? '0' : null}
-                  // onClick={column.sortable ? sort.bind(this, column) : null}
+                  onClick={column.sortable ? sort.bind(this, column) : null}
                   onKeyDown={
                     column.sortable ? sortOnEnter.bind(this, column) : null
                   }
-                  // draggable={columnDraggable && !column.pinned ? true : false}
-                  // onDragStart={onDragStart}
-                  // onDragLeave={onDragLeave}
-                  // onDragOver={onDragOver.bind(this, column.pinned)}
-                  // onDrop={
-                  //   columnDraggable && !column.pinned ? onDrop : undefined
-                  // }
-                  // onDragEnd={onDragEnd}
+                  draggable={columnDraggable && !column.pinned ? true : false}
+                  onDragStart={onDragStart}
+                  onDragLeave={onDragLeave}
+                  onDragOver={onDragOver.bind(this, column.pinned)}
+                  onDrop={
+                    columnDraggable && !column.pinned ? onDrop : undefined
+                  }
+                  onDragEnd={onDragEnd}
                 >
                   {headerSelection && column.field === 'checkbox' ? (
                     headerSelection
@@ -602,7 +601,6 @@ const DataTable = ({
                             column,
                             index
                           )}
-                          // onTouchEnd={e => e.preventDefault()}
                         >
                           <span className={`resize-handle`} />
                         </span>
