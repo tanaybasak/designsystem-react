@@ -14,10 +14,11 @@
 }
 
 body .hcl-data-table-wrapper .hcl-data-table tr th.resizable>span.hcl-data-table-resizable {
-  width:20px !important;
-  background: red !important;
+  /* width:20px !important;
+  background: red !important; */
+  /* touch-action: none !important; */
 }
 
 .hcl-data-table-wrapper .hcl-data-table tr th.resizable>span.hcl-data-table-resizable span.resize-handle {
-  width: 20px !important;
+  /* width: 20px !important; */
 }

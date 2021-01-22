@@ -172,8 +172,14 @@ const DataTable = ({
       e.preventDefault();
       e.stopPropagation();
     }
-    const { button } = e;
-    if (button !== 0) return;
+
+    const { button, touches } = e;
+    if (!e.type.match(/touch/)) {
+      // For mouse Pointers
+      if (button !== 0) return;
+    } else if (touches && touches.length > 1) {
+      return;
+    }
     let nThTarget,
       moveLength = 0,
       minResizeFlag = false,
@@ -196,37 +202,52 @@ const DataTable = ({
 
     nThTarget.classList.add('hovered');
 
+    let clientX = 0;
     if (
       resizeLineRef &&
       resizeLineRef.current &&
       tableRef &&
       tableRef.current
     ) {
-      alert(resizeLineRef);
       let tableEleBounding = tableRef.current.getBoundingClientRect();
-      resizeLineRef.current.style.left =
-        e.clientX - tableEleBounding.left + `px`;
-      resizeDividerData['left'] = e.clientX - tableEleBounding.left;
+      if (!e.type.match(/touch/)) {
+        clientX = e.clientX;
+      } else {
+        clientX = e.touches[0].clientX;
+      }
+      resizeLineRef.current.style.left = clientX - tableEleBounding.left + `px`;
+      resizeDividerData['left'] = clientX - tableEleBounding.left;
 
       /* MouseDownColumn data collected */
       mouseDownColumnData['column'] = column;
       mouseDownColumnData['idx'] = idx;
-      mouseDownColumnData['startX'] = e.clientX;
+      mouseDownColumnData['startX'] = clientX;
       mouseDownColumnData['clientWidth'] = nThTarget
         ? nThTarget.getBoundingClientRect().width
         : 0;
       mouseDownColumnData['currentElement'] = nThTarget;
+      // alert(JSON.stringify(tableEleBounding));
     }
 
     /* On Mouse move */
     const onPressMouseMove = e => {
-      e.preventDefault();
-      e.stopPropagation();
+      if (!e.type.match(/touch/)) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+
+      let mouseMoveClientX = 0;
+
+      if (!e.type.match(/touch/)) {
+        mouseMoveClientX = e.clientX;
+      } else {
+        mouseMoveClientX = e.touches[0].clientX;
+      }
 
       if (isMouseDown) {
         const { startX, clientWidth } = mouseDownColumnData;
 
-        moveLength = e && startX ? e.clientX - startX : 0;
+        moveLength = e && startX ? mouseMoveClientX - startX : 0;
         totalLengthMoved = moveLength ? clientWidth + moveLength : 0;
         let { left } = resizeDividerData;
         if (
@@ -259,8 +280,10 @@ const DataTable = ({
 
     /* On Mouse up */
     const onPressMouseUp = async e => {
-      e.preventDefault();
-      e.stopPropagation();
+      if (!e.type.match(/touch/)) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
 
       if (!isMouseDown) return;
 
@@ -292,9 +315,14 @@ const DataTable = ({
       clearOnMouseUp();
       nThTarget ? nThTarget.classList.remove('hovered') : null;
       removeListeners('datatablemouseup-' + column[`label`] + idx, 'mouseup');
+      removeListeners('datatablemouseup-' + column[`label`] + idx, 'touchend');
       removeListeners(
         'datatablemousemove-' + column[`label`] + idx,
         'mousemove'
+      );
+      removeListeners(
+        'datatablemousemove-' + column[`label`] + idx,
+        'touchmove'
       );
       await setTableConfiguration(tempConfig);
       await setMouseDownonResize(false);
@@ -312,8 +340,24 @@ const DataTable = ({
       false
     );
     addListener(
+      'datatablemousemove-' + column[`label`] + idx,
+      'touchmove',
+      e => {
+        onPressMouseMove(e);
+      },
+      false
+    );
+    addListener(
       'datatablemouseup-' + column[`label`] + idx,
       'mouseup',
+      e => {
+        onPressMouseUp(e);
+      },
+      false
+    );
+    addListener(
+      'datatablemouseup-' + column[`label`] + idx,
+      'touchend',
       e => {
         onPressMouseUp(e);
       },
@@ -477,7 +521,7 @@ const DataTable = ({
                   data-column={column.field}
                   className={thClassName.join(' ')}
                   tabIndex={column.sortable ? '0' : null}
-                  onClick={column.sortable ? sort.bind(this, column) : null}
+                  // onClick={column.sortable ? sort.bind(this, column) : null}
                   onKeyDown={
                     column.sortable ? sortOnEnter.bind(this, column) : null
                   }
