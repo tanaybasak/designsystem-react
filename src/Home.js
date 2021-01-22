@@ -17,9 +17,10 @@ import SearchOverlayExample from './example/SearchOverlay';
 import DateRangeSelectorExample from './example/DateRangeSelectorExample';
 import DateSelectorExample from './example/DateSelectorExample';
 import InlineEditExample from './example/InlineEdit';
-import ProgressBarExample from './example/ProgressBar';
+import ProgressIndicatorExample from './example/ProgressIndicator';
 import InPageNavigationExample from './example/InPageNavigationExample';
 import TreeviewWithNewFolder from './example/TreeviewWithNewFolder';
+import CodeSnippetExample from './example/CodeSnippetExample';
 class Home extends Component {
   state = {
     sidebarExpanded: false
@@ -75,8 +76,8 @@ class Home extends Component {
           title: 'DateRangeSelector'
         },
         {
-          href: '/progressbar',
-          title: 'Progress Bar'
+          href: '/progressindicator',
+          title: 'Progress Indicator'
         },
         {
           href: '/in-pageNavigation',
@@ -89,6 +90,10 @@ class Home extends Component {
         {
           href: '/treeWithNewFolder',
           title: 'TreeviewWithNewFolder'
+        },
+        {
+          href: '/codesnippet',
+          title: 'Code Snippet'
         }
       ]
     }
@@ -169,7 +174,11 @@ class Home extends Component {
               component={SearchOverlayExample}
             />
             <Route exact path="/pagination" component={PaginationExample} />
-            <Route exact path="/progressbar" component={ProgressBarExample} />
+            <Route
+              exact
+              path="/progressindicator"
+              component={ProgressIndicatorExample}
+            />
             <Route
               exact
               path="/in-PageNavigation"
@@ -180,6 +189,7 @@ class Home extends Component {
               path="/treeWithNewFolder"
               component={TreeviewWithNewFolder}
             />
+            <Route exact path="/codesnippet" component={CodeSnippetExample} />
           </Switch>
         </div>
       </Router>

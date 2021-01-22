@@ -34,8 +34,9 @@ const InlineEdit = ({
   }
 
   const isCustomComponent =
-    ['Dropdown', 'TextInput', 'DateSelector'].indexOf(children.type.name) ===
-    -1;
+    ['Dropdown', 'TextInput', 'DateSelector'].indexOf(
+      children.type.displayName
+    ) === -1;
 
   const updateTreenodeNameOnEnter = event => {
     event.stopPropagation();
@@ -52,6 +53,25 @@ const InlineEdit = ({
     }
   };
 
+  const closeOnEscape = () => {
+    event.stopPropagation();
+    if (event.key === 'Escape') {
+      setDisplayActionPanel(false);
+      onClose();
+      event.preventDefault();
+    }
+  };
+
+  const closeOnFocusOut = () => {
+    setTimeout(() => {
+      if (
+        !inlineEditorRef.current.parentElement.contains(document.activeElement)
+      ) {
+        closeOverlay();
+      }
+    });
+  };
+
   useEffect(() => {
     if (
       inlineEditorRef &&
@@ -60,9 +80,9 @@ const InlineEdit = ({
     ) {
       let focusableElement = inlineEditorRef.current.firstElementChild;
       if (!isCustomComponent) {
-        if (children.type.name === 'Dropdown') {
+        if (children.type.displayName === 'Dropdown') {
           focusableElement = focusableElement.firstElementChild;
-        } else if (children.type.name === 'DateSelector') {
+        } else if (children.type.displayName === 'DateSelector') {
           focusableElement = focusableElement.querySelector(
             '.hcl-dateSelector-input '
           );
@@ -86,12 +106,14 @@ const InlineEdit = ({
   }, [errorMessage]);
 
   const getChildren = () => {
-    if (children.type.name === 'Dropdown') {
+    if (children.type.displayName === 'Dropdown') {
       currentValue.current = children.props.selectedItem;
       return cloneElement(children, {
         onVisibleChange: status => {
           setDisplayActionPanel(!status);
         },
+        onKeyDown: closeOnEscape,
+        onBlur: closeOnFocusOut,
         disabled: loader,
         onChange: (value, values) => {
           if (children.props.dropdownType === 'multi') {
@@ -103,7 +125,7 @@ const InlineEdit = ({
           }
         }
       });
-    } else if (children.type.name === 'TextInput') {
+    } else if (children.type.displayName === 'TextInput') {
       currentValue.current = children.props.value;
       return cloneElement(children, {
         onChange: e => {
@@ -111,10 +133,11 @@ const InlineEdit = ({
           inlineEditValue.current = e.currentTarget.value;
           setMatchedValue(currentValue.current === e.currentTarget.value);
         },
+        onBlur: closeOnFocusOut,
         disabled: loader,
         onKeyDown: updateTreenodeNameOnEnter
       });
-    } else if (children.type.name === 'DateSelector') {
+    } else if (children.type.displayName === 'DateSelector') {
       currentValue.current = children.props.defaultDate;
       return cloneElement(children, {
         onDateSelect: date => {
@@ -123,6 +146,8 @@ const InlineEdit = ({
             isDateEqual(currentValue.current, inlineEditValue.current)
           );
         },
+        onBlur: closeOnFocusOut,
+        onKeyDown: closeOnEscape,
         disabled: loader,
         onVisibleChange: status => {
           setDisplayActionPanel(!status);
@@ -135,7 +160,7 @@ const InlineEdit = ({
 
   const isValueEqual = () => {
     if (inlineEditValue.current) {
-      if (children.type.name === 'TextInput') {
+      if (children.type.displayName === 'TextInput') {
         return inlineEditValue.current === currentValue.current;
       } else {
         return matchedValue;
@@ -145,29 +170,45 @@ const InlineEdit = ({
     }
   };
 
-  const onToggle = status => {
+  const onToggle = (status, type, direction) => {
     if (!status) {
-      if (!isCustomComponent) {
-        if (isValueEqual()) {
-          setDisplayActionPanel(status);
-          onClose();
-        } else {
-          onTextUpdate(inlineEditValue.current);
+      if (type === 'focusout' && direction === 'backward') {
+        const focusableEls = inlineEditorRef.current.parentElement.querySelectorAll(
+          'a[href]:not([disabled]), button:not([disabled]), textarea:not([disabled]), input[type="text"]:not([disabled]), input[type="radio"]:not([disabled]), input[type="checkbox"]:not([disabled]), select:not([disabled]), [tabindex]'
+        );
+
+        for (let i = 0; i < focusableEls.length; i++) {
+          if (focusableEls[i] === document.activeElement) {
+            focusableEls[i - 1].focus();
+          }
         }
       } else {
-        setDisplayActionPanel(status);
-        onClose();
+        closeOverlay(status);
       }
     }
   };
 
+  const closeOverlay = status => {
+    if (!isCustomComponent) {
+      if (isValueEqual()) {
+        setDisplayActionPanel(status);
+        onClose();
+      } else {
+        onTextUpdate(inlineEditValue.current);
+      }
+    } else {
+      setDisplayActionPanel(status);
+      onClose();
+    }
+  };
+
   const inlineEditorWrapperClassname = [`${prefix}-inline-editor-component`];
-  if (children.type.name === 'DateSelector') {
+  if (children.type.displayName === 'DateSelector') {
     inlineEditorWrapperClassname.push(
       `${prefix}-inline-editor-component-dt-picker`
     );
   }
-  if (children.type.name === 'TextInput') {
+  if (children.type.displayName === 'TextInput') {
     inlineEditorWrapperClassname.push(
       `${prefix}-inline-editor-component-text-input`
     );
