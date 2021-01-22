@@ -88,7 +88,7 @@ storiesOf('CodeSnippet', module).add(
   () => (
     <CodeSnippet
       type={select('Type', ['read', 'edit'], 'read')}
-      value={text('Code', `${code}`)}
+      value={code}
       language="javascript"
       width="40rem"
       height="25rem"
