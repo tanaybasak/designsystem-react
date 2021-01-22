@@ -60,4 +60,6 @@ TextInput.defaultProps = {
   onBlur: () => {}
 };
 
+TextInput.displayName = 'TextInput';
+
 export default TextInput;
