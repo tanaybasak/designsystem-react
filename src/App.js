@@ -351,7 +351,7 @@ class App extends Component {
       <>
         <main className="hcl-content-main">
           <section className="hcl-container pt-5 mb-5">
-            <Wizard model={this.state.wizardmodel} />
+            <Wizard activeIndex={0} model={this.state.wizardmodel} />
             <div className="hcl-row m-0">
               {/* Input Field */}
               <div className="hcl-form-group hcl-col-12" id="form-section">
