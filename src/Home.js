@@ -20,6 +20,7 @@ import InlineEditExample from './example/InlineEdit';
 import ProgressBarExample from './example/ProgressBar';
 import InPageNavigationExample from './example/InPageNavigationExample';
 import TreeviewWithNewFolder from './example/TreeviewWithNewFolder';
+import RichTextEditorExample from './example/RichTextEditorExample';
 class Home extends Component {
   state = {
     sidebarExpanded: false
@@ -89,6 +90,10 @@ class Home extends Component {
         {
           href: '/treeWithNewFolder',
           title: 'TreeviewWithNewFolder'
+        },
+        {
+          href: '/rte',
+          title: 'Rich Text Editor'
         }
       ]
     }
@@ -180,6 +185,7 @@ class Home extends Component {
               path="/treeWithNewFolder"
               component={TreeviewWithNewFolder}
             />
+            <Route exact path="/rte" component={RichTextEditorExample} />
           </Switch>
         </div>
       </Router>
