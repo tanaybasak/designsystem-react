@@ -1,6 +1,9 @@
 /* eslint-disable no-console */
 import React, { Component } from 'react';
-import { LinearProgressIndicator, CircleProgressIndicator } from '../../atoms/ProgressIndicator';
+import {
+  LinearProgressIndicator,
+  CircleProgressIndicator
+} from '../../atoms/ProgressIndicator';
 
 class ProgressIndicatorExample extends Component {
   render() {
