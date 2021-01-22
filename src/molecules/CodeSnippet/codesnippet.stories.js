@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { text, select } from '@storybook/addon-knobs';
+import { select } from '@storybook/addon-knobs';
 
 //@update-path-build-start
 import CodeSnippet from './CodeSnippet';
