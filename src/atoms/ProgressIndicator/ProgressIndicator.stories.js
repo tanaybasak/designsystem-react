@@ -21,7 +21,7 @@ const sizeOptions = {
 
 storiesOf('ProgressIndicator', module)
   .add(
-    'linear-determinate',
+    'default',
     () => (
       <LinearProgressIndicator
         label={text('label', 'Downloading..')}
