@@ -252,4 +252,7 @@ DateSelector.defaultProps = {
   maxDate: new Date(9999, 12, 31),
   onVisibleChange: null
 };
+
+DateSelector.displayName = 'DateSelector';
+
 export default DateSelector;
