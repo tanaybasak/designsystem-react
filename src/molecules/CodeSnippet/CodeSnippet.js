@@ -61,6 +61,10 @@ export default function CodeSnippet({
                 }
               : null
           }
+          style={{
+            fontFamily: '"Roboto Mono", "Fira Mono", monospace',
+            fontSize: 14
+          }}
           highlight={code =>
             highlight(code, languages[language] ? languages[language] : null)
               .split('\n')
