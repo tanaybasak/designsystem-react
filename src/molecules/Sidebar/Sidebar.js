@@ -15,6 +15,7 @@ const Sidebar = ({
   icon,
   onClick,
   toggleSidebar,
+  headerPosition,
   sidebarLinkTemplate,
   expanded,
   activeLink,
@@ -311,40 +312,42 @@ const Sidebar = ({
         <span />
         <span />
       </button>
-      <div
-        className="hcl-sidebar-title"
-        data-type={'toggle_sidebar'}
-        data-title={title}
-        data-expanded={expnd}
-      >
-        {icon ? (
-          React.cloneElement(icon, {
-            className: `hcl-sidebar-title-icon${
-              icon.props.className ? ' ' + icon.props.className : ''
-            }`
-          })
-        ) : (
-          <span className="hcl-sidebar-title-icon" />
-        )}
-        <span className="hcl-sidebar-title-text">{title}</span>
-        <span
-          className="hcl-sidebar-title-toggle"
-          tabIndex="0"
-          onClick={expandSidebar}
-          onKeyDown={expandSidebarOnEnter}
+      {headerPosition == 'top' && (
+        <div
+          className="hcl-sidebar-title"
+          data-type={'toggle_sidebar'}
+          data-title={title}
+          data-expanded={expnd}
         >
-          <Icon
-            type="svg"
-            height="24px"
-            width="24px"
-            viewBox="0 0 512 512"
-            alt={title}
-            title={title}
+          {icon ? (
+            React.cloneElement(icon, {
+              className: `hcl-sidebar-title-icon${
+                icon.props.className ? ' ' + icon.props.className : ''
+              }`
+            })
+          ) : (
+            <span className="hcl-sidebar-title-icon" />
+          )}
+          <span className="hcl-sidebar-title-text">{title}</span>
+          <span
+            className="hcl-sidebar-title-toggle"
+            tabIndex="0"
+            onClick={expandSidebar}
+            onKeyDown={expandSidebarOnEnter}
           >
-            <polygon points="160,128.4 192.3,96 352,256 352,256 352,256 192.3,416 160,383.6 287.3,256 " />
-          </Icon>
-        </span>
-      </div>
+            <Icon
+              type="svg"
+              height="24px"
+              width="24px"
+              viewBox="0 0 512 512"
+              alt={title}
+              title={title}
+            >
+              <polygon points="160,128.4 192.3,96 352,256 352,256 352,256 192.3,416 160,383.6 287.3,256 " />
+            </Icon>
+          </span>
+        </div>
+      )}
       {sidebarList && sidebarList.length ? (
         <ul className={`${prefix}-sidebar-list`}>
           {sidebarList.map((item, categoryIndex) => {
@@ -378,6 +381,42 @@ const Sidebar = ({
           })}
         </ul>
       ) : null}
+      {headerPosition == 'bottom' && (
+        <div
+          className="hcl-sidebar-title"
+          data-type={'toggle_sidebar'}
+          data-title={title}
+          data-expanded={expnd}
+        >
+          {icon ? (
+            React.cloneElement(icon, {
+              className: `hcl-sidebar-title-icon${
+                icon.props.className ? ' ' + icon.props.className : ''
+              }`
+            })
+          ) : (
+            <span className="hcl-sidebar-title-icon" />
+          )}
+          <span className="hcl-sidebar-title-text">{title}</span>
+          <span
+            className="hcl-sidebar-title-toggle"
+            tabIndex="0"
+            onClick={expandSidebar}
+            onKeyDown={expandSidebarOnEnter}
+          >
+            <Icon
+              type="svg"
+              height="24px"
+              width="24px"
+              viewBox="0 0 512 512"
+              alt={title}
+              title={title}
+            >
+              <polygon points="160,128.4 192.3,96 352,256 352,256 352,256 192.3,416 160,383.6 287.3,256 " />
+            </Icon>
+          </span>
+        </div>
+      )}
     </nav>
   );
 };
@@ -397,6 +436,9 @@ Sidebar.propTypes = {
   items: PropTypes.array,
   /** Boolean value to disable Sidebar */
   disabled: PropTypes.bool,
+
+  /** Position of sidebar header eg: top | bottom */
+  headerPosition: PropTypes.oneOf(['top', 'bottom']),
   /** Icon for Sidebar */
   icon: PropTypes.element,
   /** Callback function that is invoked when Sidebar link is clicked
@@ -419,6 +461,7 @@ Sidebar.defaultProps = {
   title: '',
   items: [],
   disabled: false,
+  headerPosition: 'bottom',
   icon: null,
   onClick: () => {},
   toggleSidebar: () => {}

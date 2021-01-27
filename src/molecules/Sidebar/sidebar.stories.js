@@ -59,6 +59,11 @@ const items = [
   }
 ];
 
+const positionOptions = {
+  top: 'top',
+  bottom: 'bottom'
+};
+
 storiesOf('Sidebar', module).add(
   'default',
   () => (
@@ -72,6 +77,7 @@ storiesOf('Sidebar', module).add(
       }
       expanded={boolean('Expanded', true)}
       items={items}
+      headerPosition={select('headerPosition', positionOptions, 'bottom')}
       onClick={action('link clicked')}
       toggleSidebar={action('Toggle Sidebar')}
     />
