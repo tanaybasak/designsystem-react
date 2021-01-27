@@ -43,6 +43,7 @@ storiesOf('InlineEdit', module)
         <TextInput
           value={text('Value', 'Content')}
           data-invalid={boolean('formStatus', false)}
+          aria-label="Inline edit"
         />
       </InlineEdit>
     ),
@@ -111,7 +112,7 @@ storiesOf('InlineEdit', module)
       <InlineEdit
         onTextUpdate={action('Inline-TextUpdate')}
         customIcon={
-          <Button type="neutral">
+          <Button type="neutral" aria-label="Custom Action">
             <i
               className={`p-hclsw p-hclsw-${select(
                 'Icon Class',
@@ -128,6 +129,7 @@ storiesOf('InlineEdit', module)
         <TextInput
           value={text('Value', 'Content')}
           data-invalid={boolean('formStatus', false)}
+          aria-label="Inline edit"
         />
       </InlineEdit>
     ),
