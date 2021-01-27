@@ -33,6 +33,7 @@ const Wizard = ({ direction, model, readOnly, activeIndex, className }) => {
         if (idx <= currentActiveIdx) {
           newClass.push('completed');
         }
+        newClass.push(`hcl-wizard__no-title`);
 
         return (
           <div

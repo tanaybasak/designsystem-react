@@ -13,6 +13,11 @@
   right: 27px;
 }
 
+/* For Wizard Classes */
+.hcl-wizard {
+  display: inline-flex;
+}
+
 .hcl-wizard__item {
   display: inline-flex;
   position: relative;
@@ -25,13 +30,14 @@
   display: block;
   width: 100%;
   height: 2px;
-  top: -13px;
-  left: 2%;
+  top: 0;
+  left: 0%;
   z-index: 1;
 }
 .hcl-wizard__item.active::after,
 .hcl-wizard__item.completed::after {
   border: 2px solid #0066b0;
+  transition: border-color 0.07s ease-in;
 }
 .hcl-wizard__user {
   width: 24px;
@@ -43,6 +49,54 @@
   align-items: center;
 }
 
+.hcl-wizard__title {
+  width: 108px;
+  height: 18px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
+  letter-spacing: 0.16px;
+  color: var(--color_default_text_high);
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.hcl-wizard__description {
+  width: 98px;
+  height: 16px;
+  font-size: 12px;
+  font-weight: normal;
+  line-height: 16px;
+  letter-spacing: 0.32px;
+  color: var(--color_default_text_low);
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
 .hcl-wizard-right-pane {
   padding-left: 8px;
 }
+
+/* Responsive Screen adjustment */
+.hcl-wizard__no-title {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 0;
+  padding-bottom: 0;
+  text-align: center;
+}
+.hcl-wizard__no-title .hcl-wizard-left-pane {
+  padding: 8px 0;
+}
+.hcl-wizard__no-title .hcl-wizard__description {
+  display: none;
+}
+/* .hcl-wizard__no-title .hcl-wizard__title {
+  padding-top: 8px;
+} */
+/* Responsive Screen adjustment */
+
+/* For Wizard Classes ends */

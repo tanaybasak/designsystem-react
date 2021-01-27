@@ -77,7 +77,7 @@ class App extends Component {
     wizardmodel: [
       {
         title: 'Little lillies',
-        description: "It's flowering in monsoon time"
+        description: "It's flowering always"
       },
       {
         title: 'Address',
@@ -88,8 +88,8 @@ class App extends Component {
         description: 'Enter your card details'
       },
       {
-        title: 'Billing Address',
-        description: 'Enter your billing address'
+        title: 'Alternate Contact',
+        description: 'Alternate Contact'
       }
     ]
   };
