@@ -18,6 +18,7 @@ const Sidebar = ({
   toggleSidebar,
   headerPosition,
   headerVisible,
+  headerBranding,
   sidebarLinkTemplate,
   expanded,
   activeLink,
@@ -30,6 +31,7 @@ const Sidebar = ({
   const [iconExist, updateIconExists] = useState();
   // const classnames = `${prefix}-sidebar ${className}`.trim();
   const classnames = [`${prefix}-sidebar`];
+  const headerclasses = [`${prefix}-sidebar-title`];
   const sidebarContainerRef = useRef(null);
 
   if (className) {
@@ -38,7 +40,9 @@ const Sidebar = ({
 
   if (type === 'internal') classnames.push(`${prefix}-sidebar-vertical`);
 
-  if (iconExist) classnames.push(`no-sideicon`);
+  if (headerBranding === 'primary') {
+    headerclasses.push(`${prefix}-sidebar-title-primary`);
+  }
 
   const expandSidebar = event => {
     let ex = !expnd;
@@ -358,7 +362,7 @@ const Sidebar = ({
       </button>
       {headerPosition == 'top' && headerVisible && (
         <div
-          className="hcl-sidebar-title"
+          className={headerclasses.join(` `)}
           data-type={'toggle_sidebar'}
           data-title={title}
           data-expanded={expnd}
@@ -427,7 +431,7 @@ const Sidebar = ({
       ) : null}
       {headerPosition == 'bottom' && headerVisible && (
         <div
-          className="hcl-sidebar-title"
+          className={headerclasses.join(` `)}
           data-type={'toggle_sidebar'}
           data-title={title}
           data-expanded={expnd}
@@ -484,8 +488,11 @@ Sidebar.propTypes = {
   /** Position of sidebar header eg: top | bottom */
   headerPosition: PropTypes.oneOf(['top', 'bottom']),
 
-  /** Sidebar Header visibility */
-  headerVisible: PropTypes.bool,
+  /** Sidebar Header Visibility */
+  headerVisible: PropTypes,
+
+  /** Sidebar Header Branding */
+  headerBranding: PropTypes.oneOf(['default', 'primary']),
 
   /** Type of sidebar */
   type: PropTypes.oneOf(['default', 'internal']),
@@ -514,6 +521,7 @@ Sidebar.defaultProps = {
   disabled: false,
   headerPosition: 'bottom',
   headerVisible: true,
+  headerBranding: 'default',
   type: 'default',
   icon: null,
   onClick: () => {},

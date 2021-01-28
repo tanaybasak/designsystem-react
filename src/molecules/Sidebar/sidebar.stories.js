@@ -65,9 +65,14 @@ const positionOptions = {
   bottom: 'bottom'
 };
 
+const headerBranding = {
+  default: 'default',
+  primary: 'primary'
+};
+
 const typeOptions = {
   internal: 'internal',
-  Default: 'default'
+  default: 'default'
 };
 
 storiesOf('Sidebar', module).add(
@@ -84,6 +89,7 @@ storiesOf('Sidebar', module).add(
       items={items}
       headerVisible={boolean('headerVisible', true)}
       headerPosition={select('headerPosition', positionOptions, 'bottom')}
+      headerBranding={select('headerBranding', headerBranding, 'default')}
       onClick={action('link clicked')}
       toggleSidebar={action('Toggle Sidebar')}
       type={select('type', typeOptions, 'default')}
