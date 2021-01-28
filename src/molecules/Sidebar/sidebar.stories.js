@@ -92,6 +92,7 @@ storiesOf('Sidebar', module).add(
   {
     info: {
       text: `Description About Sidebar Component
+
       import { Sidebar } from '@patron/patron-react/sidebar';
     import { Icon } from '@patron/patron-react/icon';
 
