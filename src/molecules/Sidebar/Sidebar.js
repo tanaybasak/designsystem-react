@@ -9,6 +9,7 @@ import { addListener, removeListeners } from '../../util/eventManager';
 import Icon from '../../atoms/Icon';
 let sidebarElementRef = 1;
 const Sidebar = ({
+  type,
   className,
   title,
   items,
@@ -16,6 +17,7 @@ const Sidebar = ({
   onClick,
   toggleSidebar,
   headerPosition,
+  headerVisible,
   sidebarLinkTemplate,
   expanded,
   activeLink,
@@ -25,8 +27,18 @@ const Sidebar = ({
   const [activeItem, setActiveItem] = useState(null);
   const [sidebarId] = useState(sidebarElementRef++);
   const [sidebarList, updateSidebarList] = useState(items);
-  const classnames = `${prefix}-sidebar ${className}`.trim();
+  const [iconExist, updateIconExists] = useState();
+  // const classnames = `${prefix}-sidebar ${className}`.trim();
+  const classnames = [`${prefix}-sidebar`];
   const sidebarContainerRef = useRef(null);
+
+  if (className) {
+    classnames.push(className);
+  }
+
+  if (type === 'internal') classnames.push(`${prefix}-sidebar-vertical`);
+
+  if (iconExist) classnames.push(`no-sideicon`);
 
   const expandSidebar = event => {
     let ex = !expnd;
@@ -53,6 +65,11 @@ const Sidebar = ({
 
   useEffect(() => {
     updateSidebarList(items);
+  }, [items]);
+
+  useEffect(() => {
+    let isIconExist = items.some(item => item.hasOwnProperty('icon'));
+    updateIconExists(isIconExist);
   }, [items]);
 
   useEffect(() => {
@@ -116,6 +133,26 @@ const Sidebar = ({
     }
   };
 
+  const iconClass = item => {
+    if (item.children?.length) {
+      if (item.iconClass || item.icon) {
+        return '';
+      } else {
+        return 'no-icon';
+      }
+    } else {
+      if ((item.iconClass || item.icon) && item.statusIcon) {
+        return '';
+      } else if (!(item.iconClass || item.icon) && item.statusIcon) {
+        return 'no-icon';
+      } else if ((item.iconClass || item.icon) && !item.statusIcon) {
+        return 'no-statusicon';
+      } else if (!(item.iconClass || item.icon) && !item.statusIcon) {
+        return 'no-statusicon no-icon';
+      }
+    }
+  };
+
   const getSidebarLink = (item, categoryIndex, parentItem) => {
     let highlightedClass = '';
     const itemMatchedToParent = activeItem && activeItem.parentItem === item;
@@ -125,7 +162,6 @@ const Sidebar = ({
         if (item.expanded === false) highlightedClass = ' highlight';
         else if (!expnd) highlightedClass = ' highlight';
       }
-
       return (
         <a
           onClick={
@@ -149,8 +185,8 @@ const Sidebar = ({
               })
             : null}
           <span
-            className={`hcl-sidebar-link${
-              item.iconClass || item.icon ? '' : ' no-icon'
+            className={`hcl-sidebar-link ${iconClass(item)}${
+              iconExist ? '' : 'no-sideicon'
             }`}
           >
             {item.title}
@@ -165,6 +201,14 @@ const Sidebar = ({
             >
               <polygon points="160,128.4 192.3,96 352,256 352,256 352,256 192.3,416 160,383.6 287.3,256 " />
             </Icon>
+          ) : item.statusIcon ? (
+            React.cloneElement(item.statusIcon, {
+              className: `hcl-sidebar-icon${
+                item.statusIcon.props.className
+                  ? ' ' + item.statusIcon.props.className
+                  : ''
+              }`
+            })
           ) : null}
         </a>
       );
@@ -298,7 +342,7 @@ const Sidebar = ({
 
   return (
     <nav
-      className={`${classnames}${expnd ? ` expanded` : ''}`}
+      className={`${classnames.join(` `)} ${expnd ? ` expanded` : ''}`}
       {...restProps}
       ref={sidebarContainerRef}
     >
@@ -312,7 +356,7 @@ const Sidebar = ({
         <span />
         <span />
       </button>
-      {headerPosition == 'top' && (
+      {headerPosition == 'top' && headerVisible && (
         <div
           className="hcl-sidebar-title"
           data-type={'toggle_sidebar'}
@@ -381,7 +425,7 @@ const Sidebar = ({
           })}
         </ul>
       ) : null}
-      {headerPosition == 'bottom' && (
+      {headerPosition == 'bottom' && headerVisible && (
         <div
           className="hcl-sidebar-title"
           data-type={'toggle_sidebar'}
@@ -439,6 +483,13 @@ Sidebar.propTypes = {
 
   /** Position of sidebar header eg: top | bottom */
   headerPosition: PropTypes.oneOf(['top', 'bottom']),
+
+  /** Sidebar Header visibility */
+  headerVisible: PropTypes.bool,
+
+  /** Type of sidebar */
+  type: PropTypes.oneOf(['default', 'internal']),
+
   /** Icon for Sidebar */
   icon: PropTypes.element,
   /** Callback function that is invoked when Sidebar link is clicked
@@ -462,6 +513,8 @@ Sidebar.defaultProps = {
   items: [],
   disabled: false,
   headerPosition: 'bottom',
+  headerVisible: true,
+  type: 'default',
   icon: null,
   onClick: () => {},
   toggleSidebar: () => {}

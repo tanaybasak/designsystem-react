@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import Sidebar from '../../molecules/Sidebar';
+import TimePickerExample from '../TimePicker';
+import OverlayExample from '../OverlayExample';
+import CheckboxExample from '../CheckboxExample';
+import PaginationExample from '../PaginationExample';
+import Header from '../../molecules/Header';
 
 class SidebarExample extends Component {
   state = {
@@ -13,94 +18,80 @@ class SidebarExample extends Component {
       {
         title: 'Components',
         icon: <i className="p-hclsw p-hclsw-release" />,
+        statusIcon :  <i className="p-hclsw p-hclsw-release" />,
         children: [
           {
-            href: '/tag',
-            title: 'Tag'
-          },
-          {
-            href: '/inlineEdit',
-            title: 'InlineEdit'
-          },
-          {
-            href: '/table',
-            title: 'Table'
-          },
-          {
-            href: '/tree',
-            title: 'Tree'
-          },
-          {
-            href: '/timepicker',
+            href: '/timepicker_new',
             title: 'Time Picker'
           },
           {
-            href: '/overlay',
+            href: '/overlay_new',
             title: 'Overlay'
           },
           {
-            href: '/searchoverlay',
-            title: 'Search Overlay'
-          },
-          {
-            href: '/pagination',
+            href: '/pagination_new',
             title: 'Pagination'
           },
           {
-            href: '/dateselector',
-            title: 'DateSelector'
-          },
-          {
-            href: '/daterangeselector',
-            title: 'DateRangeSelector'
-          },
-          {
-            href: '/progressindicator',
-            title: 'Progress Indicator'
-          },
-          {
-            href: '/in-pageNavigation',
-            title: 'InPageNavigation'
-          },
-          {
-            href: '/checkbox',
+            href: '/checkbox_new',
             title: 'Checkbox + tooltip'
-          },
-          {
-            href: '/treeWithNewFolder',
-            title: 'TreeviewWithNewFolder'
-          },
-          {
-            href: '/codesnippet',
-            title: 'Code Snippet'
           }
         ]
       }
-    ]
+    ],
+
+    sidebarExpanded: true,
+    headerPosition: 'top',
+    type: 'internal'
   };
   render() {
     return (
       <div className="p-5 examples">
-        <Sidebar
-          title="Patronus"
-          items={this.state.navigationData}
-          expanded={true}
-          activeLink="/tag"
-          icon={<i className="p-hclsw p-hclsw-user-active" />}
-          headerPosition={'top'}
-          sidebarLinkTemplate={link => {
-            return <Link to={link.href}>{link.title}</Link>;
-          }}
-          toggleSidebar={status => {
-            const container = document.querySelector('[data-withsidenav]');
-            if (container) {
-              this.setState({ sidebarExpanded: status });
-            }
-          }}
-          onClick={item => {
-            console.log(item);
-          }}
-        />
+        <Router>
+          <Sidebar
+            title="Patronus"
+            items={this.state.navigationData}
+            expanded={this.state.sidebarExpanded}
+            activeLink="/tag"
+            icon={<i className="p-hclsw p-hclsw-user-active" />}
+            headerPosition={this.state.headerPosition}
+            type={this.state.type}
+            sidebarLinkTemplate={link => {
+              return <Link to={link.href}>{link.title}</Link>;
+            }}
+            toggleSidebar={status => {
+              const container = document.querySelector('[data-withsidenav]');
+              if (container) {
+                this.setState({ sidebarExpanded: status });
+              }
+            }}
+            onClick={item => {
+              console.log(item);
+            }}
+          />
+          <div
+            className={`hcl-content${
+              this.state.sidebarExpanded ? ' sidebar-expanded' : ''
+            }`}
+            style={{ marginTop: '4rem' }}
+            data-withsidenav
+          >
+            <Switch>
+              <Route
+                exact
+                path="/timepicker_new"
+                component={TimePickerExample}
+              />
+              <Route exact path="/overlay_new" component={OverlayExample} />
+              <Route exact path="/checkbox_new" component={CheckboxExample} />
+              <Route
+                exact
+                path="/pagination_new"
+                component={PaginationExample}
+              />
+            </Switch>
+          </div>
+        </Router>
       </div>
     );
   }

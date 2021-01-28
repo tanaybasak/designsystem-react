@@ -28,6 +28,7 @@ const items = [
       }
     ],
     icon: <i className={`p-hclsw p-hclsw-${icons[2]}`} />,
+    statusIcon: <i className={`p-hclsw p-hclsw-${icons[2]}`} />,
     title: 'Category One'
   },
   {
@@ -64,6 +65,11 @@ const positionOptions = {
   bottom: 'bottom'
 };
 
+const typeOptions = {
+  internal: 'internal',
+  Default: 'default'
+};
+
 storiesOf('Sidebar', module).add(
   'default',
   () => (
@@ -71,21 +77,21 @@ storiesOf('Sidebar', module).add(
       title={text('Title', 'Default')}
       icon={
         <i
-          // style={{ color: 'white' }}
           className={`p-hclsw p-hclsw-${select('Title Icon', icons, 'user')}`}
         />
       }
       expanded={boolean('Expanded', true)}
       items={items}
+      headerVisible={boolean('headerVisible', true)}
       headerPosition={select('headerPosition', positionOptions, 'bottom')}
       onClick={action('link clicked')}
       toggleSidebar={action('Toggle Sidebar')}
+      type={select('type', typeOptions, 'default')}
     />
   ),
   {
     info: {
       text: `Description About Sidebar Component
-      
       import { Sidebar } from '@patron/patron-react/sidebar';
     import { Icon } from '@patron/patron-react/icon';
 
