@@ -354,6 +354,7 @@ class App extends Component {
             <Wizard activeIndex={0} model={this.state.wizardmodel} />
             <div className="hcl-row m-0">
               {/* Input Field */}
+
               <div className="hcl-form-group hcl-col-12" id="form-section">
                 <Label htmlFor="firstname">First Name </Label>
                 <FormHelperText className="helper-text">

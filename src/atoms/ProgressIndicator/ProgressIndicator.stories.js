@@ -2,8 +2,8 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { number, text, select } from '@storybook/addon-knobs';
 //@update-path-build-start
-import LinearProgressBar from './LinearProgressBar';
-import CircleProgressBar from './CircleProgressBar';
+import LinearProgressIndicator from './LinearProgressIndicator';
+import CircleProgressIndicator from './CircleProgressIndicator';
 //@update-path-build-end
 
 const labelOptions = {
@@ -19,11 +19,11 @@ const sizeOptions = {
   default: 'default'
 };
 
-storiesOf('ProgressBar', module)
+storiesOf('ProgressIndicator', module)
   .add(
-    'linear-determinate',
+    'default',
     () => (
-      <LinearProgressBar
+      <LinearProgressIndicator
         label={text('label', 'Downloading..')}
         progress={number('value', 0.7)}
         subText={text('subText', 'Subtext')}
@@ -33,25 +33,25 @@ storiesOf('ProgressBar', module)
     ),
     {
       info: {
-        text: `Description About ProgressBar Component \n
-      import { LinearProgressBar } from '@patron/patron-react/progressbar'`
+        text: `Description About ProgressIndicator Component \n
+      import { LinearProgressIndicator } from '@patron/patron-react/progressindicator'`
       }
     }
   )
   .add(
     'linear-indeterminate',
-    () => <LinearProgressBar type={'indeterminate'} />,
+    () => <LinearProgressIndicator type={'indeterminate'} />,
     {
       info: {
-        text: `Description About ProgressBar Component \n
-      import { LinearProgressBar } from '@patron/patron-react/progressbar'`
+        text: `Description About ProgressIndicator Component \n
+      import { LinearProgressIndicator } from '@patron/patron-react/progressindicator'`
       }
     }
   )
   .add(
     'circle-determinate',
     () => (
-      <CircleProgressBar
+      <CircleProgressIndicator
         progress={number('value', 0.7)}
         label={text('label', 'Downloading..')}
         labelPosition={select('labelPosition', labelOptions, 'left')}
@@ -62,23 +62,23 @@ storiesOf('ProgressBar', module)
     ),
     {
       info: {
-        text: `Description About ProgressBar Component \n
-      import { CircleProgressBar } from '@patron/patron-react/progressbar'`
+        text: `Description About ProgressIndicator Component \n
+      import { CircleProgressIndicator } from '@patron/patron-react/progressindicator'`
       }
     }
   )
   .add(
     'circle-indeterminate',
     () => (
-      <CircleProgressBar
+      <CircleProgressIndicator
         type={'indeterminate'}
         progressSize={select('progressSize', sizeOptions, 'default')}
       />
     ),
     {
       info: {
-        text: `Description About ProgressBar Component \n
-      import { CircleProgressBar } from '@patron/patron-react/progressbar'`
+        text: `Description About ProgressIndicator Component \n
+      import { CircleProgressIndicator } from '@patron/patron-react/progressindicator'`
       }
     }
   );
