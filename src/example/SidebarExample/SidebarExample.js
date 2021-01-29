@@ -11,32 +11,33 @@ class SidebarExample extends Component {
     navigationData: [
       {
         title: 'Home',
-        href: '/',
+        href: '/home',
         icon: <i className="p-hclsw p-hclsw-home" />,
         statusIcon: <i className="p-hclsw p-hclsw-release" />
       },
       {
         title: 'Components',
+        href: '/comp',
         icon: <i className="p-hclsw p-hclsw-release" />,
-        statusIcon: <i className="p-hclsw p-hclsw-release" />,
-        children: [
-          {
-            href: '/timepicker_new',
-            title: 'Time Picker'
-          },
-          {
-            href: '/overlay_new',
-            title: 'Overlay'
-          },
-          {
-            href: '/pagination_new',
-            title: 'Pagination'
-          },
-          {
-            href: '/checkbox_new',
-            title: 'Checkbox + tooltip'
-          }
-        ]
+        statusIcon: <i className="p-hclsw p-hclsw-release" />
+        // children: [
+        //   {
+        //     href: '/timepicker_new',
+        //     title: 'Time Picker'
+        //   },
+        //   {
+        //     href: '/overlay_new',
+        //     title: 'Overlay'
+        //   },
+        //   {
+        //     href: '/pagination_new',
+        //     title: 'Pagination'
+        //   },
+        //   {
+        //     href: '/checkbox_new',
+        //     title: 'Checkbox + tooltip'
+        //   }
+        // ]
       }
     ],
 
@@ -79,18 +80,44 @@ class SidebarExample extends Component {
             data-withsidenav
           >
             <Switch>
-              <Route
-                exact
-                path="/timepicker_new"
-                component={TimePickerExample}
-              />
-              <Route exact path="/overlay_new" component={OverlayExample} />
-              <Route exact path="/checkbox_new" component={CheckboxExample} />
-              <Route
-                exact
-                path="/pagination_new"
-                component={PaginationExample}
-              />
+              <Route exact path="/home">
+                <p className={`p-2`}>
+                  Lorem Ipsum is simply dummy text of the printing and
+                  typesetting industry. Lorem Ipsum has been the industry's
+                  standard dummy text ever since the 1500s, when an unknown
+                  printer took a galley of type and scrambled it to make a type
+                  specimen book. It has survived not only five centuries, but
+                  also the leap into electronic typesetting, remaining
+                  essentially unchanged. It was popularised in the 1960s with
+                  the release of Letraset sheets containing Lorem Ipsum
+                  passages, and more recently with desktop publishing software
+                  like Aldus PageMaker including versions of Lorem Ipsum.
+                </p>
+              </Route>
+              <Route exact path="/comp">
+                <p className={`p-2`}> 
+                  Lorem Ipsum is simply dummy text of the printing and
+                  typesetting industry. Lorem Ipsum has been the industry's
+                  standard dummy text ever since the 1500s, when an unknown
+                  printer took a galley of type and scrambled it to make a type
+                  specimen book. It has survived not only five centuries, but
+                  also the leap into electronic typesetting, remaining
+                  essentially unchanged. It was popularised in the 1960s with
+                  the release of Letraset sheets containing Lorem Ipsum
+                  passages, and more recently with desktop publishing software
+                  like Aldus PageMaker including versions of Lorem Ipsum.
+                  Lorem Ipsum is simply dummy text of the printing and
+                  typesetting industry. Lorem Ipsum has been the industry's
+                  standard dummy text ever since the 1500s, when an unknown
+                  printer took a galley of type and scrambled it to make a type
+                  specimen book. It has survived not only five centuries, but
+                  also the leap into electronic typesetting, remaining
+                  essentially unchanged. It was popularised in the 1960s with
+                  the release of Letraset sheets containing Lorem Ipsum
+                  passages, and more recently with desktop publishing software
+                  like Aldus PageMaker including versions of Lorem Ipsum.
+                </p>
+              </Route>
             </Switch>
           </div>
         </Router>

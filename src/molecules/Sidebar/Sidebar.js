@@ -237,7 +237,6 @@ const Sidebar = ({
                   }`
                 })
               : null}
-
             <span
               className={`hcl-sidebar-link${
                 item.iconClass || item.icon ? '' : ' no-icon'
@@ -245,6 +244,14 @@ const Sidebar = ({
             >
               {template.props.children}
             </span>
+            {item.statusIcon &&
+              React.cloneElement(item.statusIcon, {
+                className: `hcl-sidebar-icon${
+                  item.statusIcon.props.className
+                    ? ' ' + item.statusIcon.props.className
+                    : ''
+                }`
+              })}
           </>
         )
       });

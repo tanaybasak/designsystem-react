@@ -30,11 +30,13 @@ class Home extends Component {
     {
       title: 'Home',
       href: '/',
-      icon: <i className="p-hclsw p-hclsw-home" />
+      icon: <i className="p-hclsw p-hclsw-home" />,
+      statusIcon: <i className="p-hclsw p-hclsw-calendar" />
     },
     {
       title: 'Components',
       icon: <i className="p-hclsw p-hclsw-release" />,
+      statusIcon: <i className="p-hclsw p-hclsw-calendar" />,
       children: [
         {
           href: '/tag',
