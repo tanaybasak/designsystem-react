@@ -5,7 +5,6 @@ import TimePickerExample from '../TimePicker';
 import OverlayExample from '../OverlayExample';
 import CheckboxExample from '../CheckboxExample';
 import PaginationExample from '../PaginationExample';
-import Header from '../../molecules/Header';
 
 class SidebarExample extends Component {
   state = {
@@ -13,7 +12,9 @@ class SidebarExample extends Component {
       {
         title: 'Home',
         href: '/',
-        icon: <i className="p-hclsw p-hclsw-home" />
+        icon: <i className="p-hclsw p-hclsw-home" />,
+        statusIcon :  <i className="p-hclsw p-hclsw-release" />,
+
       },
       {
         title: 'Components',
@@ -42,7 +43,8 @@ class SidebarExample extends Component {
 
     sidebarExpanded: true,
     headerPosition: 'top',
-    type: 'internal'
+    type: 'internal',
+    headerbranding: 'primary' 
   };
   render() {
     return (
@@ -50,11 +52,13 @@ class SidebarExample extends Component {
         <Router>
           <Sidebar
             title="Patronus"
+            className={`hcl-sidebar-left`}
             items={this.state.navigationData}
             expanded={this.state.sidebarExpanded}
             activeLink="/tag"
             icon={<i className="p-hclsw p-hclsw-user-active" />}
             headerPosition={this.state.headerPosition}
+            headerBranding={'primary'}
             type={this.state.type}
             sidebarLinkTemplate={link => {
               return <Link to={link.href}>{link.title}</Link>;
@@ -73,7 +77,6 @@ class SidebarExample extends Component {
             className={`hcl-content${
               this.state.sidebarExpanded ? ' sidebar-expanded' : ''
             }`}
-            style={{ marginTop: '4rem' }}
             data-withsidenav
           >
             <Switch>

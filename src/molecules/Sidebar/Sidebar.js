@@ -471,16 +471,22 @@ const Sidebar = ({
 Sidebar.propTypes = {
   /** Name of the custom class to apply to the Sidebar */
   className: PropTypes.string,
+  
   /** used to set default active link */
   activeLink: PropTypes.string,
+
   /** used to pass custom template in sidebar link */
   sidebarLinkTemplate: PropTypes.any,
+
   /** Accepts boolean value  to make sidebar expanded or collapse */
   expanded: PropTypes.bool,
+
   /** Title for the Sidebar */
   title: PropTypes.string,
+
   /** Content for Sidebar */
   items: PropTypes.array,
+
   /** Boolean value to disable Sidebar */
   disabled: PropTypes.bool,
 
@@ -488,7 +494,7 @@ Sidebar.propTypes = {
   headerPosition: PropTypes.oneOf(['top', 'bottom']),
 
   /** Sidebar Header Visibility */
-  headerVisible: PropTypes,
+  headerVisible: PropTypes.bool,
 
   /** Sidebar Header Branding */
   headerBranding: PropTypes.oneOf(['default', 'primary']),

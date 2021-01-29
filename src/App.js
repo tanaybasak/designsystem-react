@@ -41,6 +41,7 @@ import Footer from './molecules/Footer';
 import { ActionBar, ActionSummary, ActionList } from './molecules/ActionBar';
 import { ToolBar, ToolBarActions } from './molecules/ToolBar';
 import Password from './atoms/Password';
+import Sidebar from './molecules/Sidebar';
 
 class App extends Component {
   state = {
@@ -117,6 +118,85 @@ class App extends Component {
     {
       id: 'option-6',
       text: 'Option 6'
+    }
+  ];
+
+  navigationData = [
+    {
+      title: 'Home',
+      href: '/',
+      icon: <i className="p-hclsw p-hclsw-home" />,
+      statusIcon: <i className={`p-hclsw p-hclsw-home`} />
+    },
+    {
+      title: 'Components',
+      icon: <i className="p-hclsw p-hclsw-home" />,
+      children: [
+        {
+          href: '/tag',
+          title: 'Tag'
+        },
+        {
+          href: '/inlineEdit',
+          title: 'InlineEdit'
+        },
+        {
+          href: '/table',
+          title: 'Table'
+        },
+        {
+          href: '/tree',
+          title: 'Tree'
+        },
+        {
+          href: '/timepicker',
+          title: 'Time Picker'
+        },
+        {
+          href: '/overlay',
+          title: 'Overlay'
+        },
+        {
+          href: '/searchoverlay',
+          title: 'Search Overlay'
+        },
+        {
+          href: '/pagination',
+          title: 'Pagination'
+        },
+        {
+          href: '/dateselector',
+          title: 'DateSelector'
+        },
+        {
+          href: '/daterangeselector',
+          title: 'DateRangeSelector'
+        },
+        {
+          href: '/progressindicator',
+          title: 'Progress Indicator'
+        },
+        {
+          href: '/sidebar',
+          title: 'Sidebar'
+        },
+        {
+          href: '/in-pageNavigation',
+          title: 'InPageNavigation'
+        },
+        {
+          href: '/checkbox',
+          title: 'Checkbox + tooltip'
+        },
+        {
+          href: '/treeWithNewFolder',
+          title: 'TreeviewWithNewFolder'
+        },
+        {
+          href: '/codesnippet',
+          title: 'Code Snippet'
+        }
+      ]
     }
   ];
 
@@ -2016,6 +2096,32 @@ class App extends Component {
                 </div>
               </div>
 
+              {/* Sidebar */}
+              <Sidebar
+                title="Patronus"
+                className={`hcl-sidebar-left`}
+                items={this.navigationData}
+                expanded={true}
+                activeLink="/tag"
+                icon={<i className="p-hclsw p-hclsw-user-active" />}
+                headerPosition={this.state.headerPosition}
+                headerBranding={'primary'}
+                type={'internal'}
+                // sidebarLinkTemplate={link => {
+                //   return <Link to={link.href}>{link.title}</Link>;
+                // }}
+                toggleSidebar={status => {
+                  const container = document.querySelector(
+                    '[data-withsidenav]'
+                  );
+                  if (container) {
+                    this.setState({ sidebarExpanded: status });
+                  }
+                }}
+                onClick={item => {
+                  console.log(item);
+                }}
+              />
               {/* MenuList */}
               <div className="hcl-col-12 mt-5" id="overflow-menu-section">
                 <h5>Menu List</h5>
