@@ -28,8 +28,7 @@ const Sidebar = ({
   const [activeItem, setActiveItem] = useState(null);
   const [sidebarId] = useState(sidebarElementRef++);
   const [sidebarList, updateSidebarList] = useState(items);
-  const [iconExist, updateIconExists] = useState();
-  // const classnames = `${prefix}-sidebar ${className}`.trim();
+  const [iconExist, updateIconExists] = useState(true);
   const classnames = [`${prefix}-sidebar`];
   const headerclasses = [`${prefix}-sidebar-title`];
   const sidebarContainerRef = useRef(null);
@@ -190,7 +189,7 @@ const Sidebar = ({
             : null}
           <span
             className={`hcl-sidebar-link ${iconClass(item)}${
-              iconExist ? '' : 'no-sideicon'
+              iconExist ? '' : ' no-sideicon'
             }`}
           >
             {item.title}
