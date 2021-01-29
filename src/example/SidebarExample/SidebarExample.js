@@ -13,13 +13,12 @@ class SidebarExample extends Component {
         title: 'Home',
         href: '/',
         icon: <i className="p-hclsw p-hclsw-home" />,
-        statusIcon :  <i className="p-hclsw p-hclsw-release" />,
-
+        statusIcon: <i className="p-hclsw p-hclsw-release" />
       },
       {
         title: 'Components',
         icon: <i className="p-hclsw p-hclsw-release" />,
-        statusIcon :  <i className="p-hclsw p-hclsw-release" />,
+        statusIcon: <i className="p-hclsw p-hclsw-release" />,
         children: [
           {
             href: '/timepicker_new',
@@ -44,7 +43,7 @@ class SidebarExample extends Component {
     sidebarExpanded: true,
     headerPosition: 'top',
     type: 'internal',
-    headerbranding: 'primary' 
+    headerbranding: 'primary'
   };
   render() {
     return (

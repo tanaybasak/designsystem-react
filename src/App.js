@@ -2101,15 +2101,15 @@ class App extends Component {
                 title="Patronus"
                 className={`hcl-sidebar-left`}
                 items={this.navigationData}
-                expanded={true}
+                expanded
                 activeLink="/tag"
                 icon={<i className="p-hclsw p-hclsw-user-active" />}
                 headerPosition={this.state.headerPosition}
                 headerBranding={'primary'}
                 type={'internal'}
-                // sidebarLinkTemplate={link => {
-                //   return <Link to={link.href}>{link.title}</Link>;
-                // }}
+                sidebarLinkTemplate={link => {
+                  return <Link to={link.href}>{link.title}</Link>;
+                }}
                 toggleSidebar={status => {
                   const container = document.querySelector(
                     '[data-withsidenav]'

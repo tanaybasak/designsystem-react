@@ -471,7 +471,7 @@ const Sidebar = ({
 Sidebar.propTypes = {
   /** Name of the custom class to apply to the Sidebar */
   className: PropTypes.string,
-  
+
   /** used to set default active link */
   activeLink: PropTypes.string,
 
