@@ -41,7 +41,6 @@ import Footer from './molecules/Footer';
 import { ActionBar, ActionSummary, ActionList } from './molecules/ActionBar';
 import { ToolBar, ToolBarActions } from './molecules/ToolBar';
 import Password from './atoms/Password';
-import Sidebar from './molecules/Sidebar';
 
 class App extends Component {
   state = {
