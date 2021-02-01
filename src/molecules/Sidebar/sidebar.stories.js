@@ -75,34 +75,62 @@ const typeOptions = {
   default: 'default'
 };
 
-storiesOf('Sidebar', module).add(
-  'default',
-  () => (
-    <Sidebar
-      title={text('Title', 'Default')}
-      icon={
-        <i
-          className={`p-hclsw p-hclsw-${select('Title Icon', icons, 'user')}`}
-        />
+storiesOf('Sidebar', module)
+  .add(
+    'default',
+    () => (
+      <Sidebar
+        title={text('Title', 'Default')}
+        icon={
+          <i
+            // style={{ color: 'white' }}
+            className={`p-hclsw p-hclsw-${select('Title Icon', icons, 'user')}`}
+          />
+        }
+        expanded={boolean('Expanded', true)}
+        items={items}
+        onClick={action('link clicked')}
+        toggleSidebar={action('Toggle Sidebar')}
+      />
+    ),
+    {
+      info: {
+        text: `Description About Sidebar Component
+      
+      import { Sidebar } from '@patron/patron-react/sidebar';
+    import { Icon } from '@patron/patron-react/icon';
+      `
       }
-      expanded={boolean('Expanded', true)}
-      items={items}
-      headerVisible={boolean('headerVisible', true)}
-      headerPosition={select('headerPosition', positionOptions, 'bottom')}
-      headerBranding={select('headerBranding', headerBranding, 'default')}
-      onClick={action('link clicked')}
-      toggleSidebar={action('Toggle Sidebar')}
-      type={select('type', typeOptions, 'default')}
-    />
-  ),
-  {
-    info: {
-      text: `Description About Sidebar Component
+    }
+  )
+  .add(
+    'internal',
+    () => (
+      <Sidebar
+        title={text('Title', 'Default')}
+        icon={
+          <i
+            className={`p-hclsw p-hclsw-${select('Title Icon', icons, 'user')}`}
+          />
+        }
+        expanded={boolean('Expanded', true)}
+        items={items}
+        headerVisible={boolean('headerVisible', true)}
+        headerPosition={select('headerPosition', positionOptions, 'top')}
+        headerBranding={select('headerBranding', headerBranding, 'primary')}
+        onClick={action('link clicked')}
+        toggleSidebar={action('Toggle Sidebar')}
+        type={select('type', typeOptions, 'internal')}
+      />
+    ),
+    {
+      info: {
+        text: `Description About Sidebar Component
 
       import { Sidebar } from '@patron/patron-react/sidebar';
     import { Icon } from '@patron/patron-react/icon';
 
       `
+      }
     }
-  }
-);
+  );

@@ -138,15 +138,16 @@ const Sidebar = ({
 
   const iconClass = item => {
     if (item.children?.length) {
-      if (item.iconClass || item.icon) {
-        return '';
-      } else {
+      if (!(item.iconClass || item.icon)) {
         return 'no-icon';
+      } else {
+        return '';
       }
     } else {
       if ((item.iconClass || item.icon) && item.statusIcon) {
         return '';
-      } else if (!(item.iconClass || item.icon) && item.statusIcon) {
+      }
+      if (!(item.iconClass || item.icon) && item.statusIcon) {
         return 'no-icon';
       } else if ((item.iconClass || item.icon) && !item.statusIcon) {
         return 'no-statusicon';
@@ -188,8 +189,8 @@ const Sidebar = ({
               })
             : null}
           <span
-            className={`hcl-sidebar-link ${iconClass(item)}${
-              iconExist ? '' : ' no-sideicon'
+            className={`hcl-sidebar-link ${
+              iconExist ? iconClass(item) : ' no-sideicon'
             }`}
           >
             {item.title}
@@ -238,8 +239,8 @@ const Sidebar = ({
                 })
               : null}
             <span
-              className={`hcl-sidebar-link${
-                item.iconClass || item.icon ? '' : ' no-icon'
+              className={`hcl-sidebar-link ${
+                iconExist ? iconClass(item) : ' no-sideicon'
               }`}
             >
               {template.props.children}
@@ -256,6 +257,45 @@ const Sidebar = ({
         )
       });
     }
+  };
+
+  const navContents = () => {
+    return (
+      <div
+        className={headerclasses.join(` `)}
+        data-type={'toggle_sidebar'}
+        data-title={title}
+        data-expanded={expnd}
+      >
+        {icon ? (
+          React.cloneElement(icon, {
+            className: `hcl-sidebar-title-icon${
+              icon.props.className ? ' ' + icon.props.className : ''
+            }`
+          })
+        ) : (
+          <span className="hcl-sidebar-title-icon" />
+        )}
+        <span className="hcl-sidebar-title-text">{title}</span>
+        <span
+          className="hcl-sidebar-title-toggle"
+          tabIndex="0"
+          onClick={expandSidebar}
+          onKeyDown={expandSidebarOnEnter}
+        >
+          <Icon
+            type="svg"
+            height="24px"
+            width="24px"
+            viewBox="0 0 512 512"
+            alt={title}
+            title={title}
+          >
+            <polygon points="160,128.4 192.3,96 352,256 352,256 352,256 192.3,416 160,383.6 287.3,256 " />
+          </Icon>
+        </span>
+      </div>
+    );
   };
 
   const focusNode = node => {
@@ -366,42 +406,7 @@ const Sidebar = ({
         <span />
         <span />
       </button>
-      {headerPosition == 'top' && headerVisible && (
-        <div
-          className={headerclasses.join(` `)}
-          data-type={'toggle_sidebar'}
-          data-title={title}
-          data-expanded={expnd}
-        >
-          {icon ? (
-            React.cloneElement(icon, {
-              className: `hcl-sidebar-title-icon${
-                icon.props.className ? ' ' + icon.props.className : ''
-              }`
-            })
-          ) : (
-            <span className="hcl-sidebar-title-icon" />
-          )}
-          <span className="hcl-sidebar-title-text">{title}</span>
-          <span
-            className="hcl-sidebar-title-toggle"
-            tabIndex="0"
-            onClick={expandSidebar}
-            onKeyDown={expandSidebarOnEnter}
-          >
-            <Icon
-              type="svg"
-              height="24px"
-              width="24px"
-              viewBox="0 0 512 512"
-              alt={title}
-              title={title}
-            >
-              <polygon points="160,128.4 192.3,96 352,256 352,256 352,256 192.3,416 160,383.6 287.3,256 " />
-            </Icon>
-          </span>
-        </div>
-      )}
+      {headerPosition == 'top' && headerVisible && navContents()}
       {sidebarList && sidebarList.length ? (
         <ul className={`${prefix}-sidebar-list`}>
           {sidebarList.map((item, categoryIndex) => {
@@ -435,42 +440,7 @@ const Sidebar = ({
           })}
         </ul>
       ) : null}
-      {headerPosition == 'bottom' && headerVisible && (
-        <div
-          className={headerclasses.join(` `)}
-          data-type={'toggle_sidebar'}
-          data-title={title}
-          data-expanded={expnd}
-        >
-          {icon ? (
-            React.cloneElement(icon, {
-              className: `hcl-sidebar-title-icon${
-                icon.props.className ? ' ' + icon.props.className : ''
-              }`
-            })
-          ) : (
-            <span className="hcl-sidebar-title-icon" />
-          )}
-          <span className="hcl-sidebar-title-text">{title}</span>
-          <span
-            className="hcl-sidebar-title-toggle"
-            tabIndex="0"
-            onClick={expandSidebar}
-            onKeyDown={expandSidebarOnEnter}
-          >
-            <Icon
-              type="svg"
-              height="24px"
-              width="24px"
-              viewBox="0 0 512 512"
-              alt={title}
-              title={title}
-            >
-              <polygon points="160,128.4 192.3,96 352,256 352,256 352,256 192.3,416 160,383.6 287.3,256 " />
-            </Icon>
-          </span>
-        </div>
-      )}
+      {headerPosition == 'bottom' && headerVisible && navContents()}
     </nav>
   );
 };
