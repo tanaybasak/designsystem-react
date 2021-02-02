@@ -31,7 +31,6 @@ const Sidebar = ({
   const [iconExist, updateIconExists] = useState(true);
   const classnames = [`${prefix}-sidebar`];
   const headerclasses = [`${prefix}-sidebar-title`];
-  const iconclasses = [`${prefix}-sidebar-link`];
   const sidebarContainerRef = useRef(null);
 
   if (className) {
