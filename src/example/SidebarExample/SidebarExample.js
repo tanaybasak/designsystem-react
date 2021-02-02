@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import Sidebar from '../../molecules/Sidebar';
-import TimePickerExample from '../TimePicker';
-import OverlayExample from '../OverlayExample';
-import CheckboxExample from '../CheckboxExample';
-import PaginationExample from '../PaginationExample';
 
 class SidebarExample extends Component {
   state = {
@@ -19,25 +15,25 @@ class SidebarExample extends Component {
         title: 'Components',
         href: '/comp',
         icon: <i className="p-hclsw p-hclsw-release" />,
-        statusIcon: <i className="p-hclsw p-hclsw-release" />
-        // children: [
-        //   {
-        //     href: '/timepicker_new',
-        //     title: 'Time Picker'
-        //   },
-        //   {
-        //     href: '/overlay_new',
-        //     title: 'Overlay'
-        //   },
-        //   {
-        //     href: '/pagination_new',
-        //     title: 'Pagination'
-        //   },
-        //   {
-        //     href: '/checkbox_new',
-        //     title: 'Checkbox + tooltip'
-        //   }
-        // ]
+        statusIcon: <i className="p-hclsw p-hclsw-release" />,
+        children: [
+          {
+            href: '/timepicker_new',
+            title: 'Time Picker'
+          },
+          {
+            href: '/overlay_new',
+            title: 'Overlay'
+          },
+          {
+            href: '/pagination_new',
+            title: 'Pagination'
+          },
+          {
+            href: '/checkbox_new',
+            title: 'Checkbox + tooltip'
+          }
+        ]
       }
     ],
 
