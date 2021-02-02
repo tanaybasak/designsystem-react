@@ -258,19 +258,15 @@ const Sidebar = ({
         data-title={title}
         data-expanded={expnd}
       >
-        {icon ? (
-          React.cloneElement(icon, {
-            className: `hcl-sidebar-title-icon${
-              icon.props.className ? ' ' + icon.props.className : ''
-            }`
-          })
-        ) : iconExist ? (
-          <span className="hcl-sidebar-title-icon" />
-        ) : null}
+        {icon
+          ? React.cloneElement(icon, {
+              className: `hcl-sidebar-title-icon${
+                icon.props.className ? ' ' + icon.props.className : ''
+              }`
+            })
+          : null}
         <span
-          className={`hcl-sidebar-title-text ${
-            !iconExist ? 'no-sideicon' : ''
-          }`}
+          className={`hcl-sidebar-title-text ${!icon ? 'no-sideicon' : ''}`}
         >
           {title}
         </span>

@@ -27,7 +27,7 @@ const items = [
         title: 'Child Item 4'
       }
     ],
-    icon: <i className={`p-hclsw p-hclsw-${icons[2]}`} />,
+    // icon: <i className={`p-hclsw p-hclsw-${icons[2]}`} />,
     statusIcon: <i className={`p-hclsw p-hclsw-${icons[2]}`} />,
     title: 'Category One'
   },
@@ -50,11 +50,11 @@ const items = [
         title: 'Child Item 4'
       }
     ],
-    icon: <i className={`p-hclsw p-hclsw-${icons[1]}`} />,
+    // icon: <i className={`p-hclsw p-hclsw-${icons[1]}`} />,
     title: 'Category Two'
   },
   {
-    icon: <i className={`p-hclsw p-hclsw-${icons[1]}`} />,
+    // icon: <i className={`p-hclsw p-hclsw-${icons[1]}`} />,
     title: 'Category Three',
     href: '#10'
   }
@@ -108,11 +108,11 @@ storiesOf('Sidebar', module)
     () => (
       <Sidebar
         title={text('Title', 'Default')}
-        // icon={
-        //   <i
-        //     className={`p-hclsw p-hclsw-${select('Title Icon', icons, 'user')}`}
-        //   />
-        // }
+        icon={
+          <i
+            className={`p-hclsw p-hclsw-${select('Title Icon', icons, 'user')}`}
+          />
+        }
         expanded={boolean('Expanded', true)}
         items={items}
         headerVisible={boolean('headerVisible', true)}
