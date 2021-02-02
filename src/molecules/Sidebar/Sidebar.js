@@ -139,7 +139,7 @@ const Sidebar = ({
   const iconClass = item => {
     let classes = '';
     if (!(item.iconClass || item.icon)) {
-      classes += 'no-icon';
+      classes += ' no-icon';
     }
 
     if (!item.children?.length && !item.statusIcon) {
