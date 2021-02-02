@@ -266,7 +266,9 @@ const Sidebar = ({
             })
           : null}
         <span
-          className={`hcl-sidebar-title-text ${!icon ? 'no-sideicon' : ''}`}
+          className={`hcl-sidebar-title-text ${
+            !icon && expnd ? 'no-sideicon' : ''
+          }`}
         >
           {title}
         </span>
