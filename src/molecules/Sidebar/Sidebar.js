@@ -31,6 +31,7 @@ const Sidebar = ({
   const [iconExist, updateIconExists] = useState(true);
   const classnames = [`${prefix}-sidebar`];
   const headerclasses = [`${prefix}-sidebar-title`];
+  const iconclasses = [`${prefix}-sidebar-link`];
   const sidebarContainerRef = useRef(null);
 
   if (className) {
@@ -180,7 +181,7 @@ const Sidebar = ({
               })
             : null}
           <span
-            className={`hcl-sidebar-link${
+            className={`hcl-sidebar-link ${
               iconExist ? iconClass(item) : ' no-sideicon'
             }`}
           >
@@ -230,7 +231,7 @@ const Sidebar = ({
                 })
               : null}
             <span
-              className={`hcl-sidebar-link${
+              className={`hcl-sidebar-link ${
                 iconExist ? iconClass(item) : ' no-sideicon'
               }`}
             >

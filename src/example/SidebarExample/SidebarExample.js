@@ -16,24 +16,6 @@ class SidebarExample extends Component {
         href: '/comp',
         icon: <i className="p-hclsw p-hclsw-release" />,
         statusIcon: <i className="p-hclsw p-hclsw-release" />,
-        children: [
-          {
-            href: '/timepicker_new',
-            title: 'Time Picker'
-          },
-          {
-            href: '/overlay_new',
-            title: 'Overlay'
-          },
-          {
-            href: '/pagination_new',
-            title: 'Pagination'
-          },
-          {
-            href: '/checkbox_new',
-            title: 'Checkbox + tooltip'
-          }
-        ]
       }
     ],
 
