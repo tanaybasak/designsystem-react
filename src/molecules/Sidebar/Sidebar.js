@@ -180,7 +180,7 @@ const Sidebar = ({
               })
             : null}
           <span
-            className={`hcl-sidebar-link ${
+            className={`hcl-sidebar-link${
               iconExist ? iconClass(item) : ' no-sideicon'
             }`}
           >
