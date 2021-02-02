@@ -9,24 +9,24 @@ import Sidebar from './Sidebar';
 
 const items = [
   {
-    // children: [
-    //   {
-    //     href: '#1',
-    //     title: 'Child Item 1'
-    //   },
-    //   {
-    //     href: '#2',
-    //     title: 'Child Item 2'
-    //   },
-    //   {
-    //     href: '#3',
-    //     title: 'Child Item 3'
-    //   },
-    //   {
-    //     href: '#4',
-    //     title: 'Child Item 4'
-    //   }
-    // ],
+    children: [
+      {
+        href: '#1',
+        title: 'Child Item 1'
+      },
+      {
+        href: '#2',
+        title: 'Child Item 2'
+      },
+      {
+        href: '#3',
+        title: 'Child Item 3'
+      },
+      {
+        href: '#4',
+        title: 'Child Item 4'
+      }
+    ],
     icon: <i className={`p-hclsw p-hclsw-${icons[2]}`} />,
     statusIcon: <i className={`p-hclsw p-hclsw-${icons[2]}`} />,
     title: 'Category One'
@@ -108,11 +108,11 @@ storiesOf('Sidebar', module)
     () => (
       <Sidebar
         title={text('Title', 'Default')}
-        icon={
-          <i
-            className={`p-hclsw p-hclsw-${select('Title Icon', icons, 'user')}`}
-          />
-        }
+        // icon={
+        //   <i
+        //     className={`p-hclsw p-hclsw-${select('Title Icon', icons, 'user')}`}
+        //   />
+        // }
         expanded={boolean('Expanded', true)}
         items={items}
         headerVisible={boolean('headerVisible', true)}

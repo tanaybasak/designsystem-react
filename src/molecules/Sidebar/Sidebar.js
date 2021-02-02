@@ -137,24 +137,15 @@ const Sidebar = ({
   };
 
   const iconClass = item => {
-    if (item.children?.length) {
-      if (!(item.iconClass || item.icon)) {
-        return 'no-icon';
-      } else {
-        return '';
-      }
-    } else {
-      if ((item.iconClass || item.icon) && item.statusIcon) {
-        return '';
-      }
-      if (!(item.iconClass || item.icon) && item.statusIcon) {
-        return 'no-icon';
-      } else if ((item.iconClass || item.icon) && !item.statusIcon) {
-        return 'no-statusicon';
-      } else if (!(item.iconClass || item.icon) && !item.statusIcon) {
-        return 'no-statusicon no-icon';
-      }
+    let classes = '';
+    if (!(item.iconClass || item.icon)) {
+      classes += 'no-icon';
     }
+
+    if (!item.children?.length && !item.statusIcon) {
+      classes += ' no-statusicon';
+    }
+    return classes.trim();
   };
 
   const getSidebarLink = (item, categoryIndex, parentItem) => {
@@ -273,10 +264,16 @@ const Sidebar = ({
               icon.props.className ? ' ' + icon.props.className : ''
             }`
           })
-        ) : (
+        ) : iconExist ? (
           <span className="hcl-sidebar-title-icon" />
-        )}
-        <span className="hcl-sidebar-title-text">{title}</span>
+        ) : null}
+        <span
+          className={`hcl-sidebar-title-text ${
+            !iconExist ? 'no-sideicon' : ''
+          }`}
+        >
+          {title}
+        </span>
         <span
           className="hcl-sidebar-title-toggle"
           tabIndex="0"
