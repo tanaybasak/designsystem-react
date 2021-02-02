@@ -230,7 +230,7 @@ const Sidebar = ({
                 })
               : null}
             <span
-              className={`hcl-sidebar-link ${
+              className={`hcl-sidebar-link${
                 iconExist ? iconClass(item) : ' no-sideicon'
               }`}
             >
@@ -266,8 +266,8 @@ const Sidebar = ({
             })
           : null}
         <span
-          className={`hcl-sidebar-title-text ${
-            !icon && expnd ? 'no-sideicon' : ''
+          className={`hcl-sidebar-title-text${
+            !icon && expnd ? ' no-sideicon' : ''
           }`}
         >
           {title}
@@ -387,7 +387,7 @@ const Sidebar = ({
 
   return (
     <nav
-      className={`${classnames.join(` `)} ${expnd ? ` expanded` : ''}`}
+      className={`${classnames.join(` `)}${expnd ? ` expanded` : ''}`}
       {...restProps}
       ref={sidebarContainerRef}
     >
