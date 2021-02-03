@@ -351,7 +351,7 @@ class App extends Component {
       <>
         <main className="hcl-content-main">
           <section className="hcl-container pt-5 mb-5">
-            <Wizard activeIndex={0} model={this.state.wizardmodel} />
+            {/* <Wizard activeIndex={0} model={this.state.wizardmodel} /> */}
             <div className="hcl-row m-0">
               {/* Input Field */}
 
@@ -1181,7 +1181,7 @@ class App extends Component {
                       </AccordionItem>
                     </Accordion>
                   </Tab>
-                  <Tab label="Tab List 3">Content 3</Tab>
+                  <Tab label="Tab List 3" className="ddd">Content 3</Tab>
                 </Tabs>
               </div>
               <section

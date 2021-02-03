@@ -1,3 +1,4 @@
-import Wizard from './Wizard';
+import Wizard from './Wizard2';
+import Step from './Step';
 
-export default Wizard;
+export { Wizard, Step };

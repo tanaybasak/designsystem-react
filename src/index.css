@@ -100,3 +100,110 @@
 /* Responsive Screen adjustment */
 
 /* For Wizard Classes ends */
+
+/* Starts wizard 2nd Mobile Only approach */
+ul.wiz-list {
+  list-style: none;
+  display: flex;
+  counter-reset: my-sec-counter;
+}
+.wiz-wrapper {
+  display: flex;
+  margin: 0 auto;
+}
+.wiz-title {
+  display: none;
+}
+.wiz-description {
+  display: none;
+}
+.wiz-list, .wiz-item {
+  padding: 0;
+  margin: 0;
+  /* height: 44px;
+  width: 44px; */
+}
+.wiz-item {
+  position: relative;
+  /* padding: 10px; */
+}
+/* .wiz-item::before {
+  width: 24px;
+  height: 24px;
+  content: ' ';
+  display: inline-block;
+  padding: 10px;
+  margin: 0 auto;
+} */
+
+/* Only with counter class, counter must appear. */
+/* .wiz-item::before, .wiz-item.counter::before {
+  background-color: red;
+  color:#FFFFFF;
+  border-radius: 99rem;
+  counter-increment: my-sec-counter;
+  content: counter(my-sec-counter);
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  font-size: calc(80%);
+} */
+.wiz-item .wiz-icon, .wiz-item.counter .wiz-icon, .wiz-content {
+  display: none;
+}
+.wiz-item-container {
+  width: 44px;
+  height: 44px;
+  position: relative;
+}
+.wiz-icon-container {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  border:1px solid #0066B0;
+  width: 24px;
+  height: 24px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.img-container {
+  display: inline-block;
+  width: 16px;
+}
+.wiz-no-icon-container {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.no-icon-container {
+  position: relative;
+  width:16px;
+  height:16px;
+  display: inline-block;
+  border:1px solid #0066B0;
+  border-radius:50%;
+  background: #0066B0;
+}
+/* Add active class on active elements */
+.no-icon-container.active {
+  background: none;
+}
+.no-icon-child {
+  position: relative;
+  display: inline-block;
+  border:1px solid #0066B0;
+  border-radius:50%;
+  background: #0066B0;
+  width: 84%;
+  height: 84%;
+  top:0%;
+  left:9%;
+}
+/**/
+/* Ends wizard 2nd Mobile Only approach */
