@@ -34,7 +34,7 @@ class SidebarExample extends Component {
             items={this.state.navigationData}
             expanded={this.state.sidebarExpanded}
             activeLink="/tag"
-            // icon={<i className="p-hclsw p-hclsw-user-active" />}
+            icon={<i className="p-hclsw p-hclsw-user-active" />}
             headerPosition={this.state.headerPosition}
             headerBranding={'primary'}
             type={this.state.type}
