@@ -137,15 +137,15 @@ const Sidebar = ({
   };
 
   const iconClass = item => {
-    let classes = '';
+    let iconClasses = [`hcl-sidebar-link`];
     if (!(item.iconClass || item.icon)) {
-      classes += ' no-icon';
+      iconClasses.push('no-icon');
     }
 
     if (!item.children?.length && !item.statusIcon) {
-      classes += ' no-statusicon';
+      iconClasses.push('no-statusicon');
     }
-    return classes.trim();
+    return iconClasses.join(` `);
   };
 
   const getSidebarLink = (item, categoryIndex, parentItem) => {
@@ -180,9 +180,9 @@ const Sidebar = ({
               })
             : null}
           <span
-            className={`hcl-sidebar-link ${
-              iconExist ? iconClass(item) : ' no-sideicon'
-            }`}
+            className={
+              iconExist ? iconClass(item) : 'hcl-sidebar-link no-sideicon'
+            }
           >
             {item.title}
           </span>
@@ -230,9 +230,9 @@ const Sidebar = ({
                 })
               : null}
             <span
-              className={`hcl-sidebar-link ${
-                iconExist ? iconClass(item) : ' no-sideicon'
-              }`}
+              className={
+                iconExist ? iconClass(item) : 'hcl-sidebar-link no-sideicon'
+              }
             >
               {template.props.children}
             </span>
