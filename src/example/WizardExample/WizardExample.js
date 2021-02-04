@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import React, { Component } from 'react';
-import { Wizard, Step } from '../../molecules/Wizard';
+import { Wizard2, Wizard, Step } from '../../molecules/Wizard';
 import { User, User2 } from '../../util/icons';
 
 class WizardExample extends Component {
@@ -29,14 +29,24 @@ class WizardExample extends Component {
       {
         title: 'Alternate Contact',
         description: 'Alternate Contact'
+      },
+      {
+        title: 'Alternate Contact',
+        description: 'Alternate Contact'
       }
     ]
   };
 
   render() {
     return (
-        <Wizard activeIndex={0}>
-          <Step title="hello" description="Boy" icon={User} />
+      <>
+        <Wizard
+          activeIndex={0}
+          direction="horizontal"
+          model={this.state.wizardmodel}
+        />
+        {/* <Wizard2 activeIndex={0}>
+          <Step title="hello" description="Boy" />
           <Step title="hello2" description="Boy2" />
           <Step
             title="hello2"
@@ -44,7 +54,8 @@ class WizardExample extends Component {
             iconClass="p-hclsw p-hclsw-user"
             icon={User2}
           />
-        </Wizard>
+        </Wizard2> */}
+      </>
     );
   }
 }

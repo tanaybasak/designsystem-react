@@ -63,6 +63,12 @@ const Wizard = ({
       <ul role="tablist" className="wiz-list">
         {modifiedChildren}
       </ul>
+      <div className="step-names__mobile">
+        <div className="step-name">
+          Step {1} of {6}
+        </div>
+        <div className="step-description">{'Basic'}</div>
+      </div>
     </div>
   );
 };

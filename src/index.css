@@ -15,11 +15,14 @@
 
 /* For Wizard Classes */
 .hcl-wizard {
-  display: inline-flex;
+  display: flex;
+  width: 100%;
+  flex: 1 1 auto;
 }
 
 .hcl-wizard__item {
   display: inline-flex;
+  flex: 1 1 auto;
   position: relative;
   padding: 8px 16px;
 }
@@ -101,6 +104,9 @@
 
 /* For Wizard Classes ends */
 
+
+
+
 /* Starts wizard 2nd Mobile Only approach */
 ul.wiz-list {
   list-style: none;
@@ -110,6 +116,9 @@ ul.wiz-list {
 .wiz-wrapper {
   display: flex;
   margin: 0 auto;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .wiz-title {
   display: none;
@@ -117,7 +126,8 @@ ul.wiz-list {
 .wiz-description {
   display: none;
 }
-.wiz-list, .wiz-item {
+.wiz-list,
+.wiz-item {
   padding: 0;
   margin: 0;
   /* height: 44px;
@@ -148,7 +158,9 @@ ul.wiz-list {
   display: flex;
   font-size: calc(80%);
 } */
-.wiz-item .wiz-icon, .wiz-item.counter .wiz-icon, .wiz-content {
+.wiz-item .wiz-icon,
+.wiz-item.counter .wiz-icon,
+.wiz-content {
   display: none;
 }
 .wiz-item-container {
@@ -162,7 +174,7 @@ ul.wiz-list {
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-  border:1px solid #0066B0;
+  border: 1px solid #0066b0;
   width: 24px;
   height: 24px;
   top: 50%;
@@ -183,27 +195,66 @@ ul.wiz-list {
 }
 .no-icon-container {
   position: relative;
-  width:16px;
-  height:16px;
+  width: 16px;
+  height: 16px;
   display: inline-block;
-  border:1px solid #0066B0;
-  border-radius:50%;
-  background: #0066B0;
-}
-/* Add active class on active elements */
-.no-icon-container.active {
+  border: 1px solid #0066b0;
+  border-radius: 50%;
   background: none;
 }
 .no-icon-child {
   position: relative;
   display: inline-block;
-  border:1px solid #0066B0;
-  border-radius:50%;
-  background: #0066B0;
+  /* border:1px solid #0066B0; */
+  border-radius: 50%;
+  /* background: #0066B0; */
   width: 84%;
   height: 84%;
-  top:0%;
-  left:9%;
+  top: 0%;
+  left: 9%;
+}
+.wiz-item.completed .no-icon-child {
+  background: #0066b0;
+  border: 1px solid #0066b0;
+}
+.wiz-item.completed .no-icon-container {
+  background: #0066b0;
+}
+/* Add active class on active elements */
+.wiz-item.active .no-icon-child {
+  background: #0066b0;
+  border: 1px solid #0066b0;
+}
+.wiz-item.active .no-icon-container {
+  background: none;
+}
+
+.step-names__mobile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.step-name,
+.step-description {
+  font-size: 14px;
+  line-height: 18px;
+  letter-spacing: 0.16px;
+}
+.step-name {
+  color: var(--default_text_low);
+}
+.step-description {
+  margin-top: 6px;
+  font-weight: 500;
+  color: var(--default_text_high);
 }
 /**/
 /* Ends wizard 2nd Mobile Only approach */
+
+/* Target < 768px devices */
+@media (max-width: 768px) and (min-width: 375px) {
+  /* .wiz-wrapper {
+    display: none;
+  } */
+}
