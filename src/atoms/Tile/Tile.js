@@ -23,6 +23,9 @@ const Tile = ({
 
   const toggle = () => {
     setChecked(!checked);
+    if (restProps.onChange) {
+      restProps.onChange(!checked);
+    }
   };
 
   const keyDownOnTile = e => {
