@@ -7,7 +7,14 @@ class RichTextEditorExample extends React.Component {
     this.state = {
       text1:
         '<div>Hello World!</div><div>PrimeReact <b>Editor</b> Rocks</div><div><br></div>',
-      text2: ''
+      text2: '',
+      config: [
+        { type: 'bold' },
+        { type: 'underline' },
+        { type: 'italic' },
+        { type: 'bulletlist' },
+        { type: 'link' }
+      ]
     };
   }
 
@@ -17,7 +24,7 @@ class RichTextEditorExample extends React.Component {
         <div className="hcl-row">
           <div className="hcl-col-6">
             <div className="rte-wrapper">
-              <RichTextEditor />
+              <RichTextEditor config={this.state.config} />
             </div>
           </div>
         </div>
