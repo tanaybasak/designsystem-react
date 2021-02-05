@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 
 // eslint-disable-next-line no-unused-vars
 const Wizard = ({ direction, model, readOnly, activeIndex, className }) => {
   const [currentActiveIdx, setActiveIdx] = useState(activeIndex || 0);
-  const compRef = useRef(null);
+  // const compRef = useRef(null);
 
   useEffect(() => {
     if (activeIndex > -1) {
@@ -55,7 +55,7 @@ const Wizard = ({ direction, model, readOnly, activeIndex, className }) => {
   }
 
   return (
-    <div ref={compRef} className={classnames.join(' ')}>
+    <div className={classnames.join(' ')}>
       {model.map((item, idx) => {
         let newClass = [];
         if (currentActiveIdx === idx) {
@@ -71,6 +71,7 @@ const Wizard = ({ direction, model, readOnly, activeIndex, className }) => {
             className={`${prefix}-wizard__item ${newClass.join(' ')}`}
             key={idx}
           >
+            <div className="ghost" />
             <div className={`${prefix}-wizard-left-pane`}>
               <div className={`${prefix}-wizard__icon-container`}>
                 {item.iconClass && !item.icon && (

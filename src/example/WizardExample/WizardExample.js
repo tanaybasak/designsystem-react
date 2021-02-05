@@ -7,33 +7,29 @@ class WizardExample extends Component {
   state = {
     wizardmodel: [
       {
-        title: 'Little lillies',
+        title: 'Little lillies Little lillies Little lillies',
         description: "It's flowering always"
       },
       {
         title: 'Address',
         description: 'Input your present address'
       },
-      {
-        title: 'Card',
-        description: 'Enter your card details'
-      },
-      {
-        title: 'Alternate Contact',
-        description: 'Alternate Contact'
-      },
-      {
-        title: 'Alternate Contact',
-        description: 'Alternate Contact'
-      },
-      {
-        title: 'Alternate Contact',
-        description: 'Alternate Contact'
-      },
-      {
-        title: 'Alternate Contact',
-        description: 'Alternate Contact'
-      }
+      // {
+      //   title: 'Card',
+      //   description: 'Enter your card details'
+      // },
+      // {
+      //   title: 'Alternate Contact',
+      //   description: 'Alternate Contact'
+      // },
+      // {
+      //   title: 'Alternate Contact',
+      //   description: 'Alternate Contact'
+      // }
+      // {
+      //   title: 'Alternate Contact',
+      //   description: 'Alternate Contact'
+      // }
     ]
   };
 
@@ -47,6 +43,10 @@ class WizardExample extends Component {
         />
         {/* <Wizard2 activeIndex={0}>
           <Step title="hello" description="Boy" />
+          <Step title="hello2" description="Boy2" />
+          <Step title="hello2" description="Boy2" />
+          <Step title="hello2" description="Boy2" />
+          <Step title="hello2" description="Boy2" />
           <Step title="hello2" description="Boy2" />
           <Step
             title="hello2"
