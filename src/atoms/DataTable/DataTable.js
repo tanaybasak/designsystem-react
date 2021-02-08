@@ -333,7 +333,7 @@ const DataTable = ({
     e.currentTarget.classList.add('dragged-col');
     e.dataTransfer.effectAllowed = 'move';
     dragSrcEl = e.currentTarget;
-    e.dataTransfer.setData('text/html', e.currentTarget.innerHTML);
+    e.dataTransfer.setData('text', e.currentTarget.innerHTML);
   };
 
   const onDragOver = (pinned, e) => {
