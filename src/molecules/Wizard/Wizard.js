@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 
 // eslint-disable-next-line no-unused-vars
 const Wizard = ({ direction, model, readOnly, activeIndex, className }) => {
   const [currentActiveIdx, setActiveIdx] = useState(activeIndex || 0);
-  // const compRef = useRef(null);
+  const compRef = useRef(null);
 
   useEffect(() => {
     if (activeIndex > -1) {
@@ -13,35 +13,35 @@ const Wizard = ({ direction, model, readOnly, activeIndex, className }) => {
     }
   }, [activeIndex]);
 
-  // useEffect(() => {
-  //   if (compRef.current) {
-  //     const resizeObserver = new ResizeObserver(entries => {
-  //       console.log('Hello World', entries);
-  //       var defaultBreakpoints = {
-  //         SM: 375,
-  //         MD: 768,
-  //         LG: 1024,
-  //         XL: 1280
-  //       };
-  //       entries.forEach(function (entry) {
-  //         // If breakpoints are defined on the observed element,
-  //         // use them. Otherwise use the defaults.
-  //         var breakpoints = defaultBreakpoints;
+  useEffect(() => {
+    if (compRef.current) {
+      const resizeObserver = new ResizeObserver(entries => {
+        console.log('Hello World', entries);
+        var defaultBreakpoints = {
+          SM: 375,
+          MD: 768,
+          LG: 1024,
+          XL: 1280
+        };
+        entries.forEach(function (entry) {
+          // If breakpoints are defined on the observed element,
+          // use them. Otherwise use the defaults.
+          var breakpoints = defaultBreakpoints;
 
-  //         // Update the matching breakpoints on the observed element.
-  //         Object.keys(breakpoints).forEach(function (breakpoint) {
-  //           var minWidth = breakpoints[breakpoint];
-  //           if (entry.contentRect.width >= minWidth) {
-  //             entry.target.classList.add(breakpoint);
-  //           } else {
-  //             entry.target.classList.remove(breakpoint);
-  //           }
-  //         });
-  //       });
-  //     });
-  //     resizeObserver.observe(compRef.current);
-  //   }
-  // }, []);
+          // Update the matching breakpoints on the observed element.
+          Object.keys(breakpoints).forEach(function (breakpoint) {
+            var minWidth = breakpoints[breakpoint];
+            if (entry.contentRect.width >= minWidth) {
+              entry.target.classList.add(breakpoint);
+            } else {
+              entry.target.classList.remove(breakpoint);
+            }
+          });
+        });
+      });
+      resizeObserver.observe(compRef.current);
+    }
+  }, []);
 
   let classnames = [`${prefix}-wizard`];
   if (className) {
@@ -68,6 +68,7 @@ const Wizard = ({ direction, model, readOnly, activeIndex, className }) => {
 
         return (
           <div
+            ref={idx === 0 ? compRef : null}
             className={`${prefix}-wizard__item ${newClass.join(' ')}`}
             key={idx}
           >
@@ -77,7 +78,7 @@ const Wizard = ({ direction, model, readOnly, activeIndex, className }) => {
                 {item.iconClass && !item.icon && (
                   <i className={`${item.iconClass}`} />
                 )}
-                {item.icon && !item.iconClass && item.icon}
+                {item.icon && !item.iconClass}
                 {!item.icon && !item.iconClass && (
                   <div className={`${prefix}-wizard__user`}>{idx + 1}</div>
                 )}

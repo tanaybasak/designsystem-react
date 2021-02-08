@@ -186,11 +186,16 @@ ul.wiz-list {
 .wiz-content {
   display: none;
 }
-.wiz-item-container {
+.wiz-item {
+  position: relative;
+  width: 44px;
+  height: 44px;
+}
+/* .wiz-item-container {
   width: 44px;
   height: 44px;
   position: relative;
-}
+} */
 .wiz-icon-container {
   position: absolute;
   display: flex;
@@ -276,8 +281,319 @@ ul.wiz-list {
 /* Ends wizard 2nd Mobile Only approach */
 
 /* Target < 768px devices */
-@media (max-width: 768px) and (min-width: 375px) {
-  /* .wiz-wrapper {
+/* @media (max-width: 768px) and (min-width: 375px) { */
+/* .wiz-wrapper {
     display: none;
   } */
+/* } */
+
+/* 8/02/2021 - desktop targetting with mobile HTML structure starts. */
+.desktop .step-names__mobile {
+  display: none;
+}
+.desktop .wiz-item {
+  flex: 1 1 0;
+  position: relative;
+  padding: 8px 16px;
+  display: inline-flex;
+}
+.desktop .wiz-item::after {
+  content: '';
+  position: absolute;
+  background: #e6e6e6;
+  display: block;
+  width: calc(100% + 28px);
+  height: 2px;
+  top: 0;
+  left: 28px;
+  z-index: 1;
+}
+.desktop .wiz-item.active::after,
+.desktop .wiz-item.completed::after {
+  background: #0066b0;
+  height: 2px;
+  width: calc(100% + 28px);
+  transition: border-color 0.07s ease-in;
+}
+.desktop .wiz-item.active:last-child::after,
+.desktop .wiz-item.completed:last-child::after {
+  background: #0066b0;
+  height: 2px;
+  width: 100%;
+  transition: border-color 0.07s ease-in;
+}
+.desktop .wiz-item .ghost {
+  height: 2px;
+  display: inline-block;
+  position: absolute;
+  width: 28px;
+  top: 0;
+  left: 0;
+  background: #e6e6e6;
+}
+
+/*  */
+div.wrapper {
+  display: flex;
+  flex-direction: 'column';
+  margin: 0 auto;
+}
+div.wrapper.desktop {
+  margin: 0;
+  flex: 1 1 0;
+}
+div.desktop .wiz-item {
+  width: auto;
+  height: auto;
+}
+.desktop .wiz-wrapper {
+  margin: 0;
+  flex: 1 1 0;
+}
+.desktop .wiz-wrapper ul.wiz-list {
+  display: flex;
+  width: 100%;
+}
+.desktop .hcl-wizard {
+  display: none;
+}
+.desktop .wiz-no-icon-container,
+.desktop .wiz-icon-container {
+  display: none;
+}
+.desktop .wiz-content {
+  display: none;
+}
+.wrapper:not(.desktop) .wiz-item .ghost, .wrapper:not(.desktop) .wiz-item .hcl-wizard-left-pane, .wrapper:not(.desktop) .wiz-item .hcl-wizard-right-pane{
+  display: none;
+}
+.desktop .hcl-wizard-left-pane {
+  display: flex;
+  align-items: center;
+}
+.desktop .hcl-wizard-right-pane {
+  padding-left: 8px;
+}
+
+.desktop .hcl-wizard__title.no-description {
+    top: 50%;
+    transform: translateY(-50%);
+    position: relative;
+}
+
+
+.desktop .wiz-item.active .ghost,
+.desktop .wiz-item.completed .ghost {
+  background: #0066b0;
+}
+.desktop .hcl-wizard__user {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1px solid #0066b0;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.desktop .hcl-wizard__title {
+  min-width: 100px;
+  width: 100%;
+  height: 18px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
+  letter-spacing: 0.16px;
+  color: var(--color_default_text_high);
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.desktop .hcl-wizard__description {
+  min-width: 98px;
+  width: 100%;
+  height: 16px;
+  font-size: 12px;
+  font-weight: normal;
+  line-height: 16px;
+  letter-spacing: 0.32px;
+  color: var(--color_default_text_low);
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* Responsive Screen adjustment */
+.hcl-wizard__no-title {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 0;
+  padding-bottom: 0;
+  text-align: center;
+}
+.hcl-wizard__no-title .hcl-wizard-left-pane {
+  padding: 8px 0;
+}
+.hcl-wizard__no-title .hcl-wizard__description {
+  display: none;
+}
+
+.desktop .wiz-item.active:last-child::after,
+.desktop .wiz-item.completed:last-child::after {
+  background: #0066b0;
+  height: 2px;
+  width: 100%;
+  transition: border-color 0.07s ease-in;
+}
+
+
+/* Needs merge for mobile .. to see later ? */
+
+.wrapper:not(.desktop) ul.wiz-list {
+  list-style: none;
+  display: flex;
+  counter-reset: my-sec-counter;
+}
+.wrapper:not(.desktop) .wiz-wrapper {
+  display: flex;
+  margin: 0 auto;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.wrapper:not(.desktop) .wiz-title {
+  display: none;
+}
+.wrapper:not(.desktop) .wiz-description {
+  display: none;
+}
+.wrapper:not(.desktop) .wiz-list,
+.wrapper:not(.desktop) .wiz-item {
+  padding: 0;
+  margin: 0;
+  /* height: 44px;
+  width: 44px; */
+}
+.wrapper:not(.desktop) .wiz-item {
+  position: relative;
+  /* padding: 10px; */
+}
+/* .wiz-item::before {
+  width: 24px;
+  height: 24px;
+  content: ' ';
+  display: inline-block;
+  padding: 10px;
+  margin: 0 auto;
+} */
+
+/* Only with counter class, counter must appear. */
+/* .wiz-item::before, .wiz-item.counter::before {
+  background-color: red;
+  color:#FFFFFF;
+  border-radius: 99rem;
+  counter-increment: my-sec-counter;
+  content: counter(my-sec-counter);
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  font-size: calc(80%);
+} */
+.wrapper:not(.desktop) .wiz-item .wiz-icon,
+.wrapper:not(.desktop) .wiz-item.counter .wiz-icon,
+.wrapper:not(.desktop) .wiz-content {
+  display: none;
+}
+.wrapper:not(.desktop) .wiz-item {
+  position: relative;
+  width: 44px;
+  height: 44px;
+}
+/* .wiz-item-container {
+  width: 44px;
+  height: 44px;
+  position: relative;
+} */
+.wrapper:not(.desktop) .wiz-icon-container {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  border: 1px solid #0066b0;
+  width: 24px;
+  height: 24px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.wrapper:not(.desktop) .img-container {
+  display: inline-block;
+  width: 16px;
+}
+.wrapper:not(.desktop) .wiz-no-icon-container {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.wrapper:not(.desktop) .no-icon-container {
+  position: relative;
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  border: 1px solid #0066b0;
+  border-radius: 50%;
+  background: none;
+}
+.wrapper:not(.desktop) .no-icon-child {
+  position: relative;
+  display: inline-block;
+  /* border:1px solid #0066B0; */
+  border-radius: 50%;
+  /* background: #0066B0; */
+  width: 84%;
+  height: 84%;
+  top: 0%;
+  left: 9%;
+}
+.wrapper:not(.desktop) .wiz-item.completed .no-icon-child {
+  background: #0066b0;
+  border: 1px solid #0066b0;
+}
+.wrapper:not(.desktop) .wiz-item.completed .no-icon-container {
+  background: #0066b0;
+}
+/* Add active class on active elements */
+.wrapper:not(.desktop) .wiz-item.active .no-icon-child {
+  background: #0066b0;
+  border: 1px solid #0066b0;
+}
+.wrapper:not(.desktop) .wiz-item.active .no-icon-container {
+  background: none;
+}
+
+.wrapper:not(.desktop) .step-names__mobile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.step-name,
+.step-description {
+  font-size: 14px;
+  line-height: 18px;
+  letter-spacing: 0.16px;
+}
+.step-name {
+  color: var(--default_text_low);
+}
+.step-description {
+  margin-top: 6px;
+  font-weight: 500;
+  color: var(--default_text_high);
 }

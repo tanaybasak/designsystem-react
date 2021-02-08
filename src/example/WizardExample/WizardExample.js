@@ -13,7 +13,7 @@ class WizardExample extends Component {
       {
         title: 'Address',
         description: 'Input your present address'
-      },
+      }
       // {
       //   title: 'Card',
       //   description: 'Enter your card details'
@@ -36,25 +36,26 @@ class WizardExample extends Component {
   render() {
     return (
       <>
-        <Wizard
+        {/* <Wizard
           activeIndex={0}
           direction="horizontal"
           model={this.state.wizardmodel}
-        />
-        {/* <Wizard2 activeIndex={0}>
-          <Step title="hello" description="Boy" />
-          <Step title="hello2" description="Boy2" />
-          <Step title="hello2" description="Boy2" />
-          <Step title="hello2" description="Boy2" />
-          <Step title="hello2" description="Boy2" />
-          <Step title="hello2" description="Boy2" />
+        /> */}
+        <Wizard2 activeIndex={0}>
           <Step
+            title="Little lillies"
+            description="Input your personal address"
+          />
+          <Step title="Address"  />
+          <Step title="Address" description="Input your personal address" />
+          <Step title="Address" description="Input your personal address" />
+          {/* <Step
             title="hello2"
             description="Boy2"
             iconClass="p-hclsw p-hclsw-user"
             icon={User2}
-          />
-        </Wizard2> */}
+          /> */}
+        </Wizard2>
       </>
     );
   }
