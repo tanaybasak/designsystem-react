@@ -5,6 +5,7 @@ import { User, User2 } from '../../util/icons';
 
 class WizardExample extends Component {
   state = {
+    selIndex: 0,
     wizardmodel: [
       {
         title: 'Little lillies Little lillies Little lillies',
@@ -41,14 +42,53 @@ class WizardExample extends Component {
           direction="horizontal"
           model={this.state.wizardmodel}
         /> */}
-        <Wizard2 activeIndex={0}>
+        <Wizard2
+          activeIndex={this.state.selIndex}
+          onChange={(e, idx) => {
+            //1. Step by Step
+            if (idx === this.state.selIndex + 1)
+              this.setState({ ...this.state, selIndex: idx });
+            //2. Click anywhere - can also go back.
+            // this.setState({ ...this.state, selIndex: idx });
+          }}
+        >
           <Step
-            title="Little lillies"
+            title="Current Address"
             description="Input your personal address"
           />
-          <Step title="Address"  />
-          <Step title="Address" description="Input your personal address" />
-          <Step title="Address" description="Input your personal address" />
+          <Step title="Present Address" />
+          <Step
+            title="Family Details Family Details Family Details"
+            description="Input your personal details here"
+          />
+          <Step
+            title="Work Details"
+            description="Input your information here"
+          />
+          <Step
+            title="Work Details"
+            description="Input your information here"
+          />
+          <Step
+            title="Work Details"
+            description="Input your information here"
+          />
+          {/* <Step
+            title="Work Details"
+            description="Input your information here"
+          />
+          <Step
+            title="Work Details"
+            description="Input your information here"
+          />
+          <Step
+            title="Work Details"
+            description="Input your information here"
+          />
+          <Step
+            title="Work Details"
+            description="Input your information here"
+          /> */}
           {/* <Step
             title="hello2"
             description="Boy2"

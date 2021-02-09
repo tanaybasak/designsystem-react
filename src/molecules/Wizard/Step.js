@@ -12,7 +12,9 @@ const Step = ({
   complete,
   ...restProps
 }) => {
-  const classnames = ['wiz-item']; // active, completed, hcl-wizard__no-title
+  // active, completed, hcl-wizard__no-title
+  // const classnames = ['wiz-item', 'hcl-wizard__no-title'];
+  const classnames = ['wiz-item'];
   if (className) {
     classnames.push(className);
   }
@@ -23,7 +25,7 @@ const Step = ({
     classnames.push('active');
   }
   return (
-    <li className={classnames.join(' ')}>
+    <li className={classnames.join(' ')} onClick={restProps.onClick}>
       {/* <div className="wiz-item-container"> */}
       {
         <>
@@ -80,7 +82,8 @@ Step.propTypes = {
   icon: PropTypes.element,
   description: PropTypes.string,
   current: PropTypes.bool,
-  complete: PropTypes.bool
+  complete: PropTypes.bool,
+  onClick: PropTypes.func
 };
 
 Step.defaultProps = {
@@ -89,6 +92,7 @@ Step.defaultProps = {
   iconClass: '',
   icon: null,
   description: ''
+  // onClick: () => {}
 };
 
 export default Step;

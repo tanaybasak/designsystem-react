@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import prefix from '../../settings';
 
 // eslint-disable-next-line no-unused-vars
-const Wizard = ({ direction, activeIndex, className, children }) => {
+const Wizard = ({ direction, activeIndex, className, children, onChange }) => {
   const [currentActiveIdx, setActiveIdx] = useState(activeIndex || 0);
   const compRef = useRef(null);
 
@@ -67,6 +67,13 @@ const Wizard = ({ direction, activeIndex, className, children }) => {
       index: idx,
       current: currentActiveIdx === idx,
       complete: idx <= currentActiveIdx,
+      onClick: e => {
+        if (onChange) {
+          setActiveIdx(activeIndex);
+          onChange(e, idx);
+        }
+        //child.props.onClick ? child.props.onClick(e, idx) : null,
+      },
       title: child.props.title ? child.props.title : null,
       description: child.props.description ? child.props.description : null,
       icon: child.props.icon ? child.props.icon : null
@@ -127,13 +134,15 @@ const Wizard = ({ direction, activeIndex, className, children }) => {
 Wizard.propTypes = {
   direction: PropTypes.oneOf(['horizontal', 'vertical']),
   className: PropTypes.string,
-  activeIndex: PropTypes.number
+  activeIndex: PropTypes.number,
+  onChange: PropTypes.func
 };
 
 Wizard.defaultProps = {
   direction: 'horizontal',
   className: '',
-  activeIndex: 0
+  activeIndex: 0,
+  onChange: () => {}
 };
 
 export default Wizard;
