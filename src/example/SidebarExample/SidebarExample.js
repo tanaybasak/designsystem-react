@@ -47,6 +47,7 @@ class SidebarExample extends Component {
                 this.setState({ sidebarExpanded: status });
               }
             }}
+            responsive={false}
             onClick={item => {
               console.log(item);
             }}
@@ -59,7 +60,7 @@ class SidebarExample extends Component {
           >
             <Switch>
               <Route exact path="/home">
-                <p className={`p-2`}>
+                <p className={`p-2`} style={{marginLeft: '2rem'}}>
                   Lorem Ipsum is simply dummy text of the printing and
                   typesetting industry. Lorem Ipsum has been the industry's
                   standard dummy text ever since the 1500s, when an unknown

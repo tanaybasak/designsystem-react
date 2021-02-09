@@ -91,6 +91,35 @@ storiesOf('Sidebar', module)
         items={items}
         onClick={action('link clicked')}
         toggleSidebar={action('Toggle Sidebar')}
+        responsive={boolean('responsive', true)}
+      />
+    ),
+    {
+      info: {
+        text: `Description About Sidebar Component
+      
+      import { Sidebar } from '@patron/patron-react/sidebar';
+    import { Icon } from '@patron/patron-react/icon';
+      `
+      }
+    }
+  )
+  .add(
+    'default-nonresponsive',
+    () => (
+      <Sidebar
+        title={text('Title', 'Default')}
+        icon={
+          <i
+            // style={{ color: 'white' }}
+            className={`p-hclsw p-hclsw-${select('Title Icon', icons, 'user')}`}
+          />
+        }
+        expanded={boolean('Expanded', true)}
+        items={items}
+        onClick={action('link clicked')}
+        toggleSidebar={action('Toggle Sidebar')}
+        responsive={boolean('responsive', false)}
       />
     ),
     {
@@ -121,6 +150,7 @@ storiesOf('Sidebar', module)
         onClick={action('link clicked')}
         toggleSidebar={action('Toggle Sidebar')}
         type={select('type', typeOptions, 'internal')}
+        responsive={boolean('responsive', true)}
       />
     ),
     {
