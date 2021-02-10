@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 // import prefix from '../../settings';
+import { User, activeUser, CheckMark, Error } from '../../util/icons';
 
 const Step = ({
   className,
@@ -8,8 +9,9 @@ const Step = ({
   iconClass,
   icon,
   description,
-  current,
+  active,
   complete,
+  error,
   ...restProps
 }) => {
   // active, completed, hcl-wizard__no-title
@@ -18,11 +20,15 @@ const Step = ({
   if (className) {
     classnames.push(className);
   }
-  if (complete) {
+  if (complete && !error) {
+        // debugger;
     classnames.push('completed');
   }
-  if (current) {
+  if (active) {
     classnames.push('active');
+  }
+  if (error) {
+    classnames.push('error');
   }
   return (
     <li className={classnames.join(' ')} onClick={restProps.onClick}>
@@ -32,7 +38,24 @@ const Step = ({
           <div className="ghost" />
           <div className="hcl-wizard-left-pane">
             <div className="hcl-wizard__icon-container">
-              <div className="hcl-wizard__user">{restProps.index + 1}</div>
+              {/* <div className="hcl-wizard__user">{restProps.index + 1}</div> */}
+              {!complete && !iconClass && !icon && !error && !active && (
+                <div className="hcl-wizard__user">{User}</div>
+              )}
+              {!complete && active && !icon && !iconClass && !error && (
+                <div className="hcl-wizard__user">{activeUser}</div>
+              )}
+              {/** Complete Scenarios */}
+              {complete && !iconClass && !icon && !error && (
+                <div className="hcl-wizard__user">{CheckMark}</div>
+              )}
+              {complete && iconClass && !icon && !error && (
+                <i className={`${iconClass}`} />
+              )}
+              {error && !complete && !iconClass && !icon && (
+                <div className="hcl-wizard__user">{Error}</div>
+              )}
+              {iconClass && !icon && <i className={`${iconClass}`} />}
             </div>
           </div>
           <div className={`hcl-wizard-right-pane`}>
@@ -81,8 +104,9 @@ Step.propTypes = {
   iconClass: PropTypes.string,
   icon: PropTypes.element,
   description: PropTypes.string,
-  current: PropTypes.bool,
+  active: PropTypes.bool,
   complete: PropTypes.bool,
+  error: PropTypes.bool,
   onClick: PropTypes.func
 };
 
