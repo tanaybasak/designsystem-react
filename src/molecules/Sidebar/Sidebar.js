@@ -140,7 +140,7 @@ const Sidebar = ({
   };
 
   const iconClass = item => {
-    let iconClasses = [`hcl-sidebar-link`];
+    let iconClasses = [`${prefix}-sidebar-link`];
     if (!(item.iconClass || item.icon)) {
       iconClasses.push('no-icon');
     }
@@ -169,13 +169,13 @@ const Sidebar = ({
           }
           tabIndex="0"
           title={item.title}
-          className={`hcl-sidebar-item${highlightedClass}`}
+          className={`${prefix}-sidebar-item${highlightedClass}`}
           onKeyDown={keyDown.bind(this, item, categoryIndex, parentItem)}
           href={item.href}
         >
           {item.icon
             ? React.cloneElement(item.icon, {
-                className: `hcl-sidebar-icon${
+                className: `${prefix}-sidebar-icon${
                   item.icon.props.className
                     ? ' ' + item.icon.props.className
                     : ''
@@ -184,7 +184,7 @@ const Sidebar = ({
             : null}
           <span
             className={
-              iconExist ? iconClass(item) : 'hcl-sidebar-link no-sideicon'
+              iconExist ? iconClass(item) : `${prefix}-sidebar-link no-sideicon`
             }
           >
             {item.title}
@@ -201,7 +201,7 @@ const Sidebar = ({
             </Icon>
           ) : item.statusIcon ? (
             React.cloneElement(item.statusIcon, {
-              className: `hcl-sidebar-icon${
+              className: `${prefix}-sidebar-icon${
                 item.statusIcon.props.className
                   ? ' ' + item.statusIcon.props.className
                   : ''
@@ -225,7 +225,7 @@ const Sidebar = ({
           <>
             {item.icon
               ? React.cloneElement(item.icon, {
-                  className: `hcl-sidebar-icon${
+                  className: `${prefix}-sidebar-icon${
                     item.icon.props.className
                       ? ' ' + item.icon.props.className
                       : ''
@@ -234,14 +234,16 @@ const Sidebar = ({
               : null}
             <span
               className={
-                iconExist ? iconClass(item) : 'hcl-sidebar-link no-sideicon'
+                iconExist
+                  ? iconClass(item)
+                  : `${prefix}-sidebar-link no-sideicon`
               }
             >
               {template.props.children}
             </span>
             {item.statusIcon &&
               React.cloneElement(item.statusIcon, {
-                className: `hcl-sidebar-icon${
+                className: `${prefix}-sidebar-icon${
                   item.statusIcon.props.className
                     ? ' ' + item.statusIcon.props.className
                     : ''
@@ -263,20 +265,20 @@ const Sidebar = ({
       >
         {icon
           ? React.cloneElement(icon, {
-              className: `hcl-sidebar-title-icon${
+              className: `${prefix}-sidebar-title-icon${
                 icon.props.className ? ' ' + icon.props.className : ''
               }`
             })
           : null}
         <span
-          className={`hcl-sidebar-title-text${
+          className={`${prefix}-sidebar-title-text${
             !icon && expnd ? ' no-sideicon' : ''
           }`}
         >
           {title}
         </span>
         <span
-          className="hcl-sidebar-title-toggle"
+          className={`${prefix}-sidebar-title-toggle`}
           tabIndex="0"
           onClick={expandSidebar}
           onKeyDown={expandSidebarOnEnter}
@@ -297,7 +299,7 @@ const Sidebar = ({
   };
 
   const focusNode = node => {
-    if (node.classList.contains('hcl-sidebar-category')) {
+    if (node.classList.contains(`${prefix}-sidebar-category`)) {
       node.firstElementChild.focus();
     }
   };
@@ -395,7 +397,7 @@ const Sidebar = ({
       ref={sidebarContainerRef}
     >
       <button
-        className="hcl-sidebar-hamburger"
+        className={`${prefix}-sidebar-hamburger`}
         data-type={'toggle_sidebar'}
         data-title={title}
         onClick={expandSidebar}
@@ -410,7 +412,7 @@ const Sidebar = ({
           {sidebarList.map((item, categoryIndex) => {
             return (
               <li
-                className={`hcl-sidebar-category${
+                className={`${prefix}-sidebar-category${
                   activeItem === item ? ' active' : ''
                 }`}
                 key={`sidebar_category_${categoryIndex}`}
@@ -418,11 +420,11 @@ const Sidebar = ({
               >
                 {getSidebarLink(item, categoryIndex)}
                 {item.children && item.children.length ? (
-                  <ul className="hcl-sidebar-children">
+                  <ul className={`${prefix}-sidebar-children`}>
                     {item.children.map((subItem, subItemIndex) => {
                       return (
                         <li
-                          className={`hcl-sidebar-category${
+                          className={`${prefix}-sidebar-category${
                             activeItem === subItem ? ' active' : ''
                           }`}
                           key={`sidebar_category_children_${categoryIndex}_${subItemIndex}`}
@@ -453,7 +455,7 @@ Sidebar.propTypes = {
   /** used to pass custom template in sidebar link */
   sidebarLinkTemplate: PropTypes.any,
 
-  /** Accepts boolean value  to make sidebar expanded or collapse */
+  /** Accepts boolean value to make sidebar expanded or collapse */
   expanded: PropTypes.bool,
 
   /** Title for the Sidebar */
@@ -471,20 +473,20 @@ Sidebar.propTypes = {
   /** Sidebar Header Visibility */
   headerVisible: PropTypes.bool,
 
-  /** Sidebar Header Branding */
+  /** Sidebar Header color change eg: default | primary */
   headerBranding: PropTypes.oneOf(['default', 'primary']),
 
-  /** Type of sidebar */
+  /** Types of sidebar eg: default | primary */
   type: PropTypes.oneOf(['default', 'internal']),
 
-  /** Icon for Sidebar */
+  /** Icon for Sidebar Header */
   icon: PropTypes.element,
   /** Callback function that is invoked when Sidebar link is clicked
    *
    * Argument – link , event
    */
   onClick: PropTypes.func,
-  /** Responsive sidebar */
+  /** Making sidebar responsive */
   responsive: PropTypes.bool,
   /** Callback function that is invoked when Sidebar Toggled
    *

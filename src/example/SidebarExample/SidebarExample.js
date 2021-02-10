@@ -74,7 +74,7 @@ class SidebarExample extends Component {
                 </p>
               </Route>
               <Route exact path="/comp">
-                <p className={`p-2`}>
+                <p className={`p-2`} style={{ marginLeft: '2rem' }}>
                   Lorem Ipsum is simply dummy text of the printing and
                   typesetting industry. Lorem Ipsum has been the industry's
                   standard dummy text ever since the 1500s, when an unknown
