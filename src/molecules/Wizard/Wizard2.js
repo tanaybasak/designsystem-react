@@ -77,7 +77,6 @@ const Wizard2 = React.forwardRef(
         state.active = true;
       }
       if (!nonlinear && currentActiveIdx > idx) {
-        // debugger;
         state.complete = true;
       }
 
