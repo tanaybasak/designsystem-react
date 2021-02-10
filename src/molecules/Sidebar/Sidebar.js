@@ -40,8 +40,7 @@ const Sidebar = ({
 
   if (type === 'internal') classnames.push(`${prefix}-sidebar-vertical`);
 
-  if (responsive) classnames.push(`${prefix}-sidebar-responsive`);
-  else classnames.push(`${prefix}-sidebar-nonresponsive`);
+  if (!responsive) classnames.push(`${prefix}-sidebar-nonresponsive`);
 
   if (headerBranding === 'primary') {
     headerclasses.push(`${prefix}-sidebar-title-primary`);
