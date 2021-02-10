@@ -134,7 +134,7 @@ const Sidebar = ({
     item.parentItem = parentItem ? parentItem : item;
     setActiveItem(item);
     onClick(item, event);
-    if (window.innerWidth < 992) {
+    if (window.innerWidth < 992 && responsive) {
       setExpanded(false);
     }
   };
