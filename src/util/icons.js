@@ -117,7 +117,7 @@ export const inlineClose = (
 
 export const edit = (
   <svg
-    className="hcl-default-icon"
+    className="hcl-btn-icon"
     xmlns="https://www.w3.org/2000/svg"
     viewBox="0 0 16 16"
   >
@@ -162,7 +162,7 @@ export const boldIcon = (
 export const boldSelected = (
   <svg
     className="hcl-btn-icon"
-    style={{ fill: 'var(--warning_icon)' }}
+    style={{ fill: 'var(--active_icon)' }}
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 16 16"
   >
@@ -193,7 +193,7 @@ export const italicIcon = (
 export const italicSelected = (
   <svg
     className="hcl-btn-icon"
-    style={{ fill: 'var(--warning_icon)' }}
+    style={{ fill: 'var(--active_icon)' }}
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 16 16"
   >
@@ -229,7 +229,7 @@ export const underlineIcon = (
 export const underlineSelected = (
   <svg
     className="hcl-btn-icon"
-    style={{ fill: 'var(--warning_icon)' }}
+    style={{ fill: 'var(--active_icon)' }}
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 16 16"
   >
@@ -268,7 +268,7 @@ export const bulletList = (
 export const bulletListSelected = (
   <svg
     className="hcl-btn-icon"
-    style={{ fill: 'var(--warning_icon)' }}
+    style={{ fill: 'var(--active_icon)' }}
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 16 16"
   >
@@ -282,6 +282,46 @@ export const bulletListSelected = (
     <path
       id="list-bulleted"
       d="M15,3.5v2H8v-2Zm-7,9h7v-2H8ZM3.5,2.5a2,2,0,1,0,2,2A2,2,0,0,0,3.5,2.5Zm0,7a2,2,0,1,0,2,2A2,2,0,0,0,3.5,9.5Z"
+    />
+  </svg>
+);
+
+export const numberList = (
+  <svg
+    className="hcl-btn-icon"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 16 16"
+  >
+    <rect
+      data-name="&lt;Transparent Rectangle&gt;"
+      width="16"
+      height="16"
+      fill="none"
+    />
+    <path
+      id="list-numbered"
+      d="M15,4V5H8V4ZM8,12h7V11H8ZM4,9H2v1H4v1H3a1,1,0,0,0-1,1v1a1,1,0,0,0,1,1H5V13H3V12H4a1,1,0,0,0,1-1V10A1,1,0,0,0,4,9ZM4,2H3v.5H2v1H3V6H2V7H5V6H4Z"
+    />
+  </svg>
+);
+
+export const numberListSelected = (
+  <svg
+    className="hcl-btn-icon"
+    style={{ fill: 'var(--active_icon)' }}
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 16 16"
+  >
+    <rect
+      id="_Transparent_Rectangle_"
+      data-name="&lt;Transparent Rectangle&gt;"
+      width="16"
+      height="16"
+      fill="none"
+    />
+    <path
+      id="list-numbered"
+      d="M15,3.5v2H8v-2Zm-7,9h7v-2H8ZM4,9H2v1H4v1H3a1,1,0,0,0-1,1v1a1,1,0,0,0,1,1H5V13H3V12H4a1,1,0,0,0,1-1V10A1,1,0,0,0,4,9ZM4,2H3v.5H2v1H3V6H2V7H5V6H4Z"
     />
   </svg>
 );
@@ -308,7 +348,7 @@ export const linkIcon = (
 export const linkSelected = (
   <svg
     className="hcl-btn-icon"
-    style={{ fill: 'var(--warning_icon)' }}
+    style={{ fill: 'var(--active_icon)' }}
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 16 16"
   >

@@ -13,6 +13,7 @@ class RichTextEditorExample extends React.Component {
         { type: 'underline' },
         { type: 'italic' },
         { type: 'bulletlist' },
+        { type: 'numberlist' },
         { type: 'link' }
       ]
     };
@@ -23,9 +24,7 @@ class RichTextEditorExample extends React.Component {
       <div className="hcl-container">
         <div className="hcl-row">
           <div className="hcl-col-6">
-            <div className="rte-wrapper">
-              <RichTextEditor config={this.state.config} />
-            </div>
+            <RichTextEditor config={this.state.config} />
           </div>
         </div>
       </div>
