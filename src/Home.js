@@ -21,6 +21,7 @@ import ProgressIndicatorExample from './example/ProgressIndicator';
 import InPageNavigationExample from './example/InPageNavigationExample';
 import TreeviewWithNewFolder from './example/TreeviewWithNewFolder';
 import CodeSnippetExample from './example/CodeSnippetExample';
+import SidebarExample from './example/SidebarExample';
 class Home extends Component {
   state = {
     sidebarExpanded: false
@@ -29,11 +30,13 @@ class Home extends Component {
     {
       title: 'Home',
       href: '/',
-      icon: <i className="p-hclsw p-hclsw-home" />
+      icon: <i className="p-hclsw p-hclsw-home" />,
+      statusIcon: <i className="p-hclsw p-hclsw-calendar" />
     },
     {
       title: 'Components',
       icon: <i className="p-hclsw p-hclsw-release" />,
+      statusIcon: <i className="p-hclsw p-hclsw-calendar" />,
       children: [
         {
           href: '/tag',
@@ -78,6 +81,10 @@ class Home extends Component {
         {
           href: '/progressindicator',
           title: 'Progress Indicator'
+        },
+        {
+          href: '/sidebar',
+          title: 'Sidebar'
         },
         {
           href: '/in-pageNavigation',
@@ -133,6 +140,7 @@ class Home extends Component {
           expanded={this.state.sidebarExpanded}
           activeLink="/tag"
           icon={<i className="p-hclsw p-hclsw-user-active" />}
+          headerPosition={'top'}
           sidebarLinkTemplate={link => {
             return <Link to={link.href}>{link.title}</Link>;
           }}
@@ -179,6 +187,7 @@ class Home extends Component {
               path="/progressindicator"
               component={ProgressIndicatorExample}
             />
+            <Route exact path="/sidebar" component={SidebarExample} />
             <Route
               exact
               path="/in-PageNavigation"
