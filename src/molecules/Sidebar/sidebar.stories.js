@@ -60,6 +60,25 @@ const items = [
   }
 ];
 
+const internalitems = [
+  {
+    icon: <i className={`p-hclsw p-hclsw-${icons[2]}`} />,
+    statusIcon: <i className={`p-hclsw p-hclsw-${icons[2]}`} />,
+    title: 'Category One'
+  },
+  {
+    icon: <i className={`p-hclsw p-hclsw-${icons[1]}`} />,
+    statusIcon: <i className={`p-hclsw p-hclsw-${icons[2]}`} />,
+    title: 'Category Two'
+  },
+  {
+    icon: <i className={`p-hclsw p-hclsw-${icons[1]}`} />,
+    statusIcon: <i className={`p-hclsw p-hclsw-${icons[2]}`} />,
+    title: 'Category Three',
+    href: '#10'
+  }
+];
+
 const positionOptions = {
   top: 'top',
   bottom: 'bottom'
@@ -120,6 +139,9 @@ storiesOf('Sidebar', module)
         onClick={action('link clicked')}
         toggleSidebar={action('Toggle Sidebar')}
         responsive={boolean('responsive', false)}
+        headerPosition={select('headerPosition', positionOptions, 'top')}
+        headerBranding={select('headerBranding', headerBranding, 'default')}
+        headerVisible={boolean('headerVisible', true)}
       />
     ),
     {
@@ -143,7 +165,7 @@ storiesOf('Sidebar', module)
           />
         }
         expanded={boolean('Expanded', true)}
-        items={items}
+        items={internalitems}
         headerVisible={boolean('headerVisible', true)}
         headerPosition={select('headerPosition', positionOptions, 'top')}
         headerBranding={select('headerBranding', headerBranding, 'primary')}
