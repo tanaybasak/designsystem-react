@@ -21,6 +21,7 @@ class InPageNavigationExample extends Component {
         <label className="hcl-label">In-PageNavigation Example</label>
         <div className="hcl-col-10">
           <div id="Overview" className="p-10">
+            <h2>Overview</h2>
             Lorem Ipsum is simply dummy text of the printing and typesetting
             industry. Lorem Ipsum has been the industry's standard dummy text
             ever since the 1500s, when an unknown printer took a galley of type
@@ -77,6 +78,7 @@ class InPageNavigationExample extends Component {
             </div>
           </div>
           <div id="Guidelines" className="p-10">
+            <h2>Guidelines</h2>
             Lorem Ipsum is simply dummy text of the printing and typesetting
             industry. Lorem Ipsum has been the industry's standard dummy text
             ever since the 1500s, when an unknown printer took a galley of type
@@ -133,6 +135,7 @@ class InPageNavigationExample extends Component {
             </div>
           </div>
           <div id="General" className="p-10">
+            <h2>General</h2>
             Lorem Ipsum is simply dummy text of the printing and typesetting
             industry. Lorem Ipsum has been the industry's standard dummy text
             ever since the 1500s, when an unknown printer took a galley of type

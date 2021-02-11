@@ -19,3 +19,7 @@
 .hcl-form-item .hcl-file-uploader .hcl-file-input {
   width: 100%;
 }
+
+nav.hcl-sidebar.hcl-sidebar-left {
+  float: left;
+}

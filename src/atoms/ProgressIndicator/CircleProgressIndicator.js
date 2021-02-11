@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import prefix from '../../settings';
 import PropTypes from 'prop-types';
 
-const CircleProgressBar = ({
+const CircleProgressIndicator = ({
   progress,
   type,
   label,
@@ -110,7 +110,7 @@ const CircleProgressBar = ({
           ) : null}
         </div>
       ) : (
-        <div className={classnames} role="progressbar">
+        <div className={classnames.join(` `)} role="progressbar">
           <svg
             className={`${prefix}-pb-circle-indeterminate`}
             viewBox="25 25 50 50"
@@ -152,7 +152,7 @@ const CircleProgressBar = ({
   );
 };
 
-CircleProgressBar.propTypes = {
+CircleProgressIndicator.propTypes = {
   /** value of the progressbar ranging from 0 to 1  */
   progress: PropTypes.number,
 
@@ -175,7 +175,7 @@ CircleProgressBar.propTypes = {
   progressSize: PropTypes.oneOf(['small', 'default', 'large'])
 };
 
-CircleProgressBar.defaultProps = {
+CircleProgressIndicator.defaultProps = {
   progress: 0,
   type: 'determinate',
   label: null,
@@ -185,4 +185,4 @@ CircleProgressBar.defaultProps = {
   progressSize: 'default'
 };
 
-export default CircleProgressBar;
+export default CircleProgressIndicator;

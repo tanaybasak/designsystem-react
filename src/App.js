@@ -41,7 +41,6 @@ import Footer from './molecules/Footer';
 import { ActionBar, ActionSummary, ActionList } from './molecules/ActionBar';
 import { ToolBar, ToolBarActions } from './molecules/ToolBar';
 import Password from './atoms/Password';
-//import Overlay from './atoms/Overlay';
 
 class App extends Component {
   state = {
@@ -334,6 +333,7 @@ class App extends Component {
           <section className="hcl-container pt-5 mb-5">
             <div className="hcl-row m-0">
               {/* Input Field */}
+
               <div className="hcl-form-group hcl-col-12" id="form-section">
                 <Label htmlFor="firstname">First Name </Label>
                 <FormHelperText className="helper-text">
@@ -652,9 +652,13 @@ class App extends Component {
                   id="small-navigator"
                   className="custom-breadcrumb-top"
                   activeIndex={2}
-                  onSelection={(item, idx, e) => console.log(item, idx, e)}
+                  onSelection={(item, idx) => console.log(item, idx)}
                 >
-                  <BreadcrumbItem itemClass="custom-item" href="#">
+                  <BreadcrumbItem
+                    itemClass="custom-item"
+                    href="#"
+                    onClick={e => console.log('hello', e)}
+                  >
                     Breadcrumb 1
                   </BreadcrumbItem>
                   <BreadcrumbItem href="#">Breadcrumb 2</BreadcrumbItem>

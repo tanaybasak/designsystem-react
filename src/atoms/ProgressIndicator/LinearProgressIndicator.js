@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import prefix from '../../settings';
 import PropTypes from 'prop-types';
 
-const LinearProgressBar = ({
+const LinearProgressIndicator = ({
   progress,
   label,
   subText,
@@ -40,7 +40,7 @@ const LinearProgressBar = ({
         </div>
       )}
       <svg
-        className={`${classnames} ${prefix}-pb-linear-determinate`}
+        className={`${classnames.join(` `)} ${prefix}-pb-linear-determinate`}
         preserveAspectRatio="none"
         viewBox="0 0 100 4"
       >
@@ -71,7 +71,7 @@ const LinearProgressBar = ({
   ) : (
     <div className={`${prefix}-pb-linear-wrapper`} role="progressbar">
       <svg
-        className={`${classnames} ${prefix}-pb-linear-indeterminate`}
+        className={`${classnames.join(` `)} ${prefix}-pb-linear-indeterminate`}
         preserveAspectRatio="none"
         viewBox="0 0 125 4"
       >
@@ -122,7 +122,7 @@ const LinearProgressBar = ({
   );
 };
 
-LinearProgressBar.propTypes = {
+LinearProgressIndicator.propTypes = {
   /** value of the progressbar ranging from 0 to 1  */
   progress: PropTypes.number,
   /** label of the progressbar is placed in topleft of the progressbar */
@@ -137,7 +137,7 @@ LinearProgressBar.propTypes = {
   className: PropTypes.string
 };
 
-LinearProgressBar.defaultProps = {
+LinearProgressIndicator.defaultProps = {
   progress: 0,
   label: null,
   customContent: null,
@@ -146,4 +146,4 @@ LinearProgressBar.defaultProps = {
   className: ''
 };
 
-export default LinearProgressBar;
+export default LinearProgressIndicator;
