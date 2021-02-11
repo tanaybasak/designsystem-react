@@ -374,4 +374,6 @@ Dropdown.defaultProps = {
   onVisibleChange: null
 };
 
+Dropdown.displayName = 'Dropdown';
+
 export default Dropdown;
