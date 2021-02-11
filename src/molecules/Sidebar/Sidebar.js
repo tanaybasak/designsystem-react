@@ -503,7 +503,7 @@ Sidebar.defaultProps = {
   title: '',
   items: [],
   disabled: false,
-  headerPosition: 'bottom',
+  headerPosition: 'top',
   headerVisible: true,
   headerBranding: 'default',
   type: 'default',
