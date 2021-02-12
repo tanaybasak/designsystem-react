@@ -20,6 +20,7 @@ import InlineEditExample from './example/InlineEdit';
 import ProgressIndicatorExample from './example/ProgressIndicator';
 import InPageNavigationExample from './example/InPageNavigationExample';
 import TreeviewWithNewFolder from './example/TreeviewWithNewFolder';
+import RichTextEditorExample from './example/RichTextEditorExample';
 import CodeSnippetExample from './example/CodeSnippetExample';
 import SidebarExample from './example/SidebarExample';
 class Home extends Component {
@@ -97,6 +98,10 @@ class Home extends Component {
         {
           href: '/treeWithNewFolder',
           title: 'TreeviewWithNewFolder'
+        },
+        {
+          href: '/rte',
+          title: 'Rich Text Editor'
         },
         {
           href: '/codesnippet',
@@ -198,6 +203,7 @@ class Home extends Component {
               path="/treeWithNewFolder"
               component={TreeviewWithNewFolder}
             />
+            <Route exact path="/rte" component={RichTextEditorExample} />
             <Route exact path="/codesnippet" component={CodeSnippetExample} />
           </Switch>
         </div>
