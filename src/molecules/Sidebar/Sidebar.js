@@ -145,7 +145,7 @@ const Sidebar = ({
       iconClasses.push('no-icon');
     }
 
-    if (!item.children?.length && !item.statusIcon) {
+    if (!(item.children && item.children.length) && !item.statusIcon) {
       iconClasses.push('no-statusicon');
     }
     return iconClasses.join(` `);
@@ -503,7 +503,7 @@ Sidebar.defaultProps = {
   title: '',
   items: [],
   disabled: false,
-  headerPosition: 'bottom',
+  headerPosition: 'top',
   headerVisible: true,
   headerBranding: 'default',
   type: 'default',
