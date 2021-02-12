@@ -59,7 +59,7 @@
   left: 28px;
   z-index: 1;
 } */
-.desktop:not(.hcl-wizard__no-title) .wiz-item.active::before{
+.desktop:not(.hcl-wizard__no-title) .wiz-item.active::before {
   background: #e6e6e6;
 }
 
@@ -91,8 +91,8 @@
   height: 2px;
   width: calc(100%);
 }
-.desktop.hcl-wizard__no-title .wiz-item.completed::after, 
-  .desktop.hcl-wizard__no-title .wiz-item.completed + .wiz-item::after {
+.desktop.hcl-wizard__no-title .wiz-item.completed::after,
+.desktop.hcl-wizard__no-title .wiz-item.completed + .wiz-item::after {
   content: '';
   position: absolute;
   display: block;
@@ -118,6 +118,9 @@
   top: 0;
   left: 0;
   background: #e6e6e6;
+}
+.desktop.hcl-wizard__no-title .wiz-item .ghost {
+  background: #0066b0;
 }
 
 /*  */
@@ -157,7 +160,8 @@ div.wrapper.desktop {
 .wrapper:not(.desktop) .wiz-item .hcl-wizard-right-pane {
   display: none;
 }
-.desktop.hcl-wizard__no-title .hcl-wizard-right-pane, .desktop .hcl-wizard-right-pane {
+.desktop.hcl-wizard__no-title .hcl-wizard-right-pane,
+.desktop .hcl-wizard-right-pane {
   justify-content: center;
 }
 .desktop .hcl-wizard-left-pane {
@@ -203,11 +207,17 @@ div.wrapper.desktop {
   justify-content: center;
   align-items: center;
 }
-.desktop .completed .hcl-wizard__user {
+.desktop li.wiz-item.completed .hcl-wizard__user {
   border: 1px solid var(--secondary_icon);
+  padding: 3px;
 }
-.desktop .active .hcl-wizard__user {
-  border: 1px solid var(--active_border);
+.desktop li.wiz-item.active .hcl-wizard__user {
+  /* border: 1px solid var(--active_border); */
+  padding: 3px;
+  color: var(--primary_icon);
+  box-shadow: 0 0 0 1px var(--default_bg), 0 0 0 2px var(--active_border);
+  background: var(--active_icon);
+  border-color: transparent;
 }
 
 .desktop .hcl-wizard__title {
@@ -374,6 +384,11 @@ div.wrapper.desktop {
   top: 0%;
   left: 9%;
 }
+/* TODO no icon change for danger icon */
+.wrapper:not(.desktop) .wiz-item.error .no-icon-child {
+  background: var(--danger_icon);
+  border: 1px solid var(--danger_icon);
+}
 .wrapper:not(.desktop) .wiz-item.completed .no-icon-child {
   background: #0066b0;
   border: 1px solid #0066b0;
@@ -410,3 +425,5 @@ div.wrapper.desktop {
   font-weight: 500;
   color: var(--default_text_high);
 }
+
+

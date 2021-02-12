@@ -8,10 +8,12 @@ class WizardExample extends Component {
   constructor(props) {
     super(props);
     this.rr = React.createRef();
+    this.finishRef = React.createRef();
+    this.nextRef = React.createRef();
   }
 
   state = {
-    selIndex: 2,
+    selIndex: 1,
     wizardmodel: [
       {
         title: 'Little lillies Little lillies Little lillies',
@@ -44,7 +46,16 @@ class WizardExample extends Component {
     ]
   };
 
-  // handleLinearClick = e => {};
+  // componentDidUpdate(p) {
+  //   console.log(p);
+  // }
+
+  handleLinearClick = (idx, e) => {
+    // console.log(idx);
+    this.setState({
+      selIndex: idx
+    });
+  };
 
   render() {
     return (
@@ -52,6 +63,7 @@ class WizardExample extends Component {
         <Wizard2
           ref={this.rr}
           // titleBelow
+          // responsive
           activeIndex={this.state.selIndex}
           // onChange={(e, idx) => {
           //1. Step by Step
@@ -65,31 +77,86 @@ class WizardExample extends Component {
           // }}
         >
           {this.state.wizardmodel.map((item, idx) => {
-            const state = {
-              error: false
-            };
-            // if (idx === 1) {
-            //   state.error = true;
+            // const state = {
+            //   complete: false
+            // };
+            // if (idx === 2) {
+            //   state.disabled = false;
+            // }
+            // if (idx === this.state.selIndex) {
+            //   state.complete = true;
             // }
             return (
               <Step
                 key={idx}
                 title={item.title}
                 description={item.description}
-                // onClick={handleLinearClick}
-                {...state}
+                // iconClass={'testing-icon'}
+                // onClick={idx <= this.selIndex ? this.handleLinearClick : null}
+                onClick={this.handleLinearClick.bind(this, idx)}
+                // {...state}
               />
             );
           })}
         </Wizard2>
-        {/* <div>
-          <Button type="ghost" kind="button">
+        <div>
+          <Button
+            type="ghost"
+            kind="button"
+            onClick={() =>
+              this.setState(
+                (prevState, props) => {
+                  return { selIndex: prevState.selIndex - 1 };
+                },
+                () => {
+                  console.log('updated state', this.state.selIndex);
+                }
+              )
+            }
+          >
             Back
           </Button>
-          <Button type="primary" kind="button">
-            Next
-          </Button>
-        </div> */}
+          {this.state.selIndex < 4 ? (
+            <Button
+              type="primary"
+              kind="button"
+              // ref={this.nextRef}
+              onClick={() =>
+                this.setState(
+                  (prevState, props) => {
+                    return { selIndex: prevState.selIndex + 1 };
+                  },
+                  () => {
+                    console.log('updated state', this.state.selIndex);
+                    // console.log(this.nextRef);
+                  }
+                )
+              }
+            >
+              Next
+            </Button>
+          ) : (
+            <Button
+              type="primary"
+              kind="button"
+              // ref={this.finishRef}
+              disabled={this.state.selIndex === 5}
+              onClick={() =>
+                this.setState(
+                  (prevState, props) => {
+                    return { selIndex: prevState.selIndex + 1 };
+                  },
+                  () => {
+                    // console.log(this.finishRef);
+                    console.log('updated state', this.state.selIndex);
+                  }
+                )
+              }
+            >
+              Finish
+            </Button>
+          )}
+        </div>
       </>
     );
   }

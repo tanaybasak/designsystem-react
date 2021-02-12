@@ -9,19 +9,52 @@ import React, {
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 
-// eslint-disable-next-line no-unused-vars
+function usePrevious(value) {
+  const ref = React.useRef(null);
+  React.useEffect(() => {
+    ref.current = value;
+  }, [value]);
+  return ref.current;
+}
+
 const Wizard2 = React.forwardRef(
-  ({ activeIndex, className, children, nonlinear, titleBelow }, ref) => {
-    const [currentActiveIdx, setActiveIdx] = useState(activeIndex || 0);
-    const compRef = useRef(null);
+  (
+    {
+      activeIndex,
+      className,
+      children,
+      nonlinear,
+      titleBelow,
+      responsive
+      // clickable
+    },
+    ref
+  ) => {
+    // const [currentActiveIdx, setActiveIdx] = useState(activeIndex || 0);
+    const [isDesktopNoIconMode, setisDesktopNoIconMode] = useState(true);
+    // const compRef = useRef(null);
+    // const prevShow = usePrevious(currentActiveIdx);
 
     const childrencount = Children.count(children);
+    const childs = Children.toArray(children);
+
 
     useEffect(() => {
-      // if (activeIndex > -1 && activeIndex <= childrencount - 1) {
-      setActiveIdx(activeIndex);
-      // }
-    }, [activeIndex]);
+      if (childs && childrencount > 0) {
+        let y = childs.every(item => {
+          const { icon, iconClass } = item.props;
+          return icon === null && iconClass === '';
+        });
+        setisDesktopNoIconMode(y);
+        // console.log(isDesktopNoIconMode);
+      }
+    }, [childs]);
+
+    // useEffect(() => {
+    //   if (activeIndex > -1 && activeIndex <= childrencount - 1) {
+    //     setActiveIdx(activeIndex);
+    //   }
+    // }, [activeIndex]);
 
     // useEffect(() => {
     //   if (compRef.current) {
@@ -58,27 +91,46 @@ const Wizard2 = React.forwardRef(
     if (titleBelow) {
       classnames.push('hcl-wizard__no-title');
     }
+    // if (isDesktopNoIconMode) {
+    //   classnames.push('no-icon');
+    // }
+    if (responsive) {
+      classnames = classnames.filter(
+        e => e != 'desktop' && e != 'hcl-wizard__no-title'
+      );
+    }
     // if (direction === 'horizontal') {
     //   classnames.push(`wiz-horizontal`);
     // }
     // if (direction === 'vertical') {
     //   classnames.push(`wiz-vertical`);
     // }
-
-    const modifiedChildren = Children.map(children, (child, idx) => {
+    const modifiedChildren = Children.map(childs, (child, idx) => {
       const state = {
         index: idx,
         active: false,
         complete: false,
-        error: false
+        error: false,
+        disabled: false
       };
 
-      if (currentActiveIdx === idx) {
+      if (!nonlinear && activeIndex === idx) {
+          console.log(activeIndex);
         state.active = true;
-      }
-      if (!nonlinear && currentActiveIdx > idx) {
+      } else if (!nonlinear && activeIndex > idx) {
         state.complete = true;
+      } else if (!nonlinear && idx + 1 >= activeIndex) {
+        state.disabled = true;
       }
+      // console.log('disabled', state.disabled);
+
+      // m
+      // if (activeIndex === idx) {
+      //   state.active = true;
+      // }
+      // if (!nonlinear && activeIndex > idx) {
+      //   state.complete = true;
+      // }
 
       // if (activeIndex === idx) {
       //   state.current = true;
@@ -102,28 +154,33 @@ const Wizard2 = React.forwardRef(
         //     onChange(e, idx);
         //   }
         // },
-        title: child.props.title ? child.props.title : null,
-        description: child.props.description ? child.props.description : null,
-        icon: child.props.icon ? child.props.icon : null,
+
+        // title: child.props.title ? child.props.title : null,
+        // description: child.props.description ? child.props.description : null,
+        // icon: child.props.icon ? child.props.icon : null,
         ...state,
         ...child.props
+        // onClick: () => {
+        //   if (!nonlinear && !state.disabled) {
+        //     console.log('came in ?');
+        //     setActiveIdx(idx);
+        //     // child.props.onClick(e, idx);
+        //     // }
+        //   }
+        // }
       });
     });
 
     return (
-      <div
-        // style={{ marginTop: '4rem' }}
-        className={classnames.join(' ')}
-        ref={ref}
-      >
+      <div className={classnames.join(' ')} ref={ref}>
         {/* // <div className={'wrapper desktop hcl-wizard__no-title'}> */}
-        <div ref={compRef} className="wiz-wrapper">
+        <div className="wiz-wrapper">
           <ul role="tablist" className="wiz-list">
             {modifiedChildren}
           </ul>
           <div className="step-names__mobile">
             <div className="step-name">
-              Step {1} of {6}
+              Step {activeIndex + 1} of {childrencount}
             </div>
             <div className="step-description">{'Basic'}</div>
           </div>
@@ -174,14 +231,23 @@ Wizard2.propTypes = {
   activeIndex: PropTypes.number,
   onChange: PropTypes.func,
   nonlinear: PropTypes.bool,
-  titleBelow: PropTypes.bool
+  // clickable: PropTypes.bool,
+  titleBelow: PropTypes.bool,
+  responsive: PropTypes.bool
 };
 
 Wizard2.defaultProps = {
   className: '',
   activeIndex: 0,
   onChange: () => {},
-  nonlinear: false
+  // clickable: true,
+  nonlinear: false,
+  responsive: false
 };
+
+/*
+nonlinear false linear true
+nonlinear true linear false
+*/
 
 export default Wizard2;

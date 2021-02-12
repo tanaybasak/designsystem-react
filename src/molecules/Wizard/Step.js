@@ -12,50 +12,102 @@ const Step = ({
   active,
   complete,
   error,
+  disabled,
+  onClick,
   ...restProps
 }) => {
   // active, completed, hcl-wizard__no-title
   // const classnames = ['wiz-item', 'hcl-wizard__no-title'];
   const classnames = ['wiz-item'];
+  // console.log('disabled', disabled);
+
   if (className) {
     classnames.push(className);
   }
   if (complete && !error) {
-        // debugger;
     classnames.push('completed');
-  }
-  if (active) {
+  } else if (active) {
     classnames.push('active');
-  }
-  if (error) {
+  } else if (error) {
     classnames.push('error');
+  } else if (disabled) {
+    // console.log(restProps.index);
+    classnames.push('disabled');
   }
+
+  // {
+  //   /* <div className="hcl-wizard__user">{restProps.index + 1}</div> */
+  // }
+  // {
+  //   !complete && !iconClass && !icon && !error && !active && (
+  //     <div className="hcl-wizard__user">{User}</div>
+  //   );
+  // }
+  // {
+  //   !complete && active && !icon && !iconClass && !error && (
+  //     <div className="hcl-wizard__user">{activeUser}</div>
+  //   );
+  // }
+  // {
+  //   /** Complete Scenarios */
+  // }
+  // {
+  //   complete && !iconClass && !icon && !error && (
+  //     <div className="hcl-wizard__user">{CheckMark}</div>
+  //   );
+  // }
+  // {
+  //   complete && iconClass && !icon && !error && (
+  //     <i className={`${iconClass}`} />
+  //   );
+  // }
+  // {
+  //   error && !complete && !iconClass && !icon && (
+  //     <div className="hcl-wizard__user">{Error}</div>
+  //   );
+  // }
+  // {
+  //   iconClass && !icon && <i className={`${iconClass}`} />;
+  // }
+
+  const stateToReturn = (
+    active,
+    complete,
+    error,
+    disabled,
+    iconClass,
+    icon
+  ) => {
+    if (!complete && !iconClass && !icon && !error && !active) {
+      return <div className="hcl-wizard__user">{User}</div>;
+    } else if (!complete && active && !icon && !iconClass && !error) {
+      return <div className="hcl-wizard__user">{activeUser}</div>;
+    } else if (complete && !iconClass && !icon && !error) {
+      return <div className="hcl-wizard__user">{CheckMark}</div>;
+    } else if (complete && !iconClass && !icon && !error) {
+      return <div className="hcl-wizard__user">{Error}</div>;
+    }
+    // else {
+    //   return <div className="hcl-wizard__user" />;
+    // }
+  };
+  // restProps.disabled ? console.log(restProps.onClick()) : null;
   return (
-    <li className={classnames.join(' ')} onClick={restProps.onClick}>
+    <li className={classnames.join(' ')} onClick={onClick}>
       {/* <div className="wiz-item-container"> */}
       {
         <>
           <div className="ghost" />
           <div className="hcl-wizard-left-pane">
             <div className="hcl-wizard__icon-container">
-              {/* <div className="hcl-wizard__user">{restProps.index + 1}</div> */}
-              {!complete && !iconClass && !icon && !error && !active && (
-                <div className="hcl-wizard__user">{User}</div>
+              {stateToReturn(
+                active,
+                complete,
+                error,
+                disabled,
+                iconClass,
+                icon
               )}
-              {!complete && active && !icon && !iconClass && !error && (
-                <div className="hcl-wizard__user">{activeUser}</div>
-              )}
-              {/** Complete Scenarios */}
-              {complete && !iconClass && !icon && !error && (
-                <div className="hcl-wizard__user">{CheckMark}</div>
-              )}
-              {complete && iconClass && !icon && !error && (
-                <i className={`${iconClass}`} />
-              )}
-              {error && !complete && !iconClass && !icon && (
-                <div className="hcl-wizard__user">{Error}</div>
-              )}
-              {iconClass && !icon && <i className={`${iconClass}`} />}
             </div>
           </div>
           <div className={`hcl-wizard-right-pane`}>
@@ -107,7 +159,8 @@ Step.propTypes = {
   active: PropTypes.bool,
   complete: PropTypes.bool,
   error: PropTypes.bool,
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
+  disabled: PropTypes.bool
 };
 
 Step.defaultProps = {
@@ -115,8 +168,8 @@ Step.defaultProps = {
   title: '',
   iconClass: '',
   icon: null,
-  description: ''
-  // onClick: () => {}
+  description: '',
+  onClick: () => {}
 };
 
 export default Step;
