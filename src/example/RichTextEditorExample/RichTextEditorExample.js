@@ -24,7 +24,13 @@ class RichTextEditorExample extends React.Component {
       <div className="hcl-container">
         <div className="hcl-row">
           <div className="hcl-col-6">
-            <RichTextEditor config={this.state.config} />
+            <RichTextEditor
+              config={this.state.config}
+              onChange={e => {
+                console.log(e.innerHTML);
+              }}
+              value={this.state.text1}
+            />
           </div>
         </div>
       </div>

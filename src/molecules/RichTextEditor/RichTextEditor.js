@@ -23,7 +23,7 @@ import Overlay from '../../atoms/Overlay/Overlay';
 import TextInput from '../../atoms/TextInput';
 import Button from '../../atoms/Button/Button';
 
-const RichTextEditor = ({ config }) => {
+const RichTextEditor = ({ config, onChange, value }) => {
   const toolbarRef = useRef();
   const editorRef = useRef();
 
@@ -101,6 +101,7 @@ const RichTextEditor = ({ config }) => {
       } else if (source == 'user') {
         toggleActiveStyles(quillRef.current.getFormat());
         toggleTooltip(false);
+        onChange(editorRef.current.querySelector('.ql-editor'));
       }
     });
 
@@ -283,14 +284,26 @@ const RichTextEditor = ({ config }) => {
           : null}
       </div>
       <div className="hcl-rte-editor-wrapper">
-        <div ref={editorRef} tabIndex="0" className="hcl-rte-editor" />
+        <div
+          ref={editorRef}
+          tabIndex="0"
+          dangerouslySetInnerHTML={{ __html: value }}
+          className="hcl-rte-editor"
+        />
         {showTootip ? (
           <Overlay showOverlay style={{ top: top + 'px', left: left + 'px' }}>
             <div className="hcl-rte-flex">
               {showVisitTootip ? (
                 <>
                   Visit URL :
-                  <a className="hcl-rte-new">
+                  <a
+                    className="hcl-rte-new"
+                    href={
+                      quillRef.current.getFormat().link
+                        ? quillRef.current.getFormat().link
+                        : textVal
+                    }
+                  >
                     {quillRef.current.getFormat().link
                       ? quillRef.current.getFormat().link
                       : textVal}
@@ -348,13 +361,18 @@ const RichTextEditor = ({ config }) => {
 };
 
 RichTextEditor.propTypes = {
-  /* Data for table  */
-  config: PropTypes.array
+  /* Icon options for toolbar  */
+  config: PropTypes.array,
+  /** A callback function which will be executed on editor change. */
+  onChange: PropTypes.func,
+  /** Value of the text editor field. */
+  value: PropTypes.string
 };
 
 RichTextEditor.defaultProps = {
-  /** Data for table  */
-  config: []
+  config: [],
+  onChange: () => {},
+  value: ''
 };
 
 export default RichTextEditor;
