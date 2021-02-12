@@ -22,6 +22,8 @@ storiesOf('RichTextEditor', module).add(
       value={text('Value', 'Hello World! PrimeReact Editor Rocks.')}
       config={object('Config Items', config)}
       onChange={action('RTE-Click')}
+      visitLinktext={text('VisitLink', 'Visit URL :')}
+      linkText={text('URL Text', 'URL :')}
     />
   ),
   {
