@@ -6,7 +6,7 @@ class RichTextEditorExample extends React.Component {
     super(props);
     this.state = {
       text1:
-        '<div>Hello World!</div><div>PrimeReact <b>Editor</b> Rocks</div><div><br></div>',
+        '<div>Hello World!</div><div>Patronus <b>Rocks</b></div><div><br></div>',
       text2: '',
       config: [
         { type: 'bold' },
