@@ -361,11 +361,11 @@ const RichTextEditor = ({ config, onChange, value }) => {
 };
 
 RichTextEditor.propTypes = {
-  /* Icon options for toolbar  */
+  /** Icons for toolbar */
   config: PropTypes.array,
   /** A callback function which will be executed on editor change. */
   onChange: PropTypes.func,
-  /** Value of the text editor field. */
+  /** content for text editor field.(Can pass string or html) */
   value: PropTypes.string
 };
 
