@@ -23,8 +23,13 @@ import Overlay from '../../atoms/Overlay/Overlay';
 import TextInput from '../../atoms/TextInput';
 import Button from '../../atoms/Button/Button';
 
-const RichTextEditor = ({ config, onChange, value }) => {
-  const toolbarRef = useRef();
+const RichTextEditor = ({
+  config,
+  onChange,
+  value,
+  visitLinktext,
+  linkText
+}) => {
   const editorRef = useRef();
 
   const quillRef = useRef();
@@ -98,10 +103,11 @@ const RichTextEditor = ({ config, onChange, value }) => {
     quillRef.current.on('text-change', function (delta, oldDelta, source) {
       if (source == 'api') {
         toggleActiveStyles(quillRef.current.getFormat());
+        onChange(editorRef.current.querySelector('.ql-editor'), delta);
       } else if (source == 'user') {
         toggleActiveStyles(quillRef.current.getFormat());
         toggleTooltip(false);
-        onChange(editorRef.current.querySelector('.ql-editor'));
+        onChange(editorRef.current.querySelector('.ql-editor'), delta);
       }
     });
 
@@ -272,7 +278,7 @@ const RichTextEditor = ({ config, onChange, value }) => {
 
   return (
     <div className="hcl-rte-wrapper">
-      <div ref={toolbarRef} className="hcl-rte-toolbar">
+      <div className="hcl-rte-toolbar">
         {config
           ? config.map((release, index) => {
               return (
@@ -295,7 +301,7 @@ const RichTextEditor = ({ config, onChange, value }) => {
             <div className="hcl-rte-flex">
               {showVisitTootip ? (
                 <>
-                  Visit URL :
+                  {visitLinktext}
                   <a
                     className="hcl-rte-new"
                     href={
@@ -325,7 +331,7 @@ const RichTextEditor = ({ config, onChange, value }) => {
                 </>
               ) : (
                 <>
-                  URL :
+                  {linkText}
                   <TextInput
                     type="text"
                     placeholder="name"
@@ -361,18 +367,35 @@ const RichTextEditor = ({ config, onChange, value }) => {
 };
 
 RichTextEditor.propTypes = {
-  /** Icons for toolbar */
-  config: PropTypes.array,
+  /** Icons for toolbar [bold, underline,italic,ordered list, unordered list, link]*/
+  config: PropTypes.arrayOf(
+    PropTypes.shape({
+      type: PropTypes.oneOf([
+        'bold',
+        'italic',
+        'underline',
+        'bulletlist',
+        'numberlist',
+        'link'
+      ])
+    })
+  ),
   /** A callback function which will be executed on editor change. */
   onChange: PropTypes.func,
   /** content for text editor field.(Can pass string or html) */
-  value: PropTypes.string
+  value: PropTypes.string,
+  /** visit link text value */
+  visitLinktext: PropTypes.string,
+  /** url link text value */
+  linkText: PropTypes.string
 };
 
 RichTextEditor.defaultProps = {
   config: [],
   onChange: () => {},
-  value: ''
+  value: '',
+  visitLinktext: 'Visit URL :',
+  linkText: 'URL :'
 };
 
 export default RichTextEditor;

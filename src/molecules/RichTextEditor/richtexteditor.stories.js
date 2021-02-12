@@ -21,7 +21,7 @@ storiesOf('RichTextEditor', module).add(
     <RichTextEditor
       value={text('Value', 'Hello World! PrimeReact Editor Rocks.')}
       config={object('Config Items', config)}
-      onChange={action('Overflow-Click')}
+      onChange={action('RTE-Click')}
     />
   ),
   {
