@@ -145,7 +145,7 @@ const Sidebar = ({
       iconClasses.push('no-icon');
     }
 
-    if (!item.children?.length && !item.statusIcon) {
+    if (!(item.children && item.children.length) && !item.statusIcon) {
       iconClasses.push('no-statusicon');
     }
     return iconClasses.join(` `);
