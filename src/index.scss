@@ -158,7 +158,8 @@
             z-index: 1;
             background: #0066b0;
             height: 2px;
-            width: calc(100% / 2 - 28px);
+            width: auto;
+            // width: calc(100% / 2 - 28px);
           }
           &:last-child::after {
             background: #0066b0;
@@ -174,6 +175,7 @@
         &.active {
           &::before {
             background: #e6e6e6;
+            // width: calc(100% / 2 - 28px);
           }
           &:last-child::after {
             background: #0066b0;
@@ -206,6 +208,35 @@
         padding-top: 0;
         padding-bottom: 0;
         text-align: center;
+        &:first-child {
+          &.active {
+            &::after {
+              content: '';
+              position: absolute;
+              display: block;
+              top: 0;
+              left: 28px;
+              z-index: 1;
+              background: #0066b0;
+              height: 2px;
+              width: calc(100% / 2 - 28px);
+            }
+            .ghost {
+              background: #0066b0;
+            }
+          }
+        }
+        &::before {
+          content: '';
+          position: absolute;
+          background: #e6e6e6;
+          display: block;
+          width: calc(100% + 28px);
+          height: 2px;
+          top: 0;
+          left: 28px;
+          z-index: 1;
+        }
         &.completed {
           &::before {
             content: '';
@@ -218,15 +249,41 @@
             left: 28px;
             z-index: 1;
           }
+          & + .wiz-item::after {
+            content: '';
+            position: absolute;
+            display: block;
+            top: 0;
+            left: 28px;
+            z-index: 1;
+            background: #0066b0;
+            height: 2px;
+            width: calc(100% / 2 - 28px);
+          }
         }
         &.active {
+          // &::before {
+          //   content: '';
+          //   position: absolute;
+          //   background: #0066b0;
+          //   display: block;
+          //   width: calc(100% / 2 + 28px);
+          // }
           .ghost {
             background: #e6e6e6;
           }
+          .hcl-wizard__user {
+            padding: 3px;
+            color: var(--primary_icon);
+            box-shadow: 0 0 0 1px var(--default_bg),
+              0 0 0 2px var(--active_border);
+            background: var(--active_icon);
+            border-color: transparent;
+          }
         }
-        .ghost {
-          background: #0066b0;
-        }
+        // .ghost {
+        //   background: #0066b0;
+        // }
         .hcl-wizard-left-pane {
           padding: 8px 0;
         }

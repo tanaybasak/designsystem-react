@@ -13,7 +13,7 @@ class WizardExample extends Component {
   }
 
   state = {
-    selIndex: 1,
+    selIndex: 0,
     wizardmodel: [
       {
         title: 'Little lillies Little lillies Little lillies',
