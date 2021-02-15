@@ -7,7 +7,7 @@ import React, {
   Children
 } from 'react';
 import PropTypes from 'prop-types';
-import prefix from '../../settings';
+import prefix from '../../../settings';
 
 function usePrevious(value) {
   const ref = React.useRef(null);
@@ -37,7 +37,6 @@ const Wizard2 = React.forwardRef(
 
     const childrencount = Children.count(children);
     const childs = Children.toArray(children);
-
 
     useEffect(() => {
       if (childs && childrencount > 0) {
@@ -115,7 +114,7 @@ const Wizard2 = React.forwardRef(
       };
 
       if (!nonlinear && activeIndex === idx) {
-          console.log(activeIndex);
+        console.log(activeIndex);
         state.active = true;
       } else if (!nonlinear && activeIndex > idx) {
         state.complete = true;

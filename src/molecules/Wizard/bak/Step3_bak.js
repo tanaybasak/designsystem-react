@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 // import prefix from '../../settings';
-import { User, activeUser, CheckMark, Error } from '../../util/icons';
+import { User, activeUser, CheckMark, Error } from '../../../util/icons';
 
 const Step = ({
   className,
@@ -72,13 +72,25 @@ const Step = ({
   const handleNumberRender = () => {
     return <div className="hcl-wizard__user">{restProps.index + 1}</div>;
   };
-  const handleNoIconRender = (active, status) => {};
+  const handleNoIconRender = (active, status) => {
+    if (active && status === 'completed') {
+      return <div className="hcl-wizard__user" />;
+    } else if (active && status === 'default') {
+      return <div className="hcl-wizard__user" />;
+    } else if (active && status === 'error') {
+      return <div className="hcl-wizard__user" />;
+    } else if (!active && status === 'completed') {
+      return <div className="hcl-wizard__user" />;
+    } else if (!active && status === 'default') {
+      return <div className="hcl-wizard__user" />;
+    }
+  };
 
-  const stateToReturn = (active, status, iconClass, icon) => {
+  const stateToReturn = (active, status) => {
     switch (restProps.iconType) {
       case 'icon':
         return handleIconRender(active, status);
-      case 'numbering':
+      case 'number':
         return handleNumberRender();
       case 'noicon':
         return handleNoIconRender(active, status);
@@ -133,7 +145,7 @@ const Step = ({
           <div className="ghost" />
           <div className="hcl-wizard-left-pane">
             <div className="hcl-wizard__icon-container">
-              {stateToReturn(active, status, iconClass, icon)}
+              {stateToReturn(active, status)}
             </div>
           </div>
           <div className={`hcl-wizard-right-pane`}>

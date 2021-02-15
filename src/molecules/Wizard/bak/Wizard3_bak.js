@@ -7,7 +7,7 @@ import React, {
   Children
 } from 'react';
 import PropTypes from 'prop-types';
-import prefix from '../../settings';
+import prefix from '../../../settings';
 
 function usePrevious(value) {
   const ref = React.useRef(null);
@@ -34,15 +34,17 @@ const Wizard2 = React.forwardRef(
     }
     if (type === 'style2') {
       classnames.push('hcl-wizard__no-title');
-    }
-    if (iconType === 'noicon') {
-      classnames.push('no-icon');
-    }
-    if (type === 'style3') {
+    } else if (type === 'style3') {
       classnames = classnames.filter(
         e => e != 'desktop' && e != 'hcl-wizard__no-title'
       );
     }
+    if (iconType === 'noicon') {
+      classnames.push('no-icon');
+    } else if (iconType === 'number') {
+      classnames.push('number');
+    }
+
     // if (direction === 'horizontal') {
     //   classnames.push(`wiz-horizontal`);
     // }
@@ -53,7 +55,6 @@ const Wizard2 = React.forwardRef(
     const stepcallBack = idx => {
       if (lastCompletedStep === null || lastCompletedStep < idx) {
         setLastCompletedStep(idx);
-        console.log('step call back', idx);
       }
     };
 
@@ -95,7 +96,7 @@ Wizard2.propTypes = {
   activeIndex: PropTypes.number,
   linear: PropTypes.bool,
   type: PropTypes.oneOf(['style1', 'style2', 'style3']),
-  iconType: PropTypes.oneOf(['icon', 'numbering', 'noicon'])
+  iconType: PropTypes.oneOf(['icon', 'number', 'noicon'])
 };
 
 Wizard2.defaultProps = {

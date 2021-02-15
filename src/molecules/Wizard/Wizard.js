@@ -1,123 +1,108 @@
-import React, { useState, useEffect, useRef } from 'react';
+/* eslint-disable react/self-closing-comp */
+import React, { useState, cloneElement, Children } from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 
-// eslint-disable-next-line no-unused-vars
-const Wizard = ({ direction, model, readOnly, activeIndex, className }) => {
-  const [currentActiveIdx, setActiveIdx] = useState(activeIndex || 0);
-  const compRef = useRef(null);
+function usePrevious(value) {
+  const ref = React.useRef(null);
+  React.useEffect(() => {
+    ref.current = value;
+  }, [value]);
+  return ref.current;
+}
 
-  useEffect(() => {
-    if (activeIndex > -1) {
-      setActiveIdx(activeIndex);
+const Wizard = React.forwardRef(
+  ({ activeIndex, className, children, linear, type, iconType }, ref) => {
+    // const [currentActiveIdx, setActiveIdx] = useState(activeIndex || 0);
+    // const compRef = useRef(null);
+    // const prevShow = usePrevious(currentActiveIdx);
+
+    const [lastCompletedStep, setLastCompletedStep] = useState(null);
+
+    const childrencount = Children.count(children);
+    const childs = Children.toArray(children);
+
+    let classnames = ['wrapper', 'desktop'];
+    if (className) {
+      classnames.push(className);
     }
-  }, [activeIndex]);
+    if (type === 'style2') {
+      classnames.push('hcl-wizard__no-title');
+    } else if (type === 'style3') {
+      classnames = classnames.filter(
+        e => e != 'desktop' && e != 'hcl-wizard__no-title'
+      );
+    }
+    if (iconType === 'noicon') {
+      classnames.push('no-icon');
+    } else if (iconType === 'number') {
+      classnames.push('number');
+    }
 
-  useEffect(() => {
-    if (compRef.current) {
-      const resizeObserver = new ResizeObserver(entries => {
-        console.log('Hello World', entries);
-        var defaultBreakpoints = {
-          SM: 375,
-          MD: 768,
-          LG: 1024,
-          XL: 1280
-        };
-        entries.forEach(function (entry) {
-          // If breakpoints are defined on the observed element,
-          // use them. Otherwise use the defaults.
-          var breakpoints = defaultBreakpoints;
+    // if (direction === 'horizontal') {
+    //   classnames.push(`wiz-horizontal`);
+    // }
+    // if (direction === 'vertical') {
+    //   classnames.push(`wiz-vertical`);
+    // }
 
-          // Update the matching breakpoints on the observed element.
-          Object.keys(breakpoints).forEach(function (breakpoint) {
-            var minWidth = breakpoints[breakpoint];
-            if (entry.contentRect.width >= minWidth) {
-              entry.target.classList.add(breakpoint);
-            } else {
-              entry.target.classList.remove(breakpoint);
-            }
-          });
-        });
+    const stepcallBack = idx => {
+      if (lastCompletedStep === null || lastCompletedStep < idx) {
+        setLastCompletedStep(idx);
+      }
+    };
+
+    const modifiedChildren = Children.map(childs, (child, idx) => {
+      return cloneElement(child, {
+        key: idx,
+        index: idx,
+        active: idx === activeIndex ? true : false,
+        onClick:
+          linear && lastCompletedStep + 1 < idx ? null : child.props.onClick,
+        stepcallBack,
+        iconType: iconType
       });
-      resizeObserver.observe(compRef.current);
-    }
-  }, []);
+    });
 
-  let classnames = [`${prefix}-wizard`];
-  if (className) {
-    classnames.push(className);
-  }
-  if (direction === 'horizontal') {
-    classnames.push(`wiz-horizontal`);
-  }
-  if (direction === 'vertical') {
-    classnames.push(`wiz-vertical`);
-  }
-
-  return (
-    <div className={classnames.join(' ')}>
-      {model.map((item, idx) => {
-        let newClass = [];
-        if (currentActiveIdx === idx) {
-          newClass.push('active');
-        }
-        if (idx <= currentActiveIdx) {
-          newClass.push('completed');
-        }
-        // newClass.push(`hcl-wizard__no-title`);
-
-        return (
-          <div
-            ref={idx === 0 ? compRef : null}
-            className={`${prefix}-wizard__item ${newClass.join(' ')}`}
-            key={idx}
-          >
-            <div className="ghost" />
-            <div className={`${prefix}-wizard-left-pane`}>
-              <div className={`${prefix}-wizard__icon-container`}>
-                {item.iconClass && !item.icon && (
-                  <i className={`${item.iconClass}`} />
-                )}
-                {item.icon && !item.iconClass}
-                {!item.icon && !item.iconClass && (
-                  <div className={`${prefix}-wizard__user`}>{idx + 1}</div>
-                )}
-              </div>
+    return (
+      <div className={classnames.join(' ')} ref={ref}>
+        {/* // <div className={'wrapper desktop hcl-wizard__no-title'}> */}
+        <div className="wiz-wrapper">
+          <ul role="tablist" className="wiz-list">
+            {modifiedChildren}
+          </ul>
+          <div className="step-names__mobile">
+            <div className="step-name">
+              Step {activeIndex + 1} of {childrencount}
             </div>
-            <div className={`${prefix}-wizard-right-pane`}>
-              <div className={`${prefix}-wizard__title`}>{item.title}</div>
-              <div className={`${prefix}-wizard__description`}>
-                {item.description}
-              </div>
+            <div className="step-description">
+              {childs && childs[activeIndex].props['title']
+                ? childs[activeIndex].props['title']
+                : null}
             </div>
           </div>
-        );
-      })}
-    </div>
-  );
-};
+        </div>
+      </div>
+    );
+  }
+);
+
+Wizard.displayName = 'Wizard';
 
 Wizard.propTypes = {
-  direction: PropTypes.oneOf(['horizontal', 'vertical']),
   className: PropTypes.string,
-  model: PropTypes.arrayOf(
-    PropTypes.shape({
-      title: PropTypes.string,
-      description: PropTypes.string,
-      icon: PropTypes.node,
-      iconClass: PropTypes.string
-    })
-  ),
   activeIndex: PropTypes.number,
-  readOnly: PropTypes.bool
+  linear: PropTypes.bool,
+  type: PropTypes.oneOf(['style1', 'style2', 'style3']),
+  iconType: PropTypes.oneOf(['icon', 'number', 'noicon'])
 };
 
 Wizard.defaultProps = {
-  direction: 'horizontal',
   className: '',
-  model: [],
   activeIndex: 0,
-  readOnly: true
+  linear: true,
+  type: 'style1',
+  iconType: 'icon'
 };
 
 export default Wizard;

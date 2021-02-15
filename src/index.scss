@@ -130,6 +130,7 @@
       width: 24px;
       height: 24px;
       border-radius: 50%;
+      padding: 3px;
       border: 1px solid var(--default_border_low);
       display: inline-flex;
       justify-content: center;
@@ -230,6 +231,7 @@
         &.active {
           &::before {
             background: #e6e6e6;
+            // background: #0066b0;
             // width: calc(100% / 2 - 28px);
           }
           &:last-child::after {
@@ -251,14 +253,81 @@
         &.completed .ghost {
           background: #0066b0;
         }
-        &.error {
+        &.error .ghost {
+          background: #0066b0;
+        }
+        // &.error {
+        //   .hcl-wizard__user {
+        //     border: none;
+        //   }
+        // }
+      }
+    }
+    // Only desktop - Design 1
+    // Only desktop noicon - Design 1
+    &:not(.hcl-wizard__no-title).no-icon {
+      .wiz-item {
+        .hcl-wizard__user {
+          box-sizing: border-box;
+          width: 16px;
+          height: 16px;
+          border-radius: 50%;
+          border: 1px solid var(--default_border_low);
+        }
+        &.completed {
+          &.active {
+            .hcl-wizard__user {
+              border: none;
+            }
+          }
           .hcl-wizard__user {
+            box-sizing: border-box;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background-color: #0066b0;
+          }
+        }
+        &.error {
+          &.active {
+            .hcl-wizard__user {
+              border: none;
+            }
+          }
+          .hcl-wizard__user {
+            box-sizing: border-box;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background-color: red;
+            border: 1px solid red;
+          }
+        }
+        &.active {
+          .hcl-wizard__user {
+            box-sizing: border-box;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
             border: none;
+            background-color: #0066b0;
+            box-shadow: 0 0 0 1px #0066b0, 0 0 0 3px #ffffff inset;
           }
         }
       }
     }
-    // Only desktop - Design 1
+    // Only desktop noicon - Design 1
+    // Only desktop number - Design 1
+    &:not(.no-icon).number {
+      .wiz-item {
+        &.active {
+          ::before {
+            background: #0066b0;
+          }
+        }
+      }
+    }
+    // Only desktop number - Design 1
     // Wizard with no desc - Design 2
     &.hcl-wizard__no-title {
       .wiz-item {
@@ -481,6 +550,15 @@
         .no-icon-child {
           background: var(--danger_icon);
           border: 1px solid var(--danger_icon);
+        }
+        .no-icon-container {
+          background: var(--danger_icon);
+          border: 1px solid var(--danger_icon);
+        }
+        &.active {
+          .no-icon-container {
+            border: 1px solid #0066b0;
+          }
         }
       }
       &.completed {

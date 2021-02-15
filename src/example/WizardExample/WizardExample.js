@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
-import React, { Component, createRef } from 'react';
-import { Wizard2, Wizard, Step } from '../../molecules/Wizard';
+import React, { Component } from 'react';
+import { Wizard, Step } from '../../molecules/Wizard';
 // import { User, User2 } from '../../util/icons';
 import Button from '../../atoms/Button';
 
@@ -13,7 +13,7 @@ class WizardExample extends Component {
   }
 
   state = {
-    selIndex: 1,
+    selIndex: 2,
     wizardmodel: [
       {
         title: 'Little lillies Little lillies Little lillies',
@@ -63,10 +63,10 @@ class WizardExample extends Component {
   render() {
     return (
       <>
-        <Wizard2
+        <Wizard
           ref={this.rr}
           type={'style1'}
-          iconType="noicon"
+          // iconType="number"
           // titleBelow
           // responsive
           activeIndex={this.state.selIndex}
@@ -82,7 +82,7 @@ class WizardExample extends Component {
               />
             );
           })}
-        </Wizard2>
+        </Wizard>
         <div>
           <Button
             type="ghost"
