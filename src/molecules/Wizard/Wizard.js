@@ -1,15 +1,6 @@
 /* eslint-disable react/self-closing-comp */
 import React, { useState, cloneElement, Children } from 'react';
 import PropTypes from 'prop-types';
-import prefix from '../../settings';
-
-function usePrevious(value) {
-  const ref = React.useRef(null);
-  React.useEffect(() => {
-    ref.current = value;
-  }, [value]);
-  return ref.current;
-}
 
 const Wizard = React.forwardRef(
   ({ activeIndex, className, children, linear, type, iconType }, ref) => {
@@ -22,7 +13,7 @@ const Wizard = React.forwardRef(
     const childrencount = Children.count(children);
     const childs = Children.toArray(children);
 
-    let classnames = ['wrapper', 'desktop'];
+    let classnames = ['hcl-wiz-wrapper', 'desktop'];
     if (className) {
       classnames.push(className);
     }

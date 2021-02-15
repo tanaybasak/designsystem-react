@@ -17,7 +17,7 @@ class WizardExample extends Component {
     wizardmodel: [
       {
         title: 'Little lillies Little lillies Little lillies',
-        description: "It's flowering always",
+        description: "It's flowering always"
         // status: 'error'
       },
       {
@@ -111,7 +111,9 @@ class WizardExample extends Component {
                 // iconClass={'testing-icon'}
                 // onClick={idx <= this.selIndex ? this.handleLinearClick : null}
                 // onClick={this.handleLinearClick.bind(this, idx)}
-                onClick={idx === 1 ? this.handleLinearClick.bind(this, idx) : null}
+                onClick={
+                  idx === 1 ? this.handleLinearClick.bind(this, idx) : null
+                }
                 // {...state}
               />
             );

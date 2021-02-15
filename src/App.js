@@ -41,7 +41,6 @@ import Footer from './molecules/Footer';
 import { ActionBar, ActionSummary, ActionList } from './molecules/ActionBar';
 import { ToolBar, ToolBarActions } from './molecules/ToolBar';
 import Password from './atoms/Password';
-import Wizard from './molecules/Wizard';
 //import Overlay from './atoms/Overlay';
 
 class App extends Component {
@@ -1181,7 +1180,9 @@ class App extends Component {
                       </AccordionItem>
                     </Accordion>
                   </Tab>
-                  <Tab label="Tab List 3" className="ddd">Content 3</Tab>
+                  <Tab label="Tab List 3" className="ddd">
+                    Content 3
+                  </Tab>
                 </Tabs>
               </div>
               <section
