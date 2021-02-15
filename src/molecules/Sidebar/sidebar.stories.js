@@ -28,6 +28,7 @@ const items = [
       }
     ],
     icon: <i className={`p-hclsw p-hclsw-${icons[2]}`} />,
+    statusIcon: <i className={`p-hclsw p-hclsw-${icons[2]}`} />,
     title: 'Category One'
   },
   {
@@ -59,31 +60,125 @@ const items = [
   }
 ];
 
-storiesOf('Sidebar', module).add(
-  'default',
-  () => (
-    <Sidebar
-      title={text('Title', 'Default')}
-      icon={
-        <i
-          // style={{ color: 'white' }}
-          className={`p-hclsw p-hclsw-${select('Title Icon', icons, 'user')}`}
-        />
-      }
-      expanded={boolean('Expanded', true)}
-      items={items}
-      onClick={action('link clicked')}
-      toggleSidebar={action('Toggle Sidebar')}
-    />
-  ),
+const internalitems = [
   {
-    info: {
-      text: `Description About Sidebar Component
+    icon: <i className={`p-hclsw p-hclsw-${icons[2]}`} />,
+    statusIcon: <i className={`p-hclsw p-hclsw-${icons[2]}`} />,
+    title: 'Category One'
+  },
+  {
+    icon: <i className={`p-hclsw p-hclsw-${icons[1]}`} />,
+    statusIcon: <i className={`p-hclsw p-hclsw-${icons[2]}`} />,
+    title: 'Category Two'
+  },
+  {
+    icon: <i className={`p-hclsw p-hclsw-${icons[1]}`} />,
+    statusIcon: <i className={`p-hclsw p-hclsw-${icons[2]}`} />,
+    title: 'Category Three',
+    href: '#10'
+  }
+];
+
+const positionOptions = {
+  top: 'top',
+  bottom: 'bottom'
+};
+
+const headerBranding = {
+  default: 'default',
+  primary: 'primary'
+};
+
+const typeOptions = {
+  internal: 'internal',
+  default: 'default'
+};
+
+storiesOf('Sidebar', module)
+  .add(
+    'default',
+    () => (
+      <Sidebar
+        title={text('Title', 'Default')}
+        icon={
+          <i
+            // style={{ color: 'white' }}
+            className={`p-hclsw p-hclsw-${select('Title Icon', icons, 'user')}`}
+          />
+        }
+        expanded={boolean('Expanded', true)}
+        items={items}
+        onClick={action('link clicked')}
+        toggleSidebar={action('Toggle Sidebar')}
+        responsive={boolean('responsive', true)}
+      />
+    ),
+    {
+      info: {
+        text: `Description About Sidebar Component
       
       import { Sidebar } from '@patron/patron-react/sidebar';
-    import { Icon } from '@patron/patron-react/icon';
-
       `
+      }
     }
-  }
-);
+  )
+  .add(
+    'default-nonresponsive',
+    () => (
+      <Sidebar
+        title={text('Title', 'Default')}
+        icon={
+          <i
+            // style={{ color: 'white' }}
+            className={`p-hclsw p-hclsw-${select('Title Icon', icons, 'user')}`}
+          />
+        }
+        expanded={boolean('Expanded', true)}
+        items={items}
+        onClick={action('link clicked')}
+        toggleSidebar={action('Toggle Sidebar')}
+        responsive={boolean('responsive', false)}
+        headerPosition={select('headerPosition', positionOptions, 'top')}
+        headerBranding={select('headerBranding', headerBranding, 'default')}
+        headerVisible={boolean('headerVisible', true)}
+      />
+    ),
+    {
+      info: {
+        text: `Description About Sidebar Component
+      
+      import { Sidebar } from '@patron/patron-react/sidebar';
+      `
+      }
+    }
+  )
+  .add(
+    'internal',
+    () => (
+      <Sidebar
+        title={text('Title', 'Default')}
+        icon={
+          <i
+            className={`p-hclsw p-hclsw-${select('Title Icon', icons, 'user')}`}
+          />
+        }
+        expanded={boolean('Expanded', true)}
+        items={internalitems}
+        headerVisible={boolean('headerVisible', true)}
+        headerPosition={select('headerPosition', positionOptions, 'top')}
+        headerBranding={select('headerBranding', headerBranding, 'primary')}
+        onClick={action('link clicked')}
+        toggleSidebar={action('Toggle Sidebar')}
+        type={select('type', typeOptions, 'internal')}
+        responsive={boolean('responsive', true)}
+      />
+    ),
+    {
+      info: {
+        text: `Description About Sidebar Component
+
+      import { Sidebar } from '@patron/patron-react/sidebar';
+      `
+      }
+    }
+  );
