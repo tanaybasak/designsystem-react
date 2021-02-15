@@ -63,36 +63,19 @@ const NumberInput = ({
 
   const increment = event => {
     event.preventDefault();
-    try {
-      inputRef.current.stepUp();
-      setValue(inputRef.current.value);
-      if (restProps.onChange) {
-        restProps.onChange(inputRef.current.value);
-      }
-    } catch (e) {
-      stepUp(
-        inputRef.current,
-        inputRef.current.step === '' ? 1 : inputRef.current.step
-      );
-    }
+    stepUp(
+      inputRef.current,
+      inputRef.current.step === '' ? 1 : inputRef.current.step
+    );
     inputRef.current.focus();
   };
 
   const decrement = event => {
     event.preventDefault();
-    try {
-      inputRef.current.stepDown();
-      setValue(inputRef.current.value);
-      if (restProps.onChange) {
-        restProps.onChange(inputRef.current.value);
-      }
-    } catch (e) {
-      stepDown(
-        inputRef.current,
-        inputRef.current.step === '' ? 1 : inputRef.current.step
-      );
-    }
-
+    stepDown(
+      inputRef.current,
+      inputRef.current.step === '' ? 1 : inputRef.current.step
+    );
     inputRef.current.focus();
   };
 
