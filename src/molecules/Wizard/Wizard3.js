@@ -18,83 +18,27 @@ function usePrevious(value) {
 }
 
 const Wizard2 = React.forwardRef(
-  (
-    {
-      activeIndex,
-      className,
-      children,
-      nonlinear,
-      titleBelow,
-      responsive
-      // clickable
-    },
-    ref
-  ) => {
+  ({ activeIndex, className, children, linear, type, iconType }, ref) => {
     // const [currentActiveIdx, setActiveIdx] = useState(activeIndex || 0);
-    const [isDesktopNoIconMode, setisDesktopNoIconMode] = useState(true);
     // const compRef = useRef(null);
     // const prevShow = usePrevious(currentActiveIdx);
 
+    const [lastCompletedStep, setLastCompletedStep] = useState(null);
+
     const childrencount = Children.count(children);
     const childs = Children.toArray(children);
-
-
-    useEffect(() => {
-      if (childs && childrencount > 0) {
-        let y = childs.every(item => {
-          const { icon, iconClass } = item.props;
-          return icon === null && iconClass === '';
-        });
-        setisDesktopNoIconMode(y);
-        // console.log(isDesktopNoIconMode);
-      }
-    }, [childs]);
-
-    // useEffect(() => {
-    //   if (activeIndex > -1 && activeIndex <= childrencount - 1) {
-    //     setActiveIdx(activeIndex);
-    //   }
-    // }, [activeIndex]);
-
-    // useEffect(() => {
-    //   if (compRef.current) {
-    //     const resizeObserver = new ResizeObserver(entries => {
-    //       console.log('Hello World2', entries);
-    //       var defaultBreakpoints = {
-    //         SM: 375,
-    //         MD: 768,
-    //         LG: 1024,
-    //         XL: 1280
-    //       };
-    //       entries.forEach(function (entry) {
-    //         // If breakpoints are defined on the observed element,
-    //         // use them. Otherwise use the defaults.
-    //         var breakpoints = Object.keys(defaultBreakpoints);
-    //         for (const breakpoint of breakpoints) {
-    //           var minWidth = breakpoints[breakpoint];
-    //           if (entry.contentRect.width >= minWidth) {
-    //             entry.target.classList.add(breakpoint);
-    //           } else {
-    //             entry.target.classList.remove(breakpoint);
-    //           }
-    //         }
-    //       });
-    //     });
-    //     resizeObserver.observe(compRef.current);
-    //   }
-    // }, []);
 
     let classnames = ['wrapper', 'desktop'];
     if (className) {
       classnames.push(className);
     }
-    if (titleBelow) {
+    if (type === 'style2') {
       classnames.push('hcl-wizard__no-title');
     }
-    // if (isDesktopNoIconMode) {
-    //   classnames.push('no-icon');
-    // }
-    if (responsive) {
+    if (iconType === 'noicon') {
+      classnames.push('no-icon');
+    }
+    if (type === 'style3') {
       classnames = classnames.filter(
         e => e != 'desktop' && e != 'hcl-wizard__no-title'
       );
@@ -105,69 +49,23 @@ const Wizard2 = React.forwardRef(
     // if (direction === 'vertical') {
     //   classnames.push(`wiz-vertical`);
     // }
-    const modifiedChildren = Children.map(childs, (child, idx) => {
-      const state = {
-        index: idx,
-        active: false,
-        complete: false,
-        error: false,
-        disabled: false
-      };
 
-      if (!nonlinear && activeIndex === idx) {
-          console.log(activeIndex);
-        state.active = true;
-      } else if (!nonlinear && activeIndex > idx) {
-        state.complete = true;
-      } else if (!nonlinear && idx + 1 >= activeIndex) {
-        state.disabled = true;
+    const stepcallBack = idx => {
+      if (lastCompletedStep === null || lastCompletedStep < idx) {
+        setLastCompletedStep(idx);
+        console.log('step call back', idx);
       }
-      // console.log('disabled', state.disabled);
+    };
 
-      // m
-      // if (activeIndex === idx) {
-      //   state.active = true;
-      // }
-      // if (!nonlinear && activeIndex > idx) {
-      //   state.complete = true;
-      // }
-
-      // if (activeIndex === idx) {
-      //   state.current = true;
-      // }
-      // if (linear) {
-      //   state.active = currentActiveIdx === idx;
-      //   state.complete = idx <= currentActiveIdx;
-      // }
-      // if (!linear) {
-      //   state.current =
-      // }
-
+    const modifiedChildren = Children.map(childs, (child, idx) => {
       return cloneElement(child, {
         key: idx,
-        // index: idx,
-        // current: currentActiveIdx === idx,
-        // complete: idx <= currentActiveIdx,
-        // onClick: e => {
-        //   if (onChange) {
-        //     setActiveIdx(activeIndex);
-        //     onChange(e, idx);
-        //   }
-        // },
-
-        // title: child.props.title ? child.props.title : null,
-        // description: child.props.description ? child.props.description : null,
-        // icon: child.props.icon ? child.props.icon : null,
-        ...state,
-        ...child.props
-        // onClick: () => {
-        //   if (!nonlinear && !state.disabled) {
-        //     console.log('came in ?');
-        //     setActiveIdx(idx);
-        //     // child.props.onClick(e, idx);
-        //     // }
-        //   }
-        // }
+        index: idx,
+        active: idx === activeIndex ? true : false,
+        onClick:
+          linear && lastCompletedStep + 1 < idx ? null : child.props.onClick,
+        stepcallBack,
+        iconType: iconType
       });
     });
 
@@ -185,40 +83,6 @@ const Wizard2 = React.forwardRef(
             <div className="step-description">{'Basic'}</div>
           </div>
         </div>
-        {/* Desktop Layout */}
-        {/* <div className="hcl-wizard wiz-horizontal">
-        <div className="hcl-wizard__item active completed">
-          <div className="ghost"></div>
-          <div className="hcl-wizard-left-pane">
-            <div className="hcl-wizard__icon-container">
-              <div className="hcl-wizard__user">1</div>
-            </div>
-          </div>
-          <div className="hcl-wizard-right-pane">
-            <div className="hcl-wizard__title">
-              {'Little lillies Little lillies Little lillies'}
-            </div>
-            <div className="hcl-wizard__description">
-              {"It's flowering always"}
-            </div>
-          </div>
-        </div>
-        <div className="hcl-wizard__item ">
-          <div className="ghost"></div>
-          <div className="hcl-wizard-left-pane">
-            <div className="hcl-wizard__icon-container">
-              <div className="hcl-wizard__user">2</div>
-            </div>
-          </div>
-          <div className="hcl-wizard-right-pane">
-            <div className="hcl-wizard__title">{'Address'}</div>
-            <div className="hcl-wizard__description">
-              {'Input your present address'}
-            </div>
-          </div>
-        </div>
-      </div> */}
-        {/* Desktop Layout */}
       </div>
     );
   }
@@ -229,25 +93,17 @@ Wizard2.displayName = 'Wizard2';
 Wizard2.propTypes = {
   className: PropTypes.string,
   activeIndex: PropTypes.number,
-  onChange: PropTypes.func,
-  nonlinear: PropTypes.bool,
-  // clickable: PropTypes.bool,
-  titleBelow: PropTypes.bool,
-  responsive: PropTypes.bool
+  linear: PropTypes.bool,
+  type: PropTypes.oneOf(['style1', 'style2', 'style3']),
+  iconType: PropTypes.oneOf(['icon', 'numbering', 'noicon'])
 };
 
 Wizard2.defaultProps = {
   className: '',
   activeIndex: 0,
-  onChange: () => {},
-  // clickable: true,
-  nonlinear: false,
-  responsive: false
+  linear: true,
+  type: 'style1',
+  iconType: 'icon'
 };
-
-/*
-nonlinear false linear true
-nonlinear true linear false
-*/
 
 export default Wizard2;

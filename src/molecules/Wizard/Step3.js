@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 // import prefix from '../../settings';
 import { User, activeUser, CheckMark, Error } from '../../util/icons';
@@ -6,14 +6,16 @@ import { User, activeUser, CheckMark, Error } from '../../util/icons';
 const Step = ({
   className,
   title,
+  description,
   iconClass,
   icon,
-  description,
   active,
-  complete,
-  error,
-  disabled,
+  status,
   onClick,
+  errorIcon,
+  completedIcon,
+  defaultIcon,
+  activeIcon,
   ...restProps
 }) => {
   // active, completed, hcl-wizard__no-title
@@ -24,70 +26,101 @@ const Step = ({
   if (className) {
     classnames.push(className);
   }
-  if (complete && !error) {
-    classnames.push('completed');
-  } else if (active) {
+  if (active) {
     classnames.push('active');
-  } else if (error) {
-    classnames.push('error');
-  } else if (disabled) {
-    // console.log(restProps.index);
-    classnames.push('disabled');
+  }
+  switch (status) {
+    case 'error':
+      classnames.push('error');
+      break;
+    case 'completed':
+      classnames.push('completed');
+      break;
+    default:
+      break;
   }
 
-  // {
-  //   /* <div className="hcl-wizard__user">{restProps.index + 1}</div> */
-  // }
-  // {
-  //   !complete && !iconClass && !icon && !error && !active && (
-  //     <div className="hcl-wizard__user">{User}</div>
-  //   );
-  // }
-  // {
-  //   !complete && active && !icon && !iconClass && !error && (
-  //     <div className="hcl-wizard__user">{activeUser}</div>
-  //   );
-  // }
-  // {
-  //   /** Complete Scenarios */
-  // }
-  // {
-  //   complete && !iconClass && !icon && !error && (
-  //     <div className="hcl-wizard__user">{CheckMark}</div>
-  //   );
-  // }
-  // {
-  //   complete && iconClass && !icon && !error && (
-  //     <i className={`${iconClass}`} />
-  //   );
-  // }
-  // {
-  //   error && !complete && !iconClass && !icon && (
-  //     <div className="hcl-wizard__user">{Error}</div>
-  //   );
-  // }
-  // {
-  //   iconClass && !icon && <i className={`${iconClass}`} />;
-  // }
-
-  const stateToReturn = (
-    active,
-    complete,
-    error,
-    disabled,
-    iconClass,
-    icon
-  ) => {
-    if (!complete && !iconClass && !icon && !error && !active) {
-      return <div className="hcl-wizard__user">{User}</div>;
-    } else if (!complete && active && !icon && !iconClass && !error) {
-      return <div className="hcl-wizard__user">{activeUser}</div>;
-    } else if (complete && !iconClass && !icon && !error) {
-      return <div className="hcl-wizard__user">{CheckMark}</div>;
-    } else if (complete && !iconClass && !icon && !error) {
-      return <div className="hcl-wizard__user">{Error}</div>;
+  useEffect(() => {
+    if (status === 'completed') {
+      restProps.stepcallBack(restProps.index);
     }
-    // else {
+  }, [status]);
+
+  const handleIconRender = (active, status) => {
+    if (active && status === 'completed') {
+      return <div className="hcl-wizard__user">{activeUser}</div>;
+    } else if (active && status === 'default') {
+      return <div className="hcl-wizard__user">{activeUser}</div>;
+    } else if (active && status === 'error') {
+      return <div className="hcl-wizard__user">{activeUser}</div>;
+    } else if (!active && status === 'completed') {
+      return <div className="hcl-wizard__user">{CheckMark}</div>;
+    } else if (!active && status === 'default') {
+      return <div className="hcl-wizard__user">{User}</div>;
+    } else if (!active && status === 'error') {
+      return <div className="hcl-wizard__user">{Error}</div>;
+    } else if (errorIcon) {
+      return <div className="hcl-wizard__user">{errorIcon}</div>;
+    } else if (completedIcon) {
+      return <div className="hcl-wizard__user">{completedIcon}</div>;
+    } else if (activeIcon) {
+      return <div className="hcl-wizard__user">{activeIcon}</div>;
+    } else if (defaultIcon) {
+      return <div className="hcl-wizard__user">{defaultIcon}</div>;
+    }
+  };
+  const handleNumberRender = () => {
+    return <div className="hcl-wizard__user">{restProps.index + 1}</div>;
+  };
+  const handleNoIconRender = (active, status) => {};
+
+  const stateToReturn = (active, status, iconClass, icon) => {
+    switch (restProps.iconType) {
+      case 'icon':
+        return handleIconRender(active, status);
+      case 'numbering':
+        return handleNumberRender();
+      case 'noicon':
+        return handleNoIconRender(active, status);
+      default:
+        break;
+    }
+    // For With defaut Icon
+    // if (
+    //   status &&
+    //   status != 'completed' &&
+    //   iconClass === '' &&
+    //   !icon &&
+    //   status != 'error' &&
+    //   !active
+    // ) {
+    //   return <div className="hcl-wizard__user">{User}</div>;
+    // } else if (
+    //   status &&
+    //   status != 'completed' &&
+    //   active &&
+    //   !icon &&
+    //   iconClass === '' &&
+    //   status != 'error'
+    // ) {
+    //   return <div className="hcl-wizard__user">{activeUser}</div>;
+    // } else if (
+    //   status &&
+    //   status === 'completed' &&
+    //   iconClass === '' &&
+    //   !icon &&
+    //   status != 'error'
+    // ) {
+    //   return <div className="hcl-wizard__user">{CheckMark}</div>;
+    // } else if (
+    //   status &&
+    //   status != 'completed' &&
+    //   iconClass === '' &&
+    //   !icon &&
+    //   status === 'error'
+    // ) {
+    //   return <div className="hcl-wizard__user">{Error}</div>;
+    // } else {
     //   return <div className="hcl-wizard__user" />;
     // }
   };
@@ -100,14 +133,7 @@ const Step = ({
           <div className="ghost" />
           <div className="hcl-wizard-left-pane">
             <div className="hcl-wizard__icon-container">
-              {stateToReturn(
-                active,
-                complete,
-                error,
-                disabled,
-                iconClass,
-                icon
-              )}
+              {stateToReturn(active, status, iconClass, icon)}
             </div>
           </div>
           <div className={`hcl-wizard-right-pane`}>
@@ -157,13 +183,17 @@ Step.propTypes = {
   icon: PropTypes.element,
   description: PropTypes.string,
   active: PropTypes.bool,
-  complete: PropTypes.bool,
-  error: PropTypes.bool,
-  onClick: PropTypes.func,
-  disabled: PropTypes.bool
+  status: PropTypes.oneOf(['default', 'error', 'completed']),
+  errorIcon: PropTypes.element,
+  completedIcon: PropTypes.element,
+  activeIcon: PropTypes.element,
+  defaultIcon: PropTypes.element,
+  onClick: PropTypes.func
 };
 
 Step.defaultProps = {
+  active: false,
+  status: 'default',
   className: '',
   title: '',
   iconClass: '',

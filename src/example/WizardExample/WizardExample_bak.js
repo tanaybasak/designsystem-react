@@ -13,33 +13,28 @@ class WizardExample extends Component {
   }
 
   state = {
-    selIndex: 1,
+    selIndex: 0,
     wizardmodel: [
       {
         title: 'Little lillies Little lillies Little lillies',
         description: "It's flowering always",
-        status: 'completed'
+        // status: 'error'
       },
       {
         title: 'Address',
-        description: 'Input your present address',
-        status: 'error'
-        // status: 'default'
+        description: 'Input your present address'
       },
       {
         title: 'Family Details Family Details Family Details',
         description: 'Input your personal details here'
-        // status: 'default'
       },
       {
         title: 'Card',
         description: 'Enter your card details'
-        // status: 'default'
       },
       {
         title: 'Alternate Contact',
         description: 'Alternate Contact'
-        // status: 'default'
       }
       // {
       //   title: 'Alternate Contact',
@@ -52,12 +47,30 @@ class WizardExample extends Component {
     ]
   };
 
+  // componentDidUpdate(p) {
+  //   console.log(p);
+  // }
+
   handleLinearClick = (idx, e) => {
-    // if (idx < this.state.selIndex) {
-    //   this.setState({
-    //     selIndex: idx
+    console.log(idx);
+    // let combinedState = [...this.state.wizardmodel];
+    // if (idx === 1) {
+    //   combinedState = [];
+    //   const oldState = this.state.wizardmodel;
+    //   const newState = oldState.map((item, idx) => {
+    //     if (idx === 0) {
+    //       item.error = true;
+    //     }
+    //     return item;
     //   });
+
+    //   combinedState = [...newState];
     // }
+    // console.log(combinedState);
+    // this.setState({
+    //   selIndex: idx,
+    //   wizardmodel: combinedState
+    // });
   };
 
   render() {
@@ -65,20 +78,41 @@ class WizardExample extends Component {
       <>
         <Wizard2
           ref={this.rr}
-          type={'style1'}
-          iconType="noicon"
           // titleBelow
           // responsive
           activeIndex={this.state.selIndex}
+          // onChange={(e, idx) => {
+          //1. Step by Step
+          // if (idx === this.state.selIndex + 1 || idx < this.state.selIndex)
+          //   this.setState({ ...this.state, selIndex: idx });
+          //2. Click anywhere - can also go back.
+          // this.setState({ ...this.state, selIndex: idx });
+          //3. Step by Step
+          // if (idx === this.state.selIndex + 1 || idx < this.state.selIndex)
+          //   this.setState({ ...this.state, selIndex: idx });
+          // }}
         >
           {this.state.wizardmodel.map((item, idx) => {
+            // const state = {
+            //   complete: false
+            // };
+            // if (idx === 2) {
+            //   state.disabled = false;
+            // }
+            // if (idx === this.state.selIndex) {
+            //   state.complete = true;
+            // }
             return (
               <Step
                 key={idx}
                 title={item.title}
                 description={item.description}
-                status={item.status}
-                onClick={this.handleLinearClick.bind(this, idx)}
+                error={item['error'] ? item.error : false}
+                // iconClass={'testing-icon'}
+                // onClick={idx <= this.selIndex ? this.handleLinearClick : null}
+                // onClick={this.handleLinearClick.bind(this, idx)}
+                onClick={idx === 1 ? this.handleLinearClick.bind(this, idx) : null}
+                // {...state}
               />
             );
           })}

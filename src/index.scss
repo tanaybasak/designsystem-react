@@ -117,6 +117,14 @@
           transition: border-color 0.07s ease-in;
         }
       }
+      &.error {
+        &:last-child::after {
+          background: #0066b0;
+          height: 2px;
+          width: 100%;
+          transition: border-color 0.07s ease-in;
+        }
+      }
     }
     .hcl-wizard__user {
       width: 24px;
@@ -131,6 +139,53 @@
     &:not(.hcl-wizard__no-title) {
       .wiz-item {
         &.completed {
+          &.active {
+            &::before {
+              background: #0066b0;
+            }
+          }
+          &::before {
+            background: #0066b0;
+            height: 2px;
+            width: calc(100% + 28px);
+            transition: border-color 0.07s ease-in;
+
+            // a repeat ?
+            content: '';
+            position: absolute;
+            display: block;
+            top: 0;
+            left: 28px;
+            z-index: 1;
+            background: #0066b0;
+            height: 2px;
+            width: calc(100%);
+          }
+          &::after,
+          & + .wiz-item::after {
+            content: '';
+            position: absolute;
+            display: block;
+            top: 0;
+            left: 28px;
+            z-index: 1;
+            background: #0066b0;
+            height: 2px;
+            width: auto;
+            // width: calc(100% / 2 - 28px);
+          }
+          &:last-child::after {
+            background: #0066b0;
+            height: 2px;
+            width: 100%;
+            transition: border-color 0.07s ease-in;
+          }
+          .hcl-wizard__user {
+            border: 1px solid var(--secondary_icon);
+            padding: 3px;
+          }
+        }
+        &.error {
           &::before {
             background: #0066b0;
             height: 2px;
@@ -196,6 +251,11 @@
         &.completed .ghost {
           background: #0066b0;
         }
+        &.error {
+          .hcl-wizard__user {
+            border: none;
+          }
+        }
       }
     }
     // Only desktop - Design 1
@@ -238,6 +298,30 @@
           z-index: 1;
         }
         &.completed {
+          &::before {
+            content: '';
+            position: absolute;
+            background: #0066b0;
+            display: block;
+            width: calc(100% + 28px);
+            height: 2px;
+            top: 0;
+            left: 28px;
+            z-index: 1;
+          }
+          & + .wiz-item::after {
+            content: '';
+            position: absolute;
+            display: block;
+            top: 0;
+            left: 28px;
+            z-index: 1;
+            background: #0066b0;
+            height: 2px;
+            width: calc(100% / 2 - 28px);
+          }
+        }
+        &.error {
           &::before {
             content: '';
             position: absolute;
