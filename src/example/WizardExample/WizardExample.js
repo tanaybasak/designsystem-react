@@ -13,60 +13,87 @@ class WizardExample extends Component {
   }
 
   state = {
-    selIndex: 2,
+    selIndex: 0,
     wizardmodel: [
       {
-        title: 'Little lillies Little lillies Little lillies',
-        description: "It's flowering always",
-        status: 'completed'
+        title: 'Step 1',
+        description: 'Basic Info'
       },
       {
-        title: 'Address',
-        description: 'Input your present address',
-        status: 'error'
-        // status: 'default'
+        title: 'Step 2',
+        description: 'Upload File'
       },
       {
-        title: 'Family Details Family Details Family Details',
-        description: 'Input your personal details here'
-        // status: 'default'
-      },
-      {
-        title: 'Card',
-        description: 'Enter your card details'
-        // status: 'default'
-      },
-      {
-        title: 'Alternate Contact',
-        description: 'Alternate Contact'
-        // status: 'default'
+        title: 'Step 3',
+        description: 'Add Social Markup'
       }
-      // {
-      //   title: 'Alternate Contact',
-      //   description: 'Alternate Contact'
-      // }
-      // {
-      //   title: 'Alternate Contact',
-      //   description: 'Alternate Contact'
-      // }
     ]
   };
 
-  handleLinearClick = (idx, e) => {
-    // if (idx < this.state.selIndex) {
-    //   this.setState({
-    //     selIndex: idx
-    //   });
-    // }
+  isAllStepsCompleted = () => {
+    return this.state.wizardmodel.every(
+      (item, idx) => item['status'] === 'completed'
+    );
+  };
+
+  handleStepClick = (idx, e) => {
+    console.log(idx);
+  };
+
+  handleBack = e => {
+    e.preventDefault();
+    this.setState({
+      selIndex: this.state.selIndex - 1
+    });
+  };
+
+  handleNext = e => {
+    e.preventDefault();
+    if (this.state.selIndex < this.state.wizardmodel.length - 1) {
+      this.setState({
+        selIndex: this.state.selIndex + 1,
+        wizardmodel: this.state.wizardmodel.map((item, idx) => {
+          if (idx === this.state.selIndex) {
+            item['status'] = 'completed';
+          }
+          return item;
+        })
+      });
+    }
+  };
+
+  handleFinish = e => {
+    e.preventDefault();
+    console.log('in finish', this.state.selIndex);
+    this.setState({
+      selIndex: -1,
+      wizardmodel: this.state.wizardmodel.map((item, idx) => {
+        if (idx <= this.state.selIndex) {
+          item['status'] = 'completed';
+        }
+        return item;
+      })
+    });
+  };
+
+  handleReset = () => {
+    this.setState({
+      selIndex: 0,
+      wizardmodel: this.state.wizardmodel.map((item, idx) => {
+        delete item['status'];
+        return item;
+      })
+    });
   };
 
   render() {
     return (
+      // <div style={{ marginTop: '5px', padding: '5px' }}>
       <>
         <Wizard
           ref={this.rr}
           type={'style1'}
-          // iconType="number"
+          // iconType="noicon"
           // titleBelow
           // responsive
           activeIndex={this.state.selIndex}
@@ -78,70 +105,54 @@ class WizardExample extends Component {
                 title={item.title}
                 description={item.description}
                 status={item.status}
-                onClick={this.handleLinearClick.bind(this, idx)}
+                onClick={this.handleStepClick.bind(this, idx)}
               />
             );
           })}
         </Wizard>
         <div>
-          <Button
-            type="ghost"
-            kind="button"
-            onClick={() =>
-              this.setState(
-                (prevState, props) => {
-                  return { selIndex: prevState.selIndex - 1 };
-                },
-                () => {
-                  console.log('updated state', this.state.selIndex);
-                }
-              )
-            }
-          >
-            Back
-          </Button>
-          {this.state.selIndex < 4 ? (
+          {this.isAllStepsCompleted() ? (
+            <Button
+              type="ghost"
+              kind="button"
+              onClick={this.handleReset.bind(this)}
+            >
+              Reset
+            </Button>
+          ) : (
+            <Button
+              type="ghost"
+              kind="button"
+              disabled={this.state.selIndex === 0 ? true : false}
+              onClick={this.handleBack.bind(this)}
+            >
+              Back
+            </Button>
+          )}
+          {this.state.selIndex === this.state.wizardmodel.length - 1 ? (
             <Button
               type="primary"
               kind="button"
-              // ref={this.nextRef}
-              onClick={() =>
-                this.setState(
-                  (prevState, props) => {
-                    return { selIndex: prevState.selIndex + 1 };
-                  },
-                  () => {
-                    console.log('updated state', this.state.selIndex);
-                    // console.log(this.nextRef);
-                  }
-                )
-              }
+              // ref={this.finishRef}
+              //   disabled={this.state.selIndex === 5}
+              onClick={this.handleFinish.bind(this)}
             >
-              Next
+              Finish
             </Button>
           ) : (
             <Button
               type="primary"
               kind="button"
-              // ref={this.finishRef}
-              disabled={this.state.selIndex === 5}
-              onClick={() =>
-                this.setState(
-                  (prevState, props) => {
-                    return { selIndex: prevState.selIndex + 1 };
-                  },
-                  () => {
-                    // console.log(this.finishRef);
-                    console.log('updated state', this.state.selIndex);
-                  }
-                )
-              }
+              style={{ display: this.isAllStepsCompleted() ? 'none' : 'unset' }}
+              // ref={this.nextRef}
+              onClick={this.handleNext.bind(this)}
             >
-              Finish
+              Next
             </Button>
           )}
         </div>
       </>
+      // </div>
     );
   }
 }

@@ -55,6 +55,14 @@ const Wizard = React.forwardRef(
       });
     });
 
+    1 < 0;
+    1 < 1;
+    1 < 2;
+
+    const mobileFormat = () => {
+      return `Step ${activeIndex + 1} of ${childrencount}`;
+    };
+
     return (
       <div className={classnames.join(' ')} ref={ref}>
         {/* // <div className={'wrapper desktop hcl-wizard__no-title'}> */}
@@ -64,10 +72,10 @@ const Wizard = React.forwardRef(
           </ul>
           <div className="step-names__mobile">
             <div className="step-name">
-              Step {activeIndex + 1} of {childrencount}
+              {activeIndex > -1 ? mobileFormat : null}
             </div>
             <div className="step-description">
-              {childs && childs[activeIndex].props['title']
+              {childs && activeIndex > -1 && childs[activeIndex].props['title']
                 ? childs[activeIndex].props['title']
                 : null}
             </div>
@@ -90,7 +98,7 @@ Wizard.propTypes = {
 
 Wizard.defaultProps = {
   className: '',
-  activeIndex: 0,
+  activeIndex: -1,
   linear: true,
   type: 'style1',
   iconType: 'icon'
