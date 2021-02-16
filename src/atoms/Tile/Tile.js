@@ -38,6 +38,9 @@ const Tile = ({
       if (input) {
         setChecked(!checked);
       }
+      if (restProps.onChange) {
+        restProps.onChange(!checked);
+      }
     }
   };
 
