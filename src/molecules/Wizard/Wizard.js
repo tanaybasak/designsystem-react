@@ -3,7 +3,18 @@ import React, { useState, cloneElement, Children } from 'react';
 import PropTypes from 'prop-types';
 
 const Wizard = React.forwardRef(
-  ({ activeIndex, className, children, linear, type, iconType }, ref) => {
+  (
+    {
+      activeIndex,
+      className,
+      children,
+      linear,
+      kind,
+      iconType,
+      currentStepLabel
+    },
+    ref
+  ) => {
     // const [currentActiveIdx, setActiveIdx] = useState(activeIndex || 0);
     // const compRef = useRef(null);
     // const prevShow = usePrevious(currentActiveIdx);
@@ -17,9 +28,9 @@ const Wizard = React.forwardRef(
     if (className) {
       classnames.push(className);
     }
-    if (type === 'style2') {
+    if (kind === 'style2') {
       classnames.push('hcl-wizard__no-title');
-    } else if (type === 'style3') {
+    } else if (kind === 'mobile') {
       classnames = classnames.filter(
         e => e != 'desktop' && e != 'hcl-wizard__no-title'
       );
@@ -55,10 +66,6 @@ const Wizard = React.forwardRef(
       });
     });
 
-    const mobileFormat = () => {
-      return `Step ${activeIndex + 1} of ${childrencount}`;
-    };
-
     return (
       <div className={classnames.join(' ')} ref={ref}>
         {/* // <div className={'wrapper desktop hcl-wizard__no-title'}> */}
@@ -67,11 +74,13 @@ const Wizard = React.forwardRef(
             {modifiedChildren}
           </ul>
           <div className="step-names__mobile">
-            <div className="step-name">
-              {activeIndex > -1 ? mobileFormat : null}
-            </div>
+            <div className="step-name">{currentStepLabel}</div>
             <div className="step-description">
-              {childs && activeIndex > -1 && childs[activeIndex].props['title']
+              {childs &&
+              activeIndex !== null &&
+              typeof activeIndex === 'number' &&
+              !Number.isNaN(activeIndex) &&
+              childs[activeIndex].props['title']
                 ? childs[activeIndex].props['title']
                 : null}
             </div>
@@ -82,22 +91,32 @@ const Wizard = React.forwardRef(
   }
 );
 
+// console.log(activeIndex);
+
 Wizard.displayName = 'Wizard';
 
 Wizard.propTypes = {
+  /** Name of the custom class to be applied to the Step.  */
   className: PropTypes.string,
+  /** Index of the Step to be selected in Wizard. */
   activeIndex: PropTypes.number,
+  /** Steps are clickable */
   linear: PropTypes.bool,
-  type: PropTypes.oneOf(['style1', 'style2', 'style3']),
-  iconType: PropTypes.oneOf(['icon', 'number', 'noicon'])
+  /** Variants of Wizard Styles which can be used */
+  kind: PropTypes.oneOf(['style1', 'style2', 'mobile']),
+  /** Icon Types to be be used. It can be 'icon', 'number', 'noicon' */
+  iconType: PropTypes.oneOf(['icon', 'number', 'noicon']),
+  /** Only applicable in mobile Variant style of Wizard. */
+  currentStepLabel: PropTypes.string
 };
 
 Wizard.defaultProps = {
   className: '',
-  activeIndex: -1,
+  activeIndex: null,
   linear: true,
-  type: 'style1',
-  iconType: 'icon'
+  kind: 'style1',
+  iconType: 'icon',
+  currentStepLabel: ''
 };
 
 export default Wizard;

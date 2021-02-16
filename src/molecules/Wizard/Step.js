@@ -44,43 +44,21 @@ const Step = ({
   }, [status]);
 
   const handleIconRender = (active, status) => {
-    if (active && status === 'completed') {
-      return <div className="hcl-wizard__user">{activeUser}</div>;
-    } else if (active && status === 'default') {
-      return <div className="hcl-wizard__user">{activeUser}</div>;
-    } else if (active && status === 'error') {
-      return <div className="hcl-wizard__user">{activeUser}</div>;
-    } else if (!active && status === 'completed') {
-      return <div className="hcl-wizard__user">{CheckMark}</div>;
-    } else if (!active && status === 'default') {
-      return <div className="hcl-wizard__user">{User}</div>;
-    } else if (!active && status === 'error') {
-      return <div className="hcl-wizard__user">{Error}</div>;
-    } else if (errorIcon) {
-      return <div className="hcl-wizard__user">{errorIcon}</div>;
-    } else if (completedIcon) {
-      return <div className="hcl-wizard__user">{completedIcon}</div>;
-    } else if (activeIcon) {
-      return <div className="hcl-wizard__user">{activeIcon}</div>;
-    } else if (defaultIcon) {
-      return <div className="hcl-wizard__user">{defaultIcon}</div>;
+    if (active) {
+      return activeIcon;
+    } else if (status === 'completed') {
+      return completedIcon;
+    } else if (status === 'error') {
+      return errorIcon;
+    } else if (status === 'default') {
+      return defaultIcon;
     }
   };
   const handleNumberRender = () => {
-    return <div className="hcl-wizard__user">{restProps.index + 1}</div>;
+    return restProps.index + 1;
   };
-  const handleNoIconRender = (active, status) => {
-    if (active && status === 'completed') {
-      return <div className="hcl-wizard__user" />;
-    } else if (active && status === 'default') {
-      return <div className="hcl-wizard__user" />;
-    } else if (active && status === 'error') {
-      return <div className="hcl-wizard__user" />;
-    } else if (!active && status === 'completed') {
-      return <div className="hcl-wizard__user" />;
-    } else if (!active && status === 'default') {
-      return <div className="hcl-wizard__user" />;
-    }
+  const handleNoIconRender = () => {
+    return null;
   };
 
   const stateToReturn = (active, status) => {
@@ -90,12 +68,12 @@ const Step = ({
       case 'number':
         return handleNumberRender();
       case 'noicon':
-        return handleNoIconRender(active, status);
+        return handleNoIconRender();
       default:
         break;
     }
   };
-  // restProps.disabled ? console.log(restProps.onClick()) : null;
+
   return (
     <li className={classnames.join(' ')} onClick={onClick}>
       {/* <div className="wiz-item-container"> */}
@@ -104,7 +82,9 @@ const Step = ({
           <div className="ghost" />
           <div className="hcl-wizard-left-pane">
             <div className="hcl-wizard__icon-container">
-              {stateToReturn(active, status)}
+              <div className="hcl-wizard__user">
+                {stateToReturn(active, status)}
+              </div>
             </div>
           </div>
           <div className={`hcl-wizard-right-pane`}>
@@ -138,28 +118,40 @@ const Step = ({
 };
 
 Step.propTypes = {
+  /** Name of the custom class to be applied to the Step.  */
   className: PropTypes.string,
-  title: PropTypes.string,
-  // iconClass: PropTypes.string,
-  // icon: PropTypes.element,
-  description: PropTypes.string,
+  /** true – ‘active’ class is added the Step.
+
+    false – ‘active’ is removed from the Step. */
   active: PropTypes.bool,
+  /** status of the Step. It can be of - 'default', 'error', 'completed' */
   status: PropTypes.oneOf(['default', 'error', 'completed']),
-  errorIcon: PropTypes.element,
-  completedIcon: PropTypes.element,
-  activeIcon: PropTypes.element,
-  defaultIcon: PropTypes.element,
+  /** Title for the Step */
+  title: PropTypes.string,
+  /** Description for the Step */
+  description: PropTypes.string,
+  /** An active Icon which can be given to each Step - It can be of image, svg, font icons */
+  activeIcon: PropTypes.node,
+  /** An error Icon which can be given to each Step - It can be of image, svg, font icons */
+  errorIcon: PropTypes.node,
+  /** A completed Icon which can be given to each Step - It can be of image, svg, font icons */
+  completedIcon: PropTypes.node,
+  /** Default Icon which can be given to each Step - It can be of image, svg, font icons */
+  defaultIcon: PropTypes.node,
+  /** Event to subscribe when Step is clicked.*/
   onClick: PropTypes.func
 };
 
 Step.defaultProps = {
+  className: '',
   active: false,
   status: 'default',
-  className: '',
   title: '',
-  // iconClass: '',
-  // icon: null,
   description: '',
+  activeIcon: activeUser,
+  errorIcon: Error,
+  completedIcon: CheckMark,
+  defaultIcon: User,
   onClick: () => {}
 };
 
