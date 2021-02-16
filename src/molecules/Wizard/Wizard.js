@@ -15,13 +15,8 @@ const Wizard = React.forwardRef(
     },
     ref
   ) => {
-    // const [currentActiveIdx, setActiveIdx] = useState(activeIndex || 0);
-    // const compRef = useRef(null);
-    // const prevShow = usePrevious(currentActiveIdx);
-
     const [lastCompletedStep, setLastCompletedStep] = useState(null);
 
-    const childrencount = Children.count(children);
     const childs = Children.toArray(children);
 
     let classnames = ['hcl-wiz-wrapper', 'desktop'];
@@ -69,10 +64,8 @@ const Wizard = React.forwardRef(
     return (
       <div className={classnames.join(' ')} ref={ref}>
         {/* // <div className={'wrapper desktop hcl-wizard__no-title'}> */}
-        <div className="wiz-wrapper">
-          <ul role="tablist" className="wiz-list">
-            {modifiedChildren}
-          </ul>
+        <div className="wiz-wrapper" role="navigation">
+          <ul className="wiz-list">{modifiedChildren}</ul>
           <div className="step-names__mobile">
             <div className="step-name">{currentStepLabel}</div>
             <div className="step-description">
@@ -100,7 +93,7 @@ Wizard.propTypes = {
   className: PropTypes.string,
   /** Index of the Step to be selected in Wizard. */
   activeIndex: PropTypes.number,
-  /** Steps are clickable */
+  /** Steps can't be freely navigated until unless Step's prop, status is marked 'completed'. */
   linear: PropTypes.bool,
   /** Variants of Wizard Styles which can be used */
   kind: PropTypes.oneOf(['style1', 'style2', 'mobile']),

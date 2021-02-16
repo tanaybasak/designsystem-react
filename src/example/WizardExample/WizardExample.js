@@ -48,6 +48,7 @@ class WizardExample extends Component {
 
   handleNext = e => {
     e.preventDefault();
+    console.log(this.state.selIndex);
     if (this.state.selIndex < this.state.wizardmodel.length - 1) {
       this.setState({
         selIndex: this.state.selIndex + 1,
@@ -101,7 +102,7 @@ class WizardExample extends Component {
       <div className="hcl-container">
         <div className="hcl-row">
           <Wizard
-            // kind={'style1'}
+            kind={'style1'}
             // iconType="noicon"
             currentStepLabel={
               this.state.selIndex != null &&

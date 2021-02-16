@@ -235,7 +235,8 @@
             // width: calc(100% / 2 - 28px);
           }
           &:last-child::after {
-            background: #0066b0;
+            // background: #0066b0;
+            background: #e6e6e6;
             height: 2px;
             width: 100%;
             transition: border-color 0.07s ease-in;

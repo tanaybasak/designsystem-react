@@ -75,7 +75,11 @@ const Step = ({
   };
 
   return (
-    <li className={classnames.join(' ')} onClick={onClick}>
+    <li
+      className={classnames.join(' ')}
+      onClick={onClick}
+      aria-current={active}
+    >
       {/* <div className="wiz-item-container"> */}
       {
         <>
