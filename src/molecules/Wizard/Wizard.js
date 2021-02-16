@@ -55,10 +55,6 @@ const Wizard = React.forwardRef(
       });
     });
 
-    1 < 0;
-    1 < 1;
-    1 < 2;
-
     const mobileFormat = () => {
       return `Step ${activeIndex + 1} of ${childrencount}`;
     };
