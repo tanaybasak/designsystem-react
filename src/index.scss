@@ -31,6 +31,7 @@
       .wiz-item.completed:not(.active):first-child,
       .wiz-item.error:not(.active):first-child {
         &:hover {
+          background: var(--interactive_bg_hover);
           cursor: pointer;
         }
       }
@@ -42,6 +43,7 @@
       .wiz-item.error.active + .wiz-item.error,
       .wiz-item.error.active + .wiz-item.completed {
         &:hover {
+          background: var(--interactive_bg_hover);
           cursor: pointer;
         }
       }
@@ -51,6 +53,7 @@
       .wiz-item.error:not(.active) + .completed,
       .wiz-item.completed:not(.active) + .error {
         &:hover {
+          background: var(--interactive_bg_hover);
           cursor: pointer;
         }
       }
