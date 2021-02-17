@@ -91,35 +91,23 @@ class WizardExample extends Component {
     });
   };
 
-  componentDidUpdate() {
-    console.log('did update', this.state.wizardmodel);
-  }
-
   handleNext = e => {
     if (e) e.preventDefault();
-    // console.log('next', this.state.selIndex);
     if (this.state.selIndex < this.state.wizardmodel.length - 1) {
-      // debugger;
-      this.setState(
-        {
-          selIndex: this.state.selIndex + 1,
-          wizardmodel: this.state.wizardmodel.map((item, idx) => {
-            if (idx === this.state.selIndex) {
-              item['status'] = 'completed';
-            }
-            return item;
-          })
-        },
-        () => {
-          console.log('callback', this.state.wizardmodel);
-        }
-      );
+      this.setState({
+        selIndex: this.state.selIndex + 1,
+        wizardmodel: this.state.wizardmodel.map((item, idx) => {
+          if (idx === this.state.selIndex) {
+            item['status'] = 'completed';
+          }
+          return item;
+        })
+      });
     }
   };
 
   handleFinish = e => {
     e.preventDefault();
-    console.log('in finish', this.state.selIndex);
     this.setState({
       selIndex: null,
       wizardmodel: this.state.wizardmodel.map((item, idx) => {
@@ -311,7 +299,7 @@ class WizardExample extends Component {
       <div className="hcl-container blue_active_blue_light">
         <div className="hcl-row">
           <Wizard
-            kind={'style2'}
+            kind={'style1'}
             // iconType="noicon"
             currentStepLabel={
               this.state.selIndex != null &&

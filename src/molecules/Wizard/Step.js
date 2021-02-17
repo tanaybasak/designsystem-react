@@ -163,7 +163,7 @@ Step.defaultProps = {
   status: 'default',
   title: '',
   description: '',
-  activeIcon: User,
+  activeIcon: activeUser,
   errorIcon: Error,
   completedIcon: CheckMark,
   defaultIcon: User,

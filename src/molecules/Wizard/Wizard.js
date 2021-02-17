@@ -23,6 +23,9 @@ const Wizard = React.forwardRef(
     if (className) {
       classnames.push(className);
     }
+    if (linear) {
+      classnames.push('linear');
+    }
     if (kind === 'style2') {
       classnames.push('hcl-wizard__no-title');
     } else if (kind === 'mobile') {

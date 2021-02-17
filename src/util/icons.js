@@ -170,13 +170,12 @@ export const User = (
 
 export const activeUser = (
   <svg
-    // className="hcl-default-icon"
-    style={{ fill: 'var(--primary_icon)' }}
     xmlns="http://www.w3.org/2000/svg"
+    style={{ fill: 'var(--white)' }}
     viewBox="0 0 16 16"
   >
     <rect width="16" height="16" fill="none" />
-    <path d="M7.13,10.5v2A1.5,1.5,0,0,1,5.63,14h-2a1.5,1.5,0,0,1-1.5-1.5v-2A1.5,1.5,0,0,1,3.63,9h2A1.5,1.5,0,0,1,7.13,10.5ZM11.5,7A2.5,2.5,0,1,0,9,4.5,2.5,2.5,0,0,0,11.5,7ZM5.37,2.25a.51.51,0,0,0-.86,0l-2.6,4.5a.5.5,0,0,0,0,.5.5.5,0,0,0,.43.25h5.2A.5.5,0,0,0,8,7.25a.5.5,0,0,0,0-.5Zm8.79,7.91-2.5-1.81a.49.49,0,0,0-.59,0L8.58,10.16a.49.49,0,0,0-.18.56l.95,2.93a.5.5,0,0,0,.48.35h3.08a.5.5,0,0,0,.48-.35l.95-2.93A.5.5,0,0,0,14.16,10.16Z" />
+    <path d="M4.5,4.5A3.5,3.5,0,1,1,8,8,3.5,3.5,0,0,1,4.5,4.5ZM9.5,9h-3A3.5,3.5,0,0,0,3,12.5V15H13V12.5A3.5,3.5,0,0,0,9.5,9Z" />
   </svg>
 );
 
@@ -191,7 +190,6 @@ export const CheckMark = (
   </svg>
 );
 
-/** Only for testing */
 export const Error = (
   <svg
     style={{ fill: 'var(--danger_icon)' }}
