@@ -296,7 +296,7 @@ class WizardExample extends Component {
 
   render() {
     return (
-      <div className="hcl-container blue_active_blue_light">
+      <div className="hcl-container">
         <div className="hcl-row">
           <Wizard
             kind={'style1'}
