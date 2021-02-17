@@ -156,7 +156,7 @@ storiesOf('Sidebar', module)
     'internal',
     () => (
       <Sidebar
-        title={text('Title', 'Internal')}
+        title={text('Title', 'Default')}
         icon={
           boolean('Show Header Icon', true) ? (
             <i
