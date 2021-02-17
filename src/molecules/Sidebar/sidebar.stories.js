@@ -101,10 +101,15 @@ storiesOf('Sidebar', module)
       <Sidebar
         title={text('Title', 'Default')}
         icon={
-          <i
-            // style={{ color: 'white' }}
-            className={`p-hclsw p-hclsw-${select('Title Icon', icons, 'user')}`}
-          />
+          boolean('Show Header Icon', true) ? (
+            <i
+              className={`p-hclsw p-hclsw-${select(
+                'Title Icon',
+                icons,
+                'user'
+              )}`}
+            />
+          ) : null
         }
         expanded={boolean('Expanded', true)}
         items={items}
