@@ -4,10 +4,17 @@ import { Wizard, Step } from '../../molecules/Wizard';
 // import { User, User2 } from '../../util/icons';
 import Button from '../../atoms/Button';
 import { Radio } from '../../atoms/radio';
-import { TextInput } from '../../atoms/TextInput';
-import { FormHelperText } from '../../atoms/FormHelperText';
-import { Label } from '../../atoms/Label';
+import TextInput from '../../atoms/TextInput';
+import FormHelperText from '../../atoms/FormHelperText';
+import Label from '../../atoms/Label';
+import FileUploader from '../../molecules/FileUploader';
+import TextArea from '../../atoms/TextArea';
 
+const wizardInnerComponentStyle = {
+  boxShadow: '2px 0 8px 3px hsl(0deg 0% 58% / 50%)',
+  padding: '15px',
+  margin: '10px'
+};
 class WizardExample extends Component {
   constructor(props) {
     super(props);
@@ -61,11 +68,15 @@ class WizardExample extends Component {
     // if (this.lastStepCompleted() < idx) {
     //   return;
     // }
-    if (idx > this.state.selIndex) {
-      this.handleNext();
-    } else {
-      this.handleBack();
-    }
+    // if (idx > this.state.selIndex) {
+    // this.handleNext();
+    // } else {
+    // this.handleBack();
+    // }
+    //step by step
+    // if (this.state.selIndex - 1 === idx || this.state.selIndex + 1 === idx)
+    //   this.goToStep(idx);
+    this.goToStep(idx);
   };
 
   handleBack = e => {
@@ -74,6 +85,12 @@ class WizardExample extends Component {
     }
     this.setState({
       selIndex: this.state.selIndex - 1
+    });
+  };
+
+  goToStep = idx => {
+    this.setState({
+      selIndex: idx
     });
   };
 
@@ -131,51 +148,142 @@ class WizardExample extends Component {
   stepComponent = () => {
     switch (this.state.selIndex) {
       case 0:
-        return 'A';
-      // return (
-      //   <>
-      //     <div className="hcl-form-group">
-      //       <TextInput
-      //         type="text"
-      //         placeholder="Firt Name"
-      //         id="firstname"
-      //         value={'James'}
-      //         onChange={e => {
-      //           const value = e.currentTarget.value;
-      //         }}
-      //         required
-      //       />
-      //       <Label htmlFor="firstname">Username</Label>
-      //       <FormHelperText className="error-msg">
-      //         Enter First Name
-      //       </FormHelperText>
-      //     </div>
-      //     <div className="hcl-form-group">
-      //       <TextInput
-      //         type="text"
-      //         placeholder="Last Name"
-      //         id="lastname"
-      //         value={'Stewart'}
-      //         onChange={e => {
-      //           const value = e.currentTarget.value;
-      //         }}
-      //         required
-      //       />
-      //       <Label htmlFor="lastname">Last Name</Label>
-      //       <FormHelperText className="error-msg">
-      //         Enter Last Name
-      //       </FormHelperText>
-      //     </div>
-      //   </>
-      // );
+        return (
+          <div className="hcl-container">
+            <div className="hcl-col-3 hcl-form-group">
+              <TextInput
+                type="text"
+                placeholder="First Name"
+                id="firstname"
+                value={''}
+                onChange={e => {
+                  const value = e.currentTarget.value;
+                }}
+                required
+              />
+              <Label htmlFor="firstname">First Name</Label>
+            </div>
+            <div className="hcl-col-3 hcl-form-group">
+              <TextInput
+                type="text"
+                placeholder="Last Name"
+                id="lastname"
+                value={''}
+                onChange={e => {
+                  const value = e.currentTarget.value;
+                }}
+                required
+              />
+              <Label htmlFor="lastname">Last Name</Label>
+            </div>
+          </div>
+        );
       case 1:
-        return 'B';
+        return (
+          <div className="hcl-container">
+            <div className="hcl-col-3 hcl-form-group">
+              <FileUploader
+                className="hcl-btn hcl-primary hcl-sm"
+                description="Supports multiple Uploads"
+                fileType=""
+                id="sample_file_uploader"
+                hideFile
+                label="Add File"
+                multiple
+                name=""
+              >
+                Upload
+              </FileUploader>
+            </div>
+          </div>
+        );
       case 2:
-        return 'C';
+        return (
+          <div className="hcl-container">
+            <div className="hcl-col-3 hcl-form-group">
+              <TextArea
+                aria-label="comments"
+                placeholder="Social Markup text"
+              />
+              <Label htmlFor="social">Social Markup Content</Label>
+            </div>
+          </div>
+        );
       case 3:
-        return 'D';
+        return (
+          <div className="hcl-container">
+            <div className="hcl-col-3 hcl-form-group">
+              <TextInput
+                type="text"
+                placeholder="Campaign URL"
+                id="url"
+                value={''}
+                data-invalid="false"
+                onChange={e => {
+                  const value = e.currentTarget.value;
+                }}
+                required
+              />
+              <Label htmlFor="url">Campaign URL</Label>
+              <div className="hcl-error-msg">
+                Campaign URL generated from Campaign URL Builder
+              </div>
+            </div>
+            <div className="hcl-col-3 hcl-form-group">
+              <TextInput
+                type="text"
+                placeholder="Campaign Source"
+                id="source"
+                value={''}
+                onChange={e => {
+                  const value = e.currentTarget.value;
+                }}
+                required
+              />
+              <Label htmlFor="source">Campaign Source</Label>
+              <div className="hcl-error-msg">
+                Campaign URL generated from Campaign URL Builder
+              </div>
+            </div>
+          </div>
+        );
       case 4:
-        return 'E';
+        return (
+          <div className="hcl-container">
+            <div className="hcl-col-3 hcl-form-group">
+              <TextInput
+                type="text"
+                placeholder="Firt Name"
+                id="firstname"
+                value={'James'}
+                onChange={e => {
+                  const value = e.currentTarget.value;
+                }}
+                required
+              />
+              <Label htmlFor="firstname">Username</Label>
+              <FormHelperText className="error-msg">
+                Enter First Name
+              </FormHelperText>
+            </div>
+            <div className="hcl-col-3 hcl-form-group">
+              <TextInput
+                type="text"
+                placeholder="Last Name"
+                id="lastname"
+                value={'Stewart'}
+                onChange={e => {
+                  const value = e.currentTarget.value;
+                }}
+                required
+              />
+              <Label htmlFor="lastname">Last Name</Label>
+              <FormHelperText className="error-msg">
+                Enter Last Name
+              </FormHelperText>
+            </div>
+          </div>
+        );
       default:
         return null;
     }
@@ -213,8 +321,13 @@ class WizardExample extends Component {
             })}
           </Wizard>
         </div>
-        <div className="hcl-row">
+        <div className="hcl-row" style={wizardInnerComponentStyle}>
           {this.state.selIndex > -1 ? this.stepComponent() : null}
+          {this.state.selIndex === null && this.isAllStepsCompleted() ? (
+            <div style={{ textAlign: 'center', width: '100%' }}>
+              All Steps completed!
+            </div>
+          ) : null}
         </div>
         <div className="hcl-row" style={{ justifyContent: 'center' }}>
           {this.isAllStepsCompleted() ? (
