@@ -1,5 +1,5 @@
 /* eslint-disable react/self-closing-comp */
-import React, { useState, cloneElement, Children, useEffect } from 'react';
+import React, { useState, cloneElement, Children } from 'react';
 import PropTypes from 'prop-types';
 
 const Wizard = React.forwardRef(
@@ -43,10 +43,17 @@ const Wizard = React.forwardRef(
     //   classnames.push(`wiz-vertical`);
     // }
 
-    const stepcallBack = idx => {
-      if (lastCompletedStep === null || lastCompletedStep < idx) {
-        setLastCompletedStep(idx);
-      }
+    const stepcallBack = () => {
+      // if (lastCompletedStep === null || lastCompletedStep < idx) {
+      //   setLastCompletedStep(idx);
+      // }
+      let lastCompletedStep = null;
+      Children.map(childs, (child, index) => {
+        if (child.props.status === 'completed') {
+          lastCompletedStep = index;
+        }
+      });
+      setLastCompletedStep(lastCompletedStep);
     };
 
     const modifiedChildren = Children.map(childs, (child, idx) => {
@@ -56,9 +63,13 @@ const Wizard = React.forwardRef(
         index: idx,
         active: idx === activeIndex ? true : false,
         onClick:
-          linear && (lastCompletedStep === null || lastCompletedStep + 1 < idx)
+          linear &&
+          (activeIndex === null ||
+            lastCompletedStep === null ||
+            lastCompletedStep + 1 < idx)
             ? null
             : child.props.onClick,
+        linear,
         stepcallBack,
         iconType: iconType
       });

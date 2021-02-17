@@ -9,6 +9,9 @@ const Step = ({
   active,
   status,
   onClick,
+  linear,
+  iconType,
+  stepcallBack,
   errorIcon,
   completedIcon,
   defaultIcon,
@@ -38,10 +41,11 @@ const Step = ({
   }
 
   useEffect(() => {
-    if (status === 'completed') {
-      restProps.stepcallBack(restProps.index);
-    }
-  }, [status]);
+    // console.log(restProps.index, 'trigger in step', status);
+    // if (status === 'completed') {
+    if (linear) stepcallBack();
+    // }
+  }, [status, linear]);
 
   const handleIconRender = (active, status) => {
     if (active) {
@@ -62,7 +66,7 @@ const Step = ({
   };
 
   const stateToReturn = (active, status) => {
-    switch (restProps.iconType) {
+    switch (iconType) {
       case 'icon':
         return handleIconRender(active, status);
       case 'number':
@@ -79,6 +83,7 @@ const Step = ({
       className={classnames.join(' ')}
       onClick={onClick}
       aria-current={active}
+      {...restProps}
     >
       {/* <div className="wiz-item-container"> */}
       {
@@ -142,6 +147,12 @@ Step.propTypes = {
   completedIcon: PropTypes.node,
   /** Default Icon which can be given to each Step - It can be of image, svg, font icons */
   defaultIcon: PropTypes.node,
+  /** @ignore */
+  linear: PropTypes.bool,
+  /** @ignore */
+  stepcallBack: PropTypes.func,
+  /** @ignore */
+  iconType: PropTypes.oneOf(['icon', 'number', 'noicon']),
   /** Event to subscribe when Step is clicked.*/
   onClick: PropTypes.func
 };
@@ -152,10 +163,13 @@ Step.defaultProps = {
   status: 'default',
   title: '',
   description: '',
-  activeIcon: activeUser,
+  activeIcon: User,
   errorIcon: Error,
   completedIcon: CheckMark,
   defaultIcon: User,
+  linear: true,
+  stepcallBack: null,
+  iconType: 'icon',
   onClick: () => {}
 };
 

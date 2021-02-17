@@ -84,7 +84,7 @@
       &::before {
         content: '';
         position: absolute;
-        background: var(--default_bg_high);
+        background: #e6e6e6;
         display: block;
         width: calc(100% + 28px);
         height: 2px;
@@ -99,11 +99,11 @@
         width: 28px;
         top: 0;
         left: 0;
-        background: var(--default_bg_high);
+        background: #e6e6e6;
       }
       &.active {
         &:last-child::after {
-          background: var(--primary_bg);
+          background: #0066b0;
           height: 2px;
           width: 100%;
           transition: border-color 0.07s ease-in;
@@ -111,7 +111,7 @@
       }
       &.completed {
         &:last-child::after {
-          background: var(--primary_bg);
+          background: #0066b0;
           height: 2px;
           width: 100%;
           transition: border-color 0.07s ease-in;
@@ -119,7 +119,7 @@
       }
       &.error {
         &:last-child::after {
-          background: var(--primary_bg);
+          background: #0066b0;
           height: 2px;
           width: 100%;
           transition: border-color 0.07s ease-in;
@@ -142,11 +142,11 @@
         &.completed {
           &.active {
             &::before {
-              background: var(--primary_bg);
+              background: #0066b0;
             }
           }
           &::before {
-            background: var(--primary_bg);
+            background: #0066b0;
             height: 2px;
             width: calc(100% + 28px);
             transition: border-color 0.07s ease-in;
@@ -158,7 +158,7 @@
             top: 0;
             left: 28px;
             z-index: 1;
-            background: var(--primary_bg);
+            background: #0066b0;
             height: 2px;
             width: calc(100%);
           }
@@ -170,13 +170,13 @@
             top: 0;
             left: 28px;
             z-index: 1;
-            background: var(--primary_bg);
+            background: #0066b0;
             height: 2px;
             width: auto;
             // width: calc(100% / 2 - 28px);
           }
           &:last-child::after {
-            background: var(--primary_bg);
+            background: #0066b0;
             height: 2px;
             width: 100%;
             transition: border-color 0.07s ease-in;
@@ -188,7 +188,7 @@
         }
         &.error {
           &::before {
-            background: var(--primary_bg);
+            background: #0066b0;
             height: 2px;
             width: calc(100% + 28px);
             transition: border-color 0.07s ease-in;
@@ -200,7 +200,7 @@
             top: 0;
             left: 28px;
             z-index: 1;
-            background: var(--primary_bg);
+            background: #0066b0;
             height: 2px;
             width: calc(100%);
           }
@@ -212,13 +212,13 @@
             top: 0;
             left: 28px;
             z-index: 1;
-            background: var(--primary_bg);
+            background: #0066b0;
             height: 2px;
             width: auto;
             // width: calc(100% / 2 - 28px);
           }
           &:last-child::after {
-            background: var(--primary_bg);
+            background: #0066b0;
             height: 2px;
             width: 100%;
             transition: border-color 0.07s ease-in;
@@ -230,12 +230,12 @@
         }
         &.active {
           &::before {
-            background: var(--default_bg_high);
-            // background: var(--primary_bg);
+            background: #e6e6e6;
+            // background: #0066b0;
             // width: calc(100% / 2 - 28px);
           }
           &:last-child::after {
-            background: var(--default_bg_high);
+            background: #e6e6e6;
             height: 2px;
             width: 100%;
             transition: border-color 0.07s ease-in;
@@ -251,10 +251,10 @@
         }
         &.active .ghost,
         &.completed .ghost {
-          background: var(--primary_bg);
+          background: #0066b0;
         }
         &.error .ghost {
-          background: var(--primary_bg);
+          background: #0066b0;
         }
         // &.error {
         //   .hcl-wizard__user {
@@ -285,7 +285,7 @@
             width: 16px;
             height: 16px;
             border-radius: 50%;
-            background-color: var(--primary_bg);
+            background-color: #0066b0;
           }
         }
         &.error {
@@ -299,8 +299,8 @@
             width: 16px;
             height: 16px;
             border-radius: 50%;
-            background-color: var(--danger_icon);
-            border: 1px solid var(--danger_icon);
+            background-color: red;
+            border: 1px solid red;
           }
         }
         &.active {
@@ -310,9 +310,8 @@
             height: 16px;
             border-radius: 50%;
             border: none;
-            background-color: var(--primary_bg);
-            box-shadow: 0 0 0 1px var(--primary_bg),
-              0 0 0 3px var(--white) inset;
+            background-color: #0066b0;
+            box-shadow: 0 0 0 1px #0066b0, 0 0 0 3px #ffffff inset;
           }
         }
       }
@@ -323,7 +322,7 @@
       .wiz-item {
         &.active {
           ::before {
-            background: var(--primary_bg);
+            background: #0066b0;
           }
         }
       }
@@ -347,19 +346,19 @@
               top: 0;
               left: 28px;
               z-index: 1;
-              background: var(--primary_bg);
+              background: #0066b0;
               height: 2px;
               width: calc(100% / 2 - 28px);
             }
             .ghost {
-              background: var(--primary_bg);
+              background: #0066b0;
             }
           }
         }
         &::before {
           content: '';
           position: absolute;
-          background: var(--default_bg_high);
+          background: #e6e6e6;
           display: block;
           width: calc(100% + 28px);
           height: 2px;
@@ -371,7 +370,7 @@
           &::before {
             content: '';
             position: absolute;
-            background: var(--primary_bg);
+            background: #0066b0;
             display: block;
             width: calc(100% + 28px);
             height: 2px;
@@ -386,7 +385,7 @@
             top: 0;
             left: 28px;
             z-index: 1;
-            background: var(--primary_bg);
+            background: #0066b0;
             height: 2px;
             width: calc(100% / 2 - 28px);
           }
@@ -395,7 +394,7 @@
           &::before {
             content: '';
             position: absolute;
-            background: var(--primary_bg);
+            background: #0066b0;
             display: block;
             width: calc(100% + 28px);
             height: 2px;
@@ -410,7 +409,7 @@
             top: 0;
             left: 28px;
             z-index: 1;
-            background: var(--primary_bg);
+            background: #0066b0;
             height: 2px;
             width: calc(100% / 2 - 28px);
           }
@@ -419,12 +418,12 @@
           // &::before {
           //   content: '';
           //   position: absolute;
-          //   background: var(--primary_bg);
+          //   background: #0066b0;
           //   display: block;
           //   width: calc(100% / 2 + 28px);
           // }
           .ghost {
-            background: var(--default_bg_high);
+            background: #e6e6e6;
           }
           .hcl-wizard__user {
             padding: 3px;
@@ -436,7 +435,7 @@
           }
         }
         // .ghost {
-        //   background: var(--primary_bg);
+        //   background: #0066b0;
         // }
         .hcl-wizard-left-pane {
           padding: 8px 0;
@@ -451,63 +450,6 @@
       }
     }
     // Wizard with no title - Design 2
-    // Only desktop noicon - Design 2
-    &.hcl-wizard__no-title.no-icon {
-      .wiz-item {
-        .hcl-wizard__user {
-          width: 16px;
-          height: 16px;
-        }
-        &.completed {
-          &.active {
-            .hcl-wizard__user {
-              border: none;
-            }
-          }
-          .hcl-wizard__user {
-            box-sizing: border-box;
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            background-color: var(--primary_bg);
-          }
-          .ghost {
-            background: var(--primary_bg);
-          }
-        }
-        &.error {
-          &.active {
-            .hcl-wizard__user {
-              border: none;
-            }
-          }
-          .hcl-wizard__user {
-            box-sizing: border-box;
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            background-color: var(--danger_icon);
-            border: 1px solid var(--danger_icon);
-          }
-          .ghost {
-            background: var(--primary_bg);
-          }
-        }
-        &.active {
-          .hcl-wizard__user {
-            box-sizing: border-box;
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            border: none;
-            background-color: var(--primary_bg);
-            box-shadow: 0 0 0 1px var(--primary_bg),
-              0 0 0 3px var(--white) inset;
-          }
-        }
-      }
-    }
-    // Only desktop noicon - Design 2
   }
   // For mobile Layout - Design 3
   &:not(.desktop) {
@@ -552,6 +494,8 @@
       position: relative;
       width: 44px;
       height: 44px;
+      .ghost {
+      }
       .wiz-icon,
       &.counter .wiz-icon,
       .wiz-content {
@@ -563,7 +507,7 @@
         justify-content: center;
         align-items: center;
         border-radius: 50%;
-        border: 1px solid var(--primary_bg);
+        border: 1px solid #0066b0;
         width: 24px;
         height: 24px;
         top: 50%;
@@ -587,16 +531,16 @@
         width: 16px;
         height: 16px;
         display: inline-block;
-        border: 1px solid var(--primary_bg);
+        border: 1px solid #0066b0;
         border-radius: 50%;
         background: none;
       }
       .no-icon-child {
         position: relative;
         display: inline-block;
-        /* border:1px solid var(--primary_bg); */
+        /* border:1px solid #0066B0; */
         border-radius: 50%;
-        /* background: var(--primary_bg); */
+        /* background: #0066B0; */
         width: 84%;
         height: 84%;
         top: 0%;
@@ -613,23 +557,23 @@
         }
         &.active {
           .no-icon-container {
-            border: 1px solid var(--primary_bg);
+            border: 1px solid #0066b0;
           }
         }
       }
       &.completed {
         .no-icon-child {
-          background: var(--primary_bg);
-          border: 1px solid var(--primary_bg);
+          background: #0066b0;
+          border: 1px solid #0066b0;
         }
         .no-icon-container {
-          background: var(--primary_bg);
+          background: #0066b0;
         }
       }
       &.active {
         .no-icon-child {
-          background: var(--primary_bg);
-          border: 1px solid var(--primary_bg);
+          background: #0066b0;
+          border: 1px solid #0066b0;
         }
         .no-icon-container {
           background: none;

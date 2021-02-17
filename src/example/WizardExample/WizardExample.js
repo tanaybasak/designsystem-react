@@ -9,12 +9,8 @@ import FormHelperText from '../../atoms/FormHelperText';
 import Label from '../../atoms/Label';
 import FileUploader from '../../molecules/FileUploader';
 import TextArea from '../../atoms/TextArea';
+import Tile from '../../atoms/Tile';
 
-const wizardInnerComponentStyle = {
-  boxShadow: '2px 0 8px 3px hsl(0deg 0% 58% / 50%)',
-  padding: '15px',
-  margin: '10px'
-};
 class WizardExample extends Component {
   constructor(props) {
     super(props);
@@ -57,15 +53,16 @@ class WizardExample extends Component {
     const idx = this.state.wizardmodel
       .slice()
       .reverse()
-      .findIndex(item => (item['status'] = 'completed'));
+      .findIndex(item => item['status'] === 'completed');
     return idx;
   };
 
   handleStepClick = (idx, e) => {
+    // debugger;
     if (this.state.selIndex === idx) {
       return;
     }
-    // if (this.lastStepCompleted() < idx) {
+    // if (this.lastStepCompleted() > this.state.selIndex) {
     //   return;
     // }
     // if (idx > this.state.selIndex) {
@@ -94,19 +91,29 @@ class WizardExample extends Component {
     });
   };
 
+  componentDidUpdate() {
+    console.log('did update', this.state.wizardmodel);
+  }
+
   handleNext = e => {
     if (e) e.preventDefault();
-    console.log(this.state.selIndex);
+    // console.log('next', this.state.selIndex);
     if (this.state.selIndex < this.state.wizardmodel.length - 1) {
-      this.setState({
-        selIndex: this.state.selIndex + 1,
-        wizardmodel: this.state.wizardmodel.map((item, idx) => {
-          if (idx === this.state.selIndex) {
-            item['status'] = 'completed';
-          }
-          return item;
-        })
-      });
+      // debugger;
+      this.setState(
+        {
+          selIndex: this.state.selIndex + 1,
+          wizardmodel: this.state.wizardmodel.map((item, idx) => {
+            if (idx === this.state.selIndex) {
+              item['status'] = 'completed';
+            }
+            return item;
+          })
+        },
+        () => {
+          console.log('callback', this.state.wizardmodel);
+        }
+      );
     }
   };
 
@@ -149,7 +156,7 @@ class WizardExample extends Component {
     switch (this.state.selIndex) {
       case 0:
         return (
-          <div className="hcl-container">
+          <>
             <div className="hcl-col-3 hcl-form-group">
               <TextInput
                 type="text"
@@ -176,11 +183,11 @@ class WizardExample extends Component {
               />
               <Label htmlFor="lastname">Last Name</Label>
             </div>
-          </div>
+          </>
         );
       case 1:
         return (
-          <div className="hcl-container">
+          <>
             <div className="hcl-col-3 hcl-form-group">
               <FileUploader
                 className="hcl-btn hcl-primary hcl-sm"
@@ -195,11 +202,11 @@ class WizardExample extends Component {
                 Upload
               </FileUploader>
             </div>
-          </div>
+          </>
         );
       case 2:
         return (
-          <div className="hcl-container">
+          <>
             <div className="hcl-col-3 hcl-form-group">
               <TextArea
                 aria-label="comments"
@@ -207,11 +214,11 @@ class WizardExample extends Component {
               />
               <Label htmlFor="social">Social Markup Content</Label>
             </div>
-          </div>
+          </>
         );
       case 3:
         return (
-          <div className="hcl-container">
+          <>
             <div className="hcl-col-3 hcl-form-group">
               <TextInput
                 type="text"
@@ -245,11 +252,11 @@ class WizardExample extends Component {
                 Campaign URL generated from Campaign URL Builder
               </div>
             </div>
-          </div>
+          </>
         );
       case 4:
         return (
-          <div className="hcl-container">
+          <>
             <div className="hcl-col-3 hcl-form-group">
               <TextInput
                 type="text"
@@ -282,19 +289,29 @@ class WizardExample extends Component {
                 Enter Last Name
               </FormHelperText>
             </div>
-          </div>
+          </>
         );
       default:
         return null;
     }
   };
 
+  wizardInnerComponentStyle = () => ({
+    boxShadow: '2px 0 8px 3px hsl(0deg 0% 58% / 50%)',
+    padding:
+      this.state.selIndex === null && this.isAllStepsCompleted()
+        ? '45px'
+        : '15px',
+    margin: '10px',
+    width: '100%'
+  });
+
   render() {
     return (
-      <div className="hcl-container">
+      <div className="hcl-container blue_active_blue_light">
         <div className="hcl-row">
           <Wizard
-            kind={'style1'}
+            kind={'style2'}
             // iconType="noicon"
             currentStepLabel={
               this.state.selIndex != null &&
@@ -315,19 +332,37 @@ class WizardExample extends Component {
                   title={item.title}
                   description={item.description}
                   status={item.status}
+                  // activeIcon={
+                  //   <img
+                  //     style={{ width: '100%', height: '100%' }}
+                  //     src={
+                  //       'https://png.pngtree.com/element_our/png/20181011/instagram-social-media-icon-design-template-vector-png_126996.jpg'
+                  //     }
+                  //   />
+                  // }
+                  // defaultIcon={
+                  //   <img
+                  //     style={{ width: '100%', height: '100%' }}
+                  //     src={
+                  //       'https://img.icons8.com/plasticine/2x/google-logo.png'
+                  //     }
+                  //   />
+                  // }
                   onClick={this.handleStepClick.bind(this, idx)}
                 />
               );
             })}
           </Wizard>
         </div>
-        <div className="hcl-row" style={wizardInnerComponentStyle}>
-          {this.state.selIndex > -1 ? this.stepComponent() : null}
-          {this.state.selIndex === null && this.isAllStepsCompleted() ? (
-            <div style={{ textAlign: 'center', width: '100%' }}>
-              All Steps completed!
-            </div>
-          ) : null}
+        <div className="hcl-row">
+          <Tile type="readable" style={this.wizardInnerComponentStyle()}>
+            {this.state.selIndex > -1 ? this.stepComponent() : null}
+            {this.state.selIndex === null && this.isAllStepsCompleted() ? (
+              <div style={{ textAlign: 'center', width: '100%' }}>
+                All Steps completed!
+              </div>
+            ) : null}
+          </Tile>
         </div>
         <div className="hcl-row" style={{ justifyContent: 'center' }}>
           {this.isAllStepsCompleted() ? (
