@@ -13,6 +13,7 @@ const Tile = ({
   href,
   foldContentAbove,
   foldContentBelow,
+  onChange,
   ...restProps
 }) => {
   let classNames = null;
@@ -23,9 +24,7 @@ const Tile = ({
 
   const toggle = () => {
     setChecked(!checked);
-    if (restProps.onChange) {
-      restProps.onChange(!checked);
-    }
+    onChange(!checked);
   };
 
   const keyDownOnTile = e => {
@@ -38,9 +37,7 @@ const Tile = ({
       if (input) {
         setChecked(!checked);
       }
-      if (restProps.onChange) {
-        restProps.onChange(!checked);
-      }
+      onChange(!checked);
     }
   };
 
@@ -167,6 +164,9 @@ Tile.propTypes = {
   /**  Content below expandable tile */
   foldContentBelow: PropTypes.node,
 
+  /** Accepts event handler as prop/argument. */
+  onChange: PropTypes.func,
+
   /** For Readable, Clickable & Selectable Tile:  
   Content for tile. */
   children: PropTypes.any,
@@ -203,7 +203,8 @@ Tile.defaultProps = {
   type: 'readable',
   expandableType: 'bottom',
   foldContentAbove: null,
-  foldContentBelow: null
+  foldContentBelow: null,
+  onChange: () => {}
 };
 
 export default Tile;
