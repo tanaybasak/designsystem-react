@@ -21,13 +21,6 @@
     margin: 0;
     flex: 1 1 0;
     &.linear {
-      // .wiz-item.active:not(:first-child),
-      // .wiz-item.active.completed:not(:first-child),
-      // .wiz-item.error:not(:first-child) {
-      //   &:hover {
-      //     cursor: pointer;
-      //   }
-      // }
       .wiz-item.completed:not(.active):first-child,
       .wiz-item.error:not(.active):first-child {
         &:hover {
@@ -52,6 +45,14 @@
       .wiz-item.error:not(.active) + .error,
       .wiz-item.error:not(.active) + .completed,
       .wiz-item.completed:not(.active) + .error {
+        &:hover {
+          background: var(--interactive_bg_hover);
+          cursor: pointer;
+        }
+      }
+    }
+    &.nonlinear {
+      .wiz-item {
         &:hover {
           background: var(--interactive_bg_hover);
           cursor: pointer;
