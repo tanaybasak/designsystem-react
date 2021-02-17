@@ -101,15 +101,10 @@ storiesOf('Sidebar', module)
       <Sidebar
         title={text('Title', 'Default')}
         icon={
-          boolean('Show Header Icon', true) ? (
-            <i
-              className={`p-hclsw p-hclsw-${select(
-                'Title Icon',
-                icons,
-                'user'
-              )}`}
-            />
-          ) : null
+          <i
+            // style={{ color: 'white' }}
+            className={`p-hclsw p-hclsw-${select('Title Icon', icons, 'user')}`}
+          />
         }
         expanded={boolean('Expanded', true)}
         items={items}
@@ -163,9 +158,15 @@ storiesOf('Sidebar', module)
       <Sidebar
         title={text('Title', 'Default')}
         icon={
-          <i
-            className={`p-hclsw p-hclsw-${select('Title Icon', icons, 'user')}`}
-          />
+          boolean('Show Header Icon', true) ? (
+            <i
+              className={`p-hclsw p-hclsw-${select(
+                'Title Icon',
+                icons,
+                'user'
+              )}`}
+            />
+          ) : null
         }
         expanded={boolean('Expanded', true)}
         items={internalitems}
