@@ -391,6 +391,11 @@
               background: var(--primary_bg);
             }
           }
+          &.completed {
+            .ghost {
+              background: var(--primary_bg);
+            }
+          }
         }
         &::before {
           content: '';
