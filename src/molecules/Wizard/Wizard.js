@@ -1,5 +1,5 @@
 /* eslint-disable react/self-closing-comp */
-import React, { useState, cloneElement, Children } from 'react';
+import React, { useState, cloneElement, Children, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 const Wizard = React.forwardRef(
@@ -50,12 +50,15 @@ const Wizard = React.forwardRef(
     };
 
     const modifiedChildren = Children.map(childs, (child, idx) => {
+      // debugger;
       return cloneElement(child, {
         key: idx,
         index: idx,
         active: idx === activeIndex ? true : false,
         onClick:
-          linear && lastCompletedStep + 1 < idx ? null : child.props.onClick,
+          linear && (lastCompletedStep === null || lastCompletedStep + 1 < idx)
+            ? null
+            : child.props.onClick,
         stepcallBack,
         iconType: iconType
       });
