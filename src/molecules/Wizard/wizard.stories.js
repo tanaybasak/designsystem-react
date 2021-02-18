@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { text, select, boolean } from '@storybook/addon-knobs';
+import { text, select } from '@storybook/addon-knobs';
 //@update-path-build-start
 import { Wizard, Step } from './index';
 //@update-path-build-end
@@ -29,7 +29,7 @@ storiesOf('Wizard', module).add(
   () => (
     <Wizard
       kind={select('kind', varients, 'style1')}
-      activeIndex={select('Active Index', formatOptions, 2)}
+      activeIndex={select('activeIndex', formatOptions, 2)}
     >
       <Step
         status={select('status 1', status, 'completed')}
