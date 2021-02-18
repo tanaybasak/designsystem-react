@@ -1,5 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
+import { action } from '@storybook/addon-actions';
 import { text } from '@storybook/addon-knobs';
 //@update-path-build-start
 import Tile from './Tile';
@@ -62,6 +63,7 @@ storiesOf('Tile', module)
         type="expandable"
         foldContentAbove={text('Content Above', 'Content Above')}
         foldContentBelow={text('Content Below', 'Content Below')}
+        onChange={action('Toggle')}
       />
     ),
     {
@@ -80,6 +82,7 @@ storiesOf('Tile', module)
         expandableType="top"
         foldContentAbove={text('Content Above', 'Content Above')}
         foldContentBelow={text('Content Below', 'Content below')}
+        onChange={action('Toggle')}
       />
     ),
     {
