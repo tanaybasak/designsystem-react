@@ -1,10 +1,16 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { text, boolean } from '@storybook/addon-knobs';
+import { text, boolean, object } from '@storybook/addon-knobs';
 //@update-path-build-start
 import TimePicker from './TimePicker';
 //@update-path-build-end
+
+const defaultTime = {
+  time: '1:24',
+  period: 'PM',
+  timezone: 'Time zone 2'
+};
 
 const timeZones = ['Time zone 1', 'Time zone 2', 'Time zone 3'];
 storiesOf('TimePicker', module)
@@ -18,7 +24,7 @@ storiesOf('TimePicker', module)
         disabled={boolean('Disabled', false)}
         onChange={action('Timepicker Onchange')}
         aria-label="Time Picker"
-        defaultTime={text('Default Time', '12:05')}
+        defaultTime={object('Default Time', defaultTime)}
       />
     ),
     {
@@ -40,7 +46,7 @@ storiesOf('TimePicker', module)
         disabled={boolean('Disabled', false)}
         onChange={action('Timepicker Onchange')}
         aria-label="Time Picker"
-        defaultTime={text('Default Time', '21:15')}
+        defaultTime={object('Default Time', defaultTime)}
       />
     ),
     {
@@ -60,7 +66,7 @@ storiesOf('TimePicker', module)
         disabled={boolean('Disabled', false)}
         onChange={action('Timepicker Onchange')}
         timeZones={timeZones}
-        defaultTime={text('Default Time', '01:00')}
+        defaultTime={object('Default Time', defaultTime)}
         aria-label="Time Picker"
       />
     ),

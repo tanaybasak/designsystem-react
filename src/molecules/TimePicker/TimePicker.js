@@ -19,22 +19,40 @@ const TimePicker = ({
 }) => {
   const classnames = `${prefix}-timepicker ${className}`.trim();
   const [validationMessage, setErrorMessage] = useState('');
-  const [time, setTime] = useState(defaultTime);
+  const [time, setTime] = useState(defaultTime.time);
 
   useEffect(() => {
-    setTime(defaultTime);
-    const valid = isValidTime(time, timeObj.period);
-    if (valid) {
-      setErrorMessage('');
-    } else {
-      setErrorMessage(msg_invalid_time);
+    if (defaultTime) {
+      setTime(defaultTime.time);
+      const tempTimeObj = { ...defaultTime };
+      setTimeObject(tempTimeObj);
+      if (validationMessage === '') {
+        onChange(tempTimeObj);
+      }
+      if (defaultTime.time) {
+        const valid = isValidTime(defaultTime.time, timeObj.period);
+        if (valid) {
+          setErrorMessage('');
+        } else {
+          setErrorMessage(msg_invalid_time);
+        }
+      }
     }
   }, [defaultTime]);
 
   const [timeObj, setTimeObject] = useState({
-    time: '',
-    period: type === 'HH' ? type : period.am,
-    timezone: timeZones && timeZones.length > 0 ? timeZones[0] : null
+    time: defaultTime.time ? defaultTime.time : '',
+    period:
+      type === 'HH'
+        ? type
+        : defaultTime.period
+        ? defaultTime.period
+        : period.am,
+    timezone: defaultTime.timezone
+      ? defaultTime.timezone
+      : timeZones && timeZones.length > 0
+      ? timeZones[0]
+      : null
   });
 
   const onSelectPeriod = event => {
@@ -191,6 +209,7 @@ const TimePicker = ({
             className={`${prefix}-select`}
             aria-label="choose option"
             onChange={onSelectPeriod}
+            value={timeObj.period}
             disabled={disabled}
           >
             <option className={`${prefix}-select-option`} value={period.am}>
@@ -206,6 +225,7 @@ const TimePicker = ({
           <select
             className={`${prefix}-select`}
             aria-label="choose option"
+            value={timeObj.timezone}
             onChange={onSelectTimezone}
             disabled={disabled}
           >
@@ -245,8 +265,20 @@ TimePicker.propTypes = {
   id: PropTypes.string,
   /** Specifies helper text */
   helperText: PropTypes.string,
-  /** This prop allows user to pass default time */
-  defaultTime: PropTypes.string,
+  /** This prop allows user to pass default time
+   * eg:
+   * {
+   *    time: '12:00', // time
+   *    period: 'AM'  // AM,PM
+   *    timezone: 'Timezone 1' //timezone values
+   * }
+   */
+  //defaultTime: PropTypes.object,
+  defaultTime: PropTypes.shape({
+    time: PropTypes.string,
+    period: PropTypes.any,
+    timezone: PropTypes.string
+  }),
   /**
    * Used to specify the type of time picker
    * hh : 12hours clock
@@ -267,7 +299,11 @@ TimePicker.defaultProps = {
   className: '',
   type: 'hh',
   labelHH: '',
-  defaultTime: '',
+  defaultTime: {
+    time: '',
+    period: '',
+    timezone: ''
+  },
   disabled: false
 };
 
