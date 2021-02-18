@@ -18,6 +18,13 @@ const varients = {
   mobile: 'mobile'
 };
 
+const grouping = {
+  step1: 'step1',
+  step2: 'step2',
+  step3: 'step3',
+  wizard: 'wizard'
+};
+
 const status = {
   default: 'default',
   completed: 'completed',
@@ -28,26 +35,26 @@ storiesOf('Wizard', module).add(
   'default',
   () => (
     <Wizard
-      kind={select('kind', varients, 'style1')}
-      activeIndex={select('activeIndex', formatOptions, 2)}
+      kind={select('kind', varients, 'style1', grouping.wizard)}
+      activeIndex={select('activeIndex', formatOptions, 2, grouping.wizard)}
     >
       <Step
-        status={select('status 1', status, 'completed')}
-        title={text('Title 1', 'Step 1')}
-        description={text('Description 1', 'Description 1')}
-        onClick={action('Step clicked')}
+        status={select('status', status, 'completed', grouping.step1)}
+        title={text('Title', 'Step 1', grouping.step1)}
+        description={text('Description', 'Description 1', grouping.step1)}
+        onClick={action('Step clicked', grouping.step1)}
       />
       <Step
-        status={select('status 2', status, 'error')}
-        title={text('Title 2', 'Step 2')}
-        description={text('Description 2', 'Description 2')}
-        onClick={action('Step clicked')}
+        status={select('status', status, 'error', grouping.step2)}
+        title={text('Title', 'Step 2', grouping.step2)}
+        description={text('Description', 'Description 2', grouping.step2)}
+        onClick={action('Step clicked', grouping.step2)}
       />
       <Step
-        status={select('status 3', status, 'default')}
-        title={text('Title 3', 'Step 3')}
-        description={text('Description 3', 'Description 3')}
-        onClick={action('Step clicked')}
+        status={select('status', status, 'default', grouping.step3)}
+        title={text('Title', 'Step 3', grouping.step3)}
+        description={text('Description', 'Description 3', grouping.step3)}
+        onClick={action('Step clicked', grouping.step3)}
       />
     </Wizard>
   ),
