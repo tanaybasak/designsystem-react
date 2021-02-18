@@ -18,27 +18,33 @@ const varients = {
   mobile: 'mobile'
 };
 
+const status = {
+  default: 'default',
+  completed: 'completed',
+  error: 'error'
+};
+
 storiesOf('Wizard', module).add(
   'default',
   () => (
     <Wizard
-      linear={boolean('linear', true)}
       kind={select('kind', varients, 'style1')}
       activeIndex={select('Active Index', formatOptions, 2)}
     >
       <Step
+        status={select('status 1', status, 'completed')}
         title={text('Title 1', 'Step 1')}
         description={text('Description 1', 'Description 1')}
-        status={'completed'}
         onClick={action('Step clicked')}
       />
       <Step
+        status={select('status 2', status, 'error')}
         title={text('Title 2', 'Step 2')}
         description={text('Description 2', 'Description 2')}
-        status={'error'}
         onClick={action('Step clicked')}
       />
       <Step
+        status={select('status 3', status, 'default')}
         title={text('Title 3', 'Step 3')}
         description={text('Description 3', 'Description 3')}
         onClick={action('Step clicked')}
