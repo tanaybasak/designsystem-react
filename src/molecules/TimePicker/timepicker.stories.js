@@ -18,6 +18,7 @@ storiesOf('TimePicker', module)
         disabled={boolean('Disabled', false)}
         onChange={action('Timepicker Onchange')}
         aria-label="Time Picker"
+        defaultTime={text('Default Time', '12:05')}
       />
     ),
     {
@@ -39,6 +40,7 @@ storiesOf('TimePicker', module)
         disabled={boolean('Disabled', false)}
         onChange={action('Timepicker Onchange')}
         aria-label="Time Picker"
+        defaultTime={text('Default Time', '21:15')}
       />
     ),
     {
@@ -58,6 +60,7 @@ storiesOf('TimePicker', module)
         disabled={boolean('Disabled', false)}
         onChange={action('Timepicker Onchange')}
         timeZones={timeZones}
+        defaultTime={text('Default Time', '01:00')}
         aria-label="Time Picker"
       />
     ),

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 import { period, msg_invalid_time } from '../../content';
@@ -11,6 +11,7 @@ const TimePicker = ({
   helperText,
   id,
   onChange,
+  defaultTime,
   type,
   labelHH,
   disabled,
@@ -18,7 +19,17 @@ const TimePicker = ({
 }) => {
   const classnames = `${prefix}-timepicker ${className}`.trim();
   const [validationMessage, setErrorMessage] = useState('');
-  const [time, setTime] = useState('');
+  const [time, setTime] = useState(defaultTime);
+
+  useEffect(() => {
+    setTime(defaultTime);
+    const valid = isValidTime(time, timeObj.period);
+    if (valid) {
+      setErrorMessage('');
+    } else {
+      setErrorMessage(msg_invalid_time);
+    }
+  }, [defaultTime]);
 
   const [timeObj, setTimeObject] = useState({
     time: '',
@@ -234,6 +245,8 @@ TimePicker.propTypes = {
   id: PropTypes.string,
   /** Specifies helper text */
   helperText: PropTypes.string,
+  /** This props allows user to pass default time */
+  defaultTime: PropTypes.string,
   /**
    * Used to specify the type of time picker
    * hh : 12hours clock
@@ -254,6 +267,7 @@ TimePicker.defaultProps = {
   className: '',
   type: 'hh',
   labelHH: '',
+  defaultTime: '',
   disabled: false
 };
 

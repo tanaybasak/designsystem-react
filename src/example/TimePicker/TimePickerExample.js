@@ -11,6 +11,7 @@ class TimePickerExample extends Component {
             timeZones={['Time zone 1', 'Time zone 2', 'Time zone 3']}
             label="Select a time"
             helperText="24H time"
+            defaultTime="21:14"
             type="HH"
             onChange={selected => {
               console.log('selected item', selected);
@@ -22,6 +23,7 @@ class TimePickerExample extends Component {
             timeZones={['Time zone 1', 'Time zone 2', 'Time zone 3']}
             label="Select a time"
             helperText="12H time"
+            defaultTime="1:14"
             onChange={selected => {
               console.log('selected item', selected);
             }}
@@ -32,6 +34,7 @@ class TimePickerExample extends Component {
             label="Select a time"
             helperText="24H time"
             type="HH"
+            defaultTime="21:14"
             onChange={selected => {
               console.log('selected item', selected);
             }}
