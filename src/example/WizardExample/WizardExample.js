@@ -284,7 +284,7 @@ class WizardExample extends Component {
       <div className="hcl-container">
         <div className="hcl-row">
           <Wizard
-            kind={'style2'}
+            kind={'style1'}
             // iconType="noicon"
             currentStepLabel={
               this.state.selIndex != null &&
