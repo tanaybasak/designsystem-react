@@ -40,20 +40,20 @@ storiesOf('Wizard', module).add(
     >
       <Step
         status={select('status', status, 'completed', grouping.step1)}
-        title={text('Title', 'Step 1', grouping.step1)}
-        description={text('Description', 'Description 1', grouping.step1)}
+        title={text('title', 'Step 1', grouping.step1)}
+        description={text('description', 'Description 1', grouping.step1)}
         onClick={action('Step clicked', grouping.step1)}
       />
       <Step
         status={select('status', status, 'error', grouping.step2)}
-        title={text('Title', 'Step 2', grouping.step2)}
-        description={text('Description', 'Description 2', grouping.step2)}
+        title={text('title', 'Step 2', grouping.step2)}
+        description={text('description', 'Description 2', grouping.step2)}
         onClick={action('Step clicked', grouping.step2)}
       />
       <Step
         status={select('status', status, 'default', grouping.step3)}
-        title={text('Title', 'Step 3', grouping.step3)}
-        description={text('Description', 'Description 3', grouping.step3)}
+        title={text('title', 'Step 3', grouping.step3)}
+        description={text('description', 'Description 3', grouping.step3)}
         onClick={action('Step clicked', grouping.step3)}
       />
     </Wizard>
