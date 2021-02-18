@@ -159,7 +159,7 @@ export const Close = (
 
 export const User = (
   <svg
-    style={{ fill: 'var(--default_icon_high)' }}
+    style={{ fill: 'var(--default_icon_high)', width: '100%', height: '100%' }}
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 16 16"
   >
@@ -171,7 +171,7 @@ export const User = (
 export const activeUser = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    style={{ fill: 'var(--white)' }}
+    style={{ fill: 'var(--white)', width: '100%', height: '100%' }}
     viewBox="0 0 16 16"
   >
     <rect width="16" height="16" fill="none" />
@@ -181,7 +181,7 @@ export const activeUser = (
 
 export const CheckMark = (
   <svg
-    style={{ fill: 'var(--secondary_icon)' }}
+    style={{ fill: 'var(--secondary_icon)', width: '100%', height: '100%' }}
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 16 16"
   >
@@ -192,7 +192,7 @@ export const CheckMark = (
 
 export const Error = (
   <svg
-    style={{ fill: 'var(--danger_icon)' }}
+    style={{ fill: 'var(--danger_icon)', width: '100%', height: '100%' }}
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 16 16"
   >
