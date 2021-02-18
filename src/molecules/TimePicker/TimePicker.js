@@ -245,7 +245,7 @@ TimePicker.propTypes = {
   id: PropTypes.string,
   /** Specifies helper text */
   helperText: PropTypes.string,
-  /** This props allows user to pass default time */
+  /** This prop allows user to pass default time */
   defaultTime: PropTypes.string,
   /**
    * Used to specify the type of time picker
