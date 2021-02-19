@@ -64,6 +64,7 @@ const RichTextEditor = ({
     if (range) {
       if (range.length == 0) {
         const formats = quillRef.current.getFormat();
+        toggleActiveStyles(formats);
         if (formats['link']) {
           if (!showTootip) {
             setTextVal(formats.link);
@@ -75,7 +76,6 @@ const RichTextEditor = ({
           setLeft(bound.left - 40);
         } else {
           toggleTooltip(false);
-          toggleActiveStyles(quillRef.current.getFormat());
         }
       } else {
         var text = quillRef.current.getText(range.index, range.length);
@@ -309,6 +309,8 @@ const RichTextEditor = ({
                         ? quillRef.current.getFormat().link
                         : textVal
                     }
+                    rel="noopener noreferrer"
+                    target="_blank"
                   >
                     {quillRef.current.getFormat().link
                       ? quillRef.current.getFormat().link
