@@ -6,3 +6,13 @@
 #root {
   height: 100vh;
 }
+
+.hcl-inpage-navigation-wrapper {
+  position: fixed;
+  top: 400px;
+  right: 27px;
+}
+
+nav.hcl-sidebar.hcl-sidebar-left {
+  float: left;
+}

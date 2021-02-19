@@ -11,6 +11,9 @@ const Tile = ({
   expandableType,
   id,
   href,
+  foldContentAbove,
+  foldContentBelow,
+  onChange,
   ...restProps
 }) => {
   let classNames = null;
@@ -21,6 +24,7 @@ const Tile = ({
 
   const toggle = () => {
     setChecked(!checked);
+    onChange(!checked);
   };
 
   const keyDownOnTile = e => {
@@ -33,6 +37,7 @@ const Tile = ({
       if (input) {
         setChecked(!checked);
       }
+      onChange(!checked);
     }
   };
 
@@ -86,36 +91,38 @@ const Tile = ({
     const classNameType = expandableType === 'top' ? 'arrow-top-left' : '';
     classNames = `${prefix}-tile-expandable ${className} ${classNameType}`.trim();
     return (
-      <div className={`${prefix}-row`}>
-        <div
-          className={classNames}
+      <div
+        className={classNames}
+        tabIndex="0"
+        ref={expandableElement}
+        {...restProps}
+      >
+        <input
+          id={`${id}`}
+          className={`${prefix}-tile-input`}
+          type="checkbox"
+          onChange={toggle}
+          title="tile"
+          checked={checked}
+        />
+        <label
+          htmlFor={`${id}`}
+          onKeyDown={keyDownOnTile}
+          className={`${prefix}-tile-arrow`}
           tabIndex="0"
-          ref={expandableElement}
-          {...restProps}
         >
-          <input
-            id={`${id}`}
-            className={`${prefix}-tile-input`}
-            type="checkbox"
-            onChange={toggle}
-            title="tile"
-            checked={checked}
-          />
-          <label
-            htmlFor={`${id}`}
-            onKeyDown={keyDownOnTile}
-            className={`${prefix}-tile-arrow`}
-            tabIndex="0"
-          >
-            <svg width="12" height="7" viewBox="0 0 12 7">
-              <path
-                fillRule="nonzero"
-                d="M6.002 5.55L11.27 0l.726.685L6.003 7 0 .685.726 0z"
-              />
-            </svg>
-          </label>
-          <div className={`${prefix}-tile-content`}>{children[0]}</div>
-          <div className={`${prefix}-tile-hide`}>{children[1]}</div>
+          <svg width="12" height="7" viewBox="0 0 12 7">
+            <path
+              fillRule="nonzero"
+              d="M6.002 5.55L11.27 0l.726.685L6.003 7 0 .685.726 0z"
+            />
+          </svg>
+        </label>
+        <div className={`${prefix}-tile-content`}>
+          {foldContentAbove ? foldContentAbove : null}
+        </div>
+        <div className={`${prefix}-tile-hide`}>
+          {foldContentBelow ? foldContentBelow : null}
         </div>
       </div>
     );
@@ -132,15 +139,10 @@ const Tile = ({
 
   return (
     <>
-      {children
-        ? type === 'clickable'
-          ? clickableTile()
-          : type === 'selectable'
-          ? selectableTile()
-          : type === 'expandable'
-          ? expandableTile()
-          : readableTile()
-        : null}
+      {children && type === 'clickable' ? clickableTile() : null}
+      {children && type === 'selectable' ? selectableTile() : null}
+      {children && type === 'readable' ? readableTile() : null}
+      {type === 'expandable' ? expandableTile() : null}
     </>
   );
 };
@@ -157,12 +159,17 @@ Tile.propTypes = {
 
   /** expandableType: top or bottom arrow option. */
   expandableType: PropTypes.string,
+  /**  Content above expandable tile */
+  foldContentAbove: PropTypes.node,
+  /**  Content below expandable tile */
+  foldContentBelow: PropTypes.node,
+
+  /** Accepts event handler as prop/argument. */
+  onChange: PropTypes.func,
 
   /** For Readable, Clickable & Selectable Tile:  
-  Content for tile. 
-  For Expandable: 
-  Two children are input. First will be shown prior expand and second will be shown after expand  */
-  children: PropTypes.any.isRequired,
+  Content for tile. */
+  children: PropTypes.any,
 
   /** Unique Identifier for Tile, applicable only for selectable tile.  */
   id: function (props, propName, componentName) {
@@ -194,7 +201,10 @@ Tile.propTypes = {
 Tile.defaultProps = {
   className: '',
   type: 'readable',
-  expandableType: 'bottom'
+  expandableType: 'bottom',
+  foldContentAbove: null,
+  foldContentBelow: null,
+  onChange: () => {}
 };
 
 export default Tile;

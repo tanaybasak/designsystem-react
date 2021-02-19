@@ -5,7 +5,7 @@ import { updateTreeNode } from '../../util/treeUtil';
 import TreeDispatchContext from './treeDispatchContext';
 import TreeStateContext from './treeStateContext';
 import TreeFunctionContext from './treeFunctionContext';
-const TreeInlineEditor = ({ content, node, level, updateTextStatus }) => {
+const TreeInlineEditor = ({ content, node, level }) => {
   const [formStatus, updateFormStaus] = useState(false);
   const [errorMessage, updateErrorMessage] = useState(null);
 
@@ -39,19 +39,19 @@ const TreeInlineEditor = ({ content, node, level, updateTextStatus }) => {
 
         updateFormStaus(false);
         updateErrorMessage('');
-        updateTextStatus(false);
+        dispatch({ type: 'SET_RENAME_NODE_ID', data: null });
       } else {
         updateFormStaus(true);
         updateErrorMessage(flag[1]);
       }
     } else {
       updateFormStaus(false);
-      updateTextStatus(false);
+      dispatch({ type: 'SET_RENAME_NODE_ID', data: null });
     }
   };
 
   const closeTextField = () => {
-    updateTextStatus(false);
+    dispatch({ type: 'SET_RENAME_NODE_ID', data: null });
     updateFormStaus(false);
   };
 
@@ -69,15 +69,13 @@ const TreeInlineEditor = ({ content, node, level, updateTextStatus }) => {
 TreeInlineEditor.propTypes = {
   content: PropTypes.any,
   node: PropTypes.object,
-  level: PropTypes.string,
-  updateTextStatus: PropTypes.func
+  level: PropTypes.string
 };
 
 TreeInlineEditor.defaultProps = {
   content: null,
   node: null,
-  level: null,
-  updateTextStatus: null
+  level: null
 };
 
 export default TreeInlineEditor;

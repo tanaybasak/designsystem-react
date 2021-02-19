@@ -17,6 +17,9 @@ storiesOf('Pagination', module)
     () => (
       <Pagination
         itemsPerPageText={text('Items Per Page Text', 'Items per Page:')}
+        pagePrepositionText={text('Page Preposition Text', 'of')}
+        itemsPerPageInfoText={text('Items Per Page Info Text', 'items')}
+        pageNumberInfoText={text('Page Number Info Text', 'pages')}
         itemsStepperLimit={number('Items Per Page Limit', 100)}
         onItemsPerPageChange={action('item per page change')}
         itemsPerPageStepper={number('Items Per Page Stepper', 20)}
@@ -40,6 +43,9 @@ storiesOf('Pagination', module)
     () => (
       <Pagination
         itemsPerPageText={text('Items Per Page Text', 'Items per Page:')}
+        pagePrepositionText={text('Page Preposition Text', 'of')}
+        itemsPerPageInfoText={text('Items Per Page Info Text', 'items')}
+        pageNumberInfoText={text('Page Number Info Text', 'pages')}
         itemsStepperLimit={number('Items Per Page Limit', 100)}
         position={object('Position', position)}
         onItemsPerPageChange={action('item per page change')}

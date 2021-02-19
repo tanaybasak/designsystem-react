@@ -23,7 +23,9 @@ const DateSelector = ({
   sidePanel,
   onDateSelect,
   minDate,
-  maxDate
+  maxDate,
+  onVisibleChange,
+  ...restProps
 }) => {
   const date = new Date();
   const [currDateObj, setCurrDateObj] = useState({
@@ -64,6 +66,12 @@ const DateSelector = ({
       }
     }
   }, [defaultDate]);
+
+  useEffect(() => {
+    if (onVisibleChange) {
+      onVisibleChange(showDateContainer);
+    }
+  }, [showDateContainer]);
 
   const onToggle = status => {
     setShowDateContainer(status);
@@ -127,8 +135,7 @@ const DateSelector = ({
             setShowDateContainer={setShowDateContainer}
             setIsDateSelectedValid={setIsDateSelectedValid}
             className={className}
-            minDate={minDate}
-            maxDate={maxDate}
+            {...restProps}
           />
 
           <Overlay
@@ -211,7 +218,9 @@ DateSelector.propTypes = {
   /** Min date */
   minDate: PropTypes.instanceOf(Date),
   /** Max date */
-  maxDate: PropTypes.instanceOf(Date)
+  maxDate: PropTypes.instanceOf(Date),
+  /** Callback on Calendar toggle */
+  onVisibleChange: PropTypes.func
 };
 
 DateSelector.defaultProps = {
@@ -240,6 +249,10 @@ DateSelector.defaultProps = {
   sidePanel: null,
   onDateSelect: () => {},
   minDate: new Date(1000, 0, 1),
-  maxDate: new Date(9999, 12, 31)
+  maxDate: new Date(9999, 12, 31),
+  onVisibleChange: null
 };
+
+DateSelector.displayName = 'DateSelector';
+
 export default DateSelector;

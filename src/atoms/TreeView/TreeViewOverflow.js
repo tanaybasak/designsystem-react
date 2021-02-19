@@ -13,7 +13,7 @@ import {
   updateTreeNode
 } from '../../util/treeUtil';
 
-const TreeViewOverflow = ({ node, level, updateTextStatus }) => {
+const TreeViewOverflow = ({ node, level }) => {
   const dispatch = useContext(TreeDispatchContext);
   const state = useContext(TreeStateContext);
   const callbackContext = useContext(TreeFunctionContext);
@@ -93,7 +93,7 @@ const TreeViewOverflow = ({ node, level, updateTextStatus }) => {
     if (action.action) {
       const actionName = action.action;
       if (actionName === 'edit') {
-        updateTextStatus(true);
+        dispatch({ type: 'SET_RENAME_NODE_ID', data: node[configuration.key] });
       } else if (actionName === 'cut') {
         dispatch({
           type: 'SET_CUT_NODE',
@@ -234,14 +234,12 @@ const TreeViewOverflow = ({ node, level, updateTextStatus }) => {
 
 TreeViewOverflow.propTypes = {
   node: PropTypes.object,
-  level: PropTypes.string,
-  updateTextStatus: PropTypes.func
+  level: PropTypes.string
 };
 
 TreeViewOverflow.defaultProps = {
   node: null,
-  level: null,
-  updateTextStatus: null
+  level: null
 };
 
 export default TreeViewOverflow;

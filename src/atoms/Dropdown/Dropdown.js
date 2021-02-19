@@ -17,6 +17,7 @@ const Dropdown = ({
   className,
   attachElementToBody,
   scrollListner,
+  onVisibleChange,
   ...restProps
 }) => {
   const defaultConfig = { text: 'text', id: 'id' };
@@ -49,6 +50,12 @@ const Dropdown = ({
       setSelected(selectedItem ? selectedOption : null);
     }
   }, [selectedItem]);
+
+  useEffect(() => {
+    if (onVisibleChange) {
+      onVisibleChange(isOpen);
+    }
+  }, [isOpen]);
 
   const focusNode = node => {
     if (node.classList.contains(`${prefix}-dropdown-item`)) {
@@ -349,7 +356,9 @@ Dropdown.propTypes = {
   scrollListner: PropTypes.bool,
 
   /** Disabled property for dropdown */
-  disabled: PropTypes.bool
+  disabled: PropTypes.bool,
+  /** Callback on dropdown toggle */
+  onVisibleChange: PropTypes.func
 };
 
 Dropdown.defaultProps = {
@@ -361,7 +370,10 @@ Dropdown.defaultProps = {
   dropdownType: '',
   config: {},
   attachElementToBody: false,
-  scrollListner: false
+  scrollListner: false,
+  onVisibleChange: null
 };
+
+Dropdown.displayName = 'Dropdown';
 
 export default Dropdown;
