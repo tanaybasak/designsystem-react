@@ -24,6 +24,12 @@ const TimePicker = ({
   useEffect(() => {
     if (defaultTime) {
       setTime(defaultTime.time);
+      defaultTime.period =
+        type === 'HH'
+          ? type
+          : defaultTime.period
+          ? defaultTime.period
+          : period.am;
       const tempTimeObj = { ...defaultTime };
       setTimeObject(tempTimeObj);
       if (validationMessage === '') {
