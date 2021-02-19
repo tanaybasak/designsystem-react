@@ -7,8 +7,8 @@ test("can provide a label",()=>{
     expect(wrapper.text()).toBe('Patronus')
 })
 test("can provide custom class name",()=>{
-    const wrapper = mount(<Heading type="h1" className="patronus-header">Patronus</Heading>)
-    expect(wrapper.find(Heading).hasClass('patronus-header')).toBe(true);
+    const wrapper = mount(<Heading type="h1" className="patron-header">Patronus</Heading>)
+    expect(wrapper.find(Heading).hasClass('patron-header')).toBe(true);
 })
 test("render heading with h1 type", ()=>{
     const wrapper = mount(<Heading type="h1">Heading</Heading>)
