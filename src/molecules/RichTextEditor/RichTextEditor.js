@@ -64,7 +64,7 @@ const RichTextEditor = ({
     if (range) {
       if (range.length == 0) {
         const formats = quillRef.current.getFormat();
-        toggleActiveStyles(quillRef.current.getFormat());
+        toggleActiveStyles(formats);
         if (formats['link']) {
           if (!showTootip) {
             setTextVal(formats.link);
