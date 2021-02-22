@@ -1,11 +1,11 @@
 import React from 'react';
-import regeneratorRuntime from 'regenerator-runtime';
+// import regeneratorRuntime from 'regenerator-runtime';
 import renderer from 'react-test-renderer';
-import { mount } from 'enzyme';
+// import { mount } from 'enzyme';
 import { Wizard, Step } from './index';
-import { act } from 'react-dom/test-utils';
+// import { act } from 'react-dom/test-utils';
 
-const activeIndex = 1;
+// const activeIndex = 1;
 const wizardmodel = [
   {
     title: 'Step 1',
@@ -41,16 +41,16 @@ afterEach(() => {
   container = null;
 });
 
-const timeout = ms => {
-  const p1 = new Promise(resolve => setTimeout(resolve, ms));
-  return p1
-    .then(function () {
-      return true;
-    })
-    .catch(() => {
-      return false;
-    });
-};
+// const timeout = ms => {
+//   const p1 = new Promise(resolve => setTimeout(resolve, ms));
+//   return p1
+//     .then(function () {
+//       return true;
+//     })
+//     .catch(() => {
+//       return false;
+//     });
+// };
 
 const getSteps = model => {
   return model.map((item, idx) => {
@@ -65,9 +65,9 @@ const getSteps = model => {
   });
 };
 
-const handleClick = e => {
-  console.log(e);
-};
+// const handleClick = e => {
+//   console.log(e);
+// };
 
 it('Wizard renders correctly', () => {
   const wizard = renderer
