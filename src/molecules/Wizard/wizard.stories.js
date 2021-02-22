@@ -31,12 +31,19 @@ const status = {
   error: 'error'
 };
 
+const iconTypes = {
+  icon: 'icon',
+  number: 'number',
+  noicon: 'noicon'
+};
+
 storiesOf('Wizard', module).add(
   'default',
   () => (
     <Wizard
       kind={select('kind', varients, 'style1', grouping.wizard)}
       activeIndex={select('activeIndex', formatOptions, 2, grouping.wizard)}
+      iconType={select('iconType', iconTypes, 'icon', grouping.wizard)}
     >
       <Step
         status={select('status', status, 'completed', grouping.step1)}
