@@ -55,7 +55,10 @@ const Wizard = React.forwardRef(
       // }
       let lastCompletedStep = null;
       Children.map(childs, (child, index) => {
-        if (child.props.status === 'completed') {
+        if (
+          child.props.status === 'completed' ||
+          child.props.status === 'error'
+        ) {
           lastCompletedStep = index;
         }
       });
