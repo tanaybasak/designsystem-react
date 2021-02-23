@@ -85,43 +85,47 @@ const Step = ({
       aria-current={active}
       {...restProps}
     >
-      {/* <div className="wiz-item-container"> */}
-      {
-        <>
-          <div className="ghost" />
-          <div className="hcl-wizard-left-pane">
-            <div className="hcl-wizard__icon-container">
-              <div className="hcl-wizard__user">
-                {stateToReturn(active, status)}
+      <button
+        tabIndex={
+          linear ? (status === 'completed' || status === 'error' ? 0 : -1) : 0
+        }
+      >
+        {
+          <>
+            <div className="ghost" />
+            <div className="hcl-wizard-left-pane">
+              <div className="hcl-wizard__icon-container">
+                <div className="hcl-wizard__user">
+                  {stateToReturn(active, status)}
+                </div>
               </div>
             </div>
-          </div>
-          <div className={`hcl-wizard-right-pane`}>
-            <div
-              className={`hcl-wizard__title ${
-                !description ? 'no-description' : ''
-              }`}
-            >
-              {title}
+            <div className={`hcl-wizard-right-pane`}>
+              <div
+                className={`hcl-wizard__title ${
+                  !description ? 'no-description' : ''
+                }`}
+              >
+                {title}
+              </div>
+              {description && (
+                <div className={`hcl-wizard__description`}>{description}</div>
+              )}
             </div>
-            {description && (
-              <div className={`hcl-wizard__description`}>{description}</div>
-            )}
-          </div>
-          {
-            <div className="wiz-no-icon-container">
-              <span className="no-icon-container">
-                <span className="no-icon-child" />
-              </span>
-            </div>
-          }
-        </>
-      }
-      <div className="wiz-content">
-        {<span className="wiz-title">{title}</span>}
-        {<span className="wiz-description">{description}</span>}
-      </div>
-      {/* </div> */}
+            {
+              <div className="wiz-no-icon-container">
+                <span className="no-icon-container">
+                  <span className="no-icon-child" />
+                </span>
+              </div>
+            }
+          </>
+        }
+        <div className="wiz-content">
+          {<span className="wiz-title">{title}</span>}
+          {<span className="wiz-description">{description}</span>}
+        </div>
+      </button>
     </li>
   );
 };
