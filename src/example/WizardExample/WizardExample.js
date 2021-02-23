@@ -284,7 +284,7 @@ class WizardExample extends Component {
       <div className="hcl-container">
         <div className="hcl-row">
           <Wizard
-            linear
+            linear={false}
             kind={'style1'}
             // iconType="number"
             currentStepLabel={

@@ -44,12 +44,6 @@ module.exports = merge.smart(commonConfig, {
               ],
               sourceMap: true
             }
-          },
-          {
-            loader: 'sass-loader',
-            options: {
-              sourceMap: true
-            }
           }
         ]
       }
