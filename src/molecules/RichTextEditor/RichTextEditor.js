@@ -35,11 +35,10 @@ const RichTextEditor = ({
   const quillRef = useRef();
 
   const [showTootip, toggleTooltip] = useState(false);
+  const [targetElement, setTargetElement] = useState(null);
   const [showVisitTootip, toggleVisitTooltip] = useState(false);
   const [activeStyles, toggleActiveStyles] = useState(false);
 
-  const [top, setTop] = useState(0);
-  const [left, setLeft] = useState(0);
   const [selectedtext, setSelectedText] = useState('');
   const [textVal, setTextVal] = useState('');
 
@@ -60,6 +59,18 @@ const RichTextEditor = ({
     }
   };
 
+  const showOveralyTooltip = () => {
+    setTargetElement(
+      window.getSelection().getRangeAt(0).startContainer.parentNode
+    );
+    toggleTooltip(true);
+  };
+
+  const hideOveralyTooltip = () => {
+    setTargetElement(null);
+    toggleTooltip(false);
+  };
+
   const handler = range => {
     if (range) {
       if (range.length == 0) {
@@ -68,26 +79,22 @@ const RichTextEditor = ({
         if (formats['link']) {
           if (!showTootip) {
             setTextVal(formats.link);
-            toggleTooltip(true);
+            showOveralyTooltip();
             toggleVisitTooltip(true);
           }
-          const bound = quillRef.current.getBounds(range.index);
-          setTop(bound.top + 30);
-          setLeft(bound.left - 40);
         } else {
-          toggleTooltip(false);
+          hideOveralyTooltip();
         }
       } else {
         var text = quillRef.current.getText(range.index, range.length);
         setSelectedText(text);
         const formats = quillRef.current.getFormat();
-        toggleTooltip(false);
         if (!formats['link']) {
           setTextVal(text);
+          hideOveralyTooltip();
+        } else {
+          showOveralyTooltip();
         }
-        const bound = quillRef.current.getBounds(range.index);
-        setTop(bound.top + 30);
-        setLeft(bound.left - 40);
         toggleActiveStyles(quillRef.current.getFormat());
       }
     }
@@ -106,7 +113,6 @@ const RichTextEditor = ({
         onChange(editorRef.current.querySelector('.ql-editor'), delta);
       } else if (source == 'user') {
         toggleActiveStyles(quillRef.current.getFormat());
-        toggleTooltip(false);
         onChange(editorRef.current.querySelector('.ql-editor'), delta);
       }
     });
@@ -130,7 +136,7 @@ const RichTextEditor = ({
       } else {
         quillRef.current.formatText(indexVal, length, 'link', false);
       }
-      toggleTooltip(false);
+      hideOveralyTooltip();
       toggleVisitTooltip(false);
       toggleActiveStyles(quillRef.current.getFormat());
     } else if (formatLink == 'add') {
@@ -144,7 +150,8 @@ const RichTextEditor = ({
       } else {
         quillRef.current.formatText(indexVal, length, 'link', textVal);
       }
-      toggleTooltip(false);
+
+      hideOveralyTooltip();
     } else {
       toggleVisitTooltip(false);
       toggleActiveStyles(false);
@@ -157,7 +164,7 @@ const RichTextEditor = ({
       let select = quillRef.current.getSelection();
       let domNode = quillRef.current.getLeaf(select.index)[0].parent.domNode;
       if (select.length) {
-        toggleTooltip(true);
+        showOveralyTooltip();
         toggleVisitTooltip(false);
       }
       if (domNode.nodeName === 'A' && domNode.textContent !== selectedtext) {
@@ -275,7 +282,6 @@ const RichTextEditor = ({
       </Button>
     );
   };
-
   return (
     <div className="hcl-rte-wrapper">
       <div className="hcl-rte-toolbar">
@@ -296,73 +302,82 @@ const RichTextEditor = ({
           dangerouslySetInnerHTML={{ __html: value }}
           className="hcl-rte-editor"
         />
-        {showTootip ? (
-          <Overlay showOverlay style={{ top: top + 'px', left: left + 'px' }}>
-            <div className="hcl-rte-flex">
-              {showVisitTootip ? (
-                <>
-                  {visitLinktext}
-                  <a
-                    className="hcl-rte-new"
-                    href={
-                      quillRef.current.getFormat().link
-                        ? quillRef.current.getFormat().link
-                        : textVal
-                    }
-                    rel="noopener noreferrer"
-                    target="_blank"
-                  >
-                    {quillRef.current.getFormat().link
+        <Overlay
+          targetElement={targetElement}
+          attachElementToBody
+          onToggle={status => {
+            if (!status) {
+              toggleVisitTooltip(false);
+              toggleTooltip(status);
+              setTargetElement(null);
+            }
+          }}
+          showOverlay={showTootip}
+        >
+          <div className="hcl-rte-flex">
+            {showVisitTootip ? (
+              <>
+                {visitLinktext}
+                <a
+                  className="hcl-rte-new"
+                  href={
+                    quillRef.current.getFormat().link
                       ? quillRef.current.getFormat().link
-                      : textVal}
-                  </a>
-                  <Button
-                    type="primary"
-                    aria-label="edit"
-                    onClick={() => updateLink('edit')}
-                  >
-                    {edit}
-                  </Button>
-                  <Button
-                    type="neutral"
-                    aria-label="close"
-                    onClick={() => updateLink('remove')}
-                  >
-                    {inlineClose}
-                  </Button>
-                </>
-              ) : (
-                <>
-                  {linkText}
-                  <TextInput
-                    type="text"
-                    placeholder="name"
-                    value={textVal}
-                    id="textInput"
-                    onChange={event => {
-                      toggleVisitTooltip(false);
-                      setTextVal(event.currentTarget.value);
-                    }}
-                  />
-                  <Button
-                    type="primary"
-                    aria-label="add"
-                    onClick={() => updateLink('add')}
-                  >
-                    {checkmark}
-                  </Button>
-                  <Button
-                    type="neutral"
-                    aria-label="close"
-                    onClick={() => updateLink('remove')}
-                  >
-                    {inlineClose}
-                  </Button>
-                </>
-              )}
-            </div>
-          </Overlay>
-        ) : null}
+                      : textVal
+                  }
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  {quillRef.current.getFormat().link
+                    ? quillRef.current.getFormat().link
+                    : textVal}
+                </a>
+                <Button
+                  type="primary"
+                  aria-label="edit"
+                  onClick={() => updateLink('edit')}
+                >
+                  {edit}
+                </Button>
+                <Button
+                  type="neutral"
+                  aria-label="close"
+                  onClick={() => updateLink('remove')}
+                >
+                  {inlineClose}
+                </Button>
+              </>
+            ) : (
+              <>
+                {linkText}
+                <TextInput
+                  type="text"
+                  placeholder="name"
+                  value={textVal}
+                  id="textInput"
+                  onChange={event => {
+                    toggleVisitTooltip(false);
+                    setTextVal(event.currentTarget.value);
+                  }}
+                />
+                <Button
+                  type="primary"
+                  aria-label="add"
+                  onClick={() => updateLink('add')}
+                >
+                  {checkmark}
+                </Button>
+                <Button
+                  type="neutral"
+                  aria-label="close"
+                  onClick={() => updateLink('remove')}
+                >
+                  {inlineClose}
+                </Button>
+              </>
+            )}
+          </div>
+        </Overlay>
       </div>
     </div>
   );
