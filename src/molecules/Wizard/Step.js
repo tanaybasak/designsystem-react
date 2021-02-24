@@ -59,12 +59,12 @@ const Step = ({
     }
   };
   const handleNumberRender = (active, status) => {
-    if (active) {
+    if (active || status === 'default') {
       return restProps.index + 1;
     } else if (status === 'error') {
       return errorIcon;
-    } else {
-      return restProps.index + 1;
+    } else if (status === 'completed') {
+      return completedIcon;
     }
   };
   const handleNoIconRender = () => {

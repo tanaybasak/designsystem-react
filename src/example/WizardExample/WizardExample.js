@@ -83,7 +83,7 @@ class WizardExample extends Component {
         selIndex: this.state.selIndex + 1,
         wizardmodel: this.state.wizardmodel.map((item, idx) => {
           if (idx === this.state.selIndex) {
-            item['status'] = 'error';
+            item['status'] = 'completed';
           }
           return item;
         })
@@ -285,7 +285,7 @@ class WizardExample extends Component {
           <Wizard
             // linear={false}
             kind={'default'}
-            // iconType="noicon"
+            iconType="number"
             currentStepLabel={
               this.state.selIndex != null &&
               this.state.selIndex <= this.state.wizardmodel.length
