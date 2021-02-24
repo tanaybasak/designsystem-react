@@ -293,6 +293,7 @@ const Dropdown = ({
                   }
                 }}
                 tabIndex="0"
+                title={item[configuration.text]}
                 aria-label={item[configuration.text]}
                 role="option"
                 aria-checked={
