@@ -22,13 +22,15 @@ import {
 import Overlay from '../../atoms/Overlay/Overlay';
 import TextInput from '../../atoms/TextInput';
 import Button from '../../atoms/Button/Button';
+import prefix from '../../settings';
 
 const RichTextEditor = ({
   config,
   onChange,
   value,
   visitLinktext,
-  linkText
+  linkText,
+  errorMessage
 }) => {
   const editorRef = useRef();
 
@@ -36,10 +38,13 @@ const RichTextEditor = ({
 
   const overlayRef = useRef();
 
+  const linkRef = useRef();
+
   const [showTootip, toggleTooltip] = useState(false);
   const [targetElement, setTargetElement] = useState(null);
   const [showVisitTootip, toggleVisitTooltip] = useState(false);
   const [activeStyles, toggleActiveStyles] = useState(false);
+  const [invalidUrl, setInValidUrl] = useState(false);
 
   const [selectedtext, setSelectedText] = useState('');
   const [textVal, setTextVal] = useState('');
@@ -63,7 +68,7 @@ const RichTextEditor = ({
 
   useEffect(() => {
     if (showVisitTootip && overlayRef.current && showTootip) {
-      overlayRef.current.querySelector('#hcl-edit-btn').focus();
+      overlayRef.current.querySelector(`#${prefix}-edit-btn`).focus();
     }
     if (showTootip && !showVisitTootip) {
       overlayRef.current.querySelector('input')
@@ -73,9 +78,10 @@ const RichTextEditor = ({
   }, [showTootip, showVisitTootip]);
 
   const showOveralyTooltip = () => {
+    setLinkRef();
     if (showTootip && overlayRef.current) {
-      overlayRef.current.querySelector('#hcl-edit-btn')
-        ? overlayRef.current.querySelector('#hcl-edit-btn').focus()
+      overlayRef.current.querySelector(`#${prefix}-edit-btn`)
+        ? overlayRef.current.querySelector(`#${prefix}-edit-btn`).focus()
         : overlayRef.current.querySelector('input').focus();
     }
     setTargetElement(
@@ -85,6 +91,7 @@ const RichTextEditor = ({
   };
 
   const hideOveralyTooltip = () => {
+    setInValidUrl(false);
     setTargetElement(null);
     toggleTooltip(false);
   };
@@ -109,7 +116,6 @@ const RichTextEditor = ({
         const formats = quillRef.current.getFormat();
         if (!formats['link']) {
           setTextVal(text);
-          hideOveralyTooltip();
         } else {
           showOveralyTooltip();
         }
@@ -139,14 +145,10 @@ const RichTextEditor = ({
   }, []);
 
   const updateLink = formatLink => {
-    quillRef.current.focus();
+    let select = linkRef.current.select;
+    let indexVal = linkRef.current.indexVal;
+    let length = linkRef.current.length;
 
-    let select = quillRef.current.getSelection();
-    let indexVal = quillRef.current.getIndex(
-      quillRef.current.getLeaf(select.index)[0]
-    );
-    let length = quillRef.current.getLeaf(select.index)[0].parent.domNode
-      .textContent.length;
     if (formatLink == 'remove') {
       if (select.length) {
         quillRef.current.format('link', false);
@@ -157,18 +159,23 @@ const RichTextEditor = ({
       toggleVisitTooltip(false);
       toggleActiveStyles(quillRef.current.getFormat());
     } else if (formatLink == 'add') {
-      if (select.length) {
-        quillRef.current.format(
-          'link',
-          quillRef.current.getFormat().link
-            ? quillRef.current.getFormat().link
-            : textVal
-        );
-      } else {
-        quillRef.current.formatText(indexVal, length, 'link', textVal);
-      }
+      let valid = isUrlValid(textVal);
+      if (valid) {
+        if (select.length) {
+          quillRef.current.format(
+            'link',
+            quillRef.current.getFormat().link
+              ? quillRef.current.getFormat().link
+              : textVal
+          );
+        } else {
+          quillRef.current.formatText(indexVal, length, 'link', textVal);
+        }
 
-      hideOveralyTooltip();
+        hideOveralyTooltip();
+      } else {
+        setInValidUrl(true);
+      }
     } else {
       toggleVisitTooltip(false);
       toggleActiveStyles(false);
@@ -186,10 +193,34 @@ const RichTextEditor = ({
     }
   };
 
+  const setLinkRef = () => {
+    let select = quillRef.current.getSelection();
+    let indexVal = quillRef.current.getIndex(
+      quillRef.current.getLeaf(select.index)[0]
+    );
+    let length = quillRef.current.getLeaf(select.index)[0].parent.domNode
+      .textContent.length;
+
+    linkRef.current = {
+      select: select,
+      indexVal: indexVal,
+      length: length
+    };
+  };
+
+  const isUrlValid = userInput => {
+    var res = userInput.match(
+      /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g
+    );
+    if (res == null) return false;
+    else return true;
+  };
+
   const format = (type, value) => {
     if (type === 'link') {
       quillRef.current.focus();
       let select = quillRef.current.getSelection();
+
       let domNode = quillRef.current.getLeaf(select.index)[0].parent.domNode;
       if (select.length) {
         showOveralyTooltip();
@@ -311,8 +342,8 @@ const RichTextEditor = ({
     );
   };
   return (
-    <div className="hcl-rte-wrapper">
-      <div className="hcl-rte-toolbar">
+    <div className={`${prefix}-rte-wrapper`}>
+      <div className={`${prefix}-rte-toolbar`}>
         {config
           ? config.map((release, index) => {
               return (
@@ -323,12 +354,12 @@ const RichTextEditor = ({
             })
           : null}
       </div>
-      <div className="hcl-rte-editor-wrapper">
+      <div className={`${prefix}-rte-editor-wrapper`}>
         <div
           ref={editorRef}
           tabIndex="0"
           dangerouslySetInnerHTML={{ __html: value }}
-          className="hcl-rte-editor"
+          className={`${prefix}-rte-editor`}
         />
         <Overlay
           targetElement={targetElement}
@@ -339,16 +370,17 @@ const RichTextEditor = ({
               toggleVisitTooltip(false);
               toggleTooltip(status);
               setTargetElement(null);
+              setInValidUrl(false);
             }
           }}
           showOverlay={showTootip}
         >
-          <div className="hcl-rte-flex" ref={overlayRef}>
+          <div className={`${prefix}-rte-flex`} ref={overlayRef}>
             {showVisitTootip ? (
               <>
-                {visitLinktext}
+                <span className={`${prefix}-rte-text`}>{visitLinktext}</span>
                 <a
-                  className="hcl-rte-new"
+                  className={`${prefix}-rte-new`}
                   href={
                     quillRef.current.getFormat().link
                       ? quillRef.current.getFormat().link
@@ -363,7 +395,7 @@ const RichTextEditor = ({
                 </a>
                 <Button
                   type="primary"
-                  id="hcl-edit-btn"
+                  id={`${prefix}-edit-btn`}
                   aria-label="edit"
                   onClick={() => updateLink('edit')}
                 >
@@ -371,7 +403,7 @@ const RichTextEditor = ({
                 </Button>
                 <Button
                   type="neutral"
-                  id="hcl-close-btn"
+                  id={`${prefix}-close-btn`}
                   aria-label="close"
                   onClick={() => updateLink('remove')}
                 >
@@ -380,20 +412,34 @@ const RichTextEditor = ({
               </>
             ) : (
               <>
-                {linkText}
-                <TextInput
-                  type="text"
-                  placeholder="name"
-                  value={textVal}
-                  id="textInput"
-                  onChange={event => {
-                    toggleVisitTooltip(false);
-                    setTextVal(event.currentTarget.value);
-                  }}
-                />
+                <span
+                  className={
+                    invalidUrl
+                      ? `${prefix}-rte-span`
+                      : `${prefix}-rte-span-name`
+                  }
+                >
+                  {linkText}
+                </span>
+                <span className={`${prefix}-rte-span-wrapper`}>
+                  <TextInput
+                    type="text"
+                    placeholder="name"
+                    value={textVal}
+                    id="textInput"
+                    data-invalid={invalidUrl}
+                    onChange={event => {
+                      toggleVisitTooltip(false);
+                      setTextVal(event.currentTarget.value);
+                    }}
+                  />
+                  {invalidUrl ? (
+                    <div className={`${prefix}-error-msg`}>{errorMessage}</div>
+                  ) : null}
+                </span>
                 <Button
                   type="primary"
-                  id="hcl-add-btn"
+                  id={`${prefix}-add-btn`}
                   aria-label="add"
                   onClick={() => updateLink('add')}
                 >
@@ -401,7 +447,7 @@ const RichTextEditor = ({
                 </Button>
                 <Button
                   type="neutral"
-                  id="hcl-close-btn"
+                  id={`${prefix}-close-btn`}
                   aria-label="close"
                   onClick={() => updateLink('remove')}
                 >
@@ -437,7 +483,9 @@ RichTextEditor.propTypes = {
   /** visit link text value */
   visitLinktext: PropTypes.string,
   /** url link text value */
-  linkText: PropTypes.string
+  linkText: PropTypes.string,
+  /** Error message content which has to be displayed. */
+  errorMessage: PropTypes.any
 };
 
 RichTextEditor.defaultProps = {
@@ -445,7 +493,8 @@ RichTextEditor.defaultProps = {
   onChange: () => {},
   value: '',
   visitLinktext: 'Visit URL :',
-  linkText: 'URL :'
+  linkText: 'URL :',
+  errorMessage: 'Invalid URL'
 };
 
 export default RichTextEditor;
