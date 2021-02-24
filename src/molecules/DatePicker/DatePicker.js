@@ -67,7 +67,7 @@ const DatePicker = ({
   }, [defaultDate]);
 
   const onEnterPressInputDate = event => {
-    if (event.key === 'Enter') {
+    if (event.key === 'Enter' || event.key === 'Tab') {
       const isdateValid = isValidDate(event.target.value, format);
       setIsDateSelectedValid(isdateValid);
       if (isdateValid && event.target.value !== '') {
@@ -82,6 +82,9 @@ const DatePicker = ({
         }
       } else {
         setDateSelected(event.target.value);
+      }
+      if (event.key === 'Tab') {
+        setShowDateContainer(false);
       }
     }
   };
