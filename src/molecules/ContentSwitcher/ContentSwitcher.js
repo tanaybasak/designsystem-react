@@ -1,4 +1,4 @@
-import React, { useState, cloneElement } from 'react';
+import React, { useState, cloneElement, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 
@@ -61,6 +61,10 @@ const keyDownOnContextSwitch = e => {
 };
 function ContentSwitcher({ className, activeIndex, onChange, children }) {
   const [activeSwitch, changeSwitch] = useState(activeIndex);
+
+  useEffect(() => {
+    changeSwitch(activeIndex);
+  }, [activeIndex]);
 
   const modifiedChildren = React.Children.map(children, (child, index) => {
     const { label } = child.props;
