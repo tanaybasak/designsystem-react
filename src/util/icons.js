@@ -185,16 +185,7 @@ export const CheckMark = (
   </svg>
 );
 
-export const Error = (
-  <svg
-    style={{ fill: 'var(--danger_icon)', width: '100%', height: '100%' }}
-    xmlns="https://www.w3.org/2000/svg"
-    viewBox="0 0 16 16"
-  >
-    <rect width="16" height="16" fill="none" />
-    <path d="M8.5,9.5h-1V4.25h1Zm-.5,1a.75.75,0,1,0,.75.75A.76.76,0,0,0,8,10.5ZM15,8A7,7,0,1,1,8,1,7,7,0,0,1,15,8ZM14,8a6,6,0,1,0-6,6A6,6,0,0,0,14,8Z" />
-  </svg>
-);
+export const Error = <span style={{ color: 'var(--danger_icon)' }}>!</span>;
 
 export const boldIcon = (
   <svg
