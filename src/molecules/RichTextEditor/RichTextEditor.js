@@ -34,6 +34,8 @@ const RichTextEditor = ({
 
   const quillRef = useRef();
 
+  const overlayRef = useRef();
+
   const [showTootip, toggleTooltip] = useState(false);
   const [targetElement, setTargetElement] = useState(null);
   const [showVisitTootip, toggleVisitTooltip] = useState(false);
@@ -59,7 +61,23 @@ const RichTextEditor = ({
     }
   };
 
+  useEffect(() => {
+    if (showVisitTootip && overlayRef.current && showTootip) {
+      overlayRef.current.querySelector('#hcl-edit-btn').focus();
+    }
+    if (showTootip && !showVisitTootip) {
+      overlayRef.current.querySelector('input')
+        ? overlayRef.current.querySelector('input').focus()
+        : null;
+    }
+  }, [showTootip, showVisitTootip]);
+
   const showOveralyTooltip = () => {
+    if (showTootip && overlayRef.current) {
+      overlayRef.current.querySelector('#hcl-edit-btn')
+        ? overlayRef.current.querySelector('#hcl-edit-btn').focus()
+        : overlayRef.current.querySelector('input').focus();
+    }
     setTargetElement(
       window.getSelection().getRangeAt(0).startContainer.parentNode
     );
@@ -79,8 +97,8 @@ const RichTextEditor = ({
         if (formats['link']) {
           if (!showTootip) {
             setTextVal(formats.link);
-            showOveralyTooltip();
             toggleVisitTooltip(true);
+            showOveralyTooltip();
           }
         } else {
           hideOveralyTooltip();
@@ -129,7 +147,6 @@ const RichTextEditor = ({
     );
     let length = quillRef.current.getLeaf(select.index)[0].parent.domNode
       .textContent.length;
-
     if (formatLink == 'remove') {
       if (select.length) {
         quillRef.current.format('link', false);
@@ -155,6 +172,17 @@ const RichTextEditor = ({
     } else {
       toggleVisitTooltip(false);
       toggleActiveStyles(false);
+    }
+  };
+
+  const updateTreenodeNameOnEnter = event => {
+    event.stopPropagation();
+    if (event.key === 'Enter') {
+      showVisitTootip ? updateLink('edit') : updateLink('add');
+      event.preventDefault();
+    } else if (event.key === 'Escape') {
+      updateLink('remove');
+      event.preventDefault();
     }
   };
 
@@ -304,6 +332,7 @@ const RichTextEditor = ({
         />
         <Overlay
           targetElement={targetElement}
+          onKeyDown={updateTreenodeNameOnEnter}
           attachElementToBody
           onToggle={status => {
             if (!status) {
@@ -314,7 +343,7 @@ const RichTextEditor = ({
           }}
           showOverlay={showTootip}
         >
-          <div className="hcl-rte-flex">
+          <div className="hcl-rte-flex" ref={overlayRef}>
             {showVisitTootip ? (
               <>
                 {visitLinktext}
@@ -334,6 +363,7 @@ const RichTextEditor = ({
                 </a>
                 <Button
                   type="primary"
+                  id="hcl-edit-btn"
                   aria-label="edit"
                   onClick={() => updateLink('edit')}
                 >
@@ -341,6 +371,7 @@ const RichTextEditor = ({
                 </Button>
                 <Button
                   type="neutral"
+                  id="hcl-close-btn"
                   aria-label="close"
                   onClick={() => updateLink('remove')}
                 >
@@ -362,6 +393,7 @@ const RichTextEditor = ({
                 />
                 <Button
                   type="primary"
+                  id="hcl-add-btn"
                   aria-label="add"
                   onClick={() => updateLink('add')}
                 >
@@ -369,6 +401,7 @@ const RichTextEditor = ({
                 </Button>
                 <Button
                   type="neutral"
+                  id="hcl-close-btn"
                   aria-label="close"
                   onClick={() => updateLink('remove')}
                 >
