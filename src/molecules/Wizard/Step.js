@@ -58,8 +58,14 @@ const Step = ({
       return defaultIcon;
     }
   };
-  const handleNumberRender = () => {
-    return restProps.index + 1;
+  const handleNumberRender = (active, status) => {
+    if (active) {
+      return restProps.index + 1;
+    } else if (status === 'error') {
+      return errorIcon;
+    } else {
+      return restProps.index + 1;
+    }
   };
   const handleNoIconRender = () => {
     return null;
@@ -70,7 +76,7 @@ const Step = ({
       case 'icon':
         return handleIconRender(active, status);
       case 'number':
-        return handleNumberRender();
+        return handleNumberRender(active, status);
       case 'noicon':
         return handleNoIconRender();
       default:
