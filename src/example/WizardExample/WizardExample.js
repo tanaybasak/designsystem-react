@@ -83,7 +83,7 @@ class WizardExample extends Component {
         selIndex: this.state.selIndex + 1,
         wizardmodel: this.state.wizardmodel.map((item, idx) => {
           if (idx === this.state.selIndex) {
-            item['status'] = 'completed';
+            item['status'] = 'error';
           }
           return item;
         })
@@ -270,7 +270,6 @@ class WizardExample extends Component {
   };
 
   wizardInnerComponentStyle = () => ({
-    boxShadow: '2px 0 8px 3px hsl(0deg 0% 58% / 50%)',
     padding:
       this.state.selIndex === null && this.isAllStepsCompleted()
         ? '45px'
@@ -284,9 +283,9 @@ class WizardExample extends Component {
       <div className="hcl-container">
         <div className="hcl-row">
           <Wizard
-            linear={false}
+            // linear={false}
             kind={'style1'}
-            // iconType="number"
+            // iconType="noicon"
             currentStepLabel={
               this.state.selIndex != null &&
               this.state.selIndex <= this.state.wizardmodel.length
@@ -312,7 +311,7 @@ class WizardExample extends Component {
             })}
           </Wizard>
         </div>
-        <div className="hcl-row">
+        <div className="hcl-row" style={{ height: '230px' }}>
           <Tile type="readable" style={this.wizardInnerComponentStyle()}>
             {this.state.selIndex > -1 ? this.stepComponent() : null}
             {this.state.selIndex === null && this.isAllStepsCompleted() ? (
