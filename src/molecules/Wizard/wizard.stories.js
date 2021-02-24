@@ -13,8 +13,8 @@ const formatOptions = {
 };
 
 const varients = {
-  style1: 'style1',
-  style2: 'style2',
+  default: 'default',
+  medium: 'medium',
   mobile: 'mobile'
 };
 
@@ -41,7 +41,7 @@ storiesOf('Wizard', module).add(
   'default',
   () => (
     <Wizard
-      kind={select('kind', varients, 'style1', grouping.wizard)}
+      kind={select('kind', varients, 'default', grouping.wizard)}
       activeIndex={select('activeIndex', formatOptions, 2, grouping.wizard)}
       iconType={select('iconType', iconTypes, 'icon', grouping.wizard)}
     >
