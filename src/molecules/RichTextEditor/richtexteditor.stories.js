@@ -24,6 +24,7 @@ storiesOf('RichTextEditor', module).add(
       onChange={action('RTE-Click')}
       visitLinktext={text('VisitLink', 'Visit URL :')}
       linkText={text('URL Text', 'URL :')}
+      errorMessage={text('Error message', '')}
     />
   ),
   {

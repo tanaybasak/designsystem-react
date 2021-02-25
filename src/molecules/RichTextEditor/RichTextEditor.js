@@ -15,7 +15,7 @@ import {
   numberListSelected,
   linkIcon,
   linkSelected,
-  inlineClose,
+  unlinkIcon,
   checkmark,
   edit
 } from '../../util/icons';
@@ -260,6 +260,7 @@ const RichTextEditor = ({
       <Button
         kind="button"
         type="neutral"
+        title="Bold"
         aria-label="Bold"
         onClick={format.bind(this, 'bold')}
       >
@@ -273,6 +274,7 @@ const RichTextEditor = ({
       <Button
         kind="button"
         type="neutral"
+        title="Italic"
         aria-label="Italic"
         onClick={format.bind(this, 'italic')}
       >
@@ -286,6 +288,7 @@ const RichTextEditor = ({
       <Button
         kind="button"
         type="neutral"
+        title="Underline"
         aria-label="Underline"
         onClick={format.bind(this, 'underline')}
       >
@@ -302,6 +305,7 @@ const RichTextEditor = ({
         kind="button"
         value="bullet"
         type="neutral"
+        title="Bullet List"
         aria-label="BulletList"
         onClick={format.bind(this, 'list', 'bullet')}
       >
@@ -318,6 +322,7 @@ const RichTextEditor = ({
         kind="button"
         value="ordered"
         type="neutral"
+        title="Number List"
         aria-label="NumberedList"
         onClick={format.bind(this, 'list', 'ordered')}
       >
@@ -334,6 +339,7 @@ const RichTextEditor = ({
         kind="button"
         value="bullet"
         type="neutral"
+        title="Link"
         aria-label="Link"
         onClick={format.bind(this, 'link')}
       >
@@ -396,6 +402,7 @@ const RichTextEditor = ({
                 <Button
                   type="primary"
                   id={`${prefix}-edit-btn`}
+                  title="Edit"
                   aria-label="edit"
                   onClick={() => updateLink('edit')}
                 >
@@ -404,10 +411,11 @@ const RichTextEditor = ({
                 <Button
                   type="neutral"
                   id={`${prefix}-close-btn`}
-                  aria-label="close"
+                  title="Unlink"
+                  aria-label="unlink"
                   onClick={() => updateLink('remove')}
                 >
-                  {inlineClose}
+                  {unlinkIcon}
                 </Button>
               </>
             ) : (
@@ -441,6 +449,7 @@ const RichTextEditor = ({
                   type="primary"
                   id={`${prefix}-add-btn`}
                   aria-label="add"
+                  title="Addlink"
                   onClick={() => updateLink('add')}
                 >
                   {checkmark}
@@ -448,10 +457,11 @@ const RichTextEditor = ({
                 <Button
                   type="neutral"
                   id={`${prefix}-close-btn`}
-                  aria-label="close"
+                  aria-label="unlink"
+                  title="Unlink"
                   onClick={() => updateLink('remove')}
                 >
-                  {inlineClose}
+                  {unlinkIcon}
                 </Button>
               </>
             )}
