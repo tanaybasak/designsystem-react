@@ -169,7 +169,9 @@ const Sidebar = ({
           }
           tabIndex="0"
           title={item.title}
-          className={`${prefix}-sidebar-item${highlightedClass}`}
+          className={`${prefix}-sidebar-item${highlightedClass}${
+            item.disabled ? ' disable' : ''
+          }`}
           onKeyDown={keyDown.bind(this, item, categoryIndex, parentItem)}
           href={item.href}
         >
@@ -414,7 +416,7 @@ const Sidebar = ({
               <li
                 className={`${prefix}-sidebar-category${
                   activeItem === item ? ' active' : ''
-                }`}
+                }${item.disabled ? ' disable' : ''}`}
                 key={`sidebar_category_${categoryIndex}`}
                 aria-expanded={`${item.expanded ? 'true' : 'false'}`}
               >
@@ -426,7 +428,7 @@ const Sidebar = ({
                         <li
                           className={`${prefix}-sidebar-category${
                             activeItem === subItem ? ' active' : ''
-                          }`}
+                          }${subItem.disabled ? ' disable' : ''}`}
                           key={`sidebar_category_children_${categoryIndex}_${subItemIndex}`}
                         >
                           {getSidebarLink(subItem, null, item)}
