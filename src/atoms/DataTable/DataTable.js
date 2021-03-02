@@ -19,6 +19,8 @@ const DataTable = ({
   resizable,
   columnDraggable,
   showDraggableIcon,
+  showDraggableIconOnHover,
+  removeHeaderNowrap,
   isHeaderSticky,
   onColumnAfterResize,
   initSortedColumn,
@@ -168,10 +170,18 @@ const DataTable = ({
   let isMouseDown = false;
 
   const onColumnMouseDown = (column, idx, e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    const { button } = e;
-    if (button !== 0) return;
+    if (!e.type.match(/touch/)) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
+    const { button, touches } = e;
+    if (!e.type.match(/touch/)) {
+      // For mouse Pointers
+      if (button !== 0) return;
+    } else if (touches && touches.length > 1) {
+      return;
+    }
     let nThTarget,
       moveLength = 0,
       minResizeFlag = false,
@@ -186,7 +196,7 @@ const DataTable = ({
       : 10;
 
     /* For Detecting Second Row Header Resize */
-    nThTarget = e.currentTarget.parentElement.parentElement
+    nThTarget = e.currentTarget.parentElement.parentElement.parentElement
       .previousElementSibling
       ? e.currentTarget.parentElement.parentElement.previousElementSibling
           .children[parseInt(idx, 10)]
@@ -194,6 +204,7 @@ const DataTable = ({
 
     nThTarget.classList.add('hovered');
 
+    let clientX = 0;
     if (
       resizeLineRef &&
       resizeLineRef.current &&
@@ -201,14 +212,18 @@ const DataTable = ({
       tableRef.current
     ) {
       let tableEleBounding = tableRef.current.getBoundingClientRect();
-      resizeLineRef.current.style.left =
-        e.clientX - tableEleBounding.left + `px`;
-      resizeDividerData['left'] = e.clientX - tableEleBounding.left;
+      if (!e.type.match(/touch/)) {
+        clientX = e.clientX;
+      } else {
+        clientX = e.touches[0].clientX;
+      }
+      resizeLineRef.current.style.left = clientX - tableEleBounding.left + `px`;
+      resizeDividerData['left'] = clientX - tableEleBounding.left;
 
       /* MouseDownColumn data collected */
       mouseDownColumnData['column'] = column;
       mouseDownColumnData['idx'] = idx;
-      mouseDownColumnData['startX'] = e.clientX;
+      mouseDownColumnData['startX'] = clientX;
       mouseDownColumnData['clientWidth'] = nThTarget
         ? nThTarget.getBoundingClientRect().width
         : 0;
@@ -217,13 +232,23 @@ const DataTable = ({
 
     /* On Mouse move */
     const onPressMouseMove = e => {
-      e.preventDefault();
-      e.stopPropagation();
+      if (!e.type.match(/touch/)) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+
+      let mouseMoveClientX = 0;
+
+      if (!e.type.match(/touch/)) {
+        mouseMoveClientX = e.clientX;
+      } else {
+        mouseMoveClientX = e.touches[0].clientX;
+      }
 
       if (isMouseDown) {
         const { startX, clientWidth } = mouseDownColumnData;
 
-        moveLength = e && startX ? e.clientX - startX : 0;
+        moveLength = e && startX ? mouseMoveClientX - startX : 0;
         totalLengthMoved = moveLength ? clientWidth + moveLength : 0;
         let { left } = resizeDividerData;
         if (
@@ -256,8 +281,10 @@ const DataTable = ({
 
     /* On Mouse up */
     const onPressMouseUp = async e => {
-      e.preventDefault();
-      e.stopPropagation();
+      if (!e.type.match(/touch/)) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
 
       if (!isMouseDown) return;
 
@@ -289,9 +316,14 @@ const DataTable = ({
       clearOnMouseUp();
       nThTarget ? nThTarget.classList.remove('hovered') : null;
       removeListeners('datatablemouseup-' + column[`label`] + idx, 'mouseup');
+      removeListeners('datatablemouseup-' + column[`label`] + idx, 'touchend');
       removeListeners(
         'datatablemousemove-' + column[`label`] + idx,
         'mousemove'
+      );
+      removeListeners(
+        'datatablemousemove-' + column[`label`] + idx,
+        'touchmove'
       );
       await setTableConfiguration(tempConfig);
       await setMouseDownonResize(false);
@@ -309,8 +341,24 @@ const DataTable = ({
       false
     );
     addListener(
+      'datatablemousemove-' + column[`label`] + idx,
+      'touchmove',
+      e => {
+        onPressMouseMove(e);
+      },
+      false
+    );
+    addListener(
       'datatablemouseup-' + column[`label`] + idx,
       'mouseup',
+      e => {
+        onPressMouseUp(e);
+      },
+      false
+    );
+    addListener(
+      'datatablemouseup-' + column[`label`] + idx,
+      'touchend',
       e => {
         onPressMouseUp(e);
       },
@@ -470,7 +518,7 @@ const DataTable = ({
                     right: column.marginRight,
                     ...column.styles
                   }}
-                  title={column.title ? column.title.toString() : ''}
+                  title={column.label ? column.label.toString() : ''}
                   data-column={column.field}
                   className={thClassName.join(' ')}
                   tabIndex={column.sortable ? '0' : null}
@@ -487,128 +535,144 @@ const DataTable = ({
                   }
                   onDragEnd={onDragEnd}
                 >
-                  {headerSelection && column.field === 'checkbox' ? (
-                    headerSelection
-                  ) : (
-                    <>
-                      {showDraggableIcon &&
-                      columnDraggable &&
-                      !column.pinned ? (
+                  <div className={`${prefix}-data-table-header-wrapper`}>
+                    {headerSelection && column.field === 'checkbox' ? (
+                      headerSelection
+                    ) : (
+                      <>
+                        {showDraggableIcon &&
+                        columnDraggable &&
+                        !column.pinned ? (
+                          <svg
+                            className={`draggable-column mr-1${
+                              showDraggableIconOnHover
+                                ? ' draggable-column-onhover'
+                                : ''
+                            }`}
+                            width="7.5px"
+                            height="12px"
+                            viewBox="0 0 10 16"
+                            version="1.1"
+                          >
+                            <title>drag_indicator</title>
+                            <desc>Created with Sketch.</desc>
+                            <g
+                              id="Icons"
+                              stroke="none"
+                              strokeWidth="1"
+                              fill="none"
+                              fillRule="evenodd"
+                            >
+                              <g
+                                id="Outlined"
+                                transform="translate(-617.000000, -246.000000)"
+                              >
+                                <g
+                                  id="Action"
+                                  transform="translate(100.000000, 100.000000)"
+                                >
+                                  <g
+                                    id="Outlined-/-Action-/-drag_indicator"
+                                    transform="translate(510.000000, 142.000000)"
+                                  >
+                                    <g>
+                                      <polygon
+                                        id="Path"
+                                        points="0 0 24 0 24 24 0 24"
+                                      />
+                                      <path
+                                        d="M11,18 C11,19.1 10.1,20 9,20 C7.9,20 7,19.1 7,18 C7,16.9 7.9,16 9,16 C10.1,16 11,16.9 11,18 Z M9,10 C7.9,10 7,10.9 7,12 C7,13.1 7.9,14 9,14 C10.1,14 11,13.1 11,12 C11,10.9 10.1,10 9,10 Z M9,4 C7.9,4 7,4.9 7,6 C7,7.1 7.9,8 9,8 C10.1,8 11,7.1 11,6 C11,4.9 10.1,4 9,4 Z M15,8 C16.1,8 17,7.1 17,6 C17,4.9 16.1,4 15,4 C13.9,4 13,4.9 13,6 C13,7.1 13.9,8 15,8 Z M15,10 C13.9,10 13,10.9 13,12 C13,13.1 13.9,14 15,14 C16.1,14 17,13.1 17,12 C17,10.9 16.1,10 15,10 Z M15,16 C13.9,16 13,16.9 13,18 C13,19.1 13.9,20 15,20 C16.1,20 17,19.1 17,18 C17,16.9 16.1,16 15,16 Z"
+                                        id="🔹-Icon-Color"
+                                      />
+                                    </g>
+                                  </g>
+                                </g>
+                              </g>
+                            </g>
+                          </svg>
+                        ) : null}
+                        <span
+                          className={`hcl-data-table-header${
+                            removeHeaderNowrap ? ' nowrap' : ''
+                          }`}
+                        >
+                          {column.label}
+                        </span>
+                        {(resizable && column['allowResize'] !== false) ||
+                        !!column['allowResize'] ? (
+                          <span
+                            className={`hcl-data-table-resizable`}
+                            onMouseDown={onColumnMouseDown.bind(
+                              this,
+                              column,
+                              index
+                            )}
+                            onTouchStart={onColumnMouseDown.bind(
+                              this,
+                              column,
+                              index
+                            )}
+                          >
+                            <span className={`resize-handle`} />
+                          </span>
+                        ) : null}
+                      </>
+                    )}
+
+                    {column.sortable ? (
+                      sortedColumn.name === column.field &&
+                      sortedColumn.order ? (
                         <svg
-                          className="mr-1"
-                          width="7.5px"
-                          height="12px"
-                          viewBox="0 0 10 16"
+                          width="16px"
+                          height="16px"
+                          className={`${prefix}-sorting${
+                            sortedColumn.order === 'desc' ? ' desc' : ''
+                          }`}
+                          viewBox="0 0 16 16"
                           version="1.1"
                         >
-                          <title>drag_indicator</title>
-                          <desc>Created with Sketch.</desc>
+                          <title>Sort Icon</title>
                           <g
-                            id="Icons"
                             stroke="none"
                             strokeWidth="1"
                             fill="none"
                             fillRule="evenodd"
                           >
-                            <g
-                              id="Outlined"
-                              transform="translate(-617.000000, -246.000000)"
-                            >
-                              <g
-                                id="Action"
-                                transform="translate(100.000000, 100.000000)"
-                              >
-                                <g
-                                  id="Outlined-/-Action-/-drag_indicator"
-                                  transform="translate(510.000000, 142.000000)"
-                                >
-                                  <g>
-                                    <polygon
-                                      id="Path"
-                                      points="0 0 24 0 24 24 0 24"
-                                    />
-                                    <path
-                                      d="M11,18 C11,19.1 10.1,20 9,20 C7.9,20 7,19.1 7,18 C7,16.9 7.9,16 9,16 C10.1,16 11,16.9 11,18 Z M9,10 C7.9,10 7,10.9 7,12 C7,13.1 7.9,14 9,14 C10.1,14 11,13.1 11,12 C11,10.9 10.1,10 9,10 Z M9,4 C7.9,4 7,4.9 7,6 C7,7.1 7.9,8 9,8 C10.1,8 11,7.1 11,6 C11,4.9 10.1,4 9,4 Z M15,8 C16.1,8 17,7.1 17,6 C17,4.9 16.1,4 15,4 C13.9,4 13,4.9 13,6 C13,7.1 13.9,8 15,8 Z M15,10 C13.9,10 13,10.9 13,12 C13,13.1 13.9,14 15,14 C16.1,14 17,13.1 17,12 C17,10.9 16.1,10 15,10 Z M15,16 C13.9,16 13,16.9 13,18 C13,19.1 13.9,20 15,20 C16.1,20 17,19.1 17,18 C17,16.9 16.1,16 15,16 Z"
-                                      id="🔹-Icon-Color"
-                                    />
-                                  </g>
-                                </g>
+                            <g transform="translate(4.000000, 2.000000)">
+                              <line x1="4" y1="12" x2="4" y2="1" />
+                              <polyline points="8 4.5 4 0.5 0 4.5" />
+                            </g>
+                          </g>
+                        </svg>
+                      ) : (
+                        <svg
+                          width="16px"
+                          className={`${prefix}-sorting`}
+                          height="12px"
+                          viewBox="0 0 16 16"
+                          version="1.1"
+                        >
+                          <title>Unsorted Icon</title>
+                          <g
+                            stroke="none"
+                            strokeWidth="1"
+                            fill="none"
+                            fillRule="evenodd"
+                          >
+                            <g fillRule="nonzero">
+                              <g>
+                                <path d="M0.848938817,3.92808987 C0.5730624,4.08135457 0.225174806,3.98195809 0.0719101257,3.70608167 C-0.0813545486,3.43020526 0.0180419086,3.08231766 0.293918326,2.92905298 L5.43677549,0.0719101257 C5.81765046,-0.139687074 6.28571429,0.135723263 6.28571429,0.571428571 L6.28571429,14.8571429 C6.28571429,15.1727341 6.02987697,15.4285714 5.71428571,15.4285714 C5.39869446,15.4285714 5.14285714,15.1727341 5.14285714,14.8571429 L5.14285714,1.54257969 L0.848938817,3.92808987 Z" />
+                                <path
+                                  d="M14.857143,1.63915229 L10.602686,4.47545698 C10.3400982,4.65051555 9.98531571,4.57955904 9.81025714,4.31697121 C9.63519857,4.05438338 9.70615509,3.6996009 9.96874291,3.52454236 L15.1116001,0.0959709287 C15.4913456,-0.15719278 16.0000002,0.115030877 16.0000002,0.571428237 L16.0000002,14.8571425 C16.0000002,15.1727338 15.7441629,15.4285711 15.4285716,15.4285711 C15.1129803,15.4285711 14.857143,15.1727338 14.857143,14.8571425 L14.857143,1.63915229 Z"
+                                  transform="translate(12.857113, 7.713805) rotate(180.000000) translate(-12.857113, -7.713805) "
+                                />
                               </g>
                             </g>
                           </g>
                         </svg>
-                      ) : null}
-                      <span className="hcl-data-table-header">
-                        {column.label}
-                      </span>
-                      {(resizable && column['allowResize'] !== false) ||
-                      !!column['allowResize'] ? (
-                        <span
-                          className={`hcl-data-table-resizable`}
-                          onMouseDown={onColumnMouseDown.bind(
-                            this,
-                            column,
-                            index
-                          )}
-                        >
-                          <span className={`resize-handle`} />
-                        </span>
-                      ) : null}
-                    </>
-                  )}
-
-                  {column.sortable ? (
-                    sortedColumn.name === column.field && sortedColumn.order ? (
-                      <svg
-                        width="16px"
-                        height="16px"
-                        className={`${prefix}-sorting${
-                          sortedColumn.order === 'desc' ? ' desc' : ''
-                        }`}
-                        viewBox="0 0 16 16"
-                        version="1.1"
-                      >
-                        <title>Sort Icon</title>
-                        <g
-                          stroke="none"
-                          strokeWidth="1"
-                          fill="none"
-                          fillRule="evenodd"
-                        >
-                          <g transform="translate(4.000000, 2.000000)">
-                            <line x1="4" y1="12" x2="4" y2="1" />
-                            <polyline points="8 4.5 4 0.5 0 4.5" />
-                          </g>
-                        </g>
-                      </svg>
-                    ) : (
-                      <svg
-                        width="16px"
-                        className={`${prefix}-sorting`}
-                        height="12px"
-                        viewBox="0 0 16 16"
-                        version="1.1"
-                      >
-                        <title>Unsorted Icon</title>
-                        <g
-                          stroke="none"
-                          strokeWidth="1"
-                          fill="none"
-                          fillRule="evenodd"
-                        >
-                          <g fillRule="nonzero">
-                            <g>
-                              <path d="M0.848938817,3.92808987 C0.5730624,4.08135457 0.225174806,3.98195809 0.0719101257,3.70608167 C-0.0813545486,3.43020526 0.0180419086,3.08231766 0.293918326,2.92905298 L5.43677549,0.0719101257 C5.81765046,-0.139687074 6.28571429,0.135723263 6.28571429,0.571428571 L6.28571429,14.8571429 C6.28571429,15.1727341 6.02987697,15.4285714 5.71428571,15.4285714 C5.39869446,15.4285714 5.14285714,15.1727341 5.14285714,14.8571429 L5.14285714,1.54257969 L0.848938817,3.92808987 Z" />
-                              <path
-                                d="M14.857143,1.63915229 L10.602686,4.47545698 C10.3400982,4.65051555 9.98531571,4.57955904 9.81025714,4.31697121 C9.63519857,4.05438338 9.70615509,3.6996009 9.96874291,3.52454236 L15.1116001,0.0959709287 C15.4913456,-0.15719278 16.0000002,0.115030877 16.0000002,0.571428237 L16.0000002,14.8571425 C16.0000002,15.1727338 15.7441629,15.4285711 15.4285716,15.4285711 C15.1129803,15.4285711 14.857143,15.1727338 14.857143,14.8571425 L14.857143,1.63915229 Z"
-                                transform="translate(12.857113, 7.713805) rotate(180.000000) translate(-12.857113, -7.713805) "
-                              />
-                            </g>
-                          </g>
-                        </g>
-                      </svg>
-                    )
-                  ) : null}
+                      )
+                    ) : null}
+                  </div>
                 </th>
               );
             })}
@@ -816,7 +880,11 @@ DataTable.propTypes = {
   /** Unique Key name for updating selectedItem in items data */
   uniqueKey: PropTypes.string,
   /** unique id of item for default selection eg: {[id]: true } */
-  selectedItem: PropTypes.object
+  selectedItem: PropTypes.object,
+  /** Icon Reorder will appear on hover */
+  showDraggableIconOnHover: PropTypes.bool,
+  /** Used to remove nowwrap style from header title */
+  removeHeaderNowrap: PropTypes.bool
 };
 
 DataTable.defaultProps = {
@@ -837,7 +905,9 @@ DataTable.defaultProps = {
   onColumnAfterResize: () => {},
   initSortedColumn: {},
   uniqueKey: 'id',
-  onColumnReorder: () => {}
+  onColumnReorder: () => {},
+  showDraggableIconOnHover: false,
+  removeHeaderNowrap: false
 };
 
 export default DataTable;

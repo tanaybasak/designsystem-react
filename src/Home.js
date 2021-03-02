@@ -20,6 +20,8 @@ import InlineEditExample from './example/InlineEdit';
 import ProgressIndicatorExample from './example/ProgressIndicator';
 import InPageNavigationExample from './example/InPageNavigationExample';
 import TreeviewWithNewFolder from './example/TreeviewWithNewFolder';
+import WizardExample from './example/WizardExample';
+import RichTextEditorExample from './example/RichTextEditorExample';
 import CodeSnippetExample from './example/CodeSnippetExample';
 import SidebarExample from './example/SidebarExample';
 class Home extends Component {
@@ -38,6 +40,10 @@ class Home extends Component {
       icon: <i className="p-hclsw p-hclsw-release" />,
       statusIcon: <i className="p-hclsw p-hclsw-calendar" />,
       children: [
+        {
+          href: '/wizard',
+          title: 'Wizard'
+        },
         {
           href: '/tag',
           title: 'Tag'
@@ -97,6 +103,10 @@ class Home extends Component {
         {
           href: '/treeWithNewFolder',
           title: 'TreeviewWithNewFolder'
+        },
+        {
+          href: '/rte',
+          title: 'Rich Text Editor'
         },
         {
           href: '/codesnippet',
@@ -163,6 +173,7 @@ class Home extends Component {
         >
           <Switch>
             <Route exact path="/" component={App} />
+            <Route exact path="/wizard" component={WizardExample} />
             <Route exact path="/tag" component={TagExample} />
             <Route exact path="/inlineedit" component={InlineEditExample} />
             <Route exact path="/table" component={TableExample} />
@@ -198,6 +209,7 @@ class Home extends Component {
               path="/treeWithNewFolder"
               component={TreeviewWithNewFolder}
             />
+            <Route exact path="/rte" component={RichTextEditorExample} />
             <Route exact path="/codesnippet" component={CodeSnippetExample} />
           </Switch>
         </div>
