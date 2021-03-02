@@ -29,7 +29,12 @@ import Search from './atoms/Search';
 import FileUploader from './molecules/FileUploader';
 import { Accordion, AccordionItem } from './molecules/Accordion';
 import Dropdown from './atoms/Dropdown';
-import Tile from './atoms/Tile';
+import {
+  Tile,
+  ExpandableTile,
+  SelectableTile,
+  ClickableTile
+} from './atoms/Tile';
 import DatePicker from './molecules/DatePicker';
 import { weekDays, months } from './content';
 import Pagination from './atoms/Pagination';
@@ -1482,19 +1487,19 @@ class App extends Component {
                 </div>
                 <div className="hcl-col-12 mt-5 mb-5">
                   {/* clickable tile */}
-                  <Tile type="clickable" href="">
+                  <ClickableTile type="clickable" href="">
                     <p>This is clickable tile</p>
-                  </Tile>
+                  </ClickableTile>
                 </div>
                 <div className="hcl-col-12 mt-5 mb-5">
                   {/* selectable tile */}
-                  <Tile type="selectable">
+                  <SelectableTile type="selectable">
                     <p>This is selectable tile</p>
-                  </Tile>
+                  </SelectableTile>
                 </div>
                 <div className="hcl-col-12 mt-5 mb-5">
                   {/* expandable bottom right arrow tile */}
-                  <Tile
+                  <ExpandableTile
                     type="expandable"
                     id="expandable-tile-1"
                     foldContentAbove={<p>Part A</p>}
@@ -1508,9 +1513,9 @@ class App extends Component {
                     <div>
                       <p>Content shown after expand </p>
                     </div>
-                  </Tile>
+                  </ExpandableTile>
                   {/* expandable top left arrow tile */}
-                  <Tile
+                  <ExpandableTile
                     type="expandable"
                     expandableType="top"
                     id="expandable-tile-2"

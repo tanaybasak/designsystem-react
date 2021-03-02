@@ -1,16 +1,15 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
 import { text } from '@storybook/addon-knobs';
 //@update-path-build-start
-import Tile from './Tile';
+import { Tile, SelectableTile, ClickableTile, ExpandableTile } from './Tile';
 //@update-path-build-end
 
 storiesOf('Tile', module)
   .add(
     'default',
     () => (
-      <Tile type="readable">
+      <Tile>
         <div>
           <p>This is readable tile</p>
         </div>
@@ -26,69 +25,65 @@ storiesOf('Tile', module)
   .add(
     'clickable',
     () => (
-      <Tile href="" type="clickable">
+      <ClickableTile href="">
         <div>
           <p>This is clickable tile</p>
         </div>
-      </Tile>
+      </ClickableTile>
     ),
     {
       info: {
         text: `Description About Tile Component \n
-        import { Tile } from '@patron/patron-react/tile';`
+        import { ClickableTile } from '@patron/patron-react/tile';`
       }
     }
   )
   .add(
     'selectable',
     () => (
-      <Tile type="selectable">
+      <SelectableTile>
         <div>
           <p>This is selectable tile</p>
         </div>
-      </Tile>
+      </SelectableTile>
     ),
     {
       info: {
         text: `Description About Tile Component \n
-        import { Tile } from '@patron/patron-react/tile';`
+        import { SelectableTile } from '@patron/patron-react/tile';`
       }
     }
   )
   .add(
     'expandable',
     () => (
-      <Tile
+      <ExpandableTile
         id="hcl-expandable-id"
-        type="expandable"
         foldContentAbove={text('Content Above', 'Content Above')}
         foldContentBelow={text('Content Below', 'Content Below')}
-        onChange={action('Toggle')}
       />
     ),
     {
       info: {
         text: `Description About Tile Component \n
-        import { Tile } from '@patron/patron-react/tile';`
+        import { ExpandableTile } from '@patron/patron-react/tile';`
       }
     }
   )
   .add(
     'expandable- top left arrow',
     () => (
-      <Tile
+      <ExpandableTile
         id="hcl-expandable-id-2"
-        type="expandable"
         expandableType="top"
         foldContentAbove={text('Content Above', 'Content Above')}
         foldContentBelow={text('Content Below', 'Content below')}
-        onChange={action('Toggle')}
       />
     ),
     {
       info: {
         text: `Description About Tile Component \n
-        import { Tile } from '@patron/patron-react/tile';`
+        import { ExpandableTile } from '@patron/patron-react/tile';`
       }
     }
   );
