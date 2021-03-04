@@ -13,7 +13,7 @@ const typeOptions = {
   Warning: 'warning'
 };
 
-storiesOf('Toast', module).add(
+storiesOf('Components/Toast', module).add(
   'default',
   () => (
     <Toast

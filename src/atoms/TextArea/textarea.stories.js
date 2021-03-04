@@ -6,7 +6,7 @@ import { text, boolean } from '@storybook/addon-knobs';
 import TextArea from './TextArea';
 //@update-path-build-end
 
-storiesOf('TextArea', module)
+storiesOf('Components/TextArea', module)
   .add(
     'default',
     () => (

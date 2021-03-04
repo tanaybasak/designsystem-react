@@ -6,7 +6,7 @@ import { text, number } from '@storybook/addon-knobs';
 import { Breadcrumb, BreadcrumbItem } from './index';
 //@update-path-build-end
 
-storiesOf('Breadcrumb', module)
+storiesOf('Components/Breadcrumb', module)
   .add(
     'default',
     () => {

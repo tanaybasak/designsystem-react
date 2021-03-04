@@ -19,7 +19,7 @@ const directionOption = {
   Right: 'right'
 };
 
-storiesOf('Radio', module)
+storiesOf('Components/Radio', module)
   .add(
     'default',
     () => (

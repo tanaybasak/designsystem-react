@@ -11,7 +11,7 @@ const directionOption = {
   Left: 'left',
   Right: 'right'
 };
-storiesOf('Checkbox', module)
+storiesOf('Components/Checkbox', module)
   .add(
     'default',
     () => (

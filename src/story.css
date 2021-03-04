@@ -1,4 +1,32 @@
-#story-root .hcl-modal:nth-child(1) {
+#root .hcl-sidebar {
+    position: relative;
+    height: 500px;
+    margin-bottom: 50px;
+}
+
+#root .hcl-modal:nth-child(1) {
+    position: unset !important;
+    width: 100%;
+    outline: none;
+    background-color: transparent !important;
+}
+
+#root .hcl-toast:nth-child(1) {
+    position: relative !important;
+}
+
+#root .hcl-header {
+    position: relative !important;
+    width: 100% !important;
+}
+
+.hcl-document tbody td:nth-child(4),
+.hcl-document tbody td:nth-child(5) {
+    white-space: pre-wrap;
+
+}
+
+/* #story-root .hcl-modal:nth-child(1) {
   position: unset !important;
   width: 100%;
   outline: none;
@@ -42,4 +70,4 @@
   #story-root > .hcl-accordion {
     width: 650px;
   }
-}
+} */

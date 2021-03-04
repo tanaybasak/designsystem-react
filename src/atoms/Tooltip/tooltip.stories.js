@@ -15,7 +15,7 @@ const directionOption = {
   Right: 'right'
 };
 
-storiesOf('Tooltip', module)
+storiesOf('Components/Tooltip', module)
   .add(
     'icon',
     () => (

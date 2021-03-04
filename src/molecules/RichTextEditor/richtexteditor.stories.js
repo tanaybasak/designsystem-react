@@ -15,7 +15,7 @@ const config = [
   { type: 'link' }
 ];
 
-storiesOf('RichTextEditor', module).add(
+storiesOf('Components/RichTextEditor', module).add(
   'default',
   () => (
     <RichTextEditor

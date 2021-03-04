@@ -6,7 +6,7 @@ import { text, boolean } from '@storybook/addon-knobs';
 import Password from './Password';
 //@update-path-build-end
 
-storiesOf('Password', module)
+storiesOf('Components/Password', module)
   .add(
     'default',
     () => (

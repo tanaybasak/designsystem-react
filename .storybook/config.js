@@ -1,13 +1,12 @@
 import { configure, addParameters, addDecorator } from '@storybook/react';
 import customTheme from './sample-theme';
 import { withKnobs } from '@storybook/addon-knobs';
-import { withInfo } from '@storybook/addon-info';
 import { withA11y } from '@storybook/addon-a11y';
 import '../src/story.css';
 import './config.css';
 import '@patron/patron-css/patron/index.css';
 import '@patron/patron-icon/dist/patron-font.css';
-
+import Container from './Container';
 addParameters({
   options: {
     theme: customTheme,
@@ -17,16 +16,9 @@ addParameters({
 });
 
 addDecorator(withKnobs);
-
-addDecorator(
-  withInfo({
-    inline: true,
-    source: true,
-    header: false,
-    maxPropArrayLength: 10,
-    maxPropStringLength: 400
-  })
-);
+addDecorator((story, config) => {
+  return <Container story={story} config={config} />;
+});
 
 addDecorator(withA11y);
 

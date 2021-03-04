@@ -6,7 +6,7 @@ import Overlay from './Overlay';
 import Notification from '../../atoms/Notification/Notification';
 //@update-path-build-end
 
-storiesOf('Overlay', module).add(
+storiesOf('Components/Overlay', module).add(
   'default',
   () => (
     <>

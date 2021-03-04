@@ -94,7 +94,7 @@ const typeOptions = {
   default: 'default'
 };
 
-storiesOf('Sidebar', module)
+storiesOf('Components/Sidebar', module)
   .add(
     'default',
     () => (

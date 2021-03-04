@@ -7,7 +7,7 @@ import Tab from './Tab';
 import Tabs from './Tabs';
 //@update-path-build-end
 
-storiesOf('Tab', module).add(
+storiesOf('Components/Tab', module).add(
   'default',
   () => (
     <Tabs activeIndex={1} onChange={action('Tab OnChange')}>

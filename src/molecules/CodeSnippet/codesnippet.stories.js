@@ -83,7 +83,7 @@ class Accordion {
 export default Accordion;
 
 `;
-storiesOf('CodeSnippet', module).add(
+storiesOf('Components/CodeSnippet', module).add(
   'default',
   () => (
     <CodeSnippet

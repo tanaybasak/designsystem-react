@@ -37,7 +37,7 @@ const iconTypes = {
   noicon: 'noicon'
 };
 
-storiesOf('Wizard', module).add(
+storiesOf('Components/Wizard', module).add(
   'default',
   () => (
     <Wizard

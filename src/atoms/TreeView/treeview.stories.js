@@ -84,7 +84,7 @@ const timeout = ms => {
 const treeData = getCustomTree();
 const treeDataLazyLoad = getCustomTreeLazyLoad();
 
-storiesOf('Tree', module)
+storiesOf('Components/Tree', module)
   .add('default', () => <TreeView treeData={object('Tree Data', treeData)} />, {
     info: {
       text: `Description About TreeView Component \n

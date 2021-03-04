@@ -18,7 +18,7 @@ const actions = [
   { label: 'Close', secondary: false }
 ];
 
-storiesOf('Modal', module).add(
+storiesOf('Components/Modal', module).add(
   'default',
   () => (
     <Modal

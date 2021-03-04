@@ -38,7 +38,7 @@ const listItems = [
   }
 ];
 
-storiesOf('OverflowMenu', module)
+storiesOf('Components/OverflowMenu', module)
   .add(
     'default',
     () => (

@@ -20,7 +20,7 @@ const timelineObject = [
   }
 ];
 
-storiesOf('InPageNavigation', module).add(
+storiesOf('Components/InPageNavigation', module).add(
   'default',
   () => <InPageNavigation listItems={object('ListItems', timelineObject)} />,
   {

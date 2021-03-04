@@ -6,7 +6,7 @@ import { text, boolean } from '@storybook/addon-knobs';
 import Toggle from './Toggle';
 //@update-path-build-end
 
-storiesOf('Toggle', module)
+storiesOf('Components/Toggle', module)
   .add(
     'default',
     () => (

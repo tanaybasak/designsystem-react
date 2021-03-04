@@ -5,7 +5,7 @@ import { text } from '@storybook/addon-knobs';
 import Paragraph from './Paragraph';
 //@update-path-build-end
 
-storiesOf('Paragraph', module).add(
+storiesOf('Components/Paragraph', module).add(
   'default',
   () => <Paragraph>{text('Label', 'Sample Paragraph')}</Paragraph>,
   {

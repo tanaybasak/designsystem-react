@@ -19,7 +19,7 @@ const classOptions = [
 
 const typeOptions = ['button', 'reset', 'submit'];
 
-storiesOf('Button', module)
+storiesOf('Components/Button', module)
   .add(
     'default',
     () => (

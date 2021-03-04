@@ -61,7 +61,7 @@ const listItems = [
   }
 ];
 
-storiesOf('List', module)
+storiesOf('Components/List', module)
   .add(
     'ordered',
     () => (

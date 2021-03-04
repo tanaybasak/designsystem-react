@@ -6,7 +6,7 @@ import Header from './index';
 import Search from '../../atoms/Search';
 //@update-path-build-end
 
-storiesOf('Header', module).add(
+storiesOf('Components/Header', module).add(
   'default',
   () => (
     <Header

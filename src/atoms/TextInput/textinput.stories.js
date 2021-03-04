@@ -6,7 +6,7 @@ import { text, boolean } from '@storybook/addon-knobs';
 import TextInput from './TextInput';
 //@update-path-build-end
 
-storiesOf('TextInput', module)
+storiesOf('Components/TextInput', module)
   .add(
     'default',
     () => (

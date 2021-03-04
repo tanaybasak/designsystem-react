@@ -12,7 +12,7 @@ const typeOptions = {
   Secondary: 'secondary'
 };
 
-storiesOf('Tag', module)
+storiesOf('Components/Tag', module)
   .add(
     'default',
     () => (

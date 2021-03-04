@@ -22,7 +22,7 @@ const links = [
     label: 'Contact Us'
   }
 ];
-storiesOf('Footer', module).add(
+storiesOf('Components/Footer', module).add(
   'default',
   () => (
     <Footer

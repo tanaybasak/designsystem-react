@@ -354,7 +354,7 @@ const classOptions = {
   Tall: ' tall',
   Default: ''
 };
-storiesOf('DataTable', module)
+storiesOf('Components/DataTable', module)
   .add(
     'default',
     () => (
@@ -383,9 +383,8 @@ storiesOf('DataTable', module)
     () => (
       <DataTable
         id="custom-datatable-custom-temp"
-        tableData={object('Table Data', tableData)}
+        tableData={tableData}
         tableConfig={tableConfigWithCustomTemplate}
-        type={text('Type', 'zebra borderless')}
         headerSelection={
           <Checkbox aria-label="header checkbox" id={`header_checkbox`} />
         }
@@ -400,6 +399,17 @@ storiesOf('DataTable', module)
     import {Toggle} from '@patron/patron-react/toggle';
     import {Overflowmenu} from '@patron/patron-react/overflowmenu';
     import {Tag} from '@patron/patron-react/tag';
+      `,
+        snippet: `
+<DataTable
+        id="custom-datatable-custom-temp"
+        tableData={${JSON.stringify(tableData)}}
+        tableConfig={${JSON.stringify(tableConfigWithCustomTemplate)}}
+        headerSelection={
+          <Checkbox aria-label="header checkbox" id="header_checkbox" />
+        }
+        onSort={action('Sort Action')}
+      />
       `
       }
     }

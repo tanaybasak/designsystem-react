@@ -17,7 +17,7 @@ const props = {
   })
 };
 
-storiesOf('Select', module).add(
+storiesOf('Components/Select', module).add(
   'default',
   () => (
     <Select {...props.select()} id="selct-id">

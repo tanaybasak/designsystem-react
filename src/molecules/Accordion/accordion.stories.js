@@ -7,7 +7,7 @@ import Accordion from './Accordion';
 import AccordionItem from './AccordionItem';
 //@update-path-build-end
 
-storiesOf('Accordion', module).add(
+storiesOf('Components/Accordion', module).add(
   'default',
   () => (
     <Accordion uncontrolled={boolean('Uncontrolled', false)}>

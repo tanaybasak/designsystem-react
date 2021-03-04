@@ -11,7 +11,7 @@ const position = {
   right: ['pageNumberInfo']
 };
 
-storiesOf('Pagination', module)
+storiesOf('Components/Pagination', module)
   .add(
     'default',
     () => (

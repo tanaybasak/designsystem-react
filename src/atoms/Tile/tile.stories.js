@@ -6,7 +6,7 @@ import { text } from '@storybook/addon-knobs';
 import Tile from './Tile';
 //@update-path-build-end
 
-storiesOf('Tile', module)
+storiesOf('Components/Tile', module)
   .add(
     'default',
     () => (

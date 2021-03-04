@@ -13,7 +13,7 @@ const options = {
   h5: 'h5',
   h6: 'h6'
 };
-storiesOf('Heading', module).add(
+storiesOf('Components/Heading', module).add(
   'default',
   () => (
     <Heading type={select('Type', options, 'h1')}>

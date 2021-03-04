@@ -5,7 +5,7 @@ import { text } from '@storybook/addon-knobs';
 import Link from './Link';
 //@update-path-build-end
 
-storiesOf('Link', module).add(
+storiesOf('Components/Link', module).add(
   'default',
   () => <Link href={text('URL', '#')}>{text('Label', 'Link')}</Link>,
   {

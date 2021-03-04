@@ -6,7 +6,7 @@ import { number, boolean, text } from '@storybook/addon-knobs';
 import Slider from './Slider';
 //@update-path-build-end
 
-storiesOf('Slider', module)
+storiesOf('Components/Slider', module)
   .add(
     'default',
     () => (

@@ -5,7 +5,7 @@ import { text } from '@storybook/addon-knobs';
 import Spinner from './Spinner';
 //@update-path-build-end
 
-storiesOf('Spinner', module)
+storiesOf('Components/Spinner', module)
   .add('default', () => <Spinner title={text('Title', 'Loading')} />, {
     info: {
       text: `Description About Spinner Component \n

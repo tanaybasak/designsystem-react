@@ -16,7 +16,7 @@ const themeOption = {
   White: 'white'
 };
 
-storiesOf('Search', module)
+storiesOf('Components/Search', module)
   .add(
     'default',
     () => (

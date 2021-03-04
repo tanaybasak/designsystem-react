@@ -13,7 +13,7 @@ const notificationType = {
   Danger: 'danger'
 };
 
-storiesOf('Notification', module).add(
+storiesOf('Components/Notification', module).add(
   'default',
   () => (
     <Notification
