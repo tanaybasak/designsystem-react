@@ -2,14 +2,14 @@
 
 import groovy.json.JsonSlurper
 
-AUTH_TOKEN = "ananthv:5d01a4f32cad245134189f08f9e942134c1ad07a"
-// projects_name = "CSS"
+AUTH_TOKEN = "ananthv:${GITHUB_TOKEN}"
+//projects_name = "CSS"
 GITHUB_API = ""
 TOTAL_PAGES = 0
 
 if(projects_name.equals('CSS')) {
     GITHUB_API = "https://github01.hclpnp.com/api/v3/repos/ananthv/jenkins-test-build/branches"
-    // GITHUB_API = "https://github01.hclpnp.com/api/v3/repos/UXUIAssets/patron-css/branches"
+    // GITHUB_API = "${GITHUB_BRANCHES_BUILD_CSS}"
     TOTAL_PAGES = getNumberofPagesinRepo('css')
     if(TOTAL_PAGES.equals('LESS30')) {
         TOTAL_PAGES = 1
@@ -17,7 +17,27 @@ if(projects_name.equals('CSS')) {
     } else {
         return getBranchNamesFromPage('css');
     }
-} else {
+} else if(projects_name.equals('REACT')) {
+    GITHUB_API = "https://github01.hclpnp.com/api/v3/repos/ananthv/jenkins-test-build/branches"
+    // GITHUB_API = "${GITHUB_BRANCHES_BUILD_REACT}"
+    TOTAL_PAGES = getNumberofPagesinRepo('css')
+    if(TOTAL_PAGES.equals('LESS30')) {
+        TOTAL_PAGES = 1
+        return getBranchNamesFromPage('css');
+    } else {
+        return getBranchNamesFromPage('css');
+    }
+} else if(projects_name.equals('ANGULAR')) {
+    GITHUB_API = "https://github01.hclpnp.com/api/v3/repos/ananthv/jenkins-test-build/branches"
+    // GITHUB_API = "${GITHUB_BRANCHES_BUILD_NG}"
+    TOTAL_PAGES = getNumberofPagesinRepo('css')
+    if(TOTAL_PAGES.equals('LESS30')) {
+        TOTAL_PAGES = 1
+        return getBranchNamesFromPage('css');
+    } else {
+        return getBranchNamesFromPage('css');
+    }
+}  else {
  return ['Please select a tag']
 }
 
@@ -44,6 +64,7 @@ def getBranchNamesFromPage(which) {
 
 //@getNumberofPagesinRepo() method to make JSON data
 def getNumberofPagesinRepo(which) { 
+    println AUTH_TOKEN
      def command = "curl -I -u ${AUTH_TOKEN} ${GITHUB_API}"
      def proc = command.execute()
     //  proc.waitForProcessOutput()
