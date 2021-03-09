@@ -18,7 +18,6 @@ if(projects_name.equals('CSS')) {
         return getBranchNamesFromPage('css');
     }
 } else if(projects_name.equals('REACT')) {
-    // GITHUB_API = "https://github01.hclpnp.com/api/v3/repos/ananthv/jenkins-test-build/branches"
     GITHUB_API = "${GITHUB_BRANCHES_BUILD_REACT_API}"
     TOTAL_PAGES = getNumberofPagesinRepo('css')
     if(TOTAL_PAGES.equals('LESS30')) {
@@ -28,7 +27,6 @@ if(projects_name.equals('CSS')) {
         return getBranchNamesFromPage('css');
     }
 } else if(projects_name.equals('ANGULAR')) {
-    // GITHUB_API = "https://github01.hclpnp.com/api/v3/repos/ananthv/jenkins-test-build/branches"
     GITHUB_API = "${GITHUB_BRANCHES_BUILD_NG_API}"
     TOTAL_PAGES = getNumberofPagesinRepo('css')
     if(TOTAL_PAGES.equals('LESS30')) {
@@ -46,16 +44,15 @@ def getBranchNamesFromPage(which) {
     for(int i = 1; i<=TOTAL_PAGES; i++) {
         def command = "curl -u ${AUTH_TOKEN} ${GITHUB_API}" + "?page=${i}"
         def proc = command.execute()
-        // proc.waitForProcessOutput()
         def out = proc.text
         // Parse text to json
         JsonSlurper jsonSlurper = new JsonSlurper()
         def json_data = jsonSlurper.parseText(out)
         json_data.each {
             String name = "$it.name"
-            // if(name.startsWith("test")) {
+            if(name.startsWith("Release_patch")) {
                 branchList.add(name)
-            // }
+            }
         }
     }
 
