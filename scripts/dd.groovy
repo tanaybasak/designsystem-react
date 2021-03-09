@@ -2,14 +2,14 @@
 
 import groovy.json.JsonSlurper
 
-AUTH_TOKEN = "ananthv:${GITHUB_TOKEN}"
+AUTH_TOKEN = "gupta-ma:${GITHUB_TOKEN}"
 //projects_name = "CSS"
 GITHUB_API = ""
 TOTAL_PAGES = 0
 
 if(projects_name.equals('CSS')) {
-    GITHUB_API = "https://github01.hclpnp.com/api/v3/repos/ananthv/jenkins-test-build/branches"
-    // GITHUB_API = "${GITHUB_BRANCHES_BUILD_CSS}"
+    // GITHUB_API = "https://github01.hclpnp.com/api/v3/repos/ananthv/jenkins-test-build/branches"
+    GITHUB_API = "${GITHUB_BRANCHES_BUILD_CSS_API}"
     TOTAL_PAGES = getNumberofPagesinRepo('css')
     if(TOTAL_PAGES.equals('LESS30')) {
         TOTAL_PAGES = 1
@@ -18,8 +18,8 @@ if(projects_name.equals('CSS')) {
         return getBranchNamesFromPage('css');
     }
 } else if(projects_name.equals('REACT')) {
-    GITHUB_API = "https://github01.hclpnp.com/api/v3/repos/ananthv/jenkins-test-build/branches"
-    // GITHUB_API = "${GITHUB_BRANCHES_BUILD_REACT}"
+    // GITHUB_API = "https://github01.hclpnp.com/api/v3/repos/ananthv/jenkins-test-build/branches"
+    GITHUB_API = "${GITHUB_BRANCHES_BUILD_REACT_API}"
     TOTAL_PAGES = getNumberofPagesinRepo('css')
     if(TOTAL_PAGES.equals('LESS30')) {
         TOTAL_PAGES = 1
@@ -28,8 +28,8 @@ if(projects_name.equals('CSS')) {
         return getBranchNamesFromPage('css');
     }
 } else if(projects_name.equals('ANGULAR')) {
-    GITHUB_API = "https://github01.hclpnp.com/api/v3/repos/ananthv/jenkins-test-build/branches"
-    // GITHUB_API = "${GITHUB_BRANCHES_BUILD_NG}"
+    // GITHUB_API = "https://github01.hclpnp.com/api/v3/repos/ananthv/jenkins-test-build/branches"
+    GITHUB_API = "${GITHUB_BRANCHES_BUILD_NG_API}"
     TOTAL_PAGES = getNumberofPagesinRepo('css')
     if(TOTAL_PAGES.equals('LESS30')) {
         TOTAL_PAGES = 1
@@ -53,9 +53,9 @@ def getBranchNamesFromPage(which) {
         def json_data = jsonSlurper.parseText(out)
         json_data.each {
             String name = "$it.name"
-            if(name.startsWith("test")) {
-                branchList.add(new String("$it.name"))
-            }
+            // if(name.startsWith("test")) {
+                branchList.add(name)
+            // }
         }
     }
 
