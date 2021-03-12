@@ -49,6 +49,10 @@ import Password from './atoms/Password';
 //import Overlay from './atoms/Overlay';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.cc = React.createRef();
+  }
   state = {
     indeterminate: false,
     showOverlay: false,
@@ -95,7 +99,8 @@ class App extends Component {
         title: 'Alternate Contact',
         description: 'Alternate Contact'
       }
-    ]
+    ],
+    expandableTileToggle: false
   };
 
   position = {
@@ -1515,8 +1520,24 @@ class App extends Component {
                     </div>
                   </ExpandableTile>
                   {/* expandable top left arrow tile */}
+                  <Button
+                    kind="button"
+                    type="primary-danger"
+                    onClick={() => {
+                      this.setState({
+                        ...this.state,
+                        expandableTileToggle: !this.state.expandableTileToggle
+                      });
+                    }}
+                  >
+                    Toggle Expandable tile
+                  </Button>
                   <ExpandableTile
-                    type="expandable"
+                    ref={this.cc}
+                    expanded={this.state.expandableTileToggle}
+                    onChange={s => {
+                      console.log(s);
+                    }}
                     expandableType="top"
                     id="expandable-tile-2"
                     foldContentAbove={'Part A'}

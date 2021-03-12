@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 
@@ -33,6 +33,7 @@ const ExpandableTile = React.forwardRef((props, ref) => {
     id,
     foldContentAbove = null,
     foldContentBelow = null,
+    expanded,
     onChange,
     ...restProps
   } = props;
@@ -43,6 +44,16 @@ const ExpandableTile = React.forwardRef((props, ref) => {
     setChecked(!checked);
     onChange(!checked);
   };
+
+  useEffect(() => {
+    if (expanded) {
+      setChecked(expanded);
+      onChange(expanded);
+    } else {
+      setChecked(expanded);
+      onChange(expanded);
+    }
+  }, [expanded]);
 
   const keyDownOnTile = e => {
     const input = combinedExpandableRef.current
@@ -112,6 +123,8 @@ ExpandableTile.propTypes = {
   foldContentAbove: PropTypes.node,
   /**  Content below expandable tile */
   foldContentBelow: PropTypes.node,
+  /**  Specifies state of the Expandable Tile */
+  expanded: PropTypes.bool,
   /** Accepts event handler as prop/argument. */
   onChange: PropTypes.func,
 
@@ -129,6 +142,7 @@ ExpandableTile.defaultProps = {
   expandableType: 'bottom',
   foldContentAbove: null,
   foldContentBelow: null,
+  expanded: false,
   onChange: () => {}
 };
 
