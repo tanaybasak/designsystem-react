@@ -1,8 +1,8 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { text } from '@storybook/addon-knobs';
+import { text, boolean } from '@storybook/addon-knobs';
 //@update-path-build-start
-import { Tile, SelectableTile, ClickableTile, ExpandableTile } from './Tile';
+import { Tile, SelectableTile, ClickableTile, ExpandableTile } from './index';
 //@update-path-build-end
 
 storiesOf('Tile', module)
@@ -25,7 +25,7 @@ storiesOf('Tile', module)
   .add(
     'clickable',
     () => (
-      <ClickableTile href="">
+      <ClickableTile href={text('href', '')}>
         <div>
           <p>This is clickable tile</p>
         </div>
@@ -41,7 +41,7 @@ storiesOf('Tile', module)
   .add(
     'selectable',
     () => (
-      <SelectableTile>
+      <SelectableTile selected={boolean('selected', false)}>
         <div>
           <p>This is selectable tile</p>
         </div>
@@ -59,6 +59,7 @@ storiesOf('Tile', module)
     () => (
       <ExpandableTile
         id="hcl-expandable-id"
+        expanded={boolean('expanded', false)}
         foldContentAbove={text('Content Above', 'Content Above')}
         foldContentBelow={text('Content Below', 'Content Below')}
       />
@@ -75,6 +76,7 @@ storiesOf('Tile', module)
     () => (
       <ExpandableTile
         id="hcl-expandable-id-2"
+        expanded={boolean('expanded', false)}
         expandableType="top"
         foldContentAbove={text('Content Above', 'Content Above')}
         foldContentBelow={text('Content Below', 'Content below')}

@@ -1,30 +1,9 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 
-function useCombinedRefs(...refs) {
-  const targetRef = React.useRef();
-
-  React.useEffect(() => {
-    refs.forEach(ref => {
-      if (!ref) return;
-
-      if (typeof ref === 'function') {
-        ref(targetRef.current);
-      } else {
-        ref.current = targetRef.current;
-      }
-    });
-  }, [refs]);
-
-  return targetRef;
-}
-
 const ClickableTile = React.forwardRef((props, ref) => {
   let classNames = null;
-
-  const clickableEle = useRef(null);
-  const clickableRef = useCombinedRefs(ref, clickableEle);
 
   const { className = '', children, href, ...restProps } = props;
 
@@ -32,7 +11,7 @@ const ClickableTile = React.forwardRef((props, ref) => {
     classNames = `${prefix}-tile-clickable ${className}`.trim();
     return (
       <a
-        ref={clickableRef}
+        ref={ref}
         className={classNames}
         href={href}
         tabIndex="0"

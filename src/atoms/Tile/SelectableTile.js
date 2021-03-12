@@ -1,34 +1,13 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 
 let selectTileCount = 0;
 
-function useCombinedRefs(...refs) {
-  const targetRef = React.useRef();
-
-  React.useEffect(() => {
-    refs.forEach(ref => {
-      if (!ref) return;
-
-      if (typeof ref === 'function') {
-        ref(targetRef.current);
-      } else {
-        ref.current = targetRef.current;
-      }
-    });
-  }, [refs]);
-
-  return targetRef;
-}
-
 const SelectableTile = React.forwardRef((props, ref) => {
   let classNames = null;
 
-  const selectableElement = useRef(null);
-  const selectableRef = useCombinedRefs(ref, selectableElement);
-
-  const { className = '', children, onChange, ...restProps } = props;
+  const { className = '', children, onChange, selected, ...restProps } = props;
 
   const [checked, setChecked] = useState(false);
 
@@ -37,16 +16,19 @@ const SelectableTile = React.forwardRef((props, ref) => {
     onChange(!checked);
   };
 
+  useEffect(() => {
+    if (selected) {
+      setChecked(selected);
+    } else {
+      setChecked(selected);
+    }
+  }, [selected]);
+
   const keyDownOnTile = e => {
-    const input = selectableRef.current
-      ? selectableRef.current.querySelector('input[type="checkbox"]')
-      : null;
     const key = e.which || e.keyCode;
     if (key === 13 || key === 32) {
       e.preventDefault();
-      if (input) {
-        setChecked(!checked);
-      }
+      setChecked(!checked);
       onChange(!checked);
     }
   };
@@ -55,9 +37,10 @@ const SelectableTile = React.forwardRef((props, ref) => {
     selectTileCount += 1;
     classNames = `${prefix}-tile-selectable ${className}`.trim();
     return (
-      <div onKeyDown={keyDownOnTile} ref={selectableRef} {...restProps}>
+      <div onKeyDown={keyDownOnTile} ref={ref} {...restProps}>
         <label
           tabIndex="0"
+          aria-checked={checked}
           className={
             checked ? `${classNames} ${prefix}-tile-active` : `${classNames}`
           }
@@ -98,11 +81,14 @@ SelectableTile.propTypes = {
   /** For Readable, Clickable & Selectable Tile:
   Content for tile. */
   children: PropTypes.any,
+  /**  Specifies state of the Selectable Tile */
+  selected: PropTypes.bool,
   /** Accepts event handler as prop/argument. */
   onChange: PropTypes.func
 };
 SelectableTile.defaultProps = {
   className: '',
+  selected: false,
   onChange: () => {}
 };
 

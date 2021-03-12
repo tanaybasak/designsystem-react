@@ -1,43 +1,19 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
-
-function useCombinedRefs(...refs) {
-  const targetRef = React.useRef();
-
-  React.useEffect(() => {
-    refs.forEach(ref => {
-      if (!ref) return;
-
-      if (typeof ref === 'function') {
-        ref(targetRef.current);
-      } else {
-        ref.current = targetRef.current;
-      }
-    });
-  }, [refs]);
-
-  return targetRef;
-}
 
 // eslint-disable-next-line react/prop-types
 const Tile = React.forwardRef((props, ref) => {
   let classNames = null;
-  const readableRef = useRef(null);
-  const combinedReadableRef = useCombinedRefs(ref, readableRef);
 
   const { className = '', children, ...restProps } = props;
 
-  const readableTile = () => {
-    classNames = `${prefix}-tile ${className}`.trim();
-    return (
-      <div ref={combinedReadableRef} className={classNames} {...restProps}>
-        {children}
-      </div>
-    );
-  };
-
-  return <>{children && readableTile()}</>;
+  classNames = `${prefix}-tile ${className}`.trim();
+  return (
+    <div ref={ref} className={classNames} {...restProps}>
+      {children}
+    </div>
+  );
 });
 
 Tile.propTypes = {

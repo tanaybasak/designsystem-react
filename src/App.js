@@ -1498,7 +1498,7 @@ class App extends Component {
                 </div>
                 <div className="hcl-col-12 mt-5 mb-5">
                   {/* selectable tile */}
-                  <SelectableTile type="selectable">
+                  <SelectableTile selected>
                     <p>This is selectable tile</p>
                   </SelectableTile>
                 </div>
