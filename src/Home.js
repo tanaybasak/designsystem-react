@@ -62,7 +62,8 @@ class Home extends Component {
         },
         {
           href: '/timepicker',
-          title: 'Time Picker'
+          title: 'Time Picker',
+          disabled: true
         },
         {
           href: '/overlay',

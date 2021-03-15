@@ -89,12 +89,12 @@ const disabledItems = [
     children: [
       {
         href: '#5',
-        title: 'Child Item 1',
-        disabled: true
+        title: 'Child Item 1'
       },
       {
         href: '#6',
-        title: 'Child Item 2'
+        title: 'Child Item 2',
+        disabled: true
       },
       {
         href: '#7',

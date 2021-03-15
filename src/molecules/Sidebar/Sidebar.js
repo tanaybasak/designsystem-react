@@ -219,7 +219,9 @@ const Sidebar = ({
       }
       return React.cloneElement(template, {
         tabIndex: '0',
-        className: `${prefix}-sidebar-item ${highlightedClass}`,
+        className: `${prefix}-sidebar-item ${highlightedClass}${
+          item.disabled ? ' disable' : ''
+        }`,
         onKeyDown: keyDown.bind(this, item, null, parentItem),
         onClick: itemClicked.bind(this, item, parentItem),
         title: item.title,
