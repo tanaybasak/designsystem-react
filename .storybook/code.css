@@ -50,3 +50,7 @@
 .component-title {
     padding: 8px 0;
 }  */
+
+#root .hcl-codesnippet-wrapper .hcl-codesnippet .hcl-codesnippet-copy.hcl-btn {
+    margin: 0!important;
+}

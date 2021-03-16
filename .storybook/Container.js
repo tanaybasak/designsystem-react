@@ -198,12 +198,16 @@ export default class Container extends Component {
         semi: false,
         parser: 'babel',
         trailingComma: 'none',
+        endOfLine:'auto',
         plugins: [parser]
       });
+      if(code.trim().charAt(0) === ';'){
+        code = code.substring(1);
+      }
     } else {
       code = reactElementToJSXString(story(), { showDefaultProps: false });
     }
-
+   
     return (
       <div className="hcl-container">
         {/* <div className="hcl-row mb-10">
@@ -243,16 +247,16 @@ export default class Container extends Component {
                     semi: false,
                     parser: 'babel',
                     trailingComma: 'none',
+                    endOfLine:'auto',
                     plugins: [parser]
                   })}
                 width="100%"
               />
             ) : null}
           </div>
-          <div className="hcl-col-12 hcl-col-md-10 hcl-col-xl-8  mb-10">
+          <div className="hcl-col-12 hcl-col-md-10 hcl-col-xl-8  mb-10" style={{minHeight:'400px'}}>
             {code ? (
               <CodeSnippet
-                height="100%"
                 language="javascript"
                 type="read"
                 value={code}
