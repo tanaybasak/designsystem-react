@@ -38,7 +38,8 @@ storiesOf('Components/Search', module)
         
         import { Search } from '@patron/patron-react/search';
 
-        `
+        `,
+        className: 'hcl-col-12 hcl-col-sm-8 hcl-col-lg-4'
       }
     }
   )
@@ -63,7 +64,8 @@ storiesOf('Components/Search', module)
         
         import { Search } from '@patron/patron-react/search';
 
-        `
+        `,
+        className: 'hcl-col-12 hcl-col-sm-8 hcl-col-lg-4'
       }
     }
   );

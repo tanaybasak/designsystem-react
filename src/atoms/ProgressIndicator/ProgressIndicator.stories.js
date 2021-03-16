@@ -34,7 +34,8 @@ storiesOf('Components/ProgressIndicator', module)
     {
       info: {
         text: `Description About ProgressIndicator Component \n
-      import { LinearProgressIndicator } from '@patron/patron-react/progressindicator'`
+      import { LinearProgressIndicator } from '@patron/patron-react/progressindicator'`,
+        className: 'hcl-col-12 hcl-col-sm-8 hcl-col-lg-4'
       }
     }
   )
@@ -44,7 +45,8 @@ storiesOf('Components/ProgressIndicator', module)
     {
       info: {
         text: `Description About ProgressIndicator Component \n
-      import { LinearProgressIndicator } from '@patron/patron-react/progressindicator'`
+      import { LinearProgressIndicator } from '@patron/patron-react/progressindicator'`,
+        className: 'hcl-col-12 hcl-col-sm-8 hcl-col-lg-4'
       }
     }
   )

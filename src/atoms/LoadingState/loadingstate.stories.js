@@ -31,7 +31,8 @@ storiesOf('Components/LoadingState', module)
       
       import { LoadingState } from '@patron/patron-react/loadingstate';
 
-      `
+      `,
+      className: 'hcl-col-12 hcl-col-lg-8'
     }
   })
   .add('tab', () => <LoadingState type="tab" />, {
@@ -40,7 +41,8 @@ storiesOf('Components/LoadingState', module)
       
       import { LoadingState } from '@patron/patron-react/loadingstate';
 
-        `
+        `,
+      className: 'hcl-col-12 hcl-col-lg-8'
     }
   })
   .add('accordion', () => <LoadingState type="accordion" />, {
@@ -49,7 +51,8 @@ storiesOf('Components/LoadingState', module)
       
       import { LoadingState } from '@patron/patron-react/loadingstate';
 
-        `
+        `,
+      className: 'hcl-col-12 hcl-col-lg-8'
     }
   })
   .add('slider', () => <LoadingState type="slider" />, {
@@ -58,7 +61,8 @@ storiesOf('Components/LoadingState', module)
       
       import { LoadingState } from '@patron/patron-react/loadingstate';
 
-        `
+        `,
+      className: 'hcl-col-12 hcl-col-lg-8'
     }
   })
   .add(

@@ -28,7 +28,8 @@ storiesOf('Components/NumberInput', module).add(
       
         import { NumberInput } from '@patron/patron-react/numberinput';
 
-      `
+      `,
+      className: 'hcl-col-12 hcl-col-sm-8 hcl-col-lg-4'
     }
   }
 );

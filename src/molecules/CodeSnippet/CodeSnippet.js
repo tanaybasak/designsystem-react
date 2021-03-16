@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 
@@ -22,6 +22,10 @@ export default function CodeSnippet({
   ...restProps
 }) {
   const [code, setCode] = useState(value);
+
+  useEffect(() => {
+    setCode(value);
+  }, [value]);
   const _copyToClipboard = data => {
     const el = document.createElement('textarea');
     el.value = data;

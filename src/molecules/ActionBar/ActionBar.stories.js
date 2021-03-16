@@ -77,7 +77,8 @@ storiesOf('Components/Actionbar', module).add(
     info: {
       text: `Description About ActionBar Component \n
     import { Button } from '@patron/patron-react/button';
-    import { ActionBar, ActionSummary, ActionList } from '@patron/patron-react/actionbar';`
+    import { ActionBar, ActionSummary, ActionList } from '@patron/patron-react/actionbar';`,
+      className: 'hcl-col-12 hcl-col-lg-8'
     }
   }
 );

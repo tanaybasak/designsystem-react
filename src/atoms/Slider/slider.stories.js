@@ -32,7 +32,8 @@ storiesOf('Components/Slider', module)
       
       import { Slider } from '@patron/patron-react/slider';
       
-      `
+      `,
+        className: 'hcl-col-12 hcl-col-lg-8'
       }
     }
   )
@@ -62,7 +63,8 @@ storiesOf('Components/Slider', module)
         
         import { Slider } from '@patron/patron-react/slider';
         
-        `
+        `,
+        className: 'hcl-col-12 hcl-col-lg-8'
       }
     }
   );

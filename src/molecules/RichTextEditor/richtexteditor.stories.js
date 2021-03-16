@@ -30,7 +30,8 @@ storiesOf('Components/RichTextEditor', module).add(
   {
     info: {
       text: `Description About RichTextEditor Component \n
-      import { RichTextEditor } from '@patron/patron-react/richtexteditor';`
+      import { RichTextEditor } from '@patron/patron-react/richtexteditor';`,
+      className: 'hcl-col-12 hcl-col-lg-8'
     }
   }
 );

@@ -125,7 +125,6 @@ const tableConfigWithCustomTemplate = [
       return (
         <Toggle
           id={`toggle-id${model.id}`}
-          disabled
           labelOff=" "
           labelOn=" "
           aria-label="Toggle"
@@ -154,24 +153,8 @@ const tableConfigWithCustomTemplate = [
 
 const tableConfigWithCustomColumn = [
   {
-    field: 'checkbox',
-    // eslint-disable-next-line react/display-name
-    renderHtml: row => {
-      return (
-        <Checkbox
-          id={`${row.id}_checkbox_`}
-          aria-label="checkbox"
-          name="testcheck"
-        />
-      );
-    },
-
-    width: '40px'
-  },
-  {
     label: 'Name',
-    field: 'name',
-    sortable: true
+    field: 'name'
   },
   {
     label: 'Protocol',
@@ -226,21 +209,6 @@ const tableConfigWithCustomColumn = [
 
 const tableConfigWithPinning = [
   {
-    field: 'checkbox',
-    // eslint-disable-next-line react/display-name
-    renderHtml: row => {
-      return (
-        <Checkbox
-          id={`${row.id}_checkbox_`}
-          aria-label="checkbox"
-          name="testcheck"
-        />
-      );
-    },
-
-    width: '40px'
-  },
-  {
     label: 'Name',
     field: 'name',
     sortable: true,
@@ -250,19 +218,12 @@ const tableConfigWithPinning = [
   {
     label: 'Protocol',
     field: 'protocol',
-    pinned: 'left',
+    pinned: 'right',
     width: '300px'
   },
   {
     label: 'Port',
     field: 'port',
-    // eslint-disable-next-line react/display-name
-    renderHtml: port => {
-      let classname = 'primary';
-      return (
-        <Tag type={classname}>{`${port.port === '80' ? 'Yes' : 'No'}`}</Tag>
-      );
-    },
     width: '300px'
   },
   {
@@ -278,19 +239,6 @@ const tableConfigWithPinning = [
   {
     label: 'Status',
     field: 'status',
-    // eslint-disable-next-line react/display-name
-    renderHtml: model => {
-      return (
-        <Toggle
-          id={`toggle-id${model.id}`}
-          disabled
-          labelOff=" "
-          labelOn=" "
-          aria-label="Toggle"
-          toggled={model.status === 'Active' ? true : false}
-        />
-      );
-    },
     width: '300px'
   }
 ];
@@ -388,7 +336,6 @@ storiesOf('Components/DataTable', module)
         headerSelection={
           <Checkbox aria-label="header checkbox" id={`header_checkbox`} />
         }
-        onSort={action('Sort Action')}
       />
     ),
     {
@@ -404,11 +351,91 @@ storiesOf('Components/DataTable', module)
 <DataTable
         id="custom-datatable-custom-temp"
         tableData={${JSON.stringify(tableData)}}
-        tableConfig={${JSON.stringify(tableConfigWithCustomTemplate)}}
+        tableConfig={[
+            {
+              field: 'checkbox',
+              // eslint-disable-next-line react/display-name
+              renderHtml: row => {
+                return (
+                  <Checkbox
+                    id={\`\${row.id}_checkbox_\`}
+                    aria-label="checkbox"
+                    name="testcheck"
+                  />
+                );
+              },
+          
+              width: '40px'
+            },
+            {
+              label: 'Name',
+              field: 'name',
+              sortable: true,
+              width: '60px'
+            },
+            {
+              label: 'Protocol',
+              field: 'protocol',
+              width: '60px'
+            },
+            {
+              label: 'Port',
+              field: 'port',
+              // eslint-disable-next-line react/display-name
+              renderHtml: port => {
+                let classname = 'primary';
+                return (
+                  <Tag type={classname}>{\`\${port.port === '80' ? 'Yes' : 'No'}\`}</Tag>
+                );
+              },
+              width: '60px'
+            },
+            {
+              label: 'Rule',
+              field: 'rule',
+              width: '60px'
+            },
+            {
+              label: 'Attached Groups',
+              field: 'attachedGroups',
+              width: '60px'
+            },
+            {
+              label: 'Status',
+              field: 'status',
+              // eslint-disable-next-line react/display-name
+              renderHtml: model => {
+                return (
+                  <Toggle
+                    id={\`toggle-id\${model.id}\`}
+                    labelOff=" "
+                    labelOn=" "
+                    aria-label="Toggle"
+                    toggled={model.status === 'Active' ? true : false}
+                  />
+                );
+              },
+              width: '60px'
+            },
+            {
+              field: 'overflow',
+              // eslint-disable-next-line react/display-name
+              renderHtml: () => {
+                return (
+                  <Overflowmenu
+                    listItems={${JSON.stringify(listItems)}}
+                    attachElementToBody
+                    ellipsisType="vertical"
+                    onClick={action('Overflow Select')}
+                  />
+                );
+              },
+              width: '50px'
+            }
+          ]}
         headerSelection={
           <Checkbox aria-label="header checkbox" id="header_checkbox" />
         }
-        onSort={action('Sort Action')}
       />
       `
       }
@@ -422,9 +449,6 @@ storiesOf('Components/DataTable', module)
         tableData={object('Table Data', tableData)}
         tableConfig={tableConfigWithCustomColumn}
         type={text('Type', 'zebra borderless')}
-        headerSelection={
-          <Checkbox aria-label="header checkbox" id={`header_checkbox`} />
-        }
         onSort={action('Sort Action')}
       />
     ),
@@ -432,12 +456,8 @@ storiesOf('Components/DataTable', module)
       info: {
         text: `Description About DataTable Component \n
         import { DataTable } from '@patron/patron-react/datatable';
-    import {Checkbox} from '@patron/patron-react/checkbox';
-    import {Toggle} from '@patron/patron-react/toggle';
-    import {Overflowmenu} from '@patron/patron-react/overflowmenu';
-    import {Tag} from '@patron/patron-react/tag';
-    import Search from '../Search';
-    import Dropdown from '../Dropdown';
+    import {Search} from '@patron/patron-react/search';
+    import {Dropdown} from '@patron/patron-react/dropdown';
       `
       }
     }
@@ -450,9 +470,6 @@ storiesOf('Components/DataTable', module)
         tableData={object('Table Data', tableData)}
         tableConfig={tableConfigWithPinning}
         type={text('Type', 'zebra borderless')}
-        headerSelection={
-          <Checkbox aria-label="header checkbox" id={`header_checkbox`} />
-        }
         onSort={action('Sort Action')}
         isHeaderSticky
       />
@@ -461,10 +478,6 @@ storiesOf('Components/DataTable', module)
       info: {
         text: `Description About DataTable Component \n
         import { DataTable } from '@patron/patron-react/datatable';
-    import {Checkbox} from '@patron/patron-react/checkbox';
-    import {Toggle} from '@patron/patron-react/toggle';
-    import {Overflowmenu} from '@patron/patron-react/overflowmenu';
-    import {Tag} from '@patron/patron-react/tag';
       `
       }
     }
@@ -477,9 +490,6 @@ storiesOf('Components/DataTable', module)
         tableData={object('Table Data', tableData)}
         tableConfig={tableConfigwithResize}
         type={text('Type', 'zebra borderless')}
-        headerSelection={
-          <Checkbox aria-label="header checkbox" id={`header_checkbox`} />
-        }
         resizable
         onColumnAfterResize={action('column-resized')}
       />
@@ -488,10 +498,6 @@ storiesOf('Components/DataTable', module)
       info: {
         text: `Description About DataTable Component \n
         import { DataTable } from '@patron/patron-react/datatable';
-    import {Checkbox} from '@patron/patron-react/checkbox';
-    import {Toggle} from '@patron/patron-react/toggle';
-    import {Overflowmenu} from '@patron/patron-react/overflowmenu';
-    import {Tag} from '@patron/patron-react/tag';
       `
       }
     }

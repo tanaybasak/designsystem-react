@@ -226,7 +226,7 @@ export default class Container extends Component {
           </div>
         </div>
         <div className="hcl-row mb-10">
-          <div className="hcl-col-12 hcl-col-md-10 hcl-col-xl-8">{story()}</div>
+          <div className={config.parameters.info && config.parameters.info.className ? config.parameters.info.className : 'hcl-col-12'}>{story()}</div>
         </div>
 
         <div className="hcl-row mb-10">

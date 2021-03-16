@@ -53,7 +53,8 @@ storiesOf('Components/InlineEdit', module)
 
     import { InlineEdit } from '@patron/patron-react/inlineedit';
     import { TextInput } from '@patron/patron-react/textinput';
-      `
+      `,
+        className: 'hcl-col-12 hcl-col-sm-8 hcl-col-lg-4'
       }
     }
   )
@@ -80,7 +81,8 @@ storiesOf('Components/InlineEdit', module)
 
     import { InlineEdit } from '@patron/patron-react/inlineedit';
     import { Dropdown } from '@patron/patron-react/dropdown';
-      `
+      `,
+        className: 'hcl-col-12 hcl-col-sm-8 hcl-col-lg-4'
       }
     }
   )
@@ -102,7 +104,8 @@ storiesOf('Components/InlineEdit', module)
 
     import { InlineEdit } from '@patron/patron-react/inlineedit';
     import { DateSelector } from '@patron/patron-react/dateselector';
-      `
+      `,
+        className: 'hcl-col-12 hcl-col-sm-8 hcl-col-lg-4'
       }
     }
   )
@@ -140,7 +143,8 @@ storiesOf('Components/InlineEdit', module)
     import { InlineEdit } from '@patron/patron-react/inlineedit';
     import { Button } from '@patron/patron-react/button';
     import { TextInput } from '@patron/patron-react/textinput';
-      `
+      `,
+        className: 'hcl-col-12 hcl-col-sm-8 hcl-col-lg-4'
       }
     }
   );

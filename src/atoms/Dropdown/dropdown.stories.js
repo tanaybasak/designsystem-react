@@ -39,7 +39,8 @@ storiesOf('Components/Dropdown', module)
     {
       info: {
         text: `Description About Dropdown Component \n
-        import { Dropdown } from '@patron/patron-react/dropdown';`
+        import { Dropdown } from '@patron/patron-react/dropdown';`,
+        className: 'hcl-col-12 hcl-col-sm-8 hcl-col-lg-4'
       }
     }
   )
@@ -58,7 +59,8 @@ storiesOf('Components/Dropdown', module)
     {
       info: {
         text: `Description About Dropdown Component \n
-        import { Dropdown } from '@patron/patron-react/dropdown';`
+        import { Dropdown } from '@patron/patron-react/dropdown';`,
+        className: 'hcl-col-12 hcl-col-sm-8 hcl-col-lg-4'
       }
     }
   )
@@ -76,7 +78,8 @@ storiesOf('Components/Dropdown', module)
     {
       info: {
         text: `Description About Dropdown Component \n
-        import { Dropdown } from '@patron/patron-react/dropdown';`
+        import { Dropdown } from '@patron/patron-react/dropdown';`,
+        className: 'hcl-col-12 hcl-col-sm-8 hcl-col-lg-4'
       }
     }
   );

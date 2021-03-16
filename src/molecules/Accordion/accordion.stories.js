@@ -37,7 +37,8 @@ storiesOf('Components/Accordion', module).add(
       
       import { Accordion, AccordionItem } from '@patron/patron-react/accordion';
       
-      `
+      `,
+      className: 'hcl-col-12 hcl-col-lg-8'
     }
   }
 );

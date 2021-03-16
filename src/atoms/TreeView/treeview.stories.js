@@ -91,7 +91,8 @@ storiesOf('Components/Tree', module)
         
         import { TreeView } from '@patron/patron-react/treeview';
         
-        `
+        `,
+      className: 'hcl-col-12 hcl-col-sm-8 hcl-col-lg-4'
     }
   })
   .add(
@@ -109,7 +110,8 @@ storiesOf('Components/Tree', module)
         
         import { TreeView } from '@patron/patron-react/treeview';
         
-        `
+        `,
+        className: 'hcl-col-12 hcl-col-sm-8 hcl-col-lg-4'
       }
     }
   )
@@ -174,7 +176,8 @@ storiesOf('Components/Tree', module)
         
         import { TreeView } from '@patron/patron-react/treeview';
         
-        `
+        `,
+        className: 'hcl-col-12 hcl-col-sm-8 hcl-col-lg-4'
       }
     }
   )
@@ -200,10 +203,6 @@ storiesOf('Components/Tree', module)
             folder: false
           }
         }}
-        // dragRules={{
-        //   values: false
-        // }}
-
         isDropAllowed={(dragModel, dropModel, parentNode) => {
           let canDropInsideDropModel = false;
           let canDropInsideParentModel = false;
@@ -235,6 +234,52 @@ storiesOf('Components/Tree', module)
         
         import { TreeView } from '@patron/patron-react/treeview';
         
+        `,
+        className: 'hcl-col-12 hcl-col-sm-8 hcl-col-lg-4',
+        snippet: `
+        <TreeView
+        iconClass={{
+          operator: 'type',
+          values: {
+            file: {
+              icon: <i className="p-hclsw p-hclsw-document" />
+            },
+            folder: {
+              icon: <i className="p-hclsw p-hclsw-folder" />
+            }
+          }
+        }}
+        dragRules={{
+          operator: 'type',
+          values: {
+            file: true,
+            folder: false
+          }
+        }}
+        isDropAllowed={(dragModel, dropModel, parentNode) => {
+          let canDropInsideDropModel = false;
+          let canDropInsideParentModel = false;
+
+          if (dropModel.type === 'folder') {
+            canDropInsideDropModel = true;
+          }
+
+          if (
+            parentNode === undefined ||
+            parentNode === null ||
+            parentNode.type === 'folder'
+          ) {
+            canDropInsideParentModel = true;
+          }
+          return [canDropInsideDropModel, canDropInsideParentModel];
+        }}
+        treeData={${JSON.stringify(treeData)}}
+        draggable="internal"
+        onActionCompletes={()=>{}}
+        type="single"
+        onChange={action('on change')}
+        onToggle={action('on toggle')}
+      />
         `
       }
     }
@@ -368,7 +413,140 @@ storiesOf('Components/Tree', module)
         import { TreeView } from '@patron/patron-react/treeview';
         import { Notification } from '@patron/patron-react/notification';
         
-        `
+        `,
+        className: 'hcl-col-12 hcl-col-sm-8 hcl-col-lg-4',
+        snippet: `
+        let dynamicId = 1;
+        const getClonedModel = model => {
+            model.key = \`temp-\${++dynamicId}\`;
+            model.children &&
+              model.children.length > 0 &&
+              model.children.map(data => {
+                return getClonedModel(data);
+              });
+          
+            return model;
+          };
+        return(
+
+        <TreeView
+        iconClass={{
+          operator: 'type',
+          values: {
+            file: {
+              icon: <i className="p-hclsw p-hclsw-document" />
+            },
+            folder: {
+              icon: <i className="p-hclsw p-hclsw-folder" />
+            }
+          }
+        }}
+        isCopyAllowed={(dragModel, dropModel) => {
+          if (dragModel.type === 'file' && dropModel.type === 'folder') {
+            return true;
+          } else if (
+            dragModel.type === 'folder' &&
+            dropModel.type === 'folder'
+          ) {
+            return true;
+          }
+          return false;
+        }}
+        treeData={${JSON.stringify(treeData)}}
+        getOverFlowItems={model => {
+          let common = [
+            {
+              name: 'Rename',
+              action: 'edit',
+              icon: <i className="p-hclsw p-hclsw-edit" />
+            },
+            {
+              name: 'Cut',
+              action: 'cut',
+              icon: <i className="p-hclsw p-hclsw-cut" />
+            },
+            {
+              name: 'Copy',
+              action: 'copy',
+              icon: <i className="p-hclsw p-hclsw-copy" />
+            },
+            {
+              name: 'Paste',
+              action: 'paste',
+              icon: <i className="p-hclsw p-hclsw-paste" />,
+              disabled: true
+            },
+            {
+              name: 'Delete',
+              icon: <i className="p-hclsw p-hclsw-delete" />,
+              action: 'delete'
+            }
+          ];
+
+          let file = [
+            ...common,
+            ...[
+              {
+                name: 'Update Property',
+                action: 'updateProperty',
+                icon: <i className="p-hclsw p-hclsw-document" />
+              }
+            ]
+          ];
+
+          if (model.type === 'folder') {
+            return common;
+          } else {
+            return file;
+          }
+        }}
+        onOverflowAction={(overflowAction, model) => {
+          if (overflowAction === 'copy') {
+            return JSON.parse(JSON.stringify(model));
+          }
+        }}
+        onActionCompletes={action('on overflow action change')}
+        onDeleteNode={async () => {
+          return true;
+        }}
+        isMoveNodeAllowed={(dragModel, dropModel) => {
+          let canDropInsideDropModel = false;
+
+          if (dropModel.type === 'folder') {
+            canDropInsideDropModel = true;
+          }
+
+          return canDropInsideDropModel;
+        }}
+        onCopyNode={async dragModel => {
+          var data_copy = JSON.parse(JSON.stringify(dragModel));
+
+          let clonedModel = getClonedModel(data_copy);
+
+          return await clonedModel;
+        }}
+        onRenamingNode={async value => {
+          if (value.name.length > 2) {
+            return [true];
+          } else {
+            return [
+              false,
+              // eslint-disable-next-line react/jsx-key
+              <Notification
+                //subtitle={errorMessage}
+                closable={false}
+                title="Please Enter minimum 3 character"
+                type="warning"
+                visible
+              />
+            ];
+          }
+        }}
+        overflowOnHover={boolean('OverflowOnHover', false)}
+        type="single"
+        onChange={action('on change')}
+        onToggle={action('on toggle')}
+      />)`
       }
     }
   )
@@ -376,7 +554,7 @@ storiesOf('Components/Tree', module)
     'with custom template',
     () => (
       <TreeView
-        treeData={object('Tree Data', treeData)}
+        treeData={treeData}
         customTemplate={node => {
           return (
             <TreeNodeTemplate>
@@ -393,7 +571,19 @@ storiesOf('Components/Tree', module)
         import { TreeView , TreeNodeTemplate } from '@patron/patron-react/treeview';
         import { Checkbox } from '@patron/patron-react/checkbox';
         
-        `
+        `,
+        className: 'hcl-col-12 hcl-col-sm-8 hcl-col-lg-4',
+        snippet: `
+        <TreeView
+        treeData={${JSON.stringify(treeData)}}
+        customTemplate={node => {
+          return (
+            <TreeNodeTemplate>
+              <Checkbox id={node.key} label={\`\${node.name}\`} value={node.key} />
+            </TreeNodeTemplate>
+          );
+        }}
+      />`
       }
     }
   )
@@ -401,7 +591,7 @@ storiesOf('Components/Tree', module)
     'with Lazy Load',
     () => (
       <TreeView
-        treeData={object('Tree Data', treeDataLazyLoad)}
+        treeData={treeDataLazyLoad}
         onToggle={async node => {
           await timeout(3000);
           let children = [];
@@ -424,7 +614,41 @@ storiesOf('Components/Tree', module)
         
         import { TreeView } from '@patron/patron-react/treeview';
         
-        `
+        `,
+        className: 'hcl-col-12 hcl-col-sm-8 hcl-col-lg-4',
+        snippet: `
+
+        const timeout = ms => {
+            const p1 = new Promise(resolve => setTimeout(resolve, ms));
+            return p1
+              .then(function () {
+                return true;
+              })
+              .catch(
+                // Log the rejection reason
+                () => {
+                  return false;
+                }
+              );
+          };
+          return(
+        <TreeView
+        treeData={${JSON.stringify(treeDataLazyLoad)}}
+        onToggle={async node => {
+          await timeout(3000);
+          let children = [];
+          for (let j = 0; j < 2; j++) {
+            let childtreeObj = {
+              name: 'Tree 1 Child Name ' + node.key + '-' + j,
+              type: 'folder',
+              hasChildren: true,
+              key: \`node-\${node.key}-\${j}\`
+            };
+            children.push(childtreeObj);
+          }
+          return children;
+        }}
+      />)`
       }
     }
   )
@@ -432,7 +656,7 @@ storiesOf('Components/Tree', module)
     'with Custom Action Template',
     () => (
       <TreeView
-        treeData={object('Tree Data', treeData)}
+        treeData={treeData}
         overflowOnHover
         customActionTemplate={node => {
           return node.type === 'folder' ? (
@@ -466,9 +690,40 @@ storiesOf('Components/Tree', module)
         text: `Description About TreeView Component \n
         
         import { TreeView } from '@patron/patron-react/treeview';
-        import { Tag } from '@patron/patron-react/tag';
+        import { Button } from "@patron/patron-react/button";
         
-        `
+        `,
+        className: 'hcl-col-12 hcl-col-sm-8 hcl-col-lg-4',
+        snippet: `
+        <TreeView
+        treeData={${JSON.stringify(treeData)}}
+        overflowOnHover
+        customActionTemplate={node => {
+          return node.type === 'folder' ? (
+            <Button
+              type="ghost"
+              small
+              style={{ margin: 0 }}
+              className="hcl-secondary-bg-hover"
+              aria-label="add file"
+            >
+              <i className="p-hclsw p-hclsw-add filled" />
+            </Button>
+          ) : (
+            <>
+              <Button
+                type="ghost"
+                small
+                style={{ margin: 0 }}
+                className="hcl-secondary-bg-hover"
+                aria-label="delete file"
+              >
+                <i className="p-hclsw p-hclsw-delete" />
+              </Button>
+            </>
+          );
+        }}
+      />`
       }
     }
   );
