@@ -79,7 +79,12 @@ export default function AccordionItem({
         className={`${prefix}-accordion-content-wrapper`}
         style={{ height: height, overflow: overflow }}
       >
-        <div className={`${prefix}-accordion-content`} ref={elementRef}>
+        <div
+          className={`${prefix}-accordion-content ${
+            overflow == 'hidden' ? 'hidden' : ''
+          }`}
+          ref={elementRef}
+        >
           {children ? children : null}
         </div>
       </div>
