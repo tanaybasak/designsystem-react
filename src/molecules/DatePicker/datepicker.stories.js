@@ -2,6 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { select, text } from '@storybook/addon-knobs';
+import { linkTo } from '@storybook/addon-links';
 //@update-path-build-start
 import DatePicker from './DatePicker';
 //@update-path-build-end
@@ -39,7 +40,14 @@ storiesOf('Components/DatePicker', module).add(
   {
     info: {
       text: `Description About Datepicker Component\n
-      import { DatePicker } from '@patron/patron-react/datepicker';`
+      import { DatePicker } from '@patron/patron-react/datepicker';`,
+      warning: (
+        <>
+          Please use{' '}
+          <a onClick={linkTo('Components/DateSelector')}>Date Selector</a>{' '}
+          instead of Date Picker
+        </>
+      )
     }
   }
 );
