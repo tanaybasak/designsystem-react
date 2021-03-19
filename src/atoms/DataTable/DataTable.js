@@ -17,6 +17,7 @@ const DataTable = ({
   onRowSelect,
   triStateSorting,
   resizable,
+  resizer,
   columnDraggable,
   showDraggableIcon,
   showDraggableIconOnHover,
@@ -31,6 +32,7 @@ const DataTable = ({
 }) => {
   const [rows, updateTableRowData] = useState(tableData);
   const tableRef = useRef(null);
+  const tableWrapperRef = useRef(null);
   const [tableConfiguration, setTableConfiguration] = useState([]);
   const [sortedColumn, updateSortedColumn] = useState({});
 
@@ -63,6 +65,24 @@ const DataTable = ({
       tableRef.current.parentElement.style.overflow = 'auto';
     }
   }, [tableRef]);
+
+  const resizeStyle = {
+    background: '#333642',
+    borderBottom: '1px solid black',
+    boxShadow: '0 0 1px black',
+    height: '5px',
+    cursor: 'row-resize',
+    position: 'relative',
+    zIndex: 10
+  };
+
+  const widthResize = {
+    position: 'absolute',
+    zIndex: 50,
+    borderRadius: '10px',
+    fontSize: '9px',
+    boxShadow: '0 1px 1px rgb(0 0 0 / 50%)'
+  };
 
   const sortOnEnter = (field, e) => {
     if (e.key === 'Enter') {
@@ -159,6 +179,64 @@ const DataTable = ({
   }${
     type.includes('borderless') ? ` ${prefix}-data-table-borderless` : ''
   } ${className}`.trim();
+
+  /*   table resize   */
+
+  const onTableMouseDown = e => {
+    let startHeight = 0,
+      startY,
+      oldY;
+
+    if (tableRef) {
+      startHeight = tableRef.current.offsetHeight;
+      startY = e.clientY;
+    }
+
+    /* On Mouse move */
+    const onMouseMove = e => {
+      e.preventDefault();
+      if (tableRef && tableWrapperRef) {
+        // if (oldY < e.pageY) {
+        tableRef.current.style.height = startHeight + e.clientY - startY + 'px';
+        //   tableWrapperRef.current.style.height = tableRef.current.style.height;
+        // }
+        // else {
+        //   tableWrapperRef.current.style.height =
+        //     startHeight + e.clientY - startY + 'px';
+        //   tableRef.current.style.height = tableWrapperRef.current.style.height;
+        // }
+
+        // oldY = e.pageY;
+      }
+    };
+
+    /* On Mouse up */
+    const onMouseUp = e => {
+      e.preventDefault();
+      clearOnMouseUp();
+      removeListeners('tablemousemove-', 'mousemove');
+      removeListeners('tablemouseup-', 'mouseup');
+    };
+
+    /* Adding Event Listeners */
+    addListener(
+      'tablemousemove-',
+      'mousemove',
+      e => {
+        onMouseMove(e);
+      },
+      false
+    );
+
+    addListener(
+      'tablemouseup-',
+      'mouseup',
+      e => {
+        onMouseUp(e);
+      },
+      false
+    );
+  };
 
   /* Table re-size starts */
   const [isMouseDownForResize, setMouseDownonResize] = useState(false);
@@ -465,7 +543,7 @@ const DataTable = ({
   /* Table column re-order ends */
 
   return (
-    <div className={classnames}>
+    <div className={classnames} ref={tableWrapperRef}>
       <div
         ref={resizeLineRef}
         style={{
@@ -795,6 +873,14 @@ const DataTable = ({
           ))}
         </tbody>
       </table>
+      {resizer ? (
+        <div style={resizeStyle} onMouseDown={onTableMouseDown.bind(this)}>
+          <span />
+          <div id="width-readout" style={widthResize}>
+            1792px
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 };
@@ -904,6 +990,7 @@ DataTable.defaultProps = {
   isHeaderSticky: false,
   onColumnAfterResize: () => {},
   initSortedColumn: {},
+  resizer: false,
   uniqueKey: 'id',
   onColumnReorder: () => {},
   showDraggableIconOnHover: false,

@@ -42,6 +42,9 @@ const tableData = [
   }
 ];
 
+const resizer = {
+  resizer: { handles: 's' }
+};
 const listItems = [
   {
     name: 'Add',
@@ -471,6 +474,34 @@ storiesOf('DataTable', module)
           <Checkbox aria-label="header checkbox" id={`header_checkbox`} />
         }
         resizable
+        onColumnAfterResize={action('column-resized')}
+      />
+    ),
+    {
+      info: {
+        text: `Description About DataTable Component \n
+        import { DataTable } from '@patron/patron-react/datatable';
+    import {Checkbox} from '@patron/patron-react/checkbox';
+    import {Toggle} from '@patron/patron-react/toggle';
+    import {Overflowmenu} from '@patron/patron-react/overflowmenu';
+    import {Tag} from '@patron/patron-react/tag';
+      `
+      }
+    }
+  )
+
+  .add(
+    'with table resizer',
+    () => (
+      <DataTable
+        id="custom-datatable-pin"
+        tableData={object('Table Data', tableData)}
+        tableConfig={tableConfigwithResize}
+        type={text('Type', 'zebra borderless')}
+        headerSelection={
+          <Checkbox aria-label="header checkbox" id={`header_checkbox`} />
+        }
+        resizer
         onColumnAfterResize={action('column-resized')}
       />
     ),
