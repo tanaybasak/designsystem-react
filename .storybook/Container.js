@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import reactElementToJSXString from 'react-element-to-jsx-string';
 import doc from './component-description.json';
-import DataTable from '../src/atoms/DataTable';
-import { Button } from '../src/atoms/Button';
 import { getEnum, getArrayOf, getShapeOf, getUnion } from './docUtil.js';
 import CodeSnippet from '../src/molecules/CodeSnippet';
 import Notification from '../src/atoms/Notification';
@@ -10,10 +8,9 @@ import 'prismjs/components/prism-javascript';
 import 'prismjs/themes/prism.css';
 const prettier = require('prettier');
 const parser = require('prettier/parser-babel');
-// import '../src/index.scss';
 import '../src/story.css';
 import PageSubTitle from './PageSubTitle.js';
-const componentPathMapper = require("./folderComponentMapNew.json");
+const componentPathMapper = require('./folderComponentMapNew.json');
 export default class Container extends Component {
   state = {
     importedCode: '',
@@ -232,23 +229,10 @@ export default class Container extends Component {
         );
       }
 
-      if(config.parameters.info.external){
-        importStatementArray.push(config.parameters.info.external)
+      if (config.parameters.info.external) {
+        importStatementArray.push(config.parameters.info.external);
       }
 
-      //   console.log(importStatementArray)
-
-      //   lines.map(line => {
-      //     const importSingle = line.trim();
-      //     importedStatementArray.push(importSingle);
-      //     let modules = importSingle.match(/\{(.*?)\}/);
-      //     if (modules && modules[1]) {
-      //       const moduleNames = modules[1].split(",");
-      //       moduleNames.map(module => {
-      //         importedComponent.push(module.trim());
-      //       });
-      //     }
-      //   });
       const componentTableInfo = [];
       importedComponent.map(componentName => {
         let tableData = doc[`${componentName}`];
@@ -288,41 +272,6 @@ export default class Container extends Component {
                   propDe[key].description.indexOf('@')
                 );
               }
-
-              //     if (description.includes('@')) {
-              //         let descriptionArray = description.split("\n");
-              //         let newArray = [];
-              //         descriptionArray.map(line => {
-              //             if (line.includes("@")) {
-              //     const keyword = line.substring(
-              //       line.indexOf("@") + 1,
-              //       line.indexOf(":")
-              //     );
-
-              //     if (line.includes("@signature")) {
-              //       var index = line.indexOf(text);
-              //       line =
-              //         line.substring(0, index) +
-              //         "<span class='hcl-type-epsilon'>" +
-              //         line
-              //           .substring(index, index + text.length)
-              //           .replace("@", "")
-              //           .replace(":", "") +
-              //         "</span><br/><span class='hcl-font-oblique'>" +
-              //         line.substring(index + text.length).trim() +
-              //         "</span>";
-              //     } else {
-              //       line = line.replace(
-              //         `@${keyword}`,
-              //         `<span class="hcl-font-italic">${keyword}</span>`
-              //       );
-              //     }
-
-              //   }
-              //   newArray.push(line);
-              // });
-              // description = newArray.join("\n");
-
               let eventObject = {
                 property: key,
                 parameters: parameters,
@@ -377,7 +326,7 @@ export default class Container extends Component {
   render() {
     const { story, config } = this.props;
 
-    // console.log(config);
+    console.log(config);
     let code = '';
     if (config.parameters.info && config.parameters.info.snippet) {
       code = prettier.format(config.parameters.info.snippet.trim(), {
@@ -461,84 +410,6 @@ export default class Container extends Component {
                 height="100%"
               />
             ) : null}
-          </div>
-        </div>
-
-        <div className="hcl-document hcl-row mb-10">
-          <div className="hcl-col-12 hcl-col-md-10 hcl-col-xl-8">
-            {/* <PageSubTitle title='Documentation' /> */}
-          </div>
-          <div className="hcl-col-12">
-            {false &&
-              this.state.componentTableInfo.map((component, index) => {
-                return (
-                  <div key={`${component.name}-${index}`} className="mb-10">
-                    <h5 className="component-title mb-5">{component.name}</h5>
-
-                    <h6 className="mb-3">Properties</h6>
-                    <DataTable
-                      className="mb-3"
-                      id={`sample_table_${index}`}
-                      isHeaderSticky
-                      tableConfig={this.state.tableConfig}
-                      tableData={component.tableInfo}
-                    />
-                    <h6 className="mb-3">Events</h6>
-                    <DataTable
-                      id={`sample_table_event${index}`}
-                      isHeaderSticky
-                      tableConfig={[
-                        {
-                          label: 'Property',
-                          field: 'property',
-                          width: '200px'
-                        },
-                        {
-                          label: 'Parameters',
-                          field: 'parameters',
-                          width: '300px',
-                          renderHtml: model => {
-                            let description = model.parameters;
-                            if (description.includes('@')) {
-                              let descriptionArray = description.split('\n');
-                              let newArray = [];
-                              descriptionArray.map(line => {
-                                if (line.includes('@')) {
-                                  const keyword = line.substring(
-                                    line.indexOf('@') + 1,
-                                    line.indexOf(':')
-                                  );
-                                  line = line.replace(
-                                    `@${keyword}`,
-                                    `<span class="hcl-font-italic">${keyword}</span>`
-                                  );
-                                }
-                                newArray.push(line);
-                              });
-                              description = newArray.join('\n');
-                            }
-
-                            return (
-                              <span
-                                style={{ whiteSpace: 'pre-wrap' }}
-                                dangerouslySetInnerHTML={{
-                                  __html: description
-                                }}
-                              />
-                            );
-                          }
-                        },
-                        {
-                          label: 'Description',
-                          field: 'description',
-                          width: '400px'
-                        }
-                      ]}
-                      tableData={component.eventInfo}
-                    />
-                  </div>
-                );
-              })}
           </div>
         </div>
       </div>

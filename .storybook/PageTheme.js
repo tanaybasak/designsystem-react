@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Overflowmenu } from '../src/molecules/Overflowmenu';
 import Button from '../src/atoms/Button';
 import '@patron/patron-css/patron/index.css';
-const versionJson = require('../package.json')
+const versionJson = require('../package.json');
 const PageTheme = () => {
   const [selectedTheme, setTheme] = useState({
     id: 'blue_active_orange_light',
@@ -29,13 +29,18 @@ const PageTheme = () => {
   ];
   return (
     <div style={{ position: 'absolute', right: '100px' }}>
-        <span>v{versionJson.version}</span>
+      <span>Patronus React Version {versionJson.version}</span>
       <Overflowmenu
         attachElementToBody
         listItems={themes}
         customTemplate={
-          <Button title="Default" type="ghost" small style={{ margin: '4px' }}>
-            {selectedTheme.name}
+          <Button
+            title="Change Theme"
+            type="ghost"
+            small
+            style={{ margin: '4px' }}
+          >
+            Theme : {selectedTheme.name}
             <svg
               className="hcl-btn-icon"
               style={{ fill: 'var(--interactive_text)' }}
@@ -47,7 +52,10 @@ const PageTheme = () => {
                 height="16"
                 fill="none"
               />
-              <path d="M15,13a2,2,0,0,1-3.42,1.41L6.94,9.77A4.71,4.71,0,0,1,5.5,10,4.51,4.51,0,0,1,1,5.5a4.43,4.43,0,0,1,.36-1.76.49.49,0,0,1,.36-.29.53.53,0,0,1,.45.13L4.29,5.71A1,1,0,0,0,5,6,1,1,0,0,0,6,5a1,1,0,0,0-.29-.71L3.61,2.2a.56.56,0,0,1-.15-.46.49.49,0,0,1,.28-.38A4.43,4.43,0,0,1,5.5,1,4.51,4.51,0,0,1,10,5.5a4.67,4.67,0,0,1-.23,1.44l4.64,4.64A2,2,0,0,1,15,13Z" />
+              <path
+                id="color-fill"
+                d="M14,14v1H2V14ZM2.71,8.77a2.51,2.51,0,0,1,0-3.54l2.5-2.5A2.5,2.5,0,0,1,6.5,2.07V1h1V2.08a2.41,2.41,0,0,1,1.24.65L13,7h0v5H12V8L8.74,11.27a2.5,2.5,0,0,1-3.53,0ZM3,7a1.46,1.46,0,0,0,.44,1.06l2.5,2.5a1.53,1.53,0,0,0,2.12,0L11.6,7,8,3.44A1.41,1.41,0,0,0,7.5,3.1V5h-1V3.08a1.46,1.46,0,0,0-.58.36l-2.5,2.5A1.46,1.46,0,0,0,3,7Z"
+              />
             </svg>
           </Button>
         }

@@ -62,16 +62,18 @@ const Document = ({ main, status }) => {
               };
               eventInfo.push(eventObject);
             } else {
-              let tableObject = {
-                property: key,
-                propType: propType,
-                required: propDe[key].required,
-                default: propDe[key].defaultValue
-                  ? propDe[key].defaultValue.value
-                  : '',
-                description: propDe[key].description
-              };
-              tableInfo.push(tableObject);
+              if (!propDe[key].description.includes('@ignore')) {
+                let tableObject = {
+                  property: key,
+                  propType: propType,
+                  required: propDe[key].required,
+                  default: propDe[key].defaultValue
+                    ? propDe[key].defaultValue.value
+                    : '',
+                  description: propDe[key].description
+                };
+                tableInfo.push(tableObject);
+              }
             }
           });
           console.log(eventInfo);

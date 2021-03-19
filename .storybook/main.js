@@ -8,7 +8,7 @@ module.exports = {
     "@storybook/addon-a11y",
     "@storybook/addon-links",
     "./addon-toolbar-1/register",
-    "./addon-tab-1/register"
+    "./addon-tab/register"
   ],
   webpackFinal: async (config, { configType }) => {
     // `configType` has a value of 'DEVELOPMENT' or 'PRODUCTION'
