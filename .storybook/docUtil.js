@@ -3,7 +3,7 @@ export const getEnum = enumValues => {
   enumValues.map(val => {
     newValue.push(val.value);
   });
-  return `oneOf ${newValue.join(" | ")}`;
+  return `oneOf ${newValue.join(' | ')}`;
 };
 
 export const getUnion = unionValues => {
@@ -11,11 +11,11 @@ export const getUnion = unionValues => {
   unionValues.map(val => {
     newValue.push(val.name);
   });
-  return `${newValue.join(" | ")}`;
+  return `${newValue.join(' | ')}`;
 };
 
 export const getArrayOf = value => {
-  if (value.name === "shape") {
+  if (value.name === 'shape') {
     return `[
     ${getShapeOf(value.value)}
 ]`;
@@ -28,17 +28,17 @@ export const getShapeOf = shapeObj => {
   let propType = `{...\n
 `;
   for (let key in shapeObj) {
-    let typeMain = shapeObj[key]["name"];
-    if (typeMain === "enum") {
-      typeMain = getEnum(shapeObj[key]["value"]);
-    } else if (typeMain === "union") {
-      typeMain = getUnion(shapeObj[key]["value"]);
-    } else if (typeMain === "arrayOf") {
-      typeMain = getArrayOf(shapeObj[key]["value"]);
+    let typeMain = shapeObj[key]['name'];
+    if (typeMain === 'enum') {
+      typeMain = getEnum(shapeObj[key]['value']);
+    } else if (typeMain === 'union') {
+      typeMain = getUnion(shapeObj[key]['value']);
+    } else if (typeMain === 'arrayOf') {
+      typeMain = getArrayOf(shapeObj[key]['value']);
     }
 
     propType += `       ${key}${
-      shapeObj[key]["required"] ? "?" : ""
+      shapeObj[key]['required'] ? '?' : ''
     } : ${typeMain} \n`;
   }
   propType = `${propType}

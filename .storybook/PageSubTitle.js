@@ -4,10 +4,7 @@ import Heading from '../src/atoms/Heading';
 const PageSubTitle = ({ title }) => {
   return (
     <>
-      <Heading
-        className="roboto-medium"
-        type="h4"
-      >
+      <Heading className="roboto-medium" type="h4">
         {title}
       </Heading>
       <div className="underline mb-5" />

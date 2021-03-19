@@ -1,12 +1,10 @@
-import { addDecorator , addParameters } from "@storybook/react";
-import Container from "./Container";
-import "@patron/patron-css/patron/index.css";
-import "@patron/patron-icon/dist/patron-font.css";
+import { addDecorator, addParameters } from '@storybook/react';
+import Container from './Container';
 export const parameters = {
   options: {
     storySort: {
-        method: 'alphabetical'
-      }
+      method: 'alphabetical'
+    }
   }
 };
 
@@ -15,11 +13,7 @@ addDecorator((story, config) => {
 });
 
 addParameters({
-    a11y: {
-      element: "#component-demo"
-    }
-  });
-
-// .storybook/preview.js
-
-
+  a11y: {
+    element: '#component-demo'
+  }
+});

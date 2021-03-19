@@ -1,6 +1,6 @@
-const fs = require("fs");
-const atomsFile = require("./atoms.json");
-const moleculesFile = require("./molecules.json");
+const fs = require('fs');
+const atomsFile = require('./atoms.json');
+const moleculesFile = require('./molecules.json');
 
 let newObject = {};
 const createDocumentObject = list => {
@@ -13,19 +13,19 @@ const createDocumentObject = list => {
 createDocumentObject(atomsFile);
 createDocumentObject(moleculesFile);
 fs.writeFileSync(
-  ".storybook/component-description.json",
+  '.storybook/component-description.json',
   JSON.stringify(newObject),
-  "utf8"
+  'utf8'
 );
 try {
-  fs.unlinkSync(".storybook/atoms.json");
-  console.log("successfully deleted atoms.json");
+  fs.unlinkSync('.storybook/atoms.json');
+  console.log('successfully deleted atoms.json');
 } catch (err) {
   // handle the error
 }
 try {
-  fs.unlinkSync(".storybook/molecules.json");
-  console.log("successfully deleted atoms.json");
+  fs.unlinkSync('.storybook/molecules.json');
+  console.log('successfully deleted molecules.json');
 } catch (err) {
   // handle the error
 }
