@@ -183,21 +183,20 @@ const DataTable = ({
   /*   table resize   */
 
   const onTableMouseDown = e => {
-    let startHeight = 0,
-      startY,
-      oldY;
+    let startY;
 
-    if (tableRef) {
-      startHeight = tableRef.current.offsetHeight;
-      startY = e.clientY;
-    }
+    const tableRect = tableRef.current.getBoundingClientRect();
+    const tableWrapperClientRect = tableWrapperRef.current.getBoundingClientRect();
+    startY = e.clientY;
 
     /* On Mouse move */
     const onMouseMove = e => {
       e.preventDefault();
       if (tableRef && tableWrapperRef) {
-        // if (oldY < e.pageY) {
-        tableRef.current.style.height = startHeight + e.clientY - startY + 'px';
+        tableRef.current.style.height =
+          tableRect.height + e.clientY - startY + 'px';
+
+
         //   tableWrapperRef.current.style.height = tableRef.current.style.height;
         // }
         // else {
@@ -205,8 +204,6 @@ const DataTable = ({
         //     startHeight + e.clientY - startY + 'px';
         //   tableRef.current.style.height = tableWrapperRef.current.style.height;
         // }
-
-        // oldY = e.pageY;
       }
     };
 
