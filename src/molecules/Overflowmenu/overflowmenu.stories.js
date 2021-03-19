@@ -50,8 +50,8 @@ storiesOf('Components/OverflowMenu', module)
     ),
     {
       info: {
-        text: `Description About Overflowmenu Component \n
-      import { Overflowmenu } from '@patron/patron-react/overflowmenu';`
+        text: `Description About Overflowmenu Component`,
+        document: ['Overflowmenu']
       }
     }
   )
@@ -90,8 +90,8 @@ storiesOf('Components/OverflowMenu', module)
     ),
     {
       info: {
-        text: `Description About Overflowmenu Component \n
-    import { Overflowmenu , MenuItem } from '@patron/patron-react/overflowmenu';`
+        text: `Description About Overflowmenu Component`,
+        document: ['Overflowmenu', 'MenuItem']
       }
     }
   )
@@ -108,8 +108,8 @@ storiesOf('Components/OverflowMenu', module)
     ),
     {
       info: {
-        text: `Description About Overflowmenu Component \n
-    import { Overflowmenu } from '@patron/patron-react/overflowmenu';`
+        text: `Description About Overflowmenu Component`,
+        document: ['Overflowmenu']
       }
     }
   );

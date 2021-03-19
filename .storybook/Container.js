@@ -1,26 +1,52 @@
 import React, { Component } from 'react';
 import reactElementToJSXString from 'react-element-to-jsx-string';
 import doc from './component-description.json';
-import './code.css';
-import DataTable from '../src/atoms/DataTable/DataTable';
-import Dropdown from '../src/atoms/Dropdown/Dropdown';
+import DataTable from '../src/atoms/DataTable';
+import { Button } from '../src/atoms/Button';
 import { getEnum, getArrayOf, getShapeOf, getUnion } from './docUtil.js';
-import CodeSnippet from '../src/molecules/CodeSnippet/CodeSnippet';
-import Prism from 'prismjs';
+import CodeSnippet from '../src/molecules/CodeSnippet';
+import Notification from '../src/atoms/Notification';
+import 'prismjs/components/prism-javascript';
 import 'prismjs/themes/prism.css';
-
 const prettier = require('prettier');
 const parser = require('prettier/parser-babel');
-
+// import '../src/index.scss';
+import '../src/story.css';
+import PageSubTitle from './PageSubTitle.js';
+const componentPathMapper = require("./folderComponentMapNew.json");
 export default class Container extends Component {
   state = {
     importedCode: '',
     componentTableInfo: [],
+    codeSnppetTableConfig: [
+      {
+        field: 'Language',
+        label: 'Language',
+        sortable: true
+      },
+      {
+        field: 'LibraryRequired',
+        label: 'Library Required'
+      }
+    ],
     tableConfig: [
       {
         label: 'Property',
         field: 'property',
-        width: '200px'
+        width: '200px',
+        renderHtml: model => {
+          return (
+            <span>
+              {model.property}
+              {model.required ? (
+                <span title="required">
+                  {' '}
+                  <i className="p-hclsw p-hclsw-star" />
+                </span>
+              ) : null}
+            </span>
+          );
+        }
       },
       {
         label: 'PropType',
@@ -33,11 +59,6 @@ export default class Container extends Component {
         }
       },
       {
-        label: 'Required',
-        field: 'required',
-        width: '100px'
-      },
-      {
         label: 'Default',
         field: 'default',
         width: '200px'
@@ -45,7 +66,64 @@ export default class Container extends Component {
       {
         label: 'Description',
         field: 'description',
-        width: '400px'
+        width: '400px',
+        renderHtml: model => {
+          let description = model.description;
+
+          let text = '@signature :';
+          if (description.includes(text)) {
+            let descriptionArray = description.split('\n');
+            let newArray = [];
+            descriptionArray.map(line => {
+              if (line.includes('@')) {
+                const keyword = line.substring(
+                  line.indexOf('@') + 1,
+                  line.indexOf(':')
+                );
+
+                if (line.includes('@signature')) {
+                  var index = line.indexOf(text);
+                  line =
+                    line.substring(0, index) +
+                    "<span class='hcl-type-epsilon'>" +
+                    line
+                      .substring(index, index + text.length)
+                      .replace('@', '')
+                      .replace(':', '') +
+                    "</span><br/><span class='hcl-font-oblique'>" +
+                    line.substring(index + text.length).trim() +
+                    '</span>';
+                } else {
+                  line = line.replace(
+                    `@${keyword}`,
+                    `<span class="hcl-font-italic">${keyword}</span>`
+                  );
+                }
+
+                // const keyword1 = line.match(/@(.*) )/gs);
+                // console.log(keyword1)
+              }
+              newArray.push(line);
+            });
+            description = newArray.join('\n');
+            // var index = description.indexOf(text);
+            // if (index >= 0) {
+            //   description =
+            //     description.substring(0, index) +
+            //     "<mark>" +
+            //     description.substring(index, index + text.length).replace('@' , '') +
+            //     "</mark><br/>" +
+            //     description.substring(index + text.length);
+            // }
+          }
+
+          return (
+            <span
+              style={{ whiteSpace: 'pre-wrap' }}
+              dangerouslySetInnerHTML={{ __html: description }}
+            />
+          );
+        }
       }
     ]
   };
@@ -103,27 +181,78 @@ export default class Container extends Component {
 
   componentDidMount = () => {
     const { config } = this.props;
-    console.log(this.props);
-    if (config.kind !== 'UI Pattern') {
+
+    if (config.kind !== 'Pattern/UIPattern' && config.kind !== 'Welcome') {
       const index = config.parameters.info.text.indexOf('import {');
       const info = config.parameters.info.text.substring(index);
       const importedStatementArray = [];
       const lines = info.split('\n');
-      let importedComponent = [];
-      lines.map(line => {
-        const importSingle = line.trim();
-        importedStatementArray.push(importSingle);
-        let modules = importSingle.match(/\{(.*?)\}/);
-        if (modules && modules[1]) {
-          const moduleNames = modules[1].split(',');
-          moduleNames.map(module => {
-            importedComponent.push(module.trim());
-          });
+      let importedComponent = config.parameters.info.document
+        ? config.parameters.info.document
+        : [];
+      let subImportedComponent = config.parameters.info.internal
+        ? config.parameters.info.internal
+        : [];
+      let totalImports = [...importedComponent, ...subImportedComponent];
+      let importStatementArray = [];
+
+      let importStatementPathObject = {};
+      importedComponent.map(imports => {
+        if (importStatementPathObject[componentPathMapper[imports]]) {
+          importStatementPathObject[componentPathMapper[imports]].push(imports);
+        } else {
+          importStatementPathObject[componentPathMapper[imports]] = [imports];
         }
       });
+
+      let subImportStatementPathObject = {};
+      subImportedComponent.map(imports => {
+        if (subImportStatementPathObject[componentPathMapper[imports]]) {
+          subImportStatementPathObject[componentPathMapper[imports]].push(
+            imports
+          );
+        } else {
+          subImportStatementPathObject[componentPathMapper[imports]] = [
+            imports
+          ];
+        }
+      });
+      for (let x in importStatementPathObject) {
+        importStatementArray.push(
+          `import {${importStatementPathObject[x].join(
+            ','
+          )}} from '@patron/patron-react/${x}';`
+        );
+      }
+      for (let x in subImportStatementPathObject) {
+        importStatementArray.push(
+          `import {${subImportStatementPathObject[x].join(
+            ','
+          )}} from '@patron/patron-react/${x}';`
+        );
+      }
+
+      if(config.parameters.info.external){
+        importStatementArray.push(config.parameters.info.external)
+      }
+
+      //   console.log(importStatementArray)
+
+      //   lines.map(line => {
+      //     const importSingle = line.trim();
+      //     importedStatementArray.push(importSingle);
+      //     let modules = importSingle.match(/\{(.*?)\}/);
+      //     if (modules && modules[1]) {
+      //       const moduleNames = modules[1].split(",");
+      //       moduleNames.map(module => {
+      //         importedComponent.push(module.trim());
+      //       });
+      //     }
+      //   });
       const componentTableInfo = [];
       importedComponent.map(componentName => {
-        const tableData = doc[`${componentName}`];
+        let tableData = doc[`${componentName}`];
+
         let propDefinitions = [];
         let propDe = {};
         if (tableData && tableData.props) {
@@ -135,6 +264,7 @@ export default class Container extends Component {
           const componentInfo = {};
           componentInfo['name'] = componentName;
           let tableInfo = [];
+          let eventInfo = [];
           propDefinitions.map(key => {
             let propType = propDe[key].type ? propDe[key].type.name : '';
             if (propType === 'enum') {
@@ -149,23 +279,78 @@ export default class Container extends Component {
               propType = propDe[key].type.value;
             }
 
-            let tableObject = {
-              property: key,
-              propType: propType,
-              required: propDe[key].required ? 'yes' : '-',
-              default: propDe[key].defaultValue
-                ? propDe[key].defaultValue.value
-                : '',
-              description: propDe[key].description
-            };
-            tableInfo.push(tableObject);
+            if (propType === 'func') {
+              let description = propDe[key].description;
+              let parameters = '';
+              if (description.includes('@')) {
+                description = description.substr(0, description.indexOf('@'));
+                parameters = propDe[key].description.substr(
+                  propDe[key].description.indexOf('@')
+                );
+              }
+
+              //     if (description.includes('@')) {
+              //         let descriptionArray = description.split("\n");
+              //         let newArray = [];
+              //         descriptionArray.map(line => {
+              //             if (line.includes("@")) {
+              //     const keyword = line.substring(
+              //       line.indexOf("@") + 1,
+              //       line.indexOf(":")
+              //     );
+
+              //     if (line.includes("@signature")) {
+              //       var index = line.indexOf(text);
+              //       line =
+              //         line.substring(0, index) +
+              //         "<span class='hcl-type-epsilon'>" +
+              //         line
+              //           .substring(index, index + text.length)
+              //           .replace("@", "")
+              //           .replace(":", "") +
+              //         "</span><br/><span class='hcl-font-oblique'>" +
+              //         line.substring(index + text.length).trim() +
+              //         "</span>";
+              //     } else {
+              //       line = line.replace(
+              //         `@${keyword}`,
+              //         `<span class="hcl-font-italic">${keyword}</span>`
+              //       );
+              //     }
+
+              //   }
+              //   newArray.push(line);
+              // });
+              // description = newArray.join("\n");
+
+              let eventObject = {
+                property: key,
+                parameters: parameters,
+                description: description
+              };
+              eventInfo.push(eventObject);
+            } else {
+              let tableObject = {
+                property: key,
+                propType: propType,
+                required: propDe[key].required,
+                default: propDe[key].defaultValue
+                  ? propDe[key].defaultValue.value
+                  : '',
+                description: propDe[key].description
+              };
+              tableInfo.push(tableObject);
+            }
           });
+          console.log(eventInfo);
           componentInfo['tableInfo'] = tableInfo;
+          componentInfo['eventInfo'] = eventInfo;
           componentTableInfo.push(componentInfo);
         }
       });
+
       this.setState({
-        importedCode: importedStatementArray.join('\n'),
+        importedCode: importStatementArray.join('\n'),
         componentTableInfo: componentTableInfo
       });
     }
@@ -190,208 +375,173 @@ export default class Container extends Component {
   };
 
   render() {
-    console.log(this.state.importedCode);
     const { story, config } = this.props;
+
+    // console.log(config);
     let code = '';
-    if (config.parameters.info.snippet) {
-      code = prettier.format(config.parameters.info.snippet, {
-        semi: false,
+    if (config.parameters.info && config.parameters.info.snippet) {
+      code = prettier.format(config.parameters.info.snippet.trim(), {
+        semi: true,
         parser: 'babel',
         trailingComma: 'none',
-        endOfLine:'auto',
         plugins: [parser]
       });
-      if(code.trim().charAt(0) === ';'){
-        code = code.substring(1);
-      }
     } else {
       code = reactElementToJSXString(story(), { showDefaultProps: false });
     }
-   
+
+    let pageTitle = '';
+    if (config.kind === 'Pattern/UIPattern') {
+      pageTitle = config.name;
+    } else {
+      pageTitle = config.kind.substr(config.kind.lastIndexOf('/') + 1);
+    }
+
     return (
       <div className="hcl-container">
-        {/* <div className="hcl-row mb-10">
-          <div className="hcl-col-12 hcl-col-md-10 hcl-col-xl-8  mb-10">
-            <h1>{config.kind}</h1>
-          </div>
-        </div> */}
         <div className="hcl-row mb-10">
-          <div className="hcl-col-12 hcl-col-sm-3 hcl-offset-sm-9">
-            <Dropdown
-              className=""
-              config={{}}
-              dropdownType=""
-              items={this.themes}
-              label="Themes Options"
-              onChange={this.onThemeChange}
-              type="bottom"
-              selectedItem={this.getAppliedTheme()}
-            />
+          <div className="hcl-col-12 hcl-col-md-10 hcl-col-xl-8  mb-10">
+            <h3 style={{ fontWeight: 900 }}>{pageTitle}</h3>
           </div>
         </div>
-        <div className="hcl-row mb-10">
-          <div className={config.parameters.info && config.parameters.info.className ? config.parameters.info.className : 'hcl-col-12'}>{story()}</div>
+        {config.parameters.info && config.parameters.info.warning ? (
+          <div className="hcl-row mb-10">
+            <div className="hcl-col-12 hcl-col-md-10 hcl-col-xl-8  mb-10">
+              <Notification
+                subtitle={config.parameters.info.warning}
+                title="Alert"
+                type="warning"
+                visible
+              />
+            </div>
+          </div>
+        ) : null}
+        <div className="hcl-row mb-10" id="component-demo">
+          <div
+            className={
+              config.parameters.info && config.parameters.info.className
+                ? config.parameters.info.className
+                : 'hcl-col-12'
+            }
+          >
+            {story()}
+          </div>
         </div>
 
         <div className="hcl-row mb-10">
-          <div className="hcl-col-12 hcl-col-md-10 hcl-col-xl-8  mb-10">
-            <h5>Story Source</h5>
+          <div className="hcl-col-12 hcl-col-md-10 hcl-col-xl-8">
+            <PageSubTitle title="Story Source" />
           </div>
-          <div className="hcl-col-12 hcl-col-md-10 hcl-col-xl-8  mb-10">
+          <div className="hcl-col-12 hcl-col-md-10 hcl-col-xl-8  mb-5">
             {this.state.importedCode ? (
               <CodeSnippet
                 height="100%"
                 language="javascript"
                 type="read"
                 value={prettier.format(this.state.importedCode, {
-                    semi: false,
-                    parser: 'babel',
-                    trailingComma: 'none',
-                    endOfLine:'auto',
-                    plugins: [parser]
-                  })}
+                  semi: true,
+                  parser: 'babel',
+                  trailingComma: 'none',
+                  plugins: [parser]
+                })}
                 width="100%"
               />
             ) : null}
           </div>
-          <div className="hcl-col-12 hcl-col-md-10 hcl-col-xl-8  mb-10" style={{minHeight:'400px'}}>
+          <div
+            className="hcl-col-12 hcl-col-md-10 hcl-col-xl-8"
+            style={{ maxHeight: '400px' }}
+          >
             {code ? (
               <CodeSnippet
                 language="javascript"
                 type="read"
                 value={code}
                 width="100%"
+                height="100%"
               />
             ) : null}
           </div>
         </div>
 
         <div className="hcl-document hcl-row mb-10">
-          <div className="hcl-col-12 hcl-col-md-10 hcl-col-xl-8  mb-10">
-            <h5>Documentation</h5>
+          <div className="hcl-col-12 hcl-col-md-10 hcl-col-xl-8">
+            {/* <PageSubTitle title='Documentation' /> */}
           </div>
-          <div className="hcl-col-12 mb-10">
-            {this.state.componentTableInfo.map((component, index) => {
-              return (
-                <div key={`${component.name}-${index}`} className="mb-5">
-                  <h5 className="component-title">{component.name}</h5>
-                  <DataTable
-                    id={`sample_table_${index}`}
-                    isHeaderSticky
-                    tableConfig={this.state.tableConfig}
-                    tableData={component.tableInfo}
-                  />
-                </div>
-              );
-            })}
+          <div className="hcl-col-12">
+            {false &&
+              this.state.componentTableInfo.map((component, index) => {
+                return (
+                  <div key={`${component.name}-${index}`} className="mb-10">
+                    <h5 className="component-title mb-5">{component.name}</h5>
+
+                    <h6 className="mb-3">Properties</h6>
+                    <DataTable
+                      className="mb-3"
+                      id={`sample_table_${index}`}
+                      isHeaderSticky
+                      tableConfig={this.state.tableConfig}
+                      tableData={component.tableInfo}
+                    />
+                    <h6 className="mb-3">Events</h6>
+                    <DataTable
+                      id={`sample_table_event${index}`}
+                      isHeaderSticky
+                      tableConfig={[
+                        {
+                          label: 'Property',
+                          field: 'property',
+                          width: '200px'
+                        },
+                        {
+                          label: 'Parameters',
+                          field: 'parameters',
+                          width: '300px',
+                          renderHtml: model => {
+                            let description = model.parameters;
+                            if (description.includes('@')) {
+                              let descriptionArray = description.split('\n');
+                              let newArray = [];
+                              descriptionArray.map(line => {
+                                if (line.includes('@')) {
+                                  const keyword = line.substring(
+                                    line.indexOf('@') + 1,
+                                    line.indexOf(':')
+                                  );
+                                  line = line.replace(
+                                    `@${keyword}`,
+                                    `<span class="hcl-font-italic">${keyword}</span>`
+                                  );
+                                }
+                                newArray.push(line);
+                              });
+                              description = newArray.join('\n');
+                            }
+
+                            return (
+                              <span
+                                style={{ whiteSpace: 'pre-wrap' }}
+                                dangerouslySetInnerHTML={{
+                                  __html: description
+                                }}
+                              />
+                            );
+                          }
+                        },
+                        {
+                          label: 'Description',
+                          field: 'description',
+                          width: '400px'
+                        }
+                      ]}
+                      tableData={component.eventInfo}
+                    />
+                  </div>
+                );
+              })}
           </div>
         </div>
       </div>
-      //   <div>
-      //     <div className="theme-options-container mb-10">
-      //       <div className="theme-options">
-      //         <p className="mr-5">Theme Selected</p>
-      //         <Dropdown
-      //           className=""
-      //           config={{}}
-      //           dropdownType=""
-      //           items={this.themes}
-      //           label="Themes Options"
-      //           onChange={this.onThemeChange}
-      //           type="bottom"
-      //           selectedItem={this.getAppliedTheme()}
-      //         />
-      //       </div>
-      //     </div>
-      //     <div id="story-root">{story()}</div>
-      //     {config.kind !== 'UI Pattern' ? (
-      //       <>
-      //         <div className="code-snippet-container">
-      //           <h5>Story Source</h5>
-
-      //           <div className="hcl-snippet-code">
-      //             <button
-      //               className="hcl-snippet-copy-to-clipboard"
-      //               title="Copy to clipboard"
-      //               onClick={this.copyTextToClipboard.bind(
-      //                 this,
-      //                 this.state.importedCode
-      //               )}
-      //             >
-      //               <svg
-      //                 focusable="false"
-      //                 preserveAspectRatio="xMidYMid meet"
-      //                 xmlns="http://www.w3.org/2000/svg"
-      //                 width="20"
-      //                 height="20"
-      //                 viewBox="0 0 32 32"
-      //                 aria-hidden="true"
-      //               >
-      //                 <path d="M28 10v18H10V10h18m0-2H10a2 2 0 0 0-2 2v18a2 2 0 0 0 2 2h18a2 2 0 0 0 2-2V10a2 2 0 0 0-2-2z" />
-      //                 <path d="M4 18H2V4a2 2 0 0 1 2-2h14v2H4z" />
-      //               </svg>
-      //             </button>
-
-      //             <pre className="line-numbers">
-      //               <code
-      //                 className="language-javascript"
-      //                 dangerouslySetInnerHTML={{
-      //                   __html: Prism.highlight(
-      //                     this.state.importedCode,
-      //                     Prism.languages.javascript
-      //                   )
-      //                 }}
-      //               ></code>
-      //             </pre>
-      //           </div>
-
-      //           <div className="hcl-snippet-code">
-      //             <button
-      //               className="hcl-snippet-copy-to-clipboard"
-      //               title="Copy to clipboard"
-      //               onClick={this.copyTextToClipboard.bind(this, code)}
-      //             >
-      //               <svg
-      //                 focusable="false"
-      //                 preserveAspectRatio="xMidYMid meet"
-      //                 xmlns="http://www.w3.org/2000/svg"
-      //                 width="20"
-      //                 height="20"
-      //                 viewBox="0 0 32 32"
-      //                 aria-hidden="true"
-      //               >
-      //                 <path d="M28 10v18H10V10h18m0-2H10a2 2 0 0 0-2 2v18a2 2 0 0 0 2 2h18a2 2 0 0 0 2-2V10a2 2 0 0 0-2-2z" />
-      //                 <path d="M4 18H2V4a2 2 0 0 1 2-2h14v2H4z" />
-      //               </svg>
-      //             </button>
-
-      //             <pre className="line-numbers">
-      //               <code
-      //                 className="language-javascript"
-      //                 dangerouslySetInnerHTML={{
-      //                   __html: Prism.highlight(code, Prism.languages.javascript)
-      //                 }}
-      //               ></code>
-      //             </pre>
-      //           </div>
-      //         </div>
-      //         <div className="hcl-document">
-      // {this.state.componentTableInfo.map((component, index) => {
-      //   return (
-      //     <div key={`${component.name}-${index}`}>
-      //       <h5 className="component-title">{component.name}</h5>
-      //       <DataTable
-      //         id={`sample_table_${index}`}
-      //         tableConfig={this.state.tableConfig}
-      //         tableData={component.tableInfo}
-      //       />
-      //     </div>
-      //   );
-      // })}
-      //         </div>
-      //       </>
-      //     ) : null}
-      //   </div>
     );
   }
 }

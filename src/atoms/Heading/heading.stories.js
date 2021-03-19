@@ -22,9 +22,8 @@ storiesOf('Components/Heading', module).add(
   ),
   {
     info: {
-      text: `Description About Heading Component \n 
-
-      import { Heading } from '@patron/patron-react/heading';`
+      text: `Description About Heading Component`,
+      document: ['Heading']
     }
   }
 );

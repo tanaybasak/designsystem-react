@@ -40,8 +40,8 @@ storiesOf('Components/DateSelector', module).add(
   ),
   {
     info: {
-      text: `Description About Datepicker Component\n
-      import { DateSelector } from '@patron/patron-react/dateselector';`
+      text: `Description About Datepicker Component`,
+      document: ['DateSelector']
     }
   }
 );

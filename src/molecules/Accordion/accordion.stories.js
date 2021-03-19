@@ -33,11 +33,8 @@ storiesOf('Components/Accordion', module).add(
   ),
   {
     info: {
-      text: `Description About Accordion Component
-      
-      import { Accordion, AccordionItem } from '@patron/patron-react/accordion';
-      
-      `,
+      text: `Description About Accordion Component`,
+      document: ['Accordion', 'AccordionItem'],
       className: 'hcl-col-12 hcl-col-lg-8'
     }
   }

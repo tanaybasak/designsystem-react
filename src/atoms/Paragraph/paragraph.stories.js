@@ -10,11 +10,8 @@ storiesOf('Components/Paragraph', module).add(
   () => <Paragraph>{text('Label', 'Sample Paragraph')}</Paragraph>,
   {
     info: {
-      text: `Description About Paragraph Component \n
-      
-      import { Paragraph } from '@patron/patron-react/paragraph';
-      
-      `
+      text: `Description About Paragraph Component`,
+      document: ['Paragraph']
     }
   }
 );

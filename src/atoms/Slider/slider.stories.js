@@ -28,12 +28,9 @@ storiesOf('Components/Slider', module)
     ),
     {
       info: {
-        text: `Description About Slider Component\n
-      
-      import { Slider } from '@patron/patron-react/slider';
-      
-      `,
-        className: 'hcl-col-12 hcl-col-lg-8'
+        text: `Description About Slider Component`,
+        className: 'hcl-col-12 hcl-col-lg-8',
+        document: ['Slider']
       }
     }
   )
@@ -59,12 +56,9 @@ storiesOf('Components/Slider', module)
     ),
     {
       info: {
-        text: `Description About Slider Component\n
-        
-        import { Slider } from '@patron/patron-react/slider';
-        
-        `,
-        className: 'hcl-col-12 hcl-col-lg-8'
+        text: `Description About Slider Component`,
+        className: 'hcl-col-12 hcl-col-lg-8',
+        document: ['Slider']
       }
     }
   );

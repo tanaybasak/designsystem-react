@@ -103,9 +103,15 @@ CodeSnippet.propTypes = {
   width: PropTypes.string,
   /** To set height of CodeSnippet */
   height: PropTypes.string,
-  /** Callback funnction which will be triggered on editing CodeSnippet */
+  /** Callback funnction which will be triggered on editing CodeSnippet
+   *
+   * @code : snippet code
+   */
   onEdit: PropTypes.func,
-  /** Callback funnction which will be triggered on copying CodeSnippet */
+  /** Callback funnction which will be triggered on copying CodeSnippet
+   *
+   * @code : snippet code
+   */
   onCopy: PropTypes.func,
   /** Code in CodeSnippet. Wrap the code in backticks(``) */
   value: PropTypes.string.isRequired,

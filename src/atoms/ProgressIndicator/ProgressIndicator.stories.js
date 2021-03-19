@@ -33,8 +33,8 @@ storiesOf('Components/ProgressIndicator', module)
     ),
     {
       info: {
-        text: `Description About ProgressIndicator Component \n
-      import { LinearProgressIndicator } from '@patron/patron-react/progressindicator'`,
+        text: `Description About ProgressIndicator Component`,
+        document: ['LinearProgressIndicator'],
         className: 'hcl-col-12 hcl-col-sm-8 hcl-col-lg-4'
       }
     }
@@ -44,8 +44,8 @@ storiesOf('Components/ProgressIndicator', module)
     () => <LinearProgressIndicator type={'indeterminate'} />,
     {
       info: {
-        text: `Description About ProgressIndicator Component \n
-      import { LinearProgressIndicator } from '@patron/patron-react/progressindicator'`,
+        text: `Description About ProgressIndicator Component`,
+        document: ['LinearProgressIndicator'],
         className: 'hcl-col-12 hcl-col-sm-8 hcl-col-lg-4'
       }
     }
@@ -64,8 +64,8 @@ storiesOf('Components/ProgressIndicator', module)
     ),
     {
       info: {
-        text: `Description About ProgressIndicator Component \n
-      import { CircleProgressIndicator } from '@patron/patron-react/progressindicator'`
+        text: `Description About ProgressIndicator Component`,
+        document: ['CircleProgressIndicator']
       }
     }
   )
@@ -79,8 +79,8 @@ storiesOf('Components/ProgressIndicator', module)
     ),
     {
       info: {
-        text: `Description About ProgressIndicator Component \n
-      import { CircleProgressIndicator } from '@patron/patron-react/progressindicator'`
+        text: `Description About ProgressIndicator Component`,
+        document: ['CircleProgressIndicator']
       }
     }
   );

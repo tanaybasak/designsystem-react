@@ -34,8 +34,8 @@ storiesOf('Components/Modal', module).add(
   ),
   {
     info: {
-      text: `Description About Modal Component \n
-      import { Modal } from '@patron/patron-react/modal';`
+      text: `Description About Modal Component`,
+      document: ['Modal']
     }
   }
 );

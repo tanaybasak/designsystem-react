@@ -44,12 +44,11 @@ storiesOf('Components/CodeSnippet', module).add(
   ),
   {
     info: {
-      text: `Description About CodeSnippet Component \n
-
-      import { CodeSnippet} from '@patron/patron-react/codesnippet';
-    import 'prismjs/components/prism-javascript';`,
-
-      className: 'hcl-col-12 hcl-col-lg-6'
+      text: `Description About CodeSnippet Component`,
+      className: 'hcl-col-12 hcl-col-lg-6',
+      document: ['CodeSnippet'],
+      internal: [],
+      external: `import 'prismjs/components/prism-javascript';`
     }
   }
 );

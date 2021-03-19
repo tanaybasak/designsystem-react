@@ -87,11 +87,8 @@ const treeDataLazyLoad = getCustomTreeLazyLoad();
 storiesOf('Components/Tree', module)
   .add('default', () => <TreeView treeData={object('Tree Data', treeData)} />, {
     info: {
-      text: `Description About TreeView Component \n
-        
-        import { TreeView } from '@patron/patron-react/treeview';
-        
-        `,
+      text: `Description About TreeView Component`,
+      document: ['TreeView'],
       className: 'hcl-col-12 hcl-col-sm-8 hcl-col-lg-4'
     }
   })
@@ -106,11 +103,8 @@ storiesOf('Components/Tree', module)
     ),
     {
       info: {
-        text: `Description About TreeView Component \n
-        
-        import { TreeView } from '@patron/patron-react/treeview';
-        
-        `,
+        text: `Description About TreeView Component`,
+        document: ['TreeView'],
         className: 'hcl-col-12 hcl-col-sm-8 hcl-col-lg-4'
       }
     }
@@ -172,11 +166,8 @@ storiesOf('Components/Tree', module)
     ),
     {
       info: {
-        text: `Description About TreeView Component \n
-        
-        import { TreeView } from '@patron/patron-react/treeview';
-        
-        `,
+        text: `Description About TreeView Component`,
+        document: ['TreeView'],
         className: 'hcl-col-12 hcl-col-sm-8 hcl-col-lg-4'
       }
     }
@@ -230,11 +221,8 @@ storiesOf('Components/Tree', module)
     ),
     {
       info: {
-        text: `Description About TreeView Component \n
-        
-        import { TreeView } from '@patron/patron-react/treeview';
-        
-        `,
+        text: `Description About TreeView Component`,
+        document: ['TreeView'],
         className: 'hcl-col-12 hcl-col-sm-8 hcl-col-lg-4',
         snippet: `
         <TreeView
@@ -408,12 +396,9 @@ storiesOf('Components/Tree', module)
     ),
     {
       info: {
-        text: `Description About TreeView Component \n
-        
-        import { TreeView } from '@patron/patron-react/treeview';
-        import { Notification } from '@patron/patron-react/notification';
-        
-        `,
+        text: `Description About TreeView Component`,
+        document: ['TreeView'],
+        internal: ['Notification'],
         className: 'hcl-col-12 hcl-col-sm-8 hcl-col-lg-4',
         snippet: `
         let dynamicId = 1;
@@ -566,12 +551,9 @@ storiesOf('Components/Tree', module)
     ),
     {
       info: {
-        text: `Description About TreeView Component \n
-        
-        import { TreeView , TreeNodeTemplate } from '@patron/patron-react/treeview';
-        import { Checkbox } from '@patron/patron-react/checkbox';
-        
-        `,
+        text: `Description About TreeView Component`,
+        document: ['TreeView', 'TreeNodeTemplate'],
+        internal: ['Checkbox'],
         className: 'hcl-col-12 hcl-col-sm-8 hcl-col-lg-4',
         snippet: `
         <TreeView
@@ -610,11 +592,8 @@ storiesOf('Components/Tree', module)
     ),
     {
       info: {
-        text: `Description About TreeView Component \n
-        
-        import { TreeView } from '@patron/patron-react/treeview';
-        
-        `,
+        text: `Description About TreeView Component`,
+        document: ['TreeView'],
         className: 'hcl-col-12 hcl-col-sm-8 hcl-col-lg-4',
         snippet: `
 
@@ -687,12 +666,9 @@ storiesOf('Components/Tree', module)
     ),
     {
       info: {
-        text: `Description About TreeView Component \n
-        
-        import { TreeView } from '@patron/patron-react/treeview';
-        import { Button } from "@patron/patron-react/button";
-        
-        `,
+        text: `Description About TreeView Component`,
+        document: ['TreeView'],
+        internal: ['Button'],
         className: 'hcl-col-12 hcl-col-sm-8 hcl-col-lg-4',
         snippet: `
         <TreeView

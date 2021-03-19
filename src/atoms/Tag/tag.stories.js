@@ -29,11 +29,8 @@ storiesOf('Components/Tag', module)
     ),
     {
       info: {
-        text: `Description About Tag Component
-
-      import { Tag } from '@patron/patron-react/tag';
-
-      `
+        text: `Description About Tag Component`,
+        document: ['Tag']
       }
     }
   )
@@ -59,11 +56,8 @@ storiesOf('Components/Tag', module)
     ),
     {
       info: {
-        text: `Description About Tag Component
-
-        import { Tag } from '@patron/patron-react/tag';
-
-        `
+        text: `Description About Tag Component`,
+        document: ['Tag']
       }
     }
   )
@@ -94,12 +88,9 @@ storiesOf('Components/Tag', module)
     ),
     {
       info: {
-        text: `Description About Tag Component
-  
-        import { Tag } from '@patron/patron-react/tag';
-    import { Icon } from '@patron/patron-react/icon';
-  
-          `
+        text: `Description About Tag Component`,
+        document: ['Tag'],
+        internal: ['Icon']
       }
     }
   )
@@ -136,12 +127,9 @@ storiesOf('Components/Tag', module)
     ),
     {
       info: {
-        text: `Description About Tag Component
-  
-        import { Tag } from '@patron/patron-react/tag';
-    import { Icon } from '@patron/patron-react/icon';
-  
-          `
+        text: `Description About Tag Component`,
+        document: ['Tag'],
+        internal: ['Icon']
       }
     }
   );

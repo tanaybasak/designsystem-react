@@ -24,11 +24,8 @@ storiesOf('Components/NumberInput', module).add(
   ),
   {
     info: {
-      text: `Description About NumberInput Component \n 
-      
-        import { NumberInput } from '@patron/patron-react/numberinput';
-
-      `,
+      text: `Description About NumberInput Component`,
+      document: ['NumberInput'],
       className: 'hcl-col-12 hcl-col-sm-8 hcl-col-lg-4'
     }
   }

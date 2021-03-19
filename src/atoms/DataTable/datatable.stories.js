@@ -318,11 +318,8 @@ storiesOf('Components/DataTable', module)
     ),
     {
       info: {
-        text: `Description About DataTable Component
-
-      import { DataTable } from '@patron/patron-react/datatable';
-      
-      `
+        text: `Description About DataTable Component`,
+        document: ['DataTable']
       }
     }
   )
@@ -347,6 +344,8 @@ storiesOf('Components/DataTable', module)
     import {Overflowmenu} from '@patron/patron-react/overflowmenu';
     import {Tag} from '@patron/patron-react/tag';
       `,
+        document: ['DataTable'],
+        internal: ['Checkbox'],
         snippet: `
 <DataTable
         id="custom-datatable-custom-temp"
@@ -454,11 +453,9 @@ storiesOf('Components/DataTable', module)
     ),
     {
       info: {
-        text: `Description About DataTable Component \n
-        import { DataTable } from '@patron/patron-react/datatable';
-    import {Search} from '@patron/patron-react/search';
-    import {Dropdown} from '@patron/patron-react/dropdown';
-      `
+        text: `Description About DataTable Component`,
+        document: ['DataTable'],
+        internal: ['Search', 'Dropdown']
       }
     }
   )
@@ -476,9 +473,8 @@ storiesOf('Components/DataTable', module)
     ),
     {
       info: {
-        text: `Description About DataTable Component \n
-        import { DataTable } from '@patron/patron-react/datatable';
-      `
+        text: `Description About DataTable Component`,
+        document: ['DataTable']
       }
     }
   )
@@ -496,9 +492,8 @@ storiesOf('Components/DataTable', module)
     ),
     {
       info: {
-        text: `Description About DataTable Component \n
-        import { DataTable } from '@patron/patron-react/datatable';
-      `
+        text: `Description About DataTable Component`,
+        document: ['DataTable']
       }
     }
   )
@@ -520,11 +515,8 @@ storiesOf('Components/DataTable', module)
     ),
     {
       info: {
-        text: `Description About DataTable Component
-
-      import { DataTable } from '@patron/patron-react/datatable';
-      
-      `
+        text: `Description About DataTable Component`,
+        document: ['DataTable']
       }
     }
   );

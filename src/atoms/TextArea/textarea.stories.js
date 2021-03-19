@@ -22,9 +22,8 @@ storiesOf('Components/TextArea', module)
     ),
     {
       info: {
-        text: `Description About TextArea Component \n
-
-      import { TextArea } from '@patron/patron-react/textarea';`,
+        text: `Description About TextArea Component`,
+        document: ['TextArea'],
         className: 'hcl-col-12 hcl-col-sm-8 hcl-col-lg-4'
       }
     }
@@ -51,9 +50,8 @@ storiesOf('Components/TextArea', module)
     ),
     {
       info: {
-        text: `Description About TextArea Component \n
-  
-        import { TextArea } from '@patron/patron-react/textarea';`,
+        text: `Description About TextArea Component`,
+        document: ['TextArea'],
         className: 'hcl-col-12 hcl-col-sm-8 hcl-col-lg-4'
       }
     }
@@ -79,9 +77,8 @@ storiesOf('Components/TextArea', module)
     ),
     {
       info: {
-        text: `Description About TextArea Component \n
-  
-        import { TextArea } from '@patron/patron-react/textarea';`,
+        text: `Description About TextArea Component`,
+        document: ['TextArea'],
         className: 'hcl-col-12 hcl-col-sm-8 hcl-col-lg-4'
       }
     }

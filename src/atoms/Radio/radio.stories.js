@@ -33,9 +33,8 @@ storiesOf('Components/Radio', module)
     ),
     {
       info: {
-        text: `Description About Radio Component \n
-
-                import { Radio } from '@patron/patron-react/radio';`
+        text: `Description About Radio Component`,
+        document: ['Radio']
       }
     }
   )
@@ -58,9 +57,8 @@ storiesOf('Components/Radio', module)
     ),
     {
       info: {
-        text: `Description About Radio Component \n
-
-                import { Radio } from '@patron/patron-react/radio';`
+        text: `Description About Radio Component`,
+        document: ['Radio']
       }
     }
   )
@@ -98,9 +96,8 @@ storiesOf('Components/Radio', module)
     ),
     {
       info: {
-        text: `Description About Radio Group Component \n
-  
-        import { Radio , RadioGroup} from '@patron/patron-react/radio';`
+        text: `Description About Radio Group Component`,
+        document: ['Radio']
       }
     }
   )
@@ -137,9 +134,8 @@ storiesOf('Components/Radio', module)
     ),
     {
       info: {
-        text: `Description About Radio Group Component \n
-  
-        import { Radio , RadioGroup} from '@patron/patron-react/radio';`
+        text: `Description About Radio Group Component`,
+        document: ['Radio']
       }
     }
   );

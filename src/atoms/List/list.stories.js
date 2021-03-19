@@ -73,11 +73,8 @@ storiesOf('Components/List', module)
     ),
     {
       info: {
-        text: `Description About List Component\n
-      
-      import { List } from '@patron/patron-react/list';
-
-      `
+        text: `Description About List Component`,
+        document: ['List']
       }
     }
   )
@@ -92,11 +89,8 @@ storiesOf('Components/List', module)
     ),
     {
       info: {
-        text: `Description About List Component\n
-      
-      import { List } from '@patron/patron-react/list';
-
-      `
+        text: `Description About List Component`,
+        document: ['List']
       }
     }
   );

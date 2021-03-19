@@ -25,9 +25,8 @@ storiesOf('Components/Password', module)
     ),
     {
       info: {
-        text: `Description About Password Component \n
-      
-      import { Password } from '@patron/patron-react/password'`,
+        text: `Description About Password Component`,
+        document: ['Password'],
         className: 'hcl-col-12 hcl-col-sm-8 hcl-col-lg-4'
       }
     }
@@ -55,9 +54,8 @@ storiesOf('Components/Password', module)
     ),
     {
       info: {
-        text: `Description About Password Component \n
-        
-        import { Password } from '@patron/patron-react/password'`,
+        text: `Description About Password Component`,
+        document: ['Password'],
         className: 'hcl-col-12 hcl-col-sm-8 hcl-col-lg-4'
       }
     }
@@ -84,9 +82,8 @@ storiesOf('Components/Password', module)
     ),
     {
       info: {
-        text: `Description About Password Component \n
-        
-        import { Password } from '@patron/patron-react/password'`,
+        text: `Description About Password Component`,
+        document: ['Password'],
         className: 'hcl-col-12 hcl-col-sm-8 hcl-col-lg-4'
       }
     }

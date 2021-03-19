@@ -45,12 +45,9 @@ storiesOf('Components/Header', module).add(
   ),
   {
     info: {
-      text: `Description About Header Component
-
-      import { Header } from '@patron/patron-react/header';
-    import { Search } from '@patron/patron-react/search';
-
-      `
+      text: `Description About Header Component`,
+      document: ['Header'],
+      internal: ['Search']
     }
   }
 );

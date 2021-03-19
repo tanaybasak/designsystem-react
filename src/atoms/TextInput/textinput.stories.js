@@ -23,9 +23,8 @@ storiesOf('Components/TextInput', module)
     ),
     {
       info: {
-        text: `Description About TextInput Component \n
-      
-      import { TextInput } from '@patron/patron-react/textinput';`,
+        text: `Description About TextInput Component`,
+        document: ['TextInput'],
         className: 'hcl-col-12 hcl-col-sm-8 hcl-col-lg-4'
       }
     }
@@ -53,9 +52,8 @@ storiesOf('Components/TextInput', module)
     ),
     {
       info: {
-        text: `Description About TextInput Component \n
-        
-        import { TextInput } from '@patron/patron-react/textinput';`,
+        text: `Description About TextInput Component`,
+        document: ['TextInput'],
         className: 'hcl-col-12 hcl-col-sm-8 hcl-col-lg-4'
       }
     }
@@ -82,9 +80,8 @@ storiesOf('Components/TextInput', module)
     ),
     {
       info: {
-        text: `Description About TextInput Component \n
-        
-        import { TextInput } from '@patron/patron-react/textinput';`,
+        text: `Description About TextInput Component`,
+        document: ['TextInput'],
         className: 'hcl-col-12 hcl-col-sm-8 hcl-col-lg-4'
       }
     }

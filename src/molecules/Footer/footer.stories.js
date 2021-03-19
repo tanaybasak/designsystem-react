@@ -33,11 +33,8 @@ storiesOf('Components/Footer', module).add(
   ),
   {
     info: {
-      text: `Description About Footer Component
-
-      import { Footer } from '@patron/patron-react/footer';
-      
-      `
+      text: `Description About Footer Component`,
+      document: ['Footer']
     }
   }
 );

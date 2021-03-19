@@ -40,11 +40,8 @@ storiesOf('Components/FileUploader', module)
     ),
     {
       info: {
-        text: `Description About FileUploader Component
-
-      import { FileUploader } from '@patron/patron-react/fileuploader';
-
-      `
+        text: `Description About FileUploader Component`,
+        document: ['FileUploader']
       }
     }
   )
@@ -71,11 +68,8 @@ storiesOf('Components/FileUploader', module)
     ),
     {
       info: {
-        text: `Description About FileUploader Component
-
-      import { FileUploader } from '@patron/patron-react/fileuploader';
-
-      `
+        text: `Description About FileUploader Component`,
+        document: ['FileUploader']
       }
     }
   );

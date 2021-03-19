@@ -29,8 +29,8 @@ storiesOf('Components/TimePicker', module)
     ),
     {
       info: {
-        text: `Description About TimePicker Component \n
-      import { TimePicker } from '@patron/patron-react/timepicker';`
+        text: `Description About TimePicker Component`,
+        document: ['TimePicker']
       }
     }
   )
@@ -51,8 +51,8 @@ storiesOf('Components/TimePicker', module)
     ),
     {
       info: {
-        text: `Description About TimePicker Component \n
-        import { TimePicker } from '@patron/patron-react/timepicker';`
+        text: `Description About TimePicker Component`,
+        document: ['TimePicker']
       }
     }
   )
@@ -72,8 +72,8 @@ storiesOf('Components/TimePicker', module)
     ),
     {
       info: {
-        text: `Description About TimePicker Component \n
-        import { TimePicker } from '@patron/patron-react/timepicker';`
+        text: `Description About TimePicker Component`,
+        document: ['TimePicker']
       }
     }
   );

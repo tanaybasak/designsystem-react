@@ -67,9 +67,8 @@ storiesOf('Components/Wizard', module).add(
   ),
   {
     info: {
-      text: `Description About Wizard Component \n
-
-      import { Wizard, Step } from '@patron/patron-react/wizard';`
+      text: `Description About Wizard Component`,
+      document: ['Wizard', 'Step']
     }
   }
 );

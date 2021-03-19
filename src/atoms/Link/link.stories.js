@@ -10,9 +10,8 @@ storiesOf('Components/Link', module).add(
   () => <Link href={text('URL', '#')}>{text('Label', 'Link')}</Link>,
   {
     info: {
-      text: `Description About Link Component \n
-      
-      import { Link } from '@patron/patron-react/link';`
+      text: `Description About Link Component`,
+      document: ['Link']
     }
   }
 );

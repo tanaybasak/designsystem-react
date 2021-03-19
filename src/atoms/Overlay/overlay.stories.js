@@ -30,11 +30,8 @@ storiesOf('Components/Overlay', module).add(
   ),
   {
     info: {
-      text: `Description About Overlay Component\n
-      
-      import { Overlay } from '@patron/patron-react/overlay';
-      
-      `
+      text: `Description About Overlay Component`,
+      document: ['Overlay']
     }
   }
 );

@@ -33,9 +33,8 @@ storiesOf('Components/Tab', module).add(
   ),
   {
     info: {
-      text: `Description About Tab Component \n
-
-      import { Tabs, Tab } from '@patron/patron-react/tab';`
+      text: `Description About Tab Component`,
+      document: ['Tabs', 'Tab']
     }
   }
 );

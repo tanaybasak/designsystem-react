@@ -32,11 +32,8 @@ storiesOf('Components/Breadcrumb', module)
     },
     {
       info: {
-        text: `Description About Breadcrumb Component \n 
-      
-      import { Breadcrumb , BreadcrumbItem } from '@patron/patron-react/breadcrumb';
-
-      `
+        text: `Description About Breadcrumb Component`,
+        document: ['Breadcrumb', 'BreadcrumbItem']
       }
     }
   )
@@ -68,11 +65,8 @@ storiesOf('Components/Breadcrumb', module)
     },
     {
       info: {
-        text: `Description About Breadcrumb Component \n 
-        
-        import { Breadcrumb , BreadcrumbItem } from '@patron/patron-react/breadcrumb';
-  
-        `
+        text: `Description About Breadcrumb Component`,
+        document: ['Breadcrumb', 'BreadcrumbItem']
       }
     }
   );

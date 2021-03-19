@@ -39,15 +39,15 @@ storiesOf('Components/DatePicker', module).add(
   ),
   {
     info: {
-      text: `Description About Datepicker Component\n
-      import { DatePicker } from '@patron/patron-react/datepicker';`,
+      text: `Description About Datepicker Component`,
       warning: (
         <>
           Please use{' '}
           <a onClick={linkTo('Components/DateSelector')}>Date Selector</a>{' '}
           instead of Date Picker
         </>
-      )
+      ),
+      document: ['DatePicker']
     }
   }
 );

@@ -9,8 +9,8 @@ storiesOf('Components/Label', module).add(
   () => <Label>This is label</Label>,
   {
     info: {
-      text: `Description About Label Component\n
-      import { Label } from '@patron/patron-react/label';`
+      text: `Description About Label Component`,
+      document: ['Label']
     }
   }
 );

@@ -843,12 +843,14 @@ DataTable.propTypes = {
 
   /** Call back function to sort table data
    *
-   * Argument – event
+   * @column : sorted column
+   * @order : sorting order
+   * @data : table data
    */
   onSort: PropTypes.func,
   /** Call back function on selecting row
    *
-   * Argument – row data
+   * @data : selected Table row data
    */
   onRowSelect: PropTypes.func,
   /** Used for passing expand row template  */

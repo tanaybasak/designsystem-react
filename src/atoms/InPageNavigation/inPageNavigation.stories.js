@@ -25,8 +25,8 @@ storiesOf('Components/InPageNavigation', module).add(
   () => <InPageNavigation listItems={object('ListItems', timelineObject)} />,
   {
     info: {
-      text: `Description About in-pagenavigation Component \n
-      import {InPageNavigation} from '@patron/patron-react/inpagenavigation';`
+      text: `Description About in-pagenavigation Component`,
+      document: ['InPageNavigation']
     }
   }
 );

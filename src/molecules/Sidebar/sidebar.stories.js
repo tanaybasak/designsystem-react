@@ -115,10 +115,8 @@ storiesOf('Components/Sidebar', module)
     ),
     {
       info: {
-        text: `Description About Sidebar Component
-      
-      import { Sidebar } from '@patron/patron-react/sidebar';
-      `
+        text: `Description About Sidebar Component`,
+        document: ['Sidebar']
       }
     }
   )
@@ -145,10 +143,8 @@ storiesOf('Components/Sidebar', module)
     ),
     {
       info: {
-        text: `Description About Sidebar Component
-      
-      import { Sidebar } from '@patron/patron-react/sidebar';
-      `
+        text: `Description About Sidebar Component`,
+        document: ['Sidebar']
       }
     }
   )
@@ -181,10 +177,8 @@ storiesOf('Components/Sidebar', module)
     ),
     {
       info: {
-        text: `Description About Sidebar Component
-
-      import { Sidebar } from '@patron/patron-react/sidebar';
-      `
+        text: `Description About Sidebar Component`,
+        document: ['Sidebar']
       }
     }
   );

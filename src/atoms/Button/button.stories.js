@@ -36,11 +36,8 @@ storiesOf('Components/Button', module)
     ),
     {
       info: {
-        text: `Description About Button Component \n
-
-    import { Button } from '@patron/patron-react/button';
-      
-      `
+        text: `Description About Button Component`,
+        document: ['Button']
       }
     }
   )
@@ -62,11 +59,9 @@ storiesOf('Components/Button', module)
     ),
     {
       info: {
-        text: `Description About Button Component \n
-
-    import { Button } from '@patron/patron-react/button';
-      
-      `
+        text: `Description About Button Component 
+      `,
+        document: ['Button']
       }
     }
   )
@@ -93,11 +88,8 @@ storiesOf('Components/Button', module)
     ),
     {
       info: {
-        text: `Description About Button Component \n
-
-    import { Button } from '@patron/patron-react/button';
-      
-      `
+        text: `Description About Button Component`,
+        document: ['Button']
       }
     }
   );

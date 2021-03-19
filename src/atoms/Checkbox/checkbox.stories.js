@@ -25,9 +25,8 @@ storiesOf('Components/Checkbox', module)
     ),
     {
       info: {
-        text: `Description About Checkbox Component \n
-
-      import { Checkbox } from '@patron/patron-react/checkbox';`
+        text: `Description About Checkbox Component`,
+        document: ['Checkbox']
       }
     }
   )
@@ -46,9 +45,8 @@ storiesOf('Components/Checkbox', module)
     ),
     {
       info: {
-        text: `Description About Checkbox Component \n
-  
-      import { Checkbox } from '@patron/patron-react/checkbox';`
+        text: `Description About Checkbox Component`,
+        document: ['Checkbox']
       }
     }
   )
@@ -81,9 +79,8 @@ storiesOf('Components/Checkbox', module)
     ),
     {
       info: {
-        text: `Description About Checkbox Component \n
-  
-        import { Checkbox } from '@patron/patron-react/checkbox';`
+        text: `Description About Checkbox Component`,
+        document: ['Checkbox']
       }
     }
   )
@@ -116,9 +113,8 @@ storiesOf('Components/Checkbox', module)
     ),
     {
       info: {
-        text: `Description About Checkbox Component \n
-  
-        import { Checkbox } from '@patron/patron-react/checkbox';`
+        text: `Description About Checkbox Component`,
+        document: ['Checkbox']
       }
     }
   )
@@ -144,9 +140,8 @@ storiesOf('Components/Checkbox', module)
     ),
     {
       info: {
-        text: `Description About Checkbox Component \n
-
-      import { Checkbox } from '@patron/patron-react/checkbox';`
+        text: `Description About Checkbox Component`,
+        document: ['Checkbox']
       }
     }
   );
