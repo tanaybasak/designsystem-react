@@ -64,8 +64,6 @@ const DataTable = ({
     }
   }, [tableRef]);
 
-  console.log(resizer);
-
   const sortOnEnter = (field, e) => {
     if (e.key === 'Enter') {
       sort(field);
