@@ -564,7 +564,7 @@ storiesOf('DataTable', module)
         headerSelection={
           <Checkbox aria-label="header checkbox" id={`header_checkbox`} />
         }
-        resizer={{ handle: 'right' }}
+        resizer={{ handle: 'bottom' }}
         onColumnAfterResize={action('column-resized')}
       />
     ),

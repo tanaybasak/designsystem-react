@@ -54,7 +54,6 @@ const DataTable = ({
     );
     setTableConfiguration(tempConfig);
   }, [tableConfig]);
-
   useEffect(() => {
     if (
       tableRef.current.parentElement.offsetWidth <
@@ -64,6 +63,8 @@ const DataTable = ({
       tableRef.current.parentElement.style.overflow = 'auto';
     }
   }, [tableRef]);
+
+  console.log(resizer);
 
   const sortOnEnter = (field, e) => {
     if (e.key === 'Enter') {
@@ -156,11 +157,9 @@ const DataTable = ({
       ? ' data-table-sticky-header'
       : resizable
       ? ' data-table-header'
-      : resizer
-      ? ' hcl-data-table-wrapper-resizer'
       : ''
-  }${
-    type.includes('borderless') ? ` ${prefix}-data-table-borderless` : ''
+  }${type.includes('borderless') ? ` ${prefix}-data-table-borderless` : ''}${
+    resizer ? ' hcl-data-table-wrapper-resizer' : ''
   } ${className}`.trim();
 
   /*   table resize   */
@@ -871,7 +870,7 @@ const DataTable = ({
           </tbody>
         </table>
       </div>
-      {resizer && resizer.handle == 'right' ? tableResizerDom() : null}
+      {resizer && resizer.handle == 'bottom' ? tableResizerDom() : null}
     </>
   );
 };
