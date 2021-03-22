@@ -39,75 +39,9 @@ const tableData = [
     rule: 'Round Robin',
     attachedGroups: 'Maureen VM Groups',
     status: 'Active'
-  },
-  {
-    id: 4,
-    name: 'Load Balancer 3',
-    protocol: 'HTTP',
-    port: '80',
-    rule: 'Round Robin',
-    attachedGroups: 'Maureen VM Groups',
-    status: 'Active'
-  },
-  {
-    id: 5,
-    name: 'Load Balancer 3',
-    protocol: 'HTTP',
-    port: '80',
-    rule: 'Round Robin',
-    attachedGroups: 'Maureen VM Groups',
-    status: 'Active'
-  },
-  {
-    id: 6,
-    name: 'Load Balancer 3',
-    protocol: 'HTTP',
-    port: '80',
-    rule: 'Round Robin',
-    attachedGroups: 'Maureen VM Groups',
-    status: 'Active'
-  },
-  {
-    id: 7,
-    name: 'Load Balancer 3',
-    protocol: 'HTTP',
-    port: '80',
-    rule: 'Round Robin',
-    attachedGroups: 'Maureen VM Groups',
-    status: 'Active'
-  },
-  {
-    id: 8,
-    name: 'Load Balancer 3',
-    protocol: 'HTTP',
-    port: '80',
-    rule: 'Round Robin',
-    attachedGroups: 'Maureen VM Groups',
-    status: 'Active'
-  },
-  {
-    id: 9,
-    name: 'Load Balancer 3',
-    protocol: 'HTTP',
-    port: '80',
-    rule: 'Round Robin',
-    attachedGroups: 'Maureen VM Groups',
-    status: 'Active'
-  },
-  {
-    id: 10,
-    name: 'Load Balancer 3',
-    protocol: 'HTTP',
-    port: '80',
-    rule: 'Round Robin',
-    attachedGroups: 'Maureen VM Groups',
-    status: 'Active'
   }
 ];
 
-const resizer = {
-  resizer: { handles: 's' }
-};
 const listItems = [
   {
     name: 'Add',
