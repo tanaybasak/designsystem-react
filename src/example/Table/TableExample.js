@@ -252,7 +252,7 @@ class TableExample extends Component {
               onColumnAfterResize={this.colResize}
               initSortedColumn={this.state.initSortedColumn}
               columnDraggable
-              resizer={{ handle: 'bottom' }}
+              resizer
               selectedItem={this.state.selectedItem}
               onColumnReorder={dataTableConfig => {
                 console.log('dataTableConfig', dataTableConfig);

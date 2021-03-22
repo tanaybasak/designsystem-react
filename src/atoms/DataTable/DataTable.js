@@ -868,7 +868,7 @@ const DataTable = ({
           </tbody>
         </table>
       </div>
-      {resizer && resizer.handle == 'bottom' ? tableResizerDom() : null}
+      {resizer ? tableResizerDom() : null}
     </>
   );
 };
@@ -959,11 +959,8 @@ DataTable.propTypes = {
   showDraggableIconOnHover: PropTypes.bool,
   /** Used to remove nowwrap style from header title */
   removeHeaderNowrap: PropTypes.bool,
-
-  /** Resizer */
-  resizer: PropTypes.shape({
-    handle: PropTypes.oneOf(['bottom', 'right'])
-  })
+  /** Table Resizer */
+  resizer: PropTypes.bool
 };
 
 DataTable.defaultProps = {
@@ -983,7 +980,7 @@ DataTable.defaultProps = {
   isHeaderSticky: false,
   onColumnAfterResize: () => {},
   initSortedColumn: {},
-  resizer: { handle: {} },
+  resizer: false,
   uniqueKey: 'id',
   onColumnReorder: () => {},
   showDraggableIconOnHover: false,
