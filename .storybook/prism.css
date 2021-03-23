@@ -1,0 +1,168 @@
+ .blue_active_orange_light code[class*="language-"], .blue_active_blue_light code[class*="language-"], .blue_active_orange_light pre[class*="language-"], .blue_active_blue_light pre[class*="language-"] {
+	 color: black;
+	 background: none;
+	 text-shadow: 0 1px white;
+	 font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+	 font-size: 1em;
+	 text-align: left;
+	 white-space: pre;
+	 word-spacing: normal;
+	 word-break: normal;
+	 word-wrap: normal;
+	 line-height: 1.5;
+	 -moz-tab-size: 4;
+	 -o-tab-size: 4;
+	 tab-size: 4;
+	 -webkit-hyphens: none;
+	 -moz-hyphens: none;
+	 -ms-hyphens: none;
+	 hyphens: none;
+}
+ .blue_active_orange_light pre[class*="language-"]::-moz-selection, .blue_active_blue_light pre[class*="language-"]::-moz-selection, .blue_active_orange_light pre[class*="language-"] ::-moz-selection, .blue_active_blue_light pre[class*="language-"] ::-moz-selection, .blue_active_orange_light code[class*="language-"]::-moz-selection, .blue_active_blue_light code[class*="language-"]::-moz-selection, .blue_active_orange_light code[class*="language-"] ::-moz-selection, .blue_active_blue_light code[class*="language-"] ::-moz-selection {
+	 text-shadow: none;
+	 background: #b3d4fc;
+}
+ .blue_active_orange_light pre[class*="language-"]::selection, .blue_active_blue_light pre[class*="language-"]::selection, .blue_active_orange_light pre[class*="language-"] ::selection, .blue_active_blue_light pre[class*="language-"] ::selection, .blue_active_orange_light code[class*="language-"]::selection, .blue_active_blue_light code[class*="language-"]::selection, .blue_active_orange_light code[class*="language-"] ::selection, .blue_active_blue_light code[class*="language-"] ::selection {
+	 text-shadow: none;
+	 background: #b3d4fc;
+}
+ @media print {
+	 .blue_active_orange_light code[class*="language-"], .blue_active_blue_light code[class*="language-"], .blue_active_orange_light pre[class*="language-"], .blue_active_blue_light pre[class*="language-"] {
+		 text-shadow: none;
+	}
+}
+ .blue_active_orange_light pre[class*="language-"], .blue_active_blue_light pre[class*="language-"] {
+	 padding: 1em;
+	 margin: 0.5em 0;
+	 overflow: auto;
+}
+ .blue_active_orange_light :not(pre) > code[class*="language-"], .blue_active_blue_light :not(pre) > code[class*="language-"], .blue_active_orange_light pre[class*="language-"], .blue_active_blue_light pre[class*="language-"] {
+	 background: #f5f2f0;
+}
+ .blue_active_orange_light :not(pre) > code[class*="language-"], .blue_active_blue_light :not(pre) > code[class*="language-"] {
+	 padding: 0.1em;
+	 border-radius: 0.3em;
+	 white-space: normal;
+}
+ .blue_active_orange_light .token.comment, .blue_active_blue_light .token.comment, .blue_active_orange_light .token.prolog, .blue_active_blue_light .token.prolog, .blue_active_orange_light .token.doctype, .blue_active_blue_light .token.doctype, .blue_active_orange_light .token.cdata, .blue_active_blue_light .token.cdata {
+	 color: slategray;
+}
+ .blue_active_orange_light .token.punctuation, .blue_active_blue_light .token.punctuation {
+	 color: #999;
+}
+ .blue_active_orange_light .token.namespace, .blue_active_blue_light .token.namespace {
+	 opacity: 0.7;
+}
+ .blue_active_orange_light .token.property, .blue_active_blue_light .token.property, .blue_active_orange_light .token.tag, .blue_active_blue_light .token.tag, .blue_active_orange_light .token.boolean, .blue_active_blue_light .token.boolean, .blue_active_orange_light .token.number, .blue_active_blue_light .token.number, .blue_active_orange_light .token.constant, .blue_active_blue_light .token.constant, .blue_active_orange_light .token.symbol, .blue_active_blue_light .token.symbol, .blue_active_orange_light .token.deleted, .blue_active_blue_light .token.deleted {
+	 color: #905;
+}
+ .blue_active_orange_light .token.selector, .blue_active_blue_light .token.selector, .blue_active_orange_light .token.attr-name, .blue_active_blue_light .token.attr-name, .blue_active_orange_light .token.string, .blue_active_blue_light .token.string, .blue_active_orange_light .token.char, .blue_active_blue_light .token.char, .blue_active_orange_light .token.builtin, .blue_active_blue_light .token.builtin, .blue_active_orange_light .token.inserted, .blue_active_blue_light .token.inserted {
+	 color: #690;
+}
+ .blue_active_orange_light .token.operator, .blue_active_blue_light .token.operator, .blue_active_orange_light .token.entity, .blue_active_blue_light .token.entity, .blue_active_orange_light .token.url, .blue_active_blue_light .token.url, .blue_active_orange_light .language-css .token.string, .blue_active_blue_light .language-css .token.string, .blue_active_orange_light .style .token.string, .blue_active_blue_light .style .token.string {
+	 color: #9a6e3a;
+	/* This background color was intended by the author of this theme. */
+	 background: rgba(255, 255, 255, .5);
+}
+ .blue_active_orange_light .token.atrule, .blue_active_blue_light .token.atrule, .blue_active_orange_light .token.attr-value, .blue_active_blue_light .token.attr-value, .blue_active_orange_light .token.keyword, .blue_active_blue_light .token.keyword {
+	 color: #07a;
+}
+ .blue_active_orange_light .token.function, .blue_active_blue_light .token.function, .blue_active_orange_light .token.class-name, .blue_active_blue_light .token.class-name {
+	 color: #dd4a68;
+}
+ .blue_active_orange_light .token.regex, .blue_active_blue_light .token.regex, .blue_active_orange_light .token.important, .blue_active_blue_light .token.important, .blue_active_orange_light .token.variable, .blue_active_blue_light .token.variable {
+	 color: #e90;
+}
+ .blue_active_orange_light .token.important, .blue_active_blue_light .token.important, .blue_active_orange_light .token.bold, .blue_active_blue_light .token.bold {
+	 font-weight: bold;
+}
+ .blue_active_orange_light .token.italic, .blue_active_blue_light .token.italic {
+	 font-style: italic;
+}
+ .blue_active_orange_light .token.entity, .blue_active_blue_light .token.entity {
+	 cursor: help;
+}
+ .blue_active_orange_dark, .blue_active_blue_dark {
+	/* Code blocks */
+	/* Inline code */
+}
+ .blue_active_orange_dark code[class*="language-"], .blue_active_blue_dark code[class*="language-"], .blue_active_orange_dark pre[class*="language-"], .blue_active_blue_dark pre[class*="language-"] {
+	 color: white;
+	 background: none;
+	 text-shadow: 0 -0.1em 0.2em black;
+	 font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+	 font-size: 1em;
+	 text-align: left;
+	 white-space: pre;
+	 word-spacing: normal;
+	 word-break: normal;
+	 word-wrap: normal;
+	 line-height: 1.5;
+	 -moz-tab-size: 4;
+	 -o-tab-size: 4;
+	 tab-size: 4;
+	 -webkit-hyphens: none;
+	 -moz-hyphens: none;
+	 -ms-hyphens: none;
+	 hyphens: none;
+}
+ @media print {
+	 .blue_active_orange_dark code[class*="language-"], .blue_active_blue_dark code[class*="language-"], .blue_active_orange_dark pre[class*="language-"], .blue_active_blue_dark pre[class*="language-"] {
+		 text-shadow: none;
+	}
+}
+ .blue_active_orange_dark pre[class*="language-"], .blue_active_blue_dark pre[class*="language-"], .blue_active_orange_dark :not(pre) > code[class*="language-"], .blue_active_blue_dark :not(pre) > code[class*="language-"] {
+	 background: #4d4033;
+}
+ .blue_active_orange_dark pre[class*="language-"], .blue_active_blue_dark pre[class*="language-"] {
+	 padding: 1em;
+	 margin: 0.5em 0;
+	 overflow: auto;
+	 border: 0.3em solid #7a6652;
+	 border-radius: 0.5em;
+	 box-shadow: 1px 1px 0.5em black inset;
+}
+ .blue_active_orange_dark :not(pre) > code[class*="language-"], .blue_active_blue_dark :not(pre) > code[class*="language-"] {
+	 padding: 0.15em 0.2em 0.05em;
+	 border-radius: 0.3em;
+	 border: 0.13em solid #7a6652;
+	 box-shadow: 1px 1px 0.3em -0.1em black inset;
+	 white-space: normal;
+}
+ .blue_active_orange_dark .token.comment, .blue_active_blue_dark .token.comment, .blue_active_orange_dark .token.prolog, .blue_active_blue_dark .token.prolog, .blue_active_orange_dark .token.doctype, .blue_active_blue_dark .token.doctype, .blue_active_orange_dark .token.cdata, .blue_active_blue_dark .token.cdata {
+	 color: #998066;
+}
+ .blue_active_orange_dark .token.punctuation, .blue_active_blue_dark .token.punctuation {
+	 opacity: 0.7;
+}
+ .blue_active_orange_dark .token.namespace, .blue_active_blue_dark .token.namespace {
+	 opacity: 0.7;
+}
+ .blue_active_orange_dark .token.property, .blue_active_blue_dark .token.property, .blue_active_orange_dark .token.tag, .blue_active_blue_dark .token.tag, .blue_active_orange_dark .token.boolean, .blue_active_blue_dark .token.boolean, .blue_active_orange_dark .token.number, .blue_active_blue_dark .token.number, .blue_active_orange_dark .token.constant, .blue_active_blue_dark .token.constant, .blue_active_orange_dark .token.symbol, .blue_active_blue_dark .token.symbol {
+	 color: #d1949e;
+}
+ .blue_active_orange_dark .token.selector, .blue_active_blue_dark .token.selector, .blue_active_orange_dark .token.attr-name, .blue_active_blue_dark .token.attr-name, .blue_active_orange_dark .token.string, .blue_active_blue_dark .token.string, .blue_active_orange_dark .token.char, .blue_active_blue_dark .token.char, .blue_active_orange_dark .token.builtin, .blue_active_blue_dark .token.builtin, .blue_active_orange_dark .token.inserted, .blue_active_blue_dark .token.inserted {
+	 color: #bde052;
+}
+ .blue_active_orange_dark .token.operator, .blue_active_blue_dark .token.operator, .blue_active_orange_dark .token.entity, .blue_active_blue_dark .token.entity, .blue_active_orange_dark .token.url, .blue_active_blue_dark .token.url, .blue_active_orange_dark .language-css .token.string, .blue_active_blue_dark .language-css .token.string, .blue_active_orange_dark .style .token.string, .blue_active_blue_dark .style .token.string, .blue_active_orange_dark .token.variable, .blue_active_blue_dark .token.variable {
+	 color: #f5b83d;
+}
+ .blue_active_orange_dark .token.atrule, .blue_active_blue_dark .token.atrule, .blue_active_orange_dark .token.attr-value, .blue_active_blue_dark .token.attr-value, .blue_active_orange_dark .token.keyword, .blue_active_blue_dark .token.keyword {
+	 color: #d1949e;
+}
+ .blue_active_orange_dark .token.regex, .blue_active_blue_dark .token.regex, .blue_active_orange_dark .token.important, .blue_active_blue_dark .token.important {
+	 color: #e90;
+}
+ .blue_active_orange_dark .token.important, .blue_active_blue_dark .token.important, .blue_active_orange_dark .token.bold, .blue_active_blue_dark .token.bold {
+	 font-weight: bold;
+}
+ .blue_active_orange_dark .token.italic, .blue_active_blue_dark .token.italic {
+	 font-style: italic;
+}
+ .blue_active_orange_dark .token.entity, .blue_active_blue_dark .token.entity {
+	 cursor: help;
+}
+ .blue_active_orange_dark .token.deleted, .blue_active_blue_dark .token.deleted {
+	 color: red;
+}
+ 

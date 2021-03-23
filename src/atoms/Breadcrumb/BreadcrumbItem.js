@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 import Link from '../Link';
+import propDeprecated from '../../util/PropDeprecated';
 
 function BreadcrumbItem({
   onClick,
@@ -41,13 +42,19 @@ BreadcrumbItem.propTypes = {
   /** @ignore */
   active: PropTypes.bool,
   /** Callback function on selecting item - (to be deprecated soon, instead use onSelection in Breadcrumb component )*/
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
+
+  onChange: propDeprecated(
+    PropTypes.func,
+    'use onSelection in Breadcrumb component'
+  )
 };
 BreadcrumbItem.defaultProps = {
   href: '',
   itemClass: '',
   active: false,
-  onClick: () => {}
+  onClick: () => {},
+  onChange: null
 };
 
 export default BreadcrumbItem;

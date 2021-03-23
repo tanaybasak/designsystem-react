@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
+import propDeprecated from '../../util/PropDeprecated';
 
 const Button = ({
   type,
@@ -42,7 +43,7 @@ Button.propTypes = {
   /** Style class of the component */
   className: PropTypes.string,
   /** small button  */
-  small: PropTypes.bool,
+  small: propDeprecated(PropTypes.bool, 'Please use kind property'),
   /** call back function on click  */
   onClick: PropTypes.func,
   /** Disable Button  */
