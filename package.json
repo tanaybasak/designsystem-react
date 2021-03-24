@@ -30,7 +30,9 @@
   ],
   "author": "hcl-uicoe",
   "license": "ISC",
-  "dependencies": {},
+  "dependencies": {
+    "react-markdown": "^5.0.3"
+  },
   "devDependencies": {
     "@babel/core": "^7.8.7",
     "@babel/plugin-proposal-class-properties": "^7.4.4",

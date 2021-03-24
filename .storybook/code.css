@@ -54,3 +54,27 @@
 #root .hcl-codesnippet-wrapper .hcl-codesnippet .hcl-codesnippet-copy.hcl-btn {
     margin: 0!important;
 }
+
+.hello1 p{
+    font-size: 14px !important;
+}
+
+.hello1 strong {
+    font-weight: 700;
+}
+
+.hello1 ul {
+    list-style: disc;
+    font-size: .875rem;
+    font-weight: 400;
+    line-height: 1.5rem;
+    letter-spacing: .16px;
+    list-style-position: inside;
+}
+
+.hello1 code {
+    font-weight: 400;
+    margin: 2px;
+    background-color: rgba(0,0,0,.04);
+    border-radius: 3px;
+}

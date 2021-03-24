@@ -1,6 +1,6 @@
 import React from 'react';
 const warned = {};
-function componentDeprecated(WrappedComponent, msg = '') {
+function ComponentDeprecated(WrappedComponent, msg = '') {
   class InnerComponent extends React.Component {
     componentDidMount() {
       if (process.env.NODE_ENV === 'development') {
@@ -29,4 +29,4 @@ function componentDeprecated(WrappedComponent, msg = '') {
 function getDisplayName(WrappedComponent) {
   return WrappedComponent.displayName || WrappedComponent.name || 'Component';
 }
-export default componentDeprecated;
+export default ComponentDeprecated;

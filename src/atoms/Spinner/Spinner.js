@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
-import componentDeprecated from '../../util/componentDeprecated';
+import ComponentDeprecated from '../../util/ComponentDeprecated';
 
 const Spinner = ({ small, title, label, className, ...restProps }) => {
   const classnames = `${prefix}-spinner${
@@ -41,8 +41,9 @@ Spinner.defaultProps = {
   className: '',
   label: ''
 };
+Spinner.displayName = 'Spinner';
 
-export default componentDeprecated(
+export default ComponentDeprecated(
   Spinner,
   'Please Use Indeterminate CircleProgressIndicator'
 );
