@@ -268,12 +268,12 @@ const PanelBottom = ({
         <div className="hcl-dateSelector-dates">{createDateNodelist()}</div>
       ) : view === 'month' ? (
         <>
-          <div className="hcl-text-align-center mt-3 mb-3">Select Month</div>
+          <div className="hcl-text-center mt-3 mb-3">Select Month</div>
           <div className="hcl-dateSelector-months">{createMonthNodeList()}</div>
         </>
       ) : (
         <>
-          <div className="hcl-text-align-center mt-3 mb-3">Select Year</div>
+          <div className="hcl-text-center mt-3 mb-3">Select Year</div>
           <div className="hcl-dateSelector-years">{createYearNodeList()}</div>
         </>
       )}
