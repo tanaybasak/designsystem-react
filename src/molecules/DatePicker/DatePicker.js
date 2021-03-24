@@ -9,6 +9,7 @@ import { isValidDate } from '../../util/utility';
 import Overlay from '../../atoms/Overlay';
 import Label from '../../atoms/Label';
 import FormHelperText from '../../atoms/FormHelperText';
+import componentDeprecated from '../../util/ComponentDeprecated';
 
 const DatePicker = ({
   weekDays,
@@ -359,4 +360,4 @@ DatePicker.defaultProps = {
   id: null,
   defaultDate: ''
 };
-export default DatePicker;
+export default componentDeprecated(DatePicker, 'Please use Date Selector');

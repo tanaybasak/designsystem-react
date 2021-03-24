@@ -7,7 +7,7 @@ export const parameters = {
     }
   }
 };
-
+document.body.classList.add('blue_active_orange_light');
 addDecorator((story, config) => {
   return <Container story={story} config={config} />;
 });

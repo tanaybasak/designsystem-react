@@ -9,8 +9,8 @@ const parser = require('prettier/parser-babel');
 const componentPathMapper = require('./folderComponentMapNew.json');
 import '@patron/patron-css/patron/index.css';
 import '@patron/patron-icon/dist/patron-font.css';
-import 'prismjs/themes/prism.css';
 import '../src/story.css';
+import './prism.css'
 
 export default class Container extends Component {
   state = {
