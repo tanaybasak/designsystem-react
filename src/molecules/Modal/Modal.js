@@ -129,7 +129,11 @@ Danger: : To create danger modal. */
   /** To toggle close button of the modal. */
   showClose: PropTypes.bool,
 
-  /** A callback function which will be executed once modal is closed. */
+  /** A callback function which will be executed once modal is closed.
+   *
+   *
+   * @event :  close event
+   */
   onClose: PropTypes.func,
 
   /** To create action items associated with modal. */

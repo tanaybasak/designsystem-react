@@ -164,7 +164,10 @@ Tile.propTypes = {
   /**  Content below expandable tile */
   foldContentBelow: PropTypes.node,
 
-  /** Accepts event handler as prop/argument. */
+  /** Accepts event handler as prop/argument.
+   *
+   * @toggle : expandable tile toggle value
+   */
   onChange: PropTypes.func,
 
   /** For Readable, Clickable & Selectable Tile:  

@@ -263,7 +263,11 @@ TimePicker.propTypes = {
   timeZones: PropTypes.array,
   /** Label for time picker, if not provided no label will be added.   */
   label: PropTypes.string,
-  /** Callback function which is executed when any change is made in time input.  */
+  /** Callback function which is executed when any change is made in time input.
+   *
+   *
+   * @object : period, time, timezone value
+   */
   onChange: PropTypes.func,
   /** Class/clasess will be applied on the parent div of TimePicker */
   className: PropTypes.string,

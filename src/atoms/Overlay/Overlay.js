@@ -217,7 +217,12 @@ Overlay.propTypes = {
   ]),
   /** Overlay content position will change on scroll when attachElementToBody property is true */
   scrollListner: PropTypes.bool,
-  /** Callback function used to toggle the overlay content  */
+  /** Callback function used to toggle the overlay content
+   *
+   * @status : boolean value is sent
+   * @type : type of click (inside/outside).
+   * @direction : direction of the click.
+   */
   onToggle: PropTypes.func,
   /** Used to attach element to body tag */
   attachElementToBody: PropTypes.bool,

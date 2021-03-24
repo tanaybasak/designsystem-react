@@ -163,7 +163,11 @@ Step.propTypes = {
   stepcallBack: PropTypes.func,
   /** @ignore */
   iconType: PropTypes.oneOf(['icon', 'number', 'noicon']),
-  /** Event to subscribe when Step is clicked.*/
+  /** Event to subscribe when Step is clicked.
+   *
+   *
+   * @event : click
+   */
   onClick: PropTypes.func
 };
 

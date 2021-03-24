@@ -33,7 +33,11 @@ Select.propTypes = {
   /** Label for select, if this props is not passed no label will appear. */
   label: PropTypes.string,
 
-  /** Call back which will be invoked when selection is made.  */
+  /** Call back which will be invoked when selection is made.
+   *
+   *
+   * @item : Object returns value and text.
+   */
   onChange: PropTypes.func,
 
   /** Unique identifier for select component.  */
