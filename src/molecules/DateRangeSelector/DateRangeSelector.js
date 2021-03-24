@@ -416,8 +416,8 @@ DateRangeSelector.propTypes = {
 
   /** Callback function which will be executed on date range selection
    *
-   *
-   * @date : selected date
+   * @signature
+   * ```date``` : selected date
    */
   onDateRangeSelect: PropTypes.func,
 

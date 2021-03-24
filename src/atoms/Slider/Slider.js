@@ -183,13 +183,14 @@ Slider.propTypes = {
   className: PropTypes.string,
   /** Callback function on changing the value of slider
    *
-   * @value : slider value
+   * @signature
+   * ```value``` : slider value
    */
   onChange: PropTypes.func,
   /** Flag to show input box
-     true : display input field
-     false : hide input field
-     */
+   * * ```true``` : display input field
+   * * ```false``` : hide input field
+   */
   withInputBox: PropTypes.bool,
   /** Title for the Slider */
   label: PropTypes.string,

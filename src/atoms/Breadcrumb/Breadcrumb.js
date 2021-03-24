@@ -95,8 +95,9 @@ Breadcrumb.propTypes = {
   className: PropTypes.string,
   /** Callback function on selecting item
    *
-   * @item : selected item obj for breadcrum
-   * @event : click event
+   * @signature
+   * * ```item``` : selected item obj for breadcrumb
+   * * ```event``` : click event
    */
   onSelection: PropTypes.func,
   /** number of Breadcrumb items to be displayed */

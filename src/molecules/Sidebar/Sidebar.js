@@ -483,15 +483,18 @@ Sidebar.propTypes = {
   icon: PropTypes.element,
   /** Callback function that is invoked when Sidebar link is clicked
    *
-   * @item : sidebar link
-   * @event: click event
+   * @signature
+   * * ```item``` : sidebar link
+   * * ```event``` : click event
    */
   onClick: PropTypes.func,
   /** Making sidebar responsive */
   responsive: PropTypes.bool,
   /** Callback function that is invoked when Sidebar Toggled
    *
-   * Argument – toggleStatus , event
+   * @signature
+   * * ```argument``` : toggleStatus
+   * * ```event``` : click event
    */
   toggleSidebar: PropTypes.func
 };

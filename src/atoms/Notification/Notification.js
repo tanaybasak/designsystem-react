@@ -66,7 +66,8 @@ Notification.propTypes = {
   visible: PropTypes.bool.isRequired,
   /** Callback to invoke when a notification is closed.
    *
-   * @event: callback event is sent.
+   * @signature
+   * ```event```: callback event is sent.
    */
   onClose: PropTypes.func
 };

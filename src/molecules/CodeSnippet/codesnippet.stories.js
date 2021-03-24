@@ -48,7 +48,10 @@ storiesOf('Components/CodeSnippet', module).add(
       className: 'hcl-col-12 hcl-col-lg-6',
       document: ['CodeSnippet'],
       internal: [],
-      external: `import 'prismjs/components/prism-javascript';`
+      external: `
+        import 'prismjs/components/prism-javascript';
+        import 'prismjs/themes/prism.css'
+    `
     }
   }
 );

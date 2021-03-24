@@ -36,7 +36,15 @@ Button.propTypes = {
   /** button content */
   children: PropTypes.any,
   /** type of button eg : primary , primary-danger , secondary-danger , secondary, ghost  */
-  type: PropTypes.string,
+  type: PropTypes.oneOf([
+    'primary',
+    'primary-danger',
+    'secondary',
+    'secondary-danger',
+    'ghost',
+    'neutral',
+    'warning'
+  ]),
   /** kind of button  eg : button, submit, reset */
   kind: PropTypes.oneOf(['button', 'submit', 'reset']),
   /** Style class of the component */
@@ -45,7 +53,8 @@ Button.propTypes = {
   small: PropTypes.bool,
   /** call back function on click
    *
-   * @event: sends a callback event upon button click
+   * @signature
+   * ```event```: sends a callback event upon button click
    */
   onClick: PropTypes.func,
   /** Disable Button  */

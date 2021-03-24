@@ -123,23 +123,23 @@ const Search = ({
 
 Search.propTypes = {
   /** Type of Search
-    default : Normal Search 
-    clickable : Clickable/Header Search  
-     */
+   * * ```default``` : Normal Search
+   * * ```clickable``` : Clickable/Header Search
+   */
   type: PropTypes.oneOf(['clickable', 'default']),
   /** Size of Search
-    default : Normal Search 
-    small : applying small search styles  
+   * * ```default``` : Normal Search
+   * * ```small``` : applying small search styles
    */
   size: PropTypes.oneOf(['small', 'default']),
   /** used for changing the background color of search component
-    default : Normal Search with grey background
-    white : applying white background in the search text field  
-  */
+   * * ```default``` : Normal Search with grey background
+   * * ```white``` : applying white background in the search text field
+   */
   theme: PropTypes.oneOf(['white', 'default']),
-  /** used for changing the color of search icon 
-    default : Normal Search 
-    white : applying white color to the search icon  
+  /** used for changing the color of search icon
+   * * ```default``` : Normal Search
+   * * ```white``` : applying white color to the search icon
    */
   iconTheme: PropTypes.oneOf(['white', 'default']),
   /** Class/clasess will be applied on the parent div of Search  */
@@ -150,7 +150,8 @@ Search.propTypes = {
   placeholder: PropTypes.string,
   /** call back function which will return the entered character
    *
-   * @value : search value
+   * @signature
+   * ```value``` : search value
    */
   onChange: PropTypes.func,
   /** call back function triggered on focus out */

@@ -40,7 +40,8 @@ Footer.propTypes = {
   links: PropTypes.array,
   /** Callback function for on click of links in Footer Component
    *
-   * @evnt : click event
+   * @signature
+   * ```event``` : click event
    */
   onClick: PropTypes.func
 };

@@ -96,7 +96,8 @@ AccordionItem.propTypes = {
   expanded: PropTypes.bool,
   /** Callback function that is invoked when Accordion is expanded or closed.
    *
-   * @event : click event
+   * @signature
+   * ```event``` : click event
    */
   onChange: PropTypes.func,
   /** Name of the custom class to apply to the Accordion Item */

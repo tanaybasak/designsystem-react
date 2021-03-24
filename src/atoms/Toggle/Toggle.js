@@ -66,8 +66,9 @@ Toggle.propTypes = {
   labelOn: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   /** Call back function that is invoked when Toggle is clicked
    *
-   * @value : bool value of toggle
-   * @event : event when toggled
+   * @signature
+   * * ```value``` : bool value of toggle
+   * * ```event``` : event when toggled
    */
   onChange: PropTypes.func,
   /** Name of the custom class to apply to the Toggle */

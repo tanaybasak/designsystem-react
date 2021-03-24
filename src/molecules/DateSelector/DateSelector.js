@@ -216,7 +216,8 @@ DateSelector.propTypes = {
   /** Callback function which will be executed on date selection
    *
    *
-   * @date : selected date
+   * @signature
+   * ```date``` : selected date
    */
   onDateSelect: PropTypes.func,
   /** Min date */

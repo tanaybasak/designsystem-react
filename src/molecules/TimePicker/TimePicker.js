@@ -265,8 +265,8 @@ TimePicker.propTypes = {
   label: PropTypes.string,
   /** Callback function which is executed when any change is made in time input.
    *
-   *
-   * @object : period, time, timezone value
+   * @signature
+   * ```object``` : period, time, timezone value
    */
   onChange: PropTypes.func,
   /** Class/clasess will be applied on the parent div of TimePicker */
@@ -276,14 +276,20 @@ TimePicker.propTypes = {
   /** Specifies helper text */
   helperText: PropTypes.string,
   /** This prop allows user to pass default time
+   *
+   * * ```time``` : time
+   * * ```period``` : AM,PM
+   * * ```timezone``` :timezone values
+   *
    * eg:
+   * ```
    * {
-   *    time: '12:00', // time
-   *    period: 'AM'  // AM,PM
-   *    timezone: 'Timezone 1' //timezone values
+   *    time: '12:00',
+   *    period: 'AM',
+   *    timezone: 'Timezone 1'
    * }
+   * ```
    */
-  //defaultTime: PropTypes.object,
   defaultTime: PropTypes.shape({
     time: PropTypes.string,
     period: PropTypes.any,
@@ -291,8 +297,9 @@ TimePicker.propTypes = {
   }),
   /**
    * Used to specify the type of time picker
-   * hh : 12hours clock
-   * HH : 24hours clock
+   *
+   * * ```hh``` : 12hours clock
+   * * ```HH``` : 24hours clock
    */
   type: PropTypes.oneOf(['hh', 'HH']),
   /** Label used for 24hours clock */

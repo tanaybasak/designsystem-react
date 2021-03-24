@@ -351,16 +351,16 @@ Pagination.propTypes = {
   noItemDisplayText: PropTypes.string,
   /** Accepts Event handler as argument/prop which is triggered after Items Per Page Dropdown is changed.
    *
-   *
-   * @itemPerPage :  item per page value
-   * @currentPageNo : current Page Selected value
+   * @signature
+   * * ```itemPerPage``` :  item per page value
+   * * ```currentPageNo``` : current Page Selected value
    */
   onItemsPerPageChange: PropTypes.func,
   /** Accepts Event handler as argument/prop which is triggered after Page Drop-down is changed.
    *
-   *
-   * @currentPageNo : current Page Selected value
-   * @itemPerPage :  item per page value
+   * @signature
+   * * ```currentPageNo``` : current Page Selected value
+   * * ```itemPerPage``` :  item per page value
    */
   onPageChange: PropTypes.func,
   /** current active Page number */

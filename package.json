@@ -30,9 +30,7 @@
   ],
   "author": "hcl-uicoe",
   "license": "ISC",
-  "dependencies": {
-    "react-markdown": "^5.0.3"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.8.7",
     "@babel/plugin-proposal-class-properties": "^7.4.4",
@@ -92,7 +90,8 @@
     "webpack-cli": "^3.3.11",
     "webpack-dev-server": "^3.11.0",
     "webpack-merge": "^4.2.1",
-    "whatwg-fetch": "^3.0.0"
+    "whatwg-fetch": "^3.0.0",
+    "react-markdown": "^5.0.3"
   },
   "jest": {
     "clearMocks": true,

@@ -42,7 +42,8 @@ BreadcrumbItem.propTypes = {
   active: PropTypes.bool,
   /** Callback function on selecting item - (to be deprecated soon, instead use onSelection in Breadcrumb component )
    *
-   * @event : callback event upon click
+   * @signature
+   * ```event``` : callback event upon click
    */
   onClick: PropTypes.func
 };

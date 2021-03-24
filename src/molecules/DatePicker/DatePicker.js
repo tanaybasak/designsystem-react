@@ -296,14 +296,15 @@ DatePicker.propTypes = {
   months: PropTypes.array,
 
   /**
-   MM/DD/YYYY:  One of the format available.
-   DD/MM/YYYY: One of the format available. */
+   * * MM/DD/YYYY
+   * * DD/MM/YYYY
+   * */
   format: PropTypes.string,
 
   /** Callback function which will be executed on date selection
    *
-   *
-   * @date : date
+   * @signature
+   * ```date``` : date
    */
   onDateSelect: PropTypes.func,
 

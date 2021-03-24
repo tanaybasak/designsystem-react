@@ -35,8 +35,8 @@ Select.propTypes = {
 
   /** Call back which will be invoked when selection is made.
    *
-   *
-   * @item : Object returns value and text.
+   * @signature
+   * ```item``` : Object returns value and text.
    */
   onChange: PropTypes.func,
 

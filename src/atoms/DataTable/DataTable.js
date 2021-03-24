@@ -807,21 +807,37 @@ DataTable.propTypes = {
   type: PropTypes.string,
   /** Data for table  */
   tableData: PropTypes.array,
-  /** Column Configuration eg:
+  /** Column Configuration
+   *
+   * * ```label``` : Column Header
+   * * ```field``` : Column key
+   * * ```sortable``` : Is column Sortable
+   * * ```width``` : Minimum width for the column
+   * * ```renderHtml``` : For passing Custom Html
+   * * ```columnHtml``` : For passing custom html in data column
+   * * ```pinned``` : Pass 'right' to pin column right or pass 'left' to pin column left
+   * * ```allowResize``` : Pass true to make column resizable
+   * * ```minResizeWidth``` : Pass true to make column resizable.
+   * * ```maxResizeWidth``` : maximum resize width
+   * * ```headerCellClass``` : For passing custom class name for <th> under <thead> element
+   * * ```bodyCellClass``` : For passing custom class name for <td> under <tbody> element
+   *
+   * ```
    * [ {
-   *    label : 'Name', // Column Header
-   *    field : 'name',// Column key
-   *    sortable:true,// Is column Sortable
-   *    width:'100px',// Minimum width for the column
-   *    renderHtml: (model)=> {return <span>{model.name}</span>} // For passing Custom Html
-   *    columnHtml: ( <Search ariaLabel="Search" className=""defaultValue="" iconTheme="default" />) // For passing custom html in data column
-   *    pinned: 'right' // Pass 'right' to pin column right or pass 'left' to pin column left
-   *    allowResize: true // Pass true to make column resizable.
-   *    minResizeWidth: 40, // minimum resize width
-   *    maxResizeWidth: 120, // maximum resize width
-   *    headerCellClass: 'custom-class-name', // For passing custom class name for <th> under <thead> element
-   *    bodyCellClass: 'custom-class-name', // For passing custom class name for <td> under <tbody> element
-   * }] */
+   *    label : 'Name',
+   *    field : 'name',
+   *    sortable:true,
+   *    width:'100px',
+   *    renderHtml: (model)=> {return <span>{model.name}</span>} ,
+   *    columnHtml: ( <Search ariaLabel="Search" className=""defaultValue="" iconTheme="default" />) ,
+   *    pinned: 'right' ,
+   *    allowResize: true ,
+   *    minResizeWidth: 40,
+   *    maxResizeWidth: 120,
+   *    headerCellClass: 'custom-class-name',
+   *    bodyCellClass: 'custom-class-name',
+   * }]
+   * ```*/
   tableConfig: PropTypes.arrayOf(
     PropTypes.shape({
       label: PropTypes.string,
@@ -843,17 +859,19 @@ DataTable.propTypes = {
 
   /** Call back function to sort table data
    *
-   * @column : sorted column
-   * @order : sorting order
-   * @data : table data
+   * @signature
+   * * ```column``` : sorted column
+   * * ```order``` : sorting order
+   * * ```data``` : table data
    */
   onSort: PropTypes.func,
   /** Call back function on selecting row
    *
-   * @data : selected Table row data
+   * @signature
+   * ```data``` : selected Table row data
    */
   onRowSelect: PropTypes.func,
-  /** Used for passing expand row template  */
+  /** @ignore  */
   expandRowTemplate: PropTypes.func,
   /** Used for passing template for Table header  */
   headerSelection: PropTypes.node,
@@ -867,17 +885,33 @@ DataTable.propTypes = {
   resizable: PropTypes.bool,
   /** For Sticky Headers. */
   isHeaderSticky: PropTypes.bool,
-  /** Event after Column Resize. */
+  /**
+   * Event after Column Resize.
+   *
+   * @signature
+   * ```column config``` : resized column configuration object
+   *
+   * */
   onColumnAfterResize: PropTypes.func,
   /** Used to initialize the sorting icon.
-   * eg:
+   *
+   * * ```order``` : sorting order. possible values are 'asc' and 'desc'
+   * * ```name``` : Field Name
+   *
+   * ```
    * {
-   *    order: 'asc', // sorting order. possible values are 'asc' and 'desc'
-   *    name: 'name'  // Field Name
+   *    order: 'asc',
+   *    name: 'name'
    * }
+   * ```
    */
   initSortedColumn: PropTypes.object,
-  /** onColumnReorder will be tiggered on each column reorder and receive updated tableConfig as parameter*/
+  /**
+   * onColumnReorder will be tiggered on each column reorder and receive updated tableConfig as parameter
+   *
+   * @signature
+   * ```treeconfig``` : tree configuration object
+   * */
   onColumnReorder: PropTypes.func,
   /** Unique Key name for updating selectedItem in items data */
   uniqueKey: PropTypes.string,

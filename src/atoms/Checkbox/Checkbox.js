@@ -66,7 +66,8 @@ Checkbox.propTypes = {
   indeterminate: PropTypes.bool,
   /** Accepts event handler as prop/argument.
    *
-   * @event: sends a callback event
+   * @signature
+   * ```event```: sends a callback event
    */
   onChange: PropTypes.func,
   /** Control Checked state for Checkbox */

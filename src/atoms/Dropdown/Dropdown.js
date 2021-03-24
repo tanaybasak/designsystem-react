@@ -328,8 +328,14 @@ Dropdown.propTypes = {
   type: PropTypes.string,
 
   /** Array of items eg:
-  [{id: 'option-1',text: 'Option 1'},
-   {id: 'option-2', text: 'Option 2'}]*/
+   *
+   * ```
+   * [
+   *    {id: 'option-1',text: 'Option 1'},
+   *    {id: 'option-2', text: 'Option 2'}
+   * ]
+   * ```
+   * */
   items: PropTypes.array.isRequired,
 
   /** Type of dropdown eg : multiselect, singleselect */
@@ -340,7 +346,8 @@ Dropdown.propTypes = {
 
   /** Callback function on selecting item
    *
-   * @item : Object returns id and text value
+   * @signature
+   * ```item``` : Object returns id and text value
    */
   onChange: PropTypes.func,
 

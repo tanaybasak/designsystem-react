@@ -96,7 +96,8 @@ ContentSwitcher.propTypes = {
   activeIndex: PropTypes.number,
   /** Accepts event handler as prop/argument.
    *
-   * @event: change event object
+   * @signature
+   * ```event```: change event object
    */
   onChange: PropTypes.func,
   /** self Children i.e Switch Component. */

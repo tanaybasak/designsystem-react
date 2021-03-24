@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import DataTable from '../src/atoms/DataTable';
 import doc from './component-description.json';
 import { getEnum, getUnion, getShapeOf, getArrayOf } from './docUtil.js';
-import ReactMarkdown from 'react-markdown'
+import ReactMarkdown from 'react-markdown';
 import '@patron/patron-css/patron/index.css';
-import './code.css'
+import './code.css';
 
 const Document = ({ main, status }) => {
   let componentTableInfo = [];
@@ -50,17 +50,19 @@ const Document = ({ main, status }) => {
             if (propType === 'func') {
               let description = propDe[key].description;
               if (!description.includes('@ignore')) {
+                let desriptionArray = description.split('@signature');
                 let parameters = '';
-                if (description.includes('@')) {
-                  description = description.substr(0, description.indexOf('@'));
-                  parameters = propDe[key].description.substr(
-                    propDe[key].description.indexOf('@')
-                  );
+                let descriptioninfo = '';
+                if (desriptionArray.length !== 2) {
+                  descriptioninfo = description.trim();
+                } else {
+                  descriptioninfo = desriptionArray[0].trim();
+                  parameters = desriptionArray[1].trim();
                 }
                 let eventObject = {
                   property: key,
                   parameters: parameters,
-                  description: description
+                  description: descriptioninfo
                 };
                 eventInfo.push(eventObject);
               }
@@ -147,13 +149,12 @@ const Document = ({ main, status }) => {
                               width: '400px',
                               renderHtml: model => {
                                 return (
-                                //   <span
-                                //     style={{ whiteSpace: 'pre-wrap' }}
-                                //     dangerouslySetInnerHTML={{
-                                //       __html: model.description
-                                //     }}
-                                //   />
-                                <ReactMarkdown className="hello1" skipHtml={true}>{model.description}</ReactMarkdown>
+                                  <ReactMarkdown
+                                    className="hcl-markdown-wrapper"
+                                    skipHtml={true}
+                                  >
+                                    {model.description}
+                                  </ReactMarkdown>
                                 );
                               }
                             }
@@ -183,35 +184,13 @@ const Document = ({ main, status }) => {
                                 field: 'parameters',
                                 width: '300px',
                                 renderHtml: model => {
-                                  let description = model.parameters;
-                                  if (description.includes('@')) {
-                                    let descriptionArray = description.split(
-                                      '\n'
-                                    );
-                                    let newArray = [];
-                                    descriptionArray.map(line => {
-                                      if (line.includes('@')) {
-                                        const keyword = line.substring(
-                                          line.indexOf('@') + 1,
-                                          line.indexOf(':')
-                                        );
-                                        line = line.replace(
-                                          `@${keyword}`,
-                                          `<span class="hcl-font-italic">${keyword}</span>`
-                                        );
-                                      }
-                                      newArray.push(line);
-                                    });
-                                    description = newArray.join('\n');
-                                  }
-
                                   return (
-                                    <span
-                                      style={{ whiteSpace: 'pre-wrap' }}
-                                      dangerouslySetInnerHTML={{
-                                        __html: description
-                                      }}
-                                    />
+                                    <ReactMarkdown
+                                      className="hcl-markdown-wrapper"
+                                      skipHtml={true}
+                                    >
+                                      {model.parameters}
+                                    </ReactMarkdown>
                                   );
                                 }
                               },
@@ -221,9 +200,12 @@ const Document = ({ main, status }) => {
                                 width: '400px',
                                 renderHtml: model => {
                                   return (
-                                    <span style={{ whiteSpace: 'pre-wrap' }}>
+                                    <ReactMarkdown
+                                      className="hcl-markdown-wrapper"
+                                      skipHtml={true}
+                                    >
                                       {model.description}
-                                    </span>
+                                    </ReactMarkdown>
                                   );
                                 }
                               }

@@ -287,12 +287,14 @@ const InlineEdit = ({
 InlineEdit.propTypes = {
   /** A callback function which will be executed once close or esc button is clicked.
    *
-   *  @event : callback event on close button click
+   * @signature
+   * ```event``` : callback event on close button click
    */
   onClose: PropTypes.func,
   /** A callback function which will be executed once check or Enter button is clicked.
    *
-   * @updatedContent : updated content value is sent via callback.
+   * @signature
+   * ```updatedContent``` : updated content value is sent via callback.
    */
   onTextUpdate: PropTypes.func,
   /** Error message content which has to be displayed. */

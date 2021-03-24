@@ -135,26 +135,27 @@ Password.propTypes = {
   defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   /** Event to subscribe when the value of the Input field changes.
    *
-   *
-   * @event : on change event
+   * @signature
+   * ```event``` : on change event
    */
   onChange: PropTypes.func,
   /** Event to subscribe when the Input field is clicked.
    *
-   *
-   * @event : on click event
+   * @signature
+   * ```event``` : on click event
    */
   onClick: PropTypes.func,
   /** Event to subscribe when the Input field is focused.
    *
-   *
-   * @event : on focus event
+   * @signature
+   * ```event``` : on focus event
    */
   onFocus: PropTypes.func,
   /** Event to subscribe when the Input field is Blurred.
    *
    *
-   * @event : on blur event
+   * @signature
+   * ```event``` : on blur event
    */
   onBlur: PropTypes.func,
   /** Used to provide custom message for tooltip */

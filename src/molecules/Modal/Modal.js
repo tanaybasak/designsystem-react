@@ -131,8 +131,8 @@ Danger: : To create danger modal. */
 
   /** A callback function which will be executed once modal is closed.
    *
-   *
-   * @event :  close event
+   * @signature
+   * ```event``` :  close event
    */
   onClose: PropTypes.func,
 
