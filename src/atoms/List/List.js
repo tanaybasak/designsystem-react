@@ -72,7 +72,10 @@ List.propTypes = {
   type: PropTypes.string,
   /** Data for list  */
   listItems: PropTypes.array,
-  /** Callback function on selecting item*/
+  /** Callback function on selecting item
+   *
+   * @event : event callback is sent.
+   */
   onClick: PropTypes.func
 };
 

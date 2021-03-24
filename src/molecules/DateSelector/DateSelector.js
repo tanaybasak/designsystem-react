@@ -213,7 +213,11 @@ DateSelector.propTypes = {
   /** To pass sidepanel node */
   sidePanel: PropTypes.node,
 
-  /** Callback function which will be executed on date selection  */
+  /** Callback function which will be executed on date selection
+   *
+   *
+   * @date : selected date
+   */
   onDateSelect: PropTypes.func,
   /** Min date */
   minDate: PropTypes.instanceOf(Date),

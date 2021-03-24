@@ -483,7 +483,8 @@ Sidebar.propTypes = {
   icon: PropTypes.element,
   /** Callback function that is invoked when Sidebar link is clicked
    *
-   * Argument – link , event
+   * @item : sidebar link
+   * @event: click event
    */
   onClick: PropTypes.func,
   /** Making sidebar responsive */

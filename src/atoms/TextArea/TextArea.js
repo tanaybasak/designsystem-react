@@ -34,13 +34,26 @@ TextArea.propTypes = {
   disabled: PropTypes.bool,
   /** Unique Id for the <input> tag. */
   id: PropTypes.string,
-  /** Event to subscribe when the value of the Input field changes. */
+  /** Event to subscribe when the value of the Input field changes.
+   *
+   * @event : on change event
+   */
   onChange: PropTypes.func,
-  /** Event to subscribe when the Input field is clicked. */
+  /** Event to subscribe when the Input field is clicked.
+   *
+   *
+   * @event : on click event
+   */
   onClick: PropTypes.func,
-  /** Event to subscribe when the Input field is focused. */
+  /** Event to subscribe when the Input field is focused.
+   *
+   * @event : on focus event
+   */
   onFocus: PropTypes.func,
-  /** Event to subscribe when the Input field is Blurred. */
+  /** Event to subscribe when the Input field is Blurred.
+   *
+   * @event : on blur event
+   */
   onBlur: PropTypes.func,
   /** Placeholder text for the <input> tag. */
   placeholder: PropTypes.string,

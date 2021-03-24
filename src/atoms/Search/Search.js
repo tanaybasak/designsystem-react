@@ -148,7 +148,10 @@ Search.propTypes = {
   defaultValue: PropTypes.string,
   /** Placeholder for the search text field  */
   placeholder: PropTypes.string,
-  /** call back function which will return the entered character  */
+  /** call back function which will return the entered character
+   *
+   * @value : search value
+   */
   onChange: PropTypes.func,
   /** call back function triggered on focus out */
   onBlur: PropTypes.func,

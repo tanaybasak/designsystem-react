@@ -43,7 +43,10 @@ Button.propTypes = {
   className: PropTypes.string,
   /** small button  */
   small: PropTypes.bool,
-  /** call back function on click  */
+  /** call back function on click
+   *
+   * @event: sends a callback event upon button click
+   */
   onClick: PropTypes.func,
   /** Disable Button  */
   disabled: PropTypes.bool

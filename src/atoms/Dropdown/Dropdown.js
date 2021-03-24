@@ -338,7 +338,10 @@ Dropdown.propTypes = {
   /** Label for Dropdown */
   label: PropTypes.string,
 
-  /** Callback function on selecting item*/
+  /** Callback function on selecting item
+   *
+   * @item : Object returns id and text value
+   */
   onChange: PropTypes.func,
 
   /** id of item for default selection */

@@ -40,7 +40,10 @@ BreadcrumbItem.propTypes = {
   itemClass: PropTypes.string,
   /** @ignore */
   active: PropTypes.bool,
-  /** Callback function on selecting item - (to be deprecated soon, instead use onSelection in Breadcrumb component )*/
+  /** Callback function on selecting item - (to be deprecated soon, instead use onSelection in Breadcrumb component )
+   *
+   * @event : callback event upon click
+   */
   onClick: PropTypes.func
 };
 BreadcrumbItem.defaultProps = {

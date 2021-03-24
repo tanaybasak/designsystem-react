@@ -181,7 +181,10 @@ Slider.propTypes = {
   value: PropTypes.number,
   /** Style class of the component */
   className: PropTypes.string,
-  /** Callback function on changing the value of slider */
+  /** Callback function on changing the value of slider
+   *
+   * @value : slider value
+   */
   onChange: PropTypes.func,
   /** Flag to show input box
      true : display input field

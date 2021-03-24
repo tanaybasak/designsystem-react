@@ -299,7 +299,11 @@ DatePicker.propTypes = {
    DD/MM/YYYY: One of the format available. */
   format: PropTypes.string,
 
-  /** Callback function which will be executed on date selection  */
+  /** Callback function which will be executed on date selection
+   *
+   *
+   * @date : date
+   */
   onDateSelect: PropTypes.func,
 
   /** Class/clasess will be applied on the parent div of DatePicker */

@@ -91,7 +91,7 @@ Tag.propTypes = {
   closable: PropTypes.bool,
   /** Callback function on close of Tag Component
    *
-   * Argument – event
+   * @event –  event on click of close
    */
   onClose: PropTypes.func,
   /** Thumbnail for Tag Component as an Object */
