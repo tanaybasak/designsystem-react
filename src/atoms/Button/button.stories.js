@@ -29,7 +29,6 @@ storiesOf('Components/Button', module)
         title="Default"
         disabled={boolean('Disabled', false)}
         small={boolean('Small', false)}
-        onClick={action('button-click')}
       >
         {text('Label', 'Click Me')}
       </Button>
@@ -50,7 +49,6 @@ storiesOf('Components/Button', module)
         title="Default"
         disabled={boolean('Disabled', false)}
         small={boolean('Small', false)}
-        onClick={action('button-click')}
       >
         <i
           className={`p-hclsw p-hclsw-${select('Icon Class', icons, 'user')}`}
@@ -74,7 +72,6 @@ storiesOf('Components/Button', module)
         title="Default"
         disabled={boolean('Disabled', false)}
         small={boolean('Small', false)}
-        onClick={action('button-click')}
       >
         {text('Label', 'Click Me')}
         <i

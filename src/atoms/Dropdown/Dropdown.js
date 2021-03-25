@@ -368,7 +368,11 @@ Dropdown.propTypes = {
 
   /** Disabled property for dropdown */
   disabled: PropTypes.bool,
-  /** Callback on dropdown toggle */
+  /** Callback on dropdown toggle
+   *
+   * @signature
+   * ```isOpen``` : boolean flag
+   */
   onVisibleChange: PropTypes.func
 };
 

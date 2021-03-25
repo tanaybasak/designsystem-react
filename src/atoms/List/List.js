@@ -83,18 +83,11 @@ List.propTypes = {
    * */
   type: PropTypes.string,
   /** Data for list  */
-  listItems: PropTypes.array,
-  /** Callback function on selecting item
-   *
-   * @signature
-   * ```event``` : event callback is sent.
-   */
-  onClick: PropTypes.func
+  listItems: PropTypes.array
 };
 
 List.defaultProps = {
   className: '',
   type: 'disc',
-  listItems: [],
-  onClick: () => {}
+  listItems: []
 };
