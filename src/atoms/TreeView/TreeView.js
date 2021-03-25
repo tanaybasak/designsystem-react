@@ -206,7 +206,7 @@ const TreeView = ({
 };
 
 TreeView.propTypes = {
-  /** Tree Data */
+  /** The treeNodes data Array */
   treeData: PropTypes.array,
   /** Used to pass default selected node. */
   nodeSelected: PropTypes.object,
@@ -223,9 +223,23 @@ TreeView.propTypes = {
    * ```
    */
   expandedNodes: PropTypes.object,
-  /** used to customize expanded icon */
+  /**
+   * used to customize expanded icon
+   * eg :
+   * ```
+   * expandedIcon: <i className="p-hclsw p-hclsw-export" />
+   * ```
+   *
+   * */
   expandedIcon: PropTypes.node,
-  /** used to customize collapsed icon */
+  /**
+   * used to customize collapsed icon
+   *
+   * eg
+   * ```
+   * collapsedIcon: <i className="p-hclsw p-hclsw-folder" />
+   * ```
+   * */
   collapsedIcon: PropTypes.node,
   /** Style class of the component */
   className: PropTypes.string,
@@ -250,6 +264,20 @@ TreeView.propTypes = {
    *    externalExpandNode:false
    * }
    * ```
+   *
+   * This is used if the tree data is having a different keys than the default one mentioned above.
+   *
+   * if treeData is having **title** instead of **name** can change the config object like below
+   *
+   * eg :
+   *
+   * ```
+   * {
+   *    name: 'title',
+   * }
+   *
+   * ```
+   *
    */
   config: PropTypes.object,
   /** Type of Treeview
@@ -300,15 +328,18 @@ TreeView.propTypes = {
    *
    */
   iconClass: PropTypes.object,
-  /** Callback function is used to provide custom icon for node
-   * This callback can be used if icon passing logic is complex, or not possible to acheive with the help of "iconClass" props
+  /**
+   * Callback function is used to provide custom icon for node
+   * This callback can be used if icon passing logic is complex, or not possible to acheive with the help of ***"iconClass"*** props
    *
    * @signature
    * ```node``` : tree node
    */
   getIcons: PropTypes.func,
 
-  /** used to display overflow menu on hover. This can be used for showing "customActionTemplate" on hover  */
+  /**
+   * used to display overflow menu on hover. This can be used for showing ***"customActionTemplate"*** on hover
+   *  */
   overflowOnHover: PropTypes.bool,
   /** Callback function for setting overflow menu actions
    *
@@ -331,7 +362,8 @@ TreeView.propTypes = {
    *
    */
   getOverFlowItems: PropTypes.func,
-  /** Callback function on selecting overflow menu items.
+  /**
+   * Callback function on selecting overflow menu items.
    * This function mainly used to write logic on custom overlflow menu action. This method is used for *copy* and *cut* overflow action.
    * * need to make a reference copy of model on copy action from overflow menu and that model should be returned from this call back
    * * All the other custom overflow action, in which tree node is changed, need to return that changed tree node from the function
