@@ -34,7 +34,9 @@ function BreadcrumbItem({
 }
 
 BreadcrumbItem.propTypes = {
-  /** hyperlink - The URL of the link*/
+  /**
+   *
+   * ```hyperlink``` : The URL of the link*/
   href: PropTypes.string,
   /** Class/clasess will be applied on the breadcrumb item  */
   itemClass: PropTypes.string,

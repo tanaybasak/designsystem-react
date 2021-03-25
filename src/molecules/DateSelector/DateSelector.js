@@ -186,8 +186,9 @@ DateSelector.propTypes = {
   months: PropTypes.array,
 
   /**
-   mm/dd/yyyy:  One of the format available.
-   dd/mm/yyyy: One of the format available. */
+   *
+   * * ```mm/dd/yyyy``` :  One of the format available.
+   * * ```dd/mm/yyyy``` : One of the format available. */
   format: PropTypes.string,
 
   /** This props allows user to pass default date */
@@ -224,7 +225,11 @@ DateSelector.propTypes = {
   minDate: PropTypes.instanceOf(Date),
   /** Max date */
   maxDate: PropTypes.instanceOf(Date),
-  /** Callback on Calendar toggle */
+  /** Callback on Calendar toggle
+   *
+   * @signature
+   * ```isOpen``` : boolean flag
+   */
   onVisibleChange: PropTypes.func
 };
 

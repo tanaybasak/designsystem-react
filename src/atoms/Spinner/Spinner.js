@@ -21,8 +21,9 @@ const Spinner = ({ small, title, label, className, ...restProps }) => {
 };
 
 Spinner.propTypes = {
-  /** True: Inline loader will be created. 
-  False: Large loader will be created.  */
+  /**
+   * * ```True``` : Inline loader will be created.
+   * * ```False``` : Large loader will be created.  */
   small: PropTypes.bool,
 
   /** This is for title of spinner  */

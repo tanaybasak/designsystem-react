@@ -296,9 +296,9 @@ DatePicker.propTypes = {
   months: PropTypes.array,
 
   /**
-   * * MM/DD/YYYY
-   * * DD/MM/YYYY
-   * */
+   *
+   * * ```mm/dd/yyyy``` :  One of the format available.
+   * * ```dd/mm/yyyy``` : One of the format available. */
   format: PropTypes.string,
 
   /** Callback function which will be executed on date selection

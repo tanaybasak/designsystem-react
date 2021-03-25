@@ -257,8 +257,8 @@ Overflowmenu.propTypes = {
   listItems: PropTypes.array,
 
   /**
-   * * Horizontal: To make ellipsis horizontal.
-   * * Vertical: To make ellipsis vertical.
+   * * ```Horizontal``` : To make ellipsis horizontal.
+   * * ```Vertical``` : To make ellipsis vertical.
    * */
   ellipsisType: PropTypes.oneOf(['vertical', 'horizontal']),
 

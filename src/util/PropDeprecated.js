@@ -1,5 +1,5 @@
 const warned = {};
-export default function propDeprecated(propType, explanation) {
+export default function PropDeprecated(propType, explanation) {
   return function validate(props, propName, componentName, ...rest) {
     // Note ...rest here
     if (props[propName] != null) {
