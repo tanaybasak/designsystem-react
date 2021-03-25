@@ -831,6 +831,9 @@ DataTable.propTypes = {
    * * ```headerCellClass``` : For passing custom class name for <th> under <thead> element
    * * ```bodyCellClass``` : For passing custom class name for <td> under <tbody> element
    *
+   *
+   * eg :
+   *
    * ```
    * [ {
    *    label : 'Name',
@@ -866,10 +869,11 @@ DataTable.propTypes = {
   /** Name of the custom class to apply to the Data Table. */
   className: PropTypes.string,
 
-  /** Call back function to sort table data
+  /**
+   * Call back function on Sorting
    *
    * @signature
-   * * ```column``` : sorted column
+   * * ```column``` : sorted column ***field*** name
    * * ```order``` : sorting order
    * * ```data``` : table data
    */
@@ -882,15 +886,33 @@ DataTable.propTypes = {
   onRowSelect: PropTypes.func,
   /** @ignore  */
   expandRowTemplate: PropTypes.func,
-  /** Used for passing template for Table header  */
+  /**
+   * Used for passing template for Table header
+   *
+   * Header of the column with ***field*** value ***"checkbox"*** will be replaced by the below template.
+   * Mainly Used for showing checkbox on Table Header to provide select all features
+   *
+   * eg :
+   *
+   * ```
+   * headerSelection={
+   *    <Checkbox aria-label="header checkbox" id={`header_checkbox`} />
+   * }
+   *
+   * ```
+   * */
   headerSelection: PropTypes.node,
-  /** When this property is set, sorting in each column iterates through three sort states: ascending, descending, and unsort.  */
+  /** When this property is set, sorting in each column iterates through three sort states: **ascending**, **descending**, and **unsort**.  */
   triStateSorting: PropTypes.bool,
   /** When this property is set, columns become draggable and can be swiched with other column  */
   columnDraggable: PropTypes.bool,
-  /** When this property is set, icnon for coloumn reorder will apprear; default value is 'true'  */
+  /**
+   * When this property is set, icon for coloumn reorder will apprear; default value is ***'true'***
+   * */
   showDraggableIcon: PropTypes.bool,
-  /** To Enable resize for all table columns. For individual column config, check tableConfig's allowResize prop. */
+  /**
+   * To Enable resize for all table columns. For individual column configuration, check ***tableConfig***'s ***allowResize*** prop.
+   * */
   resizable: PropTypes.bool,
   /** For Sticky Headers. */
   isHeaderSticky: PropTypes.bool,
@@ -904,7 +926,7 @@ DataTable.propTypes = {
   onColumnAfterResize: PropTypes.func,
   /** Used to initialize the sorting icon.
    *
-   * * ```order``` : sorting order. possible values are 'asc' and 'desc'
+   * * ```order``` : sorting order. possible values are **'asc'** and **'desc'**
    * * ```name``` : Field Name
    *
    * ```
@@ -914,19 +936,38 @@ DataTable.propTypes = {
    * }
    * ```
    */
-  initSortedColumn: PropTypes.object,
+  initSortedColumn: PropTypes.shape({
+    order: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired
+  }),
   /**
    * onColumnReorder will be tiggered on each column reorder and receive updated tableConfig as parameter
    *
    * @signature
-   * ```treeconfig``` : tree configuration object
+   * ```tableconfig``` : table configuration object
    * */
   onColumnReorder: PropTypes.func,
-  /** Unique Key name for updating selectedItem in items data */
+  /**
+   * Unique Key name from the table data.
+   * It can be *id* , *key*, *uuid* etc.
+   *
+   * eg :
+   * ```
+   * uniqueKey: 'id',
+   *
+   * ```
+   *
+   * */
   uniqueKey: PropTypes.string,
-  /** unique id of item for default selection eg: {[id]: true } */
+  /**
+   * This is used for highlighting the rows
+   *  eg:
+   * ```
+   * {[id]: true }
+   * ```
+   * */
   selectedItem: PropTypes.object,
-  /** Icon Reorder will appear on hover */
+  /** Column ReOrder icon will appear on Hover */
   showDraggableIconOnHover: PropTypes.bool,
   /** Used to remove nowwrap style from header title */
   removeHeaderNowrap: PropTypes.bool

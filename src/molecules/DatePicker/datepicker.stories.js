@@ -42,9 +42,9 @@ storiesOf('Components/DatePicker', module).add(
       text: `Description About Datepicker Component`,
       warning: (
         <>
-          Please use{' '}
-          <a onClick={linkTo('Components/DateSelector')}>Date Selector</a>{' '}
-          instead of Date Picker
+          This component will soon be deprecated. Please use{' '}
+          <a onClick={linkTo('Components/DateSelector')}>Date Selector</a> in
+          the place of Date Picker
         </>
       ),
       document: ['DatePicker']
