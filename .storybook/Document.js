@@ -10,7 +10,7 @@ import './code.css';
 const Document = ({ main, status }) => {
   let componentTableInfo = [];
   if (status) {
-    const config = main.getCurrentStoryData();
+    const config = main; //.getCurrentStoryData();
 
     if (config) {
       let importedComponent = config.parameters.info.document

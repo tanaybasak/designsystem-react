@@ -78,3 +78,7 @@
     background-color: rgba(0,0,0,.04);
     border-radius: 3px;
 }
+
+.hcl-markdown-wrapper em {
+    font-style: italic;
+}
