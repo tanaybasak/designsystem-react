@@ -12,7 +12,6 @@ class TableExample extends Component {
   state = {
     tableData: [],
     totalItems: 0,
-    handle: 'bottom',
     selectedItem: {},
     initSortedColumn: { order: 'asc', name: 'name' },
     displayData: [],
