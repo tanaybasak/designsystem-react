@@ -10,8 +10,8 @@ const componentPathMapper = require('./folderComponentMapNew.json');
 import '@patron/patron-css/patron/index.css';
 import '@patron/patron-icon/dist/patron-font.css';
 import '../src/story.css';
-import './prism.css'
-
+import './prism.css';
+import Document from './Document';
 export default class Container extends Component {
   state = {
     importedCode: ''
@@ -150,6 +150,15 @@ export default class Container extends Component {
                 height="100%"
               />
             ) : null}
+          </div>
+        </div>
+
+        <div className="hcl-row">
+          <div className="hcl-col-12 hcl-col-md-10 hcl-col-xl-8">
+            <PageSubTitle title="Documentation" />
+          </div>
+          <div className="hcl-col-12">
+            <Document main={config} status={true} />
           </div>
         </div>
       </div>

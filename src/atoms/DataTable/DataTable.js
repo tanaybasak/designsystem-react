@@ -800,25 +800,34 @@ const DataTable = ({
 };
 
 DataTable.propTypes = {
-  /** Unique id for Table */
+  /** Unique id */
   id: PropTypes.string.isRequired,
   /** Used to define the table type
-   *  eg: zebra, compact, tall, borderless  */
+   * * ```borderless``` : with no borders
+   * * ```compact``` : Compact Table
+   * * ```tall``` : Tall Table
+   * * ```zebra``` : Row striping.
+   *
+   * eg :
+   * ```
+   * type = "borderless compact zebra"
+   * ```
+   * */
   type: PropTypes.string,
-  /** Data for table  */
+  /** Data record array to be displayed  */
   tableData: PropTypes.array,
   /** Column Configuration
    *
    * * ```label``` : Column Header
-   * * ```field``` : Column key
-   * * ```sortable``` : Is column Sortable
-   * * ```width``` : Minimum width for the column
+   * * ```field``` : Column key which is present in the ***tableData*** props
+   * * ```sortable``` : ***boolean*** value to show sorting icon
+   * * ```width``` : minimum width for the column in px
    * * ```renderHtml``` : For passing Custom Html
-   * * ```columnHtml``` : For passing custom html in data column
-   * * ```pinned``` : Pass 'right' to pin column right or pass 'left' to pin column left
-   * * ```allowResize``` : Pass true to make column resizable
-   * * ```minResizeWidth``` : Pass true to make column resizable.
-   * * ```maxResizeWidth``` : maximum resize width
+   * * ```columnHtml``` : For passing custom html in the column header
+   * * ```pinned``` : Pass ***'right'*** to pin column right side or pass ***'left'*** to pin column left side
+   * * ```allowResize``` : ***boolean*** value to make column resizable
+   * * ```minResizeWidth``` : ***number*** value to specify minimum resize width.
+   * * ```maxResizeWidth``` : ***number*** value to specify maximum resize width.
    * * ```headerCellClass``` : For passing custom class name for <th> under <thead> element
    * * ```bodyCellClass``` : For passing custom class name for <td> under <tbody> element
    *
