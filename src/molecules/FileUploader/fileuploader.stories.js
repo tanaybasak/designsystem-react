@@ -17,7 +17,7 @@ const classOptions = {
   Ghost: 'hcl-btn hcl-ghost'
 };
 
-storiesOf('Components/FileUploader', module)
+storiesOf('Components/File Uploader', module)
   .add(
     'default',
     () => (

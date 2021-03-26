@@ -19,7 +19,7 @@ const sizeOptions = {
   default: 'default'
 };
 
-storiesOf('Components/ProgressIndicator', module)
+storiesOf('Components/Progress Indicator', module)
   .add(
     'default',
     () => (

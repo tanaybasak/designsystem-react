@@ -302,7 +302,7 @@ const classOptions = {
   Tall: ' tall',
   Default: ''
 };
-storiesOf('Components/DataTable', module)
+storiesOf('Components/Data Table', module)
   .add(
     'default',
     () => (

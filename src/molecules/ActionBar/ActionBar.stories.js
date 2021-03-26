@@ -8,7 +8,7 @@ import Button from '../../atoms/Button';
 
 const totalItems = 500;
 
-storiesOf('Components/Actionbar', module).add(
+storiesOf('Components/Action-bar', module).add(
   'default',
   () => (
     <ActionBar>

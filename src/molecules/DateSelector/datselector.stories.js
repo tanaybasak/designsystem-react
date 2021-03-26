@@ -27,7 +27,7 @@ const months = [
   'DEC'
 ];
 
-storiesOf('Components/DateSelector', module).add(
+storiesOf('Components/Date Selector', module).add(
   'default',
   () => (
     <DateSelector

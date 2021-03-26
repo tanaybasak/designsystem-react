@@ -8,7 +8,7 @@ import Switch from './Switch';
 //@update-path-build-end
 import icons from '../../../.storybook/iconList';
 
-storiesOf('Components/ContentSwitcher', module)
+storiesOf('Components/Content Switcher', module)
   .add(
     'default',
     () => (

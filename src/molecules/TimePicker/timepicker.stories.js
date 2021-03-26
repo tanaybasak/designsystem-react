@@ -13,7 +13,7 @@ const defaultTime = {
 };
 
 const timeZones = ['Time zone 1', 'Time zone 2', 'Time zone 3'];
-storiesOf('Components/TimePicker', module)
+storiesOf('Components/Time Picker', module)
   .add(
     'default',
     () => (

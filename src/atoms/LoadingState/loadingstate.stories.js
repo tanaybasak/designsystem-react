@@ -5,7 +5,7 @@ import { text } from '@storybook/addon-knobs';
 import LoadingState from './LoadingState';
 //@update-path-build-end
 
-storiesOf('Components/LoadingState', module)
+storiesOf('Components/Loading State', module)
   .add(
     'default',
     () => (

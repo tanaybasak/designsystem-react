@@ -30,7 +30,7 @@ const items = [
   }
 ];
 
-storiesOf('Components/InlineEdit', module)
+storiesOf('Components/Inline Edit', module)
   .add(
     'default',
     () => (

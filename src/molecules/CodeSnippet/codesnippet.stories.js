@@ -270,7 +270,7 @@ class Rectangle {
 const square = new Rectangle(10, 10);
 
 `;
-storiesOf('Components/CodeSnippet', module).add(
+storiesOf('Components/Code Snippet', module).add(
   'default',
   () => (
     <CodeSnippet
