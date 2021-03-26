@@ -26,6 +26,10 @@
 
 }
 
+.hcl-storybook-container .hcl-codesnippet-wrapper .hcl-codesnippet .hcl-codesnippet-copy.hcl-btn {
+    margin: 0 !important;
+}
+
 
 
 /* @media only screen and (min-width: 768px) {

@@ -11,6 +11,7 @@ import '@patron/patron-css/patron/index.css';
 import '@patron/patron-icon/dist/patron-font.css';
 import '../src/story.css';
 import './prism.css';
+//import Document from './Document'
 export default class Container extends Component {
   state = {
     importedCode: ''
@@ -86,7 +87,7 @@ export default class Container extends Component {
     let pageTitle = config.kind.substr(config.kind.lastIndexOf('/') + 1);
 
     return (
-      <div className="hcl-container">
+      <div className="hcl-container hcl-storybook-container">
         <div className="hcl-row mb-10">
           <div className="hcl-col-12 hcl-col-md-10 hcl-col-xl-8  mb-10">
             <h3 style={{ fontWeight: 900 }}>{pageTitle}</h3>
@@ -115,6 +116,23 @@ export default class Container extends Component {
             {story()}
           </div>
         </div>
+
+        {config.parameters.info && config.parameters.info.install ? (
+          <div className="hcl-row mb-10">
+            <div className="hcl-col-12 hcl-col-md-10 hcl-col-xl-8">
+              <PageSubTitle title="Install" />
+            </div>
+            <div className="hcl-col-12 hcl-col-md-10 hcl-col-xl-8">
+              <CodeSnippet
+                height="50px"
+                language="javascript"
+                type="read"
+                value={config.parameters.info.install}
+                width="100%"
+              />
+            </div>
+          </div>
+        ) : null}
 
         <div className="hcl-row mb-10">
           <div className="hcl-col-12 hcl-col-md-10 hcl-col-xl-8">

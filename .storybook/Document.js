@@ -9,9 +9,9 @@ import './code.css';
 
 const Document = ({ main, status }) => {
   let componentTableInfo = [];
+  let codeSnippetSupportedLanguageTable = [];
   if (status) {
     const config = main.getCurrentStoryData();
-
     if (config) {
       let importedComponent = config.parameters.info.document
         ? config.parameters.info.document
@@ -45,8 +45,8 @@ const Document = ({ main, status }) => {
               propType = getArrayOf(propDe[key].type.value);
             } else if (propType === 'instanceOf') {
               propType = `***${propDe[key].type.value}***`;
-            }else if(propType !== 'func'){
-                propType = `***${propType}***` 
+            } else if (propType !== 'func') {
+              propType = `***${propType}***`;
             }
 
             if (propType === 'func') {
@@ -88,6 +88,15 @@ const Document = ({ main, status }) => {
           componentTableInfo.push(componentInfo);
         }
       });
+
+      if (config.kind === 'Components/CodeSnippet') {
+        const addditionalInfo = config.parameters.info.additionalInfo;
+        addditionalInfo.map(language => {
+          codeSnippetSupportedLanguageTable.push({
+            language: language
+          });
+        });
+      }
     }
   }
 
@@ -216,6 +225,40 @@ const Document = ({ main, status }) => {
                               }
                             ]}
                             tableData={component.eventInfo}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  ) : null}
+
+                  {codeSnippetSupportedLanguageTable &&
+                  codeSnippetSupportedLanguageTable.length > 0 ? (
+                    <div className="hcl-row">
+                      <div className="hcl-col-12">
+                        <div className="m-3">
+                          <h6 className="mb-3">Following is the list of languages and their respective library that needs to be imported</h6>
+                          <DataTable
+                            id={`codeSnippetSupportedLanguageTable`}
+                            className="codeSnippetSupportedLanguageTable"
+                            isHeaderSticky
+                            tableConfig={[
+                              {
+                                label: 'Language',
+                                field: 'language',
+                                width: '200px'
+                              },
+                              {
+                                label: 'Library Required',
+                                field: 'library',
+                                width: '300px',
+                                renderHtml: model => {
+                                  return (
+                                    <span>{`import 'prismjs/components/prism-${model.language}';`}</span>
+                                  );
+                                }
+                              }
+                            ]}
+                            tableData={codeSnippetSupportedLanguageTable}
                           />
                         </div>
                       </div>

@@ -114,9 +114,14 @@ CodeSnippet.propTypes = {
    * ```code``` : snippet code
    */
   onCopy: PropTypes.func,
-  /** Code in CodeSnippet. Wrap the code in backticks(``) */
+  /**
+   * Code in CodeSnippet. Wrap the code in *backticks(``)*
+   * */
   value: PropTypes.string.isRequired,
-  /** To pass the programming language */
+  /**
+   * To pass the programming language
+   * Supported languages are mentioned below
+   * */
   language: PropTypes.string
 };
 

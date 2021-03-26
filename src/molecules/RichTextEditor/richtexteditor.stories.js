@@ -31,7 +31,8 @@ storiesOf('Components/RichTextEditor', module).add(
     info: {
       text: `Description About RichTextEditor Component`,
       className: 'hcl-col-12 hcl-col-lg-8',
-      document: ['RichTextEditor']
+      document: ['RichTextEditor'],
+      install: `npm i quill`
     }
   }
 );

@@ -347,7 +347,8 @@ Dropdown.propTypes = {
   /** Callback function on selecting item
    *
    * @signature
-   * ```item``` : Object returns id and text value
+   * * ```item``` : Object returns id and text value
+   * * ```list``` : List of the selected Item incase of MultiSelect Dropdown
    */
   onChange: PropTypes.func,
 

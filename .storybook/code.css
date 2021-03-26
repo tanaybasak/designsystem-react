@@ -82,3 +82,7 @@
 .hcl-markdown-wrapper em {
     font-style: italic;
 }
+
+.codeSnippetSupportedLanguageTable{
+    height: 400px;
+}
