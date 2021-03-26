@@ -14,10 +14,10 @@ const typeOptions = {
 };
 
 const actions = [
-  { label: 'Save', disabled: true, primary: true },
+  { label: 'Save', disabled: true, type: 'primary' },
   {
     label: 'Close',
-    secondary: false
+    type: 'secondary'
   }
 ];
 

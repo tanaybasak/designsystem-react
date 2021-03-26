@@ -89,7 +89,7 @@ export default function AccordionItem({
 
 AccordionItem.propTypes = {
   /** Title for the Accordion Item */
-  title: PropTypes.string.isRequired,
+  title: PropTypes.node.isRequired,
   /**
    * * ```True``` : Accordion Item in expanded mode
    * * ```False``` : Accordion Item in collapsed mode

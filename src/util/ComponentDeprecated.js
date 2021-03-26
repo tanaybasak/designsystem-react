@@ -16,7 +16,6 @@ function ComponentDeprecated(WrappedComponent, msg = '') {
     }
 
     render() {
-      // Render the wrapped component with the same props
       return <WrappedComponent {...this.props} />;
     }
   }

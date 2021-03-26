@@ -1,15 +1,16 @@
 export const getEnum = enumValues => {
   let newValue = [];
   enumValues.map(val => {
-    newValue.push(val.value);
+    const newType = val.value.replace(/'/g, '***');
+    newValue.push(newType);
   });
-  return `oneOf ${newValue.join(' | ')}`;
+  return `oneOf ${newValue.join(` | `)} \n\n`;
 };
 
 export const getUnion = unionValues => {
   let newValue = [];
   unionValues.map(val => {
-    newValue.push(val.name);
+    newValue.push(`***${val.name}***`);
   });
   return `${newValue.join(' | ')}`;
 };
@@ -20,7 +21,7 @@ export const getArrayOf = value => {
     ${getShapeOf(value.value)}
 ]`;
   } else {
-    return `[ ${value.name} ]`;
+    return `[ ***${value.name}*** ] \n\n`;
   }
 };
 
@@ -35,13 +36,12 @@ export const getShapeOf = shapeObj => {
       typeMain = getUnion(shapeObj[key]['value']);
     } else if (typeMain === 'arrayOf') {
       typeMain = getArrayOf(shapeObj[key]['value']);
+    } else {
+      typeMain = `***${typeMain}***\n\n`;
     }
 
-    propType += `       ${key}${
-      shapeObj[key]['required'] ? '?' : ''
-    } : ${typeMain} \n`;
+    propType += `${key}${shapeObj[key]['required'] ? '?' : ''} : ${typeMain}`;
   }
-  propType = `${propType}
-    }`;
+  propType = `${propType}}`;
   return propType;
 };

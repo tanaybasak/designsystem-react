@@ -937,8 +937,8 @@ DataTable.propTypes = {
    * ```
    */
   initSortedColumn: PropTypes.shape({
-    order: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired
+    order: PropTypes.string,
+    name: PropTypes.string
   }),
   /**
    * onColumnReorder will be tiggered on each column reorder and receive updated tableConfig as parameter

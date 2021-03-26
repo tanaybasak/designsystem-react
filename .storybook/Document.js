@@ -10,7 +10,7 @@ import './code.css';
 const Document = ({ main, status }) => {
   let componentTableInfo = [];
   if (status) {
-    const config = main; //.getCurrentStoryData();
+    const config = main.getCurrentStoryData();
 
     if (config) {
       let importedComponent = config.parameters.info.document
@@ -44,7 +44,9 @@ const Document = ({ main, status }) => {
             } else if (propType === 'arrayOf') {
               propType = getArrayOf(propDe[key].type.value);
             } else if (propType === 'instanceOf') {
-              propType = propDe[key].type.value;
+              propType = `***${propDe[key].type.value}***`;
+            }else if(propType !== 'func'){
+                propType = `***${propType}***` 
             }
 
             if (propType === 'func') {
@@ -132,9 +134,12 @@ const Document = ({ main, status }) => {
                               width: '200px',
                               renderHtml: model => {
                                 return (
-                                  <span style={{ whiteSpace: 'pre-wrap' }}>
+                                  <ReactMarkdown
+                                    className="hcl-markdown-wrapper"
+                                    skipHtml={true}
+                                  >
                                     {model.propType}
-                                  </span>
+                                  </ReactMarkdown>
                                 );
                               }
                             },
