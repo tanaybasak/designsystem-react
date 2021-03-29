@@ -1,6 +1,5 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
 import { select, text, boolean } from '@storybook/addon-knobs';
 //@update-path-build-start
 import Button from './Button';
