@@ -15,6 +15,7 @@ class TableExample extends Component {
     selectedItem: {},
     initSortedColumn: { order: 'asc', name: 'name' },
     displayData: [],
+    enableMultiSort: true,
     tableConfig: [
       {
         field: 'checkbox',
@@ -45,6 +46,7 @@ class TableExample extends Component {
       {
         label: 'ID',
         field: 'id',
+        sortable: true,
         allowResize: true,
         columnHtml: (
           <Tag
@@ -174,6 +176,7 @@ class TableExample extends Component {
       {
         label: 'Forks Count',
         field: 'forks_count',
+        sortable: true,
         width: '120px'
       },
       {
@@ -185,6 +188,7 @@ class TableExample extends Component {
       {
         label: 'Issues Count',
         field: 'open_issues_count',
+        sortable: true,
         width: '420px'
         // pinned: 'right'
       },
@@ -222,6 +226,7 @@ class TableExample extends Component {
       .then(response => response.json())
       .then(response => {
         console.log(response);
+        response = response.slice(-5);
 
         this.setState({
           tableData: response,
@@ -245,11 +250,12 @@ class TableExample extends Component {
               resizable
               // showDraggableIcon ={false}
               id="sample_table"
+              multiSort={this.state.enableMultiSort}
               tableData={this.state.displayData}
               tableConfig={this.state.tableConfig}
               isHeaderSticky
               onColumnAfterResize={this.colResize}
-              initSortedColumn={this.state.initSortedColumn}
+              // initSortedColumn={this.state.initSortedColumn}
               columnDraggable
               selectedItem={this.state.selectedItem}
               onColumnReorder={dataTableConfig => {
@@ -274,19 +280,71 @@ class TableExample extends Component {
               //   </Paragraph>);
               // }}
               type="zebra borderless"
-              onSort={(field, order) => {
+              onSort={(field, order, rows, multiSortArrayFields) => {
+                let newData = [];
                 if (order === null) {
                   this.setState({
                     displayData: [...this.state.tableData]
                   });
                 } else {
-                  let newData = [...this.state.displayData].sort((a, b) => {
-                    if (a[field].toLowerCase() > b[field].toLowerCase())
-                      return order === 'asc' ? 1 : -1;
-                    if (b[field].toLowerCase() > a[field].toLowerCase())
-                      return order === 'asc' ? -1 : 1;
-                    return 0;
-                  });
+                  if (!this.state.enableMultiSort) {
+                    newData = [...this.state.displayData].sort((a, b) => {
+                      if (a[field].toLowerCase() > b[field].toLowerCase())
+                        return order === 'asc' ? 1 : -1;
+                      if (b[field].toLowerCase() > a[field].toLowerCase())
+                        return order === 'asc' ? -1 : 1;
+                      return 0;
+                    });
+                  } else {
+                    const columnNames = [
+                      'forks_count',
+                      'open_issues_count',
+                      'name',
+                      'avtar',
+                      'id'
+                    ];
+                    newData = [...this.state.displayData].sort((a, b) => {
+                      const idx = multiSortArrayFields.findIndex(
+                        item => item['name'] === field
+                      );
+                      if (
+                        field === 'forks_count' ||
+                        field === 'open_issues_count' ||
+                        field === 'id'
+                      ) {
+                        if (multiSortArrayFields[idx].order === 'asc') {
+                          return (
+                            a[multiSortArrayFields[idx].name] -
+                            b[multiSortArrayFields[idx].name]
+                          );
+                        } else if (multiSortArrayFields[idx].order === 'desc') {
+                          return (
+                            b[multiSortArrayFields[idx].name] -
+                            a[multiSortArrayFields[idx].name]
+                          );
+                        } else {
+                          return 0;
+                        }
+                      } else {
+                        debugger;
+                        if (
+                          a[multiSortArrayFields[idx]['name']].toLowerCase() >
+                          b[multiSortArrayFields[idx]['name']].toLowerCase()
+                        )
+                          return a[multiSortArrayFields[idx]['order']] === 'asc'
+                            ? 1
+                            : -1;
+                        if (
+                          b[multiSortArrayFields[idx]['name']].toLowerCase() >
+                          a[multiSortArrayFields[idx]['name']].toLowerCase()
+                        )
+                          return a[multiSortArrayFields[idx]['order']] === 'asc'
+                            ? -1
+                            : 1;
+                        return 0;
+                      }
+                    });
+                  }
                   this.setState({
                     displayData: newData
                   });
