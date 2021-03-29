@@ -1,6 +1,5 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
 import { select, object } from '@storybook/addon-knobs';
 //@update-path-build-start
 import List from './List';
