@@ -26,16 +26,17 @@ const classNameOptions = {
 const _getListItem = (type, listItems) => {
   return (
     listItems &&
-    listItems.length &&
-    listItems.map((item, index) => (
+    listItems.length > 0 &&
+    listItems.map(({ name, child, value, ...restProps }, index) => (
       <li
         className={`${prefix}-list-item`}
-        data-value={item.value}
-        key={`${item.value}-${index}`}
+        data-value={value}
+        key={`${value}-${index}`}
+        {...restProps}
       >
         <React.Fragment>
-          {item.name}
-          {item.child && item.child.length ? _getList(type, item.child) : null}
+          {name}
+          {child && child.length ? _getList(type, child) : null}
         </React.Fragment>
       </li>
     ))
