@@ -68,7 +68,6 @@ storiesOf('Components/List', module)
       <List
         type={select('Type', classOrderedOpts, 'decimal')}
         listItems={object('List Items', listItems)}
-        onClick={action('list event')}
       />
     ),
     {
@@ -84,7 +83,6 @@ storiesOf('Components/List', module)
       <List
         type={select('Type', classUnorderedOpts, 'disc')}
         listItems={object('List Items', listItems)}
-        onClick={action('list event')}
       />
     ),
     {

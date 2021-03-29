@@ -26,7 +26,7 @@ const classNameOptions = {
 const _getListItem = (type, listItems) => {
   return (
     listItems &&
-    listItems.length &&
+    listItems.length > 0 &&
     listItems.map(({ name, child, value, ...restProps }, index) => (
       <li
         className={`${prefix}-list-item`}
