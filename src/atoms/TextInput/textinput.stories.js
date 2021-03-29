@@ -6,7 +6,7 @@ import { text, boolean } from '@storybook/addon-knobs';
 import TextInput from './TextInput';
 //@update-path-build-end
 
-storiesOf('TextInput', module)
+storiesOf('Components/TextInput', module)
   .add(
     'default',
     () => (
@@ -23,9 +23,9 @@ storiesOf('TextInput', module)
     ),
     {
       info: {
-        text: `Description About TextInput Component \n
-      
-      import { TextInput } from '@patron/patron-react/textinput';`
+        text: `Description About TextInput Component`,
+        document: ['TextInput'],
+        className: 'hcl-col-12 hcl-col-sm-8 hcl-col-lg-4'
       }
     }
   )
@@ -52,9 +52,9 @@ storiesOf('TextInput', module)
     ),
     {
       info: {
-        text: `Description About TextInput Component \n
-        
-        import { TextInput } from '@patron/patron-react/textinput';`
+        text: `Description About TextInput Component`,
+        document: ['TextInput'],
+        className: 'hcl-col-12 hcl-col-sm-8 hcl-col-lg-4'
       }
     }
   )
@@ -80,9 +80,9 @@ storiesOf('TextInput', module)
     ),
     {
       info: {
-        text: `Description About TextInput Component \n
-        
-        import { TextInput } from '@patron/patron-react/textinput';`
+        text: `Description About TextInput Component`,
+        document: ['TextInput'],
+        className: 'hcl-col-12 hcl-col-sm-8 hcl-col-lg-4'
       }
     }
   );

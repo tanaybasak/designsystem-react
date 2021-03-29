@@ -6,7 +6,7 @@ import { text, number } from '@storybook/addon-knobs';
 import { Breadcrumb, BreadcrumbItem } from './index';
 //@update-path-build-end
 
-storiesOf('Breadcrumb', module)
+storiesOf('Components/Breadcrumb', module)
   .add(
     'default',
     () => {
@@ -32,11 +32,8 @@ storiesOf('Breadcrumb', module)
     },
     {
       info: {
-        text: `Description About Breadcrumb Component \n 
-      
-      import { Breadcrumb , BreadcrumbItem } from '@patron/patron-react/breadcrumb';
-
-      `
+        text: `Description About Breadcrumb Component`,
+        document: ['Breadcrumb', 'BreadcrumbItem']
       }
     }
   )
@@ -68,11 +65,8 @@ storiesOf('Breadcrumb', module)
     },
     {
       info: {
-        text: `Description About Breadcrumb Component \n 
-        
-        import { Breadcrumb , BreadcrumbItem } from '@patron/patron-react/breadcrumb';
-  
-        `
+        text: `Description About Breadcrumb Component`,
+        document: ['Breadcrumb', 'BreadcrumbItem']
       }
     }
   );

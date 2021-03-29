@@ -16,7 +16,7 @@ const themeOption = {
   White: 'white'
 };
 
-storiesOf('Search', module)
+storiesOf('Components/Search', module)
   .add(
     'default',
     () => (
@@ -34,11 +34,9 @@ storiesOf('Search', module)
     ),
     {
       info: {
-        text: `Description About Search Component \n
-        
-        import { Search } from '@patron/patron-react/search';
-
-        `
+        text: `Description About Search Component`,
+        document: ['Search'],
+        className: 'hcl-col-12 hcl-col-sm-8 hcl-col-lg-4'
       }
     }
   )
@@ -59,11 +57,9 @@ storiesOf('Search', module)
     ),
     {
       info: {
-        text: `Description About Search Component \n
-        
-        import { Search } from '@patron/patron-react/search';
-
-        `
+        text: `Description About Search Component`,
+        document: ['Search'],
+        className: 'hcl-col-12 hcl-col-sm-8 hcl-col-lg-4'
       }
     }
   );

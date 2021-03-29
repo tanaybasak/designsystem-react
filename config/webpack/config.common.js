@@ -74,14 +74,6 @@ module.exports.commonConfig = {
       {
         test: /\.(png|svg|jpe?g|gif|woff2?|eot|[ot]tf)$/,
         use: ['file-loader']
-      },
-      {
-        test: /\.(csv|tsv)$/,
-        use: ['csv-loader']
-      },
-      {
-        test: /\.xml$/,
-        use: ['xml-loader']
       }
     ]
   },

@@ -4,6 +4,5 @@ exports[`Label renders correctly 1`] = `
 <label
   className="hcl-label"
   htmlFor=""
-  onClick={[Function]}
 />
 `;
