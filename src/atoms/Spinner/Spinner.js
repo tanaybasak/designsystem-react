@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
+import ComponentDeprecated from '../../util/ComponentDeprecated';
 
 const Spinner = ({ small, title, label, className, ...restProps }) => {
   const classnames = `${prefix}-spinner${
@@ -20,8 +21,9 @@ const Spinner = ({ small, title, label, className, ...restProps }) => {
 };
 
 Spinner.propTypes = {
-  /** True: Inline loader will be created. 
-  False: Large loader will be created.  */
+  /**
+   * * ```True``` : Inline loader will be created.
+   * * ```False``` : Large loader will be created.  */
   small: PropTypes.bool,
 
   /** This is for title of spinner  */
@@ -40,5 +42,9 @@ Spinner.defaultProps = {
   className: '',
   label: ''
 };
+Spinner.displayName = 'Spinner';
 
-export default Spinner;
+export default ComponentDeprecated(
+  Spinner,
+  'Please Use Indeterminate CircleProgressIndicator'
+);

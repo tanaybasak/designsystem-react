@@ -20,13 +20,13 @@ const timelineObject = [
   }
 ];
 
-storiesOf('InPageNavigation', module).add(
+storiesOf('Components/InPage Navigation', module).add(
   'default',
   () => <InPageNavigation listItems={object('ListItems', timelineObject)} />,
   {
     info: {
-      text: `Description About in-pagenavigation Component \n
-      import {InPageNavigation} from '@patron/patron-react/inpagenavigation';`
+      text: `Description About in-pagenavigation Component`,
+      document: ['InPageNavigation']
     }
   }
 );

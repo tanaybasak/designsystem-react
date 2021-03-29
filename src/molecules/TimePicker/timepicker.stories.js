@@ -13,7 +13,7 @@ const defaultTime = {
 };
 
 const timeZones = ['Time zone 1', 'Time zone 2', 'Time zone 3'];
-storiesOf('TimePicker', module)
+storiesOf('Components/Time Picker', module)
   .add(
     'default',
     () => (
@@ -29,8 +29,8 @@ storiesOf('TimePicker', module)
     ),
     {
       info: {
-        text: `Description About TimePicker Component \n
-      import { TimePicker } from '@patron/patron-react/timepicker';`
+        text: `Description About TimePicker Component`,
+        document: ['TimePicker']
       }
     }
   )
@@ -51,8 +51,8 @@ storiesOf('TimePicker', module)
     ),
     {
       info: {
-        text: `Description About TimePicker Component \n
-        import { TimePicker } from '@patron/patron-react/timepicker';`
+        text: `Description About TimePicker Component`,
+        document: ['TimePicker']
       }
     }
   )
@@ -72,8 +72,8 @@ storiesOf('TimePicker', module)
     ),
     {
       info: {
-        text: `Description About TimePicker Component \n
-        import { TimePicker } from '@patron/patron-react/timepicker';`
+        text: `Description About TimePicker Component`,
+        document: ['TimePicker']
       }
     }
   );

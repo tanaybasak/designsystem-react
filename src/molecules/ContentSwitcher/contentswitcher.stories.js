@@ -8,7 +8,7 @@ import Switch from './Switch';
 //@update-path-build-end
 import icons from '../../../.storybook/iconList';
 
-storiesOf('ContentSwitcher', module)
+storiesOf('Components/Content Switcher', module)
   .add(
     'default',
     () => (
@@ -32,9 +32,8 @@ storiesOf('ContentSwitcher', module)
     ),
     {
       info: {
-        text: `Description About ContentSwitcher Component \n
-
-      import { ContentSwitcher, Switch } from '@patron/patron-react/contentswitcher';`
+        text: `Description About ContentSwitcher Component`,
+        document: ['ContentSwitcher', 'Switch']
       }
     }
   )
@@ -84,9 +83,8 @@ storiesOf('ContentSwitcher', module)
     ),
     {
       info: {
-        text: `Description About ContentSwitcher Component \n
-
-      import {ContentSwitcher, Switch } from '@patron/patron-react/contentswitcher';`
+        text: `Description About ContentSwitcher Component`,
+        document: ['ContentSwitcher', 'Switch']
       }
     }
   );

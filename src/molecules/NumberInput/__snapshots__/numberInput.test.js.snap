@@ -8,7 +8,6 @@ exports[`Number Input renders correctly 1`] = `
   <label
     className="hcl-label"
     htmlFor="numberInput2"
-    onClick={[Function]}
   >
     Number Input validation
      

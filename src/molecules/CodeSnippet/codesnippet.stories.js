@@ -7,101 +7,294 @@ import { select } from '@storybook/addon-knobs';
 import CodeSnippet from './CodeSnippet';
 //@update-path-build-end
 
+const codeSnippetLangList = [
+  'abap',
+  'abnf',
+  'actionscript',
+  'ada',
+  'agda',
+  'al',
+  'antlr4',
+  'apacheconf',
+  'apex',
+  'apl',
+  'applescript',
+  'aql',
+  'arduino',
+  'arff',
+  'asciidoc',
+  'asm6502',
+  'aspnet',
+  'autohotkey',
+  'autoit',
+  'bash',
+  'basic',
+  'batch',
+  'bbcode',
+  'birb',
+  'bison',
+  'bnf',
+  'brainfuck',
+  'brightscript',
+  'bro',
+  'bsl',
+  'c',
+  'cil',
+  'clike',
+  'clojure',
+  'cmake',
+  'coffeescript',
+  'concurnas',
+  'core',
+  'cpp',
+  'crystal',
+  'csharp',
+  'csp',
+  'css-extras',
+  'css',
+  'cypher',
+  'd',
+  'dart',
+  'dataweave',
+  'dax',
+  'dhall',
+  'diff',
+  'django',
+  'dns-zone-file',
+  'docker',
+  'ebnf',
+  'editorconfig',
+  'eiffel',
+  'ejs',
+  'elixir',
+  'elm',
+  'erb',
+  'erlang',
+  'etlua',
+  'excel-formula',
+  'factor',
+  'firestore-security-rules',
+  'flow',
+  'fortran',
+  'fsharp',
+  'ftl',
+  'gcode',
+  'gdscript',
+  'gedcom',
+  'gherkin',
+  'git',
+  'glsl',
+  'gml',
+  'go',
+  'graphql',
+  'groovy',
+  'haml',
+  'handlebars',
+  'haskell',
+  'haxe',
+  'hcl',
+  'hlsl',
+  'hpkp',
+  'hsts',
+  'http',
+  'ichigojam',
+  'icon',
+  'iecst',
+  'ignore',
+  'inform7',
+  'ini',
+  'io',
+  'j',
+  'java',
+  'javadoc',
+  'javadoclike',
+  'javascript',
+  'javastacktrace',
+  'jolie',
+  'jq',
+  'js-extras',
+  'js-templates',
+  'jsdoc',
+  'json',
+  'json5',
+  'jsonp',
+  'jsstacktrace',
+  'jsx',
+  'julia',
+  'keyman',
+  'kotlin',
+  'latex',
+  'latte',
+  'less',
+  'lilypond',
+  'liquid',
+  'lisp',
+  'livescript',
+  'llvm',
+  'lolcode',
+  'lua',
+  'makefile',
+  'markdown',
+  'markup-templating',
+  'markup',
+  'matlab',
+  'mel',
+  'mizar',
+  'mongodb',
+  'monkey',
+  'moonscript',
+  'n1ql',
+  'n4js',
+  'nand2tetris-hdl',
+  'naniscript',
+  'nasm',
+  'neon',
+  'nginx',
+  'nim',
+  'nix',
+  'nsis',
+  'objectivec',
+  'ocaml',
+  'opencl',
+  'oz',
+  'parigp',
+  'parser',
+  'pascal',
+  'pascaligo',
+  'pcaxis',
+  'peoplecode',
+  'perl',
+  'php-extras',
+  'php',
+  'phpdoc',
+  'plsql',
+  'powerquery',
+  'powershell',
+  'processing',
+  'prolog',
+  'promql',
+  'properties',
+  'protobuf',
+  'pug',
+  'puppet',
+  'pure',
+  'purebasic',
+  'purescript',
+  'python',
+  'q',
+  'qml',
+  'qore',
+  'r',
+  'racket',
+  'reason',
+  'regex',
+  'renpy',
+  'rest',
+  'rip',
+  'roboconf',
+  'robotframework',
+  'ruby',
+  'rust',
+  'sas',
+  'sass',
+  'scala',
+  'scheme',
+  'scss',
+  'shell-session',
+  'smali',
+  'smalltalk',
+  'smarty',
+  'sml',
+  'solidity',
+  'solution-file',
+  'soy',
+  'sparql',
+  'splunk-spl',
+  'sqf',
+  'sql',
+  'stan',
+  'stylus',
+  'swift',
+  't4-cs',
+  't4-templating',
+  't4-vb',
+  'tap',
+  'tcl',
+  'textile',
+  'toml',
+  'tsx',
+  'tt2',
+  'turtle',
+  'twig',
+  'typescript',
+  'typoscript',
+  'unrealscript',
+  'vala',
+  'vbnet',
+  'velocity',
+  'verilog',
+  'vhdl',
+  'vim',
+  'visual-basic',
+  'warpscript',
+  'wasm',
+  'wiki',
+  'xeora',
+  'xml-doc',
+  'xojo',
+  'xquery',
+  'yaml',
+  'yang',
+  'zig'
+];
+
 const code = `
-class Accordion {
-  constructor(element, options) {
-    this.element = element;
+class Rectangle {
 
-    this.state = {
-      uncontrolled: options.uncontrolled || false,
-      ...options
-    };
-
-    const childs = ele => Array.from(ele.children);
-    this.elements = childs(this.element).flatMap(el =>
-      childs(el).filter(el => (el))
-    );
-  }
-
-  toggleHeight = (item, status, isChanged) => {
-    const collapseElement = item.children[1];
-    if (!status) {
-      if (isChanged) {
-        const content = item.children[1].children[0];
-        collapseElement.style.height = content.offsetHeight + 'px';
-        setTimeout(() => {
-          collapseElement.style.height = 0;
-          collapseElement.style.overflow = 'hidden';
-        });
-      }
-    } else {
-      const content = item.children[1].children[0];
-      collapseElement.style.height = content.offsetHeight + 'px';
-      setTimeout(() => {
-        collapseElement.style.height = 'auto';
-        collapseElement.style.overflow = 'visible';
-      }, 300);
+    constructor(height, width) {
+        this.height = height;
+        this.width = width;
     }
-  };
 
-  toggleContent = event => {
-    const comp = event.currentTarget;
-    const item = comp.parentNode;
-    const expanded = item.classList.contains('expanded');
-    if (this.state.uncontrolled) {
-      if (expanded) {
-        item.classList.remove('expanded');
-        this.toggleHeight(item, false, expanded);
-      }
-    } else {
-      this.elements.forEach(element => {
-        const itm = element.parentNode;
-        const isChanged = itm.classList.contains('expanded');
-        itm.classList.remove('expanded');
-        this.toggleHeight(itm, false, isChanged);
-      });
+    // Getter
+    get area() {
+        return this.calcArea();
     }
-    if (!expanded) {
-      item.classList.add('expanded');
-      this.toggleHeight(item, true, false);
-    }
-  };
 
-  attachEvents = () => {
-    this.elements.forEach(item => {
-      item.addEventListener('click', this.toggleContent);
-      item.addEventListener('keypress', event => {
-        event.preventDefault();
-        if (event.keyCode === 13) {
-          this.toggleContent(event);
-        }
-      });
-    });
-  };
+    // Method
+    calcArea() {
+        return this.height * this.width;
+    }
 }
 
-export default Accordion;
+const square = new Rectangle(10, 10);
 
 `;
-storiesOf('CodeSnippet', module).add(
+storiesOf('Components/Code Snippet', module).add(
   'default',
   () => (
     <CodeSnippet
       type={select('Type', ['read', 'edit'], 'read')}
       value={code}
       language="javascript"
-      width="40rem"
-      height="25rem"
+      width="100%"
+      height="100%"
       onCopy={action('onCopy triggered')}
       onEdit={action('onEdit triggered')}
     />
   ),
   {
     info: {
-      text: `Description About CodeSnippet Component \n
-
-      import { CodeSnippet} from '@patron/patron-react/codesnippet';
-    import 'prismjs/components/prism-javascript';`
+      text: `Description About CodeSnippet Component`,
+      className: 'hcl-col-12 hcl-col-lg-6',
+      document: ['CodeSnippet'],
+      internal: [],
+      external: `
+        import 'prismjs/components/prism-javascript';
+        import 'prismjs/themes/prism.css'
+    `,
+      install: `npm i react-simple-code-editor prismjs`,
+      additionalInfo: codeSnippetLangList
     }
   }
 );

@@ -256,11 +256,19 @@ Overflowmenu.propTypes = {
   /** List of the item and associated actions, which should be part of menu. */
   listItems: PropTypes.array,
 
-  /** Horizontal: To make ellipsis horizontal. 
-  Vertical: To make ellipsis vertical.  */
+  /**
+   * * ```Horizontal``` : To make ellipsis horizontal.
+   * * ```Vertical``` : To make ellipsis vertical.
+   * */
   ellipsisType: PropTypes.oneOf(['vertical', 'horizontal']),
 
-  /** Callback function on selecting item*/
+  /** Callback function on selecting item
+   *
+   *
+   * @signature
+   * * ```value``` : selected menu object
+   * * ```event``` : click event
+   */
   onClick: PropTypes.func.isRequired,
 
   /** Used to attach the overlay container to body */
