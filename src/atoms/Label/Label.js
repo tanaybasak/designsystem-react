@@ -20,17 +20,13 @@ Label.propTypes = {
   className: PropTypes.string,
 
   /** Unique identifier for Label component.  */
-  htmlFor: PropTypes.string,
-
-  /** Call back which will be invoked when label is clicked.  */
-  onClick: PropTypes.func
+  htmlFor: PropTypes.string
 };
 
 Label.defaultProps = {
   children: null,
   className: '',
-  htmlFor: '',
-  onClick: () => {}
+  htmlFor: ''
 };
 
 export default Label;

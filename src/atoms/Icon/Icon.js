@@ -32,7 +32,10 @@ Icon.propTypes = {
   className: PropTypes.string,
   /** Specifies the path to the image */
   src: check,
-  /** Callback function on click */
+  /** Callback function on click
+   *
+   * @event : callback on click
+   */
   onClick: PropTypes.func,
   /** used to pass svg content */
   children: check

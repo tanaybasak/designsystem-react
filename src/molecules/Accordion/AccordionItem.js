@@ -89,12 +89,17 @@ export default function AccordionItem({
 
 AccordionItem.propTypes = {
   /** Title for the Accordion Item */
-  title: PropTypes.string.isRequired,
-  /** True: Accordion Item in expanded mode 
-  False: Accordion Item in collapsed mode */
+  title: PropTypes.node.isRequired,
+  /**
+   * * ```True``` : Accordion Item in expanded mode
+   * * ```False``` : Accordion Item in collapsed mode
+   */
   expanded: PropTypes.bool,
   /** Callback function that is invoked when Accordion is expanded or closed.
-  Argument – event */
+   *
+   * @signature
+   * ```event``` : click event
+   */
   onChange: PropTypes.func,
   /** Name of the custom class to apply to the Accordion Item */
   className: PropTypes.string

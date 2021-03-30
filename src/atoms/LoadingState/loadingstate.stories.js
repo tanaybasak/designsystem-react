@@ -5,7 +5,7 @@ import { text } from '@storybook/addon-knobs';
 import LoadingState from './LoadingState';
 //@update-path-build-end
 
-storiesOf('LoadingState', module)
+storiesOf('Components/Loading State', module)
   .add(
     'default',
     () => (
@@ -17,48 +17,37 @@ storiesOf('LoadingState', module)
     ),
     {
       info: {
-        text: `Description About LoadingState Component \n
-        
-        import { LoadingState } from '@patron/patron-react/loadingstate';
-        
-        `
+        text: `Description About LoadingState Component`,
+        document: ['LoadingState']
       }
     }
   )
   .add('breadcrumb', () => <LoadingState type="breadcrumb" />, {
     info: {
-      text: `Description About Breadcrumb LoadingState Component \n
-      
-      import { LoadingState } from '@patron/patron-react/loadingstate';
-
-      `
+      text: `Description About Breadcrumb LoadingState Component`,
+      document: ['LoadingState'],
+      className: 'hcl-col-12 hcl-col-lg-8'
     }
   })
   .add('tab', () => <LoadingState type="tab" />, {
     info: {
-      text: `Description About Tab LoadingState Component \n
-      
-      import { LoadingState } from '@patron/patron-react/loadingstate';
-
-        `
+      text: `Description About Tab LoadingState Component`,
+      document: ['LoadingState'],
+      className: 'hcl-col-12 hcl-col-lg-8'
     }
   })
   .add('accordion', () => <LoadingState type="accordion" />, {
     info: {
-      text: `Description About Accordion LoadingState Component\n
-      
-      import { LoadingState } from '@patron/patron-react/loadingstate';
-
-        `
+      text: `Description About Accordion LoadingState Component`,
+      document: ['LoadingState'],
+      className: 'hcl-col-12 hcl-col-lg-8'
     }
   })
   .add('slider', () => <LoadingState type="slider" />, {
     info: {
-      text: `Description About Slider LoadingState Component\n
-      
-      import { LoadingState } from '@patron/patron-react/loadingstate';
-
-        `
+      text: `Description About Slider LoadingState Component`,
+      document: ['LoadingState'],
+      className: 'hcl-col-12 hcl-col-lg-8'
     }
   })
   .add(
@@ -96,11 +85,8 @@ storiesOf('LoadingState', module)
     ),
     {
       info: {
-        text: `Description About Slider DataTable Component\n
-      
-      import { LoadingState } from '@patron/patron-react/loadingstate';
-
-      `
+        text: `Description About DataTable Component`,
+        document: ['LoadingState']
       }
     }
   );

@@ -11,7 +11,7 @@ const position = {
   right: ['pageNumberInfo']
 };
 
-storiesOf('Pagination', module)
+storiesOf('Components/Pagination', module)
   .add(
     'default',
     () => (
@@ -32,9 +32,8 @@ storiesOf('Pagination', module)
     ),
     {
       info: {
-        text: `Description About Pagination Component \n
-
-      import { Pagination } from '@patron/patron-react/pagination';`
+        text: `Description About Pagination Component`,
+        document: ['Pagination']
       }
     }
   )
@@ -58,9 +57,8 @@ storiesOf('Pagination', module)
     ),
     {
       info: {
-        text: `Description About Pagination Component \n
-
-      import { Pagination } from '@patron/patron-react/pagination';`
+        text: `Description About Pagination Component`,
+        document: ['Pagination']
       }
     }
   );
