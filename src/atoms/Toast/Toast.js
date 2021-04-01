@@ -70,7 +70,8 @@ Toast.propTypes = {
   iconDescription: PropTypes.string,
   /** Callback function for on close of Toast Component
    *
-   *  Argument – event
+   * @signature
+   * ```event``` : event upon clicking on close
    */
   onClose: PropTypes.func,
   /** Boolean value to show or hide Toast Component */

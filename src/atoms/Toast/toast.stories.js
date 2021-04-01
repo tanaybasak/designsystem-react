@@ -13,7 +13,7 @@ const typeOptions = {
   Warning: 'warning'
 };
 
-storiesOf('Toast', module).add(
+storiesOf('Components/Toast', module).add(
   'default',
   () => (
     <Toast
@@ -30,11 +30,8 @@ storiesOf('Toast', module).add(
   ),
   {
     info: {
-      text: `Description About Toast Component
-      
-      import { Toast } from '@patron/patron-react/toast';
-
-      `
+      text: `Description About Toast Component`,
+      document: ['Toast']
     }
   }
 );

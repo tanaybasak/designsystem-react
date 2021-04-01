@@ -1,6 +1,5 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
 import { select, object } from '@storybook/addon-knobs';
 //@update-path-build-start
 import List from './List';
@@ -61,23 +60,19 @@ const listItems = [
   }
 ];
 
-storiesOf('List', module)
+storiesOf('Components/List', module)
   .add(
     'ordered',
     () => (
       <List
         type={select('Type', classOrderedOpts, 'decimal')}
         listItems={object('List Items', listItems)}
-        onClick={action('list event')}
       />
     ),
     {
       info: {
-        text: `Description About List Component\n
-      
-      import { List } from '@patron/patron-react/list';
-
-      `
+        text: `Description About List Component`,
+        document: ['List']
       }
     }
   )
@@ -87,16 +82,12 @@ storiesOf('List', module)
       <List
         type={select('Type', classUnorderedOpts, 'disc')}
         listItems={object('List Items', listItems)}
-        onClick={action('list event')}
       />
     ),
     {
       info: {
-        text: `Description About List Component\n
-      
-      import { List } from '@patron/patron-react/list';
-
-      `
+        text: `Description About List Component`,
+        document: ['List']
       }
     }
   );

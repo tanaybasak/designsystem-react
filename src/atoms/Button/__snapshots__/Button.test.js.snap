@@ -2,9 +2,8 @@
 
 exports[`<Button> component snapshots/renders Button correctly 1`] = `
 <button
-  className="hcl-btn"
+  className="hcl-btn  hcl-primary"
   disabled={false}
-  onClick={[Function]}
   type="button"
 >
   Click Me

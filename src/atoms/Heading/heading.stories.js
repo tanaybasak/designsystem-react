@@ -13,7 +13,7 @@ const options = {
   h5: 'h5',
   h6: 'h6'
 };
-storiesOf('Heading', module).add(
+storiesOf('Components/Heading', module).add(
   'default',
   () => (
     <Heading type={select('Type', options, 'h1')}>
@@ -22,9 +22,8 @@ storiesOf('Heading', module).add(
   ),
   {
     info: {
-      text: `Description About Heading Component \n 
-
-      import { Heading } from '@patron/patron-react/heading';`
+      text: `Description About Heading Component`,
+      document: ['Heading']
     }
   }
 );

@@ -8,7 +8,7 @@ import Button from '../../atoms/Button';
 
 const totalItems = 500;
 
-storiesOf('Actionbar', module).add(
+storiesOf('Components/Action-bar', module).add(
   'default',
   () => (
     <ActionBar>
@@ -75,9 +75,10 @@ storiesOf('Actionbar', module).add(
   ),
   {
     info: {
-      text: `Description About ActionBar Component \n
-    import { Button } from '@patron/patron-react/button';
-    import { ActionBar, ActionSummary, ActionList } from '@patron/patron-react/actionbar';`
+      text: `Description About ActionBar Component`,
+      className: 'hcl-col-12 hcl-col-lg-8',
+      document: ['ActionBar', 'ActionSummary', 'ActionList'],
+      internal: ['Button']
     }
   }
 );
