@@ -1,19 +1,105 @@
 * {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  height: 100vh;
+}
+
+.hcl-inpage-navigation-wrapper {
+  position: fixed;
+  top: 400px;
+  right: 27px;
+}
+
+nav.hcl-sidebar.hcl-sidebar-left {
+  float: left;
+}
+
+.hcl-slideout {
+  position: fixed;
+  display: block;
+  overflow: hidden;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 99;
+  .hcl-slideout-mask {
+    background: rgba(0, 0, 0, 0.4);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
   }
-  
-  #root {
-    height: 100vh;
+  &.hcl-slideout__default-border {
+    .hcl-slideout-layout {
+      border-top: 4px solid var(--secondary_border);
+    }
   }
-  
-  .hcl-inpage-navigation-wrapper {
-    position: fixed;
-    top: 400px;
-    right: 27px;
+  &.hcl-slideout__danger-border {
+    .hcl-slideout-layout {
+      border-top: 4px solid var(--danger_border);
+    }
   }
-  
-  nav.hcl-sidebar.hcl-sidebar-left {
-    float: left;
+  &.hcl-slideout__warning-border {
+    .hcl-slideout-layout {
+      border-top: 4px solid var(--warning_border);
+    }
   }
-  
+  &.hcl-slideout__ghost-border {
+    .hcl-slideout-layout {
+      border-top: 4px solid var(--ghost_border);
+    }
+  }
+  .hcl-slideout-layout {
+    border-top: 4px solid var(--secondary_border);
+    position: absolute;
+    right: 0;
+    transition: width 0.15s linear;
+    width: 400px;
+    // display: none;
+    height: 100%;
+    padding: 28px 24px 0;
+    max-height: 100%;
+    max-width: 100%;
+    background: #fff;
+    .hcl-slideout-header {
+      display: flex;
+      .hcl-slideout-header__text {
+        position: relative;
+        font-size: 24px;
+        line-height: 1.5;
+        height: 36px;
+      }
+    }
+    .hcl-slideout-close {
+      right: 9.25px;
+      top: 19.25px;
+      padding: 0.875rem;
+      background: transparent;
+      cursor: pointer;
+      position: absolute;
+      & > svg {
+        width: 0.75rem;
+        height: 0.75rem;
+        fill: var(--default_icon_high);
+      }
+    }
+    .hcl-slideout-footer {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      min-height: 88px;
+      background: #f2f2f2;
+    }
+  }
+  @media (max-width: 768px) {
+    .hcl-slideout-layout {
+      width: 100%;
+    }
+  }
+}
