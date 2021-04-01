@@ -2,7 +2,15 @@ import React, { useState, useEffect, useRef } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
-const Slideout = ({ isOpen, type, className, header, footer, onClose }) => {
+const Slideout = ({
+  isOpen,
+  type,
+  className,
+  header,
+  footer,
+  onClose,
+  children
+}) => {
   const [opened, setOpened] = useState(isOpen);
   const layoutRef = useRef(null);
 
@@ -67,6 +75,9 @@ const Slideout = ({ isOpen, type, className, header, footer, onClose }) => {
               </svg>
             </button>
           </header>
+          {children ? (
+            <section className={`hcl-slideout-content`}>{children}</section>
+          ) : null}
           {footer ? (
             <footer className={`hcl-slideout-footer`}>{footer}</footer>
           ) : null}
@@ -84,7 +95,8 @@ Slideout.propTypes = {
   type: PropTypes.oneOf(['default', 'danger', 'warning', 'ghost']),
   header: PropTypes.node,
   footer: PropTypes.node,
-  onClose: PropTypes.func
+  onClose: PropTypes.func,
+  children: PropTypes.node
 };
 
 Slideout.defaultProps = {
@@ -92,7 +104,8 @@ Slideout.defaultProps = {
   type: 'default',
   header: null,
   footer: null,
-  onClose: null
+  onClose: null,
+  children: null
 };
 
 export default Slideout;

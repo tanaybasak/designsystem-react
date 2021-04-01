@@ -45,7 +45,9 @@ class SlideoutExample extends Component {
           footer={this.state.footer}
           type={this.state.type}
           onClose={this.handleClose.bind(this)}
-        />
+        >
+          hello
+        </Slideout>
       </>
     );
   }

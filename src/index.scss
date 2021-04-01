@@ -97,6 +97,9 @@ nav.hcl-sidebar.hcl-sidebar-left {
       background: #f2f2f2;
     }
   }
+  .hcl-slideout-content {
+    margin-top: 24px;
+  }
   @media (max-width: 768px) {
     .hcl-slideout-layout {
       width: 100%;
