@@ -88,8 +88,7 @@ const Document = ({ main, status }) => {
           componentTableInfo.push(componentInfo);
         }
       });
-
-      if (config.kind === 'Components/CodeSnippet') {
+      if (config.kind === 'Components/Code Snippet') {
         const addditionalInfo = config.parameters.info.additionalInfo;
         addditionalInfo.map(language => {
           codeSnippetSupportedLanguageTable.push({

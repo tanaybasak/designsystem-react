@@ -89,8 +89,7 @@ storiesOf('Components/Tag', module)
     {
       info: {
         text: `Description About Tag Component`,
-        document: ['Tag'],
-        internal: ['Icon']
+        document: ['Tag', 'Icon']
       }
     }
   )
@@ -128,8 +127,7 @@ storiesOf('Components/Tag', module)
     {
       info: {
         text: `Description About Tag Component`,
-        document: ['Tag'],
-        internal: ['Icon']
+        document: ['Tag', 'Icon']
       }
     }
   );
