@@ -139,9 +139,10 @@ const Step = ({
 Step.propTypes = {
   /** Name of the custom class to be applied to the Step.  */
   className: PropTypes.string,
-  /** true – ‘active’ class is added the Step.
-
-    false – ‘active’ is removed from the Step. */
+  /**
+   * * ```true``` : ‘active’ class is added the Step.
+   * * ```false``` : ‘active’ is removed from the Step.
+   * */
   active: PropTypes.bool,
   /** status of the Step. It can be of - 'default', 'error', 'completed' */
   status: PropTypes.oneOf(['default', 'error', 'completed']),
@@ -163,7 +164,11 @@ Step.propTypes = {
   stepcallBack: PropTypes.func,
   /** @ignore */
   iconType: PropTypes.oneOf(['icon', 'number', 'noicon']),
-  /** Event to subscribe when Step is clicked.*/
+  /** Event to subscribe when Step is clicked.
+   *
+   * @signature
+   * ```event``` : click
+   */
   onClick: PropTypes.func
 };
 

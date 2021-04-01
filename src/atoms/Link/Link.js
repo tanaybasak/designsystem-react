@@ -14,17 +14,16 @@ Link.propTypes = {
   children: PropTypes.node,
   /** Class/clasess will be applied on the link  */
   className: PropTypes.string,
-  /** hyperlink - The URL of the link*/
-  href: PropTypes.string,
-  /** Callback function on click event*/
-  onClick: PropTypes.func
+  /**
+   *
+   * ```hyperlink``` : The URL of the link*/
+  href: PropTypes.string
 };
 
 Link.defaultProps = {
   children: null,
   className: '',
-  href: '#',
-  onClick: () => {}
+  href: '#'
 };
 
 export default Link;

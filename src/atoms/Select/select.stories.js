@@ -17,7 +17,7 @@ const props = {
   })
 };
 
-storiesOf('Select', module).add(
+storiesOf('Components/Select', module).add(
   'default',
   () => (
     <Select {...props.select()} id="selct-id">
@@ -34,9 +34,8 @@ storiesOf('Select', module).add(
   ),
   {
     info: {
-      text: `Description About Select Component\n
-      import { Select, SelectItem, SelectItemGroup } from '@patron/patron-react/select';
-      `
+      text: `Description About Select Component`,
+      document: ['Select', 'SelectItem', 'SelectItemGroup']
     }
   }
 );

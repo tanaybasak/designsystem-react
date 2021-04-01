@@ -6,7 +6,7 @@ import { text, boolean } from '@storybook/addon-knobs';
 import Toggle from './Toggle';
 //@update-path-build-end
 
-storiesOf('Toggle', module)
+storiesOf('Components/Toggle', module)
   .add(
     'default',
     () => (
@@ -21,11 +21,8 @@ storiesOf('Toggle', module)
     ),
     {
       info: {
-        text: `Description About Toggle Component
-
-        import { Toggle } from '@patron/patron-react/toggle';
-
-        `
+        text: `Description About Toggle Component`,
+        document: ['Toggle']
       }
     }
   )
@@ -44,11 +41,8 @@ storiesOf('Toggle', module)
     ),
     {
       info: {
-        text: `Description About Toggle Component
-
-        import { Toggle } from '@patron/patron-react/toggle';
-
-        `
+        text: `Description About Toggle Component`,
+        document: ['Toggle']
       }
     }
   );

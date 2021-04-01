@@ -6,7 +6,7 @@ import Overlay from './Overlay';
 import Notification from '../../atoms/Notification/Notification';
 //@update-path-build-end
 
-storiesOf('Overlay', module).add(
+storiesOf('Components/Overlay', module).add(
   'default',
   () => (
     <>
@@ -30,11 +30,8 @@ storiesOf('Overlay', module).add(
   ),
   {
     info: {
-      text: `Description About Overlay Component\n
-      
-      import { Overlay } from '@patron/patron-react/overlay';
-      
-      `
+      text: `Description About Overlay Component`,
+      document: ['Overlay']
     }
   }
 );

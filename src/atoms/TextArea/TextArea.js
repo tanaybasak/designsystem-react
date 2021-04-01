@@ -34,14 +34,6 @@ TextArea.propTypes = {
   disabled: PropTypes.bool,
   /** Unique Id for the <input> tag. */
   id: PropTypes.string,
-  /** Event to subscribe when the value of the Input field changes. */
-  onChange: PropTypes.func,
-  /** Event to subscribe when the Input field is clicked. */
-  onClick: PropTypes.func,
-  /** Event to subscribe when the Input field is focused. */
-  onFocus: PropTypes.func,
-  /** Event to subscribe when the Input field is Blurred. */
-  onBlur: PropTypes.func,
   /** Placeholder text for the <input> tag. */
   placeholder: PropTypes.string,
   /** Value of the input field. */
@@ -50,11 +42,7 @@ TextArea.propTypes = {
 
 TextArea.defaultProps = {
   className: '',
-  disabled: false,
-  onChange: () => {},
-  onClick: () => {},
-  onFocus: () => {},
-  onBlur: () => {}
+  disabled: false
 };
 
 export default TextArea;

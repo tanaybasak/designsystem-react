@@ -349,9 +349,19 @@ Pagination.propTypes = {
   pageNumberInfoText: PropTypes.string,
   /** Text to display when totalItem is zero */
   noItemDisplayText: PropTypes.string,
-  /** Accepts Event handler as argument/prop which is triggered after Items Per Page Dropdown is changed. */
+  /** Accepts Event handler as argument/prop which is triggered after Items Per Page Dropdown is changed.
+   *
+   * @signature
+   * * ```itemPerPage``` :  item per page value
+   * * ```currentPageNo``` : current Page Selected value
+   */
   onItemsPerPageChange: PropTypes.func,
-  /** Accepts Event handler as argument/prop which is triggered after Page Drop-down is changed. */
+  /** Accepts Event handler as argument/prop which is triggered after Page Drop-down is changed.
+   *
+   * @signature
+   * * ```currentPageNo``` : current Page Selected value
+   * * ```itemPerPage``` :  item per page value
+   */
   onPageChange: PropTypes.func,
   /** current active Page number */
   currentPage: PropTypes.number,

@@ -486,7 +486,11 @@ RichTextEditor.propTypes = {
       ])
     })
   ),
-  /** A callback function which will be executed on editor change. */
+  /** A callback function which will be executed on editor change.
+   * @signature
+   * * ```htmlContent``` : text content from text editor
+   * * ```delta``` : delta object
+   */
   onChange: PropTypes.func,
   /** content for text editor field.(Can pass string or html) */
   value: PropTypes.string,

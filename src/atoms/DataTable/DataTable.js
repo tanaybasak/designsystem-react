@@ -874,28 +874,56 @@ const DataTable = ({
 };
 
 DataTable.propTypes = {
-  /** Unique id for Table */
+  /** Unique id */
   id: PropTypes.string.isRequired,
   /** Used to define the table type
-   *  eg: zebra, compact, tall, borderless  */
+   * * ```borderless``` : with no borders
+   * * ```compact``` : Compact Table
+   * * ```tall``` : Tall Table
+   * * ```zebra``` : Row striping.
+   *
+   * eg :
+   * ```
+   * type = "borderless compact zebra"
+   * ```
+   * */
   type: PropTypes.string,
-  /** Data for table  */
+  /** Data record array to be displayed  */
   tableData: PropTypes.array,
-  /** Column Configuration eg:
+  /** Column Configuration
+   *
+   * * ```label``` : Column Header
+   * * ```field``` : Column key which is present in the ***tableData*** props
+   * * ```sortable``` : ***boolean*** value to show sorting icon
+   * * ```width``` : minimum width for the column in px
+   * * ```renderHtml``` : For passing Custom Html
+   * * ```columnHtml``` : For passing custom html in the column header
+   * * ```pinned``` : Pass ***'right'*** to pin column right side or pass ***'left'*** to pin column left side
+   * * ```allowResize``` : ***boolean*** value to make column resizable
+   * * ```minResizeWidth``` : ***number*** value to specify minimum resize width.
+   * * ```maxResizeWidth``` : ***number*** value to specify maximum resize width.
+   * * ```headerCellClass``` : For passing custom class name for <th> under <thead> element
+   * * ```bodyCellClass``` : For passing custom class name for <td> under <tbody> element
+   *
+   *
+   * eg :
+   *
+   * ```
    * [ {
-   *    label : 'Name', // Column Header
-   *    field : 'name',// Column key
-   *    sortable:true,// Is column Sortable
-   *    width:'100px',// Minimum width for the column
-   *    renderHtml: (model)=> {return <span>{model.name}</span>} // For passing Custom Html
-   *    columnHtml: ( <Search ariaLabel="Search" className=""defaultValue="" iconTheme="default" />) // For passing custom html in data column
-   *    pinned: 'right' // Pass 'right' to pin column right or pass 'left' to pin column left
-   *    allowResize: true // Pass true to make column resizable.
-   *    minResizeWidth: 40, // minimum resize width
-   *    maxResizeWidth: 120, // maximum resize width
-   *    headerCellClass: 'custom-class-name', // For passing custom class name for <th> under <thead> element
-   *    bodyCellClass: 'custom-class-name', // For passing custom class name for <td> under <tbody> element
-   * }] */
+   *    label : 'Name',
+   *    field : 'name',
+   *    sortable:true,
+   *    width:'100px',
+   *    renderHtml: (model)=> {return <span>{model.name}</span>} ,
+   *    columnHtml: ( <Search ariaLabel="Search" className=""defaultValue="" iconTheme="default" />) ,
+   *    pinned: 'right' ,
+   *    allowResize: true ,
+   *    minResizeWidth: 40,
+   *    maxResizeWidth: 120,
+   *    headerCellClass: 'custom-class-name',
+   *    bodyCellClass: 'custom-class-name',
+   * }]
+   * ```*/
   tableConfig: PropTypes.arrayOf(
     PropTypes.shape({
       label: PropTypes.string,
@@ -915,47 +943,105 @@ DataTable.propTypes = {
   /** Name of the custom class to apply to the Data Table. */
   className: PropTypes.string,
 
-  /** Call back function to sort table data
+  /**
+   * Call back function on Sorting
    *
-   * Argument – event
+   * @signature
+   * * ```column``` : sorted column ***field*** name
+   * * ```order``` : sorting order
+   * * ```data``` : table data
    */
   onSort: PropTypes.func,
   /** Call back function on selecting row
    *
-   * Argument – row data
+   * @signature
+   * ```data``` : selected Table row data
    */
   onRowSelect: PropTypes.func,
-  /** Used for passing expand row template  */
+  /** @ignore  */
   expandRowTemplate: PropTypes.func,
-  /** Used for passing template for Table header  */
+  /**
+   * Used for passing template for Table header
+   *
+   * Header of the column with ***field*** value ***"checkbox"*** will be replaced by the below template.
+   * Mainly Used for showing checkbox on Table Header to provide select all features
+   *
+   * eg :
+   *
+   * ```
+   * headerSelection={
+   *    <Checkbox aria-label="header checkbox" id={`header_checkbox`} />
+   * }
+   *
+   * ```
+   * */
   headerSelection: PropTypes.node,
-  /** When this property is set, sorting in each column iterates through three sort states: ascending, descending, and unsort.  */
+  /** When this property is set, sorting in each column iterates through three sort states: **ascending**, **descending**, and **unsort**.  */
   triStateSorting: PropTypes.bool,
   /** When this property is set, columns become draggable and can be swiched with other column  */
   columnDraggable: PropTypes.bool,
-  /** When this property is set, icnon for coloumn reorder will apprear; default value is 'true'  */
+  /**
+   * When this property is set, icon for coloumn reorder will apprear; default value is ***'true'***
+   * */
   showDraggableIcon: PropTypes.bool,
-  /** To Enable resize for all table columns. For individual column config, check tableConfig's allowResize prop. */
+  /**
+   * To Enable resize for all table columns. For individual column configuration, check ***tableConfig***'s ***allowResize*** prop.
+   * */
   resizable: PropTypes.bool,
   /** For Sticky Headers. */
   isHeaderSticky: PropTypes.bool,
-  /** Event after Column Resize. */
+  /**
+   * Event after Column Resize.
+   *
+   * @signature
+   * ```column config``` : resized column configuration object
+   *
+   * */
   onColumnAfterResize: PropTypes.func,
   /** Used to initialize the sorting icon.
-   * eg:
+   *
+   * * ```order``` : sorting order. possible values are **'asc'** and **'desc'**
+   * * ```name``` : Field Name
+   *
+   * ```
    * {
-   *    order: 'asc', // sorting order. possible values are 'asc' and 'desc'
-   *    name: 'name'  // Field Name
+   *    order: 'asc',
+   *    name: 'name'
    * }
+   * ```
    */
-  initSortedColumn: PropTypes.object,
-  /** onColumnReorder will be tiggered on each column reorder and receive updated tableConfig as parameter*/
+  initSortedColumn: PropTypes.shape({
+    order: PropTypes.string,
+    name: PropTypes.string
+  }),
+  /**
+   * onColumnReorder will be tiggered on each column reorder and receive updated tableConfig as parameter
+   *
+   * @signature
+   * ```tableconfig``` : table configuration object
+   * */
   onColumnReorder: PropTypes.func,
-  /** Unique Key name for updating selectedItem in items data */
+  /**
+   * Unique Key name from the table data.
+   * It can be *id* , *key*, *uuid* etc.
+   *
+   * eg :
+   * ```
+   * uniqueKey: 'id',
+   *
+   * ```
+   *
+   * */
   uniqueKey: PropTypes.string,
-  /** unique id of item for default selection eg: {[id]: true } */
+  /**
+   * This is used for highlighting the rows
+   *  eg:
+   * ```
+   * {[id]: true }
+   * ```
+   * */
   selectedItem: PropTypes.object,
-  /** Icon Reorder will appear on hover */
+  /** Column ReOrder icon will appear on Hover */
   showDraggableIconOnHover: PropTypes.bool,
   /** Used to remove nowwrap style from header title */
   removeHeaderNowrap: PropTypes.bool,

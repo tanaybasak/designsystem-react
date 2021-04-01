@@ -6,7 +6,7 @@ import { number, boolean, text } from '@storybook/addon-knobs';
 import Slider from './Slider';
 //@update-path-build-end
 
-storiesOf('Slider', module)
+storiesOf('Components/Slider', module)
   .add(
     'default',
     () => (
@@ -28,11 +28,9 @@ storiesOf('Slider', module)
     ),
     {
       info: {
-        text: `Description About Slider Component\n
-      
-      import { Slider } from '@patron/patron-react/slider';
-      
-      `
+        text: `Description About Slider Component`,
+        className: 'hcl-col-12 hcl-col-lg-8',
+        document: ['Slider']
       }
     }
   )
@@ -58,11 +56,9 @@ storiesOf('Slider', module)
     ),
     {
       info: {
-        text: `Description About Slider Component\n
-        
-        import { Slider } from '@patron/patron-react/slider';
-        
-        `
+        text: `Description About Slider Component`,
+        className: 'hcl-col-12 hcl-col-lg-8',
+        document: ['Slider']
       }
     }
   );
