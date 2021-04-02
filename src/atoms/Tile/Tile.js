@@ -103,7 +103,7 @@ const Tile = ({
           type="checkbox"
           onChange={toggle}
           title="tile"
-          checked={checked}
+          checked
         />
         <label
           htmlFor={`${id}`}
