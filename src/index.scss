@@ -54,18 +54,138 @@ nav.hcl-sidebar.hcl-sidebar-left {
       border-top: 4px solid var(--ghost_border);
     }
   }
+  .slide-in {
+    animation: slide-in 0.25s ease-in;
+    -webkit-animation: slide-in 0.25s ease-in;
+  }
+  .slide-out {
+    animation: slide-out 0.25s ease-in;
+    -webkit-animation: slide-out 0.25s ease-in;
+  }
+
+  .slide-in-left {
+    animation: slide-in-left 0.25s ease-in;
+    -webkit-animation: slide-in-left 0.25s ease-in;
+  }
+  .slide-out-left {
+    animation: slide-out-left 0.25s ease-in;
+    -webkit-animation: slide-out-left 0.25s ease-in;
+  }
+  @keyframes slide-in {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(0%);
+    }
+  }
+
+  @-webkit-keyframes slide-in {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      -webkit-transform: translateX(0%);
+    }
+  }
+
+  @keyframes slide-in-left {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(0%);
+    }
+  }
+
+  @-webkit-keyframes slide-in-left {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      -webkit-transform: translateX(0%);
+    }
+  }
+
+  @keyframes slide-out {
+    0% {
+      transform: translateX(0%);
+    }
+    50% {
+      transform: translateX(-50%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+
+  @-webkit-keyframes slide-out {
+    0% {
+      -webkit-transform: translateX(0%);
+    }
+    50% {
+      transform: translateX(-50%);
+    }
+
+    100% {
+      -webkit-transform: translateX(-100%);
+    }
+  }
+
+  @keyframes slide-out-left {
+    0% {
+      transform: translateX(0%);
+    }
+    50% {
+      transform: translateX(-50%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+
+  @-webkit-keyframes slide-out-left {
+    0% {
+      -webkit-transform: translateX(0%);
+    }
+    50% {
+      transform: translateX(-50%);
+    }
+    100% {
+      -webkit-transform: translateX(-100%);
+    }
+  }
   .hcl-slideout-layout {
     border-top: 4px solid var(--secondary_border);
     position: absolute;
     right: 0;
     transition: width 0.15s linear;
-    width: 400px;
-    // display: none;
+    width: 0;
     height: 100%;
     padding: 28px 24px 0;
     max-height: 100%;
     max-width: 100%;
     background: #fff;
+    &.default {
+      transform: translateX(0%);
+      -webkit-transform: translateX(0%);
+    }
+    &.show {
+      width: 400px;
+    }
+    &.hide {
+      width: 0;
+    }
+    &.medium {
+      transform: translateX(0%);
+      -webkit-transform: translateX(0%);
+      &.show {
+        width: 600px;
+      }
+    }
+    &.layout-left {
+      left: 0;
+    }
     .hcl-slideout-header {
       display: flex;
       .hcl-slideout-header__text {

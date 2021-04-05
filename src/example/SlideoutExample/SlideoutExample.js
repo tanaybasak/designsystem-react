@@ -6,7 +6,9 @@ class SlideoutExample extends Component {
     isOpen: true,
     header: `Slide out Modal title`,
     footer: `sdf`,
-    type: 'default'
+    type: 'default',
+    direction: 'left',
+    varient: 'default'
   };
 
   openSlideout() {
@@ -33,6 +35,18 @@ class SlideoutExample extends Component {
     );
   }
 
+  handleOutsideClick() {
+    this.setState(
+      {
+        ...this.state,
+        isOpen: false
+      },
+      () => {
+        console.log('from example 2', this.state.isOpen);
+      }
+    );
+  }
+
   render() {
     return (
       <>
@@ -44,7 +58,11 @@ class SlideoutExample extends Component {
           header={this.state.header}
           footer={this.state.footer}
           type={this.state.type}
+          varient={this.state.varient}
+          direction={this.state.direction}
           onClose={this.handleClose.bind(this)}
+          onOutsideClick={this.handleOutsideClick.bind(this)}
+          // onEscClose={false}
         >
           hello
         </Slideout>

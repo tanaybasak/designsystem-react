@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import ReactDOM from 'react-dom';
+import { addListener, removeListeners } from '../../util/eventManager';
 import PropTypes from 'prop-types';
+
+let slideoutid = 0;
 
 const Slideout = ({
   isOpen,
@@ -9,13 +12,39 @@ const Slideout = ({
   header,
   footer,
   onClose,
+  onEscClose,
+  onOutsideClick,
+  varient,
+  direction,
   children
 }) => {
-  const [opened, setOpened] = useState(isOpen);
+  // const [opened, setOpened] = useState(isOpen || false);
   const layoutRef = useRef(null);
 
   let classNames = ['hcl-slideout'];
-
+  let classNamesLayout = ['hcl-slideout-layout'];
+  if (varient === 'medium') {
+    classNamesLayout.push('medium');
+  }
+  if (direction === 'left') {
+    classNamesLayout.push('layout-left');
+  }
+  if (isOpen) {
+    classNamesLayout.push('show');
+    if (direction === 'left') {
+      classNamesLayout.push('slide-in-left');
+    } else {
+      classNamesLayout.push('slide-in');
+    }
+  } else {
+    classNamesLayout.push('hide');
+    if (direction === 'left') {
+      classNamesLayout.push('slide-in-left');
+    } else {
+      classNamesLayout.push('slide-in');
+    }
+    classNamesLayout.push('slide-out');
+  }
   if (type === 'default') {
     classNames.push('hcl-slideout__default-border');
   } else if (type === 'danger') {
@@ -50,14 +79,70 @@ const Slideout = ({
     //     layoutRef.current.style.display = 'none';
     //   }
     // }
-    setOpened(isOpen);
+    // setOpened(isOpen);
+    if (isOpen) {
+      addListener(
+        'slideout-' + slideoutid,
+        'keydown',
+        e => {
+          handleKeyDown(e);
+        },
+        true
+      );
+    } else {
+      removeListeners('slideout-' + slideoutid, 'keydown');
+    }
+    return () => {
+      removeListeners('slideout-' + slideoutid, 'keydown');
+    };
   }, [isOpen]);
+
+  // useEffect(() => {
+  //   if (opened) {
+  //     addListener(
+  //       'slideout-' + slideoutid,
+  //       'keydown',
+  //       e => {
+  //         handleKeyDown(e);
+  //       },
+  //       true
+  //     );
+  //   } else {
+  //     removeListeners('slideout-' + slideoutid, 'keydown');
+  //   }
+  //   return () => {
+  //     removeListeners('slideout-' + slideoutid, 'keydown');
+  //   };
+  // }, [opened]);
+
+  const handleKeyDown = e => {
+    const key = e.key;
+    if (isOpen) {
+      if (key === 'Escape') {
+        if (onEscClose && onOutsideClick) onOutsideClick(e);
+      }
+    }
+  };
+
+  const handleClick = e => {
+    const { currentTarget } = e;
+    if (isOpen) {
+      if (currentTarget.classList.contains('hcl-slideout-mask')) {
+        if (onEscClose && onOutsideClick) onOutsideClick(e);
+      }
+    }
+  };
 
   const renderHTML = () => {
     const slideOutEl = (
-      <div tabIndex={0} className={classNames.join(' ')}>
-        <div className={`hcl-slideout-mask`} />
-        <div ref={layoutRef} className={`hcl-slideout-layout`}>
+      <div className={classNames.join(' ')}>
+        <div
+          className={`hcl-slideout-mask`}
+          tabIndex={0}
+          onKeyDown={isOpen ? handleKeyDown.bind(this) : null}
+          onClick={isOpen ? handleClick.bind(this) : null}
+        />
+        <div ref={layoutRef} className={classNamesLayout.join(' ')}>
           <header className={`hcl-slideout-header`}>
             {header ? (
               <div className={`hcl-slideout-header__text`}>{header}</div>
@@ -87,24 +172,32 @@ const Slideout = ({
     return slideOutEl;
   };
 
-  return opened ? ReactDOM.createPortal(renderHTML(), document.body) : null;
+  return isOpen ? ReactDOM.createPortal(renderHTML(), document.body) : null;
 };
 
 Slideout.propTypes = {
   isOpen: PropTypes.bool,
   type: PropTypes.oneOf(['default', 'danger', 'warning', 'ghost']),
+  varient: PropTypes.oneOf(['default', 'medium']),
+  direction: PropTypes.oneOf(['right', 'left']),
   header: PropTypes.node,
   footer: PropTypes.node,
   onClose: PropTypes.func,
+  onOutsideClick: PropTypes.func,
+  onEscClose: PropTypes.bool,
   children: PropTypes.node
 };
 
 Slideout.defaultProps = {
   isOpen: false,
   type: 'default',
+  varient: 'default',
+  direction: 'right',
   header: null,
   footer: null,
   onClose: null,
+  onEscClose: true,
+  onOutsideClick: null,
   children: null
 };
 
