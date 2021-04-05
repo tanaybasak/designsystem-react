@@ -14,6 +14,7 @@ const Pagination = ({
   currentPage,
   itemsPerPageInfoText,
   pageNumberInfoText,
+  itemsValuesPerPage,
   pagePrepositionText,
   noItemDisplayText,
   itemsPerPageToSelect
@@ -234,7 +235,13 @@ const Pagination = ({
             }
             onKeyDown={onPageItemsKeyDown}
             onChange={ItemsPerPageChange.bind(this)}
-            options={itemPerPageStepperArray ? itemPerPageStepperArray : []}
+            options={
+              itemsValuesPerPage
+                ? itemsValuesPerPage
+                : itemPerPageStepperArray
+                ? itemPerPageStepperArray
+                : []
+            }
             className={`${prefix}-pagination-select ${prefix}-page-items`}
           />
         </div>
@@ -339,6 +346,8 @@ Pagination.propTypes = {
   itemsPerPageStepper: PropTypes.number.isRequired,
   /** Number within which Step Numbers are generated. */
   itemsStepperLimit: PropTypes.number,
+  /** Number within which Step Numbers are generated. */
+  itemsValuesPerPage: PropTypes.array,
   /** Text to display to the left of the No. of items Dropdown */
   itemsPerPageText: PropTypes.string,
   /** Text to display to the itemsPerPageInfo */
@@ -379,6 +388,7 @@ Pagination.defaultProps = {
   currentPage: 1,
   itemsPerPageStepper: 20,
   itemsStepperLimit: 100,
+  itemsValuesPerPage: null,
   itemsPerPageText: 'Items per Page:',
   itemsPerPageInfoText: 'items',
   pagePrepositionText: 'of',
