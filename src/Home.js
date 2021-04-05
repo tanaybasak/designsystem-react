@@ -24,6 +24,8 @@ import WizardExample from './example/WizardExample';
 import RichTextEditorExample from './example/RichTextEditorExample';
 import CodeSnippetExample from './example/CodeSnippetExample';
 import SidebarExample from './example/SidebarExample';
+import CalendarExample from './example/CalendarExample';
+
 class Home extends Component {
   state = {
     sidebarExpanded: false
@@ -111,7 +113,11 @@ class Home extends Component {
         {
           href: '/codesnippet',
           title: 'Code Snippet'
-        }
+        },
+        {
+          href: '/calendar',
+          title: 'CalendarExample'
+        },
       ]
     }
   ];
@@ -211,6 +217,7 @@ class Home extends Component {
             />
             <Route exact path="/rte" component={RichTextEditorExample} />
             <Route exact path="/codesnippet" component={CodeSnippetExample} />
+            <Route exact path="/calendar" component={CalendarExample} />
           </Switch>
         </div>
       </Router>
