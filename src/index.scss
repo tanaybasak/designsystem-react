@@ -222,7 +222,9 @@ nav.hcl-sidebar.hcl-sidebar-left {
   }
   @media (max-width: 768px) {
     .hcl-slideout-layout {
-      width: 100%;
+      &.show {
+        width: 100%;
+      }
     }
   }
 }
