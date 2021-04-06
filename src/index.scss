@@ -230,6 +230,8 @@ nav.hcl-sidebar.hcl-sidebar-left {
   }
   .hcl-slideout-content {
     margin-top: 24px;
+    overflow: auto;
+    height: 80%;
   }
   @media (max-width: 768px) {
     .hcl-slideout-layout {

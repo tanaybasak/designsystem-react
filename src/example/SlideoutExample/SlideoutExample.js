@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Slideout from '../../molecules/Slideout';
+import TextInput from '../../atoms/TextInput';
 
 class SlideoutExample extends Component {
   state = {
@@ -8,7 +9,7 @@ class SlideoutExample extends Component {
     footer: `sdf`,
     type: 'default',
     direction: 'right',
-    varient: 'default',
+    varient: 'large',
     modalActions: [
       { label: 'Save' },
       {
@@ -75,7 +76,107 @@ class SlideoutExample extends Component {
           actions={this.state.modalActions}
           // onEscClose={false}
         >
-          hello
+          <div className="hcl-row">
+            <div className="hcl-col-12">
+              {`Transactional modals are used to validate decisions or to gain
+              secondary confirmation from the user. Typically, the modal request
+              either a 'yes' or 'no' response.`}
+            </div>
+            <div className={`hcl-col-12 mt-10`}>
+              {
+                <div className="hcl-form-group">
+                  <TextInput
+                    aria-label="text input"
+                    placeholder="Placeholder Text"
+                  />
+                  <label className="hcl-label" htmlFor="labeltext">
+                    Address
+                  </label>
+                  <div className="hcl-helper-text">Your current address</div>
+                </div>
+              }
+            </div>
+            <div className={`hcl-col-12`}>
+              {
+                <div className="hcl-form-group">
+                  <TextInput
+                    aria-label="text input"
+                    placeholder="Placeholder Text"
+                  />
+                  <label className="hcl-label" htmlFor="labeltext">
+                    FGT number
+                  </label>
+                  <div className="hcl-helper-text">
+                    Device config including area code
+                  </div>
+                </div>
+              }
+            </div>
+            <div className={`hcl-col-12`}>
+              {
+                <div className="hcl-form-group">
+                  <TextInput
+                    aria-label="text input"
+                    placeholder="Placeholder Text"
+                  />
+                  <label className="hcl-label" htmlFor="labeltext">
+                    FGT number
+                  </label>
+                  <div className="hcl-helper-text">
+                    Device config including area code
+                  </div>
+                </div>
+              }
+            </div>
+            <div className={`hcl-col-12`}>
+              {
+                <div className="hcl-form-group">
+                  <TextInput
+                    aria-label="text input"
+                    placeholder="Placeholder Text"
+                  />
+                  <label className="hcl-label" htmlFor="labeltext">
+                    FGT number
+                  </label>
+                  <div className="hcl-helper-text">
+                    Device config including area code
+                  </div>
+                </div>
+              }
+            </div>
+            {/* <div className={`hcl-col-12`}>
+              {
+                <div className="hcl-form-group">
+                  <TextInput
+                    aria-label="text input"
+                    placeholder="Placeholder Text"
+                  />
+                  <label className="hcl-label" htmlFor="labeltext">
+                    FGT number
+                  </label>
+                  <div className="hcl-helper-text">
+                    Device config including area code
+                  </div>
+                </div>
+              }
+            </div>
+            <div className={`hcl-col-12`}>
+              {
+                <div className="hcl-form-group">
+                  <TextInput
+                    aria-label="text input"
+                    placeholder="Placeholder Text"
+                  />
+                  <label className="hcl-label" htmlFor="labeltext">
+                    FGT number
+                  </label>
+                  <div className="hcl-helper-text">
+                    Device config including area code
+                  </div>
+                </div>
+              }
+            </div> */}
+          </div>
         </Slideout>
       </>
     );

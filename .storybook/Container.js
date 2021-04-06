@@ -86,6 +86,11 @@ export default class Container extends Component {
 
     let pageTitle = config.kind.substr(config.kind.lastIndexOf('/') + 1);
 
+    let storyPushClass = ['hcl-row', 'mb-10'];
+
+    if (pageTitle.toLowerCase() === 'slideout') {
+      storyPushClass.push('slideout-story');
+    }
     return (
       <div className="hcl-container hcl-storybook-container">
         <div className="hcl-row mb-10">
@@ -134,7 +139,7 @@ export default class Container extends Component {
           </div>
         ) : null}
 
-        <div className="hcl-row mb-10">
+        <div className={storyPushClass.join(' ')}>
           <div className="hcl-col-12 hcl-col-md-10 hcl-col-xl-8">
             <PageSubTitle title="Story Source" />
           </div>
