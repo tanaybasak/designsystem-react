@@ -24,8 +24,7 @@ import WizardExample from './example/WizardExample';
 import RichTextEditorExample from './example/RichTextEditorExample';
 import CodeSnippetExample from './example/CodeSnippetExample';
 import SidebarExample from './example/SidebarExample';
-import QueryBuilder from './example/QueryBuilder';
-import LogicBuilder from './example/LogicBuilder';
+import MainBuilder from './example/MainBuilder';
 class Home extends Component {
   state = {
     sidebarExpanded: false
@@ -113,10 +112,6 @@ class Home extends Component {
         {
           href: '/codesnippet',
           title: 'Code Snippet'
-        },
-        {
-          href: '/qb',
-          title: 'Query Builder'
         },
         {
           href: '/lb',
@@ -221,8 +216,7 @@ class Home extends Component {
             />
             <Route exact path="/rte" component={RichTextEditorExample} />
             <Route exact path="/codesnippet" component={CodeSnippetExample} />
-            <Route exact path="/qb" component={QueryBuilder} />
-            <Route exact path="/lb" component={LogicBuilder} />
+            <Route exact path="/lb" component={MainBuilder} />
           </Switch>
         </div>
       </Router>

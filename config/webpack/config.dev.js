@@ -29,11 +29,15 @@ module.exports = merge.smart(commonConfig, {
               reloadAll: true
             }
           },
+
           {
             loader: 'css-loader',
             options: {
               sourceMap: true
             }
+          },
+          {
+            loader: 'sass-loader'
           },
           {
             loader: 'postcss-loader',
