@@ -1,114 +1,51 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { text, select, boolean } from '@storybook/addon-knobs';
+import { text, select, boolean, object } from '@storybook/addon-knobs';
 import icons from '../../../.storybook/iconList';
 //@update-path-build-start
 import Slideout from './Slideout';
 //@update-path-build-end
 
-const items = [
-  {
-    children: [
-      {
-        href: '#1',
-        title: 'Child Item 1'
-      },
-      {
-        href: '#2',
-        title: 'Child Item 2'
-      },
-      {
-        href: '#3',
-        title: 'Child Item 3'
-      },
-      {
-        href: '#4',
-        title: 'Child Item 4'
-      }
-    ],
-    icon: <i className={`p-hclsw p-hclsw-${icons[2]}`} />,
-    statusIcon: <i className={`p-hclsw p-hclsw-${icons[2]}`} />,
-    title: 'Category One'
-  },
-  {
-    children: [
-      {
-        href: '#5',
-        title: 'Child Item 1'
-      },
-      {
-        href: '#6',
-        title: 'Child Item 2'
-      },
-      {
-        href: '#7',
-        title: 'Child Item 3'
-      },
-      {
-        href: '#9',
-        title: 'Child Item 4'
-      }
-    ],
-    icon: <i className={`p-hclsw p-hclsw-${icons[1]}`} />,
-    title: 'Category Two'
-  },
-  {
-    icon: <i className={`p-hclsw p-hclsw-${icons[1]}`} />,
-    title: 'Category Three',
-    href: '#10'
-  }
-];
-
-const internalitems = [
-  {
-    icon: <i className={`p-hclsw p-hclsw-${icons[2]}`} />,
-    statusIcon: <i className={`p-hclsw p-hclsw-${icons[2]}`} />,
-    title: 'Category One'
-  },
-  {
-    icon: <i className={`p-hclsw p-hclsw-${icons[1]}`} />,
-    statusIcon: <i className={`p-hclsw p-hclsw-${icons[2]}`} />,
-    title: 'Category Two'
-  },
-  {
-    icon: <i className={`p-hclsw p-hclsw-${icons[1]}`} />,
-    statusIcon: <i className={`p-hclsw p-hclsw-${icons[2]}`} />,
-    title: 'Category Three',
-    href: '#10'
-  }
-];
-
-const positionOptions = {
-  top: 'top',
-  bottom: 'bottom'
-};
-
-const headerBranding = {
-  default: 'default',
-  primary: 'primary'
-};
-
 const typeOptions = {
-  internal: 'internal',
-  default: 'default'
+  default: 'default',
+  danger: 'danger',
+  warning: 'warning',
+  ghost: 'ghost'
 };
 
-storiesOf('Components/Sidebar', module)
+const varientOptions = {
+  default: 'default',
+  large: 'large'
+};
+
+const directionOptions = {
+  right: 'right',
+  left: 'left'
+};
+
+const actions = [
+  { label: 'Save', disabled: true, type: 'primary' },
+  {
+    label: 'Close',
+    type: 'secondary'
+  }
+];
+
+storiesOf('Components/Slideout', module)
   .add(
     'default',
     () => (
       <Slideout
-        isOpen={this.state.isOpen}
-        header={this.state.header}
-        footer={this.state.footer}
-        type={this.state.type}
-        varient={this.state.varient}
-        direction={this.state.direction}
-        onClose={this.handleClose.bind(this)}
-        onOutsideClick={this.handleOutsideClick.bind(this)}
-        actions={this.state.modalActions}
-        // onEscClose={false}
+        isOpen={boolean('isopen', true)}
+        header={text('Title', 'Default')}
+        type={select('type', typeOptions, 'default')}
+        varient={select('varient', varientOptions, 'default')}
+        direction={select('direction', directionOptions, 'right')}
+        onClose={action('close button clicked')}
+        onOutsideClick={action('clicked outside')}
+        actions={object('Actions', actions)}
+        onEscClose={boolean('isopen', true)}
       >
         hello
       </Slideout>
@@ -116,7 +53,7 @@ storiesOf('Components/Sidebar', module)
     {
       info: {
         text: `Description About Slideout Component`,
-        document: ['Sidebar']
+        document: ['Slideout']
       }
     }
   )
@@ -124,16 +61,15 @@ storiesOf('Components/Sidebar', module)
     'large',
     () => (
       <Slideout
-        isOpen={this.state.isOpen}
-        header={this.state.header}
-        footer={this.state.footer}
-        type={this.state.type}
-        varient={this.state.varient}
-        direction={this.state.direction}
-        onClose={this.handleClose.bind(this)}
-        onOutsideClick={this.handleOutsideClick.bind(this)}
-        actions={this.state.modalActions}
-        // onEscClose={false}
+        isOpen={boolean('isopen', true)}
+        header={text('Title', 'Default')}
+        type={select('type', typeOptions, 'default')}
+        varient={select('varient', varientOptions, 'large')}
+        direction={select('direction', directionOptions, 'right')}
+        onClose={action('close button clicked')}
+        onOutsideClick={action('clicked outside')}
+        actions={object('Actions', actions)}
+        onEscClose={boolean('isopen', true)}
       >
         hello
       </Slideout>
@@ -141,7 +77,7 @@ storiesOf('Components/Sidebar', module)
     {
       info: {
         text: `Description About Slideout Component`,
-        document: ['Sidebar']
+        document: ['Slideout']
       }
     }
   );
