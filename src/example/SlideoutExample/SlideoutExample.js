@@ -4,11 +4,21 @@ import Slideout from '../../molecules/Slideout';
 class SlideoutExample extends Component {
   state = {
     isOpen: true,
-    header: `Slide out Modal title`,
+    header: `Slide out Modal title sdf asdf asdf asdf adsf adsf sdfads `,
     footer: `sdf`,
     type: 'default',
-    direction: 'left',
-    varient: 'default'
+    direction: 'right',
+    varient: 'default',
+    modalActions: [
+      { label: 'Save' },
+      {
+        label: 'Close',
+        handler: () => {
+          this.onModalClose();
+        },
+        danger: true
+      }
+    ]
   };
 
   openSlideout() {
@@ -62,6 +72,7 @@ class SlideoutExample extends Component {
           direction={this.state.direction}
           onClose={this.handleClose.bind(this)}
           onOutsideClick={this.handleOutsideClick.bind(this)}
+          actions={this.state.modalActions}
           // onEscClose={false}
         >
           hello

@@ -176,7 +176,7 @@ nav.hcl-sidebar.hcl-sidebar-left {
     &.hide {
       width: 0;
     }
-    &.medium {
+    &.large {
       transform: translateX(0%);
       -webkit-transform: translateX(0%);
       &.show {
@@ -193,6 +193,10 @@ nav.hcl-sidebar.hcl-sidebar-left {
         font-size: 24px;
         line-height: 1.5;
         height: 36px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 90%;
       }
     }
     .hcl-slideout-close {
@@ -215,6 +219,13 @@ nav.hcl-sidebar.hcl-sidebar-left {
       bottom: 0;
       min-height: 88px;
       background: #f2f2f2;
+      .hcl-action-bar {
+        position: relative;
+        display: flex;
+        flex-direction: row-reverse;
+        top: 15px;
+        right: 24px;
+      }
     }
   }
   .hcl-slideout-content {

@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import ReactDOM from 'react-dom';
 import { addListener, removeListeners } from '../../util/eventManager';
 import PropTypes from 'prop-types';
+import Actions from '../../atoms/Actions';
+import PropDeprecated from '../../util/PropDeprecated';
 
 let slideoutid = 0;
 
@@ -16,6 +18,7 @@ const Slideout = ({
   onOutsideClick,
   varient,
   direction,
+  actions,
   children
 }) => {
   // const [opened, setOpened] = useState(isOpen || false);
@@ -23,8 +26,8 @@ const Slideout = ({
 
   let classNames = ['hcl-slideout'];
   let classNamesLayout = ['hcl-slideout-layout'];
-  if (varient === 'medium') {
-    classNamesLayout.push('medium');
+  if (varient === 'large') {
+    classNamesLayout.push('large');
   }
   if (direction === 'left') {
     classNamesLayout.push('layout-left');
@@ -66,20 +69,6 @@ const Slideout = ({
   };
 
   useEffect(() => {
-    // if (isOpen) {
-    //   console.log('came in ?');
-    //   if (layoutRef.current) {
-    //     layoutRef.current.style.width = '400px';
-    //     layoutRef.current.style.display = 'block';
-    //   }
-    // } else {
-    //   console.log('came in ???');
-    //   if (layoutRef.current) {
-    //     layoutRef.current.style.width = '0px';
-    //     layoutRef.current.style.display = 'none';
-    //   }
-    // }
-    // setOpened(isOpen);
     if (isOpen) {
       addListener(
         'slideout-' + slideoutid,
@@ -96,24 +85,6 @@ const Slideout = ({
       removeListeners('slideout-' + slideoutid, 'keydown');
     };
   }, [isOpen]);
-
-  // useEffect(() => {
-  //   if (opened) {
-  //     addListener(
-  //       'slideout-' + slideoutid,
-  //       'keydown',
-  //       e => {
-  //         handleKeyDown(e);
-  //       },
-  //       true
-  //     );
-  //   } else {
-  //     removeListeners('slideout-' + slideoutid, 'keydown');
-  //   }
-  //   return () => {
-  //     removeListeners('slideout-' + slideoutid, 'keydown');
-  //   };
-  // }, [opened]);
 
   const handleKeyDown = e => {
     const key = e.key;
@@ -145,7 +116,9 @@ const Slideout = ({
         <div ref={layoutRef} className={classNamesLayout.join(' ')}>
           <header className={`hcl-slideout-header`}>
             {header ? (
-              <div className={`hcl-slideout-header__text`}>{header}</div>
+              <div className={`hcl-slideout-header__text`} title={header}>
+                {header}
+              </div>
             ) : null}
             <button
               className={`hcl-slideout-close`}
@@ -163,8 +136,10 @@ const Slideout = ({
           {children ? (
             <section className={`hcl-slideout-content`}>{children}</section>
           ) : null}
-          {footer ? (
-            <footer className={`hcl-slideout-footer`}>{footer}</footer>
+          {actions && actions.length ? (
+            <footer className={`hcl-slideout-footer`}>
+              <Actions actions={actions} />
+            </footer>
           ) : null}
         </div>
       </div>
@@ -178,14 +153,57 @@ const Slideout = ({
 Slideout.propTypes = {
   isOpen: PropTypes.bool,
   type: PropTypes.oneOf(['default', 'danger', 'warning', 'ghost']),
-  varient: PropTypes.oneOf(['default', 'medium']),
+  varient: PropTypes.oneOf(['default', 'large']),
   direction: PropTypes.oneOf(['right', 'left']),
   header: PropTypes.node,
   footer: PropTypes.node,
   onClose: PropTypes.func,
   onOutsideClick: PropTypes.func,
   onEscClose: PropTypes.bool,
-  children: PropTypes.node
+  children: PropTypes.node,
+  /** To create action items associated with modal.
+   *
+   * * ```label``` : button label,
+   * * ```handler``` : function to handle onClick,
+   * * ```primary``` : bool,
+   * * ```danger``` : bool,
+   * * ```disabled``` : bool,
+   * * ```warning``` : bool,
+   * * ```neutral``` : bool,
+   * * ```type``` : type of button
+   */
+  actions: PropTypes.arrayOf(
+    PropTypes.shape({
+      label: PropTypes.string,
+      handler: PropTypes.func,
+      primary: PropDeprecated(
+        PropTypes.bool,
+        'please use type prop instead of passing primary'
+      ),
+      danger: PropDeprecated(
+        PropTypes.bool,
+        'please use type prop instead of passing danger'
+      ),
+      warning: PropDeprecated(
+        PropTypes.bool,
+        'please use type prop instead of passing warning'
+      ),
+      neutral: PropDeprecated(
+        PropTypes.bool,
+        'please use type prop instead of passing neutral'
+      ),
+      disabled: PropTypes.bool,
+      type: PropTypes.oneOf([
+        'primary',
+        'primary-danger',
+        'secondary',
+        'secondary-danger',
+        'ghost',
+        'neutral',
+        'warning'
+      ])
+    })
+  )
 };
 
 Slideout.defaultProps = {
@@ -196,6 +214,7 @@ Slideout.defaultProps = {
   header: null,
   footer: null,
   onClose: null,
+  actions: [],
   onEscClose: true,
   onOutsideClick: null,
   children: null
