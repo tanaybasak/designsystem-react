@@ -6,7 +6,6 @@ class SlideoutExample extends Component {
   state = {
     isOpen: true,
     header: `Slide out Modal title sdf asdf asdf asdf adsf adsf sdfads `,
-    footer: `sdf`,
     type: 'default',
     direction: 'right',
     varient: 'large',
@@ -67,7 +66,6 @@ class SlideoutExample extends Component {
         <Slideout
           isOpen={this.state.isOpen}
           header={this.state.header}
-          footer={this.state.footer}
           type={this.state.type}
           varient={this.state.varient}
           direction={this.state.direction}
