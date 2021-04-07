@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import ReactDOM from 'react-dom';
 import { addListener, removeListeners } from '../../util/eventManager';
 import PropTypes from 'prop-types';
