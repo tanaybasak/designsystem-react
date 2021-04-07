@@ -347,7 +347,7 @@ Pagination.propTypes = {
   /** Number within which Step Numbers are generated. */
   itemsStepperLimit: PropTypes.number,
   /** Array values for options */
-  itemsValuesPerPage: PropTypes.array,
+  itemsValuesPerPage: PropTypes.arrayOf(PropTypes.number),
   /** Text to display to the left of the No. of items Dropdown */
   itemsPerPageText: PropTypes.string,
   /** Text to display to the itemsPerPageInfo */
