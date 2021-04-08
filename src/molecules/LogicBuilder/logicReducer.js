@@ -1,4 +1,4 @@
-export const logicReducer = (state, action) => {
+export const LogicReducer = (state, action) => {
   switch (action.type) {
     case 'TOGGLE_LOGIC_ITEM': {
       const currentState = { ...state.expandedQueries };
@@ -7,8 +7,6 @@ export const logicReducer = (state, action) => {
       } else {
         currentState[action.data + ''] = true;
       }
-
-      //   console.log(currentState);
       return {
         ...state,
         expandedQueries: currentState

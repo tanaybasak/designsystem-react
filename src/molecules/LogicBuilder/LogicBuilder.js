@@ -1,18 +1,15 @@
 import React, { useReducer } from 'react';
 import PropTypes from 'prop-types';
 import LogicStateContext from './LogicStateContext';
-import LogicDispatchContext from './logicDispatchContext';
-import { logicReducer } from './logicReducer';
+import LogicDispatchContext from './LogicDispatchContext';
+import { LogicReducer } from './LogicReducer';
 const initialState = {
   expandedQueries: {}
 };
-const LogicBuilder = ({ children, rounderCorner, className }) => {
-  const [state, dispatch] = useReducer(logicReducer, initialState);
+const LogicBuilder = ({ children, className }) => {
+  const [state, dispatch] = useReducer(LogicReducer, initialState);
 
-  const classNames = [`logic-builder`];
-  if (rounderCorner) {
-    classNames.push('logic-builder-round');
-  }
+  const classNames = [`hcl-logic-builder`];
   if (className) {
     classNames.push(className);
   }
@@ -27,8 +24,20 @@ const LogicBuilder = ({ children, rounderCorner, className }) => {
   );
 };
 
-LogicBuilder.propTypes = { rounderCorner: PropTypes.bool };
+LogicBuilder.propTypes = {
+  /**
+   * **LogicItem** to be added as children
+   */
+  children: PropTypes.node,
+  /**
+   * Name of the custom class to apply to the LogicBuilder
+   */
+  className: PropTypes.string
+};
 
-LogicBuilder.defaultProps = { rounderCorner: false };
+LogicBuilder.defaultProps = {
+  children: null,
+  className: null
+};
 
 export default LogicBuilder;

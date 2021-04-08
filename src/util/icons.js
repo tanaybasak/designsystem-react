@@ -347,3 +347,27 @@ export const unlinkIcon = (
     />
   </svg>
 );
+
+export const addMoreIcon = (
+  <svg viewBox="0 0 32 32">
+    <rect
+      data-name="&lt;Transparent Rectangle&gt;"
+      width="32"
+      height="32"
+      fill="none"
+    />
+    <path d="M16,2A14,14,0,1,0,30,16,14,14,0,0,0,16,2Zm0,26A12,12,0,1,1,28,16,12,12,0,0,1,16,28Zm1-13h7v2H17v7H15V17H8V15h7V8h2Z" />
+  </svg>
+);
+
+export const chevronIcon = (
+  <svg viewBox="0 0 16 16">
+    <rect
+      data-name="&lt;Transparent Rectangle&gt;"
+      width="16"
+      height="16"
+      fill="none"
+    />
+    <path d="M12.29,10.71,8,6.41l-4.29,4.3L3,10,8,5l5,5Z" />
+  </svg>
+);

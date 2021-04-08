@@ -1,12 +1,12 @@
 import React, { Children, cloneElement, useContext } from 'react';
 import Tile from '../../atoms/Tile';
 import Button from '../../atoms/Button';
-import LogicDispatchContext from './logicDispatchContext';
+import LogicDispatchContext from './LogicDispatchContext';
 import LogicStateContext from './LogicStateContext';
 import PropTypes from 'prop-types';
+import { addMoreIcon, chevronIcon } from '../../util/icons';
 const LogicItem = ({
   id,
-  item,
   tileHeader,
   logicType,
   actionTemplate,
@@ -16,8 +16,8 @@ const LogicItem = ({
   showAddMore,
   addItem,
   query,
-  expanded,
-  onToggle
+  onToggle,
+  ...restProps
 }) => {
   const dispatch = useContext(LogicDispatchContext);
   const state = useContext(LogicStateContext);
@@ -33,14 +33,12 @@ const LogicItem = ({
           childrenCount > 0 && !state.expandedQueries[id + '']
             ? 'expanded-tile'
             : 'collapsed-tile'
+        } ${childrenCount > 0 ? 'children-exist' : ''} ${
+          !tileHeader ? 'no-title' : ''
         }`}
       >
-        {tileHeader ? (
-          <p className="tile-header">{tileHeader}</p>
-        ) : (
-          <p className="tile-header">&nbsp;</p>
-        )}
-        <Tile>
+        {tileHeader ? <p className="tile-header">{tileHeader}</p> : null}
+        <Tile {...restProps}>
           <div className="logic-builder-item-wrapper">
             <div className="logic-builder-item">
               <div className="logic-builder-item-header">
@@ -51,8 +49,11 @@ const LogicItem = ({
                 <div className="logic-builder-item-header-right">
                   {actionTemplate}
                   <Button
-                    title="Default"
+                    title="Toggle icon"
                     type="ghost"
+                    className={`toggle-icon${
+                      state.expandedQueries[id + ''] ? ' collapsed' : ''
+                    }`}
                     onClick={() => {
                       dispatch({
                         type: 'TOGGLE_LOGIC_ITEM',
@@ -64,11 +65,7 @@ const LogicItem = ({
                       }
                     }}
                   >
-                    <i
-                      className={`p-hclsw p-hclsw-chevron-${
-                        state.expandedQueries[id + ''] ? 'up' : 'down'
-                      }`}
-                    />
+                    {chevronIcon}
                   </Button>
                 </div>
               </div>
@@ -89,8 +86,8 @@ const LogicItem = ({
 
                 {showAddMore ? (
                   <li className="logic-builder-list add-more-element">
-                    <Button title="Default" type="ghost" onClick={addItem}>
-                      <i className="p-hclsw p-hclsw-add-circle" />
+                    <Button title="Add more" type="ghost" onClick={addItem}>
+                      {addMoreIcon}
                     </Button>
                   </li>
                 ) : null}
@@ -103,8 +100,63 @@ const LogicItem = ({
   );
 };
 
-LogicItem.propTypes = { expanded: PropTypes.bool };
+LogicItem.propTypes = {
+  /** Unique id */
+  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  /** to specify the tile header */
+  tileHeader: PropTypes.string,
+  /** used for passing the component for choosing the logic type */
+  logicType: PropTypes.node,
+  /** Used for passing the component for actions. eg : overflow menu, button etc  */
+  actionTemplate: PropTypes.node,
+  /** Used to passing the propery, operator and value template */
+  content: PropTypes.node,
+  /**
+   * Used for passing sublogic items. Expecting **LogicItem** component
+   */
+  children: PropTypes.node,
+  /**
+   * @ignore
+   */
+  isLastElement: PropTypes.bool,
+  /**
+   * Is used to show add more button
+   */
+  showAddMore: PropTypes.bool,
+  /**
+   * Callback function onclick of add more button
+   *
+   * @signature
+   * ```event``` : click event
+   */
+  addItem: PropTypes.func,
+  /**
+   * Used for passing the query rule.
+   */
+  query: PropTypes.node,
+  /**
+   *  Callback function on tile toggle
+   *
+   *
+   * @signature
+   * ```id``` : tile id
+   *
+   */
+  onToggle: PropTypes.func
+};
 
-LogicItem.defaultProps = { expanded: false };
+LogicItem.defaultProps = {
+  id: null,
+  tileHeader: null,
+  logicType: null,
+  actionTemplate: null,
+  content: null,
+  children: null,
+  isLastElement: false,
+  showAddMore: false,
+  addItem: null,
+  query: null,
+  onToggle: null
+};
 
 export default LogicItem;
