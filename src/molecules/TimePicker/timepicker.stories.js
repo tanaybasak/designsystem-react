@@ -1,13 +1,19 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { text, boolean } from '@storybook/addon-knobs';
+import { text, boolean, object } from '@storybook/addon-knobs';
 //@update-path-build-start
 import TimePicker from './TimePicker';
 //@update-path-build-end
 
+const defaultTime = {
+  time: '1:24',
+  period: 'PM',
+  timezone: 'Time zone 2'
+};
+
 const timeZones = ['Time zone 1', 'Time zone 2', 'Time zone 3'];
-storiesOf('TimePicker', module)
+storiesOf('Components/Time Picker', module)
   .add(
     'default',
     () => (
@@ -18,12 +24,13 @@ storiesOf('TimePicker', module)
         disabled={boolean('Disabled', false)}
         onChange={action('Timepicker Onchange')}
         aria-label="Time Picker"
+        defaultTime={object('Default Time', defaultTime)}
       />
     ),
     {
       info: {
-        text: `Description About TimePicker Component \n
-      import { TimePicker } from '@patron/patron-react/timepicker';`
+        text: `Description About TimePicker Component`,
+        document: ['TimePicker']
       }
     }
   )
@@ -39,12 +46,13 @@ storiesOf('TimePicker', module)
         disabled={boolean('Disabled', false)}
         onChange={action('Timepicker Onchange')}
         aria-label="Time Picker"
+        defaultTime={object('Default Time', defaultTime)}
       />
     ),
     {
       info: {
-        text: `Description About TimePicker Component \n
-        import { TimePicker } from '@patron/patron-react/timepicker';`
+        text: `Description About TimePicker Component`,
+        document: ['TimePicker']
       }
     }
   )
@@ -58,13 +66,14 @@ storiesOf('TimePicker', module)
         disabled={boolean('Disabled', false)}
         onChange={action('Timepicker Onchange')}
         timeZones={timeZones}
+        defaultTime={object('Default Time', defaultTime)}
         aria-label="Time Picker"
       />
     ),
     {
       info: {
-        text: `Description About TimePicker Component \n
-        import { TimePicker } from '@patron/patron-react/timepicker';`
+        text: `Description About TimePicker Component`,
+        document: ['TimePicker']
       }
     }
   );

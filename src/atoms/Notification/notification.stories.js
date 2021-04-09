@@ -13,7 +13,7 @@ const notificationType = {
   Danger: 'danger'
 };
 
-storiesOf('Notification', module).add(
+storiesOf('Components/Notification', module).add(
   'default',
   () => (
     <Notification
@@ -27,11 +27,8 @@ storiesOf('Notification', module).add(
   ),
   {
     info: {
-      text: `Description About Notification Component\n
-      
-      import { Notification } from '@patron/patron-react/notification';
-      
-      `
+      text: `Description About Notification Component`,
+      document: ['Notification']
     }
   }
 );

@@ -75,7 +75,15 @@ const InPageNavigation = ({ listItems, ...restProps }) => {
 };
 
 InPageNavigation.propTypes = {
-  /** List items for Timeline eg:[{label : 'Overview', link: 'Overview'}]. */
+  /** List items for Timeline
+   * eg:
+   *
+   * ```
+   * [
+   *    {label : 'Overview', link: 'Overview'}
+   * ]
+   * ```
+   * */
   listItems: PropTypes.arrayOf(
     PropTypes.shape({
       label: PropTypes.string,

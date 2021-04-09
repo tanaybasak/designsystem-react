@@ -13,6 +13,7 @@ const Tile = ({
   href,
   foldContentAbove,
   foldContentBelow,
+  onChange,
   ...restProps
 }) => {
   let classNames = null;
@@ -23,6 +24,7 @@ const Tile = ({
 
   const toggle = () => {
     setChecked(!checked);
+    onChange(!checked);
   };
 
   const keyDownOnTile = e => {
@@ -35,6 +37,7 @@ const Tile = ({
       if (input) {
         setChecked(!checked);
       }
+      onChange(!checked);
     }
   };
 
@@ -148,10 +151,12 @@ Tile.propTypes = {
   /** Class/clasess will be applied on the parent div of Tile */
   className: PropTypes.string,
 
-  /** Readable: This is for readable Tile. 
-  Clickable: This is for clickable Tile. 
-  Selectable: This is for selectable Tile. 
-  Expandable: This is for expandable Tile.  */
+  /**
+   * * ```Readable```: This is for readable Tile.
+   * * ```Clickable```: This is for clickable Tile.
+   * * ```Selectable```: This is for selectable Tile.
+   * * ```Expandable```: This is for expandable Tile.
+   *  */
   type: PropTypes.oneOf(['clickable', 'selectable', 'expandable', 'readable']),
 
   /** expandableType: top or bottom arrow option. */
@@ -160,6 +165,13 @@ Tile.propTypes = {
   foldContentAbove: PropTypes.node,
   /**  Content below expandable tile */
   foldContentBelow: PropTypes.node,
+
+  /** Accepts event handler as prop/argument.
+   *
+   * @signature
+   * ```toggle``` : expandable tile toggle value
+   */
+  onChange: PropTypes.func,
 
   /** For Readable, Clickable & Selectable Tile:  
   Content for tile. */
@@ -197,7 +209,8 @@ Tile.defaultProps = {
   type: 'readable',
   expandableType: 'bottom',
   foldContentAbove: null,
-  foldContentBelow: null
+  foldContentBelow: null,
+  onChange: () => {}
 };
 
 export default Tile;

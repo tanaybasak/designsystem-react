@@ -41,6 +41,7 @@ import Footer from './molecules/Footer';
 import { ActionBar, ActionSummary, ActionList } from './molecules/ActionBar';
 import { ToolBar, ToolBarActions } from './molecules/ToolBar';
 import Password from './atoms/Password';
+//import Overlay from './atoms/Overlay';
 
 class App extends Component {
   state = {
@@ -71,7 +72,25 @@ class App extends Component {
     password: {
       disabled: false
     },
-    tabidx: 0
+    tabidx: 0,
+    wizardmodel: [
+      {
+        title: 'Little lillies',
+        description: "It's flowering always"
+      },
+      {
+        title: 'Address',
+        description: 'Input your present address'
+      },
+      {
+        title: 'Card',
+        description: 'Enter your card details'
+      },
+      {
+        title: 'Alternate Contact',
+        description: 'Alternate Contact'
+      }
+    ]
   };
 
   position = {
@@ -331,6 +350,7 @@ class App extends Component {
       <>
         <main className="hcl-content-main">
           <section className="hcl-container pt-5 mb-5">
+            {/* <Wizard activeIndex={0} model={this.state.wizardmodel} /> */}
             <div className="hcl-row m-0">
               {/* Input Field */}
 
@@ -1023,6 +1043,9 @@ class App extends Component {
                           passages, and more recently with desktop publishing
                           software like Aldus PageMaker including versions of
                           Lorem Ipsum.
+                          <a target="_blank" rel="noreferrer" href={'#'}>
+                            JiraUrl
+                          </a>
                         </Paragraph>
                       </AccordionItem>
                       <AccordionItem
@@ -1160,7 +1183,9 @@ class App extends Component {
                       </AccordionItem>
                     </Accordion>
                   </Tab>
-                  <Tab label="Tab List 3">Content 3</Tab>
+                  <Tab label="Tab List 3" className="ddd">
+                    Content 3
+                  </Tab>
                 </Tabs>
               </div>
               <section
@@ -1507,7 +1532,6 @@ class App extends Component {
                 </div>
               </section>
             </div>
-
             {/* Accordion Component */}
             <div className="hcl-col-12 mt-5 mb-5">
               <Accordion>

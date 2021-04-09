@@ -133,14 +133,6 @@ Password.propTypes = {
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   /** The default Value of the field on rendering. */
   defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  /** Event to subscribe when the value of the Input field changes. */
-  onChange: PropTypes.func,
-  /** Event to subscribe when the Input field is clicked. */
-  onClick: PropTypes.func,
-  /** Event to subscribe when the Input field is focused. */
-  onFocus: PropTypes.func,
-  /** Event to subscribe when the Input field is Blurred. */
-  onBlur: PropTypes.func,
   /** Used to provide custom message for tooltip */
   tooltipMessage: PropTypes.shape({
     showPassword: PropTypes.string,
@@ -151,10 +143,6 @@ Password.propTypes = {
 Password.defaultProps = {
   className: '',
   disabled: false,
-  onChange: () => {},
-  onClick: () => {},
-  onFocus: () => {},
-  onBlur: () => {},
   tooltipMessage: {
     showPassword: 'Show Password',
     hidePassword: 'Hide Password'

@@ -60,6 +60,25 @@ const items = [
   }
 ];
 
+const internalitems = [
+  {
+    icon: <i className={`p-hclsw p-hclsw-${icons[2]}`} />,
+    statusIcon: <i className={`p-hclsw p-hclsw-${icons[2]}`} />,
+    title: 'Category One'
+  },
+  {
+    icon: <i className={`p-hclsw p-hclsw-${icons[1]}`} />,
+    statusIcon: <i className={`p-hclsw p-hclsw-${icons[2]}`} />,
+    title: 'Category Two'
+  },
+  {
+    icon: <i className={`p-hclsw p-hclsw-${icons[1]}`} />,
+    statusIcon: <i className={`p-hclsw p-hclsw-${icons[2]}`} />,
+    title: 'Category Three',
+    href: '#10'
+  }
+];
+
 const positionOptions = {
   top: 'top',
   bottom: 'bottom'
@@ -75,7 +94,7 @@ const typeOptions = {
   default: 'default'
 };
 
-storiesOf('Sidebar', module)
+storiesOf('Components/Sidebar', module)
   .add(
     'default',
     () => (
@@ -96,11 +115,8 @@ storiesOf('Sidebar', module)
     ),
     {
       info: {
-        text: `Description About Sidebar Component
-      
-      import { Sidebar } from '@patron/patron-react/sidebar';
-    import { Icon } from '@patron/patron-react/icon';
-      `
+        text: `Description About Sidebar Component`,
+        document: ['Sidebar']
       }
     }
   )
@@ -120,15 +136,15 @@ storiesOf('Sidebar', module)
         onClick={action('link clicked')}
         toggleSidebar={action('Toggle Sidebar')}
         responsive={boolean('responsive', false)}
+        headerPosition={select('headerPosition', positionOptions, 'top')}
+        headerBranding={select('headerBranding', headerBranding, 'default')}
+        headerVisible={boolean('headerVisible', true)}
       />
     ),
     {
       info: {
-        text: `Description About Sidebar Component
-      
-      import { Sidebar } from '@patron/patron-react/sidebar';
-    import { Icon } from '@patron/patron-react/icon';
-      `
+        text: `Description About Sidebar Component`,
+        document: ['Sidebar']
       }
     }
   )
@@ -138,12 +154,18 @@ storiesOf('Sidebar', module)
       <Sidebar
         title={text('Title', 'Default')}
         icon={
-          <i
-            className={`p-hclsw p-hclsw-${select('Title Icon', icons, 'user')}`}
-          />
+          boolean('Show Header Icon', true) ? (
+            <i
+              className={`p-hclsw p-hclsw-${select(
+                'Title Icon',
+                icons,
+                'user'
+              )}`}
+            />
+          ) : null
         }
         expanded={boolean('Expanded', true)}
-        items={items}
+        items={internalitems}
         headerVisible={boolean('headerVisible', true)}
         headerPosition={select('headerPosition', positionOptions, 'top')}
         headerBranding={select('headerBranding', headerBranding, 'primary')}
@@ -155,12 +177,8 @@ storiesOf('Sidebar', module)
     ),
     {
       info: {
-        text: `Description About Sidebar Component
-
-      import { Sidebar } from '@patron/patron-react/sidebar';
-    import { Icon } from '@patron/patron-react/icon';
-
-      `
+        text: `Description About Sidebar Component`,
+        document: ['Sidebar']
       }
     }
   );

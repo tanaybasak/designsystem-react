@@ -1,6 +1,5 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
 import { select, text, boolean } from '@storybook/addon-knobs';
 //@update-path-build-start
 import Button from './Button';
@@ -19,7 +18,7 @@ const classOptions = [
 
 const typeOptions = ['button', 'reset', 'submit'];
 
-storiesOf('Button', module)
+storiesOf('Components/Button', module)
   .add(
     'default',
     () => (
@@ -29,18 +28,14 @@ storiesOf('Button', module)
         title="Default"
         disabled={boolean('Disabled', false)}
         small={boolean('Small', false)}
-        onClick={action('button-click')}
       >
         {text('Label', 'Click Me')}
       </Button>
     ),
     {
       info: {
-        text: `Description About Button Component \n
-
-    import { Button } from '@patron/patron-react/button';
-      
-      `
+        text: `Description About Button Component`,
+        document: ['Button']
       }
     }
   )
@@ -53,7 +48,6 @@ storiesOf('Button', module)
         title="Default"
         disabled={boolean('Disabled', false)}
         small={boolean('Small', false)}
-        onClick={action('button-click')}
       >
         <i
           className={`p-hclsw p-hclsw-${select('Icon Class', icons, 'user')}`}
@@ -62,11 +56,9 @@ storiesOf('Button', module)
     ),
     {
       info: {
-        text: `Description About Button Component \n
-
-    import { Button } from '@patron/patron-react/button';
-      
-      `
+        text: `Description About Button Component 
+      `,
+        document: ['Button']
       }
     }
   )
@@ -79,7 +71,6 @@ storiesOf('Button', module)
         title="Default"
         disabled={boolean('Disabled', false)}
         small={boolean('Small', false)}
-        onClick={action('button-click')}
       >
         {text('Label', 'Click Me')}
         <i
@@ -93,11 +84,8 @@ storiesOf('Button', module)
     ),
     {
       info: {
-        text: `Description About Button Component \n
-
-    import { Button } from '@patron/patron-react/button';
-      
-      `
+        text: `Description About Button Component`,
+        document: ['Button']
       }
     }
   );

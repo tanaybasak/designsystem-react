@@ -145,7 +145,7 @@ const Sidebar = ({
       iconClasses.push('no-icon');
     }
 
-    if (!item.children?.length && !item.statusIcon) {
+    if (!(item.children && item.children.length) && !item.statusIcon) {
       iconClasses.push('no-statusicon');
     }
     return iconClasses.join(` `);
@@ -483,14 +483,18 @@ Sidebar.propTypes = {
   icon: PropTypes.element,
   /** Callback function that is invoked when Sidebar link is clicked
    *
-   * Argument – link , event
+   * @signature
+   * * ```item``` : sidebar link
+   * * ```event``` : click event
    */
   onClick: PropTypes.func,
   /** Making sidebar responsive */
   responsive: PropTypes.bool,
   /** Callback function that is invoked when Sidebar Toggled
    *
-   * Argument – toggleStatus , event
+   * @signature
+   * * ```argument``` : toggleStatus
+   * * ```event``` : click event
    */
   toggleSidebar: PropTypes.func
 };
@@ -503,7 +507,7 @@ Sidebar.defaultProps = {
   title: '',
   items: [],
   disabled: false,
-  headerPosition: 'bottom',
+  headerPosition: 'top',
   headerVisible: true,
   headerBranding: 'default',
   type: 'default',

@@ -1,11 +1,12 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
+import { action } from '@storybook/addon-actions';
 import { text } from '@storybook/addon-knobs';
 //@update-path-build-start
 import Tile from './Tile';
 //@update-path-build-end
 
-storiesOf('Tile', module)
+storiesOf('Components/Tile', module)
   .add(
     'default',
     () => (
@@ -17,8 +18,8 @@ storiesOf('Tile', module)
     ),
     {
       info: {
-        text: `Description About Tile Component \n
-        import { Tile } from '@patron/patron-react/tile';`
+        text: `Description About Tile Component`,
+        document: ['Tile']
       }
     }
   )
@@ -33,8 +34,8 @@ storiesOf('Tile', module)
     ),
     {
       info: {
-        text: `Description About Tile Component \n
-        import { Tile } from '@patron/patron-react/tile';`
+        text: `Description About Tile Component`,
+        document: ['Tile']
       }
     }
   )
@@ -49,8 +50,8 @@ storiesOf('Tile', module)
     ),
     {
       info: {
-        text: `Description About Tile Component \n
-        import { Tile } from '@patron/patron-react/tile';`
+        text: `Description About Tile Component`,
+        document: ['Tile']
       }
     }
   )
@@ -62,12 +63,13 @@ storiesOf('Tile', module)
         type="expandable"
         foldContentAbove={text('Content Above', 'Content Above')}
         foldContentBelow={text('Content Below', 'Content Below')}
+        onChange={action('Toggle')}
       />
     ),
     {
       info: {
-        text: `Description About Tile Component \n
-        import { Tile } from '@patron/patron-react/tile';`
+        text: `Description About Tile Component`,
+        document: ['Tile']
       }
     }
   )
@@ -80,12 +82,13 @@ storiesOf('Tile', module)
         expandableType="top"
         foldContentAbove={text('Content Above', 'Content Above')}
         foldContentBelow={text('Content Below', 'Content below')}
+        onChange={action('Toggle')}
       />
     ),
     {
       info: {
-        text: `Description About Tile Component \n
-        import { Tile } from '@patron/patron-react/tile';`
+        text: `Description About Tile Component`,
+        document: ['Tile']
       }
     }
   );

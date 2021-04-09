@@ -5,14 +5,13 @@ import { text } from '@storybook/addon-knobs';
 import Link from './Link';
 //@update-path-build-end
 
-storiesOf('Link', module).add(
+storiesOf('Components/Link', module).add(
   'default',
   () => <Link href={text('URL', '#')}>{text('Label', 'Link')}</Link>,
   {
     info: {
-      text: `Description About Link Component \n
-      
-      import { Link } from '@patron/patron-react/link';`
+      text: `Description About Link Component`,
+      document: ['Link']
     }
   }
 );

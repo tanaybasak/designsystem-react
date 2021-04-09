@@ -17,7 +17,7 @@ const classOptions = {
   Ghost: 'hcl-btn hcl-ghost'
 };
 
-storiesOf('FileUploader', module)
+storiesOf('Components/File Uploader', module)
   .add(
     'default',
     () => (
@@ -40,11 +40,8 @@ storiesOf('FileUploader', module)
     ),
     {
       info: {
-        text: `Description About FileUploader Component
-
-      import { FileUploader } from '@patron/patron-react/fileuploader';
-
-      `
+        text: `Description About FileUploader Component`,
+        document: ['FileUploader']
       }
     }
   )
@@ -71,11 +68,8 @@ storiesOf('FileUploader', module)
     ),
     {
       info: {
-        text: `Description About FileUploader Component
-
-      import { FileUploader } from '@patron/patron-react/fileuploader';
-
-      `
+        text: `Description About FileUploader Component`,
+        document: ['FileUploader']
       }
     }
   );

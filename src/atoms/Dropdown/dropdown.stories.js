@@ -25,7 +25,7 @@ const items = [
   }
 ];
 
-storiesOf('Dropdown', module)
+storiesOf('Components/Dropdown', module)
   .add(
     'default',
     () => (
@@ -38,8 +38,9 @@ storiesOf('Dropdown', module)
     ),
     {
       info: {
-        text: `Description About Dropdown Component \n
-        import { Dropdown } from '@patron/patron-react/dropdown';`
+        text: `Description About Dropdown Component`,
+        className: 'hcl-col-12 hcl-col-sm-8 hcl-col-lg-4',
+        document: ['Dropdown']
       }
     }
   )
@@ -57,8 +58,9 @@ storiesOf('Dropdown', module)
     ),
     {
       info: {
-        text: `Description About Dropdown Component \n
-        import { Dropdown } from '@patron/patron-react/dropdown';`
+        text: `Description About Dropdown Component`,
+        className: 'hcl-col-12 hcl-col-sm-8 hcl-col-lg-4',
+        document: ['Dropdown']
       }
     }
   )
@@ -75,8 +77,9 @@ storiesOf('Dropdown', module)
     ),
     {
       info: {
-        text: `Description About Dropdown Component \n
-        import { Dropdown } from '@patron/patron-react/dropdown';`
+        text: `Description About Dropdown Component`,
+        className: 'hcl-col-12 hcl-col-sm-8 hcl-col-lg-4',
+        document: ['Dropdown']
       }
     }
   );

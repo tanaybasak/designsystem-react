@@ -6,6 +6,8 @@ import Toggle from '../../atoms/Toggle';
 import Checkbox from '../../atoms/Checkbox';
 import DataTable from '../../atoms/DataTable';
 import { Overflowmenu } from '../../molecules/Overflowmenu';
+import Dropdown from '../../atoms/Dropdown';
+
 class TableExample extends Component {
   state = {
     tableData: [],
@@ -61,14 +63,14 @@ class TableExample extends Component {
           </Tag>
         ),
         bodyCellClass: 'custom-body-id-class',
-        width: '60px',
-        pinned: 'left'
+        width: '60px'
+        // pinned: 'left'
       },
 
       {
         label: 'Avatar',
         field: 'avtar',
-        pinned: 'right',
+        // pinned: 'right',
 
         renderHtml: model => {
           return (
@@ -78,7 +80,44 @@ class TableExample extends Component {
             />
           );
         },
-        columnHtml: <h6> this is temp</h6>,
+        // columnHtml: <h6> this is temp</h6>,
+        columnHtml: (
+          <Dropdown
+            type="top"
+            items={[
+              {
+                id: 'option-1',
+                text: 'Option 1'
+              },
+              {
+                id: 'option-2',
+                text: 'Option 2'
+              },
+              {
+                id: 'option-3',
+                text: 'Option 3'
+              },
+              {
+                id: 'option-4',
+                text: 'Option 4'
+              },
+              {
+                id: 'option-5',
+                text: 'Option 5'
+              },
+              {
+                id: 'option-6',
+                text: 'Option 6'
+              }
+            ]}
+            label="Top DropDown"
+            selectedItem="option-3"
+            attachElementToBody
+            onChange={selected => {
+              console.log('selected item', selected);
+            }}
+          />
+        ),
         width: '260px',
         minResizeWidth: 40, // not less than that
         maxResizeWidth: 350 // not to restrict
@@ -208,11 +247,11 @@ class TableExample extends Component {
               id="sample_table"
               tableData={this.state.displayData}
               tableConfig={this.state.tableConfig}
-              resizable
               isHeaderSticky
               onColumnAfterResize={this.colResize}
               initSortedColumn={this.state.initSortedColumn}
               columnDraggable
+              resizer
               selectedItem={this.state.selectedItem}
               onColumnReorder={dataTableConfig => {
                 console.log('dataTableConfig', dataTableConfig);
