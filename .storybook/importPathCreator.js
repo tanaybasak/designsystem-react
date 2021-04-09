@@ -5,12 +5,13 @@ const rootFolders = ['atoms', 'molecules'];
 let folderComponentMapNew = {};
 rootFolders.forEach(rootFile => {
   const componentsFolders = fs.readdirSync(rootFolder + '/' + rootFile);
-  try {
-    componentsFolders.forEach(componentFolder => {
+  componentsFolders.forEach(componentFolder => {
+    try {
       let importData = fs.readFileSync(
         rootFolder + '/' + rootFile + '/' + componentFolder + '/index.js',
         'utf8'
       );
+    
       let importDatamodules = importData.match(/(?<=export {\s+).*?(?=\s+})/gs);
       if (importDatamodules) {
         importDatamodules.map(importModule => {
@@ -27,10 +28,11 @@ rootFolders.forEach(rootFile => {
           importDatamodules.trim()
         ] = componentFolder.toLowerCase();
       }
-    });
-  } catch (e) {
-    console.log(e);
-  }
+    }
+    catch (e) {
+      console.log(e);
+    }
+  });
 });
 
 fs.writeFileSync(
