@@ -1,0 +1,88 @@
+/* #root {
+    padding: 3rem;
+}
+
+.code-snippet-container {
+    padding-top: 3rem;
+}
+
+.hcl-snippet-code {
+    position: relative;
+    width: 100%;
+    padding-bottom: 2rem;
+}
+
+.hcl-snippet-code h5 {
+    padding-bottom: 1rem;
+}
+
+.hcl-snippet-code .hcl-snippet-copy-to-clipboard {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 0;
+    height: 1.375rem;
+    width: 1.375rem;
+    background: transparent;
+    margin: 0.25rem;
+    cursor: pointer;
+}
+
+.line-numbers {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.88em;
+    font-family: Menlo, Monaco, "Courier New", monospace;
+    padding: 0.5rem;
+    line-height: 1.5;
+    overflow-x: scroll;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background: #ffffff;
+}
+
+.hcl-document tbody td:nth-child(4),
+.hcl-document tbody td:nth-child(5) {
+    white-space: pre-wrap;
+
+}
+
+.component-title {
+    padding: 8px 0;
+}  */
+
+#root .hcl-codesnippet-wrapper .hcl-codesnippet .hcl-codesnippet-copy.hcl-btn {
+    margin: 0!important;
+}
+
+.hcl-markdown-wrapper p{
+    font-size: 14px !important;
+}
+
+.hcl-markdown-wrapper strong {
+    font-weight: 700;
+}
+
+.hcl-markdown-wrapper ul {
+    list-style: disc;
+    font-size: .875rem;
+    font-weight: 400;
+    line-height: 1.5rem;
+    letter-spacing: .16px;
+    list-style-position: inside;
+}
+
+.hcl-markdown-wrapper code {
+    font-weight: 400;
+    margin: 2px;
+    background-color: rgba(0,0,0,.04);
+    border-radius: 3px;
+}
+
+.hcl-markdown-wrapper em {
+    font-style: italic;
+}
+
+.codeSnippetSupportedLanguageTable{
+    height: 400px;
+}

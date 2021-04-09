@@ -54,6 +54,12 @@ Radio.propTypes = {
   tooltipTitle: PropTypes.string,
   /** Tooltip Direction eg: top, bottom, left, right */
   tooltipDirection: PropTypes.oneOf(['top', 'bottom', 'left', 'right']),
+  /** Event to subscribe when the Input field is clicked.
+   *
+   * @signature
+   * * ```value``` : radio value
+   * * ```event``` : on change event
+   */
   onChange: PropTypes.func,
   /** Control Checked state for Radio */
   checked: PropTypes.bool,

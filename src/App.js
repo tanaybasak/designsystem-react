@@ -1043,6 +1043,9 @@ class App extends Component {
                           passages, and more recently with desktop publishing
                           software like Aldus PageMaker including versions of
                           Lorem Ipsum.
+                          <a target="_blank" rel="noreferrer" href={'#'}>
+                            JiraUrl
+                          </a>
                         </Paragraph>
                       </AccordionItem>
                       <AccordionItem

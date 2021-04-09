@@ -149,7 +149,7 @@ const typeOptions = {
   default: 'default'
 };
 
-storiesOf('Sidebar', module)
+storiesOf('Components/Sidebar', module)
   .add(
     'default',
     () => (
@@ -170,10 +170,8 @@ storiesOf('Sidebar', module)
     ),
     {
       info: {
-        text: `Description About Sidebar Component
-      
-      import { Sidebar } from '@patron/patron-react/sidebar';
-      `
+        text: `Description About Sidebar Component`,
+        document: ['Sidebar']
       }
     }
   )
@@ -200,10 +198,8 @@ storiesOf('Sidebar', module)
     ),
     {
       info: {
-        text: `Description About Sidebar Component
-      
-      import { Sidebar } from '@patron/patron-react/sidebar';
-      `
+        text: `Description About Sidebar Component`,
+        document: ['Sidebar']
       }
     }
   )
@@ -236,10 +232,8 @@ storiesOf('Sidebar', module)
     ),
     {
       info: {
-        text: `Description About Sidebar Component
-
-      import { Sidebar } from '@patron/patron-react/sidebar';
-      `
+        text: `Description About Sidebar Component`,
+        document: ['Sidebar']
       }
     }
   )
