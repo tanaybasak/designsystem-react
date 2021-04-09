@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Overflowmenu } from '../src/molecules/Overflowmenu';
 import Button from '../src/atoms/Button';
@@ -9,6 +9,22 @@ const PageTheme = () => {
     id: 'blue_active_orange_light',
     name: 'V2 light'
   });
+
+  useEffect(() => {
+    if (
+      document.getElementById('storybook-preview-iframe') &&
+      document.getElementById('storybook-preview-iframe').contentDocument &&
+      document.getElementById('storybook-preview-iframe').contentDocument.body
+    ) {
+      let rootElement = document.getElementById('storybook-preview-iframe')
+        .contentDocument.body;
+      themes.map(theme => {
+        if (rootElement.classList.contains(theme.id)) {
+          setTheme(theme);
+        }
+      });
+    }
+  }, []);
   const themes = [
     {
       id: 'blue_active_blue_light',

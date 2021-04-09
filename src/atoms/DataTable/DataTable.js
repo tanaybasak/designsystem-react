@@ -17,6 +17,7 @@ const DataTable = ({
   onRowSelect,
   triStateSorting,
   resizable,
+  resizer,
   columnDraggable,
   showDraggableIcon,
   showDraggableIconOnHover,
@@ -32,6 +33,7 @@ const DataTable = ({
 }) => {
   const [rows, updateTableRowData] = useState(tableData);
   const tableRef = useRef(null);
+  const tableWrapperRef = useRef(null);
   const [tableConfiguration, setTableConfiguration] = useState([]);
   // const [sortedColumn, updateSortedColumn] = useState({});
   const [sortedColumn, updateSortedColumn] = useState(multiSort ? [] : {});
@@ -56,7 +58,6 @@ const DataTable = ({
     );
     setTableConfiguration(tempConfig);
   }, [tableConfig]);
-
   useEffect(() => {
     if (
       tableRef.current.parentElement.offsetWidth <
@@ -192,9 +193,69 @@ const DataTable = ({
       : resizable
       ? ' data-table-header'
       : ''
-  }${
-    type.includes('borderless') ? ` ${prefix}-data-table-borderless` : ''
+  }${type.includes('borderless') ? ` ${prefix}-data-table-borderless` : ''}${
+    resizer ? ' hcl-data-table-wrapper-resizer' : ''
   } ${className}`.trim();
+
+  /*   table resize   */
+  let isResizerMouseDown = false;
+  const onTableMouseDown = (direction, e) => {
+    let prevpageY = 0;
+    // let prevpageX = 0;
+    isResizerMouseDown = true;
+    if (!e.type.match(/touch/)) {
+      prevpageY = e.pageY;
+      // prevpageX = e.pageX;
+    } else {
+      prevpageY = e.touches[0].pageY;
+    }
+    /* On Mouse move */
+    const onMouseMove = e => {
+      if (!e.type.match(/touch/)) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+
+      const tableWrapperClientRect = tableWrapperRef.current.getBoundingClientRect();
+      tableWrapperRef.current.style.height =
+        tableWrapperClientRect.height - (prevpageY - e.pageY) + 'px';
+      // tableWrapperRef.current.style.width =
+      //   tableWrapperClientRect.width - (prevpageX - e.pageX) + 'px';
+      prevpageY = e.pageY;
+      // prevpageX = e.pageX;
+    };
+
+    /* On Mouse up */
+    const onMouseUp = e => {
+      if (!e.type.match(/touch/)) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+
+      if (!isResizerMouseDown) return;
+      removeListeners('tablemousemove-' + direction, 'mousemove');
+      removeListeners('tablemouseup-' + direction, 'mouseup');
+    };
+
+    /* Adding Event Listeners */
+    addListener(
+      'tablemousemove-' + direction,
+      'mousemove',
+      e => {
+        onMouseMove(e);
+      },
+      false
+    );
+
+    addListener(
+      'tablemouseup-' + direction,
+      'mouseup',
+      e => {
+        onMouseUp(e);
+      },
+      false
+    );
+  };
 
   /* Table re-size starts */
   const [isMouseDownForResize, setMouseDownonResize] = useState(false);
@@ -507,178 +568,241 @@ const DataTable = ({
     );
   };
 
-  return (
-    <div className={classnames}>
-      <div
-        ref={resizeLineRef}
-        style={{
-          display: isMouseDownForResize ? `block` : `none`
-        }}
-        className={`resize-line`}
-      />
-      <table
-        id={id}
-        ref={tableRef}
-        className={tableClass.join(` `)}
-        role="grid"
-        {...restProps}
-      >
-        <thead>
-          <tr>
-            {tableConfiguration.map((column, index) => {
-              customHeaderFlag || column.columnHtml
-                ? (customHeaderFlag = true)
-                : null;
+  /* table resizer dom */
 
-              column.sortable && multiSort
-                ? (clmnidx = findColumnIndex(column))
-                : null;
-              const thClassName = [];
-              if (column.pinned === 'left') {
-                thClassName.push('sticky-div sticky-left-div');
-              }
-              if (column.pinned === 'right') {
-                thClassName.push('sticky-div sticky-right-div');
-              }
-              if (column.sortable) {
-                thClassName.push('sortable');
-              }
-              if (
-                (resizable && column['allowResize'] !== false) ||
-                !!column['allowResize']
-              ) {
-                thClassName.push('resizable');
-              }
-              if (columnDraggable) {
-                thClassName.push('draggable');
-              }
-              if (column.headerCellClass) {
-                thClassName.push(column.headerCellClass);
-              }
-              return (
-                <th
-                  key={`heading-${index}`}
-                  style={{
-                    minWidth: column.width,
-                    width: column.width,
-                    left: column.marginLeft,
-                    right: column.marginRight,
-                    ...column.styles
-                  }}
-                  title={column.label ? column.label.toString() : ''}
-                  data-column={column.field}
-                  className={thClassName.join(' ')}
-                  tabIndex={column.sortable ? '0' : null}
-                  onClick={column.sortable ? sort.bind(this, column) : null}
-                  onKeyDown={
-                    column.sortable ? sortOnEnter.bind(this, column) : null
-                  }
-                  draggable={columnDraggable && !column.pinned ? true : false}
-                  onDragStart={onDragStart}
-                  onDragLeave={onDragLeave}
-                  onDragOver={onDragOver.bind(this, column.pinned)}
-                  onDrop={
-                    columnDraggable && !column.pinned ? onDrop : undefined
-                  }
-                  onDragEnd={onDragEnd}
-                >
-                  <div className={`${prefix}-data-table-header-wrapper`}>
-                    {headerSelection && column.field === 'checkbox' ? (
-                      headerSelection
-                    ) : (
-                      <>
-                        {showDraggableIcon &&
-                        columnDraggable &&
-                        !column.pinned ? (
-                          <svg
-                            className={`draggable-column mr-1${
-                              showDraggableIconOnHover
-                                ? ' draggable-column-onhover'
-                                : ''
-                            }`}
-                            width="7.5px"
-                            height="12px"
-                            viewBox="0 0 10 16"
-                            version="1.1"
-                          >
-                            <title>drag_indicator</title>
-                            <desc>Created with Sketch.</desc>
-                            <g
-                              id="Icons"
-                              stroke="none"
-                              strokeWidth="1"
-                              fill="none"
-                              fillRule="evenodd"
+  const tableResizerDom = () => {
+    return (
+      <div
+        className={`${prefix}-data-table-resizer`}
+        onMouseDown={onTableMouseDown.bind(this, 'bottom')}
+      />
+    );
+  };
+
+  return (
+    <>
+      <div className={classnames} ref={tableWrapperRef}>
+        <div
+          ref={resizeLineRef}
+          style={{
+            display: isMouseDownForResize ? `block` : `none`
+          }}
+          className={`resize-line`}
+        />
+        <table
+          id={id}
+          ref={tableRef}
+          className={tableClass.join(` `)}
+          role="grid"
+          {...restProps}
+        >
+          <thead>
+            <tr>
+              {tableConfiguration.map((column, index) => {
+                customHeaderFlag || column.columnHtml
+                  ? (customHeaderFlag = true)
+                  : null;
+
+                column.sortable && multiSort
+                  ? (clmnidx = findColumnIndex(column))
+                  : null;
+                const thClassName = [];
+                if (column.pinned === 'left') {
+                  thClassName.push('sticky-div sticky-left-div');
+                }
+                if (column.pinned === 'right') {
+                  thClassName.push('sticky-div sticky-right-div');
+                }
+                if (column.sortable) {
+                  thClassName.push('sortable');
+                }
+                if (
+                  (resizable && column['allowResize'] !== false) ||
+                  !!column['allowResize']
+                ) {
+                  thClassName.push('resizable');
+                }
+                if (columnDraggable) {
+                  thClassName.push('draggable');
+                }
+                if (column.headerCellClass) {
+                  thClassName.push(column.headerCellClass);
+                }
+                return (
+                  <th
+                    key={`heading-${index}`}
+                    style={{
+                      minWidth: column.width,
+                      width: column.width,
+                      left: column.marginLeft,
+                      right: column.marginRight,
+                      ...column.styles
+                    }}
+                    title={column.label ? column.label.toString() : ''}
+                    data-column={column.field}
+                    className={thClassName.join(' ')}
+                    tabIndex={column.sortable ? '0' : null}
+                    onClick={column.sortable ? sort.bind(this, column) : null}
+                    onKeyDown={
+                      column.sortable ? sortOnEnter.bind(this, column) : null
+                    }
+                    draggable={columnDraggable && !column.pinned ? true : false}
+                    onDragStart={onDragStart}
+                    onDragLeave={onDragLeave}
+                    onDragOver={onDragOver.bind(this, column.pinned)}
+                    onDrop={
+                      columnDraggable && !column.pinned ? onDrop : undefined
+                    }
+                    onDragEnd={onDragEnd}
+                  >
+                    <div className={`${prefix}-data-table-header-wrapper`}>
+                      {headerSelection && column.field === 'checkbox' ? (
+                        headerSelection
+                      ) : (
+                        <>
+                          {showDraggableIcon &&
+                          columnDraggable &&
+                          !column.pinned ? (
+                            <svg
+                              className={`draggable-column mr-1${
+                                showDraggableIconOnHover
+                                  ? ' draggable-column-onhover'
+                                  : ''
+                              }`}
+                              width="7.5px"
+                              height="12px"
+                              viewBox="0 0 10 16"
+                              version="1.1"
                             >
+                              <title>drag_indicator</title>
+                              <desc>Created with Sketch.</desc>
                               <g
-                                id="Outlined"
-                                transform="translate(-617.000000, -246.000000)"
+                                id="Icons"
+                                stroke="none"
+                                strokeWidth="1"
+                                fill="none"
+                                fillRule="evenodd"
                               >
                                 <g
-                                  id="Action"
-                                  transform="translate(100.000000, 100.000000)"
+                                  id="Outlined"
+                                  transform="translate(-617.000000, -246.000000)"
                                 >
                                   <g
-                                    id="Outlined-/-Action-/-drag_indicator"
-                                    transform="translate(510.000000, 142.000000)"
+                                    id="Action"
+                                    transform="translate(100.000000, 100.000000)"
                                   >
-                                    <g>
-                                      <polygon
-                                        id="Path"
-                                        points="0 0 24 0 24 24 0 24"
-                                      />
-                                      <path
-                                        d="M11,18 C11,19.1 10.1,20 9,20 C7.9,20 7,19.1 7,18 C7,16.9 7.9,16 9,16 C10.1,16 11,16.9 11,18 Z M9,10 C7.9,10 7,10.9 7,12 C7,13.1 7.9,14 9,14 C10.1,14 11,13.1 11,12 C11,10.9 10.1,10 9,10 Z M9,4 C7.9,4 7,4.9 7,6 C7,7.1 7.9,8 9,8 C10.1,8 11,7.1 11,6 C11,4.9 10.1,4 9,4 Z M15,8 C16.1,8 17,7.1 17,6 C17,4.9 16.1,4 15,4 C13.9,4 13,4.9 13,6 C13,7.1 13.9,8 15,8 Z M15,10 C13.9,10 13,10.9 13,12 C13,13.1 13.9,14 15,14 C16.1,14 17,13.1 17,12 C17,10.9 16.1,10 15,10 Z M15,16 C13.9,16 13,16.9 13,18 C13,19.1 13.9,20 15,20 C16.1,20 17,19.1 17,18 C17,16.9 16.1,16 15,16 Z"
-                                        id="🔹-Icon-Color"
-                                      />
+                                    <g
+                                      id="Outlined-/-Action-/-drag_indicator"
+                                      transform="translate(510.000000, 142.000000)"
+                                    >
+                                      <g>
+                                        <polygon
+                                          id="Path"
+                                          points="0 0 24 0 24 24 0 24"
+                                        />
+                                        <path
+                                          d="M11,18 C11,19.1 10.1,20 9,20 C7.9,20 7,19.1 7,18 C7,16.9 7.9,16 9,16 C10.1,16 11,16.9 11,18 Z M9,10 C7.9,10 7,10.9 7,12 C7,13.1 7.9,14 9,14 C10.1,14 11,13.1 11,12 C11,10.9 10.1,10 9,10 Z M9,4 C7.9,4 7,4.9 7,6 C7,7.1 7.9,8 9,8 C10.1,8 11,7.1 11,6 C11,4.9 10.1,4 9,4 Z M15,8 C16.1,8 17,7.1 17,6 C17,4.9 16.1,4 15,4 C13.9,4 13,4.9 13,6 C13,7.1 13.9,8 15,8 Z M15,10 C13.9,10 13,10.9 13,12 C13,13.1 13.9,14 15,14 C16.1,14 17,13.1 17,12 C17,10.9 16.1,10 15,10 Z M15,16 C13.9,16 13,16.9 13,18 C13,19.1 13.9,20 15,20 C16.1,20 17,19.1 17,18 C17,16.9 16.1,16 15,16 Z"
+                                          id="🔹-Icon-Color"
+                                        />
+                                      </g>
                                     </g>
                                   </g>
                                 </g>
                               </g>
-                            </g>
-                          </svg>
-                        ) : null}
-                        <span
-                          className={`hcl-data-table-header${
-                            removeHeaderNowrap ? ' nowrap' : ''
-                          }`}
-                        >
-                          {column.label}
-                        </span>
-                        {(resizable && column['allowResize'] !== false) ||
-                        !!column['allowResize'] ? (
+                            </svg>
+                          ) : null}
                           <span
-                            className={`hcl-data-table-resizable`}
-                            onMouseDown={onColumnMouseDown.bind(
-                              this,
-                              column,
-                              index
-                            )}
-                            onTouchStart={onColumnMouseDown.bind(
-                              this,
-                              column,
-                              index
-                            )}
+                            className={`hcl-data-table-header${
+                              removeHeaderNowrap ? ' nowrap' : ''
+                            }`}
                           >
-                            <span className={`resize-handle`} />
+                            {column.label}
                           </span>
-                        ) : null}
-                      </>
-                    )}
+                          {(resizable && column['allowResize'] !== false) ||
+                          !!column['allowResize'] ? (
+                            <span
+                              className={`hcl-data-table-resizable`}
+                              onMouseDown={onColumnMouseDown.bind(
+                                this,
+                                column,
+                                index
+                              )}
+                              onTouchStart={onColumnMouseDown.bind(
+                                this,
+                                column,
+                                index
+                              )}
+                            >
+                              <span className={`resize-handle`} />
+                            </span>
+                          ) : null}
+                        </>
+                      )}
 
-                    {column.sortable ? (
-                      multiSort ? (
-                        sortedColumn.length &&
-                        clmnidx !== -1 &&
-                        sortedColumn[clmnidx].name === column.field &&
-                        sortedColumn[clmnidx].order ? (
+                      {column.sortable ? (
+                        multiSort ? (
+                          sortedColumn.length &&
+                          clmnidx !== -1 &&
+                          sortedColumn[clmnidx].name === column.field &&
+                          sortedColumn[clmnidx].order ? (
+                            <svg
+                              width="16px"
+                              height="16px"
+                              className={`${prefix}-sorting${
+                                sortedColumn[clmnidx].order === 'desc'
+                                  ? ' desc'
+                                  : ''
+                              }`}
+                              viewBox="0 0 16 16"
+                              version="1.1"
+                            >
+                              <title>Sort Icon</title>
+                              <g
+                                stroke="none"
+                                strokeWidth="1"
+                                fill="none"
+                                fillRule="evenodd"
+                              >
+                                <g transform="translate(4.000000, 2.000000)">
+                                  <line x1="4" y1="12" x2="4" y2="1" />
+                                  <polyline points="8 4.5 4 0.5 0 4.5" />
+                                </g>
+                              </g>
+                            </svg>
+                          ) : (
+                            <svg
+                              width="16px"
+                              className={`${prefix}-sorting`}
+                              height="12px"
+                              viewBox="0 0 16 16"
+                              version="1.1"
+                            >
+                              <title>Unsorted Icon</title>
+                              <g
+                                stroke="none"
+                                strokeWidth="1"
+                                fill="none"
+                                fillRule="evenodd"
+                              >
+                                <g fillRule="nonzero">
+                                  <g>
+                                    <path d="M0.848938817,3.92808987 C0.5730624,4.08135457 0.225174806,3.98195809 0.0719101257,3.70608167 C-0.0813545486,3.43020526 0.0180419086,3.08231766 0.293918326,2.92905298 L5.43677549,0.0719101257 C5.81765046,-0.139687074 6.28571429,0.135723263 6.28571429,0.571428571 L6.28571429,14.8571429 C6.28571429,15.1727341 6.02987697,15.4285714 5.71428571,15.4285714 C5.39869446,15.4285714 5.14285714,15.1727341 5.14285714,14.8571429 L5.14285714,1.54257969 L0.848938817,3.92808987 Z" />
+                                    <path
+                                      d="M14.857143,1.63915229 L10.602686,4.47545698 C10.3400982,4.65051555 9.98531571,4.57955904 9.81025714,4.31697121 C9.63519857,4.05438338 9.70615509,3.6996009 9.96874291,3.52454236 L15.1116001,0.0959709287 C15.4913456,-0.15719278 16.0000002,0.115030877 16.0000002,0.571428237 L16.0000002,14.8571425 C16.0000002,15.1727338 15.7441629,15.4285711 15.4285716,15.4285711 C15.1129803,15.4285711 14.857143,15.1727338 14.857143,14.8571425 L14.857143,1.63915229 Z"
+                                      transform="translate(12.857113, 7.713805) rotate(180.000000) translate(-12.857113, -7.713805) "
+                                    />
+                                  </g>
+                                </g>
+                              </g>
+                            </svg>
+                          )
+                        ) : sortedColumn.name === column.field &&
+                          sortedColumn.order ? (
                           <svg
                             width="16px"
                             height="16px"
                             className={`${prefix}-sorting${
-                              sortedColumn[clmnidx].order === 'desc'
-                                ? ' desc'
-                                : ''
+                              sortedColumn.order === 'desc' ? ' desc' : ''
                             }`}
                             viewBox="0 0 16 16"
                             version="1.1"
@@ -723,182 +847,133 @@ const DataTable = ({
                             </g>
                           </svg>
                         )
-                      ) : sortedColumn.name === column.field &&
-                        sortedColumn.order ? (
-                        <svg
-                          width="16px"
-                          height="16px"
-                          className={`${prefix}-sorting${
-                            sortedColumn.order === 'desc' ? ' desc' : ''
-                          }`}
-                          viewBox="0 0 16 16"
-                          version="1.1"
-                        >
-                          <title>Sort Icon</title>
-                          <g
-                            stroke="none"
-                            strokeWidth="1"
-                            fill="none"
-                            fillRule="evenodd"
-                          >
-                            <g transform="translate(4.000000, 2.000000)">
-                              <line x1="4" y1="12" x2="4" y2="1" />
-                              <polyline points="8 4.5 4 0.5 0 4.5" />
-                            </g>
-                          </g>
-                        </svg>
-                      ) : (
-                        <svg
-                          width="16px"
-                          className={`${prefix}-sorting`}
-                          height="12px"
-                          viewBox="0 0 16 16"
-                          version="1.1"
-                        >
-                          <title>Unsorted Icon</title>
-                          <g
-                            stroke="none"
-                            strokeWidth="1"
-                            fill="none"
-                            fillRule="evenodd"
-                          >
-                            <g fillRule="nonzero">
-                              <g>
-                                <path d="M0.848938817,3.92808987 C0.5730624,4.08135457 0.225174806,3.98195809 0.0719101257,3.70608167 C-0.0813545486,3.43020526 0.0180419086,3.08231766 0.293918326,2.92905298 L5.43677549,0.0719101257 C5.81765046,-0.139687074 6.28571429,0.135723263 6.28571429,0.571428571 L6.28571429,14.8571429 C6.28571429,15.1727341 6.02987697,15.4285714 5.71428571,15.4285714 C5.39869446,15.4285714 5.14285714,15.1727341 5.14285714,14.8571429 L5.14285714,1.54257969 L0.848938817,3.92808987 Z" />
-                                <path
-                                  d="M14.857143,1.63915229 L10.602686,4.47545698 C10.3400982,4.65051555 9.98531571,4.57955904 9.81025714,4.31697121 C9.63519857,4.05438338 9.70615509,3.6996009 9.96874291,3.52454236 L15.1116001,0.0959709287 C15.4913456,-0.15719278 16.0000002,0.115030877 16.0000002,0.571428237 L16.0000002,14.8571425 C16.0000002,15.1727338 15.7441629,15.4285711 15.4285716,15.4285711 C15.1129803,15.4285711 14.857143,15.1727338 14.857143,14.8571425 L14.857143,1.63915229 Z"
-                                  transform="translate(12.857113, 7.713805) rotate(180.000000) translate(-12.857113, -7.713805) "
-                                />
-                              </g>
-                            </g>
-                          </g>
-                        </svg>
-                      )
-                    ) : null}
-                  </div>
-                </th>
-              );
-            })}
-          </tr>
-          {customHeaderFlag ? (
-            <tr>
-              {tableConfiguration.map((column, index) => {
-                const thclassName = [];
-                if (column.pinned === 'left') {
-                  thclassName.push('sticky-div sticky-left-div');
-                }
-                if (column.pinned === 'right') {
-                  thclassName.push('sticky-div sticky-right-div');
-                }
-                if (column.sortable) {
-                  thclassName.push('sortable');
-                }
-                if (
-                  (resizable && column['allowResize'] !== false) ||
-                  !!column['allowResize']
-                ) {
-                  thclassName.push('resizable');
-                }
-                if (column.headerCellClass) {
-                  thclassName.push(column.headerCellClass);
-                }
-                return (
-                  <th
-                    key={`customheader-${index}`}
-                    style={{
-                      minWidth: column.width,
-                      left: column.marginLeft,
-                      right: column.marginRight,
-                      ...column.styles
-                    }}
-                    className={thclassName.join(' ')}
-                  >
-                    {column.columnHtml ? column.columnHtml : null}
+                      ) : null}
+                    </div>
                   </th>
                 );
               })}
             </tr>
-          ) : null}
-        </thead>
-        <tbody>
-          {rows.map((row, index) => (
-            <React.Fragment key={`row-${index}`}>
-              <tr
-                tabIndex={0}
-                className={
-                  selectedItem && selectedItem[row[uniqueKey]]
-                    ? `${prefix}-active-row`
-                    : null
-                }
-                onClick={onRowSelect ? onRowSelect.bind(this, row) : null}
-              >
-                {tableConfiguration.map((column, i) => {
-                  const tdclassName = [];
+            {customHeaderFlag ? (
+              <tr>
+                {tableConfiguration.map((column, index) => {
+                  const thclassName = [];
                   if (column.pinned === 'left') {
-                    tdclassName.push('sticky-div sticky-left-div');
+                    thclassName.push('sticky-div sticky-left-div');
                   }
                   if (column.pinned === 'right') {
-                    tdclassName.push('sticky-div sticky-right-div');
+                    thclassName.push('sticky-div sticky-right-div');
                   }
-                  if (column.bodyCellClass) {
-                    tdclassName.push(column.bodyCellClass);
+                  if (column.sortable) {
+                    thclassName.push('sortable');
+                  }
+                  if (
+                    (resizable && column['allowResize'] !== false) ||
+                    !!column['allowResize']
+                  ) {
+                    thclassName.push('resizable');
+                  }
+                  if (column.headerCellClass) {
+                    thclassName.push(column.headerCellClass);
                   }
                   return (
-                    <td
-                      key={`col-${index}-${i}`}
-                      title={
-                        column.renderHtml
-                          ? null
-                          : row[column.field]
-                          ? row[column.field].toString()
-                          : ''
-                      }
-                      data-label={column.field}
-                      className={tdclassName.join(' ')}
+                    <th
+                      key={`customheader-${index}`}
                       style={{
                         minWidth: column.width,
                         left: column.marginLeft,
                         right: column.marginRight,
                         ...column.styles
                       }}
-                      tabIndex={-1}
-                      onKeyDown={onKeyDownOnTable.bind(this, i)}
+                      className={thclassName.join(' ')}
                     >
-                      {column.renderHtml ? (
-                        column.renderHtml(row)
-                      ) : column.field === 'expand' ? (
-                        <svg
-                          onClick={toggleRow.bind(this, index)}
-                          className={`${
-                            row.expanded
-                              ? `${prefix}-collapse-row`
-                              : `${prefix}-expand-row`
-                          }`}
-                          width="10"
-                          height="5"
-                          viewBox="0 0 10 5"
-                        >
-                          <path d="M0 0l5 4.998L10 0z" fillRule="evenodd" />
-                        </svg>
-                      ) : (
-                        row[column.field]
-                      )}
-                    </td>
+                      {column.columnHtml ? column.columnHtml : null}
+                    </th>
                   );
                 })}
               </tr>
-              {expandRowTemplate && row.expanded ? (
-                <tr tabIndex={0} className={`${prefix}-expanded-row`}>
-                  <td colSpan={tableConfiguration.length}>
-                    <div>{expandRowTemplate(row)}</div>
-                  </td>
+            ) : null}
+          </thead>
+          <tbody>
+            {rows.map((row, index) => (
+              <React.Fragment key={`row-${index}`}>
+                <tr
+                  tabIndex={0}
+                  className={
+                    selectedItem && selectedItem[row[uniqueKey]]
+                      ? `${prefix}-active-row`
+                      : null
+                  }
+                  onClick={onRowSelect ? onRowSelect.bind(this, row) : null}
+                >
+                  {tableConfiguration.map((column, i) => {
+                    const tdclassName = [];
+                    if (column.pinned === 'left') {
+                      tdclassName.push('sticky-div sticky-left-div');
+                    }
+                    if (column.pinned === 'right') {
+                      tdclassName.push('sticky-div sticky-right-div');
+                    }
+                    if (column.bodyCellClass) {
+                      tdclassName.push(column.bodyCellClass);
+                    }
+                    return (
+                      <td
+                        key={`col-${index}-${i}`}
+                        title={
+                          column.renderHtml
+                            ? null
+                            : row[column.field]
+                            ? row[column.field].toString()
+                            : ''
+                        }
+                        data-label={column.field}
+                        className={tdclassName.join(' ')}
+                        style={{
+                          minWidth: column.width,
+                          left: column.marginLeft,
+                          right: column.marginRight,
+                          ...column.styles
+                        }}
+                        tabIndex={-1}
+                        onKeyDown={onKeyDownOnTable.bind(this, i)}
+                      >
+                        {column.renderHtml ? (
+                          column.renderHtml(row)
+                        ) : column.field === 'expand' ? (
+                          <svg
+                            onClick={toggleRow.bind(this, index)}
+                            className={`${
+                              row.expanded
+                                ? `${prefix}-collapse-row`
+                                : `${prefix}-expand-row`
+                            }`}
+                            width="10"
+                            height="5"
+                            viewBox="0 0 10 5"
+                          >
+                            <path d="M0 0l5 4.998L10 0z" fillRule="evenodd" />
+                          </svg>
+                        ) : (
+                          row[column.field]
+                        )}
+                      </td>
+                    );
+                  })}
                 </tr>
-              ) : null}
-            </React.Fragment>
-          ))}
-        </tbody>
-      </table>
-    </div>
+                {expandRowTemplate && row.expanded ? (
+                  <tr tabIndex={0} className={`${prefix}-expanded-row`}>
+                    <td colSpan={tableConfiguration.length}>
+                      <div>{expandRowTemplate(row)}</div>
+                    </td>
+                  </tr>
+                ) : null}
+              </React.Fragment>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      {resizer ? tableResizerDom() : null}
+    </>
   );
 };
 
@@ -1075,7 +1150,9 @@ DataTable.propTypes = {
   /** Used to remove nowwrap style from header title */
   removeHeaderNowrap: PropTypes.bool,
   /** Enable multi-sort functionality in Columns */
-  multiSort: PropTypes.bool
+  multiSort: PropTypes.bool,
+  /** Table Resizer */
+  resizer: PropTypes.bool
 };
 
 DataTable.defaultProps = {
