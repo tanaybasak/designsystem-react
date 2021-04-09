@@ -7,7 +7,7 @@ class SlideoutExample extends Component {
     isOpen: true,
     header: `Slide out Modal title sdf asdf asdf asdf adsf adsf sdfads `,
     type: 'default',
-    direction: 'right',
+    direction: 'left',
     varient: 'large',
     modalActions: [
       { label: 'Save' },

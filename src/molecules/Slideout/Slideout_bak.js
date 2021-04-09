@@ -4,7 +4,7 @@ import { addListener, removeListeners } from '../../util/eventManager';
 import PropTypes from 'prop-types';
 import Actions from '../../atoms/Actions';
 import PropDeprecated from '../../util/PropDeprecated';
-// import { CSSTransition, Transition } from 'react-transition-group';
+import { CSSTransition, Transition } from 'react-transition-group';
 
 let slideoutid = 0;
 
@@ -26,31 +26,27 @@ const Slideout = ({
 
   let classNames = ['hcl-slideout'];
   let classNamesLayout = ['hcl-slideout-layout'];
-  // size of sliedout
   if (varient === 'large') {
     classNamesLayout.push('large');
   }
-  if (varient === 'default') {
-    classNamesLayout.push('default');
-  }
-  //for layout
   if (direction === 'left') {
     classNamesLayout.push('layout-left');
   }
   if (isOpen) {
-    // classNamesLayout.push('show');
-    // if (direction === 'left') {
-    //   classNamesLayout.push('slide-in-left');
-    // } else {
-    //   classNamesLayout.push('slide-in');
-    // }
+    classNamesLayout.push('show');
+    if (direction === 'left') {
+      classNamesLayout.push('slide-in-left');
+    } else {
+      classNamesLayout.push('slide-in');
+    }
   } else {
-    // classNamesLayout.push('hide');
-    // if (direction === 'left') {
-    //   classNamesLayout.push('slide-out-left');
-    // } else {
-    //   classNamesLayout.push('slide-out');
-    // }
+    classNamesLayout.push('hide');
+    if (direction === 'left') {
+      classNamesLayout.push('slide-in-left');
+    } else {
+      classNamesLayout.push('slide-in');
+    }
+    classNamesLayout.push('slide-out');
   }
   if (type === 'default') {
     classNames.push('hcl-slideout__default-border');
@@ -73,28 +69,8 @@ const Slideout = ({
   };
 
   useEffect(() => {
-    if (!isOpen) {
-      // if (layoutRef && layoutRef.current) {
-      //   layoutRef.current.classList.remove('show');
-      // }
-      // setTimeout(() => {
-      //   setOpened(isOpen);
-      // }, 200);
-      // if (layoutRef && layoutRef.current) {
-      //   removeShow();
-      // }
-      setOpened(isOpen);
-    } else {
-      if (layoutRef && layoutRef.current) {
-        addedAnimation = window.requestAnimationFrame(addShow);
-      } else {
-        addedAnimation = window.requestAnimationFrame(addShow);
-      }
-      setOpened(isOpen);
-    }
+    setOpened(isOpen);
   }, [isOpen]);
-
-  let addedAnimation = null;
 
   useEffect(() => {
     if (opened) {
@@ -106,47 +82,13 @@ const Slideout = ({
         },
         true
       );
-      // if (layoutRef && layoutRef.current) {
-      //   addedAnimation = window.requestAnimationFrame(addShow);
-      // setTimeout(() => {
-      //   layoutRef.current.classList.add('show');
-      // }, 200);
-      // }
     } else {
       removeListeners('slideout-' + slideoutid, 'keydown');
-      // if (layoutRef && layoutRef.current) {
-      // removeShow();
-      // window.cancelAnimationFrame(addedAnimation);
-      // setTimeout(() => {
-      //   layoutRef.current.classList.remove('show');
-      // }, 200);
-      // }
-      if (layoutRef && layoutRef.current) {
-        removeShow();
-      }
     }
     return () => {
       removeListeners('slideout-' + slideoutid, 'keydown');
-      // if (layoutRef && layoutRef.current) {
-      // window.cancelAnimationFrame(addedAnimation);
-      // removeShow();
-      // setTimeout(() => {
-      //   layoutRef.current.classList.remove('show');
-      // }, 200);
-      // }
-      if (layoutRef && layoutRef.current) {
-        removeShow();
-      }
     };
   }, [opened]);
-
-  const addShow = () => {
-    layoutRef.current.classList.add('show');
-  };
-
-  const removeShow = () => {
-    layoutRef.current.classList.remove('show');
-  };
 
   const handleKeyDown = e => {
     const key = e.key;
@@ -166,44 +108,65 @@ const Slideout = ({
     }
   };
 
+  // const renderHTML = () => {
+  //   const slideOutEl = (
+  //     <div className={classNames.join(' ')}>
+  //       <div
+  //         className={`hcl-slideout-mask`}
+  //         tabIndex={0}
+  //         onKeyDown={opened ? handleKeyDown.bind(this) : null}
+  //         onClick={opened ? handleClick.bind(this) : null}
+  //       />
+  //       <div ref={layoutRef} className={classNamesLayout.join(' ')}>
+  //         <header className={`hcl-slideout-header`}>
+  //           {header ? (
+  //             <div className={`hcl-slideout-header__text`} title={header}>
+  //               {header}
+  //             </div>
+  //           ) : null}
+  //           <button
+  //             className={`hcl-slideout-close`}
+  //             onClick={handleonClose.bind(this)}
+  //           >
+  //             <svg
+  //               version="1.1"
+  //               xmlns="https://www.w3.org/2000/svg"
+  //               viewBox="0 0 16 16"
+  //             >
+  //               <polygon points="15.393,2.021 13.979,0.607 8,6.586 2.021,0.607 0.607,2.021 6.586,8 0.607,13.979 2.021,15.393 8,9.414  13.979,15.393 15.393,13.979 9.414,8 " />
+  //             </svg>
+  //           </button>
+  //         </header>
+  //         {children ? (
+  //           <section className={`hcl-slideout-content`}>{children}</section>
+  //         ) : null}
+  //         {actions && actions.length ? (
+  //           <footer className={`hcl-slideout-footer`}>
+  //             <Actions actions={actions} />
+  //           </footer>
+  //         ) : null}
+  //       </div>
+  //     </div>
+  //   );
+  //   return slideOutEl;
+  // };
+
   const renderHTML = () => {
     const slideOutEl = (
-      <div className={classNames.join(' ')}>
-        <div
-          className={`hcl-slideout-mask`}
-          tabIndex={0}
-          onKeyDown={opened ? handleKeyDown.bind(this) : null}
-          onClick={opened ? handleClick.bind(this) : null}
-        />
-        <div ref={layoutRef} className={classNamesLayout.join(' ')}>
-          <header className={`hcl-slideout-header`}>
-            {header ? (
-              <div className={`hcl-slideout-header__text`} title={header}>
-                {header}
-              </div>
-            ) : null}
-            <button
-              className={`hcl-slideout-close`}
-              onClick={handleonClose.bind(this)}
-            >
-              <svg
-                version="1.1"
-                xmlns="https://www.w3.org/2000/svg"
-                viewBox="0 0 16 16"
-              >
-                <polygon points="15.393,2.021 13.979,0.607 8,6.586 2.021,0.607 0.607,2.021 6.586,8 0.607,13.979 2.021,15.393 8,9.414  13.979,15.393 15.393,13.979 9.414,8 " />
-              </svg>
-            </button>
-          </header>
-          {children ? (
-            <section className={`hcl-slideout-content`}>{children}</section>
-          ) : null}
-          {actions && actions.length ? (
-            <footer className={`hcl-slideout-footer`}>
-              <Actions actions={actions} />
-            </footer>
-          ) : null}
-        </div>
+      <div className={`${classNames.join(' ')}`}>
+        <CSSTransition
+          in={opened}
+          timeout={150}
+          unmountOnExit
+          classNames={`mask-holder`}
+        >
+          <div
+            className={`hcl-slideout-mask-enter`}
+            tabIndex={0}
+            onKeyDown={opened ? handleKeyDown.bind(this) : null}
+            onClick={opened ? handleClick.bind(this) : null}
+          />
+        </CSSTransition>
       </div>
     );
     return slideOutEl;
