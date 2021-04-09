@@ -74,14 +74,17 @@ const DataTable = ({
     }
   };
 
-  const sort = field => {
+  const sort = (field, e) => {
+    const { metaKey } = e;
     if (multiSort) {
       let tempSortedColumn = [...sortedColumn];
       if (tempSortedColumn.length) {
-        let flag = false;
+        let flag = false,
+          itemIndex = -1;
         for (let i = 0; i < tempSortedColumn.length; i++) {
           if (tempSortedColumn[i].name === field.field) {
             flag = true;
+            itemIndex = i;
             if (tempSortedColumn[i].order === 'asc') {
               tempSortedColumn[i].order = 'desc';
             } else if (tempSortedColumn[i].order === 'desc') {
@@ -95,14 +98,25 @@ const DataTable = ({
           let tempObj = {};
           tempObj.order = 'asc';
           tempObj.name = field.field;
-          tempSortedColumn.push(tempObj);
+          if (metaKey) {
+            tempSortedColumn.push(tempObj);
+          } else {
+            tempSortedColumn = [tempObj];
+          }
+        } else {
+          if (!metaKey) {
+            tempSortedColumn = [tempSortedColumn[itemIndex]];
+          }
         }
       } else {
-        tempSortedColumn[0] = {};
-        tempSortedColumn[0]['order'] = 'asc';
-        tempSortedColumn[0]['name'] = field.field;
+        tempSortedColumn = [
+          {
+            order: 'asc',
+            name: field.field
+          }
+        ];
       }
-      onSort(field.field, tempSortedColumn.order, rows, tempSortedColumn);
+      onSort(field.field, tempSortedColumn[0].order, rows, tempSortedColumn);
       updateSortedColumn(tempSortedColumn);
     } else {
       // single sort
