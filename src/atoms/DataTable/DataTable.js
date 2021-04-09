@@ -102,7 +102,7 @@ const DataTable = ({
         tempSortedColumn[0]['order'] = 'asc';
         tempSortedColumn[0]['name'] = field.field;
       }
-      onSort(field.field, tempSortedColumn, rows, tempSortedColumn);
+      onSort(field.field, tempSortedColumn.order, rows, tempSortedColumn);
       updateSortedColumn(tempSortedColumn);
     } else {
       // single sort
