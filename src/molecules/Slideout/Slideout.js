@@ -121,9 +121,9 @@ const Slideout = ({
       //   layoutRef.current.classList.remove('show');
       // }, 200);
       // }
-      if (layoutRef && layoutRef.current) {
-        removeShow();
-      }
+      // if (layoutRef && layoutRef.current) {
+      //   removeShow();
+      // }
     }
     return () => {
       removeListeners('slideout-' + slideoutid, 'keydown');
@@ -134,9 +134,9 @@ const Slideout = ({
       //   layoutRef.current.classList.remove('show');
       // }, 200);
       // }
-      if (layoutRef && layoutRef.current) {
-        removeShow();
-      }
+      // if (layoutRef && layoutRef.current) {
+      //   removeShow();
+      // }
     };
   }, [opened]);
 
