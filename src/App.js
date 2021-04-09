@@ -71,7 +71,26 @@ class App extends Component {
     sidebarExpanded: false,
     password: {
       disabled: false
-    }
+    },
+    tabidx: 0,
+    wizardmodel: [
+      {
+        title: 'Little lillies',
+        description: "It's flowering always"
+      },
+      {
+        title: 'Address',
+        description: 'Input your present address'
+      },
+      {
+        title: 'Card',
+        description: 'Enter your card details'
+      },
+      {
+        title: 'Alternate Contact',
+        description: 'Alternate Contact'
+      }
+    ]
   };
 
   position = {
@@ -331,8 +350,10 @@ class App extends Component {
       <>
         <main className="hcl-content-main">
           <section className="hcl-container pt-5 mb-5">
+            {/* <Wizard activeIndex={0} model={this.state.wizardmodel} /> */}
             <div className="hcl-row m-0">
               {/* Input Field */}
+
               <div className="hcl-form-group hcl-col-12" id="form-section">
                 <Label htmlFor="firstname">First Name </Label>
                 <FormHelperText className="helper-text">
@@ -650,10 +671,14 @@ class App extends Component {
                 <Breadcrumb
                   id="small-navigator"
                   className="custom-breadcrumb-top"
-                  activeIndex={Math.floor(Math.random() * 3)}
-                  onSelection={(item, idx, e) => console.log(item, idx, e)}
+                  activeIndex={2}
+                  onSelection={(item, idx) => console.log(item, idx)}
                 >
-                  <BreadcrumbItem className="custom-item" href="#">
+                  <BreadcrumbItem
+                    itemClass="custom-item"
+                    href="#"
+                    onClick={e => console.log('hello', e)}
+                  >
                     Breadcrumb 1
                   </BreadcrumbItem>
                   <BreadcrumbItem href="#">Breadcrumb 2</BreadcrumbItem>
@@ -665,23 +690,19 @@ class App extends Component {
                 <Breadcrumb
                   id="small-navigator"
                   className="custom-breadcrumb-top"
-                  activeIndex={Math.floor(Math.random() * 3)}
+                  activeIndex={0}
                   onSelection={(item, e) => console.log(item, e)}
                 >
-                  <BreadcrumbItem className="custom-item">
+                  <BreadcrumbItem itemClass="custom-item">
                     Breadcrumb 1
                   </BreadcrumbItem>
-                  <BreadcrumbItem>Breadcrumb 2</BreadcrumbItem>
+                  <BreadcrumbItem id={34}>Breadcrumb 2</BreadcrumbItem>
                   <BreadcrumbItem>Breadcrumb 3</BreadcrumbItem>
                   <BreadcrumbItem>Breadcrumb 4</BreadcrumbItem>
-                  <BreadcrumbItem href="#asdf">Breadcrumb 5</BreadcrumbItem>
-                  <BreadcrumbItem
-                    onClick={e => {
-                      console.log('sdfsdf', e);
-                    }}
-                  >
-                    Breadcrumb 6
+                  <BreadcrumbItem href="#asdf" id={45}>
+                    Breadcrumb 5
                   </BreadcrumbItem>
+                  <BreadcrumbItem>Breadcrumb 6</BreadcrumbItem>
                 </Breadcrumb>
               </div>
               {/* Spinner */}
@@ -895,9 +916,24 @@ class App extends Component {
                     onClose={this.onModalClose}
                     actions={this.modalActions1}
                   >
-                    <Paragraph>
-                      Danger Modal with save and close buttons
-                    </Paragraph>
+                    <>
+                      <Paragraph>
+                        Danger Modal with save and close buttons
+                      </Paragraph>
+                      <Tooltip content="Filter" direction="right" type="icon">
+                        {tooltipIcon}
+                      </Tooltip>
+                      <Dropdown
+                        type="top"
+                        items={this.items}
+                        label="Top DropDown"
+                        selectedItem="option-3"
+                        attachElementToBody
+                        onChange={selected => {
+                          console.log('selected item', selected);
+                        }}
+                      />
+                    </>
                   </Modal>
                 )}
                 {this.state.modal === 2 && (
@@ -961,8 +997,23 @@ class App extends Component {
               </div>
               <div className="hcl-col-12 mt-5 colBorder p-5" id="tabs-section">
                 {/* Tab Component */}
+                <h1>Tab Example</h1>
+                <Button
+                  onClick={() => {
+                    this.setState({ ...this.state, tabidx: 0 });
+                  }}
+                >
+                  0
+                </Button>
+                <Button
+                  onClick={() => {
+                    this.setState({ ...this.state, tabidx: 1 });
+                  }}
+                >
+                  1
+                </Button>
                 <Tabs
-                  activeIndex={0}
+                  activeIndex={this.state.tabidx}
                   onChange={e => {
                     console.log(`Label => ${e.label} Index => ${e.tabIndex}`);
                   }}
@@ -992,6 +1043,9 @@ class App extends Component {
                           passages, and more recently with desktop publishing
                           software like Aldus PageMaker including versions of
                           Lorem Ipsum.
+                          <a target="_blank" rel="noreferrer" href={'#'}>
+                            JiraUrl
+                          </a>
                         </Paragraph>
                       </AccordionItem>
                       <AccordionItem
@@ -1129,7 +1183,9 @@ class App extends Component {
                       </AccordionItem>
                     </Accordion>
                   </Tab>
-                  <Tab label="Tab List 3">Content 3</Tab>
+                  <Tab label="Tab List 3" className="ddd">
+                    Content 3
+                  </Tab>
                 </Tabs>
               </div>
               <section
@@ -1441,7 +1497,12 @@ class App extends Component {
                 </div>
                 <div className="hcl-col-12 mt-5 mb-5">
                   {/* expandable bottom right arrow tile */}
-                  <Tile type="expandable" id="expandable-tile-1">
+                  <Tile
+                    type="expandable"
+                    id="expandable-tile-1"
+                    foldContentAbove={<p>Part A</p>}
+                    foldContentBelow={<p>Part B</p>}
+                  >
                     {/* container for default content */}
                     <div>
                       <p>Content shown prior expand </p>
@@ -1456,20 +1517,12 @@ class App extends Component {
                     type="expandable"
                     expandableType="top"
                     id="expandable-tile-2"
-                  >
-                    {/* container for default content */}
-                    <div>
-                      <p>Content shown prior expand </p>
-                    </div>
-                    {/* container for content which will be added once expanded */}
-                    <div>
-                      <p>Content shown after expand </p>
-                    </div>
-                  </Tile>
+                    foldContentAbove={'Part A'}
+                    foldContentBelow={<p>Part B</p>}
+                  />
                 </div>
               </section>
             </div>
-
             {/* Accordion Component */}
             <div className="hcl-col-12 mt-5 mb-5">
               <Accordion>

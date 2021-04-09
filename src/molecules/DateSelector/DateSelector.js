@@ -23,7 +23,9 @@ const DateSelector = ({
   sidePanel,
   onDateSelect,
   minDate,
-  maxDate
+  maxDate,
+  onVisibleChange,
+  ...restProps
 }) => {
   const date = new Date();
   const [currDateObj, setCurrDateObj] = useState({
@@ -64,6 +66,12 @@ const DateSelector = ({
       }
     }
   }, [defaultDate]);
+
+  useEffect(() => {
+    if (onVisibleChange) {
+      onVisibleChange(showDateContainer);
+    }
+  }, [showDateContainer]);
 
   const onToggle = status => {
     setShowDateContainer(status);
@@ -127,8 +135,7 @@ const DateSelector = ({
             setShowDateContainer={setShowDateContainer}
             setIsDateSelectedValid={setIsDateSelectedValid}
             className={className}
-            minDate={minDate}
-            maxDate={maxDate}
+            {...restProps}
           />
 
           <Overlay
@@ -179,8 +186,9 @@ DateSelector.propTypes = {
   months: PropTypes.array,
 
   /**
-   mm/dd/yyyy:  One of the format available.
-   dd/mm/yyyy: One of the format available. */
+   *
+   * * ```mm/dd/yyyy``` :  One of the format available.
+   * * ```dd/mm/yyyy``` : One of the format available. */
   format: PropTypes.string,
 
   /** This props allows user to pass default date */
@@ -206,12 +214,23 @@ DateSelector.propTypes = {
   /** To pass sidepanel node */
   sidePanel: PropTypes.node,
 
-  /** Callback function which will be executed on date selection  */
+  /** Callback function which will be executed on date selection
+   *
+   *
+   * @signature
+   * ```date``` : selected date
+   */
   onDateSelect: PropTypes.func,
   /** Min date */
   minDate: PropTypes.instanceOf(Date),
   /** Max date */
-  maxDate: PropTypes.instanceOf(Date)
+  maxDate: PropTypes.instanceOf(Date),
+  /** Callback on Calendar toggle
+   *
+   * @signature
+   * ```isOpen``` : boolean flag
+   */
+  onVisibleChange: PropTypes.func
 };
 
 DateSelector.defaultProps = {
@@ -240,6 +259,10 @@ DateSelector.defaultProps = {
   sidePanel: null,
   onDateSelect: () => {},
   minDate: new Date(1000, 0, 1),
-  maxDate: new Date(9999, 12, 31)
+  maxDate: new Date(9999, 12, 31),
+  onVisibleChange: null
 };
+
+DateSelector.displayName = 'DateSelector';
+
 export default DateSelector;

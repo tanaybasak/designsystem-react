@@ -27,7 +27,7 @@ const months = [
   'DEC'
 ];
 
-storiesOf('DateRangeSelector', module).add(
+storiesOf('Components/Date Range Selector', module).add(
   'default',
   () => (
     <DateRangeSelector
@@ -41,8 +41,8 @@ storiesOf('DateRangeSelector', module).add(
   ),
   {
     info: {
-      text: `Description About DateRangeSelector Component\n
-      import { DateRangeSelector } from '@patron/patron-react/daterangeselector';`
+      text: `Description About DateRangeSelector Component`,
+      document: ['DateRangeSelector']
     }
   }
 );

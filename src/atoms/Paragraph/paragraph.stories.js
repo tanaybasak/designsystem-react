@@ -5,16 +5,13 @@ import { text } from '@storybook/addon-knobs';
 import Paragraph from './Paragraph';
 //@update-path-build-end
 
-storiesOf('Paragraph', module).add(
+storiesOf('Components/Paragraph', module).add(
   'default',
   () => <Paragraph>{text('Label', 'Sample Paragraph')}</Paragraph>,
   {
     info: {
-      text: `Description About Paragraph Component \n
-      
-      import { Paragraph } from '@patron/patron-react/paragraph';
-      
-      `
+      text: `Description About Paragraph Component`,
+      document: ['Paragraph']
     }
   }
 );
