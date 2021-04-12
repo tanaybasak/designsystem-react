@@ -43,6 +43,19 @@
   top: 100vh;
 }
 
+.custom-slideout-table {
+  font-size: 14px;
+  font-weight: 400;
+}
+.h-line::after {
+  display: block;
+  content: '';
+  width: 100%;
+  padding: inherit;
+  margin: 10px 15px 0;
+  border: 1px solid #c9c9c9;
+}
+
 /* @media only screen and (min-width: 768px) {
     #root > .hcl-tree,
     #root > .hcl-dropdown,
