@@ -63,10 +63,12 @@ const Slideout = ({
       }
       setTimeout(() => {
         setOpened(isOpen);
+        document.body.classList.remove('overflow-slideout');
       }, 200);
     } else {
       window.requestAnimationFrame(addShow);
       setOpened(isOpen);
+      document.body.classList.add('overflow-slideout');
     }
   }, [isOpen]);
 
