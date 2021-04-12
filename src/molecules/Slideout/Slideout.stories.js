@@ -107,23 +107,64 @@ storiesOf('Components/Slideout', module)
         actions={object('Actions', actions)}
         onEscClose={boolean('isopen', true)}
       >
-        <div className="hcl-row">
-          <div className="hcl-col-12">
-            {`Transactional modals are used to validate decisions or to gain
-              secondary confirmation from the user. Typically, the modal request
-              either a 'yes' or 'no' response.`}
+        <div className={`hcl-container custom-slideout-table`}>
+          <div className={'hcl-row mb-3'}>
+            <div className="hcl-col-6">Repeat</div>
+            <div className="hcl-col-6">Monthly</div>
           </div>
-          <div className={`hcl-col-12 mt-10`}>
-            {
-              <TextInput
-                aria-label="text input"
-                onBlur={function noRefCheck() {}}
-                onChange={function noRefCheck() {}}
-                onClick={function noRefCheck() {}}
-                onFocus={function noRefCheck() {}}
-                placeholder="Placeholder Text"
-              />
-            }
+          <div className={'hcl-row mb-3'}>
+            <div className="hcl-col-6">Day</div>
+            <div className="hcl-col-6">1 days after 2nd Tue</div>
+          </div>
+          <div className={'hcl-row mb-3'}>
+            <div className="hcl-col-6">Time</div>
+            <div className="hcl-col-6">16:00 IST (2days)</div>
+          </div>
+          <div className={'hcl-row mb-3'}>
+            <div className="hcl-col-6">Patching Duration</div>
+            <div className="hcl-col-6">2 Days</div>
+          </div>
+          <div className={'hcl-row mb-3'}>
+            <div className="hcl-col-6">Timeout</div>
+            <div className="hcl-col-6">300ms</div>
+          </div>
+          <div className={'hcl-row mt-8 mb-4 h-line'}>
+            <div className="hcl-col-12">Configuration</div>
+          </div>
+          <div className={'hcl-row mb-3'}>
+            <div className="hcl-col-6">Pre-Cache Downloads</div>
+            <div className="hcl-col-6">Not Required</div>
+          </div>
+          <div className={'hcl-row mb-3'}>
+            <div className="hcl-col-6">Stagger start time</div>
+            <div className="hcl-col-6">1 hour 0 minutes</div>
+          </div>
+          <div className={'hcl-row mb-3'}>
+            <div className="hcl-col-6">Bypass errors</div>
+            <div className="hcl-col-6">Yes</div>
+          </div>
+          <div className={'hcl-row mb-3'}>
+            <div className="hcl-col-6">Retry on failure</div>
+            <div className="hcl-col-6">No</div>
+          </div>
+          <div className={'hcl-row mb-3'}>
+            <div className="hcl-col-6">Force restart</div>
+            <div className="hcl-col-6">No</div>
+          </div>
+          <div className={'hcl-row mt-8 mb-4 h-line'}>
+            <div className="hcl-col-12">Target (devices)</div>
+          </div>
+          <div className={'hcl-row mb-3'}>
+            <div className="hcl-col-6">3 devices</div>
+            <div className="hcl-col-6">&lt;target by&gt;</div>
+          </div>
+          <div className={'hcl-row mb-3'}>
+            <div className="hcl-col-6">&lt;group name&gt; (5)</div>
+            <div className="hcl-col-6">&lt;target by&gt;</div>
+          </div>
+          <div className={'hcl-row mb-3'}>
+            <div className="hcl-col-6">&lt;dynamic&gt; (7)</div>
+            <div className="hcl-col-6">&lt;target by&gt;</div>
           </div>
         </div>
       </Slideout>

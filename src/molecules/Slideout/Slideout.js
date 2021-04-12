@@ -3,8 +3,6 @@ import ReactDOM from 'react-dom';
 import { addListener, removeListeners } from '../../util/eventManager';
 import PropTypes from 'prop-types';
 import Actions from '../../atoms/Actions';
-import PropDeprecated from '../../util/PropDeprecated';
-// import { CSSTransition, Transition } from 'react-transition-group';
 
 let slideoutid = 0;
 
@@ -26,32 +24,18 @@ const Slideout = ({
 
   let classNames = ['hcl-slideout'];
   let classNamesLayout = ['hcl-slideout-layout'];
-  // size of sliedout
+  // size classes
   if (varient === 'large') {
     classNamesLayout.push('large');
   }
   if (varient === 'default') {
     classNamesLayout.push('default');
   }
-  //for layout
+  //layout classes
   if (direction === 'left') {
     classNamesLayout.push('layout-left');
   }
-  if (isOpen) {
-    // classNamesLayout.push('show');
-    // if (direction === 'left') {
-    //   classNamesLayout.push('slide-in-left');
-    // } else {
-    //   classNamesLayout.push('slide-in');
-    // }
-  } else {
-    // classNamesLayout.push('hide');
-    // if (direction === 'left') {
-    //   classNamesLayout.push('slide-out-left');
-    // } else {
-    //   classNamesLayout.push('slide-out');
-    // }
-  }
+  // type classes
   if (type === 'default') {
     classNames.push('hcl-slideout__default-border');
   } else if (type === 'danger') {
@@ -74,27 +58,19 @@ const Slideout = ({
 
   useEffect(() => {
     if (!isOpen) {
-      // if (layoutRef && layoutRef.current) {
-      //   layoutRef.current.classList.remove('show');
-      // }
-      // setTimeout(() => {
-      //   setOpened(isOpen);
-      // }, 200);
-      // if (layoutRef && layoutRef.current) {
-      //   removeShow();
-      // }
-      setOpened(isOpen);
-    } else {
       if (layoutRef && layoutRef.current) {
-        addedAnimation = window.requestAnimationFrame(addShow);
-      } else {
-        addedAnimation = window.requestAnimationFrame(addShow);
+        window.requestAnimationFrame(removeShow);
       }
+      setTimeout(() => {
+        setOpened(isOpen);
+      }, 200);
+    } else {
+      window.requestAnimationFrame(addShow);
       setOpened(isOpen);
     }
   }, [isOpen]);
 
-  let addedAnimation = null;
+  // let addedAnimation = null;
 
   useEffect(() => {
     if (opened) {
@@ -106,37 +82,11 @@ const Slideout = ({
         },
         true
       );
-      // if (layoutRef && layoutRef.current) {
-      //   addedAnimation = window.requestAnimationFrame(addShow);
-      // setTimeout(() => {
-      //   layoutRef.current.classList.add('show');
-      // }, 200);
-      // }
     } else {
       removeListeners('slideout-' + slideoutid, 'keydown');
-      // if (layoutRef && layoutRef.current) {
-      // removeShow();
-      // window.cancelAnimationFrame(addedAnimation);
-      // setTimeout(() => {
-      //   layoutRef.current.classList.remove('show');
-      // }, 200);
-      // }
-      // if (layoutRef && layoutRef.current) {
-      //   removeShow();
-      // }
     }
     return () => {
       removeListeners('slideout-' + slideoutid, 'keydown');
-      // if (layoutRef && layoutRef.current) {
-      // window.cancelAnimationFrame(addedAnimation);
-      // removeShow();
-      // setTimeout(() => {
-      //   layoutRef.current.classList.remove('show');
-      // }, 200);
-      // }
-      // if (layoutRef && layoutRef.current) {
-      //   removeShow();
-      // }
     };
   }, [opened]);
 
@@ -146,6 +96,7 @@ const Slideout = ({
 
   const removeShow = () => {
     layoutRef.current.classList.remove('show');
+    layoutRef.current.classList.add('hide');
   };
 
   const handleKeyDown = e => {
@@ -161,7 +112,7 @@ const Slideout = ({
     const { currentTarget } = e;
     if (opened) {
       if (currentTarget.classList.contains('hcl-slideout-mask')) {
-        if (onEscClose && onOutsideClick) onOutsideClick(e);
+        if (onOutsideClick) onOutsideClick(e);
       }
     }
   };
@@ -237,22 +188,6 @@ Slideout.propTypes = {
     PropTypes.shape({
       label: PropTypes.string,
       handler: PropTypes.func,
-      primary: PropDeprecated(
-        PropTypes.bool,
-        'please use type prop instead of passing primary'
-      ),
-      danger: PropDeprecated(
-        PropTypes.bool,
-        'please use type prop instead of passing danger'
-      ),
-      warning: PropDeprecated(
-        PropTypes.bool,
-        'please use type prop instead of passing warning'
-      ),
-      neutral: PropDeprecated(
-        PropTypes.bool,
-        'please use type prop instead of passing neutral'
-      ),
       disabled: PropTypes.bool,
       type: PropTypes.oneOf([
         'primary',
