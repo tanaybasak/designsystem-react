@@ -166,14 +166,31 @@ const Slideout = ({
 };
 
 Slideout.propTypes = {
+  /** Used to toggle slideout */
   isOpen: PropTypes.bool,
+  /** default: Slideout with top border using secondary_border token.
+   * danger: Slideout with top border using danger_border token.
+   * warning: Slideout with top border using warning_border token.
+   * ghost: Slideout with top border using ghost_border token.
+   */
   type: PropTypes.oneOf(['default', 'danger', 'warning', 'ghost']),
+  /** default: Slideout width restricted to 400px.
+   * large: Slideout width restricted to 600px.
+   */
   varient: PropTypes.oneOf(['default', 'large']),
+  /** right: Slideout shown to the right of the page.
+   * left: Slideout shown to the left of the page.
+   */
   direction: PropTypes.oneOf(['right', 'left']),
+  /** To create heading of the Slideout. */
   header: PropTypes.node,
+  /** Callback to be used while closing Slideout. */
   onClose: PropTypes.func,
+  /** Callback to be used when clicking the backdrop of the Slideout. */
   onOutsideClick: PropTypes.func,
+  /** Closes the Slideout when escape key is pressed */
   onEscClose: PropTypes.bool,
+  /** Used to pass overlay content */
   children: PropTypes.node,
   /** To create action items associated with modal.
    *
