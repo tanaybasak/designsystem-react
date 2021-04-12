@@ -27,7 +27,7 @@ const months = [
   'DEC'
 ];
 
-storiesOf('DateSelector', module).add(
+storiesOf('Components/Date Selector', module).add(
   'default',
   () => (
     <DateSelector
@@ -40,8 +40,8 @@ storiesOf('DateSelector', module).add(
   ),
   {
     info: {
-      text: `Description About Datepicker Component\n
-      import { DateSelector } from '@patron/patron-react/dateselector';`
+      text: `Description About Datepicker Component`,
+      document: ['DateSelector']
     }
   }
 );

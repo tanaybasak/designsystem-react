@@ -1,0 +1,454 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Wizard renders correctly 1`] = `
+<div
+  className="hcl-wiz-wrapper desktop linear"
+>
+  <div
+    className="wiz-wrapper"
+    role="navigation"
+  >
+    <ul
+      className="wiz-list"
+    >
+      <li
+        aria-current={false}
+        className="wiz-item"
+        index={0}
+        onClick={null}
+      >
+        <button
+          tabIndex={-1}
+        >
+          <div
+            className="ghost"
+          />
+          <div
+            className="hcl-wizard-left-pane"
+          >
+            <div
+              className="hcl-wizard__icon-container"
+            >
+              <div
+                className="hcl-wizard__user"
+              >
+                <svg
+                  style={
+                    Object {
+                      "fill": "var(--default_icon_high)",
+                      "height": "100%",
+                      "width": "100%",
+                    }
+                  }
+                  viewBox="0 0 16 16"
+                  xmlns="https://www.w3.org/2000/svg"
+                >
+                  <rect
+                    fill="none"
+                    height="16"
+                    width="16"
+                  />
+                  <path
+                    d="M8,8A3.5,3.5,0,1,0,4.5,4.5,3.5,3.5,0,0,0,8,8ZM8,2A2.5,2.5,0,1,1,5.5,4.5,2.5,2.5,0,0,1,8,2Zm5,10.5V15H12V12.5A2.5,2.5,0,0,0,9.5,10h-3A2.5,2.5,0,0,0,4,12.5V15H3V12.5A3.5,3.5,0,0,1,6.5,9h3A3.5,3.5,0,0,1,13,12.5Z"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div
+            className="hcl-wizard-right-pane"
+          >
+            <div
+              className="hcl-wizard__title "
+            >
+              Step 1
+            </div>
+            <div
+              className="hcl-wizard__description"
+            >
+              Basic Info
+            </div>
+          </div>
+          <div
+            className="wiz-no-icon-container"
+          >
+            <span
+              className="no-icon-container"
+            >
+              <span
+                className="no-icon-child"
+              />
+            </span>
+          </div>
+          <div
+            className="wiz-content"
+          >
+            <span
+              className="wiz-title"
+            >
+              Step 1
+            </span>
+            <span
+              className="wiz-description"
+            >
+              Basic Info
+            </span>
+          </div>
+        </button>
+      </li>
+      <li
+        aria-current={false}
+        className="wiz-item"
+        index={1}
+        onClick={null}
+      >
+        <button
+          tabIndex={-1}
+        >
+          <div
+            className="ghost"
+          />
+          <div
+            className="hcl-wizard-left-pane"
+          >
+            <div
+              className="hcl-wizard__icon-container"
+            >
+              <div
+                className="hcl-wizard__user"
+              >
+                <svg
+                  style={
+                    Object {
+                      "fill": "var(--default_icon_high)",
+                      "height": "100%",
+                      "width": "100%",
+                    }
+                  }
+                  viewBox="0 0 16 16"
+                  xmlns="https://www.w3.org/2000/svg"
+                >
+                  <rect
+                    fill="none"
+                    height="16"
+                    width="16"
+                  />
+                  <path
+                    d="M8,8A3.5,3.5,0,1,0,4.5,4.5,3.5,3.5,0,0,0,8,8ZM8,2A2.5,2.5,0,1,1,5.5,4.5,2.5,2.5,0,0,1,8,2Zm5,10.5V15H12V12.5A2.5,2.5,0,0,0,9.5,10h-3A2.5,2.5,0,0,0,4,12.5V15H3V12.5A3.5,3.5,0,0,1,6.5,9h3A3.5,3.5,0,0,1,13,12.5Z"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div
+            className="hcl-wizard-right-pane"
+          >
+            <div
+              className="hcl-wizard__title "
+            >
+              Step 2
+            </div>
+            <div
+              className="hcl-wizard__description"
+            >
+              Upload File
+            </div>
+          </div>
+          <div
+            className="wiz-no-icon-container"
+          >
+            <span
+              className="no-icon-container"
+            >
+              <span
+                className="no-icon-child"
+              />
+            </span>
+          </div>
+          <div
+            className="wiz-content"
+          >
+            <span
+              className="wiz-title"
+            >
+              Step 2
+            </span>
+            <span
+              className="wiz-description"
+            >
+              Upload File
+            </span>
+          </div>
+        </button>
+      </li>
+      <li
+        aria-current={false}
+        className="wiz-item"
+        index={2}
+        onClick={null}
+      >
+        <button
+          tabIndex={-1}
+        >
+          <div
+            className="ghost"
+          />
+          <div
+            className="hcl-wizard-left-pane"
+          >
+            <div
+              className="hcl-wizard__icon-container"
+            >
+              <div
+                className="hcl-wizard__user"
+              >
+                <svg
+                  style={
+                    Object {
+                      "fill": "var(--default_icon_high)",
+                      "height": "100%",
+                      "width": "100%",
+                    }
+                  }
+                  viewBox="0 0 16 16"
+                  xmlns="https://www.w3.org/2000/svg"
+                >
+                  <rect
+                    fill="none"
+                    height="16"
+                    width="16"
+                  />
+                  <path
+                    d="M8,8A3.5,3.5,0,1,0,4.5,4.5,3.5,3.5,0,0,0,8,8ZM8,2A2.5,2.5,0,1,1,5.5,4.5,2.5,2.5,0,0,1,8,2Zm5,10.5V15H12V12.5A2.5,2.5,0,0,0,9.5,10h-3A2.5,2.5,0,0,0,4,12.5V15H3V12.5A3.5,3.5,0,0,1,6.5,9h3A3.5,3.5,0,0,1,13,12.5Z"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div
+            className="hcl-wizard-right-pane"
+          >
+            <div
+              className="hcl-wizard__title "
+            >
+              Step 3
+            </div>
+            <div
+              className="hcl-wizard__description"
+            >
+              Add Social Markup
+            </div>
+          </div>
+          <div
+            className="wiz-no-icon-container"
+          >
+            <span
+              className="no-icon-container"
+            >
+              <span
+                className="no-icon-child"
+              />
+            </span>
+          </div>
+          <div
+            className="wiz-content"
+          >
+            <span
+              className="wiz-title"
+            >
+              Step 3
+            </span>
+            <span
+              className="wiz-description"
+            >
+              Add Social Markup
+            </span>
+          </div>
+        </button>
+      </li>
+      <li
+        aria-current={false}
+        className="wiz-item"
+        index={3}
+        onClick={null}
+      >
+        <button
+          tabIndex={-1}
+        >
+          <div
+            className="ghost"
+          />
+          <div
+            className="hcl-wizard-left-pane"
+          >
+            <div
+              className="hcl-wizard__icon-container"
+            >
+              <div
+                className="hcl-wizard__user"
+              >
+                <svg
+                  style={
+                    Object {
+                      "fill": "var(--default_icon_high)",
+                      "height": "100%",
+                      "width": "100%",
+                    }
+                  }
+                  viewBox="0 0 16 16"
+                  xmlns="https://www.w3.org/2000/svg"
+                >
+                  <rect
+                    fill="none"
+                    height="16"
+                    width="16"
+                  />
+                  <path
+                    d="M8,8A3.5,3.5,0,1,0,4.5,4.5,3.5,3.5,0,0,0,8,8ZM8,2A2.5,2.5,0,1,1,5.5,4.5,2.5,2.5,0,0,1,8,2Zm5,10.5V15H12V12.5A2.5,2.5,0,0,0,9.5,10h-3A2.5,2.5,0,0,0,4,12.5V15H3V12.5A3.5,3.5,0,0,1,6.5,9h3A3.5,3.5,0,0,1,13,12.5Z"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div
+            className="hcl-wizard-right-pane"
+          >
+            <div
+              className="hcl-wizard__title "
+            >
+              Step 4
+            </div>
+            <div
+              className="hcl-wizard__description"
+            >
+              Add Campaign details
+            </div>
+          </div>
+          <div
+            className="wiz-no-icon-container"
+          >
+            <span
+              className="no-icon-container"
+            >
+              <span
+                className="no-icon-child"
+              />
+            </span>
+          </div>
+          <div
+            className="wiz-content"
+          >
+            <span
+              className="wiz-title"
+            >
+              Step 4
+            </span>
+            <span
+              className="wiz-description"
+            >
+              Add Campaign details
+            </span>
+          </div>
+        </button>
+      </li>
+      <li
+        aria-current={false}
+        className="wiz-item"
+        index={4}
+        onClick={null}
+      >
+        <button
+          tabIndex={-1}
+        >
+          <div
+            className="ghost"
+          />
+          <div
+            className="hcl-wizard-left-pane"
+          >
+            <div
+              className="hcl-wizard__icon-container"
+            >
+              <div
+                className="hcl-wizard__user"
+              >
+                <svg
+                  style={
+                    Object {
+                      "fill": "var(--default_icon_high)",
+                      "height": "100%",
+                      "width": "100%",
+                    }
+                  }
+                  viewBox="0 0 16 16"
+                  xmlns="https://www.w3.org/2000/svg"
+                >
+                  <rect
+                    fill="none"
+                    height="16"
+                    width="16"
+                  />
+                  <path
+                    d="M8,8A3.5,3.5,0,1,0,4.5,4.5,3.5,3.5,0,0,0,8,8ZM8,2A2.5,2.5,0,1,1,5.5,4.5,2.5,2.5,0,0,1,8,2Zm5,10.5V15H12V12.5A2.5,2.5,0,0,0,9.5,10h-3A2.5,2.5,0,0,0,4,12.5V15H3V12.5A3.5,3.5,0,0,1,6.5,9h3A3.5,3.5,0,0,1,13,12.5Z"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div
+            className="hcl-wizard-right-pane"
+          >
+            <div
+              className="hcl-wizard__title "
+            >
+              Step 5
+            </div>
+            <div
+              className="hcl-wizard__description"
+            >
+              Verify Details
+            </div>
+          </div>
+          <div
+            className="wiz-no-icon-container"
+          >
+            <span
+              className="no-icon-container"
+            >
+              <span
+                className="no-icon-child"
+              />
+            </span>
+          </div>
+          <div
+            className="wiz-content"
+          >
+            <span
+              className="wiz-title"
+            >
+              Step 5
+            </span>
+            <span
+              className="wiz-description"
+            >
+              Verify Details
+            </span>
+          </div>
+        </button>
+      </li>
+    </ul>
+    <div
+      className="step-names__mobile"
+    >
+      <div
+        className="step-name"
+      >
+        
+      </div>
+      <div
+        className="step-description"
+      />
+    </div>
+  </div>
+</div>
+`;

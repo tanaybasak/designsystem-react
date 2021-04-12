@@ -20,16 +20,12 @@ function BreadcrumbItem({
   }
 
   return (
-    <li className={breadcrumbStyle.join(' ')} onClick={onClick} {...restProps}>
+    <li className={breadcrumbStyle.join(' ')} {...restProps}>
       <Link
         href={href ? href : null}
         className={`${prefix}-link`}
         tabIndex="0"
-        onKeyDown={event => {
-          if (event.keyCode === 13) {
-            onClick(event);
-          }
-        }}
+        onClick={onClick}
       >
         {children}
       </Link>
@@ -38,13 +34,19 @@ function BreadcrumbItem({
 }
 
 BreadcrumbItem.propTypes = {
-  /** hyperlink - The URL of the link*/
+  /**
+   *
+   * ```hyperlink``` : The URL of the link*/
   href: PropTypes.string,
   /** Class/clasess will be applied on the breadcrumb item  */
   itemClass: PropTypes.string,
   /** @ignore */
   active: PropTypes.bool,
-  /** Callback function on selecting item - (to be deprecated soon, instead use onSelection in Breadcrumb component )*/
+  /** Callback function on selecting item - (to be deprecated soon, instead use onSelection in Breadcrumb component )
+   *
+   * @signature
+   * ```event``` : callback event upon click
+   */
   onClick: PropTypes.func
 };
 BreadcrumbItem.defaultProps = {

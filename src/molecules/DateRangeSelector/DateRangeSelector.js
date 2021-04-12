@@ -410,11 +410,16 @@ DateRangeSelector.propTypes = {
   months: PropTypes.array,
 
   /**
-   mm/dd/yyyy:  One of the format available.
-   dd/mm/yyyy: One of the format available. */
+   *
+   * * ```mm/dd/yyyy``` :  One of the format available.
+   * * ```dd/mm/yyyy``` : One of the format available. */
   format: PropTypes.string,
 
-  /** Callback function which will be executed on date range selection  */
+  /** Callback function which will be executed on date range selection
+   *
+   * @signature
+   * ```date``` : selected date
+   */
   onDateRangeSelect: PropTypes.func,
 
   /** className/clasess will be applied on the parent div of DateRangeSelector */

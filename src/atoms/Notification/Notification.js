@@ -76,12 +76,16 @@ Notification.propTypes = {
   closable: PropTypes.bool,
   /** to show notification */
   visible: PropTypes.bool.isRequired,
-  /** Callback to invoke when a notification is closed. */
-  onClose: PropTypes.func,
   /** hyperlink - The URL of the Action link*/
   actionLink: PropTypes.string,
   /** actionLabel - Label for the Action */
-  actionLabel: PropTypes.string
+  actionLabel: PropTypes.string,
+  /** Callback to invoke when a notification is closed.
+   *
+   * @signature
+   * ```event```: callback event is sent.
+   */
+  onClose: PropTypes.func
 };
 
 Notification.defaultProps = {

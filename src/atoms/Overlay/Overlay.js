@@ -55,6 +55,13 @@ const Overlay = ({
     scrollEnd(targetElement);
   };
 
+  const clearEvents = () => {
+    removeListeners('overlayElementId-' + overlayElementId, 'click');
+    if (scrollListner) {
+      removeListeners('overlayElementId-' + overlayElementId, 'scroll');
+    }
+  };
+
   useEffect(() => {
     if (showOverlay) {
       if (overlayContainerRef && overlayContainerRef.current) {
@@ -65,6 +72,7 @@ const Overlay = ({
     } else {
       hideOverlayContainer('stateChange');
     }
+    return clearEvents;
   }, [showOverlay, targetElement]);
 
   const showOverlayContainer = () => {
@@ -100,13 +108,12 @@ const Overlay = ({
     }
   };
 
-  const hideOverlayContainer = type => {
-    removeListeners('overlayElementId-' + overlayElementId, 'click');
-    if (scrollListner) {
-      removeListeners('overlayElementId-' + overlayElementId, 'scroll');
+  const hideOverlayContainer = (type, direction) => {
+    if (type === 'stateChange') {
+      clearEvents();
     }
     if (onToggle && type !== 'stateChange') {
-      onToggle(false, type);
+      onToggle(false, type, direction);
     }
   };
 
@@ -149,6 +156,7 @@ const Overlay = ({
 
   const keyDownListner = e => {
     if (closeOnEscape && e.keyCode === 27) {
+      e.stopPropagation();
       hideOverlayContainer('escape');
     } else if (e.keyCode === 9) {
       const focusableEls = overlayContainerRef.current.querySelectorAll(
@@ -159,12 +167,12 @@ const Overlay = ({
 
       if (e.shiftKey) {
         if (document.activeElement === firstFocusableEl) {
-          hideOverlayContainer('focusout');
+          hideOverlayContainer('focusout', 'backward');
           e.preventDefault();
         }
       } else {
         if (document.activeElement === lastFocusableEl) {
-          hideOverlayContainer('focusout');
+          hideOverlayContainer('focusout', 'forward');
           e.preventDefault();
         }
       }
@@ -209,7 +217,13 @@ Overlay.propTypes = {
   ]),
   /** Overlay content position will change on scroll when attachElementToBody property is true */
   scrollListner: PropTypes.bool,
-  /** Callback function used to toggle the overlay content  */
+  /** Callback function used to toggle the overlay content
+   *
+   * @signature
+   * * ```status``` : boolean value is sent
+   * * ```type``` : type of click (inside/outside).
+   * * ```direction``` : direction of the click.
+   */
   onToggle: PropTypes.func,
   /** Used to attach element to body tag */
   attachElementToBody: PropTypes.bool,

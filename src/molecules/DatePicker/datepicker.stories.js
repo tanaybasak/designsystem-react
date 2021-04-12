@@ -2,6 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { select, text } from '@storybook/addon-knobs';
+import { linkTo } from '@storybook/addon-links';
 //@update-path-build-start
 import DatePicker from './DatePicker';
 //@update-path-build-end
@@ -11,7 +12,7 @@ const formatOptions = {
   'dd/mm/yyyy': 'dd/mm/yyyy'
 };
 
-storiesOf('DatePicker', module).add(
+storiesOf('Components/Date Picker', module).add(
   'default',
   () => (
     <DatePicker
@@ -38,8 +39,15 @@ storiesOf('DatePicker', module).add(
   ),
   {
     info: {
-      text: `Description About Datepicker Component\n
-      import { DatePicker } from '@patron/patron-react/datepicker';`
+      text: `Description About Datepicker Component`,
+      warning: (
+        <>
+          This component will soon be deprecated. Please use{' '}
+          <a onClick={linkTo('Components/DateSelector')}>Date Selector</a> in
+          the place of Date Picker
+        </>
+      ),
+      document: ['DatePicker']
     }
   }
 );

@@ -16,57 +16,57 @@ const { DIST_DIR } = DIRS;
 const PORT = 8020;
 
 module.exports = merge.smart(commonConfig, {
-    mode: 'development',
-    module: {
-        rules: [
-            {
-                test: /\.(le|sa|sc|c)ss$/,
-                use: [
-                    {
-                        loader: MiniCssExtractPlugin.loader,
-                        options: {
-                            hmr: true,
-                            reloadAll: true
-                        },
-                    },
-                    {
-                        loader: 'css-loader',
-                        options: {
-                            sourceMap: true
-                        }
-                    },
-                    {
-                        loader: 'postcss-loader',
-                        options: {
-                            ident: 'postcss',
-                            plugins: () => [
-                                require('postcss-preset-env')({ browsers: 'last 2 versions' })
-                            ],
-                            sourceMap: true
-                        }
-                    }
-                ]
+  mode: 'development',
+  module: {
+    rules: [
+      {
+        test: /\.(le|sa|sc|c)ss$/,
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              hmr: true,
+              reloadAll: true
             }
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: true
+            }
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              ident: 'postcss',
+              plugins: () => [
+                require('postcss-preset-env')({ browsers: 'last 2 versions' })
+              ],
+              sourceMap: true
+            }
+          }
         ]
-    },
-    plugins: [
-        new webpack.DefinePlugin({
-            'process.env.NODE_ENV': '"development"'
-        }),
-        new webpack.HotModuleReplacementPlugin()
-    ],
-    devtool: 'eval-source-map',
-    devServer: {
-        contentBase: DIST_DIR,
-        clientLogLevel: 'none',
-        compress: true,
-        historyApiFallback: true,
-        hot: true,
-        index: 'index.html',
-        inline: true,
-        open: true,
-        host: '0.0.0.0',
-        public: `localhost:${PORT}`,
-        port: PORT
-    }
+      }
+    ]
+  },
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': '"development"'
+    }),
+    new webpack.HotModuleReplacementPlugin()
+  ],
+  devtool: 'eval-source-map',
+  devServer: {
+    contentBase: DIST_DIR,
+    clientLogLevel: 'none',
+    compress: true,
+    historyApiFallback: true,
+    hot: true,
+    index: 'index.html',
+    inline: true,
+    open: true,
+    host: '0.0.0.0',
+    public: `localhost:${PORT}`,
+    port: PORT
+  }
 });

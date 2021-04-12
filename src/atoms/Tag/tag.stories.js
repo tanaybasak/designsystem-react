@@ -12,7 +12,7 @@ const typeOptions = {
   Secondary: 'secondary'
 };
 
-storiesOf('Tag', module)
+storiesOf('Components/Tag', module)
   .add(
     'default',
     () => (
@@ -29,11 +29,8 @@ storiesOf('Tag', module)
     ),
     {
       info: {
-        text: `Description About Tag Component
-
-      import { Tag } from '@patron/patron-react/tag';
-
-      `
+        text: `Description About Tag Component`,
+        document: ['Tag']
       }
     }
   )
@@ -59,11 +56,8 @@ storiesOf('Tag', module)
     ),
     {
       info: {
-        text: `Description About Tag Component
-
-        import { Tag } from '@patron/patron-react/tag';
-
-        `
+        text: `Description About Tag Component`,
+        document: ['Tag']
       }
     }
   )
@@ -94,12 +88,8 @@ storiesOf('Tag', module)
     ),
     {
       info: {
-        text: `Description About Tag Component
-  
-        import { Tag } from '@patron/patron-react/tag';
-    import { Icon } from '@patron/patron-react/icon';
-  
-          `
+        text: `Description About Tag Component`,
+        document: ['Tag', 'Icon']
       }
     }
   )
@@ -136,12 +126,8 @@ storiesOf('Tag', module)
     ),
     {
       info: {
-        text: `Description About Tag Component
-  
-        import { Tag } from '@patron/patron-react/tag';
-    import { Icon } from '@patron/patron-react/icon';
-  
-          `
+        text: `Description About Tag Component`,
+        document: ['Tag', 'Icon']
       }
     }
   );

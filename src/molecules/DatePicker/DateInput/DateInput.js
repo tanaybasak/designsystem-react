@@ -34,7 +34,7 @@ const DateInput = ({
         }}
         defaultdate={defaultDate}
         onChange={onChangeInputDate}
-        onKeyPress={onEnterPressInputDate}
+        onKeyDown={onEnterPressInputDate}
         ref={datepickerInput}
         {...restProps}
       />

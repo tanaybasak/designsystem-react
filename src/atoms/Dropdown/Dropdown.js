@@ -17,6 +17,7 @@ const Dropdown = ({
   className,
   attachElementToBody,
   scrollListner,
+  onVisibleChange,
   ...restProps
 }) => {
   const defaultConfig = { text: 'text', id: 'id' };
@@ -49,6 +50,12 @@ const Dropdown = ({
       setSelected(selectedItem ? selectedOption : null);
     }
   }, [selectedItem]);
+
+  useEffect(() => {
+    if (onVisibleChange) {
+      onVisibleChange(isOpen);
+    }
+  }, [isOpen]);
 
   const focusNode = node => {
     if (node.classList.contains(`${prefix}-dropdown-item`)) {
@@ -286,6 +293,7 @@ const Dropdown = ({
                   }
                 }}
                 tabIndex="0"
+                title={item[configuration.text]}
                 aria-label={item[configuration.text]}
                 role="option"
                 aria-checked={
@@ -320,8 +328,14 @@ Dropdown.propTypes = {
   type: PropTypes.string,
 
   /** Array of items eg:
-  [{id: 'option-1',text: 'Option 1'},
-   {id: 'option-2', text: 'Option 2'}]*/
+   *
+   * ```
+   * [
+   *    {id: 'option-1',text: 'Option 1'},
+   *    {id: 'option-2', text: 'Option 2'}
+   * ]
+   * ```
+   * */
   items: PropTypes.array.isRequired,
 
   /** Type of dropdown eg : multiselect, singleselect */
@@ -330,7 +344,12 @@ Dropdown.propTypes = {
   /** Label for Dropdown */
   label: PropTypes.string,
 
-  /** Callback function on selecting item*/
+  /** Callback function on selecting item
+   *
+   * @signature
+   * * ```item``` : Object returns id and text value
+   * * ```list``` : List of the selected Item incase of MultiSelect Dropdown
+   */
   onChange: PropTypes.func,
 
   /** id of item for default selection */
@@ -349,7 +368,13 @@ Dropdown.propTypes = {
   scrollListner: PropTypes.bool,
 
   /** Disabled property for dropdown */
-  disabled: PropTypes.bool
+  disabled: PropTypes.bool,
+  /** Callback on dropdown toggle
+   *
+   * @signature
+   * ```isOpen``` : boolean flag
+   */
+  onVisibleChange: PropTypes.func
 };
 
 Dropdown.defaultProps = {
@@ -361,7 +386,10 @@ Dropdown.defaultProps = {
   dropdownType: '',
   config: {},
   attachElementToBody: false,
-  scrollListner: false
+  scrollListner: false,
+  onVisibleChange: null
 };
+
+Dropdown.displayName = 'Dropdown';
 
 export default Dropdown;

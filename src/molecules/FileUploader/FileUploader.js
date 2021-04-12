@@ -15,6 +15,7 @@ export default function FileUploader({
   fileType,
   tabIndex,
   hideFile,
+  required,
   onChange,
   ...restProps
 }) {
@@ -49,8 +50,13 @@ export default function FileUploader({
     if (index !== -1) {
       newFileList.splice(index, 1);
       setFileList(newFileList);
+      clearInputElement();
     }
     onChange(newFileList, event);
+  };
+
+  const clearInputElement = () => {
+    fileContainer.current.querySelector('input').value = '';
   };
 
   return (
@@ -78,6 +84,7 @@ export default function FileUploader({
           disabled={disabled}
           multiple={multiple}
           accept={fileType}
+          required={required}
         />
         <label
           htmlFor={id}
@@ -121,14 +128,15 @@ FileUploader.propTypes = {
   name: PropTypes.string,
   /** Name of the custom class to apply to the File Uploader Button
    * eg:
-   * Primary: 'hcl-btn hcl-primary',
-   * Primary Danger: 'hcl-btn hcl-primary hcl-danger',
-   * Primary Danger Small: 'hcl-btn hcl-primary hcl-danger hcl-sm',
-   * Primary Small: 'hcl-btn hcl-primary hcl-sm',
-   * Secondary: 'hcl-btn hcl-secondary',
-   * Secondary Danger: 'hcl-btn hcl-secondary hcl-danger',
-   * Secondary Danger Small: 'hcl-btn hcl-secondary hcl-danger hcl-sm',
-   * Ghost: 'hcl-btn hcl-ghost'
+   *
+   * * ```Primary``` : 'hcl-btn hcl-primary',
+   * * ```Primary Danger``` : 'hcl-btn hcl-primary hcl-danger',
+   * * ```Primary Danger Small``` : 'hcl-btn hcl-primary hcl-danger hcl-sm',
+   * * ```Primary Small``` : 'hcl-btn hcl-primary hcl-sm',
+   * * ```Secondary``` : 'hcl-btn hcl-secondary',
+   * * ```Secondary Danger``` : 'hcl-btn hcl-secondary hcl-danger',
+   * * ```Secondary Danger Small``` : 'hcl-btn hcl-secondary hcl-danger hcl-sm',
+   * * ```Ghost``` : 'hcl-btn hcl-ghost'
    */
   className: PropTypes.string,
   /** Label for File Uploader */
@@ -145,10 +153,17 @@ FileUploader.propTypes = {
   fileType: PropTypes.string,
   /** Tab Index for File Uploader */
   tabIndex: PropTypes.number,
-  /** Call back function that is invoked when File Uploader is clicked */
+  /** Call back function that is invoked when File Uploader is clicked
+   *
+   * @signature
+   * * ```filename``` : filename
+   * * ```event``` : click event
+   */
   onChange: PropTypes.func,
   /** Boolean value to hide or show file names selected from File Uploader */
-  hideFile: PropTypes.bool
+  hideFile: PropTypes.bool,
+  /** Boolean value, if true, files must be present before submitting the form */
+  required: PropTypes.bool
 };
 
 FileUploader.defaultProps = {
@@ -163,5 +178,6 @@ FileUploader.defaultProps = {
   fileType: '',
   tabIndex: 0,
   hideFile: false,
+  required: false,
   onChange: () => {}
 };
