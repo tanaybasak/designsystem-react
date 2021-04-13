@@ -134,6 +134,26 @@ const internalitems = [
   }
 ];
 
+const internalActivetems = [
+  {
+    icon: <i className={`p-hclsw p-hclsw-${icons[2]}`} />,
+    statusIcon: <i className={`p-hclsw p-hclsw-${icons[2]}`} />,
+    title: 'Category One',
+    active: true
+  },
+  {
+    icon: <i className={`p-hclsw p-hclsw-${icons[1]}`} />,
+    statusIcon: <i className={`p-hclsw p-hclsw-${icons[2]}`} />,
+    title: 'Category Two'
+  },
+  {
+    icon: <i className={`p-hclsw p-hclsw-${icons[1]}`} />,
+    statusIcon: <i className={`p-hclsw p-hclsw-${icons[2]}`} />,
+    title: 'Category Three',
+    href: '#10'
+  }
+];
+
 const positionOptions = {
   top: 'top',
   bottom: 'bottom'
@@ -221,6 +241,40 @@ storiesOf('Components/Sidebar', module)
         }
         expanded={boolean('Expanded', true)}
         items={internalitems}
+        headerVisible={boolean('headerVisible', true)}
+        headerPosition={select('headerPosition', positionOptions, 'top')}
+        headerBranding={select('headerBranding', headerBranding, 'primary')}
+        onClick={action('link clicked')}
+        toggleSidebar={action('Toggle Sidebar')}
+        type={select('type', typeOptions, 'internal')}
+        responsive={boolean('responsive', true)}
+      />
+    ),
+    {
+      info: {
+        text: `Description About Sidebar Component`,
+        document: ['Sidebar']
+      }
+    }
+  )
+  .add(
+    'internal-active',
+    () => (
+      <Sidebar
+        title={text('Title', 'Default')}
+        icon={
+          boolean('Show Header Icon', true) ? (
+            <i
+              className={`p-hclsw p-hclsw-${select(
+                'Title Icon',
+                icons,
+                'user'
+              )}`}
+            />
+          ) : null
+        }
+        expanded={boolean('Expanded', true)}
+        items={internalActivetems}
         headerVisible={boolean('headerVisible', true)}
         headerPosition={select('headerPosition', positionOptions, 'top')}
         headerBranding={select('headerBranding', headerBranding, 'primary')}

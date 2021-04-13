@@ -83,6 +83,32 @@ const Sidebar = ({
   }, [expanded]);
 
   useEffect(() => {
+    let internalItem = sidebarList.find(link => {
+      return link.active === true;
+    });
+
+    if (internalItem) {
+      // internalItem.parentItem = internalItem;
+      setActiveItem(internalItem);
+    } else {
+      sidebarList.map((link, index) => {
+        if (link.children && link.children.length > 0) {
+          internalItem = link.children.find(sublink => {
+            return sublink.active === true;
+          });
+          if (internalItem) {
+            let tempItem = [...sidebarList];
+            tempItem[index].expanded = true;
+            updateSidebarList([...tempItem]);
+            // internalItem.parentItem = link;
+            setActiveItem(internalItem);
+          }
+        }
+      });
+    }
+  }, [type]);
+
+  useEffect(() => {
     if (activeLink) {
       let activeItem = sidebarList.find(link => {
         return link.href === activeLink;
