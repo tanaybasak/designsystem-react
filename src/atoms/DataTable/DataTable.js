@@ -1081,9 +1081,9 @@ DataTable.propTypes = {
   removeHeaderNowrap: PropTypes.bool,
   /** Table Resizer */
   resizer: PropTypes.bool,
-  /** Focus for table row  */
+  /** Focus for table row */
   row_focus: PropTypes.bool,
-  /** Focus for cell row  */
+  /** Focus for table cell */
   cell_focus: PropTypes.bool
 };
 
