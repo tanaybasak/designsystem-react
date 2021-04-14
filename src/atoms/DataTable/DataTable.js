@@ -924,9 +924,6 @@ DataTable.propTypes = {
   type: PropTypes.string,
   /** Data record array to be displayed  */
   tableData: PropTypes.array,
-  /** Focus */
-  row_focus: PropTypes.bool,
-  cell_focus: PropTypes.bool,
   /** Column Configuration
    *
    * * ```label``` : Column Header
@@ -1083,7 +1080,11 @@ DataTable.propTypes = {
   /** Used to remove nowwrap style from header title */
   removeHeaderNowrap: PropTypes.bool,
   /** Table Resizer */
-  resizer: PropTypes.bool
+  resizer: PropTypes.bool,
+  /** Focus for table row  */
+  row_focus: PropTypes.bool,
+  /** Focus for cell row  */
+  cell_focus: PropTypes.bool
 };
 
 DataTable.defaultProps = {
