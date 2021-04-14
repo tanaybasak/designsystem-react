@@ -723,7 +723,7 @@ const DataTable = ({
                           </svg>
                         ) : (
                           unsortIcon
-                       )
+                        )
                       ) : null}
                     </div>
                   </th>
