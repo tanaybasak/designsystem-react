@@ -27,6 +27,8 @@ const DataTable = ({
   initSortedColumn,
   onColumnReorder,
   selectedItem,
+  row_focus,
+  cell_focus,
   uniqueKey,
   ...restProps
 }) => {
@@ -101,7 +103,6 @@ const DataTable = ({
     ) {
       return;
     }
-
     if (e.key === 'ArrowLeft') {
       e.preventDefault();
       if (e.currentTarget.previousElementSibling) {
@@ -793,13 +794,19 @@ const DataTable = ({
             {rows.map((row, index) => (
               <React.Fragment key={`row-${index}`}>
                 <tr
-                  tabIndex={0}
-                  className={
+                  tabIndex={row_focus && cell_focus ? 0 : row_focus ? 0 : -1}
+                  className={`${
                     selectedItem && selectedItem[row[uniqueKey]]
                       ? `${prefix}-active-row`
                       : null
-                  }
-                  onClick={onRowSelect ? onRowSelect.bind(this, row) : null}
+                  }`}
+                  onClick={onRowSelect ? onRowSelect(row) : null}
+                  {...(row_focus && {
+                    onKeyDown: onKeyDownOnTable.bind(this, index)
+                  })}
+                  // onKeyDown={
+                  //   row_focus ? onKeyDownOnRow.bind(this, index) : () => {}
+                  // }
                 >
                   {tableConfiguration.map((column, i) => {
                     const tdclassName = [];
@@ -830,8 +837,35 @@ const DataTable = ({
                           right: column.marginRight,
                           ...column.styles
                         }}
-                        tabIndex={-1}
-                        onKeyDown={onKeyDownOnTable.bind(this, i)}
+                        {...(row_focus && cell_focus
+                          ? {
+                              tabIndex:
+                                cell_focus && row_focus && column.focus
+                                  ? 0
+                                  : cell_focus && column.focus
+                                  ? 0
+                                  : -1
+                            }
+                          : cell_focus
+                          ? {
+                              tabIndex:
+                                cell_focus && row_focus && column.focus
+                                  ? 0
+                                  : cell_focus && column.focus
+                                  ? 0
+                                  : -1
+                            }
+                          : null)}
+                        // onKeyDown={
+                        //   cell_focus ? onKeyDownOnTable.bind(this, i) : () => {}
+                        // }
+                        // {...(cell_focus && {
+                        //   onClic
+                        // })}
+
+                        {...(cell_focus && {
+                          onKeyDown: onKeyDownOnTable.bind(this, index)
+                        })}
                       >
                         {column.renderHtml ? (
                           column.renderHtml(row)
@@ -890,6 +924,9 @@ DataTable.propTypes = {
   type: PropTypes.string,
   /** Data record array to be displayed  */
   tableData: PropTypes.array,
+  /** Focus */
+  row_focus: PropTypes.bool,
+  cell_focus: PropTypes.bool,
   /** Column Configuration
    *
    * * ```label``` : Column Header
@@ -1068,6 +1105,8 @@ DataTable.defaultProps = {
   initSortedColumn: {},
   resizer: false,
   uniqueKey: 'id',
+  row_focus: false,
+  cell_focus: true,
   onColumnReorder: () => {},
   showDraggableIconOnHover: false,
   removeHeaderNowrap: false
