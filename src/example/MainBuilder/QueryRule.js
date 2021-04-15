@@ -43,7 +43,7 @@ const QueryRule = ({ item, rulesMapper, ruleIdMapper }) => {
 
   return !showInlineEdit ? (
     <div
-      className="logic-builder-query-rule"
+      className={`${prefix}-logic-builder-query-rule`}
       onClick={() => {
         toggleInlineEdit(true);
       }}
@@ -52,7 +52,7 @@ const QueryRule = ({ item, rulesMapper, ruleIdMapper }) => {
       <i className="p-hclsw p-hclsw-edit inline-edit-button"></i>
     </div>
   ) : (
-    <div className="logic-builder-inline-edit-wrapper">
+    <div className={`${prefix}-logic-builder-inline-edit-wrapper`}>
       <TextArea
         value={textAreaValue}
         aria-label="text input"

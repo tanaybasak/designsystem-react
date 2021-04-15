@@ -5,6 +5,7 @@ import LogicDispatchContext from './LogicDispatchContext';
 import LogicStateContext from './LogicStateContext';
 import PropTypes from 'prop-types';
 import { addMoreIcon, chevronIcon } from '../../util/icons';
+import prefix from '../../settings';
 const LogicItem = ({
   id,
   tileHeader,
@@ -27,32 +28,40 @@ const LogicItem = ({
   }
 
   return (
-    <li className={`logic-builder-list ${isLastElement ? 'last-element' : ''}`}>
+    <li
+      className={`${prefix}-logic-builder-list${
+        isLastElement ? ` ${prefix}-logic-builder-last-list-item` : ''
+      }`}
+    >
       <div
-        className={`child ${
+        className={`${prefix}-tile-wrapper${
           childrenCount > 0 && !state.expandedQueries[id + '']
-            ? 'expanded-tile'
-            : 'collapsed-tile'
-        } ${childrenCount > 0 ? 'children-exist' : ''} ${
-          !tileHeader ? 'no-title' : ''
+            ? ` ${prefix}-tile-wrapper-expanded`
+            : ` ${prefix}-tile-wrapper-collapsed`
+        }${childrenCount > 0 ? ` ${prefix}-children-exist` : ''}${
+          !tileHeader ? ` ${prefix}-no-tile-header` : ''
         }`}
       >
-        {tileHeader ? <p className="tile-header">{tileHeader}</p> : null}
+        {tileHeader ? (
+          <p className={`${prefix}-tile-header`}>{tileHeader}</p>
+        ) : null}
         <Tile {...restProps}>
-          <div className="logic-builder-item-wrapper">
-            <div className="logic-builder-item">
-              <div className="logic-builder-item-header">
-                <div className="logic-builder-item-header-left">
+          <div className={`${prefix}-logic-builder-item-wrapper`}>
+            <div className={`${prefix}-logic-builder-item`}>
+              <div className={`${prefix}-logic-builder-item-header`}>
+                <div className={`${prefix}-logic-builder-item-header-left`}>
                   {logicType}
-                  <div className="logic-builder-query">{query}</div>
+                  <div className={`${prefix}-logic-builder-query`}>{query}</div>
                 </div>
-                <div className="logic-builder-item-header-right">
+                <div className={`${prefix}-logic-builder-item-header-right`}>
                   {actionTemplate}
                   <Button
                     title="Toggle icon"
                     type="ghost"
-                    className={`toggle-icon${
-                      state.expandedQueries[id + ''] ? ' collapsed' : ''
+                    className={`${prefix}-logic-builder-toggle-icon${
+                      state.expandedQueries[id + '']
+                        ? ` ${prefix}-logic-builder-toggle-icon-collapsed`
+                        : ''
                     }`}
                     onClick={() => {
                       dispatch({
@@ -74,7 +83,9 @@ const LogicItem = ({
               )}
             </div>
             {state.expandedQueries[id + ''] ? null : (
-              <ul className="logic-builder-group subItem">
+              <ul
+                className={`${prefix}-logic-builder-group ${prefix}-logic-builder-sub-list`}
+              >
                 {children
                   ? Children.toArray(children).map((child, index) =>
                       cloneElement(child, {
@@ -85,7 +96,9 @@ const LogicItem = ({
                   : null}
 
                 {showAddMore ? (
-                  <li className="logic-builder-list add-more-element">
+                  <li
+                    className={`${prefix}-logic-builder-list ${prefix}-add-more-element`}
+                  >
                     <Button title="Add more" type="ghost" onClick={addItem}>
                       {addMoreIcon}
                     </Button>

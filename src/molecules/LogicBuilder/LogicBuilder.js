@@ -3,13 +3,14 @@ import PropTypes from 'prop-types';
 import LogicStateContext from './LogicStateContext';
 import LogicDispatchContext from './LogicDispatchContext';
 import { LogicReducer } from './LogicReducer';
+import prefix from '../../settings';
 const initialState = {
   expandedQueries: {}
 };
 const LogicBuilder = ({ children, className }) => {
   const [state, dispatch] = useReducer(LogicReducer, initialState);
 
-  const classNames = [`hcl-logic-builder`];
+  const classNames = [`${prefix}-logic-builder`];
   if (className) {
     classNames.push(className);
   }
@@ -17,7 +18,9 @@ const LogicBuilder = ({ children, className }) => {
     <LogicDispatchContext.Provider value={dispatch}>
       <LogicStateContext.Provider value={state}>
         <div className={classNames.join(' ')}>
-          <ul className="logic-builder-group main-parent">{children}</ul>
+          <ul className={`${prefix}-logic-builder-group ${prefix}-main-parent`}>
+            {children}
+          </ul>
         </div>
       </LogicStateContext.Provider>
     </LogicDispatchContext.Provider>

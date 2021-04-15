@@ -245,7 +245,10 @@ const queryTemplate = (item, index) => {
       tileHeader={item.header}
       key={index}
       query={
-        <div className="logic-builder-query-rule" title={getQueryRule(item)}>
+        <div
+          className="hcl-logic-builder-query-rule"
+          title={getQueryRule(item)}
+        >
           <span>{getQueryRule(item)}</span>
           <i className="p-hclsw p-hclsw-edit inline-edit-button" />
         </div>
