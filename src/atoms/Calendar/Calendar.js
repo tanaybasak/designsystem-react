@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import PanelHeader from './PanelHeader';
 import PanelBottom from './PanelBottom';
@@ -31,15 +31,12 @@ const Calendar = ({
     year: currDateObj.getFullYear()
   });
 
-  
   return (
-    <div
-      className={`hcl-dateSelector-panel hcl-calendar ${className}`}
-    >
+    <div className={`hcl-dateSelector-panel hcl-calendar ${className}`}>
       <PanelHeader
         view={view}
         setView={setView}
-        currDateObj={calendarDateObj  }
+        currDateObj={calendarDateObj}
         setCurrDateObj={setCalendarDateObj}
         months={months}
         panelType={panelType}
@@ -51,7 +48,7 @@ const Calendar = ({
       <PanelBottom
         view={view}
         setView={setView}
-        currDateObj={calendarDateObj  }
+        currDateObj={calendarDateObj}
         setCurrDateObj={setCalendarDateObj}
         onDateSelection={onDateSelection}
         dateSelected={dateSelected}
@@ -88,7 +85,7 @@ Calendar.propTypes = {
   maxDate: PropTypes.instanceOf(Date),
   eventsCategory: PropTypes.any,
   eventStyle: PropTypes.string,
-  events: PropTypes.array,
+  events: PropTypes.array
 };
 
 Calendar.defaultProps = {

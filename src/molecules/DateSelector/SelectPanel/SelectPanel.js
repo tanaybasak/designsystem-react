@@ -20,7 +20,7 @@ const SelectPanel = ({
   maxDate,
   eventsCategory,
   eventStyle,
-  events,
+  events
 }) => {
   const [view, setView] = useState('date');
 
@@ -78,14 +78,13 @@ SelectPanel.propTypes = {
   maxDate: PropTypes.instanceOf(Date),
   eventsCategory: PropTypes.any,
   eventStyle: PropTypes.string,
-  events: PropTypes.array,
+  events: PropTypes.array
 };
 
 SelectPanel.defaultProps = {
   eventsCategory: null,
   eventStyle: 'dot',
-  events: [],
-  
+  events: []
 };
 
 export default SelectPanel;

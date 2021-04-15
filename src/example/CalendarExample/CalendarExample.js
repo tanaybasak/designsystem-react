@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import Calendar from '../../atoms/Calendar';
 
 const CalendarExample = ({}) => {
-
   return (
     <>
       <Calendar
