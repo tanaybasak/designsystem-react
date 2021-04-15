@@ -23,6 +23,7 @@ storiesOf('Components/Time Picker', module)
         helperText={text('Helper Text', 'optional helper text')}
         disabled={boolean('Disabled', false)}
         onChange={action('Timepicker Onchange')}
+        errorMessage={text('Error message', '')}
         aria-label="Time Picker"
         defaultTime={object('Default Time', defaultTime)}
       />
@@ -45,6 +46,7 @@ storiesOf('Components/Time Picker', module)
         helperText={text('Helper Text', 'optional helper text')}
         disabled={boolean('Disabled', false)}
         onChange={action('Timepicker Onchange')}
+        errorMessage={text('Error message', '')}
         aria-label="Time Picker"
         defaultTime={object('Default Time', defaultTime)}
       />
@@ -65,6 +67,7 @@ storiesOf('Components/Time Picker', module)
         helperText={text('Helper Text', 'optional helper text')}
         disabled={boolean('Disabled', false)}
         onChange={action('Timepicker Onchange')}
+        errorMessage={text('Error message', '')}
         timeZones={timeZones}
         defaultTime={object('Default Time', defaultTime)}
         aria-label="Time Picker"
