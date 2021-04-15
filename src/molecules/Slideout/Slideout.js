@@ -166,7 +166,6 @@ const Slideout = ({
   };
 
   return opened ? ReactDOM.createPortal(renderHTML(), document.body) : <></>;
-  // return opened ? renderHTML() : null;
 };
 
 Slideout.propTypes = {
