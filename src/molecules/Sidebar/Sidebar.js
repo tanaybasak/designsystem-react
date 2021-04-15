@@ -22,6 +22,7 @@ const Sidebar = ({
   sidebarLinkTemplate,
   expanded,
   activeLink,
+  activeLinkProperty,
   responsive,
   ...restProps
 }) => {
@@ -71,9 +72,6 @@ const Sidebar = ({
 
   useEffect(() => {
     updateSidebarList(items);
-  }, [items]);
-
-  useEffect(() => {
     let isIconExist = items.some(item => item.hasOwnProperty('icon'));
     updateIconExists(isIconExist);
   }, [items]);
@@ -83,53 +81,26 @@ const Sidebar = ({
   }, [expanded]);
 
   useEffect(() => {
-    if (type == 'internal') {
-      let internalItem = sidebarList.find(link => {
-        return link.active === true;
-      });
-
-      if (internalItem) {
-        // internalItem.parentItem = internalItem;
-        setActiveItem(internalItem);
-      } else {
-        sidebarList.map((link, index) => {
-          if (link.children && link.children.length > 0) {
-            internalItem = link.children.find(sublink => {
-              return sublink.active === true;
-            });
-            if (internalItem) {
-              let tempItem = [...sidebarList];
-              tempItem[index].expanded = true;
-              updateSidebarList([...tempItem]);
-              // internalItem.parentItem = link;
-              setActiveItem(internalItem);
-            }
-          }
-        });
-      }
-    }
-  }, [type]);
-
-  useEffect(() => {
     if (activeLink) {
-      let activeItem = sidebarList.find(link => {
-        return link.href === activeLink;
+      let tempActiveItem = sidebarList.find(link => {
+        return link[activeLinkProperty] === activeLink;
       });
-      if (activeItem) {
-        activeItem.parentItem = activeItem;
-        setActiveItem(activeItem);
+      if (tempActiveItem) {
+        tempActiveItem.parentItem = tempActiveItem; //{ ...tempActiveItem };
+        setActiveItem(tempActiveItem);
       } else {
         sidebarList.map((link, index) => {
           if (link.children && link.children.length > 0) {
-            activeItem = link.children.find(sublink => {
-              return sublink.href === activeLink;
+            tempActiveItem = link.children.find(sublink => {
+              return sublink[activeLinkProperty] === activeLink;
             });
-            if (activeItem) {
+            if (tempActiveItem) {
               let tempItem = [...sidebarList];
               tempItem[index].expanded = true;
               updateSidebarList([...tempItem]);
-              activeItem.parentItem = link;
-              setActiveItem(activeItem);
+              tempActiveItem.parentItem = link; //link
+
+              setActiveItem(tempActiveItem);
             }
           }
         });
@@ -482,7 +453,7 @@ Sidebar.propTypes = {
   className: PropTypes.string,
 
   /** used to set default active link */
-  activeLink: PropTypes.string,
+  activeLink: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
   /** used to pass custom template in sidebar link */
   sidebarLinkTemplate: PropTypes.any,
@@ -528,13 +499,17 @@ Sidebar.propTypes = {
    * * ```argument``` : toggleStatus
    * * ```event``` : click event
    */
-  toggleSidebar: PropTypes.func
+  toggleSidebar: PropTypes.func,
+
+  /** Setting active link property */
+  activeLinkProperty: PropTypes.string
 };
 
 Sidebar.defaultProps = {
   className: '',
   sidebarLinkTemplate: null,
   activeLink: null,
+  activeLinkProperty: 'href',
   expanded: false,
   title: '',
   items: [],

@@ -51,12 +51,13 @@ const items = [
       }
     ],
     icon: <i className={`p-hclsw p-hclsw-${icons[1]}`} />,
-    title: 'Category Two'
+    title: 'Category Two',
+    id: 2
   },
   {
     icon: <i className={`p-hclsw p-hclsw-${icons[1]}`} />,
     title: 'Category Three',
-    href: '#10'
+    id: 1
   }
 ];
 
@@ -136,21 +137,41 @@ const internalitems = [
 
 const internalActivetems = [
   {
+    children: [
+      {
+        id: 5,
+        title: 'Child Item 1'
+      },
+      {
+        id: 6,
+        title: 'Child Item 2',
+        disabled: true
+      },
+      {
+        id: 7,
+        title: 'Child Item 3'
+      },
+      {
+        id: 9,
+        title: 'Child Item 4'
+      }
+    ],
     icon: <i className={`p-hclsw p-hclsw-${icons[2]}`} />,
     statusIcon: <i className={`p-hclsw p-hclsw-${icons[2]}`} />,
     title: 'Category One',
-    active: true
+    id: 1
   },
   {
     icon: <i className={`p-hclsw p-hclsw-${icons[1]}`} />,
     statusIcon: <i className={`p-hclsw p-hclsw-${icons[2]}`} />,
-    title: 'Category Two'
+    title: 'Category Two',
+    id: 2
   },
   {
     icon: <i className={`p-hclsw p-hclsw-${icons[1]}`} />,
     statusIcon: <i className={`p-hclsw p-hclsw-${icons[2]}`} />,
     title: 'Category Three',
-    href: '#10'
+    id: 3
   }
 ];
 
@@ -186,6 +207,8 @@ storiesOf('Components/Sidebar', module)
         onClick={action('link clicked')}
         toggleSidebar={action('Toggle Sidebar')}
         responsive={boolean('responsive', true)}
+        activeLink={1}
+        activeLinkProperty="id"
       />
     ),
     {
@@ -282,6 +305,8 @@ storiesOf('Components/Sidebar', module)
         toggleSidebar={action('Toggle Sidebar')}
         type={select('type', typeOptions, 'internal')}
         responsive={boolean('responsive', true)}
+        activeLink={1}
+        activeLinkProperty="id"
       />
     ),
     {
