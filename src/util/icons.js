@@ -371,3 +371,16 @@ export const chevronIcon = (
     <path d="M12.29,10.71,8,6.41l-4.29,4.3L3,10,8,5l5,5Z" />
   </svg>
 );
+
+export const unsortIcon = (
+  <svg
+    className={`${prefix}-sorting`}
+    width="16px"
+    height="16px"
+    viewBox="0 0 16 16"
+  >
+    <title> unsorted - click to sort</title>
+    <rect fill="none" />
+    <path d="M7.29,4.71,5.5,2.91V9h-1V2.91L2.71,4.71,2,4,5,1,8,4Zm6,6.58-1.79,1.8V7h-1v6.09l-1.79-1.8L8,12l3,3,3-3Z" />
+  </svg>
+);

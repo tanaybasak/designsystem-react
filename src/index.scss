@@ -1,19 +1,31 @@
 * {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 #root {
-    height: 100vh;
-    
+  height: 100vh;
 }
 
 .hcl-inpage-navigation-wrapper {
-    position: fixed;
-    top: 400px;
-    right: 27px;
+  position: fixed;
+  top: 400px;
+  right: 27px;
 }
 
 nav.hcl-sidebar.hcl-sidebar-left {
-    float: left;
+  float: left;
+}
+
+.custom-slideout-table {
+  font-size: 14px;
+  font-weight: 400;
+}
+.h-line::after {
+  display: block;
+  content: '';
+  width: 100%;
+  padding: inherit;
+  margin: 10px 15px 0;
+  border: 1px solid #c9c9c9;
 }
