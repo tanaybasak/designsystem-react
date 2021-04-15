@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import prefix from '../../../../settings';
-import { convertToDateObj, isDateEqual } from '../../../../util/utility';
+import prefix from '../../../settings';
+import { convertToDateObj, isDateEqual } from '../../../util/utility';
 
 const PanelBottom = ({
   view,

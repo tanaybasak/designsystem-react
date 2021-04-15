@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import prefix from '../../../../settings';
-import Button from '../../../../atoms/Button';
+import prefix from '../../../settings';
+import Button from '../../Button';
 
 const PanelHeader = ({
   view,

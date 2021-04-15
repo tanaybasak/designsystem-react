@@ -1,21 +1,12 @@
 import React, { useState } from 'react';
-import DateRangeSelector from '../../molecules/DateRangeSelector';
-import Calendar from '../../molecules/DateSelector/Calendar';
+import Calendar from '../../atoms/Calendar';
 
 const CalendarExample = ({}) => {
-  const date = new Date();
-  const [currDateObj, setCurrDateObj] = useState({
-    day: date.getDay(),
-    month: date.getMonth(),
-    date: date.getDate(),
-    year: date.getFullYear()
-  });
 
   return (
     <>
       <Calendar
-        currDateObj={currDateObj}
-        setCurrDateObj={setCurrDateObj}
+        currDateObj={new Date()}
         weekDays={['S', 'M', 'T', 'W', 'Th', 'F', 'S']}
         months={[
           'JAN',
@@ -56,11 +47,9 @@ const CalendarExample = ({}) => {
           { date: new Date('2021', '03', '16'), category: 'category2' },
           { date: new Date('2021', '03', '24'), category: 'category3' }
         ]}
-        type="calendar"
       />
       <Calendar
-        currDateObj={currDateObj}
-        setCurrDateObj={setCurrDateObj}
+        currDateObj={new Date()}
         onDateSelection={(dateObj, event) => {
           console.log('event =>', event, 'dateObj=>', dateObj);
         }}
@@ -89,7 +78,6 @@ const CalendarExample = ({}) => {
           { date: new Date('2021', '03', '16'), category: 'category2' },
           { date: new Date('2021', '03', '24'), category: 'category3' }
         ]}
-        type="calendar"
       />
     </>
   );

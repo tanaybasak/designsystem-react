@@ -7,7 +7,7 @@ import {
 } from '../../util/utility';
 import Overlay from '../../atoms/Overlay';
 import FormHelperText from '../../atoms/FormHelperText';
-import Calendar from './Calendar';
+import SelectPanel from './SelectPanel';
 import DateSelectorInput from './DateSelectorInput';
 
 const DateSelector = ({
@@ -150,7 +150,7 @@ const DateSelector = ({
             <div className="hcl-dateSelector-panel-wrapper">
               {sidePanel}
               <div className="hcl-dateSelector-panel-right">
-                <Calendar
+                <SelectPanel
                   currDateObj={currDateObj}
                   setCurrDateObj={setCurrDateObj}
                   format={format}
@@ -219,7 +219,7 @@ DateSelector.propTypes = {
   minDate: PropTypes.instanceOf(Date),
   /** Max date */
   maxDate: PropTypes.instanceOf(Date),
-  /** Callback on Calendar toggle */
+  /** Callback on SelectPanel toggle */
   onVisibleChange: PropTypes.func
 };
 

@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Overlay from '../../atoms/Overlay';
 import FormHelperText from '../../atoms/FormHelperText';
-import Calendar from '../DateSelector/Calendar';
+import SelectPanel from '../DateSelector/SelectPanel';
 import DateRangeFooter from './DateRangeFooter';
 import DateRangeInput from './DateRangeInput';
 import {
@@ -329,7 +329,7 @@ const DateRangeSelector = ({
               {sidePanel}
               <div className="hcl-flex-col hcl-dateSelector-panel-right ">
                 <div className="hcl-flex-row">
-                  <Calendar
+                  <SelectPanel
                     currDateObj={startDateObj}
                     setCurrDateObj={setStartDateObj}
                     format={format}
@@ -350,7 +350,7 @@ const DateRangeSelector = ({
                     maxDate={getMaxDate()}
                     minDate={minDate}
                   />
-                  <Calendar
+                  <SelectPanel
                     currDateObj={endDateObj}
                     setCurrDateObj={setEndDateObj}
                     format={format}
