@@ -222,7 +222,9 @@ Slideout.propTypes = {
         'warning'
       ])
     })
-  )
+  ),
+  /** custom className passed to the component */
+  className: PropTypes.string
 };
 
 Slideout.defaultProps = {
@@ -235,7 +237,8 @@ Slideout.defaultProps = {
   actions: [],
   onEscClose: true,
   onOutsideClick: null,
-  children: null
+  children: null,
+  className: ''
 };
 
 export default Slideout;

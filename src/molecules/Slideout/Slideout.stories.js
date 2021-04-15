@@ -15,11 +15,6 @@ const typeOptions = {
   ghost: 'ghost'
 };
 
-const directionOptions = {
-  right: 'right',
-  left: 'left'
-};
-
 const actions = [
   { label: 'Save', disabled: true, type: 'primary' },
   {
@@ -167,7 +162,6 @@ storiesOf('Components/Slideout', module)
               <Button
                 type="ghost"
                 onClick={() => {
-                  console.log('Button Clicked');
                   this.setState({
                     currentPage: 10
                   });
