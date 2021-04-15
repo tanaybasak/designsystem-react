@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import PanelHeader from './PanelHeader';
 import PanelBottom from './PanelBottom';
 
-const SelectPanel = ({
+const Calendar = ({
   currDateObj,
   setCurrDateObj,
   format,
@@ -17,12 +17,17 @@ const SelectPanel = ({
   range,
   weekDays,
   minDate,
-  maxDate
+  maxDate,
+  eventsCategory,
+  eventStyle,
+  events,
+  type
+
 }) => {
   const [view, setView] = useState('date');
 
   return (
-    <div className={`hcl-dateSelector-panel ${className}`}>
+    <div className={`hcl-dateSelector-panel ${className} ${type === 'calendar' ? 'hcl-calendar-wrapper' :''}`}>
       <PanelHeader
         view={view}
         setView={setView}
@@ -50,26 +55,56 @@ const SelectPanel = ({
         months={months}
         minDate={minDate}
         maxDate={maxDate}
+        eventsCategory={eventsCategory}
+        eventStyle={eventStyle}
+        events={events}
       />
-    </div>
+    </div>  
   );
 };
 
-SelectPanel.propTypes = {
+Calendar.propTypes = {
   currDateObj: PropTypes.object.isRequired,
   setCurrDateObj: PropTypes.func.isRequired,
-  format: PropTypes.string.isRequired,
+  format: PropTypes.string,
   onDateSelection: PropTypes.func.isRequired,
   dateSelected: PropTypes.string,
-  months: PropTypes.array.isRequired,
+  months: PropTypes.array,
   panelType: PropTypes.string,
   startDateSelected: PropTypes.string,
   endDateSelected: PropTypes.string,
   className: PropTypes.string,
   range: PropTypes.any,
-  weekDays: PropTypes.any,
+  weekDays: PropTypes.array,
   minDate: PropTypes.instanceOf(Date),
-  maxDate: PropTypes.instanceOf(Date)
+  maxDate: PropTypes.instanceOf(Date),
+  eventsCategory: PropTypes.any,
+  eventStyle: PropTypes.string,
+  events: PropTypes.any,
+  type:PropTypes.string
+};  
+
+Calendar.defaultProps = {
+  eventsCategory: null,
+  eventStyle: 'dot',
+  events: [],
+  onDateSelection: null,
+  weekDays: ['S', 'M', 'T', 'W', 'Th', 'F', 'S'],
+  months: [
+    'JAN',
+    'FEB',
+    'MAR',
+    'APR',
+    'MAY',
+    'JUN',
+    'JUL',
+    'AUG',
+    'SEP',
+    'OCT',
+    'NOV',
+    'DEC'
+  ],
+  format: 'mm/dd/yyyy',
 };
 
-export default SelectPanel;
+export default Calendar;

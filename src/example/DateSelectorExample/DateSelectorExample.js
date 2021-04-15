@@ -3,6 +3,8 @@ import DateSelector from '../../molecules/DateSelector';
 
 const DateSelectorExample = ({}) => {
   const [defaultDate, setDefaultDate] = useState(new Date(2020, 10, 2));
+  const [defaultDate1, setDefaultDate1] = useState(new Date(2020, 10, 2));
+  const [defaultDate2, setDefaultDate2] = useState(new Date(2020, 10, 2));
 
   return (
     <div className="hcl-row">
@@ -53,7 +55,7 @@ const DateSelectorExample = ({}) => {
             'DEC'
           ]}
           format="mm/dd/yyyy"
-          defaultDate={defaultDate}
+          defaultDate={defaultDate1}
           onDateSelect={date => {
             console.log(date);
           }}
@@ -64,13 +66,13 @@ const DateSelectorExample = ({}) => {
         <DateSelector
           id="date-selector-id"
           format="dd/mm/yyyy"
-          defaultDate={defaultDate}
+          defaultDate={defaultDate2}
           sidePanel={
             <ul className="hcl-dateSelector-sidebar">
               <li
                 tabIndex="0"
                 onClick={() => {
-                  setDefaultDate(new Date());
+                  setDefaultDate2(new Date());
                 }}
               >
                 Today
@@ -80,7 +82,7 @@ const DateSelectorExample = ({}) => {
                 onClick={() => {
                   let d = new Date();
                   d.setDate(d.getDate() - 1);
-                  setDefaultDate(d);
+                  setDefaultDate2(d);
                 }}
               >
                 Yesterday
@@ -90,7 +92,7 @@ const DateSelectorExample = ({}) => {
                 onClick={() => {
                   let d = new Date();
                   d.setDate(d.getDate() + 1);
-                  setDefaultDate(d);
+                  setDefaultDate2(d);
                 }}
               >
                 Tomorrow
@@ -102,7 +104,7 @@ const DateSelectorExample = ({}) => {
                     new Date().getDate() + (6 - new Date().getDay() - 1) - 7;
                   const lastFriday = new Date();
                   lastFriday.setDate(t);
-                  setDefaultDate(lastFriday);
+                  setDefaultDate2(lastFriday);
                 }}
               >
                 Last Friday
@@ -114,7 +116,7 @@ const DateSelectorExample = ({}) => {
                     new Date().getDate() + (6 - new Date().getDay() - 1) + 7;
                   const lastFriday = new Date();
                   lastFriday.setDate(t);
-                  setDefaultDate(lastFriday);
+                  setDefaultDate2(lastFriday);
                 }}
               >
                 Next Friday

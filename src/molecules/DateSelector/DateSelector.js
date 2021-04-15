@@ -7,7 +7,7 @@ import {
 } from '../../util/utility';
 import Overlay from '../../atoms/Overlay';
 import FormHelperText from '../../atoms/FormHelperText';
-import SelectPanel from './SelectPanel';
+import Calendar from './Calendar';
 import DateSelectorInput from './DateSelectorInput';
 
 const DateSelector = ({
@@ -112,7 +112,7 @@ const DateSelector = ({
       : onDateSelect(createDateObj(Number(dateStr), Number(monthStr), year));
   };
 
-  const onDateSelection = event => {
+  const onDateSelection = (dateObj,event) => {
     setDateSelected(event.target.getAttribute('date'));
     setIsDateSelectedValid(true);
     setIsValidYear(true);
@@ -150,7 +150,7 @@ const DateSelector = ({
             <div className="hcl-dateSelector-panel-wrapper">
               {sidePanel}
               <div className="hcl-dateSelector-panel-right">
-                <SelectPanel
+                <Calendar
                   currDateObj={currDateObj}
                   setCurrDateObj={setCurrDateObj}
                   format={format}
