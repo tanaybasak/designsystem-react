@@ -9,7 +9,6 @@ const Calendar = ({
   onDateSelection,
   dateSelected,
   months,
-  panelType,
   startDateSelected,
   endDateSelected,
   className,
@@ -39,7 +38,6 @@ const Calendar = ({
         currDateObj={calendarDateObj}
         setCurrDateObj={setCalendarDateObj}
         months={months}
-        panelType={panelType}
         range={range}
         weekDays={weekDays}
         minDate={minDate}
@@ -53,7 +51,6 @@ const Calendar = ({
         onDateSelection={onDateSelection}
         dateSelected={dateSelected}
         format={format}
-        panelType={panelType}
         startDateSelected={startDateSelected}
         endDateSelected={endDateSelected}
         range={range}
@@ -75,7 +72,6 @@ Calendar.propTypes = {
   onDateSelection: PropTypes.func.isRequired,
   dateSelected: PropTypes.string,
   months: PropTypes.array,
-  panelType: PropTypes.string,
   startDateSelected: PropTypes.string,
   endDateSelected: PropTypes.string,
   className: PropTypes.string,

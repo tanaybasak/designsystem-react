@@ -229,15 +229,6 @@ const DateRangeSelector = ({
       case 2:
         break;
     }
-
-    // if (event.target.getAttribute('paneltype') === 'startpanel') {
-    //   setStartDateSelected(event.target.getAttribute('date'));
-    //   setIsStartDateSelectedValid(true);
-    // } else if (event.target.getAttribute('paneltype') === 'endpanel') {
-    //   setEndDateSelected(event.target.getAttribute('date'));
-    //   setIsEndDateSelectedValid(true);
-    // }
-    // setFlag(!flag);
   };
 
   const updateFormattedDate = (mm, dd, yyyy, type) => {
@@ -337,7 +328,6 @@ const DateRangeSelector = ({
                     dateSelected={startDateSelected}
                     months={months}
                     weekDays={weekDays}
-                    panelType="startpanel"
                     startDateSelected={startDateSelected}
                     endDateSelected={endDateSelected}
                     startDateObj={startDateObj}
@@ -358,7 +348,6 @@ const DateRangeSelector = ({
                     dateSelected={endDateSelected}
                     months={months}
                     weekDays={weekDays}
-                    panelType="endpanel"
                     startDateSelected={startDateSelected}
                     endDateSelected={endDateSelected}
                     startDateObj={startDateObj}

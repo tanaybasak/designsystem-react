@@ -167,11 +167,6 @@ const PanelHeader = ({
       <div className="hcl-dateSelector-year-month">
         <Button
           className="hcl-dateSelector-month-prev"
-          // disabled={
-          //   panelType === 'endpanel' && monthDifference === 1 && view === 'date'
-          //     ? true
-          //     : false
-          // }
           kind="button"
           onClick={
             view === 'date'
@@ -282,13 +277,6 @@ const PanelHeader = ({
         <Button
           className="hcl-dateSelector-month-next"
           kind="button"
-          // disabled={
-          //   panelType === 'startpanel' &&
-          //   monthDifference === 1 &&
-          //   view === 'date'
-          //     ? true
-          //     : false
-          // }
           disabled={ifNextDisabled()}
           onClick={
             view === 'date'

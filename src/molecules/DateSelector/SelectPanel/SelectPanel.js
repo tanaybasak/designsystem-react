@@ -10,7 +10,6 @@ const SelectPanel = ({
   onDateSelection,
   dateSelected,
   months,
-  panelType,
   startDateSelected,
   endDateSelected,
   className,
@@ -32,7 +31,6 @@ const SelectPanel = ({
         currDateObj={currDateObj}
         setCurrDateObj={setCurrDateObj}
         months={months}
-        panelType={panelType}
         range={range}
         weekDays={weekDays}
         minDate={minDate}
@@ -46,7 +44,6 @@ const SelectPanel = ({
         onDateSelection={onDateSelection}
         dateSelected={dateSelected}
         format={format}
-        panelType={panelType}
         startDateSelected={startDateSelected}
         endDateSelected={endDateSelected}
         range={range}
@@ -68,7 +65,6 @@ SelectPanel.propTypes = {
   onDateSelection: PropTypes.func.isRequired,
   dateSelected: PropTypes.string,
   months: PropTypes.array.isRequired,
-  panelType: PropTypes.string,
   startDateSelected: PropTypes.string,
   endDateSelected: PropTypes.string,
   className: PropTypes.string,

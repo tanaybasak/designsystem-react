@@ -11,7 +11,6 @@ const PanelBottom = ({
   onDateSelection,
   dateSelected,
   format,
-  panelType,
   startDateSelected,
   endDateSelected,
   months,
@@ -170,7 +169,6 @@ const PanelBottom = ({
         <button
           className="hcl-dateSelector-date-today hcl-btn hcl-ghost hcl-calendar-btn"
           date={formattedDate}
-          paneltype={panelType}
           onClick={
             onDateSelection
               ? onDateSelection.bind(
@@ -214,7 +212,6 @@ const PanelBottom = ({
         )} hcl-btn hcl-ghost hcl-calendar-btn`}
         date={formattedDate}
         key={formattedDate}
-        paneltype={panelType}
         onClick={
           onDateSelection
             ? onDateSelection.bind(
@@ -370,7 +367,6 @@ PanelBottom.propTypes = {
   onDateSelection: PropTypes.func,
   dateSelected: PropTypes.string,
   format: PropTypes.string.isRequired,
-  panelType: PropTypes.string,
   startDateSelected: PropTypes.string,
   endDateSelected: PropTypes.string,
   months: PropTypes.array.isRequired,
@@ -379,10 +375,6 @@ PanelBottom.propTypes = {
   eventsCategory: PropTypes.any.isRequired,
   eventStyle: PropTypes.string.isRequired,
   events: PropTypes.array.isRequired
-};
-
-PanelBottom.defaultProps = {
-  panelType: 'calendar'
 };
 
 export default PanelBottom;
