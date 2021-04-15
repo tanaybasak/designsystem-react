@@ -66,34 +66,40 @@ const PanelBottom = ({
     return dateNodeList;
   };
 
-  const createEventDots = (date) =>{
+  const createEventDots = date => {
     let found = events.find(event => isDateEqual(event.date, date));
-  
-    if (found){
+
+    if (found) {
       let numOfDots = eventsCategory[found.category].numOfDots;
       let dotSize;
-  
+
       switch (numOfDots) {
-        case 1 : 
-           dotSize = "7px";
-           break;
-        case 2 :
-          dotSize = "6px";
+        case 1:
+          dotSize = '7px';
+          break;
+        case 2:
+          dotSize = '6px';
           break;
         default:
-          dotSize = "5px"
+          dotSize = '5px';
       }
-      let nodeList = []
-      for( let i=0; i< numOfDots; i++){
-        nodeList.push(<span key= {`dot-${i}`} className="hcl-dot" style={{backgroundColor: `${eventsCategory[found.category].color}`, "height": `${dotSize}`, "width": `${dotSize}` }}></span>)
+      let nodeList = [];
+      for (let i = 0; i < numOfDots; i++) {
+        nodeList.push(
+          <span
+            key={`dot-${i}`}
+            className="hcl-dot"
+            style={{
+              backgroundColor: `${eventsCategory[found.category].color}`,
+              height: `${dotSize}`,
+              width: `${dotSize}`
+            }}
+          />
+        );
       }
-       return (
-          <div className="hcl-dot-parent">
-          {nodeList}
-        </div>
-       )
+      return <div className="hcl-dot-parent">{nodeList}</div>;
     }
-  }
+  };
 
   const createDayHTML = (type, i) => {
     let month;
@@ -156,14 +162,23 @@ const PanelBottom = ({
       classDetails.push(DOMstrings.edge);
     }
 
-    let found = events.find(event => isDateEqual(event.date, convertToDateObj(format, formattedDate)));
+    let found = events.find(event =>
+      isDateEqual(event.date, convertToDateObj(format, formattedDate))
+    );
     return isTodayDate ? (
-      <div key={formattedDate} className={classDetails.join(' ')} >
+      <div key={formattedDate} className={classDetails.join(' ')}>
         <button
           className="hcl-dateSelector-date-today hcl-btn hcl-ghost hcl-calendar-btn"
           date={formattedDate}
           paneltype={panelType}
-          onClick={onDateSelection ? onDateSelection.bind(this, convertToDateObj(format, formattedDate)) : null}
+          onClick={
+            onDateSelection
+              ? onDateSelection.bind(
+                  this,
+                  convertToDateObj(format, formattedDate)
+                )
+              : null
+          }
           type="button"
           disabled={
             convertToDateObj(format, formattedDate) >= minDate &&
@@ -173,34 +188,58 @@ const PanelBottom = ({
           }
         >
           {day}
-          { eventStyle === 'dot' ? 
-            createEventDots( convertToDateObj(format, formattedDate)) :
-            <div className="hcl-calendar-border" style={ found && eventStyle === 'border'? {"outline": `2px solid ${eventsCategory[found.category].color}`} : null} ></div>
-          }
+          {eventStyle === 'dot' ? (
+            createEventDots(convertToDateObj(format, formattedDate))
+          ) : (
+            <div
+              className="hcl-calendar-border"
+              style={
+                found && eventStyle === 'border'
+                  ? {
+                      outline: `2px solid ${
+                        eventsCategory[found.category].color
+                      }`
+                    }
+                  : null
+              }
+            />
+          )}
         </button>
       </div>
     ) : (
-        <button
-          type="button"
-          className={`${classDetails.join(' ')} hcl-btn hcl-ghost hcl-calendar-btn`}
-          date={formattedDate}
-          key={formattedDate}
-          paneltype={panelType}
-          onClick={onDateSelection ? onDateSelection.bind(this, convertToDateObj(format, formattedDate)) : null}
-          style={ found && eventStyle === 'border'? {"border": `2px solid ${eventsCategory[found.category].color}`} : null}
-          disabled={
-            convertToDateObj(format, formattedDate) >= minDate &&
-              maxDate >= convertToDateObj(format, formattedDate)
-              ? false
-              : true
-          }
-        >
-          {day}
-          { eventStyle === 'dot' ? 
-            createEventDots( convertToDateObj(format, formattedDate)) :
-             null
-          }
-        </button>
+      <button
+        type="button"
+        className={`${classDetails.join(
+          ' '
+        )} hcl-btn hcl-ghost hcl-calendar-btn`}
+        date={formattedDate}
+        key={formattedDate}
+        paneltype={panelType}
+        onClick={
+          onDateSelection
+            ? onDateSelection.bind(
+                this,
+                convertToDateObj(format, formattedDate)
+              )
+            : null
+        }
+        style={
+          found && eventStyle === 'border'
+            ? { border: `2px solid ${eventsCategory[found.category].color}` }
+            : null
+        }
+        disabled={
+          convertToDateObj(format, formattedDate) >= minDate &&
+          maxDate >= convertToDateObj(format, formattedDate)
+            ? false
+            : true
+        }
+      >
+        {day}
+        {eventStyle === 'dot'
+          ? createEventDots(convertToDateObj(format, formattedDate))
+          : null}
+      </button>
     );
   };
 
@@ -337,8 +376,10 @@ PanelBottom.propTypes = {
   months: PropTypes.array.isRequired,
   minDate: PropTypes.instanceOf(Date),
   maxDate: PropTypes.instanceOf(Date),
+  eventsCategory: PropTypes.any.isRequired,
+  eventStyle: PropTypes.string.isRequired,
+  events: PropTypes.array.isRequired
 };
-
 
 PanelBottom.defaultProps = {
   panelType: 'calendar'

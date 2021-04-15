@@ -22,12 +22,15 @@ const Calendar = ({
   eventStyle,
   events,
   type
-
 }) => {
   const [view, setView] = useState('date');
 
   return (
-    <div className={`hcl-dateSelector-panel ${className} ${type === 'calendar' ? 'hcl-calendar-wrapper' :''}`}>
+    <div
+      className={`hcl-dateSelector-panel ${className} ${
+        type === 'calendar' ? 'hcl-calendar-wrapper' : ''
+      }`}
+    >
       <PanelHeader
         view={view}
         setView={setView}
@@ -59,7 +62,7 @@ const Calendar = ({
         eventStyle={eventStyle}
         events={events}
       />
-    </div>  
+    </div>
   );
 };
 
@@ -80,9 +83,9 @@ Calendar.propTypes = {
   maxDate: PropTypes.instanceOf(Date),
   eventsCategory: PropTypes.any,
   eventStyle: PropTypes.string,
-  events: PropTypes.any,
-  type:PropTypes.string
-};  
+  events: PropTypes.array,
+  type: PropTypes.string
+};
 
 Calendar.defaultProps = {
   eventsCategory: null,
@@ -104,7 +107,7 @@ Calendar.defaultProps = {
     'NOV',
     'DEC'
   ],
-  format: 'mm/dd/yyyy',
+  format: 'mm/dd/yyyy'
 };
 
 export default Calendar;

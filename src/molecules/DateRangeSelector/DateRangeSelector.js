@@ -1,4 +1,4 @@
-  import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Overlay from '../../atoms/Overlay';
 import FormHelperText from '../../atoms/FormHelperText';
@@ -195,12 +195,11 @@ const DateRangeSelector = ({
     setTargetEl(target.current);
   };
 
-  const onDateSelection = (dateObj,event) => {
+  const onDateSelection = (dateObj, event) => {
     let datePicked;
     switch (numOfSelectedDated) {
       case 0:
         datePicked = event.target.getAttribute('date');
-        console.log('event.target',event.target)
         setStartDateSelected(datePicked);
         setIsStartDateSelectedValid(true);
         if (startDateSelected !== null) {

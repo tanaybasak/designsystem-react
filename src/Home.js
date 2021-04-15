@@ -117,7 +117,7 @@ class Home extends Component {
         {
           href: '/calendar',
           title: 'CalendarExample'
-        },
+        }
       ]
     }
   ];

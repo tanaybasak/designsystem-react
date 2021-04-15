@@ -112,7 +112,7 @@ const DateSelector = ({
       : onDateSelect(createDateObj(Number(dateStr), Number(monthStr), year));
   };
 
-  const onDateSelection = (dateObj,event) => {
+  const onDateSelection = (dateObj, event) => {
     setDateSelected(event.target.getAttribute('date'));
     setIsDateSelectedValid(true);
     setIsValidYear(true);
