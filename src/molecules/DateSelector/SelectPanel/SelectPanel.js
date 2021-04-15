@@ -13,7 +13,6 @@ const SelectPanel = ({
   startDateSelected,
   endDateSelected,
   className,
-  range,
   weekDays,
   minDate,
   maxDate,
@@ -31,7 +30,6 @@ const SelectPanel = ({
         currDateObj={currDateObj}
         setCurrDateObj={setCurrDateObj}
         months={months}
-        range={range}
         weekDays={weekDays}
         minDate={minDate}
         maxDate={maxDate}
@@ -46,7 +44,6 @@ const SelectPanel = ({
         format={format}
         startDateSelected={startDateSelected}
         endDateSelected={endDateSelected}
-        range={range}
         months={months}
         minDate={minDate}
         maxDate={maxDate}
@@ -68,7 +65,6 @@ SelectPanel.propTypes = {
   startDateSelected: PropTypes.string,
   endDateSelected: PropTypes.string,
   className: PropTypes.string,
-  range: PropTypes.any,
   weekDays: PropTypes.any,
   minDate: PropTypes.instanceOf(Date),
   maxDate: PropTypes.instanceOf(Date),

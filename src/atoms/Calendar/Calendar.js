@@ -9,10 +9,7 @@ const Calendar = ({
   onDateSelection,
   dateSelected,
   months,
-  startDateSelected,
-  endDateSelected,
   className,
-  range,
   weekDays,
   minDate,
   maxDate,
@@ -20,9 +17,8 @@ const Calendar = ({
   eventStyle,
   events
 }) => {
+  
   const [view, setView] = useState('date');
-  // const date = new Date();
-
   const [calendarDateObj, setCalendarDateObj] = useState({
     day: currDateObj.getDay(),
     month: currDateObj.getMonth(),
@@ -38,7 +34,6 @@ const Calendar = ({
         currDateObj={calendarDateObj}
         setCurrDateObj={setCalendarDateObj}
         months={months}
-        range={range}
         weekDays={weekDays}
         minDate={minDate}
         maxDate={maxDate}
@@ -53,7 +48,6 @@ const Calendar = ({
         format={format}
         startDateSelected={startDateSelected}
         endDateSelected={endDateSelected}
-        range={range}
         months={months}
         minDate={minDate}
         maxDate={maxDate}
@@ -75,7 +69,6 @@ Calendar.propTypes = {
   startDateSelected: PropTypes.string,
   endDateSelected: PropTypes.string,
   className: PropTypes.string,
-  range: PropTypes.any,
   weekDays: PropTypes.array,
   minDate: PropTypes.instanceOf(Date),
   maxDate: PropTypes.instanceOf(Date),
