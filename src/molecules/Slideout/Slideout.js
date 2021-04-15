@@ -75,8 +75,6 @@ const Slideout = ({
     };
   }, [isOpen]);
 
-  // let addedAnimation = null;
-
   useEffect(() => {
     if (opened) {
       addListener(
