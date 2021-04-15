@@ -6,7 +6,7 @@ import { text, boolean, number } from '@storybook/addon-knobs';
 import NumberInput from './NumberInput';
 //@update-path-build-end
 
-storiesOf('NumberInput', module).add(
+storiesOf('Components/Number Input', module).add(
   'default',
   () => (
     <NumberInput
@@ -24,11 +24,9 @@ storiesOf('NumberInput', module).add(
   ),
   {
     info: {
-      text: `Description About NumberInput Component \n 
-      
-        import { NumberInput } from '@patron/patron-react/numberinput';
-
-      `
+      text: `Description About NumberInput Component`,
+      document: ['NumberInput'],
+      className: 'hcl-col-12 hcl-col-sm-8 hcl-col-lg-4'
     }
   }
 );

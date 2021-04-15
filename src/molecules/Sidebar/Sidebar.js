@@ -169,7 +169,9 @@ const Sidebar = ({
           }
           tabIndex="0"
           title={item.title}
-          className={`${prefix}-sidebar-item${highlightedClass}`}
+          className={`${prefix}-sidebar-item${highlightedClass}${
+            item.disabled ? ' disable' : ''
+          }`}
           onKeyDown={keyDown.bind(this, item, categoryIndex, parentItem)}
           href={item.href}
         >
@@ -217,7 +219,9 @@ const Sidebar = ({
       }
       return React.cloneElement(template, {
         tabIndex: '0',
-        className: `${prefix}-sidebar-item ${highlightedClass}`,
+        className: `${prefix}-sidebar-item ${highlightedClass}${
+          item.disabled ? ' disable' : ''
+        }`,
         onKeyDown: keyDown.bind(this, item, null, parentItem),
         onClick: itemClicked.bind(this, item, parentItem),
         title: item.title,
@@ -414,7 +418,7 @@ const Sidebar = ({
               <li
                 className={`${prefix}-sidebar-category${
                   activeItem === item ? ' active' : ''
-                }`}
+                }${item.disabled ? ' disable' : ''}`}
                 key={`sidebar_category_${categoryIndex}`}
                 aria-expanded={`${item.expanded ? 'true' : 'false'}`}
               >
@@ -426,7 +430,7 @@ const Sidebar = ({
                         <li
                           className={`${prefix}-sidebar-category${
                             activeItem === subItem ? ' active' : ''
-                          }`}
+                          }${subItem.disabled ? ' disable' : ''}`}
                           key={`sidebar_category_children_${categoryIndex}_${subItemIndex}`}
                         >
                           {getSidebarLink(subItem, null, item)}
@@ -483,14 +487,18 @@ Sidebar.propTypes = {
   icon: PropTypes.element,
   /** Callback function that is invoked when Sidebar link is clicked
    *
-   * Argument – link , event
+   * @signature
+   * * ```item``` : sidebar link
+   * * ```event``` : click event
    */
   onClick: PropTypes.func,
   /** Making sidebar responsive */
   responsive: PropTypes.bool,
   /** Callback function that is invoked when Sidebar Toggled
    *
-   * Argument – toggleStatus , event
+   * @signature
+   * * ```argument``` : toggleStatus
+   * * ```event``` : click event
    */
   toggleSidebar: PropTypes.func
 };

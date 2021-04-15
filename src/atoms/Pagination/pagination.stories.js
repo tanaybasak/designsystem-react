@@ -6,12 +6,14 @@ import { text, number, object } from '@storybook/addon-knobs';
 import Pagination from './Pagination';
 //@update-path-build-end
 
+const items = [20, 50, 100];
+
 const position = {
   left: ['itemsPerPageSelection', 'itemsPerPageInfo', 'pageNumberSelection'],
   right: ['pageNumberInfo']
 };
 
-storiesOf('Pagination', module)
+storiesOf('Components/Pagination', module)
   .add(
     'default',
     () => (
@@ -32,9 +34,8 @@ storiesOf('Pagination', module)
     ),
     {
       info: {
-        text: `Description About Pagination Component \n
-
-      import { Pagination } from '@patron/patron-react/pagination';`
+        text: `Description About Pagination Component`,
+        document: ['Pagination']
       }
     }
   )
@@ -48,6 +49,7 @@ storiesOf('Pagination', module)
         pageNumberInfoText={text('Page Number Info Text', 'pages')}
         itemsStepperLimit={number('Items Per Page Limit', 100)}
         position={object('Position', position)}
+        itemsValuesPerPage={object('Options', items)}
         onItemsPerPageChange={action('item per page change')}
         itemsPerPageStepper={number('Items Per Page Stepper', 20)}
         itemsPerPageToSelect={number('Items Per Page Selected', 40)}
@@ -58,9 +60,8 @@ storiesOf('Pagination', module)
     ),
     {
       info: {
-        text: `Description About Pagination Component \n
-
-      import { Pagination } from '@patron/patron-react/pagination';`
+        text: `Description About Pagination Component`,
+        document: ['Pagination']
       }
     }
   );

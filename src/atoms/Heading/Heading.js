@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 
-const Heading = props => {
-  const Element = props.type;
+const Heading = ({ type, className, children, ...restProps }) => {
+  const Element = type;
 
   return (
-    <Element className={`${prefix}-${props.type} ${props.className}`}>
-      {props.children}
+    <Element className={`${prefix}-${type} ${className}`} {...restProps}>
+      {children}
     </Element>
   );
 };

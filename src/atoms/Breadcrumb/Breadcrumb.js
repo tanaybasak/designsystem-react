@@ -93,7 +93,12 @@ Breadcrumb.propTypes = {
   activeIndex: PropTypes.number,
   /** Class/clasess will be applied on the parent div of Breadcrumb  */
   className: PropTypes.string,
-  /** Callback function on selecting item*/
+  /** Callback function on selecting item
+   *
+   * @signature
+   * * ```item``` : selected item obj for breadcrumb
+   * * ```event``` : click event
+   */
   onSelection: PropTypes.func,
   /** number of Breadcrumb items to be displayed */
   displayMax: PropTypes.number

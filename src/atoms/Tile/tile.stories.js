@@ -5,7 +5,7 @@ import { text, boolean } from '@storybook/addon-knobs';
 import { Tile, SelectableTile, ClickableTile, ExpandableTile } from './index';
 //@update-path-build-end
 
-storiesOf('Tile', module)
+storiesOf('Components/Tile', module)
   .add(
     'default',
     () => (
@@ -17,8 +17,8 @@ storiesOf('Tile', module)
     ),
     {
       info: {
-        text: `Description About Tile Component \n
-        import { Tile } from '@patron/patron-react/tile';`
+        text: `Description About Tile Component`,
+        document: ['Tile']
       }
     }
   )
@@ -33,8 +33,8 @@ storiesOf('Tile', module)
     ),
     {
       info: {
-        text: `Description About Tile Component \n
-        import { ClickableTile } from '@patron/patron-react/tile';`
+        text: `Description About Tile Component`,
+        document: ['ClickableTile']
       }
     }
   )
@@ -49,8 +49,8 @@ storiesOf('Tile', module)
     ),
     {
       info: {
-        text: `Description About Tile Component \n
-        import { SelectableTile } from '@patron/patron-react/tile';`
+        text: `Description About Tile Component`,
+        document: ['SelectableTile']
       }
     }
   )
@@ -66,8 +66,8 @@ storiesOf('Tile', module)
     ),
     {
       info: {
-        text: `Description About Tile Component \n
-        import { ExpandableTile } from '@patron/patron-react/tile';`
+        text: `Description About Tile Component`,
+        document: ['ExpandableTile']
       }
     }
   )
@@ -84,8 +84,8 @@ storiesOf('Tile', module)
     ),
     {
       info: {
-        text: `Description About Tile Component \n
-        import { ExpandableTile } from '@patron/patron-react/tile';`
+        text: `Description About Tile Component`,
+        document: ['ExpandableTile']
       }
     }
   );

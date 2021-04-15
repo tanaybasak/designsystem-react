@@ -7,7 +7,7 @@ import Tab from './Tab';
 import Tabs from './Tabs';
 //@update-path-build-end
 
-storiesOf('Tab', module).add(
+storiesOf('Components/Tab', module).add(
   'default',
   () => (
     <Tabs activeIndex={1} onChange={action('Tab OnChange')}>
@@ -33,9 +33,8 @@ storiesOf('Tab', module).add(
   ),
   {
     info: {
-      text: `Description About Tab Component \n
-
-      import { Tabs, Tab } from '@patron/patron-react/tab';`
+      text: `Description About Tab Component`,
+      document: ['Tabs', 'Tab']
     }
   }
 );

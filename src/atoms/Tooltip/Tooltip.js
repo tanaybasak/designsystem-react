@@ -739,11 +739,11 @@ const Tooltip = ({ type, content, direction, children }) => {
 };
 
 Tooltip.propTypes = {
-  /** Type of Tooltip 
-  Icon – An icon tooltip is used to clarify the action or name of an interactive icon button. 
-  definition – The definition tooltip provides additional help or defines an item or term 
-  Interactive - Interactive tooltips may contain rich text and other interactive elements like buttons or links 
-    */
+  /** Type of Tooltip
+   * * ```icon``` : An icon tooltip is used to clarify the action or name of an interactive icon button.
+   * * ```definition``` : The definition tooltip provides additional help or defines an item or term
+   * * ```interactive``` : Interactive tooltips may contain rich text and other interactive elements like buttons or links
+   */
   type: PropTypes.oneOf(['icon', 'definition', 'interactive']),
   /** Tooltip Direction eg: top, bottom, left, right */
   direction: PropTypes.oneOf(['top', 'bottom', 'left', 'right']),

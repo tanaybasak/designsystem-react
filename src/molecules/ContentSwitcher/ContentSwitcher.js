@@ -94,7 +94,11 @@ function ContentSwitcher({ className, activeIndex, onChange, children }) {
 ContentSwitcher.propTypes = {
   /** Index of the tab to be selected. */
   activeIndex: PropTypes.number,
-  /** Accepts event handler as prop/argument. */
+  /** Accepts event handler as prop/argument.
+   *
+   * @signature
+   * ```event```: change event object
+   */
   onChange: PropTypes.func,
   /** self Children i.e Switch Component. */
   children: PropTypes.node.isRequired,

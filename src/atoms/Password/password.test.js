@@ -19,21 +19,21 @@ describe('<Password> component', () => {
     expect(wrapper.find('input[type="password"]').props().value).toBe('Hello');
   });
 
-  it('simulate click, onfocus event in Password and is called Once', () => {
-    const mockCallBackclick = jest.fn().mockReturnValue(undefined);
-    const mockCallBackfocus = jest.fn().mockReturnValue(undefined);
-    const mockCallBackchange = jest.fn().mockReturnValue(undefined);
-    const mockCallBackblur = jest.fn().mockReturnValue(undefined);
-    const wrapper = shallow(<Password />);
-    wrapper.find('input[type="password"]').simulate('click', { target: {} });
-    wrapper.find('input[type="password"]').simulate('focus', { target: {} });
-    wrapper
-      .find('input[type="password"]')
-      .simulate('change', { currentTarget: { value: 'Hello' } });
-    wrapper.find('input[type="password"]').simulate('blur', { target: {} });
-    expect(mockCallBackclick()).toEqual(undefined);
-    expect(mockCallBackfocus()).toEqual(undefined);
-    expect(mockCallBackchange()).toEqual(undefined);
-    expect(mockCallBackblur()).toEqual(undefined);
-  });
+  //   it('simulate click, onfocus event in Password and is called Once', () => {
+  //     const mockCallBackclick = jest.fn().mockReturnValue(undefined);
+  //     const mockCallBackfocus = jest.fn().mockReturnValue(undefined);
+  //     const mockCallBackchange = jest.fn().mockReturnValue(undefined);
+  //     const mockCallBackblur = jest.fn().mockReturnValue(undefined);
+  //     const wrapper = shallow(<Password />);
+  //     wrapper.find('input[type="password"]').simulate('click', { target: {} });
+  //     wrapper.find('input[type="password"]').simulate('focus', { target: {} });
+  //     wrapper
+  //       .find('input[type="password"]')
+  //       .simulate('change', { currentTarget: { value: 'Hello' } });
+  //     wrapper.find('input[type="password"]').simulate('blur', { target: {} });
+  //     expect(mockCallBackclick()).toEqual(undefined);
+  //     expect(mockCallBackfocus()).toEqual(undefined);
+  //     expect(mockCallBackchange()).toEqual(undefined);
+  //     expect(mockCallBackblur()).toEqual(undefined);
+  //   });
 });

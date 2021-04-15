@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 
@@ -6,7 +6,6 @@ import Editor from 'react-simple-code-editor';
 import { highlight, languages } from 'prismjs/components/prism-core';
 
 import 'prismjs/components/prism-clike';
-import 'prismjs/themes/prism.css';
 import 'prismjs/components/prism-javascript';
 
 import { Copy } from '../../util/icons';
@@ -22,6 +21,10 @@ export default function CodeSnippet({
   ...restProps
 }) {
   const [code, setCode] = useState(value);
+
+  useEffect(() => {
+    setCode(value);
+  }, [value]);
   const _copyToClipboard = data => {
     const el = document.createElement('textarea');
     el.value = data;
@@ -94,18 +97,31 @@ export default function CodeSnippet({
 
 CodeSnippet.propTypes = {
   /** There are two variants of CodeSnippet: 1) Read  2) Edit. By default read only CodeSnippet will be created.  */
-  type: PropTypes.string,
+  type: PropTypes.oneOf(['read', 'edit']),
   /** To set width of CodeSnippet */
   width: PropTypes.string,
   /** To set height of CodeSnippet */
   height: PropTypes.string,
-  /** Callback funnction which will be triggered on editing CodeSnippet */
+  /** Callback funnction which will be triggered on editing CodeSnippet
+   *
+   * @signature
+   * ```code``` : snippet code
+   */
   onEdit: PropTypes.func,
-  /** Callback funnction which will be triggered on copying CodeSnippet */
+  /** Callback funnction which will be triggered on copying CodeSnippet
+   *
+   * @signature
+   * ```code``` : snippet code
+   */
   onCopy: PropTypes.func,
-  /** Code in CodeSnippet. Wrap the code in backticks(``) */
+  /**
+   * Code in CodeSnippet. Wrap the code in *backticks(``)*
+   * */
   value: PropTypes.string.isRequired,
-  /** To pass the programming language */
+  /**
+   * To pass the programming language
+   * Supported languages are mentioned below
+   * */
   language: PropTypes.string
 };
 
