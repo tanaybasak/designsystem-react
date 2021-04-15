@@ -328,8 +328,14 @@ Dropdown.propTypes = {
   type: PropTypes.string,
 
   /** Array of items eg:
-  [{id: 'option-1',text: 'Option 1'},
-   {id: 'option-2', text: 'Option 2'}]*/
+   *
+   * ```
+   * [
+   *    {id: 'option-1',text: 'Option 1'},
+   *    {id: 'option-2', text: 'Option 2'}
+   * ]
+   * ```
+   * */
   items: PropTypes.array.isRequired,
 
   /** Type of dropdown eg : multiselect, singleselect */
@@ -338,7 +344,12 @@ Dropdown.propTypes = {
   /** Label for Dropdown */
   label: PropTypes.string,
 
-  /** Callback function on selecting item*/
+  /** Callback function on selecting item
+   *
+   * @signature
+   * * ```item``` : Object returns id and text value
+   * * ```list``` : List of the selected Item incase of MultiSelect Dropdown
+   */
   onChange: PropTypes.func,
 
   /** id of item for default selection */
@@ -358,7 +369,11 @@ Dropdown.propTypes = {
 
   /** Disabled property for dropdown */
   disabled: PropTypes.bool,
-  /** Callback on dropdown toggle */
+  /** Callback on dropdown toggle
+   *
+   * @signature
+   * ```isOpen``` : boolean flag
+   */
   onVisibleChange: PropTypes.func
 };
 

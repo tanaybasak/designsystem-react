@@ -32,6 +32,19 @@ export default function Checkbox({
           if (restProps.onChange) {
             restProps.onChange(event);
           }
+          const { target } = event;
+          setTimeout(() => {
+            target.blur();
+          }, 800);
+        }}
+        onKeyDown={event => {
+          const { target } = event;
+          if (event.keyCode == 13 || event.key == 'Enter') {
+            setChecked(!isChecked);
+            if (restProps.onChange) {
+              restProps.onChange(target);
+            }
+          }
         }}
       />
       {tooltipTitle ? (
@@ -64,7 +77,11 @@ Checkbox.propTypes = {
   id: PropTypes.string.isRequired,
   /** indeterminate state for Checkbox */
   indeterminate: PropTypes.bool,
-  /** Accepts event handler as prop/argument. */
+  /** Accepts event handler as prop/argument.
+   *
+   * @signature
+   * ```event```: sends a callback event
+   */
   onChange: PropTypes.func,
   /** Control Checked state for Checkbox */
   checked: PropTypes.bool,

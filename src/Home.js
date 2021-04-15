@@ -25,7 +25,7 @@ import RichTextEditorExample from './example/RichTextEditorExample';
 import CodeSnippetExample from './example/CodeSnippetExample';
 import SidebarExample from './example/SidebarExample';
 import CalendarExample from './example/CalendarExample';
-
+import SlideoutExample from './example/SlideoutExample';
 class Home extends Component {
   state = {
     sidebarExpanded: false
@@ -117,6 +117,10 @@ class Home extends Component {
         {
           href: '/calendar',
           title: 'Calendar'
+        },
+        {
+          href: '/slideout',
+          title: 'Slideout'
         }
       ]
     }
@@ -180,6 +184,7 @@ class Home extends Component {
           <Switch>
             <Route exact path="/" component={App} />
             <Route exact path="/wizard" component={WizardExample} />
+            <Route exact path="/Slideout" component={SlideoutExample} />
             <Route exact path="/tag" component={TagExample} />
             <Route exact path="/inlineedit" component={InlineEditExample} />
             <Route exact path="/table" component={TableExample} />

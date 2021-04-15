@@ -26,16 +26,17 @@ const classNameOptions = {
 const _getListItem = (type, listItems) => {
   return (
     listItems &&
-    listItems.length &&
-    listItems.map((item, index) => (
+    listItems.length > 0 &&
+    listItems.map(({ name, child, value, ...restProps }, index) => (
       <li
         className={`${prefix}-list-item`}
-        data-value={item.value}
-        key={`${item.value}-${index}`}
+        data-value={value}
+        key={`${value}-${index}`}
+        {...restProps}
       >
         <React.Fragment>
-          {item.name}
-          {item.child && item.child.length ? _getList(type, item.child) : null}
+          {name}
+          {child && child.length ? _getList(type, child) : null}
         </React.Fragment>
       </li>
     ))
@@ -68,17 +69,26 @@ export default function List({ listItems, type, className, ...restProps }) {
 List.propTypes = {
   /** Class/clasess will be applied on the list  */
   className: PropTypes.string,
-  /** type of lists for ordered: decimal , upper-alpha , lower-alpha , lower-roman, upper-roman; type of lists for unordered: circle, square, disc */
+  /** type of lists for ordered:
+   * * decimal
+   * * upper-alpha
+   * * lower-alpha
+   * * lower-roman
+   * * upper-roman;
+   *
+   * type of lists for unordered:
+   *
+   * * circle
+   * * square
+   * * disc
+   * */
   type: PropTypes.string,
   /** Data for list  */
-  listItems: PropTypes.array,
-  /** Callback function on selecting item*/
-  onClick: PropTypes.func
+  listItems: PropTypes.array
 };
 
 List.defaultProps = {
   className: '',
   type: 'disc',
-  listItems: [],
-  onClick: () => {}
+  listItems: []
 };

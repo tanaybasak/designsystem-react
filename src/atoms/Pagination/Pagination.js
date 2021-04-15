@@ -14,6 +14,7 @@ const Pagination = ({
   currentPage,
   itemsPerPageInfoText,
   pageNumberInfoText,
+  itemsValuesPerPage,
   pagePrepositionText,
   noItemDisplayText,
   itemsPerPageToSelect
@@ -234,7 +235,13 @@ const Pagination = ({
             }
             onKeyDown={onPageItemsKeyDown}
             onChange={ItemsPerPageChange.bind(this)}
-            options={itemPerPageStepperArray ? itemPerPageStepperArray : []}
+            options={
+              itemsValuesPerPage
+                ? itemsValuesPerPage
+                : itemPerPageStepperArray
+                ? itemPerPageStepperArray
+                : []
+            }
             className={`${prefix}-pagination-select ${prefix}-page-items`}
           />
         </div>
@@ -339,6 +346,8 @@ Pagination.propTypes = {
   itemsPerPageStepper: PropTypes.number.isRequired,
   /** Number within which Step Numbers are generated. */
   itemsStepperLimit: PropTypes.number,
+  /** Array values for options */
+  itemsValuesPerPage: PropTypes.arrayOf(PropTypes.number),
   /** Text to display to the left of the No. of items Dropdown */
   itemsPerPageText: PropTypes.string,
   /** Text to display to the itemsPerPageInfo */
@@ -349,9 +358,19 @@ Pagination.propTypes = {
   pageNumberInfoText: PropTypes.string,
   /** Text to display when totalItem is zero */
   noItemDisplayText: PropTypes.string,
-  /** Accepts Event handler as argument/prop which is triggered after Items Per Page Dropdown is changed. */
+  /** Accepts Event handler as argument/prop which is triggered after Items Per Page Dropdown is changed.
+   *
+   * @signature
+   * * ```itemPerPage``` :  item per page value
+   * * ```currentPageNo``` : current Page Selected value
+   */
   onItemsPerPageChange: PropTypes.func,
-  /** Accepts Event handler as argument/prop which is triggered after Page Drop-down is changed. */
+  /** Accepts Event handler as argument/prop which is triggered after Page Drop-down is changed.
+   *
+   * @signature
+   * * ```currentPageNo``` : current Page Selected value
+   * * ```itemPerPage``` :  item per page value
+   */
   onPageChange: PropTypes.func,
   /** current active Page number */
   currentPage: PropTypes.number,
@@ -369,6 +388,7 @@ Pagination.defaultProps = {
   currentPage: 1,
   itemsPerPageStepper: 20,
   itemsStepperLimit: 100,
+  itemsValuesPerPage: null,
   itemsPerPageText: 'Items per Page:',
   itemsPerPageInfoText: 'items',
   pagePrepositionText: 'of',

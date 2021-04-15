@@ -10,7 +10,6 @@ exports[`<Slider> component snapshots/renders Slider correctly 1`] = `
     <label
       className="hcl-label hcl-slider-bottom-range"
       htmlFor=""
-      onClick={[Function]}
     >
       0
     </label>
@@ -39,7 +38,6 @@ exports[`<Slider> component snapshots/renders Slider correctly 1`] = `
     <label
       className="hcl-label hcl-slider-top-range"
       htmlFor=""
-      onClick={[Function]}
     >
       100
     </label>

@@ -30,7 +30,7 @@ const items = [
   }
 ];
 
-storiesOf('InlineEdit', module)
+storiesOf('Components/Inline Edit', module)
   .add(
     'default',
     () => (
@@ -49,11 +49,10 @@ storiesOf('InlineEdit', module)
     ),
     {
       info: {
-        text: `Description About InlineEdit Component \n 
-
-    import { InlineEdit } from '@patron/patron-react/inlineedit';
-    import { TextInput } from '@patron/patron-react/textinput';
-      `
+        text: `Description About InlineEdit Component`,
+        className: 'hcl-col-12 hcl-col-sm-8 hcl-col-lg-4',
+        document: ['InlineEdit'],
+        internal: ['TextInput']
       }
     }
   )
@@ -76,11 +75,10 @@ storiesOf('InlineEdit', module)
     ),
     {
       info: {
-        text: `Description About InlineEdit Component \n 
-
-    import { InlineEdit } from '@patron/patron-react/inlineedit';
-    import { Dropdown } from '@patron/patron-react/dropdown';
-      `
+        text: `Description About InlineEdit Component`,
+        className: 'hcl-col-12 hcl-col-sm-8 hcl-col-lg-4',
+        document: ['InlineEdit'],
+        internal: ['Dropdown']
       }
     }
   )
@@ -98,11 +96,10 @@ storiesOf('InlineEdit', module)
     ),
     {
       info: {
-        text: `Description About InlineEdit Component \n 
-
-    import { InlineEdit } from '@patron/patron-react/inlineedit';
-    import { DateSelector } from '@patron/patron-react/dateselector';
-      `
+        text: `Description About InlineEdit Component`,
+        className: 'hcl-col-12 hcl-col-sm-8 hcl-col-lg-4',
+        document: ['InlineEdit'],
+        internal: ['DateSelector']
       }
     }
   )
@@ -135,12 +132,10 @@ storiesOf('InlineEdit', module)
     ),
     {
       info: {
-        text: `Description About InlineEdit Component \n 
-
-    import { InlineEdit } from '@patron/patron-react/inlineedit';
-    import { Button } from '@patron/patron-react/button';
-    import { TextInput } from '@patron/patron-react/textinput';
-      `
+        text: `Description About InlineEdit Component`,
+        className: 'hcl-col-12 hcl-col-sm-8 hcl-col-lg-4',
+        document: ['InlineEdit'],
+        internal: ['Button', 'TextInput']
       }
     }
   );

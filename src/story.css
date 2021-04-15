@@ -1,4 +1,85 @@
-#story-root .hcl-modal:nth-child(1) {
+#root .hcl-sidebar {
+  position: relative;
+  height: 500px;
+  margin-bottom: 50px;
+}
+
+#root .hcl-modal:nth-child(1) {
+  position: unset !important;
+  width: 100%;
+  outline: none;
+  background-color: transparent !important;
+}
+
+#root .hcl-toast:nth-child(1) {
+  position: relative !important;
+}
+
+#root .hcl-header {
+  position: relative !important;
+  width: 100% !important;
+}
+
+.hcl-document tbody td:nth-child(4),
+.hcl-document tbody td:nth-child(5) {
+  white-space: pre-wrap;
+}
+
+.hcl-storybook-container
+  .hcl-codesnippet-wrapper
+  .hcl-codesnippet
+  .hcl-codesnippet-copy.hcl-btn {
+  margin: 0 !important;
+}
+
+.hcl-slideout,
+.hcl-slideout .hcl-slideout-mask {
+  position: absolute;
+  height: 100vh;
+}
+
+.slideout-story {
+  position: relative;
+  top: 100vh;
+}
+
+.custom-slideout-table {
+  font-size: 14px;
+  font-weight: 400;
+}
+.h-line::after {
+  display: block;
+  content: '';
+  width: 100%;
+  padding: inherit;
+  margin: 10px 15px 0;
+  border: 1px solid #c9c9c9;
+}
+
+/* @media only screen and (min-width: 768px) {
+    #root > .hcl-tree,
+    #root > .hcl-dropdown,
+    #root > .hcl-number-input-wrapper,
+    #root > .hcl-search,
+    #root > .hcl-slider-wrapper,
+    #root > .hcl-spinner,
+    #root > .hcl-spinner-inline,
+    #root > .hcl-textarea,
+    #root > .hcl-form-control,
+    #root > .hcl-breadcrumb.hcl-loading,
+    #root > .hcl-tab.hcl-loading,
+    #root > .hcl-form-group {
+      width: 400px;
+    }
+  
+    #story-root > .hcl-actionbar,
+    #story-root > .hcl-toolbar,
+    #story-root > .hcl-accordion {
+      width: 650px;
+    }
+  } */
+
+/* #story-root .hcl-modal:nth-child(1) {
   position: unset !important;
   width: 100%;
   outline: none;
@@ -21,25 +102,4 @@
   width: 100% !important;
 }
 
-@media only screen and (min-width: 768px) {
-  #story-root > .hcl-tree,
-  #story-root > .hcl-dropdown,
-  #story-root > .hcl-number-input-wrapper,
-  #story-root > .hcl-search,
-  #story-root > .hcl-slider-wrapper,
-  #story-root > .hcl-spinner,
-  #story-root > .hcl-spinner-inline,
-  #story-root > .hcl-textarea,
-  #story-root > .hcl-form-control,
-  #story-root > .hcl-breadcrumb.hcl-loading,
-  #story-root > .hcl-tab.hcl-loading,
-  #story-root > .hcl-form-group {
-    width: 400px;
-  }
-
-  #story-root > .hcl-actionbar,
-  #story-root > .hcl-toolbar,
-  #story-root > .hcl-accordion {
-    width: 650px;
-  }
-}
+ */

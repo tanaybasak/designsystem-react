@@ -186,8 +186,9 @@ DateSelector.propTypes = {
   months: PropTypes.array,
 
   /**
-   mm/dd/yyyy:  One of the format available.
-   dd/mm/yyyy: One of the format available. */
+   *
+   * * ```mm/dd/yyyy``` :  One of the format available.
+   * * ```dd/mm/yyyy``` : One of the format available. */
   format: PropTypes.string,
 
   /** This props allows user to pass default date */
@@ -213,13 +214,22 @@ DateSelector.propTypes = {
   /** To pass sidepanel node */
   sidePanel: PropTypes.node,
 
-  /** Callback function which will be executed on date selection  */
+  /** Callback function which will be executed on date selection
+   *
+   *
+   * @signature
+   * ```date``` : selected date
+   */
   onDateSelect: PropTypes.func,
   /** Min date */
   minDate: PropTypes.instanceOf(Date),
   /** Max date */
   maxDate: PropTypes.instanceOf(Date),
-  /** Callback on SelectPanel toggle */
+  /** Callback on SelectPanel toggle 
+   *
+   * @signature
+   * ```isOpen``` : boolean flag
+   */
   onVisibleChange: PropTypes.func
 };
 
