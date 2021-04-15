@@ -197,7 +197,7 @@ Slideout.propTypes = {
   /** Used to pass overlay content */
   children: PropTypes.node,
   /**
-   * To create action items associated with modal.
+   * To create action items associated with slideout.
    *
    * * ```label``` : button label,
    * * ```handler``` : function to handle onClick,
