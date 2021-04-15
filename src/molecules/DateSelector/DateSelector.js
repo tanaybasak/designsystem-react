@@ -225,7 +225,7 @@ DateSelector.propTypes = {
   minDate: PropTypes.instanceOf(Date),
   /** Max date */
   maxDate: PropTypes.instanceOf(Date),
-  /** Callback on SelectPanel toggle 
+  /** Callback on SelectPanel toggle
    *
    * @signature
    * ```isOpen``` : boolean flag
