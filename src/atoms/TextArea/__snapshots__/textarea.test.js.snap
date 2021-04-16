@@ -4,7 +4,5 @@ exports[`<TextArea> component snapshots/renders TextArea correctly 1`] = `
 <textarea
   className="hcl-textarea"
   disabled={false}
-  onChange={[Function]}
-  value=""
 />
 `;

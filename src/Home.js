@@ -24,6 +24,7 @@ import WizardExample from './example/WizardExample';
 import RichTextEditorExample from './example/RichTextEditorExample';
 import CodeSnippetExample from './example/CodeSnippetExample';
 import SidebarExample from './example/SidebarExample';
+import MainBuilder from './example/MainBuilder';
 import SlideoutExample from './example/SlideoutExample';
 class Home extends Component {
   state = {
@@ -112,6 +113,10 @@ class Home extends Component {
         {
           href: '/codesnippet',
           title: 'Code Snippet'
+        },
+        {
+          href: '/lb',
+          title: 'Logic Builder'
         },
         {
           href: '/slideout',
@@ -217,6 +222,7 @@ class Home extends Component {
             />
             <Route exact path="/rte" component={RichTextEditorExample} />
             <Route exact path="/codesnippet" component={CodeSnippetExample} />
+            <Route exact path="/lb" component={MainBuilder} />
           </Switch>
         </div>
       </Router>
