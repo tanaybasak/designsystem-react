@@ -1,8 +1,8 @@
 import React, { Children, cloneElement, useContext } from 'react';
 import Tile from '../../atoms/Tile';
 import Button from '../../atoms/Button';
-import LogicDispatchContext from './LogicDispatchContext';
-import LogicStateContext from './LogicStateContext';
+import LogicBuilderDispatchContext from './LogicBuilderDispatchContext';
+import LogicBuilderStateContext from './LogicBuilderStateContext';
 import PropTypes from 'prop-types';
 import { addMoreIcon, chevronIcon } from '../../util/icons';
 import prefix from '../../settings';
@@ -20,8 +20,8 @@ const LogicItem = ({
   onToggle,
   ...restProps
 }) => {
-  const dispatch = useContext(LogicDispatchContext);
-  const state = useContext(LogicStateContext);
+  const dispatch = useContext(LogicBuilderDispatchContext);
+  const state = useContext(LogicBuilderStateContext);
   let childrenCount = 0;
   if (children) {
     childrenCount = React.Children.count(children);

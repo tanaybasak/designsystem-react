@@ -1,7 +1,7 @@
 import React, { useReducer } from 'react';
 import PropTypes from 'prop-types';
-import LogicStateContext from './LogicStateContext';
-import LogicDispatchContext from './LogicDispatchContext';
+import LogicBuilderStateContext from './LogicBuilderStateContext';
+import LogicBuilderDispatchContext from './LogicBuilderDispatchContext';
 import { LogicBuilderReducer } from './LogicBuilderReducer';
 import prefix from '../../settings';
 const initialState = {
@@ -15,15 +15,15 @@ const LogicBuilder = ({ children, className }) => {
     classNames.push(className);
   }
   return (
-    <LogicDispatchContext.Provider value={dispatch}>
-      <LogicStateContext.Provider value={state}>
+    <LogicBuilderDispatchContext.Provider value={dispatch}>
+      <LogicBuilderStateContext.Provider value={state}>
         <div className={classNames.join(' ')}>
           <ul className={`${prefix}-logic-builder-group ${prefix}-main-parent`}>
             {children}
           </ul>
         </div>
-      </LogicStateContext.Provider>
-    </LogicDispatchContext.Provider>
+      </LogicBuilderStateContext.Provider>
+    </LogicBuilderDispatchContext.Provider>
   );
 };
 
