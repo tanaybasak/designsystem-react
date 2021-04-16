@@ -1,4 +1,4 @@
-export const LogicReducer = (state, action) => {
+export const LogicBuilderReducer = (state, action) => {
   switch (action.type) {
     case 'TOGGLE_LOGIC_ITEM': {
       const currentState = { ...state.expandedQueries };

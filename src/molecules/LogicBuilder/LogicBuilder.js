@@ -2,13 +2,13 @@ import React, { useReducer } from 'react';
 import PropTypes from 'prop-types';
 import LogicStateContext from './LogicStateContext';
 import LogicDispatchContext from './LogicDispatchContext';
-import { LogicReducer } from './LogicReducer';
+import { LogicBuilderReducer } from './LogicBuilderReducer';
 import prefix from '../../settings';
 const initialState = {
   expandedQueries: {}
 };
 const LogicBuilder = ({ children, className }) => {
-  const [state, dispatch] = useReducer(LogicReducer, initialState);
+  const [state, dispatch] = useReducer(LogicBuilderReducer, initialState);
 
   const classNames = [`${prefix}-logic-builder`];
   if (className) {
