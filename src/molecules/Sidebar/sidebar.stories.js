@@ -116,25 +116,6 @@ const disabledItems = [
 
 const internalitems = [
   {
-    children: [
-      {
-        href: '#5',
-        title: 'Child Item 1'
-      },
-      {
-        href: '#6',
-        title: 'Child Item 2',
-        disabled: true
-      },
-      {
-        href: '#7',
-        title: 'Child Item 3'
-      },
-      {
-        href: '#9',
-        title: 'Child Item 4'
-      }
-    ],
     icon: <i className={`p-hclsw p-hclsw-${icons[2]}`} />,
     statusIcon: <i className={`p-hclsw p-hclsw-${icons[2]}`} />,
     title: 'Category One'
