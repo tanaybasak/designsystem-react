@@ -29,8 +29,7 @@ const items = [
     ],
     icon: <i className={`p-hclsw p-hclsw-${icons[2]}`} />,
     statusIcon: <i className={`p-hclsw p-hclsw-${icons[2]}`} />,
-    title: 'Category One',
-    href: '/one'
+    title: 'Category One'
   },
   {
     children: [
@@ -52,15 +51,11 @@ const items = [
       }
     ],
     icon: <i className={`p-hclsw p-hclsw-${icons[1]}`} />,
-    title: 'Category Two',
-    href: '/two',
-    id: 2
+    title: 'Category Two'
   },
   {
     icon: <i className={`p-hclsw p-hclsw-${icons[1]}`} />,
-    title: 'Category Three',
-    href: '/three',
-    id: 1
+    title: 'Category Three'
   }
 ];
 
@@ -157,46 +152,6 @@ const internalitems = [
   }
 ];
 
-const internalActivetems = [
-  {
-    children: [
-      {
-        id: 5,
-        title: 'Child Item 1'
-      },
-      {
-        id: 6,
-        title: 'Child Item 2',
-        disabled: true
-      },
-      {
-        id: 7,
-        title: 'Child Item 3'
-      },
-      {
-        id: 9,
-        title: 'Child Item 4'
-      }
-    ],
-    icon: <i className={`p-hclsw p-hclsw-${icons[2]}`} />,
-    statusIcon: <i className={`p-hclsw p-hclsw-${icons[2]}`} />,
-    title: 'Category One',
-    id: 1
-  },
-  {
-    icon: <i className={`p-hclsw p-hclsw-${icons[1]}`} />,
-    statusIcon: <i className={`p-hclsw p-hclsw-${icons[2]}`} />,
-    title: 'Category Two',
-    id: 2
-  },
-  {
-    icon: <i className={`p-hclsw p-hclsw-${icons[1]}`} />,
-    statusIcon: <i className={`p-hclsw p-hclsw-${icons[2]}`} />,
-    title: 'Category Three',
-    id: 3
-  }
-];
-
 const positionOptions = {
   top: 'top',
   bottom: 'bottom'
@@ -229,8 +184,6 @@ storiesOf('Components/Sidebar', module)
         onClick={action('link clicked')}
         toggleSidebar={action('Toggle Sidebar')}
         responsive={boolean('responsive', true)}
-        activeLink={'/one'}
-        activeLinkProperty="href"
       />
     ),
     {
@@ -293,42 +246,6 @@ storiesOf('Components/Sidebar', module)
         toggleSidebar={action('Toggle Sidebar')}
         type={select('type', typeOptions, 'internal')}
         responsive={boolean('responsive', true)}
-      />
-    ),
-    {
-      info: {
-        text: `Description About Sidebar Component`,
-        document: ['Sidebar']
-      }
-    }
-  )
-  .add(
-    'internal-active',
-    () => (
-      <Sidebar
-        title={text('Title', 'Default')}
-        icon={
-          boolean('Show Header Icon', true) ? (
-            <i
-              className={`p-hclsw p-hclsw-${select(
-                'Title Icon',
-                icons,
-                'user'
-              )}`}
-            />
-          ) : null
-        }
-        expanded={boolean('Expanded', true)}
-        items={internalActivetems}
-        headerVisible={boolean('headerVisible', true)}
-        headerPosition={select('headerPosition', positionOptions, 'top')}
-        headerBranding={select('headerBranding', headerBranding, 'primary')}
-        onClick={action('link clicked')}
-        toggleSidebar={action('Toggle Sidebar')}
-        type={select('type', typeOptions, 'internal')}
-        responsive={boolean('responsive', true)}
-        activeLink={1}
-        activeLinkProperty="id"
       />
     ),
     {
