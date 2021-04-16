@@ -4,6 +4,7 @@ import prefix from '../../settings';
 import { getColumnStructure } from '../../util/tableUtil';
 import { addListener, removeListeners } from '../../util/eventManager';
 import { moveElementInArray } from '../../util/treeUtil';
+import { unsortIcon } from '../../util/icons';
 
 const DataTable = ({
   id,
@@ -27,16 +28,22 @@ const DataTable = ({
   initSortedColumn,
   onColumnReorder,
   selectedItem,
+  row_focus,
+  cell_focus,
   uniqueKey,
+  multiSort,
   ...restProps
 }) => {
   const [rows, updateTableRowData] = useState(tableData);
   const tableRef = useRef(null);
   const tableWrapperRef = useRef(null);
   const [tableConfiguration, setTableConfiguration] = useState([]);
-  const [sortedColumn, updateSortedColumn] = useState({});
+  // const [sortedColumn, updateSortedColumn] = useState({});
+  const [sortedColumn, updateSortedColumn] = useState(multiSort ? [] : {});
 
   let customHeaderFlag = false;
+  let clmnidx = -1;
+
   useEffect(() => {
     updateTableRowData(tableData);
   }, [tableData]);
@@ -69,22 +76,69 @@ const DataTable = ({
       sort(field);
     }
   };
-  const sort = field => {
-    let tempSortedColumn = { ...sortedColumn };
-    if (tempSortedColumn.name === field.field) {
-      if (tempSortedColumn.order === 'asc') {
-        tempSortedColumn.order = 'desc';
-      } else if (tempSortedColumn.order === 'desc') {
-        tempSortedColumn.order = triStateSorting ? null : 'asc';
+
+  const sort = (field, e) => {
+    const { metaKey } = e;
+    if (multiSort) {
+      let tempSortedColumn = [...sortedColumn];
+      if (tempSortedColumn.length) {
+        let flag = false,
+          itemIndex = -1;
+        for (let i = 0; i < tempSortedColumn.length; i++) {
+          if (tempSortedColumn[i].name === field.field) {
+            flag = true;
+            itemIndex = i;
+            if (tempSortedColumn[i].order === 'asc') {
+              tempSortedColumn[i].order = 'desc';
+            } else if (tempSortedColumn[i].order === 'desc') {
+              tempSortedColumn[i].order = triStateSorting ? null : 'asc';
+            } else {
+              tempSortedColumn[i].order = 'asc';
+            }
+          }
+        }
+        if (!flag) {
+          let tempObj = {};
+          tempObj.order = 'asc';
+          tempObj.name = field.field;
+          if (metaKey) {
+            tempSortedColumn.push(tempObj);
+          } else {
+            tempSortedColumn = [tempObj];
+          }
+        } else {
+          if (!metaKey) {
+            tempSortedColumn = [tempSortedColumn[itemIndex]];
+          }
+        }
+      } else {
+        tempSortedColumn = [
+          {
+            order: 'asc',
+            name: field.field
+          }
+        ];
+      }
+      onSort(field.field, tempSortedColumn[0].order, rows, tempSortedColumn);
+      updateSortedColumn(tempSortedColumn);
+    } else {
+      // single sort
+      let tempSortedColumn = { ...sortedColumn };
+      if (tempSortedColumn.name === field.field) {
+        if (tempSortedColumn.order === 'asc') {
+          tempSortedColumn.order = 'desc';
+        } else if (tempSortedColumn.order === 'desc') {
+          tempSortedColumn.order = triStateSorting ? null : 'asc';
+        } else {
+          tempSortedColumn.order = 'asc';
+        }
       } else {
         tempSortedColumn.order = 'asc';
+        tempSortedColumn.name = field.field;
       }
-    } else {
-      tempSortedColumn.order = 'asc';
-      tempSortedColumn.name = field.field;
+      onSort(field.field, tempSortedColumn.order, rows, []);
+      updateSortedColumn(tempSortedColumn);
     }
-    onSort(field.field, tempSortedColumn.order, rows);
-    updateSortedColumn(tempSortedColumn);
   };
 
   const toggleRow = index => {
@@ -101,7 +155,6 @@ const DataTable = ({
     ) {
       return;
     }
-
     if (e.key === 'ArrowLeft') {
       e.preventDefault();
       if (e.currentTarget.previousElementSibling) {
@@ -524,6 +577,13 @@ const DataTable = ({
   };
   /* Table column re-order ends */
 
+  const findColumnIndex = column => {
+    return (
+      sortedColumn.length &&
+      sortedColumn.findIndex(item => item['name'] === column.field)
+    );
+  };
+
   /* table resizer dom */
 
   const tableResizerDom = () => {
@@ -557,6 +617,10 @@ const DataTable = ({
               {tableConfiguration.map((column, index) => {
                 customHeaderFlag || column.columnHtml
                   ? (customHeaderFlag = true)
+                  : null;
+
+                column.sortable && multiSort
+                  ? (clmnidx = findColumnIndex(column))
                   : null;
                 const thClassName = [];
                 if (column.pinned === 'left') {
@@ -692,8 +756,40 @@ const DataTable = ({
                       )}
 
                       {column.sortable ? (
-                        sortedColumn.name === column.field &&
-                        sortedColumn.order ? (
+                        multiSort ? (
+                          sortedColumn.length &&
+                          clmnidx !== -1 &&
+                          sortedColumn[clmnidx].name === column.field &&
+                          sortedColumn[clmnidx].order ? (
+                            <svg
+                              width="16px"
+                              height="16px"
+                              className={`${prefix}-sorting${
+                                sortedColumn[clmnidx].order === 'desc'
+                                  ? ' desc'
+                                  : ''
+                              }`}
+                              viewBox="0 0 16 16"
+                              version="1.1"
+                            >
+                              <title>Sort Icon</title>
+                              <g
+                                stroke="none"
+                                strokeWidth="1"
+                                fill="none"
+                                fillRule="evenodd"
+                              >
+                                <g transform="translate(4.000000, 2.000000)">
+                                  <line x1="4" y1="12" x2="4" y2="1" />
+                                  <polyline points="8 4.5 4 0.5 0 4.5" />
+                                </g>
+                              </g>
+                            </svg>
+                          ) : (
+                            unsortIcon
+                          )
+                        ) : sortedColumn.name === column.field &&
+                          sortedColumn.order ? (
                           <svg
                             width="16px"
                             height="16px"
@@ -703,7 +799,11 @@ const DataTable = ({
                             viewBox="0 0 16 16"
                             version="1.1"
                           >
-                            <title>Sort Icon</title>
+                            {sortedColumn.order === 'desc' ? (
+                              <title> sorted descending - tap to reverse</title>
+                            ) : (
+                              <title> sorted ascending - tap to reverse</title>
+                            )}
                             <g
                               stroke="none"
                               strokeWidth="1"
@@ -717,31 +817,7 @@ const DataTable = ({
                             </g>
                           </svg>
                         ) : (
-                          <svg
-                            width="16px"
-                            className={`${prefix}-sorting`}
-                            height="12px"
-                            viewBox="0 0 16 16"
-                            version="1.1"
-                          >
-                            <title>Unsorted Icon</title>
-                            <g
-                              stroke="none"
-                              strokeWidth="1"
-                              fill="none"
-                              fillRule="evenodd"
-                            >
-                              <g fillRule="nonzero">
-                                <g>
-                                  <path d="M0.848938817,3.92808987 C0.5730624,4.08135457 0.225174806,3.98195809 0.0719101257,3.70608167 C-0.0813545486,3.43020526 0.0180419086,3.08231766 0.293918326,2.92905298 L5.43677549,0.0719101257 C5.81765046,-0.139687074 6.28571429,0.135723263 6.28571429,0.571428571 L6.28571429,14.8571429 C6.28571429,15.1727341 6.02987697,15.4285714 5.71428571,15.4285714 C5.39869446,15.4285714 5.14285714,15.1727341 5.14285714,14.8571429 L5.14285714,1.54257969 L0.848938817,3.92808987 Z" />
-                                  <path
-                                    d="M14.857143,1.63915229 L10.602686,4.47545698 C10.3400982,4.65051555 9.98531571,4.57955904 9.81025714,4.31697121 C9.63519857,4.05438338 9.70615509,3.6996009 9.96874291,3.52454236 L15.1116001,0.0959709287 C15.4913456,-0.15719278 16.0000002,0.115030877 16.0000002,0.571428237 L16.0000002,14.8571425 C16.0000002,15.1727338 15.7441629,15.4285711 15.4285716,15.4285711 C15.1129803,15.4285711 14.857143,15.1727338 14.857143,14.8571425 L14.857143,1.63915229 Z"
-                                    transform="translate(12.857113, 7.713805) rotate(180.000000) translate(-12.857113, -7.713805) "
-                                  />
-                                </g>
-                              </g>
-                            </g>
-                          </svg>
+                          unsortIcon
                         )
                       ) : null}
                     </div>
@@ -793,13 +869,19 @@ const DataTable = ({
             {rows.map((row, index) => (
               <React.Fragment key={`row-${index}`}>
                 <tr
-                  tabIndex={0}
-                  className={
+                  tabIndex={row_focus && cell_focus ? 0 : row_focus ? 0 : -1}
+                  className={`${
                     selectedItem && selectedItem[row[uniqueKey]]
                       ? `${prefix}-active-row`
                       : null
-                  }
-                  onClick={onRowSelect ? onRowSelect.bind(this, row) : null}
+                  }`}
+                  onClick={onRowSelect ? onRowSelect(row) : null}
+                  {...(row_focus && {
+                    onKeyDown: onKeyDownOnTable.bind(this, index)
+                  })}
+                  // onKeyDown={
+                  //   row_focus ? onKeyDownOnRow.bind(this, index) : () => {}
+                  // }
                 >
                   {tableConfiguration.map((column, i) => {
                     const tdclassName = [];
@@ -830,8 +912,35 @@ const DataTable = ({
                           right: column.marginRight,
                           ...column.styles
                         }}
-                        tabIndex={-1}
-                        onKeyDown={onKeyDownOnTable.bind(this, i)}
+                        {...(row_focus && cell_focus
+                          ? {
+                              tabIndex:
+                                cell_focus && row_focus && column.focus
+                                  ? 0
+                                  : cell_focus && column.focus
+                                  ? 0
+                                  : -1
+                            }
+                          : cell_focus
+                          ? {
+                              tabIndex:
+                                cell_focus && row_focus && column.focus
+                                  ? 0
+                                  : cell_focus && column.focus
+                                  ? 0
+                                  : -1
+                            }
+                          : null)}
+                        // onKeyDown={
+                        //   cell_focus ? onKeyDownOnTable.bind(this, i) : () => {}
+                        // }
+                        // {...(cell_focus && {
+                        //   onClic
+                        // })}
+
+                        {...(cell_focus && {
+                          onKeyDown: onKeyDownOnTable.bind(this, index)
+                        })}
                       >
                         {column.renderHtml ? (
                           column.renderHtml(row)
@@ -1045,8 +1154,14 @@ DataTable.propTypes = {
   showDraggableIconOnHover: PropTypes.bool,
   /** Used to remove nowwrap style from header title */
   removeHeaderNowrap: PropTypes.bool,
+  /** Enable multi-sort functionality in Columns */
+  multiSort: PropTypes.bool,
   /** Table Resizer */
-  resizer: PropTypes.bool
+  resizer: PropTypes.bool,
+  /** Focus for table row */
+  row_focus: PropTypes.bool,
+  /** Focus for table cell */
+  cell_focus: PropTypes.bool
 };
 
 DataTable.defaultProps = {
@@ -1065,12 +1180,14 @@ DataTable.defaultProps = {
   showDraggableIcon: true,
   isHeaderSticky: false,
   onColumnAfterResize: () => {},
-  initSortedColumn: {},
-  resizer: false,
+  initSortedColumn: null,
   uniqueKey: 'id',
+  row_focus: false,
+  cell_focus: true,
   onColumnReorder: () => {},
   showDraggableIconOnHover: false,
-  removeHeaderNowrap: false
+  removeHeaderNowrap: false,
+  multiSort: false
 };
 
 export default DataTable;

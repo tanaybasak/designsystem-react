@@ -82,18 +82,21 @@ const tableConfigWithCustomTemplate = [
       );
     },
 
-    width: '40px'
+    width: '40px',
+    focus: false
   },
   {
     label: 'Name',
     field: 'name',
     sortable: true,
+    focus: true,
     width: '60px'
   },
   {
     label: 'Protocol',
     field: 'protocol',
-    width: '60px'
+    width: '60px',
+    focus: true
   },
   {
     label: 'Port',
@@ -105,21 +108,25 @@ const tableConfigWithCustomTemplate = [
         <Tag type={classname}>{`${port.port === '80' ? 'Yes' : 'No'}`}</Tag>
       );
     },
+    focus: true,
     width: '60px'
   },
   {
     label: 'Rule',
     field: 'rule',
-    width: '60px'
+    width: '60px',
+    focus: true
   },
   {
     label: 'Attached Groups',
     field: 'attachedGroups',
-    width: '60px'
+    width: '60px',
+    focus: true
   },
   {
     label: 'Status',
     field: 'status',
+    focus: false,
     // eslint-disable-next-line react/display-name
     renderHtml: model => {
       return (
@@ -246,19 +253,23 @@ const tableConfig = [
   {
     label: 'Name',
     field: 'name',
-    sortable: true
+    sortable: true,
+    focus: true
   },
   {
     label: 'Protocol',
-    field: 'protocol'
+    field: 'protocol',
+    focus: false
   },
   {
     label: 'Port',
-    field: 'port'
+    field: 'port',
+    focus: true
   },
   {
     label: 'Rule',
-    field: 'rule'
+    field: 'rule',
+    focus: true
   },
   {
     label: 'Attached Groups',
@@ -302,6 +313,7 @@ const classOptions = {
   Tall: ' tall',
   Default: ''
 };
+
 storiesOf('Components/Data Table', module)
   .add(
     'default',
@@ -313,6 +325,8 @@ storiesOf('Components/Data Table', module)
         }${select('Class Name', classOptions, '')}`}
         tableData={tableData}
         tableConfig={tableConfig}
+        row_focus={boolean('row_focus', true)}
+        cell_focus={boolean('cell_focus', false)}
         onSort={action('Sort Action')}
       />
     ),
@@ -330,6 +344,8 @@ storiesOf('Components/Data Table', module)
         id="custom-datatable-custom-temp"
         tableData={tableData}
         tableConfig={tableConfigWithCustomTemplate}
+        row_focus={boolean('row_focus', true)}
+        cell_focus={boolean('cell_focus', false)}
         headerSelection={
           <Checkbox aria-label="header checkbox" id={`header_checkbox`} />
         }

@@ -32,6 +32,19 @@ export default function Checkbox({
           if (restProps.onChange) {
             restProps.onChange(event);
           }
+          const { target } = event;
+          setTimeout(() => {
+            target.blur();
+          }, 800);
+        }}
+        onKeyDown={event => {
+          const { target } = event;
+          if (event.keyCode == 13 || event.key == 'Enter') {
+            setChecked(!isChecked);
+            if (restProps.onChange) {
+              restProps.onChange(target);
+            }
+          }
         }}
       />
       {tooltipTitle ? (
