@@ -452,19 +452,20 @@ Sidebar.propTypes = {
   className: PropTypes.string,
 
   /** used to set default active link
+   *
    * eg :
+   *
    *  Active link is set to string or number based on **activeLinkProperty** value
    * ```
-   * activeLink: '1'
+   * activeLink: 1
    * ```*/
   activeLink: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
-  /** Setting active link property */
-  /** Property Configuration
-   *
-   * Active Link Property takes id/href as value
+  /**
+   * used to set active link property
    *
    * eg :
+   * Active Link Property takes id/href as value
    *
    * ```
    * activeLinkProperty: 'id'
