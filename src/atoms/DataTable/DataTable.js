@@ -779,9 +779,6 @@ const DataTable = ({
                       : null
                   }`}
                   onClick={onRowSelect ? onRowSelect(row) : null}
-                  // {...(row_focus && {
-                  //   onKeyDown: onKeyDownOnTable.bind(this, index)
-                  // })}
                   onKeyDown={
                     onRowSelect ? onKeyDownOnTable.bind(this, row) : null
                   }
@@ -819,7 +816,7 @@ const DataTable = ({
                         onKeyDown={
                           column.onColumnSelect
                             ? onKeyDownOnTable.bind(this, row)
-                            : () => {}
+                            : null
                         }
                       >
                         {column.renderHtml ? (
