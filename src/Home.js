@@ -25,6 +25,7 @@ import RichTextEditorExample from './example/RichTextEditorExample';
 import CodeSnippetExample from './example/CodeSnippetExample';
 import SidebarExample from './example/SidebarExample';
 import CalendarExample from './example/CalendarExample';
+import MainBuilder from './example/MainBuilder';
 import SlideoutExample from './example/SlideoutExample';
 class Home extends Component {
   state = {
@@ -117,6 +118,10 @@ class Home extends Component {
         {
           href: '/calendar',
           title: 'Calendar'
+        },
+        {
+          href: '/lb',
+          title: 'Logic Builder'
         },
         {
           href: '/slideout',
@@ -223,6 +228,7 @@ class Home extends Component {
             <Route exact path="/rte" component={RichTextEditorExample} />
             <Route exact path="/codesnippet" component={CodeSnippetExample} />
             <Route exact path="/calendar" component={CalendarExample} />
+            <Route exact path="/lb" component={MainBuilder} />
           </Switch>
         </div>
       </Router>
