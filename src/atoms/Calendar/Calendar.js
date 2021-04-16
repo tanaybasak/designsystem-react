@@ -72,8 +72,8 @@ Calendar.propTypes = {
    *
    *
    * @signature
-   * ```dateObj``` : selected date
-   * ```event``` : event triggered
+   * * ```dateObj``` : selected date
+   * * ```event``` : event triggered
    */
 
   onDateSelection: PropTypes.func.isRequired,

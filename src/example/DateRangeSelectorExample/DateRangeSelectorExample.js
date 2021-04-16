@@ -177,7 +177,7 @@ const DateRangeSelectorExample = ({}) => {
       </div>
       <div className="hcl-col-12 mb-9">
         <div className="mb-5">
-          With left panel, with default date and events with dotted style{' '}
+          With left panel, with default date and events with dotted style
         </div>
         <DateRangeSelector
           id="date-selector-id"
@@ -306,7 +306,7 @@ const DateRangeSelectorExample = ({}) => {
               numOfDots: 3
             }
           }}
-          eventStyle="border"
+          eventStyle="dot"
           events={[
             { date: new Date('2021', '03', '15'), category: 'category1' },
             { date: new Date('2021', '03', '16'), category: 'category2' },

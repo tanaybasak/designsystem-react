@@ -51,8 +51,8 @@ const eventStyleOptions = {
   dot: 'dot'
 };
 
-storiesOf('Calendar', module).add(
-  'default',
+storiesOf('Components/Calendar', module).add(
+  'Calendar with border event style',
   () => (
     <Calendar
       currDateObj={new Date('2021', '03', '15')}
@@ -60,8 +60,7 @@ storiesOf('Calendar', module).add(
       minDate={new Date(1000, 0, 1)}
       maxDate={new Date(9999, 12, 31)}
       eventsCategory={object('Events Category', eventsCategory)}
-      // eventStyle="border"
-      eventStyle={select('Event Style', eventStyleOptions, 'border')}
+      eventStyle={'border'}
       events={object('Events', events)}
       weekDays={object('weekDays', weekDays)}
       months={object('months', months)}
@@ -69,11 +68,29 @@ storiesOf('Calendar', module).add(
   ),
   {
     info: {
-      text: `Description About Calendar Component
-
-      import { Calendar } from '@patron/patron-react/calendar';
-      
-      `
+      text: `Description About Calendar Component `,
+      document: ['Calendar']
+    }
+  }
+).add(
+  'Calendar with dot event style',
+  () => (
+    <Calendar
+      currDateObj={new Date('2021', '03', '15')}
+      onDateSelection={action('onDateSelection triggered')}
+      minDate={new Date(1000, 0, 1)}
+      maxDate={new Date(9999, 12, 31)}
+      eventsCategory={object('Events Category', eventsCategory)}
+      eventStyle={'dot'}
+      events={object('Events', events)}
+      weekDays={object('weekDays', weekDays)}
+      months={object('months', months)}
+    />
+  ),
+  {
+    info: {
+      text: `Description About Calendar Component`,
+      document: ['Calendar']
     }
   }
 );
