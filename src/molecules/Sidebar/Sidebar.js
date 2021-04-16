@@ -81,14 +81,12 @@ const Sidebar = ({
   }, [expanded]);
 
   useEffect(() => {
-    console.log('activeLink', activeLink);
     if (activeLink) {
       let tempActiveItem = sidebarList.find(link => {
         return link[activeLinkProperty] === activeLink;
       });
       if (tempActiveItem) {
-        tempActiveItem.parentItem = tempActiveItem; //{ ...tempActiveItem };
-        console.log('if');
+        tempActiveItem.parentItem = tempActiveItem;
         setActiveItem(tempActiveItem);
       } else {
         sidebarList.map((link, index) => {
@@ -100,8 +98,7 @@ const Sidebar = ({
               let tempItem = [...sidebarList];
               tempItem[index].expanded = true;
               updateSidebarList([...tempItem]);
-              tempActiveItem.parentItem = link; //link
-              console.log('else');
+              tempActiveItem.parentItem = link;
               setActiveItem(tempActiveItem);
             }
           }
@@ -153,7 +150,6 @@ const Sidebar = ({
   };
 
   const getSidebarLink = (item, categoryIndex, parentItem) => {
-    console.log(item);
     let highlightedClass = '';
     const itemMatchedToParent = activeItem && activeItem.parentItem === item;
 
