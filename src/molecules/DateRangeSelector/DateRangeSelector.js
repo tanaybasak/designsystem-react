@@ -488,12 +488,20 @@ DateRangeSelector.propTypes = {
 
   /** This props allows user to pass default start date */
   defaultEndDate: PropTypes.any,
+
   /** Min date */
   minDate: PropTypes.instanceOf(Date),
+  
   /** Max date */
   maxDate: PropTypes.instanceOf(Date),
-  eventsCategory: PropTypes.any,
+
+   /** This prop enables user to define category */
+   eventsCategory: PropTypes.any,
+
+   /** This prop enables user to select event style (one of dot | border)  */
   eventStyle: PropTypes.string,
+
+   /** This prop enables user to pass event and respective category */
   events: PropTypes.array
 };
 

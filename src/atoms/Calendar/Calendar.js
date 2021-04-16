@@ -7,7 +7,6 @@ const Calendar = ({
   currDateObj,
   format,
   onDateSelection,
-  dateSelected,
   months,
   className,
   weekDays,
@@ -44,7 +43,6 @@ const Calendar = ({
         currDateObj={calendarDateObj}
         setCurrDateObj={setCalendarDateObj}
         onDateSelection={onDateSelection}
-        dateSelected={dateSelected}
         format={format}
         months={months}
         minDate={minDate}
@@ -58,18 +56,48 @@ const Calendar = ({
 };
 
 Calendar.propTypes = {
+
+     /** Date object which is used to initilize calendar  */
   currDateObj: PropTypes.object.isRequired,
-  setCurrDateObj: PropTypes.func,
+
+    /**
+   *
+   * * ```mm/dd/yyyy``` :  One of the format available.
+   * * ```dd/mm/yyyy``` : One of the format available. */
   format: PropTypes.string,
+
+   /** Callback function which will be executed on date selection
+   *
+   *
+   * @signature
+   * ```dateObj``` : selected date
+   * ```event``` : event triggered
+   */
+
   onDateSelection: PropTypes.func.isRequired,
-  dateSelected: PropTypes.string,
+
+   /** Months in a year.  Array input can be on the basis of language selected.  */
   months: PropTypes.array,
+
+    /** className/clasess will be applied on the parent div of Calendar */
   className: PropTypes.string,
+
+   /** Days in week.  Array input can be on the basis of language selected.  */
   weekDays: PropTypes.array,
+
+    /** Min date */
   minDate: PropTypes.instanceOf(Date),
+
+    /** Max date */
   maxDate: PropTypes.instanceOf(Date),
+
+   /** This prop enables user to define category */
   eventsCategory: PropTypes.any,
+
+   /** This prop enables user to select event style (one of dot | border)  */
   eventStyle: PropTypes.string,
+
+   /** This prop enables user to pass event and respective category */
   events: PropTypes.array
 };
 
@@ -94,7 +122,6 @@ Calendar.defaultProps = {
     'DEC'
   ],
   format: 'mm/dd/yyyy',
-  setCurrDateObj: null
 };
 
 export default Calendar;
