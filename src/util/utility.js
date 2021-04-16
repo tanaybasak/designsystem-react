@@ -152,3 +152,7 @@ export const isDateEqual = (d1, d2) => {
   d2.setHours(0, 0, 0, 0);
   return d1.getTime() === d2.getTime();
 };
+
+export const lastday = (y, m) => {
+  return new Date(y, m + 1, 0).getDate();
+}

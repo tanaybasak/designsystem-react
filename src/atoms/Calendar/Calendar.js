@@ -15,7 +15,8 @@ const Calendar = ({
   maxDate,
   eventsCategory,
   eventStyle,
-  events
+  events,
+  ...restProps
 }) => {
   const [view, setView] = useState('date');
   const [calendarDateObj, setCalendarDateObj] = useState({
@@ -26,7 +27,7 @@ const Calendar = ({
   });
 
   return (
-    <div className={`hcl-dateSelector-panel hcl-calendar ${className}`}>
+    <div className={`hcl-dateSelector-panel hcl-calendar ${className}`} {...restProps}>
       <PanelHeader
         view={view}
         setView={setView}

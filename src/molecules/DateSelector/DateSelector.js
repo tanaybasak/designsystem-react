@@ -25,6 +25,9 @@ const DateSelector = ({
   minDate,
   maxDate,
   onVisibleChange,
+  eventsCategory,
+  eventStyle,
+  events,
   ...restProps
 }) => {
   const date = new Date();
@@ -160,6 +163,9 @@ const DateSelector = ({
                   weekDays={weekDays}
                   minDate={minDate}
                   maxDate={maxDate}
+                  eventsCategory={eventsCategory}
+                  eventStyle={eventStyle}
+                  events={events}
                 />
               </div>
             </div>
@@ -230,7 +236,10 @@ DateSelector.propTypes = {
    * @signature
    * ```isOpen``` : boolean flag
    */
-  onVisibleChange: PropTypes.func
+  onVisibleChange: PropTypes.func,
+  eventsCategory: PropTypes.any,
+  eventStyle: PropTypes.string,
+  events: PropTypes.array
 };
 
 DateSelector.defaultProps = {
@@ -260,7 +269,10 @@ DateSelector.defaultProps = {
   onDateSelect: () => {},
   minDate: new Date(1000, 0, 1),
   maxDate: new Date(9999, 12, 31),
-  onVisibleChange: null
+  onVisibleChange: null,
+  eventsCategory: null,
+  eventStyle: 'dot',
+  events: [],
 };
 
 DateSelector.displayName = 'DateSelector';
