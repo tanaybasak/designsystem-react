@@ -116,11 +116,13 @@ const DateSelector = ({
   };
 
   const onDateSelection = (dateObj, event) => {
-    setDateSelected(event.target.getAttribute('date'));
+    setDateSelected(event.currentTarget.getAttribute('date'));
     setIsDateSelectedValid(true);
     setIsValidYear(true);
     setShowDateContainer(false);
-    onDateSelect(convertToDateObj(format, event.target.getAttribute('date')));
+    onDateSelect(
+      convertToDateObj(format, event.currentTarget.getAttribute('date'))
+    );
   };
 
   return (

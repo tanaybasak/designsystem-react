@@ -28,8 +28,8 @@ const DateSelectorExample = ({}) => {
             'DEC'
           ]}
           format="mm/dd/yyyy"
-          onDateSelect={date => {
-            console.log(date);
+          onDateSelect={dateObj => {
+            console.log('dateObj', dateObj);
           }}
         ></DateSelector>
       </div>
@@ -54,8 +54,8 @@ const DateSelectorExample = ({}) => {
           ]}
           format="mm/dd/yyyy"
           defaultDate={defaultDate1}
-          onDateSelect={date => {
-            console.log(date);
+          onDateSelect={dateObj => {
+            console.log('dateObj', dateObj);
           }}
         ></DateSelector>
       </div>
@@ -121,8 +121,8 @@ const DateSelectorExample = ({}) => {
               </li>
             </ul>
           }
-          onDateSelect={date => {
-            console.log(date);
+          onDateSelect={dateObj => {
+            console.log('dateObj', dateObj);
           }}
         ></DateSelector>
       </div>
@@ -188,8 +188,8 @@ const DateSelectorExample = ({}) => {
               </li>
             </ul>
           }
-          onDateSelect={date => {
-            console.log(date);
+          onDateSelect={dateObj => {
+            console.log('dateObj', dateObj);
           }}
           eventsCategory={{
             category1: {

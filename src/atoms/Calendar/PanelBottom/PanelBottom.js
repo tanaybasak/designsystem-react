@@ -372,9 +372,9 @@ PanelBottom.propTypes = {
   months: PropTypes.array.isRequired,
   minDate: PropTypes.instanceOf(Date),
   maxDate: PropTypes.instanceOf(Date),
-  eventsCategory: PropTypes.any.isRequired,
-  eventStyle: PropTypes.string.isRequired,
-  events: PropTypes.array.isRequired
+  eventsCategory: PropTypes.any,
+  eventStyle: PropTypes.string,
+  events: PropTypes.array
 };
 
 export default PanelBottom;

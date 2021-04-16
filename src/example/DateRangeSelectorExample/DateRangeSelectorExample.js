@@ -27,8 +27,8 @@ const DateRangeSelectorExample = ({}) => {
             'DEC'
           ]}
           format="mm/dd/yyyy"
-          onDateRangeSelect={dateRange => {
-            console.log('dateRange', dateRange);
+          onDateRangeSelect={dateObj => {
+            console.log('dateObj', dateObj);
           }}
         ></DateRangeSelector>
       </div>
@@ -53,8 +53,8 @@ const DateRangeSelectorExample = ({}) => {
             'DEC'
           ]}
           format="dd/mm/yyyy"
-          onDateRangeSelect={dateRange => {
-            console.log('dateRange', dateRange);
+          onDateRangeSelect={dateObj => {
+            console.log('dateObj', dateObj);
           }}
           defaultStartDate={new Date(2020, 10, 15)}
           defaultEndDate={new Date(2020, 10, 18)}
@@ -168,8 +168,8 @@ const DateRangeSelectorExample = ({}) => {
               </li>
             </ul>
           }
-          onDateRangeSelect={dateRange => {
-            console.log('dateRange', dateRange);
+          onDateRangeSelect={dateObj => {
+            console.log('dateObj', dateObj);
           }}
           defaultStartDate={startDate}
           defaultEndDate={endDate}
@@ -284,8 +284,8 @@ const DateRangeSelectorExample = ({}) => {
               </li>
             </ul>
           }
-          onDateRangeSelect={dateRange => {
-            console.log('dateRange', dateRange);
+          onDateRangeSelect={dateObj => {
+            console.log('dateObj', dateObj);
           }}
           defaultStartDate={startDate}
           defaultEndDate={endDate}

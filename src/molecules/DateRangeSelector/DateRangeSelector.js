@@ -259,7 +259,7 @@ const DateRangeSelector = ({
     let datePicked;
     switch (numOfSelectedDated) {
       case 0:
-        datePicked = event.target.getAttribute('date');
+        datePicked = event.currentTarget.getAttribute('date');
         setStartDateSelected(datePicked);
         setIsStartDateSelectedValid(true);
         if (startDateSelected !== null) {
@@ -270,7 +270,7 @@ const DateRangeSelector = ({
         break;
 
       case 1:
-        datePicked = event.target.getAttribute('date');
+        datePicked = event.currentTarget.getAttribute('date');
         if (
           convertToDateObj(format, datePicked) >=
           convertToDateObj(format, startDateSelected)
