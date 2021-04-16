@@ -511,7 +511,7 @@ DateRangeSelector.propTypes = {
   maxDate: PropTypes.instanceOf(Date),
 
   /** This prop enables user to define category.
-   * 
+   *
    * eg:
    * ```
    * {
@@ -536,26 +536,26 @@ DateRangeSelector.propTypes = {
    */
   eventsCategory: PropTypes.any,
 
-  /** This prop enables user to select event style.  
-  * * ```border``` :  Shows event in form of border.
-  * * ```dot``` : Shows event in form of dot. */
+  /** This prop enables user to select event style.
+   * * ```border``` :  Shows event in form of border.
+   * * ```dot``` : Shows event in form of dot. */
   eventStyle: PropTypes.oneOf(['border', 'dot']),
 
-  /** This prop enables user to pass event and respective category. 
-  * 
-  * eg :
-  * ```
-  *  [
-  *   { date: new Date('2021', '03', '15'), category: 'category1' },
-  *   { date: new Date('2021', '03', '16'), category: 'category2' },
-  *   { date: new Date('2021', '03', '24'), category: 'category3' }
-  *  ]
-  * ```
-  */
+  /** This prop enables user to pass event and respective category.
+   *
+   * eg :
+   * ```
+   *  [
+   *   { date: new Date('2021', '03', '15'), category: 'category1' },
+   *   { date: new Date('2021', '03', '16'), category: 'category2' },
+   *   { date: new Date('2021', '03', '24'), category: 'category3' }
+   *  ]
+   * ```
+   */
   events: PropTypes.arrayOf(
     PropTypes.shape({
       date: PropTypes.instanceOf(Date),
-      category: PropTypes.string,
+      category: PropTypes.string
     })
   )
 };
