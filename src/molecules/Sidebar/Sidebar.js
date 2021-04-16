@@ -451,8 +451,25 @@ Sidebar.propTypes = {
   /** Name of the custom class to apply to the Sidebar */
   className: PropTypes.string,
 
-  /** used to set default active link */
+  /** used to set default active link
+   * eg :
+   *  Active link is set to string or number based on **activeLinkProperty** value
+   * ```
+   * activeLink: '1'
+   * ```*/
   activeLink: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+
+  /** Column Configuration
+   *
+   * Active Link Property takes id/href as value
+   *
+   * eg :
+   *
+   * ```
+   * activeLinkProperty: 'id'
+   * ```*/
+  /** Setting active link property */
+  activeLinkProperty: PropTypes.string,
 
   /** used to pass custom template in sidebar link */
   sidebarLinkTemplate: PropTypes.any,
@@ -498,10 +515,7 @@ Sidebar.propTypes = {
    * * ```argument``` : toggleStatus
    * * ```event``` : click event
    */
-  toggleSidebar: PropTypes.func,
-
-  /** Setting active link property */
-  activeLinkProperty: PropTypes.string
+  toggleSidebar: PropTypes.func
 };
 
 Sidebar.defaultProps = {
