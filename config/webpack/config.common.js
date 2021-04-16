@@ -57,8 +57,12 @@ module.exports.commonConfig = {
           {
             loader: MiniCssExtractPlugin.loader
           },
+
           {
             loader: 'css-loader'
+          },
+          {
+            loader: 'sass-loader'
           },
           {
             loader: 'postcss-loader',

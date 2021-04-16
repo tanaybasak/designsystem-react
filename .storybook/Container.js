@@ -91,6 +91,7 @@ export default class Container extends Component {
     if (pageTitle.toLowerCase() === 'slideout') {
       storyPushClass.push('slideout-story');
     }
+    document.body.classList.remove('overflow-slideout');
     return (
       <div className="hcl-container hcl-storybook-container">
         <div className="hcl-row mb-10">

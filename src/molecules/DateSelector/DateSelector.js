@@ -25,6 +25,9 @@ const DateSelector = ({
   minDate,
   maxDate,
   onVisibleChange,
+  eventsCategory,
+  eventStyle,
+  events,
   ...restProps
 }) => {
   const date = new Date();
@@ -112,12 +115,14 @@ const DateSelector = ({
       : onDateSelect(createDateObj(Number(dateStr), Number(monthStr), year));
   };
 
-  const onDateSelection = event => {
-    setDateSelected(event.target.getAttribute('date'));
+  const onDateSelection = (dateObj, event) => {
+    setDateSelected(event.currentTarget.getAttribute('date'));
     setIsDateSelectedValid(true);
     setIsValidYear(true);
     setShowDateContainer(false);
-    onDateSelect(convertToDateObj(format, event.target.getAttribute('date')));
+    onDateSelect(
+      convertToDateObj(format, event.currentTarget.getAttribute('date'))
+    );
   };
 
   return (
@@ -160,6 +165,9 @@ const DateSelector = ({
                   weekDays={weekDays}
                   minDate={minDate}
                   maxDate={maxDate}
+                  eventsCategory={eventsCategory}
+                  eventStyle={eventStyle}
+                  events={events}
                 />
               </div>
             </div>
@@ -225,12 +233,61 @@ DateSelector.propTypes = {
   minDate: PropTypes.instanceOf(Date),
   /** Max date */
   maxDate: PropTypes.instanceOf(Date),
-  /** Callback on Calendar toggle
+  /** Callback on SelectPanel toggle
    *
    * @signature
    * ```isOpen``` : boolean flag
    */
-  onVisibleChange: PropTypes.func
+  onVisibleChange: PropTypes.func,
+
+  /** This prop enables user to define category.
+   *
+   * eg:
+   * ```
+   * {
+   *       category1: {
+   *         range: { min: 1, max: 5 },
+   *         range: { min: 1, max: 5 },
+   *         color: 'var(--orange-100)',
+   *         numOfDots: 1
+   *       },
+   *       category2: {
+   *         range: { min: 6, max: 10 },
+   *         color: 'var(--lime-50)',
+   *         numOfDots: 2
+   *       },
+   *       category3: {
+   *         range: { min: 11, max: 15 },
+   *         color: 'var(--green-100)',
+   *         numOfDots: 3
+   *       }
+   *     }
+   * ```
+   */
+  eventsCategory: PropTypes.any,
+
+  /** This prop enables user to select event style.
+   * * ```border``` :  Shows event in form of border.
+   * * ```dot``` : Shows event in form of dot. */
+  eventStyle: PropTypes.oneOf(['border', 'dot']),
+
+  /** This prop enables user to pass event and respective category.
+   *
+   * eg :
+   * ```
+   *  [
+   *   { date: new Date('2021', '03', '15'), category: 'category1' },
+   *   { date: new Date('2021', '03', '16'), category: 'category2' },
+   *   { date: new Date('2021', '03', '24'), category: 'category3' }
+   *  ]
+   * ```
+   */
+  events: PropTypes.arrayOf(
+    PropTypes.shape({
+      date: PropTypes.instanceOf(Date),
+      category: PropTypes.string
+    })
+  )
 };
 
 DateSelector.defaultProps = {
@@ -260,7 +317,10 @@ DateSelector.defaultProps = {
   onDateSelect: () => {},
   minDate: new Date(1000, 0, 1),
   maxDate: new Date(9999, 12, 31),
-  onVisibleChange: null
+  onVisibleChange: null,
+  eventsCategory: null,
+  eventStyle: 'dot',
+  events: []
 };
 
 DateSelector.displayName = 'DateSelector';
