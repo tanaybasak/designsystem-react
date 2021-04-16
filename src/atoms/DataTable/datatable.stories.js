@@ -90,7 +90,8 @@ const tableConfigWithCustomTemplate = [
     field: 'name',
     sortable: true,
     focus: true,
-    width: '60px'
+    width: '60px',
+    onColumnSelect: () => {}
   },
   {
     label: 'Protocol',

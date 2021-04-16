@@ -27,8 +27,6 @@ const DataTable = ({
   initSortedColumn,
   onColumnReorder,
   selectedItem,
-  row_focus,
-  cell_focus,
   uniqueKey,
   ...restProps
 }) => {
@@ -95,41 +93,21 @@ const DataTable = ({
     updateTableRowData([...tempData]);
   };
 
-  const onKeyDownOnTable = (i, e) => {
-    if (
-      e.currentTarget.getAttribute('data-label') === 'overflow' &&
-      ['ArrowLeft', 'ArrowRight', 'ArrowDown', 'ArrowUp'].includes(e.key) &&
-      e.currentTarget !== e.target
-    ) {
-      return;
-    }
-    if (e.key === 'ArrowLeft') {
-      e.preventDefault();
-      if (e.currentTarget.previousElementSibling) {
-        e.currentTarget.previousElementSibling.focus();
-      }
-    } else if (e.key === 'ArrowRight') {
-      e.preventDefault();
-      if (e.currentTarget.nextElementSibling) {
-        e.currentTarget.nextElementSibling.focus();
-      }
-    } else if (e.key === 'ArrowDown') {
-      e.preventDefault();
-      if (
-        e.currentTarget.parentElement.nextElementSibling &&
-        e.currentTarget.parentElement.nextElementSibling.children[i]
-      ) {
-        e.currentTarget.parentElement.nextElementSibling.children[i].focus();
-      }
-    } else if (e.key === 'ArrowUp') {
-      e.preventDefault();
-      if (
-        e.currentTarget.parentElement.previousElementSibling &&
-        e.currentTarget.parentElement.previousElementSibling.children[i]
-      ) {
-        e.currentTarget.parentElement.previousElementSibling.children[
-          i
-        ].focus();
+  const onKeyDownOnTable = (row, e) => {
+    if (e.target.tagName.toLowerCase() === 'tr') {
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        if (e.currentTarget.nextElementSibling) {
+          e.currentTarget.nextElementSibling.focus();
+        }
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (e.currentTarget.parentElement.previousElementSibling) {
+          e.currentTarget.previousElementSibling.focus();
+        }
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        if (onRowSelect) onRowSelect(row, e);
       }
     }
   };
@@ -794,19 +772,19 @@ const DataTable = ({
             {rows.map((row, index) => (
               <React.Fragment key={`row-${index}`}>
                 <tr
-                  tabIndex={row_focus && cell_focus ? 0 : row_focus ? 0 : -1}
+                  tabIndex={onRowSelect ? 0 : -1}
                   className={`${
                     selectedItem && selectedItem[row[uniqueKey]]
                       ? `${prefix}-active-row`
                       : null
                   }`}
                   onClick={onRowSelect ? onRowSelect(row) : null}
-                  {...(row_focus && {
-                    onKeyDown: onKeyDownOnTable.bind(this, index)
-                  })}
-                  // onKeyDown={
-                  //   row_focus ? onKeyDownOnRow.bind(this, index) : () => {}
-                  // }
+                  // {...(row_focus && {
+                  //   onKeyDown: onKeyDownOnTable.bind(this, index)
+                  // })}
+                  onKeyDown={
+                    onRowSelect ? onKeyDownOnTable.bind(this, row) : () => {}
+                  }
                 >
                   {tableConfiguration.map((column, i) => {
                     const tdclassName = [];
@@ -837,35 +815,12 @@ const DataTable = ({
                           right: column.marginRight,
                           ...column.styles
                         }}
-                        {...(row_focus && cell_focus
-                          ? {
-                              tabIndex:
-                                cell_focus && row_focus && column.focus
-                                  ? 0
-                                  : cell_focus && column.focus
-                                  ? 0
-                                  : -1
-                            }
-                          : cell_focus
-                          ? {
-                              tabIndex:
-                                cell_focus && row_focus && column.focus
-                                  ? 0
-                                  : cell_focus && column.focus
-                                  ? 0
-                                  : -1
-                            }
-                          : null)}
-                        // onKeyDown={
-                        //   cell_focus ? onKeyDownOnTable.bind(this, i) : () => {}
-                        // }
-                        // {...(cell_focus && {
-                        //   onClic
-                        // })}
-
-                        {...(cell_focus && {
-                          onKeyDown: onKeyDownOnTable.bind(this, index)
-                        })}
+                        tabIndex={column.onColumnSelect ? 0 : -1}
+                        onKeyDown={
+                          column.onColumnSelect
+                            ? onKeyDownOnTable.bind(this, row)
+                            : () => {}
+                        }
                       >
                         {column.renderHtml ? (
                           column.renderHtml(row)
@@ -1080,11 +1035,7 @@ DataTable.propTypes = {
   /** Used to remove nowwrap style from header title */
   removeHeaderNowrap: PropTypes.bool,
   /** Table Resizer */
-  resizer: PropTypes.bool,
-  /** Focus for table row */
-  row_focus: PropTypes.bool,
-  /** Focus for table cell */
-  cell_focus: PropTypes.bool
+  resizer: PropTypes.bool
 };
 
 DataTable.defaultProps = {
@@ -1106,8 +1057,6 @@ DataTable.defaultProps = {
   initSortedColumn: {},
   resizer: false,
   uniqueKey: 'id',
-  row_focus: false,
-  cell_focus: true,
   onColumnReorder: () => {},
   showDraggableIconOnHover: false,
   removeHeaderNowrap: false
