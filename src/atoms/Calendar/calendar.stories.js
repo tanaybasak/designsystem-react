@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { select, object } from '@storybook/addon-knobs';
+import { object } from '@storybook/addon-knobs';
 //@update-path-build-start
 import Calendar from './Calendar';
 //@update-path-build-end
@@ -46,51 +46,48 @@ const months = [
   'DEC'
 ];
 
-const eventStyleOptions = {
-  border: 'border',
-  dot: 'dot'
-};
-
-storiesOf('Components/Calendar', module).add(
-  'Calendar with border event style',
-  () => (
-    <Calendar
-      currDateObj={new Date('2021', '03', '15')}
-      onDateSelection={action('onDateSelection triggered')}
-      minDate={new Date(1000, 0, 1)}
-      maxDate={new Date(9999, 12, 31)}
-      eventsCategory={object('Events Category', eventsCategory)}
-      eventStyle={'border'}
-      events={object('Events', events)}
-      weekDays={object('weekDays', weekDays)}
-      months={object('months', months)}
-    />
-  ),
-  {
-    info: {
-      text: `Description About Calendar Component `,
-      document: ['Calendar']
+storiesOf('Components/Calendar', module)
+  .add(
+    'Calendar with border event style',
+    () => (
+      <Calendar
+        currDateObj={new Date('2021', '03', '15')}
+        onDateSelection={action('onDateSelection triggered')}
+        minDate={new Date(1000, 0, 1)}
+        maxDate={new Date(9999, 12, 31)}
+        eventsCategory={object('Events Category', eventsCategory)}
+        eventStyle={'border'}
+        events={object('Events', events)}
+        weekDays={object('weekDays', weekDays)}
+        months={object('months', months)}
+      />
+    ),
+    {
+      info: {
+        text: `Description About Calendar Component `,
+        document: ['Calendar']
+      }
     }
-  }
-).add(
-  'Calendar with dot event style',
-  () => (
-    <Calendar
-      currDateObj={new Date('2021', '03', '15')}
-      onDateSelection={action('onDateSelection triggered')}
-      minDate={new Date(1000, 0, 1)}
-      maxDate={new Date(9999, 12, 31)}
-      eventsCategory={object('Events Category', eventsCategory)}
-      eventStyle={'dot'}
-      events={object('Events', events)}
-      weekDays={object('weekDays', weekDays)}
-      months={object('months', months)}
-    />
-  ),
-  {
-    info: {
-      text: `Description About Calendar Component`,
-      document: ['Calendar']
+  )
+  .add(
+    'Calendar with dot event style',
+    () => (
+      <Calendar
+        currDateObj={new Date('2021', '03', '15')}
+        onDateSelection={action('onDateSelection triggered')}
+        minDate={new Date(1000, 0, 1)}
+        maxDate={new Date(9999, 12, 31)}
+        eventsCategory={object('Events Category', eventsCategory)}
+        eventStyle={'dot'}
+        events={object('Events', events)}
+        weekDays={object('weekDays', weekDays)}
+        months={object('months', months)}
+      />
+    ),
+    {
+      info: {
+        text: `Description About Calendar Component`,
+        document: ['Calendar']
+      }
     }
-  }
-);
+  );

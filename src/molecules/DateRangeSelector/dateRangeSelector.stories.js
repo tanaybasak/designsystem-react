@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { text, object, select } from '@storybook/addon-knobs';
+import { text, object } from '@storybook/addon-knobs';
 //@update-path-build-start
 import DateRangeSelector from './DateRangeSelector';
 //@update-path-build-end
@@ -26,10 +26,6 @@ const months = [
   'NOV',
   'DEC'
 ];
-const eventStyleOptions = {
-  border: 'border',
-  dot: 'dot'
-};
 
 const eventsCategory = {
   category1: {
@@ -55,70 +51,71 @@ const events = [
   { date: new Date('2021', '03', '24'), category: 'category3' }
 ];
 
-storiesOf('Components/Date Range Selector', module).add(
-  'default',
-  () => (
-    <DateRangeSelector
-      id={text('id', 'date-range-selector-id')}
-      weekDays={object('weekDays', weekDays)}
-      months={object('months', months)}
-      type="rangepicker"
-      format="mm/dd/yyyy"
-      onDateRangeSelect={action('onDateRangeSelect triggered')}
-    />
-  ),
-  {
-    info: {
-      text: `Description About DateRangeSelector Component`,
-      document: ['DateRangeSelector']
+storiesOf('Components/Date Range Selector', module)
+  .add(
+    'default',
+    () => (
+      <DateRangeSelector
+        id={text('id', 'date-range-selector-id')}
+        weekDays={object('weekDays', weekDays)}
+        months={object('months', months)}
+        type="rangepicker"
+        format="mm/dd/yyyy"
+        onDateRangeSelect={action('onDateRangeSelect triggered')}
+      />
+    ),
+    {
+      info: {
+        text: `Description About DateRangeSelector Component`,
+        document: ['DateRangeSelector']
+      }
     }
-  }
-)
-.add(
-  'DateRangeSelector with events with border style',
-  () => (
-    <DateRangeSelector
-      id={text('id', 'date-range-selector-id')}
-      weekDays={object('weekDays', weekDays)}
-      months={object('months', months)}
-      type="rangepicker"
-      format="mm/dd/yyyy"
-      onDateRangeSelect={action('onDateRangeSelect triggered')}
-      eventsCategory={object('Events Category', eventsCategory)}
-      eventStyle={'border'}
-      events={object('Events', events)}
-      defaultStartDate={new Date(2013, 10, 2)}
-      defaultEndDate={new Date(2021, 3, 15)}
-    />
-  ),
-  {
-    info: {
-      text: `Description About DateRangeSelector Component`,
-      document: ['DateRangeSelector']
+  )
+  .add(
+    'DateRangeSelector with events with border style',
+    () => (
+      <DateRangeSelector
+        id={text('id', 'date-range-selector-id')}
+        weekDays={object('weekDays', weekDays)}
+        months={object('months', months)}
+        type="rangepicker"
+        format="mm/dd/yyyy"
+        onDateRangeSelect={action('onDateRangeSelect triggered')}
+        eventsCategory={object('Events Category', eventsCategory)}
+        eventStyle={'border'}
+        events={object('Events', events)}
+        defaultStartDate={new Date(2013, 10, 2)}
+        defaultEndDate={new Date(2021, 3, 15)}
+      />
+    ),
+    {
+      info: {
+        text: `Description About DateRangeSelector Component`,
+        document: ['DateRangeSelector']
+      }
     }
-  }
-)
-.add(
-  'DateRangeSelector with events with dot style',
-  () => (
-    <DateRangeSelector
-      id={text('id', 'date-range-selector-id')}
-      weekDays={object('weekDays', weekDays)}
-      months={object('months', months)}
-      type="rangepicker"
-      format="mm/dd/yyyy"
-      onDateRangeSelect={action('onDateRangeSelect triggered')}
-      eventsCategory={object('Events Category', eventsCategory)}
-      eventStyle={'dot'}
-      events={object('Events', events)}
-      defaultStartDate={new Date(2013, 10, 2)}
-      defaultEndDate={new Date(2021, 3, 15)}
-    />
-  ),
-  {
-    info: {
-      text: `Description About DateRangeSelector Component`,
-      document: ['DateRangeSelector']
+  )
+  .add(
+    'DateRangeSelector with events with dot style',
+    () => (
+      <DateRangeSelector
+        id={text('id', 'date-range-selector-id')}
+        weekDays={object('weekDays', weekDays)}
+        months={object('months', months)}
+        type="rangepicker"
+        format="mm/dd/yyyy"
+        onDateRangeSelect={action('onDateRangeSelect triggered')}
+        eventsCategory={object('Events Category', eventsCategory)}
+        eventStyle={'dot'}
+        events={object('Events', events)}
+        defaultStartDate={new Date(2013, 10, 2)}
+        defaultEndDate={new Date(2021, 3, 15)}
+      />
+    ),
+    {
+      info: {
+        text: `Description About DateRangeSelector Component`,
+        document: ['DateRangeSelector']
+      }
     }
-  }
-);
+  );
