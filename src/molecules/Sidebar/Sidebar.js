@@ -459,7 +459,8 @@ Sidebar.propTypes = {
    * ```*/
   activeLink: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
-  /** Column Configuration
+  /** Setting active link property */
+  /** Property Configuration
    *
    * Active Link Property takes id/href as value
    *
@@ -468,7 +469,6 @@ Sidebar.propTypes = {
    * ```
    * activeLinkProperty: 'id'
    * ```*/
-  /** Setting active link property */
   activeLinkProperty: PropTypes.string,
 
   /** used to pass custom template in sidebar link */
