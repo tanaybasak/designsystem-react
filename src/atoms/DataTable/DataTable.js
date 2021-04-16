@@ -783,7 +783,7 @@ const DataTable = ({
                   //   onKeyDown: onKeyDownOnTable.bind(this, index)
                   // })}
                   onKeyDown={
-                    onRowSelect ? onKeyDownOnTable.bind(this, row) : () => {}
+                    onRowSelect ? onKeyDownOnTable.bind(this, row) : null
                   }
                 >
                   {tableConfiguration.map((column, i) => {

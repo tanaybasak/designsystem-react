@@ -90,8 +90,7 @@ const tableConfigWithCustomTemplate = [
     field: 'name',
     sortable: true,
     focus: true,
-    width: '60px',
-    onColumnSelect: () => {}
+    width: '60px'
   },
   {
     label: 'Protocol',
@@ -326,8 +325,6 @@ storiesOf('Components/Data Table', module)
         }${select('Class Name', classOptions, '')}`}
         tableData={tableData}
         tableConfig={tableConfig}
-        row_focus={boolean('row_focus', true)}
-        cell_focus={boolean('cell_focus', false)}
         onSort={action('Sort Action')}
       />
     ),
@@ -345,8 +342,6 @@ storiesOf('Components/Data Table', module)
         id="custom-datatable-custom-temp"
         tableData={tableData}
         tableConfig={tableConfigWithCustomTemplate}
-        row_focus={boolean('row_focus', true)}
-        cell_focus={boolean('cell_focus', false)}
         headerSelection={
           <Checkbox aria-label="header checkbox" id={`header_checkbox`} />
         }
