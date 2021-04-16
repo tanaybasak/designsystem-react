@@ -8,8 +8,7 @@ import DateRangeInput from './DateRangeInput';
 import {
   convertToDateObj,
   convertToDateString,
-  dayDiff,
-  lastday
+  dayDiff
 } from '../../util/utility';
 
 const DateRangeSelector = ({
@@ -76,7 +75,7 @@ const DateRangeSelector = ({
       const defaultDateArray = datepickerStartInput.current
         .getAttribute('defaultdate')
         .split('/');
-      
+
       let tempDate;
 
       switch (format) {
@@ -87,13 +86,17 @@ const DateRangeSelector = ({
             defaultDateArray[2],
             'start'
           );
-          tempDate = new Date(defaultDateArray[2],defaultDateArray[0] - 1, defaultDateArray[1])
+          tempDate = new Date(
+            defaultDateArray[2],
+            defaultDateArray[0] - 1,
+            defaultDateArray[1]
+          );
           setStartDateObj({
             day: tempDate.getDay(),
             month: tempDate.getMonth(),
             date: tempDate.getDate(),
             year: tempDate.getFullYear()
-          })
+          });
           break;
         case 'dd/mm/yyyy':
           updateFormattedDate(
@@ -102,13 +105,17 @@ const DateRangeSelector = ({
             defaultDateArray[2],
             'start'
           );
-          tempDate = new Date(defaultDateArray[2],defaultDateArray[1] - 1, defaultDateArray[0])
+          tempDate = new Date(
+            defaultDateArray[2],
+            defaultDateArray[1] - 1,
+            defaultDateArray[0]
+          );
           setStartDateObj({
             day: tempDate.getDay(),
             month: tempDate.getMonth(),
             date: tempDate.getDate(),
             year: tempDate.getFullYear()
-          })
+          });
           break;
       }
     }
@@ -130,13 +137,17 @@ const DateRangeSelector = ({
             defaultDateArray[2],
             'end'
           );
-          tempDate = new Date(defaultDateArray[2],defaultDateArray[0] - 1, defaultDateArray[1])
+          tempDate = new Date(
+            defaultDateArray[2],
+            defaultDateArray[0] - 1,
+            defaultDateArray[1]
+          );
           setEndDateObj({
             day: tempDate.getDay(),
             month: tempDate.getMonth(),
             date: tempDate.getDate(),
             year: tempDate.getFullYear()
-          })
+          });
           break;
         case 'dd/mm/yyyy':
           updateFormattedDate(
@@ -145,13 +156,17 @@ const DateRangeSelector = ({
             defaultDateArray[2],
             'end'
           );
-          tempDate = new Date(defaultDateArray[2],defaultDateArray[1] - 1, defaultDateArray[0])
+          tempDate = new Date(
+            defaultDateArray[2],
+            defaultDateArray[1] - 1,
+            defaultDateArray[0]
+          );
           setEndDateObj({
             day: tempDate.getDay(),
             month: tempDate.getMonth(),
             date: tempDate.getDate(),
             year: tempDate.getFullYear()
-          })
+          });
           break;
       }
     }
@@ -199,8 +214,7 @@ const DateRangeSelector = ({
           defaultEndDate.getMonth() === 11 ? 0 : defaultEndDate.getMonth() + 1,
           1
         );
-      }else{
-        
+      } else {
         d1 = new Date(
           startDateObj.month === 11 ? startDateObj.year + 1 : startDateObj.year,
           startDateObj.month === 11 ? 0 : startDateObj.month + 1,
@@ -330,6 +344,7 @@ const DateRangeSelector = ({
         className={`hcl-dateSelector ${className}`}
         data-component="date-picker"
         id={id}
+        {...restProps}
       >
         <div className="hcl-overlay-wrapper hcl-dateSelector-container">
           <DateRangeInput
@@ -491,17 +506,17 @@ DateRangeSelector.propTypes = {
 
   /** Min date */
   minDate: PropTypes.instanceOf(Date),
-  
+
   /** Max date */
   maxDate: PropTypes.instanceOf(Date),
 
-   /** This prop enables user to define category */
-   eventsCategory: PropTypes.any,
+  /** This prop enables user to define category */
+  eventsCategory: PropTypes.any,
 
-   /** This prop enables user to select event style (one of dot | border)  */
+  /** This prop enables user to select event style (one of dot | border)  */
   eventStyle: PropTypes.string,
 
-   /** This prop enables user to pass event and respective category */
+  /** This prop enables user to pass event and respective category */
   events: PropTypes.array
 };
 
@@ -532,6 +547,6 @@ DateRangeSelector.defaultProps = {
   maxDate: new Date(9999, 11, 31),
   eventsCategory: null,
   eventStyle: 'dot',
-  events: [],
+  events: []
 };
 export default DateRangeSelector;

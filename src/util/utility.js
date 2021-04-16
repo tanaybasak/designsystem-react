@@ -155,4 +155,4 @@ export const isDateEqual = (d1, d2) => {
 
 export const lastday = (y, m) => {
   return new Date(y, m + 1, 0).getDate();
-}
+};

@@ -26,7 +26,10 @@ const Calendar = ({
   });
 
   return (
-    <div className={`hcl-dateSelector-panel hcl-calendar ${className}`} {...restProps}>
+    <div
+      className={`hcl-dateSelector-panel hcl-calendar ${className}`}
+      {...restProps}
+    >
       <PanelHeader
         view={view}
         setView={setView}
@@ -56,17 +59,16 @@ const Calendar = ({
 };
 
 Calendar.propTypes = {
-
-     /** Date object which is used to initilize calendar  */
+  /** Date object which is used to initilize calendar  */
   currDateObj: PropTypes.object.isRequired,
 
-    /**
+  /**
    *
    * * ```mm/dd/yyyy``` :  One of the format available.
    * * ```dd/mm/yyyy``` : One of the format available. */
   format: PropTypes.string,
 
-   /** Callback function which will be executed on date selection
+  /** Callback function which will be executed on date selection
    *
    *
    * @signature
@@ -76,28 +78,28 @@ Calendar.propTypes = {
 
   onDateSelection: PropTypes.func.isRequired,
 
-   /** Months in a year.  Array input can be on the basis of language selected.  */
+  /** Months in a year.  Array input can be on the basis of language selected.  */
   months: PropTypes.array,
 
-    /** className/clasess will be applied on the parent div of Calendar */
+  /** className/clasess will be applied on the parent div of Calendar */
   className: PropTypes.string,
 
-   /** Days in week.  Array input can be on the basis of language selected.  */
+  /** Days in week.  Array input can be on the basis of language selected.  */
   weekDays: PropTypes.array,
 
-    /** Min date */
+  /** Min date */
   minDate: PropTypes.instanceOf(Date),
 
-    /** Max date */
+  /** Max date */
   maxDate: PropTypes.instanceOf(Date),
 
-   /** This prop enables user to define category */
+  /** This prop enables user to define category */
   eventsCategory: PropTypes.any,
 
-   /** This prop enables user to select event style (one of dot | border)  */
+  /** This prop enables user to select event style (one of dot | border)  */
   eventStyle: PropTypes.string,
 
-   /** This prop enables user to pass event and respective category */
+  /** This prop enables user to pass event and respective category */
   events: PropTypes.array
 };
 
@@ -121,7 +123,7 @@ Calendar.defaultProps = {
     'NOV',
     'DEC'
   ],
-  format: 'mm/dd/yyyy',
+  format: 'mm/dd/yyyy'
 };
 
 export default Calendar;

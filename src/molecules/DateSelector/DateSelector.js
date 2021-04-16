@@ -238,13 +238,13 @@ DateSelector.propTypes = {
    */
   onVisibleChange: PropTypes.func,
 
-   /** This prop enables user to define category */
+  /** This prop enables user to define category */
   eventsCategory: PropTypes.any,
 
-   /** This prop enables user to select event style (one of dot | border)  */
+  /** This prop enables user to select event style (one of dot | border)  */
   eventStyle: PropTypes.string,
 
-   /** This prop enables user to pass event and respective category */
+  /** This prop enables user to pass event and respective category */
   events: PropTypes.array
 };
 
@@ -278,7 +278,7 @@ DateSelector.defaultProps = {
   onVisibleChange: null,
   eventsCategory: null,
   eventStyle: 'dot',
-  events: [],
+  events: []
 };
 
 DateSelector.displayName = 'DateSelector';

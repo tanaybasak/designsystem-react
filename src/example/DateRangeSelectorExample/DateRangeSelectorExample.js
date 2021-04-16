@@ -176,7 +176,9 @@ const DateRangeSelectorExample = ({}) => {
         ></DateRangeSelector>
       </div>
       <div className="hcl-col-12 mb-9">
-        <div className="mb-5">With left panel, with default date and events with dotted style </div>
+        <div className="mb-5">
+          With left panel, with default date and events with dotted style{' '}
+        </div>
         <DateRangeSelector
           id="date-selector-id"
           format="mm/dd/yyyy"
