@@ -81,7 +81,7 @@ class TileExample extends Component {
         <ExpandableTile
           type="expandable"
           id="expandable-tile-3"
-          expandableType="sw"
+          expandableType="se"
           foldContentAbove={
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -117,7 +117,7 @@ class TileExample extends Component {
         <ExpandableTile
           type="expandable"
           id="expandable-tile-4"
-          expandableType="se"
+          expandableType="sw"
           foldContentAbove={
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
