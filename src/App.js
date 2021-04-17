@@ -1515,13 +1515,36 @@ class App extends Component {
                     <p>This is selectable tile</p>
                   </SelectableTile>
                 </div>
-                <div className="hcl-col-12 mt-5 mb-5">
+                <div className="hcl-col-md-6 mt-5 mb-5">
                   {/* expandable bottom right arrow tile */}
                   <ExpandableTile
                     type="expandable"
                     id="expandable-tile-1"
-                    foldContentAbove={<p>Part A</p>}
-                    foldContentBelow={<p>Part B</p>}
+                    expandableType="nw"
+                    foldContentAbove={
+                      <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        sed do eiusmod tempor incididunt ut labore et dolore
+                        magna aliqua. Lorem ipsum dolor sit amet, consectetur
+                        adipiscing elit, sed do eiusmod tempor incididunt ut
+                        labore et dolore magna aliqua. Lorem ipsum dolor sit
+                        amet, consectetur adipiscing elit, sed do eiusmod tempor
+                        incididunt ut labore et dolore magna aliqua labore et
+                        dolore magna aliqua aliqua
+                      </p>
+                    }
+                    foldContentBelow={
+                      <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        sed do eiusmod tempor incididunt ut labore et dolore
+                        magna aliqua. Lorem ipsum dolor sit amet, consectetur
+                        adipiscing elit, sed do eiusmod tempor incididunt ut
+                        labore et dolore magna aliqua. Lorem ipsum dolor sit
+                        amet, consectetur adipiscing elit, sed do eiusmod tempor
+                        incididunt ut labore et dolore magna aliqua labore et
+                        dolore magna aliqua aliqua
+                      </p>
+                    }
                   >
                     {/* container for default content */}
                     <div>
@@ -1533,6 +1556,8 @@ class App extends Component {
                     </div>
                   </ExpandableTile>
                   {/* expandable top left arrow tile */}
+                </div>
+                <div className="hcl-col-md-6 mt-5 mb-5">
                   <Button
                     kind="button"
                     type="primary-danger"
@@ -1551,7 +1576,8 @@ class App extends Component {
                     onChange={s => {
                       console.log(s);
                     }}
-                    expandableType="top"
+                    expandableType="nw"
+                    toggleArrowOnly
                     id="expandable-tile-2"
                     foldContentAbove={'Part A'}
                     foldContentBelow={<p>Part B</p>}

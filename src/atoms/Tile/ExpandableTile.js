@@ -4,16 +4,15 @@ import prefix from '../../settings';
 
 // eslint-disable-next-line react/prop-types
 const ExpandableTile = React.forwardRef((props, ref) => {
-  let classNames = null;
-
   const {
     className = '',
-    expandableType = 'bottom',
+    expandableType = 'se',
     id,
     foldContentAbove = null,
     foldContentBelow = null,
     expanded,
     onChange,
+    toggleArrowOnly,
     ...restProps
   } = props;
 
@@ -25,9 +24,7 @@ const ExpandableTile = React.forwardRef((props, ref) => {
   };
 
   useEffect(() => {
-    if (expanded) {
-      setChecked(expanded);
-    } else {
+    if (typeof expanded === 'boolean') {
       setChecked(expanded);
     }
   }, [expanded]);
@@ -41,10 +38,32 @@ const ExpandableTile = React.forwardRef((props, ref) => {
     }
   };
 
-  const classNameType = expandableType === 'top' ? 'arrow-top-left' : '';
-  classNames = `${prefix}-tile-expandable ${className} ${classNameType}`.trim();
+  const toggleTile = e => {
+    e.preventDefault();
+    setChecked(!checked);
+  };
+
+  // const classNameType = expandableType === 'top' ? 'arrow-top-left' : '';
+  let classNameType = '';
+  if (expandableType === 'nw') {
+    classNameType = 'arrow-top-left';
+  }
+  if (expandableType === 'ne') {
+    classNameType = 'arrow-top-right';
+  }
+  if (expandableType === 'sw') {
+    classNameType = 'arrow-bottom-left';
+  }
+  // classNames = `${prefix}-tile-expandable ${className} ${classNameType}`.trim();
+  let classes = [`${prefix}-tile-expandable`];
+  if (className) {
+    classes.push(className);
+  }
+  if (classNameType) {
+    classes.push(classNameType);
+  }
   return (
-    <div className={classNames} tabIndex="0" ref={ref} {...restProps}>
+    <div className={classes.join(' ')} tabIndex="0" ref={ref} {...restProps}>
       <input
         id={`${id}`}
         className={`${prefix}-tile-input`}
@@ -67,7 +86,10 @@ const ExpandableTile = React.forwardRef((props, ref) => {
           />
         </svg>
       </label>
-      <div className={`${prefix}-tile-content`}>
+      <div
+        className={`${prefix}-tile-content`}
+        onClick={!toggleArrowOnly ? toggleTile.bind(this) : null}
+      >
         {foldContentAbove ? foldContentAbove : null}
       </div>
       <div className={`${prefix}-tile-hide`}>
@@ -82,6 +104,8 @@ ExpandableTile.propTypes = {
   className: PropTypes.string,
 
   /** expandableType: top or bottom arrow option. */
+  /** expandableType: nw, se we have arrow option. */
+  /** expandableType: nw, ne, se, sw we have arrow option. */
   expandableType: PropTypes.string,
   /**  Content above expandable tile */
   foldContentAbove: PropTypes.node,
@@ -89,6 +113,8 @@ ExpandableTile.propTypes = {
   foldContentBelow: PropTypes.node,
   /**  Specifies state of the Expandable Tile */
   expanded: PropTypes.bool,
+  /**  Clickability provided only to arrows */
+  toggleArrowOnly: PropTypes.bool,
   /** Accepts event handler as prop/argument. */
   onChange: PropTypes.func,
 
@@ -103,10 +129,11 @@ ExpandableTile.propTypes = {
 };
 ExpandableTile.defaultProps = {
   className: '',
-  expandableType: 'bottom',
+  expandableType: 'se',
   foldContentAbove: null,
   foldContentBelow: null,
   expanded: false,
+  toggleArrowOnly: false,
   onChange: () => {}
 };
 

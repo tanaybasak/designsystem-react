@@ -55,7 +55,7 @@ storiesOf('Components/Tile', module)
     }
   )
   .add(
-    'expandable',
+    'expandable - default',
     () => (
       <ExpandableTile
         id="hcl-expandable-id"
@@ -77,7 +77,43 @@ storiesOf('Components/Tile', module)
       <ExpandableTile
         id="hcl-expandable-id-2"
         expanded={boolean('expanded', false)}
-        expandableType="top"
+        expandableType="nw"
+        foldContentAbove={text('Content Above', 'Content Above')}
+        foldContentBelow={text('Content Below', 'Content below')}
+      />
+    ),
+    {
+      info: {
+        text: `Description About Tile Component`,
+        document: ['ExpandableTile']
+      }
+    }
+  )
+  .add(
+    'expandable- top right arrow',
+    () => (
+      <ExpandableTile
+        id="hcl-expandable-id-3"
+        expanded={boolean('expanded', false)}
+        expandableType="ne"
+        foldContentAbove={text('Content Above', 'Content Above')}
+        foldContentBelow={text('Content Below', 'Content below')}
+      />
+    ),
+    {
+      info: {
+        text: `Description About Tile Component`,
+        document: ['ExpandableTile']
+      }
+    }
+  )
+  .add(
+    'expandable- bottom left arrow',
+    () => (
+      <ExpandableTile
+        id="hcl-expandable-id-4"
+        expanded={boolean('expanded', false)}
+        expandableType="sw"
         foldContentAbove={text('Content Above', 'Content Above')}
         foldContentBelow={text('Content Below', 'Content below')}
       />

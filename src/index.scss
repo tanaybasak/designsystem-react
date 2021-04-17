@@ -29,4 +29,64 @@ nav.hcl-sidebar.hcl-sidebar-left {
   margin: 10px 15px 0;
   border: 1px solid #c9c9c9;
 }
-  
+
+.hcl-tile-expandable input:checked ~ .hcl-tile-hide {
+  display: inline-block !important;
+}
+
+.hcl-tile-hide {
+  transition: display 2000s ease-out;
+}
+
+.hcl-tile-expandable .hcl-tile-hide,
+.hcl-tile-expandable .hcl-tile-content {
+  padding: 0.9375rem 2.5rem 18px 2.5rem;
+}
+
+.hcl-tile-expandable:not(.arrow-top-left) {
+  padding-right: 0;
+}
+
+.hcl-tile-expandable:not(.arrow-top-left) .hcl-tile-content {
+  padding-right: 3.125rem;
+}
+
+.hcl-tile-expandable {
+  padding: 0;
+}
+
+.hcl-tile-expandable .hcl-tile-content {
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.hcl-tile-expandable.arrow-top-left .hcl-tile-content,
+.hcl-tile-expandable.arrow-top-left .hcl-tile-hide {
+  padding: 0.9375rem 2.5rem 18px 0;
+}
+
+// north east arrow new classes
+
+.hcl-tile-expandable.arrow-top-right .hcl-tile-arrow {
+  top: 0;
+  right: 0;
+  bottom: unset;
+  left: unset;
+}
+
+.hcl-tile-expandable.arrow-bottom-left .hcl-tile-arrow {
+  bottom: 0;
+  left: 0;
+  right: unset;
+  top: unset;
+}
+
+.hcl-tile-expandable.arrow-bottom-left {
+  padding-left: 3.125rem;
+}
+
+.hcl-tile-expandable.arrow-bottom-left .hcl-tile-hide,
+.hcl-tile-expandable.arrow-bottom-left .hcl-tile-content {
+  padding-left: 0;
+}

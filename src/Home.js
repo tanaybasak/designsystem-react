@@ -27,6 +27,7 @@ import SidebarExample from './example/SidebarExample';
 import CalendarExample from './example/CalendarExample';
 import MainBuilder from './example/MainBuilder';
 import SlideoutExample from './example/SlideoutExample';
+import TileExample from './example/TileExample';
 class Home extends Component {
   state = {
     sidebarExpanded: false
@@ -126,6 +127,10 @@ class Home extends Component {
         {
           href: '/slideout',
           title: 'Slideout'
+        },
+        {
+          href: '/tile',
+          title: 'Tile'
         }
       ]
     }
@@ -229,6 +234,7 @@ class Home extends Component {
             <Route exact path="/codesnippet" component={CodeSnippetExample} />
             <Route exact path="/calendar" component={CalendarExample} />
             <Route exact path="/lb" component={MainBuilder} />
+            <Route exact path="/tile" component={TileExample} />
           </Switch>
         </div>
       </Router>
