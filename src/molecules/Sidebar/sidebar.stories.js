@@ -55,8 +55,7 @@ const items = [
   },
   {
     icon: <i className={`p-hclsw p-hclsw-${icons[1]}`} />,
-    title: 'Category Three',
-    href: '#10'
+    title: 'Category Three'
   }
 ];
 
