@@ -13,7 +13,7 @@ const createDocumentObject = list => {
 createDocumentObject(atomsFile);
 createDocumentObject(moleculesFile);
 fs.writeFileSync(
-  '.storybook/component-description.json',
+  'content/component-description.json',
   JSON.stringify(newObject),
   'utf8'
 );

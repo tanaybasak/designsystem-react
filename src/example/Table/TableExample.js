@@ -48,6 +48,10 @@ class TableExample extends Component {
         field: 'id',
         sortable: true,
         allowResize: true,
+        onColumnSelect: (column , row , e) => {
+            e.stopPropagation();
+          console.log('COLUMN SELECTED', column , row , e);
+        },
         columnHtml: (
           <Tag
             className=""
@@ -280,6 +284,9 @@ class TableExample extends Component {
               //     non-characteristic words etc.
               //   </Paragraph>);
               // }}
+              onRowSelect={row => {
+                console.log('ROW', row);
+              }}
               type="zebra borderless"
               onSort={(field, order, rows, multiSortArrayFields) => {
                 let newData = [];

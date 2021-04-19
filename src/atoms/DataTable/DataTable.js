@@ -117,7 +117,10 @@ const DataTable = ({
           }
         ];
       }
-      onSort(field.field, tempSortedColumn[0].order, rows, tempSortedColumn);
+      if (onSort) {
+        onSort(field.field, tempSortedColumn[0].order, rows, tempSortedColumn);
+      }
+
       updateSortedColumn(tempSortedColumn);
     } else {
       // single sort
@@ -134,7 +137,9 @@ const DataTable = ({
         tempSortedColumn.order = 'asc';
         tempSortedColumn.name = field.field;
       }
-      onSort(field.field, tempSortedColumn.order, rows, []);
+      if (onSort) {
+        onSort(field.field, tempSortedColumn.order, rows, []);
+      }
       updateSortedColumn(tempSortedColumn);
     }
   };
@@ -160,6 +165,15 @@ const DataTable = ({
       } else if (e.key === 'Enter') {
         e.preventDefault();
         if (onRowSelect) onRowSelect(row, e);
+      }
+    }
+  };
+
+  const onKeyDownOnTableColumn = (column, row, e) => {
+    if (e.target.tagName.toLowerCase() === 'td') {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        if (column.onColumnSelect) column.onColumnSelect(column, row, e);
       }
     }
   };
@@ -847,13 +861,13 @@ const DataTable = ({
             {rows.map((row, index) => (
               <React.Fragment key={`row-${index}`}>
                 <tr
-                  tabIndex={onRowSelect ? 0 : -1}
+                  tabIndex={onRowSelect ? 0 : null}
                   className={`${
                     selectedItem && selectedItem[row[uniqueKey]]
                       ? `${prefix}-active-row`
                       : null
                   }`}
-                  onClick={onRowSelect ? onRowSelect(row) : null}
+                  onClick={onRowSelect ? onRowSelect.bind(this, row) : null}
                   onKeyDown={
                     onRowSelect ? onKeyDownOnTable.bind(this, row) : null
                   }
@@ -887,10 +901,15 @@ const DataTable = ({
                           right: column.marginRight,
                           ...column.styles
                         }}
-                        tabIndex={column.onColumnSelect ? 0 : -1}
+                        tabIndex={column.onColumnSelect ? 0 : null}
+                        onClick={
+                          column.onColumnSelect
+                            ? column.onColumnSelect.bind(this, column, row)
+                            : null
+                        }
                         onKeyDown={
                           column.onColumnSelect
-                            ? onKeyDownOnTable.bind(this, row)
+                            ? onKeyDownOnTableColumn.bind(this, column, row)
                             : null
                         }
                       >
@@ -965,6 +984,7 @@ DataTable.propTypes = {
    * * ```maxResizeWidth``` : ***number*** value to specify maximum resize width.
    * * ```headerCellClass``` : For passing custom class name for <th> under <thead> element
    * * ```bodyCellClass``` : For passing custom class name for <td> under <tbody> element
+   * * ```onColumnSelect``` : Callback function on selecting column. returns *column data* , *row data* and *event* as arguments
    *
    *
    * eg :
@@ -983,6 +1003,7 @@ DataTable.propTypes = {
    *    maxResizeWidth: 120,
    *    headerCellClass: 'custom-class-name',
    *    bodyCellClass: 'custom-class-name',
+   *    onColumnSelect: (column , row , event) => {}
    * }]
    * ```*/
   tableConfig: PropTypes.arrayOf(
@@ -998,7 +1019,8 @@ DataTable.propTypes = {
       renderHtml: PropTypes.func,
       columnHtml: PropTypes.node,
       headerCellClass: PropTypes.string,
-      bodyCellClass: PropTypes.string
+      bodyCellClass: PropTypes.string,
+      onColumnSelect: PropTypes.func
     })
   ),
   /** Name of the custom class to apply to the Data Table. */
@@ -1016,7 +1038,8 @@ DataTable.propTypes = {
   /** Call back function on selecting row
    *
    * @signature
-   * ```data``` : selected Table row data
+   * * ```data``` : selected Table row data
+   * * ```event``` : event
    */
   onRowSelect: PropTypes.func,
   /** @ignore  */
@@ -1119,18 +1142,18 @@ DataTable.defaultProps = {
   className: '',
   type: '',
   headerSelection: null,
-  onSort: () => {},
-  onRowSelect: () => {},
+  onSort: null,
+  onRowSelect: null,
   expandRowTemplate: null,
   triStateSorting: false,
   resizable: false,
   columnDraggable: false,
   showDraggableIcon: true,
   isHeaderSticky: false,
-  onColumnAfterResize: () => {},
+  onColumnAfterResize: null,
   initSortedColumn: null,
   uniqueKey: 'id',
-  onColumnReorder: () => {},
+  onColumnReorder: null,
   showDraggableIconOnHover: false,
   removeHeaderNowrap: false,
   multiSort: false
