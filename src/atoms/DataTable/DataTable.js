@@ -28,8 +28,6 @@ const DataTable = ({
   initSortedColumn,
   onColumnReorder,
   selectedItem,
-  row_focus,
-  cell_focus,
   uniqueKey,
   multiSort,
   ...restProps
@@ -119,7 +117,10 @@ const DataTable = ({
           }
         ];
       }
-      onSort(field.field, tempSortedColumn[0].order, rows, tempSortedColumn);
+      if (onSort) {
+        onSort(field.field, tempSortedColumn[0].order, rows, tempSortedColumn);
+      }
+
       updateSortedColumn(tempSortedColumn);
     } else {
       // single sort
@@ -136,7 +137,9 @@ const DataTable = ({
         tempSortedColumn.order = 'asc';
         tempSortedColumn.name = field.field;
       }
-      onSort(field.field, tempSortedColumn.order, rows, []);
+      if (onSort) {
+        onSort(field.field, tempSortedColumn.order, rows, []);
+      }
       updateSortedColumn(tempSortedColumn);
     }
   };
@@ -147,41 +150,30 @@ const DataTable = ({
     updateTableRowData([...tempData]);
   };
 
-  const onKeyDownOnTable = (i, e) => {
-    if (
-      e.currentTarget.getAttribute('data-label') === 'overflow' &&
-      ['ArrowLeft', 'ArrowRight', 'ArrowDown', 'ArrowUp'].includes(e.key) &&
-      e.currentTarget !== e.target
-    ) {
-      return;
+  const onKeyDownOnTable = (row, e) => {
+    if (e.target.tagName.toLowerCase() === 'tr') {
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        if (e.currentTarget.nextElementSibling) {
+          e.currentTarget.nextElementSibling.focus();
+        }
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (e.currentTarget.parentElement.previousElementSibling) {
+          e.currentTarget.previousElementSibling.focus();
+        }
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        if (onRowSelect) onRowSelect(row, e);
+      }
     }
-    if (e.key === 'ArrowLeft') {
-      e.preventDefault();
-      if (e.currentTarget.previousElementSibling) {
-        e.currentTarget.previousElementSibling.focus();
-      }
-    } else if (e.key === 'ArrowRight') {
-      e.preventDefault();
-      if (e.currentTarget.nextElementSibling) {
-        e.currentTarget.nextElementSibling.focus();
-      }
-    } else if (e.key === 'ArrowDown') {
-      e.preventDefault();
-      if (
-        e.currentTarget.parentElement.nextElementSibling &&
-        e.currentTarget.parentElement.nextElementSibling.children[i]
-      ) {
-        e.currentTarget.parentElement.nextElementSibling.children[i].focus();
-      }
-    } else if (e.key === 'ArrowUp') {
-      e.preventDefault();
-      if (
-        e.currentTarget.parentElement.previousElementSibling &&
-        e.currentTarget.parentElement.previousElementSibling.children[i]
-      ) {
-        e.currentTarget.parentElement.previousElementSibling.children[
-          i
-        ].focus();
+  };
+
+  const onKeyDownOnTableColumn = (column, row, e) => {
+    if (e.target.tagName.toLowerCase() === 'td') {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        if (column.onColumnSelect) column.onColumnSelect(column, row, e);
       }
     }
   };
@@ -869,19 +861,16 @@ const DataTable = ({
             {rows.map((row, index) => (
               <React.Fragment key={`row-${index}`}>
                 <tr
-                  tabIndex={row_focus && cell_focus ? 0 : row_focus ? 0 : -1}
+                  tabIndex={onRowSelect ? 0 : null}
                   className={`${
                     selectedItem && selectedItem[row[uniqueKey]]
                       ? `${prefix}-active-row`
                       : null
                   }`}
-                  onClick={onRowSelect ? onRowSelect(row) : null}
-                  {...(row_focus && {
-                    onKeyDown: onKeyDownOnTable.bind(this, index)
-                  })}
-                  // onKeyDown={
-                  //   row_focus ? onKeyDownOnRow.bind(this, index) : () => {}
-                  // }
+                  onClick={onRowSelect ? onRowSelect.bind(this, row) : null}
+                  onKeyDown={
+                    onRowSelect ? onKeyDownOnTable.bind(this, row) : null
+                  }
                 >
                   {tableConfiguration.map((column, i) => {
                     const tdclassName = [];
@@ -912,35 +901,17 @@ const DataTable = ({
                           right: column.marginRight,
                           ...column.styles
                         }}
-                        {...(row_focus && cell_focus
-                          ? {
-                              tabIndex:
-                                cell_focus && row_focus && column.focus
-                                  ? 0
-                                  : cell_focus && column.focus
-                                  ? 0
-                                  : -1
-                            }
-                          : cell_focus
-                          ? {
-                              tabIndex:
-                                cell_focus && row_focus && column.focus
-                                  ? 0
-                                  : cell_focus && column.focus
-                                  ? 0
-                                  : -1
-                            }
-                          : null)}
-                        // onKeyDown={
-                        //   cell_focus ? onKeyDownOnTable.bind(this, i) : () => {}
-                        // }
-                        // {...(cell_focus && {
-                        //   onClic
-                        // })}
-
-                        {...(cell_focus && {
-                          onKeyDown: onKeyDownOnTable.bind(this, index)
-                        })}
+                        tabIndex={column.onColumnSelect ? 0 : null}
+                        onClick={
+                          column.onColumnSelect
+                            ? column.onColumnSelect.bind(this, column, row)
+                            : null
+                        }
+                        onKeyDown={
+                          column.onColumnSelect
+                            ? onKeyDownOnTableColumn.bind(this, column, row)
+                            : null
+                        }
                       >
                         {column.renderHtml ? (
                           column.renderHtml(row)
@@ -1013,6 +984,7 @@ DataTable.propTypes = {
    * * ```maxResizeWidth``` : ***number*** value to specify maximum resize width.
    * * ```headerCellClass``` : For passing custom class name for <th> under <thead> element
    * * ```bodyCellClass``` : For passing custom class name for <td> under <tbody> element
+   * * ```onColumnSelect``` : Callback function on selecting column. returns *column data* , *row data* and *event* as arguments
    *
    *
    * eg :
@@ -1031,6 +1003,7 @@ DataTable.propTypes = {
    *    maxResizeWidth: 120,
    *    headerCellClass: 'custom-class-name',
    *    bodyCellClass: 'custom-class-name',
+   *    onColumnSelect: (column , row , event) => {}
    * }]
    * ```*/
   tableConfig: PropTypes.arrayOf(
@@ -1046,7 +1019,8 @@ DataTable.propTypes = {
       renderHtml: PropTypes.func,
       columnHtml: PropTypes.node,
       headerCellClass: PropTypes.string,
-      bodyCellClass: PropTypes.string
+      bodyCellClass: PropTypes.string,
+      onColumnSelect: PropTypes.func
     })
   ),
   /** Name of the custom class to apply to the Data Table. */
@@ -1064,7 +1038,8 @@ DataTable.propTypes = {
   /** Call back function on selecting row
    *
    * @signature
-   * ```data``` : selected Table row data
+   * * ```data``` : selected Table row data
+   * * ```event``` : event
    */
   onRowSelect: PropTypes.func,
   /** @ignore  */
@@ -1157,11 +1132,7 @@ DataTable.propTypes = {
   /** Enable multi-sort functionality in Columns */
   multiSort: PropTypes.bool,
   /** Table Resizer */
-  resizer: PropTypes.bool,
-  /** Focus for table row */
-  row_focus: PropTypes.bool,
-  /** Focus for table cell */
-  cell_focus: PropTypes.bool
+  resizer: PropTypes.bool
 };
 
 DataTable.defaultProps = {
@@ -1171,20 +1142,18 @@ DataTable.defaultProps = {
   className: '',
   type: '',
   headerSelection: null,
-  onSort: () => {},
-  onRowSelect: () => {},
+  onSort: null,
+  onRowSelect: null,
   expandRowTemplate: null,
   triStateSorting: false,
   resizable: false,
   columnDraggable: false,
   showDraggableIcon: true,
   isHeaderSticky: false,
-  onColumnAfterResize: () => {},
+  onColumnAfterResize: null,
   initSortedColumn: null,
   uniqueKey: 'id',
-  row_focus: false,
-  cell_focus: true,
-  onColumnReorder: () => {},
+  onColumnReorder: null,
   showDraggableIconOnHover: false,
   removeHeaderNowrap: false,
   multiSort: false

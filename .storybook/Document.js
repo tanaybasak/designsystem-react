@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import DataTable from '../src/atoms/DataTable';
-import doc from './component-description.json';
+import doc from '../content/component-description.json';
 import { getEnum, getUnion, getShapeOf, getArrayOf } from './docUtil.js';
 import ReactMarkdown from 'react-markdown';
 import '@patron/patron-css/patron/index.css';
