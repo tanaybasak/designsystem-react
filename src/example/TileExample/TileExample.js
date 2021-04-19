@@ -1,6 +1,10 @@
 /* eslint-disable no-console */
 import React, { Component } from 'react';
 import { ExpandableTile } from '../../atoms/Tile';
+import Checkbox from '../../atoms/Checkbox';
+import Button from '../../atoms/Button';
+
+
 
 class TileExample extends Component {
   render() {
@@ -10,8 +14,11 @@ class TileExample extends Component {
           type="expandable"
           id="expandable-tile-1"
           expandableType="nw"
+          toggleArrowOnly={false}
+          className="mb-2"
           foldContentAbove={
-            <p>
+            // <p>
+            <div className="hcl-col-12 mt-5" id="checkbox-section">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem
               ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
@@ -19,7 +26,19 @@ class TileExample extends Component {
               dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
               incididunt ut labore et dolore magna aliqua labore et dolore magna
               aliqua aliqua
-            </p>
+              <legend className="hcl-legend">Checkbox - INDETERMINATE</legend>
+              <Button />
+              <div className="hcl-checkbox-group">
+                <Checkbox
+                  id="checkbox1"
+                  label="1 (default)"
+                  onChange={e => {
+                    console.log('asdf');
+                  }}
+                />
+              </div>
+            </div>
+            // </p>
           }
           foldContentBelow={
             <p>
@@ -46,6 +65,8 @@ class TileExample extends Component {
           type="expandable"
           id="expandable-tile-2"
           expandableType="ne"
+          className="mb-2"
+          toggleArrowOnly={false}
           foldContentAbove={
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -82,6 +103,8 @@ class TileExample extends Component {
           type="expandable"
           id="expandable-tile-3"
           expandableType="se"
+          className="mb-2"
+          toggleArrowOnly={false}
           foldContentAbove={
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -118,6 +141,8 @@ class TileExample extends Component {
           type="expandable"
           id="expandable-tile-4"
           expandableType="sw"
+          className="mb-2"
+          toggleArrowOnly={false}
           foldContentAbove={
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -154,7 +179,7 @@ class TileExample extends Component {
           type="expandable"
           id="expandable-tile-5"
           expandableType="se"
-          toggleArrowOnly
+          className="mb-2"
           foldContentAbove={
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do

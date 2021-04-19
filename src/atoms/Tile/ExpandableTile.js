@@ -40,6 +40,7 @@ const ExpandableTile = React.forwardRef((props, ref) => {
 
   const toggleTile = e => {
     e.preventDefault();
+    e.stopPropagation();
     setChecked(!checked);
   };
 
@@ -133,7 +134,7 @@ ExpandableTile.defaultProps = {
   foldContentAbove: null,
   foldContentBelow: null,
   expanded: false,
-  toggleArrowOnly: false,
+  toggleArrowOnly: true,
   onChange: () => {}
 };
 
