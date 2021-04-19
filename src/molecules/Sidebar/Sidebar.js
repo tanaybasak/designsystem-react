@@ -465,7 +465,7 @@ Sidebar.propTypes = {
   /**
    * used to set active link property
    *
-   * Active Link Property takes id/href as value
+   * Active Link Property takes any property as value
    *
    * eg :
    *
