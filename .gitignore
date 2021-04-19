@@ -36,3 +36,5 @@ nohup.out
 
 .storybook/folderComponentMapNew.json
 .storybook/component-description.json
+content/component-description.json
+content/folderComponentMapNew.json
