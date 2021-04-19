@@ -48,9 +48,9 @@ class TableExample extends Component {
         field: 'id',
         sortable: true,
         allowResize: true,
-        onColumnSelect: (column , row , e) => {
-            e.stopPropagation();
-          console.log('COLUMN SELECTED', column , row , e);
+        onColumnSelect: (column, row, e) => {
+          e.stopPropagation();
+          console.log('COLUMN SELECTED', column, row, e);
         },
         columnHtml: (
           <Tag
