@@ -4,8 +4,6 @@ import { ExpandableTile } from '../../atoms/Tile';
 import Checkbox from '../../atoms/Checkbox';
 import Button from '../../atoms/Button';
 
-
-
 class TileExample extends Component {
   render() {
     return (
