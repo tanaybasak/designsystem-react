@@ -6,7 +6,7 @@ import PageSubTitle from './PageSubTitle.js';
 import 'prismjs/components/prism-javascript';
 const prettier = require('prettier');
 const parser = require('prettier/parser-babel');
-const componentPathMapper = require('./folderComponentMapNew.json');
+const componentPathMapper = require('../content/folderComponentMapNew.json');
 import '@patron/patron-css/patron/index.css';
 import '@patron/patron-icon/dist/patron-font.css';
 import '../src/story.css';
