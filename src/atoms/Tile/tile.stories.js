@@ -1,9 +1,16 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { text, boolean } from '@storybook/addon-knobs';
+import { text, boolean, select } from '@storybook/addon-knobs';
 //@update-path-build-start
 import { Tile, SelectableTile, ClickableTile, ExpandableTile } from './index';
 //@update-path-build-end
+
+const iconPlacement = {
+  nw: 'nw',
+  ne: 'ne',
+  sw: 'sw',
+  se: 'se'
+};
 
 storiesOf('Components/Tile', module)
   .add(
@@ -60,6 +67,7 @@ storiesOf('Components/Tile', module)
       <ExpandableTile
         id="hcl-expandable-id"
         expanded={boolean('expanded', false)}
+        expandableType={select('type', iconPlacement, 'se')}
         foldContentAbove={text('Content Above', 'Content Above')}
         foldContentBelow={text('Content Below', 'Content Below')}
       />
@@ -72,48 +80,13 @@ storiesOf('Components/Tile', module)
     }
   )
   .add(
-    'expandable- top left arrow',
+    'expandable - Both arrow and Tile',
     () => (
       <ExpandableTile
         id="hcl-expandable-id-2"
         expanded={boolean('expanded', false)}
-        expandableType="nw"
-        foldContentAbove={text('Content Above', 'Content Above')}
-        foldContentBelow={text('Content Below', 'Content below')}
-      />
-    ),
-    {
-      info: {
-        text: `Description About Tile Component`,
-        document: ['ExpandableTile']
-      }
-    }
-  )
-  .add(
-    'expandable- top right arrow',
-    () => (
-      <ExpandableTile
-        id="hcl-expandable-id-3"
-        expanded={boolean('expanded', false)}
-        expandableType="ne"
-        foldContentAbove={text('Content Above', 'Content Above')}
-        foldContentBelow={text('Content Below', 'Content below')}
-      />
-    ),
-    {
-      info: {
-        text: `Description About Tile Component`,
-        document: ['ExpandableTile']
-      }
-    }
-  )
-  .add(
-    'expandable- bottom left arrow',
-    () => (
-      <ExpandableTile
-        id="hcl-expandable-id-4"
-        expanded={boolean('expanded', false)}
-        expandableType="sw"
+        toggleArrowOnly={false}
+        expandableType={select('type', iconPlacement, 'se')}
         foldContentAbove={text('Content Above', 'Content Above')}
         foldContentBelow={text('Content Below', 'Content below')}
       />

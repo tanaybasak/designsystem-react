@@ -108,7 +108,7 @@ ExpandableTile.propTypes = {
   /** Class/clasess will be applied on the parent div of Tile */
   className: PropTypes.string,
   /**
-   * Direction of the arrow:
+   * Placement of the arrow:
    * * ```nw```: Arrow at top left.
    * * ```ne```: Arrow at top right.
    * * ```se```: Arrow at bottom right.

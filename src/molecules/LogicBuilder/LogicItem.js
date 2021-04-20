@@ -1,5 +1,5 @@
 import React, { Children, cloneElement, useContext } from 'react';
-import Tile from '../../atoms/Tile';
+import { Tile } from '../../atoms/Tile';
 import Button from '../../atoms/Button';
 import LogicBuilderDispatchContext from './LogicBuilderDispatchContext';
 import LogicBuilderStateContext from './LogicBuilderStateContext';
