@@ -17,7 +17,9 @@ const Pagination = ({
   itemsValuesPerPage,
   pagePrepositionText,
   noItemDisplayText,
-  itemsPerPageToSelect
+  itemsPerPageToSelect,
+  className,
+  ...restProps
 }) => {
   const [
     currentItemsPerPageSelected,
@@ -294,7 +296,10 @@ const Pagination = ({
   };
 
   return (
-    <div className={`${prefix}-pagination`}>
+    <div
+      className={`${prefix}-pagination${className ? ` ${className}` : ''}`}
+      {...restProps}
+    >
       <div className={`${prefix}-pagination-left`}>
         {position.left
           ? position.left.map((item, index) => {
@@ -380,7 +385,9 @@ Pagination.propTypes = {
   position: PropTypes.shape({
     left: PropTypes.arrayOf(PropTypes.string),
     right: PropTypes.arrayOf(PropTypes.string)
-  })
+  }),
+  /** custom className for the Pagination */
+  className: PropTypes.string
 };
 
 Pagination.defaultProps = {
@@ -400,7 +407,8 @@ Pagination.defaultProps = {
   position: {
     left: ['itemsPerPageSelection', 'itemsPerPageInfo'],
     right: ['pageNumberInfo', 'pageNumberSelection']
-  }
+  },
+  className: null
 };
 
 export default Pagination;
