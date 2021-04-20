@@ -151,93 +151,6 @@ const tableConfigWithCustomTemplate = [
   }
 ];
 
-const tableConfigWithCustomTemplateFocus = [
-  {
-    field: 'checkbox',
-    // eslint-disable-next-line react/display-name
-    renderHtml: row => {
-      return (
-        <Checkbox
-          id={`${row.id}_checkbox_`}
-          aria-label="checkbox"
-          name="testcheck"
-        />
-      );
-    },
-
-    width: '40px'
-  },
-  {
-    label: 'Name',
-    field: 'name',
-    sortable: true,
-    width: '60px',
-    onColumnSelect: action('column-select')
-  },
-  {
-    label: 'Protocol',
-    field: 'protocol',
-    width: '60px',
-    onColumnSelect: action('column-select')
-  },
-  {
-    label: 'Port',
-    field: 'port',
-    // eslint-disable-next-line react/display-name
-    renderHtml: port => {
-      let classname = 'primary';
-      return (
-        <Tag type={classname}>{`${port.port === '80' ? 'Yes' : 'No'}`}</Tag>
-      );
-    },
-    width: '60px'
-  },
-  {
-    label: 'Rule',
-    field: 'rule',
-    width: '60px',
-    onColumnSelect: action('column-select')
-  },
-  {
-    label: 'Attached Groups',
-    field: 'attachedGroups',
-    width: '60px',
-    onColumnSelect: action('column-select')
-  },
-  {
-    label: 'Status',
-    field: 'status',
-    // eslint-disable-next-line react/display-name
-    renderHtml: model => {
-      return (
-        <Toggle
-          id={`toggle-id${model.id}`}
-          labelOff=" "
-          labelOn=" "
-          aria-label="Toggle"
-          toggled={model.status === 'Active' ? true : false}
-        />
-      );
-    },
-    width: '60px'
-  },
-  {
-    field: 'overflow',
-    // eslint-disable-next-line react/display-name
-    renderHtml: () => {
-      return (
-        <Overflowmenu
-          listItems={listItems}
-          attachElementToBody
-          ellipsisType="vertical"
-          onClick={action('Overflow Select')}
-        />
-      );
-    },
-    width: '50px'
-  }
-];
-
 const tableConfigWithCustomColumn = [
   {
     label: 'Name',
@@ -356,6 +269,41 @@ const tableConfig = [
     field: 'status'
   }
 ];
+
+const tableConfigColumnFocus = [
+  {
+    label: 'Name',
+    field: 'name',
+    sortable: true,
+    onColumnSelect: action('column-select')
+  },
+  {
+    label: 'Protocol',
+    field: 'protocol',
+    onColumnSelect: action('column-select')
+  },
+  {
+    label: 'Port',
+    field: 'port',
+    onColumnSelect: action('column-select')
+  },
+  {
+    label: 'Rule',
+    field: 'rule',
+    onColumnSelect: action('column-select')
+  },
+  {
+    label: 'Attached Groups',
+    field: 'attachedGroups',
+    onColumnSelect: action('column-select')
+  },
+  {
+    label: 'Status',
+    field: 'status',
+    onColumnSelect: action('column-select')
+  }
+];
+
 const tableConfigwithResize = [
   {
     label: 'Name',
@@ -659,7 +607,7 @@ storiesOf('Components/Data Table', module)
           boolean('Zebra', false) ? ' zebra' : ''
         }${select('Class Name', classOptions, '')}`}
         tableData={tableData}
-        tableConfig={tableConfigWithCustomTemplateFocus}
+        tableConfig={tableConfigColumnFocus}
       />
     ),
     {
