@@ -20,7 +20,9 @@ const ExpandableTile = React.forwardRef((props, ref) => {
 
   const toggle = () => {
     setChecked(!checked);
-    onChange(!checked);
+    if (onChange) {
+      onChange(!checked);
+    }
   };
 
   useEffect(() => {
@@ -34,7 +36,9 @@ const ExpandableTile = React.forwardRef((props, ref) => {
     if (key === 13 || key === 32) {
       e.preventDefault();
       setChecked(!checked);
-      onChange(!checked);
+      if (onChange) {
+        onChange(!checked);
+      }
     }
   };
 
@@ -103,18 +107,21 @@ const ExpandableTile = React.forwardRef((props, ref) => {
 ExpandableTile.propTypes = {
   /** Class/clasess will be applied on the parent div of Tile */
   className: PropTypes.string,
-
-  /** expandableType: top or bottom arrow option. */
-  /** expandableType: nw, se we have arrow option. */
-  /** expandableType: nw, ne, se, sw we have arrow option. */
-  expandableType: PropTypes.string,
+  /**
+   * Direction of the arrow:
+   * * ```nw```: Arrow at top left.
+   * * ```ne```: Arrow at top right.
+   * * ```se```: Arrow at bottom right.
+   * * ```sw```: Arrow at bottom left.
+   * */
+  expandableType: PropTypes.oneOf(['nw', 'ne', 'se', 'sw']),
   /**  Content above expandable tile */
   foldContentAbove: PropTypes.node,
   /**  Content below expandable tile */
   foldContentBelow: PropTypes.node,
   /**  Specifies state of the Expandable Tile */
   expanded: PropTypes.bool,
-  /**  Clickability provided only to arrows */
+  /**  Clickability provided only to arrows. Else, top part of Expandable tile can also be clicked. */
   toggleArrowOnly: PropTypes.bool,
   /** Accepts event handler as prop/argument. */
   onChange: PropTypes.func,
@@ -135,7 +142,7 @@ ExpandableTile.defaultProps = {
   foldContentBelow: null,
   expanded: false,
   toggleArrowOnly: true,
-  onChange: () => {}
+  onChange: null
 };
 
 ExpandableTile.displayName = 'ExpandableTile';
