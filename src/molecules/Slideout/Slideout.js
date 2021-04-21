@@ -163,7 +163,6 @@ const Slideout = ({
       >
         <div
           className={`hcl-slideout-mask`}
-          // tabIndex={0}
           onKeyDown={opened ? handleKeyDown.bind(this) : null}
           onClick={opened ? handleClick.bind(this) : null}
         />
