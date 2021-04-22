@@ -194,7 +194,9 @@ const TimePicker = ({
     } else {
       errorMessage
         ? setErrorMessage(errorMessage)
-        : setErrorMessage(msg_invalid_time);
+        : newTime !== ''
+        ? setErrorMessage(msg_invalid_time)
+        : null;
     }
     tempTimeObject.time = newTime;
     onChange(tempTimeObject);
