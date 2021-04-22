@@ -21,6 +21,7 @@ const Slideout = ({
 }) => {
   const [opened, setOpened] = useState(isOpen || false);
   const layoutRef = useRef(null);
+  const slideoutRef = useRef(null);
 
   let classNames = ['hcl-slideout'];
   let classNamesLayout = ['hcl-slideout-layout'];
@@ -55,6 +56,12 @@ const Slideout = ({
       onClose();
     }
   };
+
+  useEffect(() => {
+    if (slideoutRef) {
+      slideoutRef.current.focus();
+    }
+  }, []);
 
   useEffect(() => {
     if (!isOpen) {
@@ -120,12 +127,42 @@ const Slideout = ({
     }
   };
 
+  const focusTrap = e => {
+    const focusableEls = slideoutRef.current.querySelectorAll(
+      'a[href]:not([disabled]), button:not([disabled]), textarea:not([disabled]), input[type="text"]:not([disabled]), input[type="radio"]:not([disabled]), input[type="checkbox"]:not([disabled]), select:not([disabled]), [tabindex]'
+    );
+    const firstFocusableEl = focusableEls[0];
+    const lastFocusableEl = focusableEls[focusableEls.length - 1];
+
+    const isTabPressed = e.key === 'Tab' || e.keyCode === '9';
+
+    if (!isTabPressed) {
+      return;
+    }
+
+    if (e.shiftKey) {
+      if (document.activeElement === firstFocusableEl) {
+        lastFocusableEl.focus();
+        e.preventDefault();
+      }
+    } else {
+      if (document.activeElement === lastFocusableEl) {
+        firstFocusableEl.focus();
+        e.preventDefault();
+      }
+    }
+  };
+
   const renderHTML = () => {
     const slideOutEl = (
-      <div className={classNames.join(' ')}>
+      <div
+        className={classNames.join(' ')}
+        ref={slideoutRef}
+        tabIndex={0}
+        onKeyDown={focusTrap}
+      >
         <div
           className={`hcl-slideout-mask`}
-          tabIndex={0}
           onKeyDown={opened ? handleKeyDown.bind(this) : null}
           onClick={opened ? handleClick.bind(this) : null}
         />
