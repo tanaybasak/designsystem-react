@@ -58,7 +58,7 @@ const Slideout = ({
   };
 
   useEffect(() => {
-    if (slideoutRef) {
+    if (slideoutRef && slideoutRef.current) {
       slideoutRef.current.focus();
     }
   }, []);
