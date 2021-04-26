@@ -22,13 +22,14 @@ export default function Notification({
   closable,
   onClose,
   actionLink,
-  visible
+  visible,
+  ...restProps
 }) {
   const classnames = `${prefix}-notification ${
     type ? prefix + '-' + type : ''
   } ${className}`.trim();
   return visible ? (
-    <div className={classnames} role="alert">
+    <div className={classnames} role="alert" {...restProps}>
       <div className={`${prefix}-notification-body`}>
         <div className={`${prefix}-notification-icon-container`}>
           {icon || useIcon(type)}

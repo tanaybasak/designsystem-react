@@ -9,7 +9,8 @@ function Breadcrumb({
   displayMax,
   id,
   className,
-  children
+  children,
+  ...restProps
 }) {
   const [isActive, setActive] = useState(activeIndex);
   const childCount = React.Children.count(children);
@@ -80,6 +81,7 @@ function Breadcrumb({
       className={`${prefix}-breadcrumb ${className ? className : ''}`}
       aria-label="breadcrumb"
       id={id}
+      {...restProps}
     >
       {modifiedChildren}
     </ul>
