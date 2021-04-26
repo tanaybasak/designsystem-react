@@ -73,9 +73,9 @@ function Tab({ label, active, isDisabled, className, ...restProps }) {
       className={`${prefix}-tabs-nav-item${active ? ' active' : ''}${
         isDisabled ? ` ${prefix}-tabs-disabled` : ''
       } ${className}`.trim()}
-      onClick={restProps.onClick}
       tabIndex={0}
       onKeyDown={keyListener}
+      {...restProps}
     >
       <a className={`${prefix}-tabs-nav-link`}>{label}</a>
     </li>
