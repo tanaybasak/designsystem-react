@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { text, select, boolean, object } from '@storybook/addon-knobs';
+import { text, select, object } from '@storybook/addon-knobs';
 import TextInput from '../../atoms/TextInput';
 import Button from '../../atoms/Button';
 //@update-path-build-start
@@ -28,14 +28,13 @@ storiesOf('Components/Slideout', module)
     'default',
     () => (
       <Slideout
-        isOpen={boolean('isopen', true)}
+        isOpen
         header={text('Title', 'Default')}
         varient={'default'}
         type={select('type', typeOptions, 'default')}
         onClose={action('close button clicked')}
         onOutsideClick={action('clicked outside')}
         actions={object('Actions', actions)}
-        onEscClose={boolean('isopen', true)}
       >
         <div className="hcl-row">
           <div className="hcl-col-12">
@@ -87,14 +86,13 @@ storiesOf('Components/Slideout', module)
     'large',
     () => (
       <Slideout
-        isOpen={boolean('isopen', true)}
+        isOpen
         header={text('Title', 'Default')}
         varient={'large'}
         type={select('type', typeOptions, 'default')}
         onClose={action('close button clicked')}
         onOutsideClick={action('clicked outside')}
         actions={object('Actions', actions)}
-        onEscClose={boolean('isopen', true)}
       >
         <div className={`hcl-container custom-slideout-table`}>
           <div className={'hcl-row mb-3'}>
@@ -199,7 +197,7 @@ storiesOf('Components/Slideout', module)
     'direction - left',
     () => (
       <Slideout
-        isOpen={boolean('isopen', true)}
+        isOpen
         header={text('Title', 'Default')}
         varient={'default'}
         type={select('type', typeOptions, 'default')}
@@ -207,7 +205,6 @@ storiesOf('Components/Slideout', module)
         onClose={action('close button clicked')}
         onOutsideClick={action('clicked outside')}
         actions={object('Actions', actions)}
-        onEscClose={boolean('isopen', true)}
       >
         <div className="hcl-row">
           <div className="hcl-col-12">
@@ -259,7 +256,7 @@ storiesOf('Components/Slideout', module)
     'direction - right',
     () => (
       <Slideout
-        isOpen={boolean('isopen', true)}
+        isOpen
         header={text('Title', 'Default')}
         varient={'default'}
         type={select('type', typeOptions, 'default')}
@@ -267,7 +264,6 @@ storiesOf('Components/Slideout', module)
         onClose={action('close button clicked')}
         onOutsideClick={action('clicked outside')}
         actions={object('Actions', actions)}
-        onEscClose={boolean('isopen', true)}
       >
         <div className="hcl-row">
           <div className="hcl-col-12">
