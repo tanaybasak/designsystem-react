@@ -45,18 +45,18 @@ LogicBuilder.propTypes = {
   className: PropTypes.string,
   /**
    * used for passing collapsed tiles id
-   * 
+   *
    * ```
    * { [tileId] : true}
    * ```
-   * 
+   *
    * eg:
-   * 
+   *
    * ```
    * { '100' : true , '101' : false}
    * ```
    */
-  collapsedTiles:PropTypes.object
+  collapsedTiles: PropTypes.object
 };
 
 LogicBuilder.defaultProps = {

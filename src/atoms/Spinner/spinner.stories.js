@@ -13,8 +13,15 @@ storiesOf('Components/Spinner', module)
       warning: (
         <>
           This component will soon be deprecated. Please use{' '}
-          <a onClick={linkTo('Components/Progress Indicator' , 'circle-indeterminate')}>Circle Indeterminate Progress Indicator</a> in
-          the place of Spinner
+          <a
+            onClick={linkTo(
+              'Components/Progress Indicator',
+              'circle-indeterminate'
+            )}
+          >
+            Circle Indeterminate Progress Indicator
+          </a>{' '}
+          in the place of Spinner
         </>
       ),
       document: ['Spinner']
@@ -26,8 +33,15 @@ storiesOf('Components/Spinner', module)
       warning: (
         <>
           This component will soon be deprecated. Please use{' '}
-          <a onClick={linkTo('Components/Progress Indicator' , 'circle-indeterminate')}>Circle Indeterminate Progress Indicator</a> in
-          the place of Spinner
+          <a
+            onClick={linkTo(
+              'Components/Progress Indicator',
+              'circle-indeterminate'
+            )}
+          >
+            Circle Indeterminate Progress Indicator
+          </a>{' '}
+          in the place of Spinner
         </>
       ),
       document: ['Spinner']
