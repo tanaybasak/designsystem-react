@@ -4,6 +4,7 @@ import { Overflowmenu } from '../src/molecules/Overflowmenu';
 import Button from '../src/atoms/Button';
 import '@patron/patron-css/patron/index.css';
 const versionJson = require('../package.json');
+const cssVersionJson = require('../node_modules/@patron/patron-css/package.json');
 const PageTheme = () => {
   const [selectedTheme, setTheme] = useState({
     id: 'blue_active_orange_light',
@@ -45,7 +46,10 @@ const PageTheme = () => {
   ];
   return (
     <div style={{ position: 'absolute', right: '100px' }}>
-      <span>Patronus React Version {versionJson.version}</span>
+      <span style={{fontSize : '14px'}}><span>Patronus React Version: </span>
+      <span><span style={{fontWeight:600 , fontSize : '18px'}}>{versionJson.version}</span></span></span>
+      <span> with CSS: <span style={{fontWeight:600 , fontSize : '18px'}}>{cssVersionJson.version}</span></span>&nbsp;&nbsp;
+      
       <Overflowmenu
         attachElementToBody
         listItems={themes}
