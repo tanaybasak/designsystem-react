@@ -6,19 +6,34 @@ import { object } from '@storybook/addon-knobs';
 import Calendar from './Calendar';
 //@update-path-build-end
 
-const eventsCategory = {
+const eventsCategoryBorder = {
   category1: {
-    range: { min: 1, max: 5 },
+    //range: { min: 1, max: 5 },
+    color: 'var(--orange-100)'
+  },
+  category2: {
+    //range: { min: 6, max: 10 },
+    color: 'var(--lime-50)'
+  },
+  category3: {
+    //range: { min: 11, max: 15 },
+    color: 'var(--green-100)'
+  }
+};
+
+const eventsCategoryDot = {
+  category1: {
+    //range: { min: 1, max: 5 },
     color: 'var(--orange-100)',
     numOfDots: 1
   },
   category2: {
-    range: { min: 6, max: 10 },
+    //range: { min: 6, max: 10 },
     color: 'var(--lime-50)',
     numOfDots: 2
   },
   category3: {
-    range: { min: 11, max: 15 },
+    //range: { min: 11, max: 15 },
     color: 'var(--green-100)',
     numOfDots: 3
   }
@@ -55,7 +70,7 @@ storiesOf('Components/Calendar', module)
         onDateSelection={action('onDateSelection triggered')}
         minDate={new Date(1000, 0, 1)}
         maxDate={new Date(9999, 12, 31)}
-        eventsCategory={object('Events Category', eventsCategory)}
+        eventsCategory={object('Events Category', eventsCategoryBorder)}
         eventStyle={'border'}
         events={object('Events', events)}
         weekDays={object('weekDays', weekDays)}
@@ -77,7 +92,7 @@ storiesOf('Components/Calendar', module)
         onDateSelection={action('onDateSelection triggered')}
         minDate={new Date(1000, 0, 1)}
         maxDate={new Date(9999, 12, 31)}
-        eventsCategory={object('Events Category', eventsCategory)}
+        eventsCategory={object('Events Category', eventsCategoryDot)}
         eventStyle={'dot'}
         events={object('Events', events)}
         weekDays={object('weekDays', weekDays)}
