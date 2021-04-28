@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import {
-  createDateObj,
   convertToDateObj,
   convertToDateString
 } from '../../util/utility';
