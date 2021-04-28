@@ -136,20 +136,19 @@ class Home extends Component {
     }
   ];
   render() {
-
     this.navigationData.map(links => {
-        if (links.title === 'Components') {
-          links.children.sort(function (a, b) {
-            if (a.title < b.title) {
-              return -1;
-            }
-            if (a.title > b.title) {
-              return 1;
-            }
-            return 0;
-          });
-        }
-      });
+      if (links.title === 'Components') {
+        links.children.sort(function (a, b) {
+          if (a.title < b.title) {
+            return -1;
+          }
+          if (a.title > b.title) {
+            return 1;
+          }
+          return 0;
+        });
+      }
+    });
     return (
       <Router>
         <Header
