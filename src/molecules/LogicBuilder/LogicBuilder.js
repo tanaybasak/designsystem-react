@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import LogicBuilderStateContext from './LogicBuilderStateContext';
 import LogicBuilderDispatchContext from './LogicBuilderDispatchContext';
@@ -7,13 +7,20 @@ import prefix from '../../settings';
 const initialState = {
   expandedQueries: {}
 };
-const LogicBuilder = ({ children, className }) => {
+const LogicBuilder = ({ children, className, collapsedTiles }) => {
   const [state, dispatch] = useReducer(LogicBuilderReducer, initialState);
 
   const classNames = [`${prefix}-logic-builder`];
   if (className) {
     classNames.push(className);
   }
+
+  useEffect(() => {
+    dispatch({
+      type: 'SET_EXPANDED_TILES',
+      data: collapsedTiles
+    });
+  }, [collapsedTiles]);
   return (
     <LogicBuilderDispatchContext.Provider value={dispatch}>
       <LogicBuilderStateContext.Provider value={state}>
@@ -35,7 +42,21 @@ LogicBuilder.propTypes = {
   /**
    * Name of the custom class to apply to the LogicBuilder
    */
-  className: PropTypes.string
+  className: PropTypes.string,
+  /**
+   * used for passing collapsed tiles id
+   *
+   * ```
+   * { [tileId] : true}
+   * ```
+   *
+   * eg:
+   *
+   * ```
+   * { '100' : true , '101' : false}
+   * ```
+   */
+  collapsedTiles: PropTypes.object
 };
 
 LogicBuilder.defaultProps = {

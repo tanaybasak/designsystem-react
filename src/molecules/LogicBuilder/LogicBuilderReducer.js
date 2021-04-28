@@ -12,6 +12,12 @@ export const LogicBuilderReducer = (state, action) => {
         expandedQueries: currentState
       };
     }
+    case 'SET_EXPANDED_TILES': {
+      return {
+        ...state,
+        expandedQueries: action.data ? action.data : {}
+      };
+    }
 
     default:
       throw new Error('Unexpected action');
