@@ -1,9 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import {
-  convertToDateObj,
-  convertToDateString
-} from '../../util/utility';
+import { convertToDateObj, convertToDateString } from '../../util/utility';
 import Overlay from '../../atoms/Overlay';
 import FormHelperText from '../../atoms/FormHelperText';
 import SelectPanel from './SelectPanel';
