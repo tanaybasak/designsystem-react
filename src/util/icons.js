@@ -185,16 +185,7 @@ export const CheckMark = (
   </svg>
 );
 
-export const Error = (
-  <svg
-    style={{ fill: 'var(--danger_icon)', width: '100%', height: '100%' }}
-    xmlns="https://www.w3.org/2000/svg"
-    viewBox="0 0 16 16"
-  >
-    <rect width="16" height="16" fill="none" />
-    <path d="M8.5,9.5h-1V4.25h1Zm-.5,1a.75.75,0,1,0,.75.75A.76.76,0,0,0,8,10.5ZM15,8A7,7,0,1,1,8,1,7,7,0,0,1,15,8ZM14,8a6,6,0,1,0-6,6A6,6,0,0,0,14,8Z" />
-  </svg>
-);
+export const Error = <span style={{ color: 'var(--danger_icon)' }}>!</span>;
 
 export const boldIcon = (
   <svg
@@ -333,5 +324,63 @@ export const linkSelected = (
   >
     <rect width="16" height="16" fill="none" />
     <path d="M12,2.5a3.54,3.54,0,0,0-2.48,1l-.73.73,1.42,1.42.73-.73a1.5,1.5,0,1,1,2.12,2.12l-3,3a1.51,1.51,0,0,1-.52.34,3.5,3.5,0,0,0-5-4.88l-3,3A3.51,3.51,0,0,0,4,14.5a3.54,3.54,0,0,0,2.48-1l.73-.73L5.79,11.33l-.73.73A1.5,1.5,0,1,1,2.94,9.94l3-3a1.51,1.51,0,0,1,.52-.34,3.5,3.5,0,0,0,5,4.88l3-3A3.51,3.51,0,0,0,12,2.5ZM7.5,9a1.5,1.5,0,0,1,.44-1.06L6.57,6.57A1.55,1.55,0,0,1,7,6.5,1.5,1.5,0,0,1,8.06,9.06l1.37,1.37A1.55,1.55,0,0,1,9,10.5,1.5,1.5,0,0,1,7.5,9Z" />
+  </svg>
+);
+
+export const unlinkIcon = (
+  <svg
+    id="icon"
+    className="hcl-btn-icon"
+    xmlns="https://www.w3.org/2000/svg"
+    viewBox="0 0 16 16"
+  >
+    <rect
+      id="_Transparent_Rectangle_"
+      data-name="&lt;Transparent Rectangle&gt;"
+      width="16"
+      height="16"
+      fill="none"
+    />
+    <path
+      id="unlinked"
+      d="M3,6.5H1v-1H3Zm1.23-3L2.82,2.11l-.71.71L3.53,4.23ZM6.5,1h-1V3h1ZM13,9.5v1h2v-1Zm-1.23,3,1.41,1.42.71-.71-1.42-1.41ZM9.5,15h1V13h-1ZM6.42,12.42A2,2,0,0,1,3.58,9.58l2-2-.7-.7-2,2A3,3,0,0,0,5,14a3,3,0,0,0,2.12-.88l2-2-.7-.7ZM14,5a3,3,0,0,0-3-3,3,3,0,0,0-2.12.88l-2,2,.7.7,2-2a2,2,0,0,1,2.84,2.84l-2,2,.7.7,2-2A3,3,0,0,0,14,5Z"
+    />
+  </svg>
+);
+
+export const addMoreIcon = (
+  <svg viewBox="0 0 32 32">
+    <rect
+      data-name="&lt;Transparent Rectangle&gt;"
+      width="32"
+      height="32"
+      fill="none"
+    />
+    <path d="M16,2A14,14,0,1,0,30,16,14,14,0,0,0,16,2Zm0,26A12,12,0,1,1,28,16,12,12,0,0,1,16,28Zm1-13h7v2H17v7H15V17H8V15h7V8h2Z" />
+  </svg>
+);
+
+export const chevronIcon = (
+  <svg viewBox="0 0 16 16">
+    <rect
+      data-name="&lt;Transparent Rectangle&gt;"
+      width="16"
+      height="16"
+      fill="none"
+    />
+    <path d="M12.29,10.71,8,6.41l-4.29,4.3L3,10,8,5l5,5Z" />
+  </svg>
+);
+
+export const unsortIcon = (
+  <svg
+    className={`${prefix}-sorting`}
+    width="16px"
+    height="16px"
+    viewBox="0 0 16 16"
+  >
+    <title> unsorted - click to sort</title>
+    <rect fill="none" />
+    <path d="M7.29,4.71,5.5,2.91V9h-1V2.91L2.71,4.71,2,4,5,1,8,4Zm6,6.58-1.79,1.8V7h-1v6.09l-1.79-1.8L8,12l3,3,3-3Z" />
   </svg>
 );

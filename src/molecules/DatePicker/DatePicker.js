@@ -9,6 +9,7 @@ import { isValidDate } from '../../util/utility';
 import Overlay from '../../atoms/Overlay';
 import Label from '../../atoms/Label';
 import FormHelperText from '../../atoms/FormHelperText';
+import ComponentDeprecated from '../../util/ComponentDeprecated';
 
 const DatePicker = ({
   weekDays,
@@ -67,7 +68,7 @@ const DatePicker = ({
   }, [defaultDate]);
 
   const onEnterPressInputDate = event => {
-    if (event.key === 'Enter') {
+    if (event.key === 'Enter' || event.key === 'Tab') {
       const isdateValid = isValidDate(event.target.value, format);
       setIsDateSelectedValid(isdateValid);
       if (isdateValid && event.target.value !== '') {
@@ -82,6 +83,9 @@ const DatePicker = ({
         }
       } else {
         setDateSelected(event.target.value);
+      }
+      if (event.key === 'Tab') {
+        setShowDateContainer(false);
       }
     }
   };
@@ -292,11 +296,16 @@ DatePicker.propTypes = {
   months: PropTypes.array,
 
   /**
-   MM/DD/YYYY:  One of the format available.
-   DD/MM/YYYY: One of the format available. */
+   *
+   * * ```mm/dd/yyyy``` :  One of the format available.
+   * * ```dd/mm/yyyy``` : One of the format available. */
   format: PropTypes.string,
 
-  /** Callback function which will be executed on date selection  */
+  /** Callback function which will be executed on date selection
+   *
+   * @signature
+   * ```date``` : date
+   */
   onDateSelect: PropTypes.func,
 
   /** Class/clasess will be applied on the parent div of DatePicker */
@@ -352,4 +361,6 @@ DatePicker.defaultProps = {
   id: null,
   defaultDate: ''
 };
-export default DatePicker;
+
+DatePicker.displayName = 'DatePicker';
+export default ComponentDeprecated(DatePicker, 'Please use Date Selector');

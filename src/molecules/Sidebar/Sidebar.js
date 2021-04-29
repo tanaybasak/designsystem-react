@@ -22,6 +22,7 @@ const Sidebar = ({
   sidebarLinkTemplate,
   expanded,
   activeLink,
+  activeLinkProperty,
   responsive,
   ...restProps
 }) => {
@@ -71,9 +72,6 @@ const Sidebar = ({
 
   useEffect(() => {
     updateSidebarList(items);
-  }, [items]);
-
-  useEffect(() => {
     let isIconExist = items.some(item => item.hasOwnProperty('icon'));
     updateIconExists(isIconExist);
   }, [items]);
@@ -84,24 +82,24 @@ const Sidebar = ({
 
   useEffect(() => {
     if (activeLink) {
-      let activeItem = sidebarList.find(link => {
-        return link.href === activeLink;
+      let tempActiveItem = sidebarList.find(link => {
+        return link[activeLinkProperty] === activeLink;
       });
-      if (activeItem) {
-        activeItem.parentItem = activeItem;
-        setActiveItem(activeItem);
+      if (tempActiveItem) {
+        tempActiveItem.parentItem = tempActiveItem;
+        setActiveItem(tempActiveItem);
       } else {
         sidebarList.map((link, index) => {
           if (link.children && link.children.length > 0) {
-            activeItem = link.children.find(sublink => {
-              return sublink.href === activeLink;
+            tempActiveItem = link.children.find(sublink => {
+              return sublink[activeLinkProperty] === activeLink;
             });
-            if (activeItem) {
+            if (tempActiveItem) {
               let tempItem = [...sidebarList];
               tempItem[index].expanded = true;
               updateSidebarList([...tempItem]);
-              activeItem.parentItem = link;
-              setActiveItem(activeItem);
+              tempActiveItem.parentItem = link;
+              setActiveItem(tempActiveItem);
             }
           }
         });
@@ -169,7 +167,9 @@ const Sidebar = ({
           }
           tabIndex="0"
           title={item.title}
-          className={`${prefix}-sidebar-item${highlightedClass}`}
+          className={`${prefix}-sidebar-item${highlightedClass}${
+            item.disabled ? ' disable' : ''
+          }`}
           onKeyDown={keyDown.bind(this, item, categoryIndex, parentItem)}
           href={item.href}
         >
@@ -217,7 +217,9 @@ const Sidebar = ({
       }
       return React.cloneElement(template, {
         tabIndex: '0',
-        className: `${prefix}-sidebar-item ${highlightedClass}`,
+        className: `${prefix}-sidebar-item ${highlightedClass}${
+          item.disabled ? ' disable' : ''
+        }`,
         onKeyDown: keyDown.bind(this, item, null, parentItem),
         onClick: itemClicked.bind(this, item, parentItem),
         title: item.title,
@@ -414,7 +416,7 @@ const Sidebar = ({
               <li
                 className={`${prefix}-sidebar-category${
                   activeItem === item ? ' active' : ''
-                }`}
+                }${item.disabled ? ' disable' : ''}`}
                 key={`sidebar_category_${categoryIndex}`}
                 aria-expanded={`${item.expanded ? 'true' : 'false'}`}
               >
@@ -426,7 +428,7 @@ const Sidebar = ({
                         <li
                           className={`${prefix}-sidebar-category${
                             activeItem === subItem ? ' active' : ''
-                          }`}
+                          }${subItem.disabled ? ' disable' : ''}`}
                           key={`sidebar_category_children_${categoryIndex}_${subItemIndex}`}
                         >
                           {getSidebarLink(subItem, null, item)}
@@ -449,8 +451,28 @@ Sidebar.propTypes = {
   /** Name of the custom class to apply to the Sidebar */
   className: PropTypes.string,
 
-  /** used to set default active link */
-  activeLink: PropTypes.string,
+  /** used to set default active link
+   *
+   *  Active link is set to string or number based on **activeLinkProperty** value
+   *
+   *  eg :
+   *
+   * ```
+   * activeLink: 1
+   * ```*/
+  activeLink: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+
+  /**
+   * used to set active link property
+   *
+   * Active Link Property takes any property as value
+   *
+   * eg :
+   *
+   * ```
+   * activeLinkProperty: 'id'
+   * ```*/
+  activeLinkProperty: PropTypes.string,
 
   /** used to pass custom template in sidebar link */
   sidebarLinkTemplate: PropTypes.any,
@@ -483,14 +505,18 @@ Sidebar.propTypes = {
   icon: PropTypes.element,
   /** Callback function that is invoked when Sidebar link is clicked
    *
-   * Argument – link , event
+   * @signature
+   * * ```item``` : sidebar link
+   * * ```event``` : click event
    */
   onClick: PropTypes.func,
   /** Making sidebar responsive */
   responsive: PropTypes.bool,
   /** Callback function that is invoked when Sidebar Toggled
    *
-   * Argument – toggleStatus , event
+   * @signature
+   * * ```argument``` : toggleStatus
+   * * ```event``` : click event
    */
   toggleSidebar: PropTypes.func
 };
@@ -499,6 +525,7 @@ Sidebar.defaultProps = {
   className: '',
   sidebarLinkTemplate: null,
   activeLink: null,
+  activeLinkProperty: 'href',
   expanded: false,
   title: '',
   items: [],

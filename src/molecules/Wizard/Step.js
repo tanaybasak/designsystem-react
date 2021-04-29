@@ -58,8 +58,14 @@ const Step = ({
       return defaultIcon;
     }
   };
-  const handleNumberRender = () => {
-    return restProps.index + 1;
+  const handleNumberRender = (active, status) => {
+    if (active || status === 'default') {
+      return restProps.index + 1;
+    } else if (status === 'error') {
+      return errorIcon;
+    } else if (status === 'completed') {
+      return completedIcon;
+    }
   };
   const handleNoIconRender = () => {
     return null;
@@ -70,7 +76,7 @@ const Step = ({
       case 'icon':
         return handleIconRender(active, status);
       case 'number':
-        return handleNumberRender();
+        return handleNumberRender(active, status);
       case 'noicon':
         return handleNoIconRender();
       default:
@@ -85,43 +91,47 @@ const Step = ({
       aria-current={active}
       {...restProps}
     >
-      {/* <div className="wiz-item-container"> */}
-      {
-        <>
-          <div className="ghost" />
-          <div className="hcl-wizard-left-pane">
-            <div className="hcl-wizard__icon-container">
-              <div className="hcl-wizard__user">
-                {stateToReturn(active, status)}
+      <button
+        tabIndex={
+          linear ? (status === 'completed' || status === 'error' ? 0 : -1) : 0
+        }
+      >
+        {
+          <>
+            <div className="ghost" />
+            <div className="hcl-wizard-left-pane">
+              <div className="hcl-wizard__icon-container">
+                <div className="hcl-wizard__user">
+                  {stateToReturn(active, status)}
+                </div>
               </div>
             </div>
-          </div>
-          <div className={`hcl-wizard-right-pane`}>
-            <div
-              className={`hcl-wizard__title ${
-                !description ? 'no-description' : ''
-              }`}
-            >
-              {title}
+            <div className={`hcl-wizard-right-pane`}>
+              <div
+                className={`hcl-wizard__title ${
+                  !description ? 'no-description' : ''
+                }`}
+              >
+                {title}
+              </div>
+              {description && (
+                <div className={`hcl-wizard__description`}>{description}</div>
+              )}
             </div>
-            {description && (
-              <div className={`hcl-wizard__description`}>{description}</div>
-            )}
-          </div>
-          {
-            <div className="wiz-no-icon-container">
-              <span className="no-icon-container">
-                <span className="no-icon-child" />
-              </span>
-            </div>
-          }
-        </>
-      }
-      <div className="wiz-content">
-        {<span className="wiz-title">{title}</span>}
-        {<span className="wiz-description">{description}</span>}
-      </div>
-      {/* </div> */}
+            {
+              <div className="wiz-no-icon-container">
+                <span className="no-icon-container">
+                  <span className="no-icon-child" />
+                </span>
+              </div>
+            }
+          </>
+        }
+        <div className="wiz-content">
+          {<span className="wiz-title">{title}</span>}
+          {<span className="wiz-description">{description}</span>}
+        </div>
+      </button>
     </li>
   );
 };
@@ -129,9 +139,10 @@ const Step = ({
 Step.propTypes = {
   /** Name of the custom class to be applied to the Step.  */
   className: PropTypes.string,
-  /** true – ‘active’ class is added the Step.
-
-    false – ‘active’ is removed from the Step. */
+  /**
+   * * ```true``` : ‘active’ class is added the Step.
+   * * ```false``` : ‘active’ is removed from the Step.
+   * */
   active: PropTypes.bool,
   /** status of the Step. It can be of - 'default', 'error', 'completed' */
   status: PropTypes.oneOf(['default', 'error', 'completed']),
@@ -153,7 +164,11 @@ Step.propTypes = {
   stepcallBack: PropTypes.func,
   /** @ignore */
   iconType: PropTypes.oneOf(['icon', 'number', 'noicon']),
-  /** Event to subscribe when Step is clicked.*/
+  /** Event to subscribe when Step is clicked.
+   *
+   * @signature
+   * ```event``` : click
+   */
   onClick: PropTypes.func
 };
 

@@ -29,7 +29,7 @@ const Wizard = React.forwardRef(
     if (!linear) {
       classnames.push('nonlinear');
     }
-    if (kind === 'style2') {
+    if (kind === 'medium') {
       classnames.push('hcl-wizard__no-title');
     } else if (kind === 'mobile') {
       classnames = classnames.filter(
@@ -55,7 +55,10 @@ const Wizard = React.forwardRef(
       // }
       let lastCompletedStep = null;
       Children.map(childs, (child, index) => {
-        if (child.props.status === 'completed') {
+        if (
+          child.props.status === 'completed' ||
+          child.props.status === 'error'
+        ) {
           lastCompletedStep = index;
         }
       });
@@ -116,7 +119,7 @@ Wizard.propTypes = {
   /** Steps can't be freely navigated until unless Step's prop, status is marked 'completed'. */
   linear: PropTypes.bool,
   /** Variants of Wizard Styles which can be used */
-  kind: PropTypes.oneOf(['style1', 'style2', 'mobile']),
+  kind: PropTypes.oneOf(['default', 'medium', 'mobile']),
   /** Icon Types to be be used. It can be 'icon', 'number', 'noicon' */
   iconType: PropTypes.oneOf(['icon', 'number', 'noicon']),
   /** Only applicable in mobile Variant style of Wizard. */
@@ -127,7 +130,7 @@ Wizard.defaultProps = {
   className: '',
   activeIndex: null,
   linear: true,
-  kind: 'style1',
+  kind: 'default',
   iconType: 'icon',
   currentStepLabel: ''
 };

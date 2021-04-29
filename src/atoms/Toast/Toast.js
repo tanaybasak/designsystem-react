@@ -61,16 +61,17 @@ Toast.propTypes = {
   /** Title for Toast Component */
   title: PropTypes.string,
   /** Subtitle for Toast Component */
-  subtitle: PropTypes.node,
+  subtitle: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   /** Caption for Toast Component */
-  caption: PropTypes.string,
+  caption: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   /** Icon for Toast Component */
   icon: PropTypes.element,
   /** Icon description of Toast Component */
   iconDescription: PropTypes.string,
   /** Callback function for on close of Toast Component
    *
-   *  Argument – event
+   * @signature
+   * ```event``` : event upon clicking on close
    */
   onClose: PropTypes.func,
   /** Boolean value to show or hide Toast Component */

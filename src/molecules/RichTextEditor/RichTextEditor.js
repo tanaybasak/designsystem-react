@@ -15,31 +15,37 @@ import {
   numberListSelected,
   linkIcon,
   linkSelected,
-  inlineClose,
+  unlinkIcon,
   checkmark,
   edit
 } from '../../util/icons';
 import Overlay from '../../atoms/Overlay/Overlay';
 import TextInput from '../../atoms/TextInput';
 import Button from '../../atoms/Button/Button';
+import prefix from '../../settings';
 
 const RichTextEditor = ({
   config,
   onChange,
   value,
   visitLinktext,
-  linkText
+  linkText,
+  errorMessage
 }) => {
   const editorRef = useRef();
 
   const quillRef = useRef();
 
+  const overlayRef = useRef();
+
+  const linkRef = useRef();
+
   const [showTootip, toggleTooltip] = useState(false);
+  const [targetElement, setTargetElement] = useState(null);
   const [showVisitTootip, toggleVisitTooltip] = useState(false);
   const [activeStyles, toggleActiveStyles] = useState(false);
+  const [invalidUrl, setInValidUrl] = useState(false);
 
-  const [top, setTop] = useState(0);
-  const [left, setLeft] = useState(0);
   const [selectedtext, setSelectedText] = useState('');
   const [textVal, setTextVal] = useState('');
 
@@ -60,6 +66,36 @@ const RichTextEditor = ({
     }
   };
 
+  useEffect(() => {
+    if (showVisitTootip && overlayRef.current && showTootip) {
+      overlayRef.current.querySelector(`#${prefix}-edit-btn`).focus();
+    }
+    if (showTootip && !showVisitTootip) {
+      overlayRef.current.querySelector('input')
+        ? overlayRef.current.querySelector('input').focus()
+        : null;
+    }
+  }, [showTootip, showVisitTootip]);
+
+  const showOveralyTooltip = () => {
+    setLinkRef();
+    if (showTootip && overlayRef.current) {
+      overlayRef.current.querySelector(`#${prefix}-edit-btn`)
+        ? overlayRef.current.querySelector(`#${prefix}-edit-btn`).focus()
+        : overlayRef.current.querySelector('input').focus();
+    }
+    setTargetElement(
+      window.getSelection().getRangeAt(0).startContainer.parentNode
+    );
+    toggleTooltip(true);
+  };
+
+  const hideOveralyTooltip = () => {
+    setInValidUrl(false);
+    setTargetElement(null);
+    toggleTooltip(false);
+  };
+
   const handler = range => {
     if (range) {
       if (range.length == 0) {
@@ -68,26 +104,21 @@ const RichTextEditor = ({
         if (formats['link']) {
           if (!showTootip) {
             setTextVal(formats.link);
-            toggleTooltip(true);
             toggleVisitTooltip(true);
+            showOveralyTooltip();
           }
-          const bound = quillRef.current.getBounds(range.index);
-          setTop(bound.top + 30);
-          setLeft(bound.left - 40);
         } else {
-          toggleTooltip(false);
+          hideOveralyTooltip();
         }
       } else {
         var text = quillRef.current.getText(range.index, range.length);
         setSelectedText(text);
         const formats = quillRef.current.getFormat();
-        toggleTooltip(false);
         if (!formats['link']) {
           setTextVal(text);
+        } else {
+          showOveralyTooltip();
         }
-        const bound = quillRef.current.getBounds(range.index);
-        setTop(bound.top + 30);
-        setLeft(bound.left - 40);
         toggleActiveStyles(quillRef.current.getFormat());
       }
     }
@@ -106,7 +137,6 @@ const RichTextEditor = ({
         onChange(editorRef.current.querySelector('.ql-editor'), delta);
       } else if (source == 'user') {
         toggleActiveStyles(quillRef.current.getFormat());
-        toggleTooltip(false);
         onChange(editorRef.current.querySelector('.ql-editor'), delta);
       }
     });
@@ -115,14 +145,9 @@ const RichTextEditor = ({
   }, []);
 
   const updateLink = formatLink => {
-    quillRef.current.focus();
-
-    let select = quillRef.current.getSelection();
-    let indexVal = quillRef.current.getIndex(
-      quillRef.current.getLeaf(select.index)[0]
-    );
-    let length = quillRef.current.getLeaf(select.index)[0].parent.domNode
-      .textContent.length;
+    let select = linkRef.current.select;
+    let indexVal = linkRef.current.indexVal;
+    let length = linkRef.current.length;
 
     if (formatLink == 'remove') {
       if (select.length) {
@@ -130,34 +155,75 @@ const RichTextEditor = ({
       } else {
         quillRef.current.formatText(indexVal, length, 'link', false);
       }
-      toggleTooltip(false);
+      hideOveralyTooltip();
       toggleVisitTooltip(false);
       toggleActiveStyles(quillRef.current.getFormat());
     } else if (formatLink == 'add') {
-      if (select.length) {
-        quillRef.current.format(
-          'link',
-          quillRef.current.getFormat().link
-            ? quillRef.current.getFormat().link
-            : textVal
-        );
+      let valid = isUrlValid(textVal);
+      if (valid) {
+        if (select.length) {
+          quillRef.current.format(
+            'link',
+            quillRef.current.getFormat().link
+              ? quillRef.current.getFormat().link
+              : textVal
+          );
+        } else {
+          quillRef.current.formatText(indexVal, length, 'link', textVal);
+        }
+
+        hideOveralyTooltip();
       } else {
-        quillRef.current.formatText(indexVal, length, 'link', textVal);
+        setInValidUrl(true);
       }
-      toggleTooltip(false);
     } else {
       toggleVisitTooltip(false);
       toggleActiveStyles(false);
     }
   };
 
+  const updateTreenodeNameOnEnter = event => {
+    event.stopPropagation();
+    if (event.key === 'Enter') {
+      showVisitTootip ? updateLink('edit') : updateLink('add');
+      event.preventDefault();
+    } else if (event.key === 'Escape') {
+      updateLink('remove');
+      event.preventDefault();
+    }
+  };
+
+  const setLinkRef = () => {
+    let select = quillRef.current.getSelection();
+    let indexVal = quillRef.current.getIndex(
+      quillRef.current.getLeaf(select.index)[0]
+    );
+    let length = quillRef.current.getLeaf(select.index)[0].parent.domNode
+      .textContent.length;
+
+    linkRef.current = {
+      select: select,
+      indexVal: indexVal,
+      length: length
+    };
+  };
+
+  const isUrlValid = userInput => {
+    var res = userInput.match(
+      /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w.-]+)+[\w\-._~:/?#[\]@!$&'()*+,;=.]+$/
+    );
+    if (res == null) return false;
+    else return true;
+  };
+
   const format = (type, value) => {
     if (type === 'link') {
       quillRef.current.focus();
       let select = quillRef.current.getSelection();
+
       let domNode = quillRef.current.getLeaf(select.index)[0].parent.domNode;
       if (select.length) {
-        toggleTooltip(true);
+        showOveralyTooltip();
         toggleVisitTooltip(false);
       }
       if (domNode.nodeName === 'A' && domNode.textContent !== selectedtext) {
@@ -194,6 +260,7 @@ const RichTextEditor = ({
       <Button
         kind="button"
         type="neutral"
+        title="Bold"
         aria-label="Bold"
         onClick={format.bind(this, 'bold')}
       >
@@ -207,6 +274,7 @@ const RichTextEditor = ({
       <Button
         kind="button"
         type="neutral"
+        title="Italic"
         aria-label="Italic"
         onClick={format.bind(this, 'italic')}
       >
@@ -220,6 +288,7 @@ const RichTextEditor = ({
       <Button
         kind="button"
         type="neutral"
+        title="Underline"
         aria-label="Underline"
         onClick={format.bind(this, 'underline')}
       >
@@ -236,6 +305,7 @@ const RichTextEditor = ({
         kind="button"
         value="bullet"
         type="neutral"
+        title="Bullet List"
         aria-label="BulletList"
         onClick={format.bind(this, 'list', 'bullet')}
       >
@@ -252,6 +322,7 @@ const RichTextEditor = ({
         kind="button"
         value="ordered"
         type="neutral"
+        title="Number List"
         aria-label="NumberedList"
         onClick={format.bind(this, 'list', 'ordered')}
       >
@@ -268,6 +339,7 @@ const RichTextEditor = ({
         kind="button"
         value="bullet"
         type="neutral"
+        title="Link"
         aria-label="Link"
         onClick={format.bind(this, 'link')}
       >
@@ -275,10 +347,9 @@ const RichTextEditor = ({
       </Button>
     );
   };
-
   return (
-    <div className="hcl-rte-wrapper">
-      <div className="hcl-rte-toolbar">
+    <div className={`${prefix}-rte-wrapper`}>
+      <div className={`${prefix}-rte-toolbar`}>
         {config
           ? config.map((release, index) => {
               return (
@@ -289,80 +360,113 @@ const RichTextEditor = ({
             })
           : null}
       </div>
-      <div className="hcl-rte-editor-wrapper">
+      <div className={`${prefix}-rte-editor-wrapper`}>
         <div
           ref={editorRef}
           tabIndex="0"
           dangerouslySetInnerHTML={{ __html: value }}
-          className="hcl-rte-editor"
+          className={`${prefix}-rte-editor`}
         />
-        {showTootip ? (
-          <Overlay showOverlay style={{ top: top + 'px', left: left + 'px' }}>
-            <div className="hcl-rte-flex">
-              {showVisitTootip ? (
-                <>
-                  {visitLinktext}
-                  <a
-                    className="hcl-rte-new"
-                    href={
-                      quillRef.current.getFormat().link
-                        ? quillRef.current.getFormat().link
-                        : textVal
-                    }
-                    rel="noopener noreferrer"
-                    target="_blank"
-                  >
-                    {quillRef.current.getFormat().link
+        <Overlay
+          targetElement={targetElement}
+          onKeyDown={updateTreenodeNameOnEnter}
+          attachElementToBody
+          onToggle={status => {
+            if (!status) {
+              toggleVisitTooltip(false);
+              toggleTooltip(status);
+              setTargetElement(null);
+              setInValidUrl(false);
+            }
+          }}
+          showOverlay={showTootip}
+        >
+          <div className={`${prefix}-rte-flex`} ref={overlayRef}>
+            {showVisitTootip ? (
+              <>
+                <span className={`${prefix}-rte-text`}>{visitLinktext}</span>
+                <a
+                  className={`${prefix}-rte-new`}
+                  href={
+                    quillRef.current.getFormat().link
                       ? quillRef.current.getFormat().link
-                      : textVal}
-                  </a>
-                  <Button
-                    type="primary"
-                    aria-label="edit"
-                    onClick={() => updateLink('edit')}
-                  >
-                    {edit}
-                  </Button>
-                  <Button
-                    type="neutral"
-                    aria-label="close"
-                    onClick={() => updateLink('remove')}
-                  >
-                    {inlineClose}
-                  </Button>
-                </>
-              ) : (
-                <>
+                      : textVal
+                  }
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  {quillRef.current.getFormat().link
+                    ? quillRef.current.getFormat().link
+                    : textVal}
+                </a>
+                <Button
+                  type="primary"
+                  id={`${prefix}-edit-btn`}
+                  title="Edit"
+                  aria-label="edit"
+                  onClick={() => updateLink('edit')}
+                >
+                  {edit}
+                </Button>
+                <Button
+                  type="neutral"
+                  id={`${prefix}-close-btn`}
+                  title="Unlink"
+                  aria-label="unlink"
+                  onClick={() => updateLink('remove')}
+                >
+                  {unlinkIcon}
+                </Button>
+              </>
+            ) : (
+              <>
+                <span
+                  className={
+                    invalidUrl
+                      ? `${prefix}-rte-span`
+                      : `${prefix}-rte-span-name`
+                  }
+                >
                   {linkText}
+                </span>
+                <span className={`${prefix}-rte-span-wrapper`}>
                   <TextInput
                     type="text"
                     placeholder="name"
                     value={textVal}
                     id="textInput"
+                    data-invalid={invalidUrl}
                     onChange={event => {
                       toggleVisitTooltip(false);
                       setTextVal(event.currentTarget.value);
                     }}
                   />
-                  <Button
-                    type="primary"
-                    aria-label="add"
-                    onClick={() => updateLink('add')}
-                  >
-                    {checkmark}
-                  </Button>
-                  <Button
-                    type="neutral"
-                    aria-label="close"
-                    onClick={() => updateLink('remove')}
-                  >
-                    {inlineClose}
-                  </Button>
-                </>
-              )}
-            </div>
-          </Overlay>
-        ) : null}
+                  {invalidUrl ? (
+                    <div className={`${prefix}-error-msg`}>{errorMessage}</div>
+                  ) : null}
+                </span>
+                <Button
+                  type="primary"
+                  id={`${prefix}-add-btn`}
+                  aria-label="add"
+                  title="Addlink"
+                  onClick={() => updateLink('add')}
+                >
+                  {checkmark}
+                </Button>
+                <Button
+                  type="neutral"
+                  id={`${prefix}-close-btn`}
+                  aria-label="unlink"
+                  title="Unlink"
+                  onClick={() => updateLink('remove')}
+                >
+                  {unlinkIcon}
+                </Button>
+              </>
+            )}
+          </div>
+        </Overlay>
       </div>
     </div>
   );
@@ -382,14 +486,20 @@ RichTextEditor.propTypes = {
       ])
     })
   ),
-  /** A callback function which will be executed on editor change. */
+  /** A callback function which will be executed on editor change.
+   * @signature
+   * * ```htmlContent``` : text content from text editor
+   * * ```delta``` : delta object
+   */
   onChange: PropTypes.func,
   /** content for text editor field.(Can pass string or html) */
   value: PropTypes.string,
   /** visit link text value */
   visitLinktext: PropTypes.string,
   /** url link text value */
-  linkText: PropTypes.string
+  linkText: PropTypes.string,
+  /** Error message content which has to be displayed. */
+  errorMessage: PropTypes.any
 };
 
 RichTextEditor.defaultProps = {
@@ -397,7 +507,8 @@ RichTextEditor.defaultProps = {
   onChange: () => {},
   value: '',
   visitLinktext: 'Visit URL :',
-  linkText: 'URL :'
+  linkText: 'URL :',
+  errorMessage: 'Invalid URL'
 };
 
 export default RichTextEditor;

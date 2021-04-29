@@ -1,3 +1,6 @@
 import Tile from './Tile';
+import ExpandableTile from './ExpandableTile';
+import SelectableTile from './SelectableTile';
+import ClickableTile from './ClickableTile';
 
-export default Tile;
+export { Tile, ExpandableTile, SelectableTile, ClickableTile };

@@ -15,7 +15,7 @@ const directionOption = {
   Right: 'right'
 };
 
-storiesOf('Tooltip', module)
+storiesOf('Components/Tooltip', module)
   .add(
     'icon',
     () => (
@@ -42,11 +42,8 @@ storiesOf('Tooltip', module)
     ),
     {
       info: {
-        text: `Description About Icon Tooltip Component \n
-        
-        import { Tooltip } from '@patron/patron-react/tooltip';
-        
-        `
+        text: `Description About Icon Tooltip Component`,
+        document: ['Tooltip']
       }
     }
   )
@@ -66,11 +63,8 @@ storiesOf('Tooltip', module)
     ),
     {
       info: {
-        text: `Description About Definition Tooltip Component \n
-        
-        import { Tooltip } from '@patron/patron-react/tooltip';
-        
-        `
+        text: `Description About Definition Tooltip Component`,
+        document: ['Tooltip']
       }
     }
   )
@@ -131,14 +125,9 @@ storiesOf('Tooltip', module)
     ),
     {
       info: {
-        text: `Description About Icon Tooltip Component \n
-        
-    import { Tooltip } from '@patron/patron-react/tooltip';
-    import { Paragraph } from '@patron/patron-react/paragraph';
-    import { Button } from '@patron/patron-react/button';
-    import { Link } from '@patron/patron-react/link';
-        
-        `
+        text: `Description About Icon Tooltip Component`,
+        document: ['Tooltip'],
+        internal: ['Paragraph', 'Button', 'Link']
       }
     }
   );

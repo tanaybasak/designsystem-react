@@ -29,7 +29,12 @@ import Search from './atoms/Search';
 import FileUploader from './molecules/FileUploader';
 import { Accordion, AccordionItem } from './molecules/Accordion';
 import Dropdown from './atoms/Dropdown';
-import Tile from './atoms/Tile';
+import {
+  Tile,
+  ExpandableTile,
+  SelectableTile,
+  ClickableTile
+} from './atoms/Tile';
 import DatePicker from './molecules/DatePicker';
 import { weekDays, months } from './content';
 import Pagination from './atoms/Pagination';
@@ -44,6 +49,10 @@ import Password from './atoms/Password';
 //import Overlay from './atoms/Overlay';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.cc = React.createRef();
+  }
   state = {
     indeterminate: false,
     showOverlay: false,
@@ -90,7 +99,8 @@ class App extends Component {
         title: 'Alternate Contact',
         description: 'Alternate Contact'
       }
-    ]
+    ],
+    expandableTileToggle: false
   };
 
   position = {
@@ -769,6 +779,7 @@ class App extends Component {
                   subtitle="Lorem Ipsum is simply dummy text of the printing and typesetting industry."
                   type="warning"
                   closable
+                  actionLink="#"
                   visible={this.state.notification.visible}
                   onClose={this._hideNotification}
                 />
@@ -1043,6 +1054,9 @@ class App extends Component {
                           passages, and more recently with desktop publishing
                           software like Aldus PageMaker including versions of
                           Lorem Ipsum.
+                          <a target="_blank" rel="noreferrer" href={'#'}>
+                            JiraUrl
+                          </a>
                         </Paragraph>
                       </AccordionItem>
                       <AccordionItem
@@ -1420,18 +1434,27 @@ class App extends Component {
               </section>
               {/* File Uploader Component */}
               <div className="hcl-col-12 mt-5" id="file-uploader-section">
-                <FileUploader
-                  id="file_uploader"
-                  label="Account photo"
-                  description="only .jpg and .png files. 500kb max file size."
-                  fileType=".jpg,.png"
-                  className="hcl-secondary hcl-sml"
-                  onChange={(FileList, e) => {
-                    console.log('FileList:  ', FileList, 'event', e);
+                <form
+                  onSubmit={e => {
+                    e.preventDefault();
+                    return false;
                   }}
                 >
-                  Add file
-                </FileUploader>
+                  <FileUploader
+                    id="file_uploader"
+                    label="Account photo"
+                    description="only .jpg and .png files. 500kb max file size."
+                    fileType=".jpg,.png"
+                    className="hcl-secondary hcl-sml"
+                    onChange={(FileList, e) => {
+                      console.log('FileList:  ', FileList, 'event', e);
+                    }}
+                    required
+                  >
+                    Add file
+                  </FileUploader>
+                  <button>Submit</button>
+                </form>
               </div>
               {/* Dropdown Component */}
               <div className="hcl-row m-3 hcl-col-12">
@@ -1482,23 +1505,46 @@ class App extends Component {
                 </div>
                 <div className="hcl-col-12 mt-5 mb-5">
                   {/* clickable tile */}
-                  <Tile type="clickable" href="">
+                  <ClickableTile type="clickable" href="">
                     <p>This is clickable tile</p>
-                  </Tile>
+                  </ClickableTile>
                 </div>
                 <div className="hcl-col-12 mt-5 mb-5">
                   {/* selectable tile */}
-                  <Tile type="selectable">
+                  <SelectableTile selected>
                     <p>This is selectable tile</p>
-                  </Tile>
+                  </SelectableTile>
                 </div>
-                <div className="hcl-col-12 mt-5 mb-5">
+                <div className="hcl-col-md-6 mt-5 mb-5">
                   {/* expandable bottom right arrow tile */}
-                  <Tile
+                  <ExpandableTile
                     type="expandable"
                     id="expandable-tile-1"
-                    foldContentAbove={<p>Part A</p>}
-                    foldContentBelow={<p>Part B</p>}
+                    expandableType="nw"
+                    foldContentAbove={
+                      <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        sed do eiusmod tempor incididunt ut labore et dolore
+                        magna aliqua. Lorem ipsum dolor sit amet, consectetur
+                        adipiscing elit, sed do eiusmod tempor incididunt ut
+                        labore et dolore magna aliqua. Lorem ipsum dolor sit
+                        amet, consectetur adipiscing elit, sed do eiusmod tempor
+                        incididunt ut labore et dolore magna aliqua labore et
+                        dolore magna aliqua aliqua
+                      </p>
+                    }
+                    foldContentBelow={
+                      <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        sed do eiusmod tempor incididunt ut labore et dolore
+                        magna aliqua. Lorem ipsum dolor sit amet, consectetur
+                        adipiscing elit, sed do eiusmod tempor incididunt ut
+                        labore et dolore magna aliqua. Lorem ipsum dolor sit
+                        amet, consectetur adipiscing elit, sed do eiusmod tempor
+                        incididunt ut labore et dolore magna aliqua labore et
+                        dolore magna aliqua aliqua
+                      </p>
+                    }
                   >
                     {/* container for default content */}
                     <div>
@@ -1508,11 +1554,30 @@ class App extends Component {
                     <div>
                       <p>Content shown after expand </p>
                     </div>
-                  </Tile>
+                  </ExpandableTile>
                   {/* expandable top left arrow tile */}
-                  <Tile
-                    type="expandable"
-                    expandableType="top"
+                </div>
+                <div className="hcl-col-md-6 mt-5 mb-5">
+                  <Button
+                    kind="button"
+                    type="primary-danger"
+                    onClick={() => {
+                      this.setState({
+                        ...this.state,
+                        expandableTileToggle: !this.state.expandableTileToggle
+                      });
+                    }}
+                  >
+                    Toggle Expandable tile
+                  </Button>
+                  <ExpandableTile
+                    ref={this.cc}
+                    expanded={this.state.expandableTileToggle}
+                    onChange={s => {
+                      console.log(s);
+                    }}
+                    expandableType="nw"
+                    toggleArrowOnly
                     id="expandable-tile-2"
                     foldContentAbove={'Part A'}
                     foldContentBelow={<p>Part B</p>}

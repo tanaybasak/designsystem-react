@@ -73,9 +73,9 @@ function Tab({ label, active, isDisabled, className, ...restProps }) {
       className={`${prefix}-tabs-nav-item${active ? ' active' : ''}${
         isDisabled ? ` ${prefix}-tabs-disabled` : ''
       } ${className}`.trim()}
-      onClick={restProps.onClick}
       tabIndex={0}
       onKeyDown={keyListener}
+      {...restProps}
     >
       <a className={`${prefix}-tabs-nav-link`}>{label}</a>
     </li>
@@ -89,8 +89,10 @@ Tab.propTypes = {
   className: PropTypes.string,
   /** Disables Tab if 'true'*/
   isDisabled: PropTypes.bool,
-  /** true – ‘active’ class is added to the current element 
-false – ‘active’ is removed from the current element.  */
+  /**
+   * * ```true``` : ‘active’ class is added to the current element
+   * * ```false``` : ‘active’ is removed from the current element.
+   * */
   active: PropTypes.bool
 };
 Tab.defaultProps = {

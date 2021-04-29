@@ -145,7 +145,9 @@ const LoadingState = ({ type, className, ...restProps }) => {
                     title={title}
                     className={sortable ? 'sortable' : ''}
                   >
-                    {label}
+                    <div className={`${prefix}-data-table-header-wrapper`}>
+                      {label}
+                    </div>
                   </th>
                 )
               )}

@@ -9,7 +9,8 @@ function Breadcrumb({
   displayMax,
   id,
   className,
-  children
+  children,
+  ...restProps
 }) {
   const [isActive, setActive] = useState(activeIndex);
   const childCount = React.Children.count(children);
@@ -80,6 +81,7 @@ function Breadcrumb({
       className={`${prefix}-breadcrumb ${className ? className : ''}`}
       aria-label="breadcrumb"
       id={id}
+      {...restProps}
     >
       {modifiedChildren}
     </ul>
@@ -93,7 +95,12 @@ Breadcrumb.propTypes = {
   activeIndex: PropTypes.number,
   /** Class/clasess will be applied on the parent div of Breadcrumb  */
   className: PropTypes.string,
-  /** Callback function on selecting item*/
+  /** Callback function on selecting item
+   *
+   * @signature
+   * * ```item``` : selected item obj for breadcrumb
+   * * ```event``` : click event
+   */
   onSelection: PropTypes.func,
   /** number of Breadcrumb items to be displayed */
   displayMax: PropTypes.number

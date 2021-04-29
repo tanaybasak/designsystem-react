@@ -6,7 +6,7 @@ import { text, boolean } from '@storybook/addon-knobs';
 import TextArea from './TextArea';
 //@update-path-build-end
 
-storiesOf('TextArea', module)
+storiesOf('Components/TextArea', module)
   .add(
     'default',
     () => (
@@ -22,9 +22,9 @@ storiesOf('TextArea', module)
     ),
     {
       info: {
-        text: `Description About TextArea Component \n
-
-      import { TextArea } from '@patron/patron-react/textarea';`
+        text: `Description About TextArea Component`,
+        document: ['TextArea'],
+        className: 'hcl-col-12 hcl-col-sm-8 hcl-col-lg-4'
       }
     }
   )
@@ -50,9 +50,9 @@ storiesOf('TextArea', module)
     ),
     {
       info: {
-        text: `Description About TextArea Component \n
-  
-        import { TextArea } from '@patron/patron-react/textarea';`
+        text: `Description About TextArea Component`,
+        document: ['TextArea'],
+        className: 'hcl-col-12 hcl-col-sm-8 hcl-col-lg-4'
       }
     }
   )
@@ -77,9 +77,9 @@ storiesOf('TextArea', module)
     ),
     {
       info: {
-        text: `Description About TextArea Component \n
-  
-        import { TextArea } from '@patron/patron-react/textarea';`
+        text: `Description About TextArea Component`,
+        document: ['TextArea'],
+        className: 'hcl-col-12 hcl-col-sm-8 hcl-col-lg-4'
       }
     }
   );

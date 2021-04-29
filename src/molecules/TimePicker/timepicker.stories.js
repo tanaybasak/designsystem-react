@@ -13,7 +13,7 @@ const defaultTime = {
 };
 
 const timeZones = ['Time zone 1', 'Time zone 2', 'Time zone 3'];
-storiesOf('TimePicker', module)
+storiesOf('Components/Time Picker', module)
   .add(
     'default',
     () => (
@@ -23,14 +23,15 @@ storiesOf('TimePicker', module)
         helperText={text('Helper Text', 'optional helper text')}
         disabled={boolean('Disabled', false)}
         onChange={action('Timepicker Onchange')}
+        errorMessage={text('Error message', '')}
         aria-label="Time Picker"
         defaultTime={object('Default Time', defaultTime)}
       />
     ),
     {
       info: {
-        text: `Description About TimePicker Component \n
-      import { TimePicker } from '@patron/patron-react/timepicker';`
+        text: `Description About TimePicker Component`,
+        document: ['TimePicker']
       }
     }
   )
@@ -45,14 +46,15 @@ storiesOf('TimePicker', module)
         helperText={text('Helper Text', 'optional helper text')}
         disabled={boolean('Disabled', false)}
         onChange={action('Timepicker Onchange')}
+        errorMessage={text('Error message', '')}
         aria-label="Time Picker"
         defaultTime={object('Default Time', defaultTime)}
       />
     ),
     {
       info: {
-        text: `Description About TimePicker Component \n
-        import { TimePicker } from '@patron/patron-react/timepicker';`
+        text: `Description About TimePicker Component`,
+        document: ['TimePicker']
       }
     }
   )
@@ -65,6 +67,7 @@ storiesOf('TimePicker', module)
         helperText={text('Helper Text', 'optional helper text')}
         disabled={boolean('Disabled', false)}
         onChange={action('Timepicker Onchange')}
+        errorMessage={text('Error message', '')}
         timeZones={timeZones}
         defaultTime={object('Default Time', defaultTime)}
         aria-label="Time Picker"
@@ -72,8 +75,8 @@ storiesOf('TimePicker', module)
     ),
     {
       info: {
-        text: `Description About TimePicker Component \n
-        import { TimePicker } from '@patron/patron-react/timepicker';`
+        text: `Description About TimePicker Component`,
+        document: ['TimePicker']
       }
     }
   );

@@ -15,6 +15,7 @@ exports[`<FileUploader> component snapshots/renders Button correctly 1`] = `
       multiple={false}
       name=""
       onChange={[Function]}
+      required={false}
       tabIndex={0}
       type="file"
     />

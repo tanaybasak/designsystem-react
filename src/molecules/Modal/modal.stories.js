@@ -14,11 +14,14 @@ const typeOptions = {
 };
 
 const actions = [
-  { label: 'Save', primary: true, disabled: true },
-  { label: 'Close', secondary: false }
+  { label: 'Save', disabled: true, type: 'primary' },
+  {
+    label: 'Close',
+    type: 'secondary'
+  }
 ];
 
-storiesOf('Modal', module).add(
+storiesOf('Components/Modal', module).add(
   'default',
   () => (
     <Modal
@@ -34,8 +37,8 @@ storiesOf('Modal', module).add(
   ),
   {
     info: {
-      text: `Description About Modal Component \n
-      import { Modal } from '@patron/patron-react/modal';`
+      text: `Description About Modal Component`,
+      document: ['Modal']
     }
   }
 );

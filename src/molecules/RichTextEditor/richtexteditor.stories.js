@@ -15,7 +15,7 @@ const config = [
   { type: 'link' }
 ];
 
-storiesOf('RichTextEditor', module).add(
+storiesOf('Components/Rich Text Editor', module).add(
   'default',
   () => (
     <RichTextEditor
@@ -24,12 +24,15 @@ storiesOf('RichTextEditor', module).add(
       onChange={action('RTE-Click')}
       visitLinktext={text('VisitLink', 'Visit URL :')}
       linkText={text('URL Text', 'URL :')}
+      errorMessage={text('Error message', '')}
     />
   ),
   {
     info: {
-      text: `Description About RichTextEditor Component \n
-      import { RichTextEditor } from '@patron/patron-react/richtexteditor';`
+      text: `Description About RichTextEditor Component`,
+      className: 'hcl-col-12 hcl-col-lg-8',
+      document: ['RichTextEditor'],
+      install: `npm i quill`
     }
   }
 );

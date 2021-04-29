@@ -13,7 +13,7 @@ const notificationType = {
   Danger: 'danger'
 };
 
-storiesOf('Notification', module).add(
+storiesOf('Components/Notification', module).add(
   'default',
   () => (
     <Notification
@@ -21,17 +21,16 @@ storiesOf('Notification', module).add(
       subtitle={text('Subtitle', 'Notification Sub Title')}
       type={select('Type', notificationType, 'info')}
       closable={boolean('Closable', true)}
+      actionLink={text('URL', '#')}
+      actionLabel={text('ActionLabel', 'Action')}
       visible={boolean('Visible', true)}
       onClose={action('Notification-Close')}
     />
   ),
   {
     info: {
-      text: `Description About Notification Component\n
-      
-      import { Notification } from '@patron/patron-react/notification';
-      
-      `
+      text: `Description About Notification Component`,
+      document: ['Notification']
     }
   }
 );

@@ -57,8 +57,12 @@ module.exports.commonConfig = {
           {
             loader: MiniCssExtractPlugin.loader
           },
+
           {
             loader: 'css-loader'
+          },
+          {
+            loader: 'sass-loader'
           },
           {
             loader: 'postcss-loader',
@@ -74,14 +78,6 @@ module.exports.commonConfig = {
       {
         test: /\.(png|svg|jpe?g|gif|woff2?|eot|[ot]tf)$/,
         use: ['file-loader']
-      },
-      {
-        test: /\.(csv|tsv)$/,
-        use: ['csv-loader']
-      },
-      {
-        test: /\.xml$/,
-        use: ['xml-loader']
       }
     ]
   },

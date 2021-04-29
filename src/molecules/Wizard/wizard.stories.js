@@ -13,8 +13,8 @@ const formatOptions = {
 };
 
 const varients = {
-  style1: 'style1',
-  style2: 'style2',
+  default: 'default',
+  medium: 'medium',
   mobile: 'mobile'
 };
 
@@ -31,12 +31,19 @@ const status = {
   error: 'error'
 };
 
-storiesOf('Wizard', module).add(
+const iconTypes = {
+  icon: 'icon',
+  number: 'number',
+  noicon: 'noicon'
+};
+
+storiesOf('Components/Wizard', module).add(
   'default',
   () => (
     <Wizard
-      kind={select('kind', varients, 'style1', grouping.wizard)}
+      kind={select('kind', varients, 'default', grouping.wizard)}
       activeIndex={select('activeIndex', formatOptions, 2, grouping.wizard)}
+      iconType={select('iconType', iconTypes, 'icon', grouping.wizard)}
     >
       <Step
         status={select('status', status, 'completed', grouping.step1)}
@@ -60,9 +67,8 @@ storiesOf('Wizard', module).add(
   ),
   {
     info: {
-      text: `Description About Wizard Component \n
-
-      import { Wizard, Step } from '@patron/patron-react/wizard';`
+      text: `Description About Wizard Component`,
+      document: ['Wizard', 'Step']
     }
   }
 );
