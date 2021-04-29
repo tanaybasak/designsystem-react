@@ -38,12 +38,20 @@ const Pagination = ({
   }, [currentPage]);
 
   useEffect(() => {
-    let stepperArray = [itemsPerPageStepper];
-    for (let i = 1; i <= itemsStepperLimit; i++) {
-      if (stepperArray[i - 1] * 2 > itemsStepperLimit) {
-        break;
+    let stepperArray;
+    if (itemsValuesPerPage) {
+      stepperArray = itemsValuesPerPage.filter(val => {
+        return val <= itemsStepperLimit;
+      });
+    } else {
+      stepperArray = [itemsPerPageStepper];
+
+      for (let i = 1; i <= itemsStepperLimit; i++) {
+        if (stepperArray[i - 1] * 2 > itemsStepperLimit) {
+          break;
+        }
+        stepperArray.push(stepperArray[i - 1] * 2);
       }
-      stepperArray.push(stepperArray[i - 1] * 2);
     }
     setItemPerPageStepperArray(stepperArray);
     if (
@@ -237,13 +245,7 @@ const Pagination = ({
             }
             onKeyDown={onPageItemsKeyDown}
             onChange={ItemsPerPageChange.bind(this)}
-            options={
-              itemsValuesPerPage
-                ? itemsValuesPerPage
-                : itemPerPageStepperArray
-                ? itemPerPageStepperArray
-                : []
-            }
+            options={itemPerPageStepperArray}
             className={`${prefix}-pagination-select ${prefix}-page-items`}
           />
         </div>

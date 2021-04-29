@@ -8,8 +8,9 @@ class PaginationExample extends Component {
     totalItems: 300,
     currentPage: 16,
     stepper: 10,
-    stepperLimit: 100,
+    stepperLimit: 80,
     itemsPerPageToSelect: 20,
+    items:[20, 30, 40, 50, 70,80,90],
     position: {
       left: [
         'itemsPerPageSelection',
@@ -83,6 +84,7 @@ class PaginationExample extends Component {
           itemsPerPageStepper={this.state.stepper}
           itemsStepperLimit={this.state.stepperLimit}
           currentPage={this.state.currentPage}
+          itemsValuesPerPage={this.state.items}
           itemsPerPageText={'No. of Rows:'}
           onPageChange={(e, e2) => {
             console.log(e, e2);

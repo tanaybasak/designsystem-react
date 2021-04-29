@@ -6,7 +6,7 @@ import { text, number, object } from '@storybook/addon-knobs';
 import Pagination from './Pagination';
 //@update-path-build-end
 
-const items = [20, 50, 100];
+const items = [20, 50, 70, 80, 90];
 
 const position = {
   left: ['itemsPerPageSelection', 'itemsPerPageInfo', 'pageNumberSelection'],
