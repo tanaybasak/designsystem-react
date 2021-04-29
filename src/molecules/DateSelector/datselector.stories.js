@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { text, object } from '@storybook/addon-knobs';
 //@update-path-build-start
-import DateRangeSelector from './DateRangeSelector';
+import DateSelector from './DateSelector';
 //@update-path-build-end
 
 // const formatOptions = {
@@ -27,22 +27,21 @@ const months = [
   'DEC'
 ];
 
-storiesOf('Components/DateRangeSelector', module).add(
+storiesOf('Components/DateSelector', module).add(
   'default',
   () => (
-    <DateRangeSelector
-      id={text('id', 'date-range-selector-id')}
+    <DateSelector
+      id={text('id', 'date-selector-id')}
       weekDays={object('weekDays', weekDays)}
       months={object('months', months)}
-      type="rangepicker"
       format="mm/dd/yyyy"
-      onDateRangeSelect={action('onDateRangeSelect triggered')}
+      onDateSelect={action('onDateSelect triggered')}
     />
   ),
   {
     info: {
-      text: `Description About DateRangeSelector Component`,
-      document: ['DateRangeSelector']
+      text: `Description About Datepicker Component`,
+      document: ['DateSelector']
     }
   }
 );
