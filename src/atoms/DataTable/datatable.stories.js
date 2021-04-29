@@ -508,13 +508,8 @@ storiesOf('Components/Data Table', module)
     ),
     {
       info: {
-        text: `Description About DataTable Component \n
-        import { DataTable } from '@patron/patron-react/datatable';
-    import {Checkbox} from '@patron/patron-react/checkbox';
-    import {Toggle} from '@patron/patron-react/toggle';
-    import {Overflowmenu} from '@patron/patron-react/overflowmenu';
-    import {Tag} from '@patron/patron-react/tag';
-      `
+        text: `Description About DataTable Component`,
+        document: ['DataTable']
       }
     }
   )
