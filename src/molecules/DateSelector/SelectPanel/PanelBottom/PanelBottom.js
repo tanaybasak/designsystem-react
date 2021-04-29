@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import prefix from '../../../settings';
-import { convertToDateObj, isDateEqual } from '../../../util/utility';
+import prefix from '../../../../settings';
+import { convertToDateObj } from '../../../../util/utility';
 
 const PanelBottom = ({
   view,
@@ -11,14 +11,12 @@ const PanelBottom = ({
   onDateSelection,
   dateSelected,
   format,
+  panelType,
   startDateSelected,
   endDateSelected,
   months,
   minDate,
-  maxDate,
-  eventsCategory,
-  eventStyle,
-  events
+  maxDate
 }) => {
   let dateNodeList = [];
   let DOMstrings = {
@@ -63,41 +61,6 @@ const PanelBottom = ({
       dateNodeList.push(createDayHTML('next', i));
     }
     return dateNodeList;
-  };
-
-  const createEventDots = date => {
-    let found = events.find(event => isDateEqual(event.date, date));
-
-    if (found) {
-      let numOfDots = eventsCategory[found.category].numOfDots;
-      let dotSize;
-
-      switch (numOfDots) {
-        case 1:
-          dotSize = '7px';
-          break;
-        case 2:
-          dotSize = '6px';
-          break;
-        default:
-          dotSize = '5px';
-      }
-      let nodeList = [];
-      for (let i = 0; i < numOfDots; i++) {
-        nodeList.push(
-          <span
-            key={`dot-${i}`}
-            className="hcl-dot"
-            style={{
-              backgroundColor: `${eventsCategory[found.category].color}`,
-              height: `${dotSize}`,
-              width: `${dotSize}`
-            }}
-          />
-        );
-      }
-      return <div className="hcl-dot-parent">{nodeList}</div>;
-    }
   };
 
   const createDayHTML = (type, i) => {
@@ -161,22 +124,13 @@ const PanelBottom = ({
       classDetails.push(DOMstrings.edge);
     }
 
-    let found = events.find(event =>
-      isDateEqual(event.date, convertToDateObj(format, formattedDate))
-    );
     return isTodayDate ? (
       <div key={formattedDate} className={classDetails.join(' ')}>
         <button
-          className="hcl-dateSelector-date-today hcl-btn hcl-ghost hcl-calendar-btn"
+          className="hcl-dateSelector-date-today hcl-btn hcl-ghost"
           date={formattedDate}
-          onClick={
-            onDateSelection
-              ? onDateSelection.bind(
-                  this,
-                  convertToDateObj(format, formattedDate)
-                )
-              : null
-          }
+          paneltype={panelType}
+          onClick={onDateSelection}
           type="button"
           disabled={
             convertToDateObj(format, formattedDate) >= minDate &&
@@ -186,45 +140,16 @@ const PanelBottom = ({
           }
         >
           {day}
-          {eventStyle === 'dot' ? (
-            createEventDots(convertToDateObj(format, formattedDate))
-          ) : (
-            <div
-              className="hcl-calendar-border"
-              style={
-                found && eventStyle === 'border'
-                  ? {
-                      outline: `2px solid ${
-                        eventsCategory[found.category].color
-                      }`
-                    }
-                  : null
-              }
-            />
-          )}
         </button>
       </div>
     ) : (
       <button
         type="button"
-        className={`${classDetails.join(
-          ' '
-        )} hcl-btn hcl-ghost hcl-calendar-btn`}
+        className={`${classDetails.join(' ')} hcl-btn hcl-ghost`}
         date={formattedDate}
         key={formattedDate}
-        onClick={
-          onDateSelection
-            ? onDateSelection.bind(
-                this,
-                convertToDateObj(format, formattedDate)
-              )
-            : null
-        }
-        style={
-          found && eventStyle === 'border'
-            ? { border: `2px solid ${eventsCategory[found.category].color}` }
-            : null
-        }
+        paneltype={panelType}
+        onClick={onDateSelection}
         disabled={
           convertToDateObj(format, formattedDate) >= minDate &&
           maxDate >= convertToDateObj(format, formattedDate)
@@ -233,9 +158,6 @@ const PanelBottom = ({
         }
       >
         {day}
-        {eventStyle === 'dot'
-          ? createEventDots(convertToDateObj(format, formattedDate))
-          : null}
       </button>
     );
   };
@@ -346,12 +268,12 @@ const PanelBottom = ({
         <div className="hcl-dateSelector-dates">{createDateNodelist()}</div>
       ) : view === 'month' ? (
         <>
-          <div className="hcl-text-center mt-3 mb-3">Select Month</div>
+          <div className="hcl-text-align-center mt-3 mb-3">Select Month</div>
           <div className="hcl-dateSelector-months">{createMonthNodeList()}</div>
         </>
       ) : (
         <>
-          <div className="hcl-text-center mt-3 mb-3">Select Year</div>
+          <div className="hcl-text-align-center mt-3 mb-3">Select Year</div>
           <div className="hcl-dateSelector-years">{createYearNodeList()}</div>
         </>
       )}
@@ -367,14 +289,12 @@ PanelBottom.propTypes = {
   onDateSelection: PropTypes.func,
   dateSelected: PropTypes.string,
   format: PropTypes.string.isRequired,
+  panelType: PropTypes.string,
   startDateSelected: PropTypes.string,
   endDateSelected: PropTypes.string,
-  months: PropTypes.array.isRequired,
+  months: PropTypes.any,
   minDate: PropTypes.instanceOf(Date),
-  maxDate: PropTypes.instanceOf(Date),
-  eventsCategory: PropTypes.any,
-  eventStyle: PropTypes.string,
-  events: PropTypes.array
+  maxDate: PropTypes.instanceOf(Date)
 };
 
 export default PanelBottom;
