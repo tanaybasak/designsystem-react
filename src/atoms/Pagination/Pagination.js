@@ -39,7 +39,6 @@ const Pagination = ({
 
   useEffect(() => {
     let stepperArray;
-
     if (itemsValuesPerPage) {
       stepperArray = itemsValuesPerPage.filter(val => {
         return val <= itemsStepperLimit;
