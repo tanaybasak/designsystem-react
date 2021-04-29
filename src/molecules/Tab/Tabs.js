@@ -2,7 +2,7 @@ import React, { useState, useEffect, cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 
-function Tabs({ activeIndex, onChange, children }) {
+function Tabs({ activeIndex, onChange, children, ...restProps }) {
   const [isActive, setActive] = useState(0);
 
   useEffect(() => {
@@ -45,7 +45,7 @@ function Tabs({ activeIndex, onChange, children }) {
   );
 
   return (
-    <section className={`${prefix}-tab`}>
+    <section className={`${prefix}-tab`} {...restProps}>
       <nav data-tabs role="navigation">
         <ul role="tablist" className={`${prefix}-tabs-nav`}>
           {modifiedChildren}

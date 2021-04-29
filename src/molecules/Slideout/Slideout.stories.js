@@ -1,8 +1,9 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { text, select, boolean, object } from '@storybook/addon-knobs';
+import { text, select, object } from '@storybook/addon-knobs';
 import TextInput from '../../atoms/TextInput';
+import Button from '../../atoms/Button';
 //@update-path-build-start
 import Slideout from './Slideout';
 //@update-path-build-end
@@ -12,16 +13,6 @@ const typeOptions = {
   danger: 'danger',
   warning: 'warning',
   ghost: 'ghost'
-};
-
-const varientOptions = {
-  default: 'default',
-  large: 'large'
-};
-
-const directionOptions = {
-  right: 'right',
-  left: 'left'
 };
 
 const actions = [
@@ -37,15 +28,13 @@ storiesOf('Components/Slideout', module)
     'default',
     () => (
       <Slideout
-        isOpen={boolean('isopen', true)}
+        isOpen
         header={text('Title', 'Default')}
+        varient={'default'}
         type={select('type', typeOptions, 'default')}
-        varient={select('varient', varientOptions, 'default')}
-        direction={select('direction', directionOptions, 'right')}
         onClose={action('close button clicked')}
         onOutsideClick={action('clicked outside')}
         actions={object('Actions', actions)}
-        onEscClose={boolean('isopen', true)}
       >
         <div className="hcl-row">
           <div className="hcl-col-12">
@@ -97,15 +86,13 @@ storiesOf('Components/Slideout', module)
     'large',
     () => (
       <Slideout
-        isOpen={boolean('isopen', true)}
+        isOpen
         header={text('Title', 'Default')}
+        varient={'large'}
         type={select('type', typeOptions, 'default')}
-        varient={select('varient', varientOptions, 'large')}
-        direction={select('direction', directionOptions, 'right')}
         onClose={action('close button clicked')}
         onOutsideClick={action('clicked outside')}
         actions={object('Actions', actions)}
-        onEscClose={boolean('isopen', true)}
       >
         <div className={`hcl-container custom-slideout-table`}>
           <div className={'hcl-row mb-3'}>
@@ -152,7 +139,37 @@ storiesOf('Components/Slideout', module)
             <div className="hcl-col-6">No</div>
           </div>
           <div className={'hcl-row mt-8 mb-4 h-line'}>
-            <div className="hcl-col-12">Target (devices)</div>
+            {/* <div className="hcl-col-12"> */}
+            <div
+              className="hcl-col-6"
+              style={{
+                alignItems: 'center',
+                display: 'flex'
+              }}
+            >
+              Target (devices)
+            </div>
+            <div
+              className="hcl-col-6"
+              style={{
+                display: 'flex',
+                flexDirection: 'row-reverse'
+              }}
+            >
+              {' '}
+              <Button
+                type="ghost"
+                onClick={() => {
+                  this.setState({
+                    currentPage: 10
+                  });
+                }}
+              >
+                Add Target
+                <i className="hcl-btn-icon p-hclsw p-hclsw-user" />
+              </Button>
+            </div>
+            {/* </div> */}
           </div>
           <div className={'hcl-row mb-3'}>
             <div className="hcl-col-6">3 devices</div>
@@ -165,6 +182,124 @@ storiesOf('Components/Slideout', module)
           <div className={'hcl-row mb-3'}>
             <div className="hcl-col-6">&lt;dynamic&gt; (7)</div>
             <div className="hcl-col-6">&lt;target by&gt;</div>
+          </div>
+        </div>
+      </Slideout>
+    ),
+    {
+      info: {
+        text: `Description About Slideout Component`,
+        document: ['Slideout']
+      }
+    }
+  )
+  .add(
+    'direction - left',
+    () => (
+      <Slideout
+        isOpen
+        header={text('Title', 'Default')}
+        varient={'default'}
+        type={select('type', typeOptions, 'default')}
+        direction={'left'}
+        onClose={action('close button clicked')}
+        onOutsideClick={action('clicked outside')}
+        actions={object('Actions', actions)}
+      >
+        <div className="hcl-row">
+          <div className="hcl-col-12">
+            {`Transactional modals are used to validate decisions or to gain
+              secondary confirmation from the user. Typically, the modal request
+              either a 'yes' or 'no' response.`}
+          </div>
+          <div className={`hcl-col-12 mt-10`}>
+            {
+              <div className="hcl-form-group">
+                <TextInput
+                  aria-label="text input"
+                  placeholder="Placeholder Text"
+                />
+                <label className="hcl-label" htmlFor="labeltext">
+                  Address
+                </label>
+                <div className="hcl-helper-text">Your current address</div>
+              </div>
+            }
+          </div>
+          <div className={`hcl-col-12`}>
+            {
+              <div className="hcl-form-group">
+                <TextInput
+                  aria-label="text input"
+                  placeholder="Placeholder Text"
+                />
+                <label className="hcl-label" htmlFor="labeltext">
+                  FGT number
+                </label>
+                <div className="hcl-helper-text">
+                  Device config including area code
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+      </Slideout>
+    ),
+    {
+      info: {
+        text: `Description About Slideout Component`,
+        document: ['Slideout']
+      }
+    }
+  )
+  .add(
+    'direction - right',
+    () => (
+      <Slideout
+        isOpen
+        header={text('Title', 'Default')}
+        varient={'default'}
+        type={select('type', typeOptions, 'default')}
+        direction={'right'}
+        onClose={action('close button clicked')}
+        onOutsideClick={action('clicked outside')}
+        actions={object('Actions', actions)}
+      >
+        <div className="hcl-row">
+          <div className="hcl-col-12">
+            {`Transactional modals are used to validate decisions or to gain
+              secondary confirmation from the user. Typically, the modal request
+              either a 'yes' or 'no' response.`}
+          </div>
+          <div className={`hcl-col-12 mt-10`}>
+            {
+              <div className="hcl-form-group">
+                <TextInput
+                  aria-label="text input"
+                  placeholder="Placeholder Text"
+                />
+                <label className="hcl-label" htmlFor="labeltext">
+                  Address
+                </label>
+                <div className="hcl-helper-text">Your current address</div>
+              </div>
+            }
+          </div>
+          <div className={`hcl-col-12`}>
+            {
+              <div className="hcl-form-group">
+                <TextInput
+                  aria-label="text input"
+                  placeholder="Placeholder Text"
+                />
+                <label className="hcl-label" htmlFor="labeltext">
+                  FGT number
+                </label>
+                <div className="hcl-helper-text">
+                  Device config including area code
+                </div>
+              </div>
+            }
           </div>
         </div>
       </Slideout>

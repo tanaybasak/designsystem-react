@@ -6,7 +6,7 @@ import PageSubTitle from './PageSubTitle.js';
 import 'prismjs/components/prism-javascript';
 const prettier = require('prettier');
 const parser = require('prettier/parser-babel');
-const componentPathMapper = require('./folderComponentMapNew.json');
+const componentPathMapper = require('../content/folderComponentMapNew.json');
 import '@patron/patron-css/patron/index.css';
 import '@patron/patron-icon/dist/patron-font.css';
 import '../src/story.css';
@@ -91,6 +91,7 @@ export default class Container extends Component {
     if (pageTitle.toLowerCase() === 'slideout') {
       storyPushClass.push('slideout-story');
     }
+    document.body.classList.remove('overflow-slideout');
     return (
       <div className="hcl-container hcl-storybook-container">
         <div className="hcl-row mb-10">
@@ -105,6 +106,18 @@ export default class Container extends Component {
                 subtitle={config.parameters.info.warning}
                 title="Alert"
                 type="warning"
+                visible
+              />
+            </div>
+          </div>
+        ) : null}
+        {config.parameters.info && config.parameters.info.info ? (
+          <div className="hcl-row mb-10">
+            <div className="hcl-col-12 hcl-col-md-10 hcl-col-xl-8  mb-10">
+              <Notification
+                subtitle={config.parameters.info.info}
+                title="Note"
+                type="info"
                 visible
               />
             </div>

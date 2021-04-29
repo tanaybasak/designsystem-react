@@ -21,7 +21,9 @@ const TextInput = ({ className, ...restProps }) => {
         value={value}
         onChange={event => {
           setValue(event.currentTarget.value);
-          restProps.onChange(event);
+          if (restProps.onChange) {
+            restProps.onChange(event);
+          }
         }}
       />
     </>

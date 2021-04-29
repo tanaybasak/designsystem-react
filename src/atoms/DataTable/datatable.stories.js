@@ -82,21 +82,18 @@ const tableConfigWithCustomTemplate = [
       );
     },
 
-    width: '40px',
-    focus: false
+    width: '40px'
   },
   {
     label: 'Name',
     field: 'name',
     sortable: true,
-    focus: true,
     width: '60px'
   },
   {
     label: 'Protocol',
     field: 'protocol',
-    width: '60px',
-    focus: true
+    width: '60px'
   },
   {
     label: 'Port',
@@ -108,25 +105,21 @@ const tableConfigWithCustomTemplate = [
         <Tag type={classname}>{`${port.port === '80' ? 'Yes' : 'No'}`}</Tag>
       );
     },
-    focus: true,
     width: '60px'
   },
   {
     label: 'Rule',
     field: 'rule',
-    width: '60px',
-    focus: true
+    width: '60px'
   },
   {
     label: 'Attached Groups',
     field: 'attachedGroups',
-    width: '60px',
-    focus: true
+    width: '60px'
   },
   {
     label: 'Status',
     field: 'status',
-    focus: false,
     // eslint-disable-next-line react/display-name
     renderHtml: model => {
       return (
@@ -253,23 +246,19 @@ const tableConfig = [
   {
     label: 'Name',
     field: 'name',
-    sortable: true,
-    focus: true
+    sortable: true
   },
   {
     label: 'Protocol',
-    field: 'protocol',
-    focus: false
+    field: 'protocol'
   },
   {
     label: 'Port',
-    field: 'port',
-    focus: true
+    field: 'port'
   },
   {
     label: 'Rule',
-    field: 'rule',
-    focus: true
+    field: 'rule'
   },
   {
     label: 'Attached Groups',
@@ -280,6 +269,41 @@ const tableConfig = [
     field: 'status'
   }
 ];
+
+const tableConfigColumnFocus = [
+  {
+    label: 'Name',
+    field: 'name',
+    sortable: true,
+    onColumnSelect: action('column-select')
+  },
+  {
+    label: 'Protocol',
+    field: 'protocol',
+    onColumnSelect: action('column-select')
+  },
+  {
+    label: 'Port',
+    field: 'port',
+    onColumnSelect: action('column-select')
+  },
+  {
+    label: 'Rule',
+    field: 'rule',
+    onColumnSelect: action('column-select')
+  },
+  {
+    label: 'Attached Groups',
+    field: 'attachedGroups',
+    onColumnSelect: action('column-select')
+  },
+  {
+    label: 'Status',
+    field: 'status',
+    onColumnSelect: action('column-select')
+  }
+];
+
 const tableConfigwithResize = [
   {
     label: 'Name',
@@ -325,8 +349,6 @@ storiesOf('Components/Data Table', module)
         }${select('Class Name', classOptions, '')}`}
         tableData={tableData}
         tableConfig={tableConfig}
-        row_focus={boolean('row_focus', true)}
-        cell_focus={boolean('cell_focus', false)}
         onSort={action('Sort Action')}
       />
     ),
@@ -344,8 +366,7 @@ storiesOf('Components/Data Table', module)
         id="custom-datatable-custom-temp"
         tableData={tableData}
         tableConfig={tableConfigWithCustomTemplate}
-        row_focus={boolean('row_focus', true)}
-        cell_focus={boolean('cell_focus', false)}
+        onSort={action('Sort Action')}
         headerSelection={
           <Checkbox aria-label="header checkbox" id={`header_checkbox`} />
         }
@@ -548,6 +569,45 @@ storiesOf('Components/Data Table', module)
         columnDraggable
         showDraggableIconOnHover={boolean('Show Draggable Icon OnHover', true)}
         onColumnReorder={action('column-reorder')}
+      />
+    ),
+    {
+      info: {
+        text: `Description About DataTable Component`,
+        document: ['DataTable']
+      }
+    }
+  )
+  .add(
+    'with row focus',
+    () => (
+      <DataTable
+        id="data_table_1"
+        type={`${boolean('Border', true) ? '' : 'borderless'}${
+          boolean('Zebra', false) ? ' zebra' : ''
+        }${select('Class Name', classOptions, '')}`}
+        tableData={tableData}
+        tableConfig={tableConfig}
+        onRowSelect={action('row-select')}
+      />
+    ),
+    {
+      info: {
+        text: `Description About DataTable Component`,
+        document: ['DataTable']
+      }
+    }
+  )
+  .add(
+    'with column focus',
+    () => (
+      <DataTable
+        id="data_table_1"
+        type={`${boolean('Border', true) ? '' : 'borderless'}${
+          boolean('Zebra', false) ? ' zebra' : ''
+        }${select('Class Name', classOptions, '')}`}
+        tableData={tableData}
+        tableConfig={tableConfigColumnFocus}
       />
     ),
     {

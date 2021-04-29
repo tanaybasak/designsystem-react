@@ -32,8 +32,8 @@
   margin: 0 !important;
 }
 
-.hcl-slideout,
-.hcl-slideout .hcl-slideout-mask {
+body .hcl-slideout,
+body .hcl-slideout .hcl-slideout-mask {
   position: absolute;
   height: 100vh;
 }

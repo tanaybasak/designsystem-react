@@ -21,6 +21,7 @@ const Slideout = ({
 }) => {
   const [opened, setOpened] = useState(isOpen || false);
   const layoutRef = useRef(null);
+  const slideoutRef = useRef(null);
 
   let classNames = ['hcl-slideout'];
   let classNamesLayout = ['hcl-slideout-layout'];
@@ -57,6 +58,12 @@ const Slideout = ({
   };
 
   useEffect(() => {
+    if (slideoutRef && slideoutRef.current) {
+      slideoutRef.current.focus();
+    }
+  }, []);
+
+  useEffect(() => {
     if (!isOpen) {
       if (layoutRef && layoutRef.current) {
         window.requestAnimationFrame(removeShow);
@@ -70,9 +77,10 @@ const Slideout = ({
       setOpened(isOpen);
       document.body.classList.add('overflow-slideout');
     }
+    return () => {
+      document.body.classList.remove('overflow-slideout');
+    };
   }, [isOpen]);
-
-  // let addedAnimation = null;
 
   useEffect(() => {
     if (opened) {
@@ -119,12 +127,42 @@ const Slideout = ({
     }
   };
 
+  const focusTrap = e => {
+    const focusableEls = slideoutRef.current.querySelectorAll(
+      'a[href]:not([disabled]), button:not([disabled]), textarea:not([disabled]), input[type="text"]:not([disabled]), input[type="radio"]:not([disabled]), input[type="checkbox"]:not([disabled]), select:not([disabled]), [tabindex]'
+    );
+    const firstFocusableEl = focusableEls[0];
+    const lastFocusableEl = focusableEls[focusableEls.length - 1];
+
+    const isTabPressed = e.key === 'Tab' || e.keyCode === '9';
+
+    if (!isTabPressed) {
+      return;
+    }
+
+    if (e.shiftKey) {
+      if (document.activeElement === firstFocusableEl) {
+        lastFocusableEl.focus();
+        e.preventDefault();
+      }
+    } else {
+      if (document.activeElement === lastFocusableEl) {
+        firstFocusableEl.focus();
+        e.preventDefault();
+      }
+    }
+  };
+
   const renderHTML = () => {
     const slideOutEl = (
-      <div className={classNames.join(' ')}>
+      <div
+        className={classNames.join(' ')}
+        ref={slideoutRef}
+        tabIndex={0}
+        onKeyDown={focusTrap}
+      >
         <div
           className={`hcl-slideout-mask`}
-          tabIndex={0}
           onKeyDown={opened ? handleKeyDown.bind(this) : null}
           onClick={opened ? handleClick.bind(this) : null}
         />
@@ -162,24 +200,27 @@ const Slideout = ({
     return slideOutEl;
   };
 
-  return opened ? ReactDOM.createPortal(renderHTML(), document.body) : null;
+  return opened ? ReactDOM.createPortal(renderHTML(), document.body) : <></>;
 };
 
 Slideout.propTypes = {
   /** Used to toggle slideout */
   isOpen: PropTypes.bool,
-  /** default: Slideout with top border using secondary_border token.
-   * danger: Slideout with top border using danger_border token.
-   * warning: Slideout with top border using warning_border token.
-   * ghost: Slideout with top border using ghost_border token.
+  /**
+   * * ```default:``` Slideout with top border using secondary_border token.
+   * * ```danger:``` Slideout with top border using danger_border token.
+   * * ```warning:``` Slideout with top border using warning_border token.
+   * * ```ghost:``` Slideout with top border using ghost_border token.
    */
   type: PropTypes.oneOf(['default', 'danger', 'warning', 'ghost']),
-  /** default: Slideout width restricted to 400px.
-   * large: Slideout width restricted to 600px.
+  /**
+   * * ```default:``` Slideout width restricted to 400px.
+   * * ```large:``` Slideout width restricted to 600px.
    */
   varient: PropTypes.oneOf(['default', 'large']),
-  /** right: Slideout shown to the right of the page.
-   * left: Slideout shown to the left of the page.
+  /**
+   * * ```right:``` Slideout shown to the right of the page.
+   * * ```left:``` Slideout shown to the left of the page.
    */
   direction: PropTypes.oneOf(['right', 'left']),
   /** To create heading of the Slideout. */
@@ -192,15 +233,12 @@ Slideout.propTypes = {
   onEscClose: PropTypes.bool,
   /** Used to pass overlay content */
   children: PropTypes.node,
-  /** To create action items associated with modal.
+  /**
+   * To create action items associated with slideout.
    *
    * * ```label``` : button label,
    * * ```handler``` : function to handle onClick,
-   * * ```primary``` : bool,
-   * * ```danger``` : bool,
    * * ```disabled``` : bool,
-   * * ```warning``` : bool,
-   * * ```neutral``` : bool,
    * * ```type``` : type of button
    */
   actions: PropTypes.arrayOf(
@@ -218,7 +256,9 @@ Slideout.propTypes = {
         'warning'
       ])
     })
-  )
+  ),
+  /** custom className passed to the component */
+  className: PropTypes.string
 };
 
 Slideout.defaultProps = {
@@ -231,7 +271,8 @@ Slideout.defaultProps = {
   actions: [],
   onEscClose: true,
   onOutsideClick: null,
-  children: null
+  children: null,
+  className: ''
 };
 
 export default Slideout;
