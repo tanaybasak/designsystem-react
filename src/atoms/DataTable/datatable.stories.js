@@ -269,6 +269,41 @@ const tableConfig = [
     field: 'status'
   }
 ];
+
+const tableConfigColumnFocus = [
+  {
+    label: 'Name',
+    field: 'name',
+    sortable: true,
+    onColumnSelect: action('column-select')
+  },
+  {
+    label: 'Protocol',
+    field: 'protocol',
+    onColumnSelect: action('column-select')
+  },
+  {
+    label: 'Port',
+    field: 'port',
+    onColumnSelect: action('column-select')
+  },
+  {
+    label: 'Rule',
+    field: 'rule',
+    onColumnSelect: action('column-select')
+  },
+  {
+    label: 'Attached Groups',
+    field: 'attachedGroups',
+    onColumnSelect: action('column-select')
+  },
+  {
+    label: 'Status',
+    field: 'status',
+    onColumnSelect: action('column-select')
+  }
+];
+
 const tableConfigwithResize = [
   {
     label: 'Name',
@@ -302,6 +337,7 @@ const classOptions = {
   Tall: ' tall',
   Default: ''
 };
+
 storiesOf('Components/Data Table', module)
   .add(
     'default',
@@ -330,6 +366,7 @@ storiesOf('Components/Data Table', module)
         id="custom-datatable-custom-temp"
         tableData={tableData}
         tableConfig={tableConfigWithCustomTemplate}
+        onSort={action('Sort Action')}
         headerSelection={
           <Checkbox aria-label="header checkbox" id={`header_checkbox`} />
         }
@@ -527,6 +564,45 @@ storiesOf('Components/Data Table', module)
         columnDraggable
         showDraggableIconOnHover={boolean('Show Draggable Icon OnHover', true)}
         onColumnReorder={action('column-reorder')}
+      />
+    ),
+    {
+      info: {
+        text: `Description About DataTable Component`,
+        document: ['DataTable']
+      }
+    }
+  )
+  .add(
+    'with row focus',
+    () => (
+      <DataTable
+        id="data_table_1"
+        type={`${boolean('Border', true) ? '' : 'borderless'}${
+          boolean('Zebra', false) ? ' zebra' : ''
+        }${select('Class Name', classOptions, '')}`}
+        tableData={tableData}
+        tableConfig={tableConfig}
+        onRowSelect={action('row-select')}
+      />
+    ),
+    {
+      info: {
+        text: `Description About DataTable Component`,
+        document: ['DataTable']
+      }
+    }
+  )
+  .add(
+    'with column focus',
+    () => (
+      <DataTable
+        id="data_table_1"
+        type={`${boolean('Border', true) ? '' : 'borderless'}${
+          boolean('Zebra', false) ? ' zebra' : ''
+        }${select('Class Name', classOptions, '')}`}
+        tableData={tableData}
+        tableConfig={tableConfigColumnFocus}
       />
     ),
     {

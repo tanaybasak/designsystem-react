@@ -1,36 +1,60 @@
 #root .hcl-sidebar {
-    position: relative;
-    height: 500px;
-    margin-bottom: 50px;
+  position: relative;
+  height: 500px;
+  margin-bottom: 50px;
 }
 
 #root .hcl-modal:nth-child(1) {
-    position: unset !important;
-    width: 100%;
-    outline: none;
-    background-color: transparent !important;
+  position: unset !important;
+  width: 100%;
+  outline: none;
+  background-color: transparent !important;
 }
 
 #root .hcl-toast:nth-child(1) {
-    position: relative !important;
+  position: relative !important;
 }
 
 #root .hcl-header {
-    position: relative !important;
-    width: 100% !important;
+  position: relative !important;
+  width: 100% !important;
 }
 
 .hcl-document tbody td:nth-child(4),
 .hcl-document tbody td:nth-child(5) {
-    white-space: pre-wrap;
-
+  white-space: pre-wrap;
 }
 
-.hcl-storybook-container .hcl-codesnippet-wrapper .hcl-codesnippet .hcl-codesnippet-copy.hcl-btn {
-    margin: 0 !important;
+.hcl-storybook-container
+  .hcl-codesnippet-wrapper
+  .hcl-codesnippet
+  .hcl-codesnippet-copy.hcl-btn {
+  margin: 0 !important;
 }
 
+body .hcl-slideout,
+body .hcl-slideout .hcl-slideout-mask {
+  position: absolute;
+  height: 100vh;
+}
 
+.slideout-story {
+  position: relative;
+  top: 100vh;
+}
+
+.custom-slideout-table {
+  font-size: 14px;
+  font-weight: 400;
+}
+.h-line::after {
+  display: block;
+  content: '';
+  width: 100%;
+  padding: inherit;
+  margin: 10px 15px 0;
+  border: 1px solid #c9c9c9;
+}
 
 /* @media only screen and (min-width: 768px) {
     #root > .hcl-tree,

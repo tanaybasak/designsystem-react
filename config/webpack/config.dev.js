@@ -29,11 +29,15 @@ module.exports = merge.smart(commonConfig, {
               reloadAll: true
             }
           },
+
           {
             loader: 'css-loader',
             options: {
               sourceMap: true
             }
+          },
+          {
+            loader: 'sass-loader'
           },
           {
             loader: 'postcss-loader',
@@ -42,6 +46,12 @@ module.exports = merge.smart(commonConfig, {
               plugins: () => [
                 require('postcss-preset-env')({ browsers: 'last 2 versions' })
               ],
+              sourceMap: true
+            }
+          },
+          {
+            loader: 'sass-loader',
+            options: {
               sourceMap: true
             }
           }

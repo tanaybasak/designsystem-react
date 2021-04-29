@@ -347,3 +347,40 @@ export const unlinkIcon = (
     />
   </svg>
 );
+
+export const addMoreIcon = (
+  <svg viewBox="0 0 32 32">
+    <rect
+      data-name="&lt;Transparent Rectangle&gt;"
+      width="32"
+      height="32"
+      fill="none"
+    />
+    <path d="M16,2A14,14,0,1,0,30,16,14,14,0,0,0,16,2Zm0,26A12,12,0,1,1,28,16,12,12,0,0,1,16,28Zm1-13h7v2H17v7H15V17H8V15h7V8h2Z" />
+  </svg>
+);
+
+export const chevronIcon = (
+  <svg viewBox="0 0 16 16">
+    <rect
+      data-name="&lt;Transparent Rectangle&gt;"
+      width="16"
+      height="16"
+      fill="none"
+    />
+    <path d="M12.29,10.71,8,6.41l-4.29,4.3L3,10,8,5l5,5Z" />
+  </svg>
+);
+
+export const unsortIcon = (
+  <svg
+    className={`${prefix}-sorting`}
+    width="16px"
+    height="16px"
+    viewBox="0 0 16 16"
+  >
+    <title> unsorted - click to sort</title>
+    <rect fill="none" />
+    <path d="M7.29,4.71,5.5,2.91V9h-1V2.91L2.71,4.71,2,4,5,1,8,4Zm6,6.58-1.79,1.8V7h-1v6.09l-1.79-1.8L8,12l3,3,3-3Z" />
+  </svg>
+);

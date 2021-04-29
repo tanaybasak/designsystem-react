@@ -36,7 +36,7 @@ rootFolders.forEach(rootFile => {
 });
 
 fs.writeFileSync(
-  '.storybook/folderComponentMapNew.json',
+  'content/folderComponentMapNew.json',
   JSON.stringify(folderComponentMapNew),
   'utf8'
 );

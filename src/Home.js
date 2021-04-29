@@ -24,6 +24,10 @@ import WizardExample from './example/WizardExample';
 import RichTextEditorExample from './example/RichTextEditorExample';
 import CodeSnippetExample from './example/CodeSnippetExample';
 import SidebarExample from './example/SidebarExample';
+import CalendarExample from './example/CalendarExample';
+import MainBuilder from './example/MainBuilder';
+import SlideoutExample from './example/SlideoutExample';
+import TileExample from './example/TileExample';
 class Home extends Component {
   state = {
     sidebarExpanded: false
@@ -111,11 +115,40 @@ class Home extends Component {
         {
           href: '/codesnippet',
           title: 'Code Snippet'
+        },
+        {
+          href: '/calendar',
+          title: 'Calendar'
+        },
+        {
+          href: '/lb',
+          title: 'Logic Builder'
+        },
+        {
+          href: '/slideout',
+          title: 'Slideout'
+        },
+        {
+          href: '/tile',
+          title: 'Tile'
         }
       ]
     }
   ];
   render() {
+    this.navigationData.map(links => {
+      if (links.title === 'Components') {
+        links.children.sort(function (a, b) {
+          if (a.title < b.title) {
+            return -1;
+          }
+          if (a.title > b.title) {
+            return 1;
+          }
+          return 0;
+        });
+      }
+    });
     return (
       <Router>
         <Header
@@ -174,6 +207,7 @@ class Home extends Component {
           <Switch>
             <Route exact path="/" component={App} />
             <Route exact path="/wizard" component={WizardExample} />
+            <Route exact path="/Slideout" component={SlideoutExample} />
             <Route exact path="/tag" component={TagExample} />
             <Route exact path="/inlineedit" component={InlineEditExample} />
             <Route exact path="/table" component={TableExample} />
@@ -211,6 +245,9 @@ class Home extends Component {
             />
             <Route exact path="/rte" component={RichTextEditorExample} />
             <Route exact path="/codesnippet" component={CodeSnippetExample} />
+            <Route exact path="/calendar" component={CalendarExample} />
+            <Route exact path="/lb" component={MainBuilder} />
+            <Route exact path="/tile" component={TileExample} />
           </Switch>
         </div>
       </Router>

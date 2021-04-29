@@ -1,10 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import {
-  createDateObj,
-  convertToDateObj,
-  convertToDateString
-} from '../../util/utility';
+import { convertToDateObj, convertToDateString } from '../../util/utility';
 import Overlay from '../../atoms/Overlay';
 import FormHelperText from '../../atoms/FormHelperText';
 import SelectPanel from './SelectPanel';
@@ -25,6 +21,9 @@ const DateSelector = ({
   minDate,
   maxDate,
   onVisibleChange,
+  eventsCategory,
+  eventStyle,
+  events,
   ...restProps
 }) => {
   const date = new Date();
@@ -107,17 +106,19 @@ const DateSelector = ({
         setDateSelected(`${dateStr}/${monthStr}/${year}`);
         break;
     }
-    dateSelected === ''
-      ? null
-      : onDateSelect(createDateObj(Number(dateStr), Number(monthStr), year));
+    // dateSelected === ''
+    //   ? null
+    //   : onDateSelect(createDateObj(Number(dateStr), Number(monthStr), year));
   };
 
-  const onDateSelection = event => {
-    setDateSelected(event.target.getAttribute('date'));
+  const onDateSelection = (dateObj, event) => {
+    setDateSelected(event.currentTarget.getAttribute('date'));
     setIsDateSelectedValid(true);
     setIsValidYear(true);
     setShowDateContainer(false);
-    onDateSelect(convertToDateObj(format, event.target.getAttribute('date')));
+    onDateSelect(
+      convertToDateObj(format, event.currentTarget.getAttribute('date'))
+    );
   };
 
   return (
@@ -160,6 +161,9 @@ const DateSelector = ({
                   weekDays={weekDays}
                   minDate={minDate}
                   maxDate={maxDate}
+                  eventsCategory={eventsCategory}
+                  eventStyle={eventStyle}
+                  events={events}
                 />
               </div>
             </div>
@@ -225,12 +229,64 @@ DateSelector.propTypes = {
   minDate: PropTypes.instanceOf(Date),
   /** Max date */
   maxDate: PropTypes.instanceOf(Date),
-  /** Callback on Calendar toggle
+  /** Callback on SelectPanel toggle
    *
    * @signature
    * ```isOpen``` : boolean flag
    */
-  onVisibleChange: PropTypes.func
+  onVisibleChange: PropTypes.func,
+
+  /** This prop enables user to define category.
+   *
+   * * ```color``` : color of the border/dot
+   * * ```numOfDots``` : Number Of Dots
+   *
+   * eg:
+   * ```
+   * {
+   *       category1: {
+   *         color: 'var(--orange-100)',
+   *         numOfDots: 1
+   *       },
+   *       category2: {
+   *         color: 'var(--lime-50)',
+   *         numOfDots: 2
+   *       },
+   *       category3: {
+   *         color: 'var(--green-100)',
+   *         numOfDots: 3
+   *       }
+   *     }
+   * ```
+   */
+  eventsCategory: PropTypes.any,
+
+  /** This prop enables user to select event style.
+   * * ```border``` :  Shows event in form of border.
+   * * ```dot``` : Shows event in form of dot.
+   * */
+  eventStyle: PropTypes.oneOf(['border', 'dot']),
+
+  /** This prop enables user to pass event and respective category.
+   *
+   * * ```date``` : event date
+   * * ```category``` : event category
+   *
+   * eg :
+   * ```
+   *  [
+   *   { date: new Date('2021', '03', '15'), category: 'category1' },
+   *   { date: new Date('2021', '03', '16'), category: 'category2' },
+   *   { date: new Date('2021', '03', '24'), category: 'category3' }
+   *  ]
+   * ```
+   */
+  events: PropTypes.arrayOf(
+    PropTypes.shape({
+      date: PropTypes.instanceOf(Date),
+      category: PropTypes.string
+    })
+  )
 };
 
 DateSelector.defaultProps = {
@@ -260,7 +316,10 @@ DateSelector.defaultProps = {
   onDateSelect: () => {},
   minDate: new Date(1000, 0, 1),
   maxDate: new Date(9999, 12, 31),
-  onVisibleChange: null
+  onVisibleChange: null,
+  eventsCategory: null,
+  eventStyle: 'dot',
+  events: []
 };
 
 DateSelector.displayName = 'DateSelector';

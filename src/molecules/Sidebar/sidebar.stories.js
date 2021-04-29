@@ -55,6 +55,60 @@ const items = [
   },
   {
     icon: <i className={`p-hclsw p-hclsw-${icons[1]}`} />,
+    title: 'Category Three'
+  }
+];
+
+const disabledItems = [
+  {
+    children: [
+      {
+        href: '#1',
+        title: 'Child Item 1'
+      },
+      {
+        href: '#2',
+        title: 'Child Item 2'
+      },
+      {
+        href: '#3',
+        title: 'Child Item 3'
+      },
+      {
+        href: '#4',
+        title: 'Child Item 4'
+      }
+    ],
+    icon: <i className={`p-hclsw p-hclsw-${icons[2]}`} />,
+    statusIcon: <i className={`p-hclsw p-hclsw-${icons[2]}`} />,
+    title: 'Category One',
+    disabled: true
+  },
+  {
+    children: [
+      {
+        href: '#5',
+        title: 'Child Item 1'
+      },
+      {
+        href: '#6',
+        title: 'Child Item 2',
+        disabled: true
+      },
+      {
+        href: '#7',
+        title: 'Child Item 3'
+      },
+      {
+        href: '#9',
+        title: 'Child Item 4'
+      }
+    ],
+    icon: <i className={`p-hclsw p-hclsw-${icons[1]}`} />,
+    title: 'Category Two'
+  },
+  {
+    icon: <i className={`p-hclsw p-hclsw-${icons[1]}`} />,
     title: 'Category Three',
     href: '#10'
   }
@@ -166,6 +220,40 @@ storiesOf('Components/Sidebar', module)
         }
         expanded={boolean('Expanded', true)}
         items={internalitems}
+        headerVisible={boolean('headerVisible', true)}
+        headerPosition={select('headerPosition', positionOptions, 'top')}
+        headerBranding={select('headerBranding', headerBranding, 'primary')}
+        onClick={action('link clicked')}
+        toggleSidebar={action('Toggle Sidebar')}
+        type={select('type', typeOptions, 'internal')}
+        responsive={boolean('responsive', true)}
+      />
+    ),
+    {
+      info: {
+        text: `Description About Sidebar Component`,
+        document: ['Sidebar']
+      }
+    }
+  )
+  .add(
+    'disable-sidebar',
+    () => (
+      <Sidebar
+        title={text('Title', 'Default')}
+        icon={
+          boolean('Show Header Icon', true) ? (
+            <i
+              className={`p-hclsw p-hclsw-${select(
+                'Title Icon',
+                icons,
+                'user'
+              )}`}
+            />
+          ) : null
+        }
+        expanded={boolean('Expanded', true)}
+        items={disabledItems}
         headerVisible={boolean('headerVisible', true)}
         headerPosition={select('headerPosition', positionOptions, 'top')}
         headerBranding={select('headerBranding', headerBranding, 'primary')}

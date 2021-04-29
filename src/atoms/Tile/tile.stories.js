@@ -1,16 +1,22 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
-import { text } from '@storybook/addon-knobs';
+import { text, boolean, select } from '@storybook/addon-knobs';
 //@update-path-build-start
-import Tile from './Tile';
+import { Tile, SelectableTile, ClickableTile, ExpandableTile } from './index';
 //@update-path-build-end
+
+const iconPlacement = {
+  nw: 'nw',
+  ne: 'ne',
+  sw: 'sw',
+  se: 'se'
+};
 
 storiesOf('Components/Tile', module)
   .add(
     'default',
     () => (
-      <Tile type="readable">
+      <Tile>
         <div>
           <p>This is readable tile</p>
         </div>
@@ -26,69 +32,69 @@ storiesOf('Components/Tile', module)
   .add(
     'clickable',
     () => (
-      <Tile href="" type="clickable">
+      <ClickableTile href={text('href', '')}>
         <div>
           <p>This is clickable tile</p>
         </div>
-      </Tile>
+      </ClickableTile>
     ),
     {
       info: {
         text: `Description About Tile Component`,
-        document: ['Tile']
+        document: ['ClickableTile']
       }
     }
   )
   .add(
     'selectable',
     () => (
-      <Tile type="selectable">
+      <SelectableTile selected={boolean('selected', false)}>
         <div>
           <p>This is selectable tile</p>
         </div>
-      </Tile>
+      </SelectableTile>
     ),
     {
       info: {
         text: `Description About Tile Component`,
-        document: ['Tile']
+        document: ['SelectableTile']
       }
     }
   )
   .add(
-    'expandable',
+    'expandable - default',
     () => (
-      <Tile
+      <ExpandableTile
         id="hcl-expandable-id"
-        type="expandable"
+        expanded={boolean('expanded', false)}
+        expandableType={select('type', iconPlacement, 'se')}
         foldContentAbove={text('Content Above', 'Content Above')}
         foldContentBelow={text('Content Below', 'Content Below')}
-        onChange={action('Toggle')}
       />
     ),
     {
       info: {
         text: `Description About Tile Component`,
-        document: ['Tile']
+        document: ['ExpandableTile']
       }
     }
   )
   .add(
-    'expandable- top left arrow',
+    'expandable - Both arrow and Tile',
     () => (
-      <Tile
+      <ExpandableTile
         id="hcl-expandable-id-2"
-        type="expandable"
-        expandableType="top"
+        expanded={boolean('expanded', false)}
+        toggleArrowOnly={false}
+        expandableType={select('type', iconPlacement, 'se')}
         foldContentAbove={text('Content Above', 'Content Above')}
         foldContentBelow={text('Content Below', 'Content below')}
-        onChange={action('Toggle')}
       />
     ),
     {
       info: {
         text: `Description About Tile Component`,
-        document: ['Tile']
+        document: ['ExpandableTile']
       }
     }
   );
