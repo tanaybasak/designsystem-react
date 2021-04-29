@@ -64,6 +64,13 @@ const events = [
   { date: new Date('2021', '03', '24'), category: 'category3' }
 ];
 
+const infoMessage = (
+  <>
+    Storybook has a timezone bug, please don&#39;t be alarmed if it shows the
+    events one day ahead of the code. This does not happen elsewhere
+  </>
+);
+
 storiesOf('Components/Date Selector', module)
   .add(
     'default',
@@ -101,7 +108,8 @@ storiesOf('Components/Date Selector', module)
     {
       info: {
         text: `Description About Datepicker Component`,
-        document: ['DateSelector']
+        document: ['DateSelector'],
+        info: infoMessage
       }
     }
   )
@@ -123,7 +131,8 @@ storiesOf('Components/Date Selector', module)
     {
       info: {
         text: `Description About Datepicker Component`,
-        document: ['DateSelector']
+        document: ['DateSelector'],
+        info: infoMessage
       }
     }
   );

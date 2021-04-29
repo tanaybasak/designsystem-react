@@ -111,6 +111,18 @@ export default class Container extends Component {
             </div>
           </div>
         ) : null}
+        {config.parameters.info && config.parameters.info.info ? (
+          <div className="hcl-row mb-10">
+            <div className="hcl-col-12 hcl-col-md-10 hcl-col-xl-8  mb-10">
+              <Notification
+                subtitle={config.parameters.info.info}
+                title="Note"
+                type="info"
+                visible
+              />
+            </div>
+          </div>
+        ) : null}
         <div className="hcl-row mb-10" id="component-demo">
           <div
             className={

@@ -61,9 +61,16 @@ const months = [
   'DEC'
 ];
 
+const infoMessage = (
+  <>
+    Storybook has a timezone bug, please don&#39;t be alarmed if it shows the
+    events one day ahead of the code. This does not happen elsewhere
+  </>
+);
+
 storiesOf('Components/Calendar', module)
   .add(
-    'Calendar with border event style',
+    'default',
     () => (
       <Calendar
         currDateObj={new Date('2021', '03', '15')}
@@ -80,7 +87,8 @@ storiesOf('Components/Calendar', module)
     {
       info: {
         text: `Description About Calendar Component `,
-        document: ['Calendar']
+        document: ['Calendar'],
+        info: infoMessage
       }
     }
   )
@@ -102,7 +110,8 @@ storiesOf('Components/Calendar', module)
     {
       info: {
         text: `Description About Calendar Component`,
-        document: ['Calendar']
+        document: ['Calendar'],
+        info: infoMessage
       }
     }
   );
