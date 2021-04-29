@@ -65,7 +65,8 @@ Calendar.propTypes = {
   /**
    *
    * * ```mm/dd/yyyy``` :  One of the format available.
-   * * ```dd/mm/yyyy``` : One of the format available. */
+   * * ```dd/mm/yyyy``` : One of the format available.
+   * */
   format: PropTypes.string,
 
   /** Callback function which will be executed on date selection
@@ -95,22 +96,21 @@ Calendar.propTypes = {
 
   /** This prop enables user to define category.
    *
+   * * ```color``` : color of the border/dot
+   * * ```numOfDots``` : Number Of Dots
+   *
    * eg:
    * ```
    * {
    *       category1: {
-   *         range: { min: 1, max: 5 },
-   *         range: { min: 1, max: 5 },
    *         color: 'var(--orange-100)',
    *         numOfDots: 1
    *       },
    *       category2: {
-   *         range: { min: 6, max: 10 },
    *         color: 'var(--lime-50)',
    *         numOfDots: 2
    *       },
    *       category3: {
-   *         range: { min: 11, max: 15 },
    *         color: 'var(--green-100)',
    *         numOfDots: 3
    *       }
@@ -125,6 +125,9 @@ Calendar.propTypes = {
   eventStyle: PropTypes.oneOf(['border', 'dot']),
 
   /** This prop enables user to pass event and respective category.
+   *
+   * * ```date``` : event date
+   * * ```category``` : event category
    *
    * eg :
    * ```

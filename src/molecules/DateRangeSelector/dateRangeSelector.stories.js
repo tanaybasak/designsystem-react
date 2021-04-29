@@ -27,21 +27,39 @@ const months = [
   'DEC'
 ];
 
-const eventsCategory = {
+const eventsCategoryDot = {
   category1: {
-    range: { min: 1, max: 5 },
+    //range: { min: 1, max: 5 },
     color: 'var(--orange-100)',
     numOfDots: 1
   },
   category2: {
-    range: { min: 6, max: 10 },
+    //range: { min: 6, max: 10 },
     color: 'var(--lime-50)',
     numOfDots: 2
   },
   category3: {
-    range: { min: 11, max: 15 },
+    //range: { min: 11, max: 15 },
     color: 'var(--green-100)',
     numOfDots: 3
+  }
+};
+
+const eventsCategoryBorder = {
+  category1: {
+    //range: { min: 1, max: 5 },
+    color: 'var(--orange-100)'
+    //numOfDots: 1
+  },
+  category2: {
+    //range: { min: 6, max: 10 },
+    color: 'var(--lime-50)'
+    //numOfDots: 2
+  },
+  category3: {
+    //range: { min: 11, max: 15 },
+    color: 'var(--green-100)'
+    //numOfDots: 3
   }
 };
 
@@ -81,7 +99,7 @@ storiesOf('Components/Date Range Selector', module)
         type="rangepicker"
         format="mm/dd/yyyy"
         onDateRangeSelect={action('onDateRangeSelect triggered')}
-        eventsCategory={object('Events Category', eventsCategory)}
+        eventsCategory={object('Events Category', eventsCategoryBorder)}
         eventStyle={'border'}
         events={object('Events', events)}
         defaultStartDate={new Date(2013, 10, 2)}
@@ -105,7 +123,7 @@ storiesOf('Components/Date Range Selector', module)
         type="rangepicker"
         format="mm/dd/yyyy"
         onDateRangeSelect={action('onDateRangeSelect triggered')}
-        eventsCategory={object('Events Category', eventsCategory)}
+        eventsCategory={object('Events Category', eventsCategoryDot)}
         eventStyle={'dot'}
         events={object('Events', events)}
         defaultStartDate={new Date(2013, 10, 2)}

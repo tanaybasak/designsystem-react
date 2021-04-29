@@ -1,10 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import {
-  createDateObj,
-  convertToDateObj,
-  convertToDateString
-} from '../../util/utility';
+import { convertToDateObj, convertToDateString } from '../../util/utility';
 import Overlay from '../../atoms/Overlay';
 import FormHelperText from '../../atoms/FormHelperText';
 import SelectPanel from './SelectPanel';
@@ -110,9 +106,9 @@ const DateSelector = ({
         setDateSelected(`${dateStr}/${monthStr}/${year}`);
         break;
     }
-    dateSelected === ''
-      ? null
-      : onDateSelect(createDateObj(Number(dateStr), Number(monthStr), year));
+    // dateSelected === ''
+    //   ? null
+    //   : onDateSelect(createDateObj(Number(dateStr), Number(monthStr), year));
   };
 
   const onDateSelection = (dateObj, event) => {
@@ -242,22 +238,21 @@ DateSelector.propTypes = {
 
   /** This prop enables user to define category.
    *
+   * * ```color``` : color of the border/dot
+   * * ```numOfDots``` : Number Of Dots
+   *
    * eg:
    * ```
    * {
    *       category1: {
-   *         range: { min: 1, max: 5 },
-   *         range: { min: 1, max: 5 },
    *         color: 'var(--orange-100)',
    *         numOfDots: 1
    *       },
    *       category2: {
-   *         range: { min: 6, max: 10 },
    *         color: 'var(--lime-50)',
    *         numOfDots: 2
    *       },
    *       category3: {
-   *         range: { min: 11, max: 15 },
    *         color: 'var(--green-100)',
    *         numOfDots: 3
    *       }
@@ -268,10 +263,14 @@ DateSelector.propTypes = {
 
   /** This prop enables user to select event style.
    * * ```border``` :  Shows event in form of border.
-   * * ```dot``` : Shows event in form of dot. */
+   * * ```dot``` : Shows event in form of dot.
+   * */
   eventStyle: PropTypes.oneOf(['border', 'dot']),
 
   /** This prop enables user to pass event and respective category.
+   *
+   * * ```date``` : event date
+   * * ```category``` : event category
    *
    * eg :
    * ```
