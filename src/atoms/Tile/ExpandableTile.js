@@ -48,7 +48,14 @@ const ExpandableTile = React.forwardRef((props, ref) => {
     setChecked(!checked);
   };
 
-  // const classNameType = expandableType === 'top' ? 'arrow-top-left' : '';
+  const onKeydownTile = e => {
+    if (e.keyCode === 13 || e.keyCode === 32) {
+      e.preventDefault();
+      e.stopPropagation();
+      setChecked(!checked);
+    }
+  };
+
   let classNameType = '';
   if (expandableType === 'nw') {
     classNameType = 'arrow-top-left';
@@ -59,7 +66,6 @@ const ExpandableTile = React.forwardRef((props, ref) => {
   if (expandableType === 'sw') {
     classNameType = 'arrow-bottom-left';
   }
-  // classNames = `${prefix}-tile-expandable ${className} ${classNameType}`.trim();
   let classes = [`${prefix}-tile-expandable`];
   if (className) {
     classes.push(className);
@@ -68,7 +74,13 @@ const ExpandableTile = React.forwardRef((props, ref) => {
     classes.push(classNameType);
   }
   return (
-    <div className={classes.join(' ')} tabIndex="0" ref={ref} {...restProps}>
+    <div
+      className={classes.join(' ')}
+      tabIndex="0"
+      ref={ref}
+      onKeyDown={!toggleArrowOnly ? onKeydownTile.bind(this) : null}
+      {...restProps}
+    >
       <input
         id={`${id}`}
         className={`${prefix}-tile-input`}
