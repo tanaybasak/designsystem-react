@@ -13,7 +13,7 @@
     "storybook": "npm run description-creation && start-storybook -p 8060",
     "build-storybook": "npm run description-creation && build-storybook",
     "watch": "watch 'npm run description-creation' ./src",
-    "eslint-test": "eslint src/ --fix",
+    "eslint-test": "eslint src/",
     "eslint-test-report": "eslint src/ -f node_modules/eslint-html-reporter/reporter.js -o report.html",
     "prettier:dev": "npx prettier --config prettier.config.js --write \"src/**/*.js\"",
     "atoms-doc-gen": "react-docgen src/atoms --pretty --resolver findExportedComponentDefinition -o .storybook/atoms.json",
