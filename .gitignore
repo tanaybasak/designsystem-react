@@ -34,3 +34,4 @@ yarn-error.log*
 nohup.out
 
 /content
+report.html

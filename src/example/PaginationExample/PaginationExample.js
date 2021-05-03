@@ -10,7 +10,7 @@ class PaginationExample extends Component {
     stepper: 10,
     stepperLimit: 80,
     itemsPerPageToSelect: 20,
-    items:[20, 30, 40, 50, 70,80,90],
+    items: [20, 30, 40, 50, 70, 80, 90],
     position: {
       left: [
         'itemsPerPageSelection',

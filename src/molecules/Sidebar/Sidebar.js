@@ -1,3 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable jsx-a11y/no-noninteractive-tabindex */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/role-supports-aria-props */
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
@@ -418,7 +422,7 @@ const Sidebar = ({
                   activeItem === item ? ' active' : ''
                 }${item.disabled ? ' disable' : ''}`}
                 key={`sidebar_category_${categoryIndex}`}
-                aria-expanded={`${item.expanded ? 'true' : 'false'}`}
+                aria-expanded={item.expanded ? true : false}
               >
                 {getSidebarLink(item, categoryIndex)}
                 {item.children && item.children.length ? (

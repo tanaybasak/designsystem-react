@@ -1,13 +1,20 @@
 {
   "parser": "babel-eslint",
+  "plugins": ["jsx-a11y", "prettier","html"],
+
   "env": {
     "browser": true,
     "node": true,
     "es6": true,
     "jest": true
   },
-  "plugins": ["prettier"],
-  "extends": ["eslint:recommended", "plugin:react/recommended", "prettier"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "prettier",
+    "plugin:jsx-a11y/recommended",
+    "plugin:react-hooks/recommended"
+  ],
   "settings": {
     "react": {
       "version": "detect"
@@ -34,6 +41,7 @@
       }
     ],
     "react/jsx-boolean-value": 2,
-    "react/self-closing-comp": [2, { "component": true, "html": true }]
+    "react/self-closing-comp": [2, { "component": true, "html": true }],
+    "jsx-a11y/no-onchange": 0
   }
 }

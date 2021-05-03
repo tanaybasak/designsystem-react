@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable no-console */
 import React, { Component } from 'react';
 import Label from './atoms/Label';
