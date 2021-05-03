@@ -1,0 +1,1716 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>ESLint Results</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <style type="text/css">
+    body {
+      margin: 0;
+    }
+  
+    .eslint-report {
+      font-family: "Helvetica Neue", sans-serif;
+      font-size: 14px;
+      padding: 20px 40px;
+    }
+  
+    .eslint-report h1 {
+      border-bottom: 1px solid #ddd;
+      line-height: 1;
+      padding-bottom: 12px;
+    }
+  
+    .eslint-report h2 {
+      padding-bottom: 9px;
+      line-height: 1;
+      margin-top: 24px;
+      margin-bottom: 9px;
+    }
+  
+    .eslint-report h3 {
+      line-height: 1;
+      margin-top: 0;
+    }
+  
+    .eslint-report a {
+      text-decoration: none;
+    }
+  
+    .eslint-report table {
+      border-spacing: 0;
+      border-collapse: collapse;
+    }
+  
+    .toggle-all-link {
+      font-size: 14px;
+    }
+  
+    .report-table {
+      font-size: 14px;
+      min-width: 800px;
+      border: 1px solid #e6e6e6;
+      margin: 10px;
+    }
+  
+    .report-table thead {
+      background-color: #eee;
+    }
+  
+    .report-table th {
+      text-align: left;
+      vertical-align: middle;
+    }
+  
+    .report-table th,
+    .report-table td {
+      padding: 4px 9px;
+      border: 1px solid #ccc;
+    }
+  
+    .report-table td {
+      line-height: 1.5;
+      vertical-align: top;
+    }
+  
+    .report-table .error-col {
+      width: 41px;
+    }
+  
+    .report-table .warning-col {
+      width: 63px;
+    }
+  
+    .report-table .toggle-link {
+      display: block;
+    }
+  
+    .report-table .danger td {
+      background-color: rgba(242, 222, 222, 0.8);
+    }
+  
+    .report-table .danger:hover td {
+      background-color: rgba(242, 222, 222, 1);
+    }
+  
+    .report-table .warning td {
+      background-color: rgba(252, 248, 227, 0.8);
+    }
+  
+    .report-table .warning:hover td {
+      background-color: rgba(252, 248, 227, 1);
+    }
+  
+    .report-table .success td {
+      background-color: rgba(223, 240, 216, 0.8);
+    }
+  
+    .report-table .success:hover td {
+      background-color: rgba(223, 240, 216, 1);
+    }
+  
+    .table-wrapper {
+      display: flex;
+      justify-content: flex-start;
+      width: 600px;
+      align-items: flex-end;
+    }
+  
+    .table-wrapper.occurrences {
+      align-items: flex-start;
+    }
+  
+    .table-wrapper.occurrences .table-column {
+      height: 180px;
+      overflow-y: auto;
+    }
+  
+    .table-column {
+      flex: 1;
+      margin: 10px;
+    }
+  
+    .summary-table {
+      width: 100%;
+    }
+  
+    .summary-table a {
+      display: block;
+    }
+  
+    .summary-table td {
+      padding: 4px 0;
+    }
+  
+    .summary-table td:last-child {
+      text-align: right;
+    }
+  
+    .summary-table tfoot td {
+      border-top: 2px solid #666;
+      font-weight: bold;
+    }
+  
+    .details-row.hidden {
+      display: none;
+    }
+  
+    .details-table {
+      font-size: 12px;
+      width: 100%;
+      margin-bottom: 15px;
+    }
+  
+    .details-table td {
+      border: 0;
+      padding: 1px 6px;
+    }
+  
+    .details-table td:first-child {
+      padding-left: 0;
+    }
+  
+    .details-table .location-col {
+      width: 25px;
+    }
+  
+    .details-table .rule-col {
+      white-space: nowrap;
+      width: 100px;
+    }
+  
+    .details-table .rule-col a {
+      display: block;
+    }
+  
+    .details-table .rule-col a:hover {
+      text-decoration: underline;
+    }
+  
+    .details-table .severity-col {
+      width: 45px;
+    }
+  
+    .details-table .msg-danger .severity-col {
+      color: #900;
+    }
+  
+    .details-table .msg-warning .severity-col {
+      color: #f90;
+    }
+  </style>
+
+    <script>
+      // yolo
+      function toggleAllDetails(node) {
+        var rows = document.querySelectorAll("tr.details-row");
+    
+        if (node.innerHTML === "(expand all)") {
+          node.innerHTML = "(collapse all)";
+    
+          for (var x = 0; x < rows.length; x++) {
+            var row = rows[x];
+            row.className = "details-row";
+          }
+        } else {
+          node.innerHTML = "(expand all)";
+    
+          for (var x = 0; x < rows.length; x++) {
+            var row = rows[x];
+            row.className = "details-row hidden";
+          }
+        }
+      }
+    
+      function toggleDetails(node) {
+        var parentRow = node.parentNode.parentNode;
+        var detailsRow = parentRow.nextSibling;
+    
+        if (detailsRow.className === "details-row hidden") {
+          detailsRow.className = "details-row";
+        } else {
+          detailsRow.className = "details-row hidden";
+        }
+      }
+    </script>
+</head>
+<body>
+  <div class="eslint-report">
+    <h1>ESLint Results</h1>
+
+      <h2>Summary</h2>
+      
+      <div class="table-wrapper">
+        <div class="table-column">
+          <table class="summary-table">
+              <tbody>
+                <tr>
+                  <td>Errors</td>
+                  <td>71</td>
+                </tr>
+                <tr>
+                  <td>Warnings</td>
+                  <td>27</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td>Total alerts</td>
+                  <td>98</td>
+                </tr>
+              </tfoot>
+          </table>
+        </div>
+        <div class="table-column">
+          <table class="summary-table">
+              <tbody>
+                <tr>
+                  <td>Files with errors</td>
+                  <td>29</td>
+                </tr>
+                <tr>
+                  <td>Files with only warnings</td>
+                  <td>12</td>
+                </tr>
+                <tr>
+                  <td>Clean files</td>
+                  <td>214</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td>Total files linted</td>
+                  <td>255</td>
+                </tr>
+              </tfoot>
+          </table>
+        </div>
+      </div>
+
+        <h2>Most-Common Errors and Warnings</h2>
+        
+        <div class="table-wrapper occurrences">
+          <div class="table-column">
+            <h3>Errors</h3>
+        
+              <table class="summary-table">
+                <tbody>
+                    <tr class="occurrence row-0">
+                        <td><a href="http://eslint.org/docs/rules/jsx-a11y/no-static-element-interactions">jsx-a11y/no-static-element-interactions</a></td>
+                      <td>21</td>
+                    </tr>
+                    <tr class="occurrence row-1">
+                        <td><a href="http://eslint.org/docs/rules/jsx-a11y/no-noninteractive-tabindex">jsx-a11y/no-noninteractive-tabindex</a></td>
+                      <td>14</td>
+                    </tr>
+                    <tr class="occurrence row-2">
+                        <td><a href="http://eslint.org/docs/rules/jsx-a11y/click-events-have-key-events">jsx-a11y/click-events-have-key-events</a></td>
+                      <td>13</td>
+                    </tr>
+                    <tr class="occurrence row-3">
+                        <td><a href="http://eslint.org/docs/rules/jsx-a11y/no-noninteractive-element-interactions">jsx-a11y/no-noninteractive-element-interactions</a></td>
+                      <td>6</td>
+                    </tr>
+                    <tr class="occurrence row-4">
+                        <td><a href="http://eslint.org/docs/rules/jsx-a11y/label-has-associated-control">jsx-a11y/label-has-associated-control</a></td>
+                      <td>6</td>
+                    </tr>
+                    <tr class="occurrence row-5">
+                        <td><a href="http://eslint.org/docs/rules/jsx-a11y/anchor-is-valid">jsx-a11y/anchor-is-valid</a></td>
+                      <td>5</td>
+                    </tr>
+                    <tr class="occurrence row-6">
+                        <td><a href="http://eslint.org/docs/rules/prettier/prettier">prettier/prettier</a></td>
+                      <td>2</td>
+                    </tr>
+                    <tr class="occurrence row-7">
+                        <td><a href="http://eslint.org/docs/rules/react-hooks/rules-of-hooks">react-hooks/rules-of-hooks</a></td>
+                      <td>2</td>
+                    </tr>
+                    <tr class="occurrence row-8">
+                        <td><a href="http://eslint.org/docs/rules/jsx-a11y/role-has-required-aria-props">jsx-a11y/role-has-required-aria-props</a></td>
+                      <td>1</td>
+                    </tr>
+                    <tr class="occurrence row-9">
+                        <td><a href="http://eslint.org/docs/rules/jsx-a11y/role-supports-aria-props">jsx-a11y/role-supports-aria-props</a></td>
+                      <td>1</td>
+                    </tr>
+                </tbody>
+              </table>
+          </div>
+          <div class="table-column">
+            <h3>Warnings</h3>
+        
+              <table class="summary-table">
+                <tbody>
+                    <tr class="occurrence row-0">
+                        <td><a href="http://eslint.org/docs/rules/react-hooks/exhaustive-deps">react-hooks/exhaustive-deps</a></td>
+                      <td>27</td>
+                    </tr>
+                </tbody>
+              </table>
+          </div>
+        </div>
+
+      <h2>File Breakdown
+          <a id="toggle" href="javascript:;" onclick="toggleAllDetails(this)" class="toggle-all-link">(expand all)</a></h2>
+      
+      <table class="report-table">
+        <thead>
+          <tr>
+            <th>File</th>
+            <th class="error-col">Errors</th>
+            <th class="warning-col">Warnings</th>
+          </tr>
+        </thead>
+        <tbody><tr class="danger"><td>            <a class="toggle-link" href="javascript:;" onclick="toggleDetails(this)">/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/DatePicker/YearMonthPanel/YearMonthPanel.js</a></td>
+              <td>8</td>
+              <td>0</td></tr><tr class="details-row hidden">
+                <td colspan="3">
+                  <table class="details-table">
+                    <tbody><tr class="msg-danger"><td class="location-col">
+                              16:7
+                          </td>
+                          <td class="severity-col">Error</td>
+                          <td class="message-col">Visible, non-interactive elements with click handlers must have at least one keyboard listener.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/jsx-a11y/click-events-have-key-events">jsx-a11y/click-events-have-key-events</a></td>
+      </tr><tr class="msg-danger"><td class="location-col">
+                              16:7
+                          </td>
+                          <td class="severity-col">Error</td>
+                          <td class="message-col">Static HTML elements with event handlers require a role.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/jsx-a11y/no-static-element-interactions">jsx-a11y/no-static-element-interactions</a></td>
+      </tr><tr class="msg-danger"><td class="location-col">
+                              38:13
+                          </td>
+                          <td class="severity-col">Error</td>
+                          <td class="message-col">Visible, non-interactive elements with click handlers must have at least one keyboard listener.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/jsx-a11y/click-events-have-key-events">jsx-a11y/click-events-have-key-events</a></td>
+      </tr><tr class="msg-danger"><td class="location-col">
+                              38:13
+                          </td>
+                          <td class="severity-col">Error</td>
+                          <td class="message-col">Static HTML elements with event handlers require a role.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/jsx-a11y/no-static-element-interactions">jsx-a11y/no-static-element-interactions</a></td>
+      </tr><tr class="msg-danger"><td class="location-col">
+                              42:13
+                          </td>
+                          <td class="severity-col">Error</td>
+                          <td class="message-col">Visible, non-interactive elements with click handlers must have at least one keyboard listener.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/jsx-a11y/click-events-have-key-events">jsx-a11y/click-events-have-key-events</a></td>
+      </tr><tr class="msg-danger"><td class="location-col">
+                              42:13
+                          </td>
+                          <td class="severity-col">Error</td>
+                          <td class="message-col">Static HTML elements with event handlers require a role.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/jsx-a11y/no-static-element-interactions">jsx-a11y/no-static-element-interactions</a></td>
+      </tr><tr class="msg-danger"><td class="location-col">
+                              49:7
+                          </td>
+                          <td class="severity-col">Error</td>
+                          <td class="message-col">Visible, non-interactive elements with click handlers must have at least one keyboard listener.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/jsx-a11y/click-events-have-key-events">jsx-a11y/click-events-have-key-events</a></td>
+      </tr><tr class="msg-danger"><td class="location-col">
+                              49:7
+                          </td>
+                          <td class="severity-col">Error</td>
+                          <td class="message-col">Static HTML elements with event handlers require a role.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/jsx-a11y/no-static-element-interactions">jsx-a11y/no-static-element-interactions</a></td>
+      </tr></tbody>
+                  </table>
+                </td>
+              </tr><tr class="danger"><td>            <a class="toggle-link" href="javascript:;" onclick="toggleDetails(this)">/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/TreeView/TreeNodeWrapper.js</a></td>
+              <td>7</td>
+              <td>0</td></tr><tr class="details-row hidden">
+                <td colspan="3">
+                  <table class="details-table">
+                    <tbody><tr class="msg-danger"><td class="location-col">
+                              447:5
+                          </td>
+                          <td class="severity-col">Error</td>
+                          <td class="message-col">Static HTML elements with event handlers require a role.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/jsx-a11y/no-static-element-interactions">jsx-a11y/no-static-element-interactions</a></td>
+      </tr><tr class="msg-danger"><td class="location-col">
+                              470:7
+                          </td>
+                          <td class="severity-col">Error</td>
+                          <td class="message-col">&#x60;tabIndex&#x60; should only be declared on interactive elements.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/jsx-a11y/no-noninteractive-tabindex">jsx-a11y/no-noninteractive-tabindex</a></td>
+      </tr><tr class="msg-danger"><td class="location-col">
+                              554:13
+                          </td>
+                          <td class="severity-col">Error</td>
+                          <td class="message-col">Visible, non-interactive elements with click handlers must have at least one keyboard listener.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/jsx-a11y/click-events-have-key-events">jsx-a11y/click-events-have-key-events</a></td>
+      </tr><tr class="msg-danger"><td class="location-col">
+                              554:13
+                          </td>
+                          <td class="severity-col">Error</td>
+                          <td class="message-col">Static HTML elements with event handlers require a role.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/jsx-a11y/no-static-element-interactions">jsx-a11y/no-static-element-interactions</a></td>
+      </tr><tr class="msg-danger"><td class="location-col">
+                              565:11
+                          </td>
+                          <td class="severity-col">Error</td>
+                          <td class="message-col">Visible, non-interactive elements with click handlers must have at least one keyboard listener.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/jsx-a11y/click-events-have-key-events">jsx-a11y/click-events-have-key-events</a></td>
+      </tr><tr class="msg-danger"><td class="location-col">
+                              565:11
+                          </td>
+                          <td class="severity-col">Error</td>
+                          <td class="message-col">Static HTML elements with event handlers require a role.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/jsx-a11y/no-static-element-interactions">jsx-a11y/no-static-element-interactions</a></td>
+      </tr><tr class="msg-danger"><td class="location-col">
+                              594:13
+                          </td>
+                          <td class="severity-col">Error</td>
+                          <td class="message-col">Static HTML elements with event handlers require a role.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/jsx-a11y/no-static-element-interactions">jsx-a11y/no-static-element-interactions</a></td>
+      </tr></tbody>
+                  </table>
+                </td>
+              </tr><tr class="danger"><td>            <a class="toggle-link" href="javascript:;" onclick="toggleDetails(this)">/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Spinner/spinner.stories.js</a></td>
+              <td>6</td>
+              <td>0</td></tr><tr class="details-row hidden">
+                <td colspan="3">
+                  <table class="details-table">
+                    <tbody><tr class="msg-danger"><td class="location-col">
+                              16:11
+                          </td>
+                          <td class="severity-col">Error</td>
+                          <td class="message-col">Anchor used as a button. Anchors are primarily expected to navigate. Use the button element instead. Learn more: https://github.com/evcohen/eslint-plugin-jsx-a11y/blob/master/docs/rules/anchor-is-valid.md</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/jsx-a11y/anchor-is-valid">jsx-a11y/anchor-is-valid</a></td>
+      </tr><tr class="msg-danger"><td class="location-col">
+                              16:11
+                          </td>
+                          <td class="severity-col">Error</td>
+                          <td class="message-col">Visible, non-interactive elements with click handlers must have at least one keyboard listener.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/jsx-a11y/click-events-have-key-events">jsx-a11y/click-events-have-key-events</a></td>
+      </tr><tr class="msg-danger"><td class="location-col">
+                              16:11
+                          </td>
+                          <td class="severity-col">Error</td>
+                          <td class="message-col">Static HTML elements with event handlers require a role.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/jsx-a11y/no-static-element-interactions">jsx-a11y/no-static-element-interactions</a></td>
+      </tr><tr class="msg-danger"><td class="location-col">
+                              36:11
+                          </td>
+                          <td class="severity-col">Error</td>
+                          <td class="message-col">Anchor used as a button. Anchors are primarily expected to navigate. Use the button element instead. Learn more: https://github.com/evcohen/eslint-plugin-jsx-a11y/blob/master/docs/rules/anchor-is-valid.md</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/jsx-a11y/anchor-is-valid">jsx-a11y/anchor-is-valid</a></td>
+      </tr><tr class="msg-danger"><td class="location-col">
+                              36:11
+                          </td>
+                          <td class="severity-col">Error</td>
+                          <td class="message-col">Visible, non-interactive elements with click handlers must have at least one keyboard listener.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/jsx-a11y/click-events-have-key-events">jsx-a11y/click-events-have-key-events</a></td>
+      </tr><tr class="msg-danger"><td class="location-col">
+                              36:11
+                          </td>
+                          <td class="severity-col">Error</td>
+                          <td class="message-col">Static HTML elements with event handlers require a role.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/jsx-a11y/no-static-element-interactions">jsx-a11y/no-static-element-interactions</a></td>
+      </tr></tbody>
+                  </table>
+                </td>
+              </tr><tr class="danger"><td>            <a class="toggle-link" href="javascript:;" onclick="toggleDetails(this)">/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/DataTable/DataTable.js</a></td>
+              <td>4</td>
+              <td>2</td></tr><tr class="details-row hidden">
+                <td colspan="3">
+                  <table class="details-table">
+                    <tbody><tr class="msg-warning"><td class="location-col">
+                              61:6
+                          </td>
+                          <td class="severity-col">Warning</td>
+                          <td class="message-col">React Hook useEffect has a missing dependency: &#x27;expandRowTemplate&#x27;. Either include it or remove the dependency array.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/react-hooks/exhaustive-deps">react-hooks/exhaustive-deps</a></td>
+      </tr><tr class="msg-warning"><td class="location-col">
+                              70:6
+                          </td>
+                          <td class="severity-col">Warning</td>
+                          <td class="message-col">React Hook useEffect has a missing dependency: &#x27;rows.length&#x27;. Either include it or remove the dependency array.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/react-hooks/exhaustive-deps">react-hooks/exhaustive-deps</a></td>
+      </tr><tr class="msg-danger"><td class="location-col">
+                              583:7
+                          </td>
+                          <td class="severity-col">Error</td>
+                          <td class="message-col">Static HTML elements with event handlers require a role.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/jsx-a11y/no-static-element-interactions">jsx-a11y/no-static-element-interactions</a></td>
+      </tr><tr class="msg-danger"><td class="location-col">
+                              731:29
+                          </td>
+                          <td class="severity-col">Error</td>
+                          <td class="message-col">Static HTML elements with event handlers require a role.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/jsx-a11y/no-static-element-interactions">jsx-a11y/no-static-element-interactions</a></td>
+      </tr><tr class="msg-danger"><td class="location-col">
+                              887:23
+                          </td>
+                          <td class="severity-col">Error</td>
+                          <td class="message-col">Non-interactive elements should not be assigned mouse or keyboard event listeners.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/jsx-a11y/no-noninteractive-element-interactions">jsx-a11y/no-noninteractive-element-interactions</a></td>
+      </tr><tr class="msg-danger"><td class="location-col">
+                              904:25
+                          </td>
+                          <td class="severity-col">Error</td>
+                          <td class="message-col">&#x60;tabIndex&#x60; should only be declared on interactive elements.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/jsx-a11y/no-noninteractive-tabindex">jsx-a11y/no-noninteractive-tabindex</a></td>
+      </tr></tbody>
+                  </table>
+                </td>
+              </tr><tr class="danger"><td>            <a class="toggle-link" href="javascript:;" onclick="toggleDetails(this)">/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Tile/ExpandableTile.js</a></td>
+              <td>4</td>
+              <td>0</td></tr><tr class="details-row hidden">
+                <td colspan="3">
+                  <table class="details-table">
+                    <tbody><tr class="msg-danger"><td class="location-col">
+                              79:7
+                          </td>
+                          <td class="severity-col">Error</td>
+                          <td class="message-col">&#x60;tabIndex&#x60; should only be declared on interactive elements.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/jsx-a11y/no-noninteractive-tabindex">jsx-a11y/no-noninteractive-tabindex</a></td>
+      </tr><tr class="msg-danger"><td class="location-col">
+                              92:7
+                          </td>
+                          <td class="severity-col">Error</td>
+                          <td class="message-col">Non-interactive elements should not be assigned mouse or keyboard event listeners.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/jsx-a11y/no-noninteractive-element-interactions">jsx-a11y/no-noninteractive-element-interactions</a></td>
+      </tr><tr class="msg-danger"><td class="location-col">
+                              97:9
+                          </td>
+                          <td class="severity-col">Error</td>
+                          <td class="message-col">&#x60;tabIndex&#x60; should only be declared on interactive elements.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/jsx-a11y/no-noninteractive-tabindex">jsx-a11y/no-noninteractive-tabindex</a></td>
+      </tr><tr class="msg-danger"><td class="location-col">
+                              106:7
+                          </td>
+                          <td class="severity-col">Error</td>
+                          <td class="message-col">Visible, non-interactive elements with click handlers must have at least one keyboard listener.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/jsx-a11y/click-events-have-key-events">jsx-a11y/click-events-have-key-events</a></td>
+      </tr></tbody>
+                  </table>
+                </td>
+              </tr><tr class="danger"><td>            <a class="toggle-link" href="javascript:;" onclick="toggleDetails(this)">/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/Sidebar/Sidebar.js</a></td>
+              <td>3</td>
+              <td>2</td></tr><tr class="details-row hidden">
+                <td colspan="3">
+                  <table class="details-table">
+                    <tbody><tr class="msg-warning"><td class="location-col">
+                              108:6
+                          </td>
+                          <td class="severity-col">Warning</td>
+                          <td class="message-col">React Hook useEffect has missing dependencies: &#x27;activeLinkProperty&#x27; and &#x27;sidebarList&#x27;. Either include them or remove the dependency array.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/react-hooks/exhaustive-deps">react-hooks/exhaustive-deps</a></td>
+      </tr><tr class="msg-warning"><td class="location-col">
+                              123:6
+                          </td>
+                          <td class="severity-col">Warning</td>
+                          <td class="message-col">React Hook useEffect has a missing dependency: &#x27;sidebarId&#x27;. Either include it or remove the dependency array.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/react-hooks/exhaustive-deps">react-hooks/exhaustive-deps</a></td>
+      </tr><tr class="msg-danger"><td class="location-col">
+                              282:9
+                          </td>
+                          <td class="severity-col">Error</td>
+                          <td class="message-col">Static HTML elements with event handlers require a role.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/jsx-a11y/no-static-element-interactions">jsx-a11y/no-static-element-interactions</a></td>
+      </tr><tr class="msg-danger"><td class="location-col">
+                              284:11
+                          </td>
+                          <td class="severity-col">Error</td>
+                          <td class="message-col">&#x60;tabIndex&#x60; should only be declared on interactive elements.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/jsx-a11y/no-noninteractive-tabindex">jsx-a11y/no-noninteractive-tabindex</a></td>
+      </tr><tr class="msg-danger"><td class="location-col">
+                              416:15
+                          </td>
+                          <td class="severity-col">Error</td>
+                          <td class="message-col">The attribute aria-expanded is not supported by the role listitem. This role is implicit on the element li.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/jsx-a11y/role-supports-aria-props">jsx-a11y/role-supports-aria-props</a></td>
+      </tr></tbody>
+                  </table>
+                </td>
+              </tr><tr class="danger"><td>            <a class="toggle-link" href="javascript:;" onclick="toggleDetails(this)">/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/Slideout/Slideout.js</a></td>
+              <td>3</td>
+              <td>1</td></tr><tr class="details-row hidden">
+                <td colspan="3">
+                  <table class="details-table">
+                    <tbody><tr class="msg-warning"><td class="location-col">
+                              101:6
+                          </td>
+                          <td class="severity-col">Warning</td>
+                          <td class="message-col">React Hook useEffect has a missing dependency: &#x27;handleKeyDown&#x27;. Either include it or remove the dependency array.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/react-hooks/exhaustive-deps">react-hooks/exhaustive-deps</a></td>
+      </tr><tr class="msg-danger"><td class="location-col">
+                              158:7
+                          </td>
+                          <td class="severity-col">Error</td>
+                          <td class="message-col">Static HTML elements with event handlers require a role.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/jsx-a11y/no-static-element-interactions">jsx-a11y/no-static-element-interactions</a></td>
+      </tr><tr class="msg-danger"><td class="location-col">
+                              161:9
+                          </td>
+                          <td class="severity-col">Error</td>
+                          <td class="message-col">&#x60;tabIndex&#x60; should only be declared on interactive elements.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/jsx-a11y/no-noninteractive-tabindex">jsx-a11y/no-noninteractive-tabindex</a></td>
+      </tr><tr class="msg-danger"><td class="location-col">
+                              164:9
+                          </td>
+                          <td class="severity-col">Error</td>
+                          <td class="message-col">Static HTML elements with event handlers require a role.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/jsx-a11y/no-static-element-interactions">jsx-a11y/no-static-element-interactions</a></td>
+      </tr></tbody>
+                  </table>
+                </td>
+              </tr><tr class="danger"><td>            <a class="toggle-link" href="javascript:;" onclick="toggleDetails(this)">/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/LoadingState/LoadingState.js</a></td>
+              <td>3</td>
+              <td>0</td></tr><tr class="details-row hidden">
+                <td colspan="3">
+                  <table class="details-table">
+                    <tbody><tr class="msg-danger"><td class="location-col">
+                              6:14
+                          </td>
+                          <td class="severity-col">Error</td>
+                          <td class="message-col">Replace &#x60;&#x3D;&#x60; with &#x60;·&#x3D;·&#x60;</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/prettier/prettier">prettier/prettier</a></td>
+      </tr><tr class="msg-danger"><td class="location-col">
+                              114:17
+                          </td>
+                          <td class="severity-col">Error</td>
+                          <td class="message-col">Replace &#x60;·className&#x3D;{&#x60;${prefix}-slider-bottom-range&#x60;}·htmlFor&#x3D;{&#x60;element${elementId++}&#x60;}·aria-label&#x3D;&quot;loading&quot;&#x60; with &#x60;⏎············className&#x3D;{&#x60;${prefix}-slider-bottom-range&#x60;}⏎············htmlFor&#x3D;{&#x60;element${elementId++}&#x60;}⏎············aria-label&#x3D;&quot;loading&quot;⏎·········&#x60;</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/prettier/prettier">prettier/prettier</a></td>
+      </tr><tr class="msg-danger"><td class="location-col">
+                              126:11
+                          </td>
+                          <td class="severity-col">Error</td>
+                          <td class="message-col">A form label must be associated with a control.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/jsx-a11y/label-has-associated-control">jsx-a11y/label-has-associated-control</a></td>
+      </tr></tbody>
+                  </table>
+                </td>
+              </tr><tr class="danger"><td>            <a class="toggle-link" href="javascript:;" onclick="toggleDetails(this)">/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/DatePicker/datepicker.stories.js</a></td>
+              <td>3</td>
+              <td>0</td></tr><tr class="details-row hidden">
+                <td colspan="3">
+                  <table class="details-table">
+                    <tbody><tr class="msg-danger"><td class="location-col">
+                              46:11
+                          </td>
+                          <td class="severity-col">Error</td>
+                          <td class="message-col">Anchor used as a button. Anchors are primarily expected to navigate. Use the button element instead. Learn more: https://github.com/evcohen/eslint-plugin-jsx-a11y/blob/master/docs/rules/anchor-is-valid.md</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/jsx-a11y/anchor-is-valid">jsx-a11y/anchor-is-valid</a></td>
+      </tr><tr class="msg-danger"><td class="location-col">
+                              46:11
+                          </td>
+                          <td class="severity-col">Error</td>
+                          <td class="message-col">Visible, non-interactive elements with click handlers must have at least one keyboard listener.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/jsx-a11y/click-events-have-key-events">jsx-a11y/click-events-have-key-events</a></td>
+      </tr><tr class="msg-danger"><td class="location-col">
+                              46:11
+                          </td>
+                          <td class="severity-col">Error</td>
+                          <td class="message-col">Static HTML elements with event handlers require a role.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/jsx-a11y/no-static-element-interactions">jsx-a11y/no-static-element-interactions</a></td>
+      </tr></tbody>
+                  </table>
+                </td>
+              </tr><tr class="danger"><td>            <a class="toggle-link" href="javascript:;" onclick="toggleDetails(this)">/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/LogicBuilder/logicBuilder.stories.js</a></td>
+              <td>3</td>
+              <td>0</td></tr><tr class="details-row hidden">
+                <td colspan="3">
+                  <table class="details-table">
+                    <tbody><tr class="msg-danger"><td class="location-col">
+                              125:11
+                          </td>
+                          <td class="severity-col">Error</td>
+                          <td class="message-col">A form label must be associated with a control.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/jsx-a11y/label-has-associated-control">jsx-a11y/label-has-associated-control</a></td>
+      </tr><tr class="msg-danger"><td class="location-col">
+                              139:11
+                          </td>
+                          <td class="severity-col">Error</td>
+                          <td class="message-col">A form label must be associated with a control.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/jsx-a11y/label-has-associated-control">jsx-a11y/label-has-associated-control</a></td>
+      </tr><tr class="msg-danger"><td class="location-col">
+                              154:11
+                          </td>
+                          <td class="severity-col">Error</td>
+                          <td class="message-col">A form label must be associated with a control.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/jsx-a11y/label-has-associated-control">jsx-a11y/label-has-associated-control</a></td>
+      </tr></tbody>
+                  </table>
+                </td>
+              </tr><tr class="danger"><td>            <a class="toggle-link" href="javascript:;" onclick="toggleDetails(this)">/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/Wizard/Step.js</a></td>
+              <td>2</td>
+              <td>1</td></tr><tr class="details-row hidden">
+                <td colspan="3">
+                  <table class="details-table">
+                    <tbody><tr class="msg-warning"><td class="location-col">
+                              48:6
+                          </td>
+                          <td class="severity-col">Warning</td>
+                          <td class="message-col">React Hook useEffect has a missing dependency: &#x27;stepcallBack&#x27;. Either include it or remove the dependency array. If &#x27;stepcallBack&#x27; changes too often, find the parent component that defines it and wrap that definition in useCallback.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/react-hooks/exhaustive-deps">react-hooks/exhaustive-deps</a></td>
+      </tr><tr class="msg-danger"><td class="location-col">
+                              88:5
+                          </td>
+                          <td class="severity-col">Error</td>
+                          <td class="message-col">Visible, non-interactive elements with click handlers must have at least one keyboard listener.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/jsx-a11y/click-events-have-key-events">jsx-a11y/click-events-have-key-events</a></td>
+      </tr><tr class="msg-danger"><td class="location-col">
+                              88:5
+                          </td>
+                          <td class="severity-col">Error</td>
+                          <td class="message-col">Non-interactive elements should not be assigned mouse or keyboard event listeners.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/jsx-a11y/no-noninteractive-element-interactions">jsx-a11y/no-noninteractive-element-interactions</a></td>
+      </tr></tbody>
+                  </table>
+                </td>
+              </tr><tr class="danger"><td>            <a class="toggle-link" href="javascript:;" onclick="toggleDetails(this)">/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/MenuList/Item.js</a></td>
+              <td>2</td>
+              <td>0</td></tr><tr class="details-row hidden">
+                <td colspan="3">
+                  <table class="details-table">
+                    <tbody><tr class="msg-danger"><td class="location-col">
+                              30:5
+                          </td>
+                          <td class="severity-col">Error</td>
+                          <td class="message-col">Non-interactive elements should not be assigned mouse or keyboard event listeners.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/jsx-a11y/no-noninteractive-element-interactions">jsx-a11y/no-noninteractive-element-interactions</a></td>
+      </tr><tr class="msg-danger"><td class="location-col">
+                              32:7
+                          </td>
+                          <td class="severity-col">Error</td>
+                          <td class="message-col">&#x60;tabIndex&#x60; should only be declared on interactive elements.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/jsx-a11y/no-noninteractive-tabindex">jsx-a11y/no-noninteractive-tabindex</a></td>
+      </tr></tbody>
+                  </table>
+                </td>
+              </tr><tr class="danger"><td>            <a class="toggle-link" href="javascript:;" onclick="toggleDetails(this)">/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Tag/tag.stories.js</a></td>
+              <td>2</td>
+              <td>0</td></tr><tr class="details-row hidden">
+                <td colspan="3">
+                  <table class="details-table">
+                    <tbody><tr class="msg-danger"><td class="location-col">
+                              47:13
+                          </td>
+                          <td class="severity-col">Error</td>
+                          <td class="message-col">&#x60;tabIndex&#x60; should only be declared on interactive elements.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/jsx-a11y/no-noninteractive-tabindex">jsx-a11y/no-noninteractive-tabindex</a></td>
+      </tr><tr class="msg-danger"><td class="location-col">
+                              117:13
+                          </td>
+                          <td class="severity-col">Error</td>
+                          <td class="message-col">&#x60;tabIndex&#x60; should only be declared on interactive elements.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/jsx-a11y/no-noninteractive-tabindex">jsx-a11y/no-noninteractive-tabindex</a></td>
+      </tr></tbody>
+                  </table>
+                </td>
+              </tr><tr class="danger"><td>            <a class="toggle-link" href="javascript:;" onclick="toggleDetails(this)">/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Tile/SelectableTile.js</a></td>
+              <td>2</td>
+              <td>0</td></tr><tr class="details-row hidden">
+                <td colspan="3">
+                  <table class="details-table">
+                    <tbody><tr class="msg-danger"><td class="location-col">
+                              40:7
+                          </td>
+                          <td class="severity-col">Error</td>
+                          <td class="message-col">Static HTML elements with event handlers require a role.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/jsx-a11y/no-static-element-interactions">jsx-a11y/no-static-element-interactions</a></td>
+      </tr><tr class="msg-danger"><td class="location-col">
+                              42:11
+                          </td>
+                          <td class="severity-col">Error</td>
+                          <td class="message-col">&#x60;tabIndex&#x60; should only be declared on interactive elements.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/jsx-a11y/no-noninteractive-tabindex">jsx-a11y/no-noninteractive-tabindex</a></td>
+      </tr></tbody>
+                  </table>
+                </td>
+              </tr><tr class="danger"><td>            <a class="toggle-link" href="javascript:;" onclick="toggleDetails(this)">/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/DatePicker/DatePanel/DatePanel.js</a></td>
+              <td>2</td>
+              <td>0</td></tr><tr class="details-row hidden">
+                <td colspan="3">
+                  <table class="details-table">
+                    <tbody><tr class="msg-danger"><td class="location-col">
+                              77:7
+                          </td>
+                          <td class="severity-col">Error</td>
+                          <td class="message-col">Visible, non-interactive elements with click handlers must have at least one keyboard listener.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/jsx-a11y/click-events-have-key-events">jsx-a11y/click-events-have-key-events</a></td>
+      </tr><tr class="msg-danger"><td class="location-col">
+                              77:7
+                          </td>
+                          <td class="severity-col">Error</td>
+                          <td class="message-col">Static HTML elements with event handlers require a role.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/jsx-a11y/no-static-element-interactions">jsx-a11y/no-static-element-interactions</a></td>
+      </tr></tbody>
+                  </table>
+                </td>
+              </tr><tr class="danger"><td>            <a class="toggle-link" href="javascript:;" onclick="toggleDetails(this)">/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/DateRangeSelector/DateRangeInput/DateRangeInput.js</a></td>
+              <td>2</td>
+              <td>0</td></tr><tr class="details-row hidden">
+                <td colspan="3">
+                  <table class="details-table">
+                    <tbody><tr class="msg-danger"><td class="location-col">
+                              69:11
+                          </td>
+                          <td class="severity-col">Error</td>
+                          <td class="message-col">A form label must be associated with a control.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/jsx-a11y/label-has-associated-control">jsx-a11y/label-has-associated-control</a></td>
+      </tr><tr class="msg-danger"><td class="location-col">
+                              92:11
+                          </td>
+                          <td class="severity-col">Error</td>
+                          <td class="message-col">A form label must be associated with a control.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/jsx-a11y/label-has-associated-control">jsx-a11y/label-has-associated-control</a></td>
+      </tr></tbody>
+                  </table>
+                </td>
+              </tr><tr class="danger"><td>            <a class="toggle-link" href="javascript:;" onclick="toggleDetails(this)">/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/FileUploader/FileUploader.js</a></td>
+              <td>2</td>
+              <td>0</td></tr><tr class="details-row hidden">
+                <td colspan="3">
+                  <table class="details-table">
+                    <tbody><tr class="msg-danger"><td class="location-col">
+                              89:9
+                          </td>
+                          <td class="severity-col">Error</td>
+                          <td class="message-col">Non-interactive elements should not be assigned mouse or keyboard event listeners.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/jsx-a11y/no-noninteractive-element-interactions">jsx-a11y/no-noninteractive-element-interactions</a></td>
+      </tr><tr class="msg-danger"><td class="location-col">
+                              93:11
+                          </td>
+                          <td class="severity-col">Error</td>
+                          <td class="message-col">&#x60;tabIndex&#x60; should only be declared on interactive elements.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/jsx-a11y/no-noninteractive-tabindex">jsx-a11y/no-noninteractive-tabindex</a></td>
+      </tr></tbody>
+                  </table>
+                </td>
+              </tr><tr class="danger"><td>            <a class="toggle-link" href="javascript:;" onclick="toggleDetails(this)">/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/Modal/Modal.js</a></td>
+              <td>2</td>
+              <td>0</td></tr><tr class="details-row hidden">
+                <td colspan="3">
+                  <table class="details-table">
+                    <tbody><tr class="msg-danger"><td class="location-col">
+                              75:5
+                          </td>
+                          <td class="severity-col">Error</td>
+                          <td class="message-col">Static HTML elements with event handlers require a role.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/jsx-a11y/no-static-element-interactions">jsx-a11y/no-static-element-interactions</a></td>
+      </tr><tr class="msg-danger"><td class="location-col">
+                              78:7
+                          </td>
+                          <td class="severity-col">Error</td>
+                          <td class="message-col">&#x60;tabIndex&#x60; should only be declared on interactive elements.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/jsx-a11y/no-noninteractive-tabindex">jsx-a11y/no-noninteractive-tabindex</a></td>
+      </tr></tbody>
+                  </table>
+                </td>
+              </tr><tr class="danger"><td>            <a class="toggle-link" href="javascript:;" onclick="toggleDetails(this)">/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Dropdown/Dropdown.js</a></td>
+              <td>1</td>
+              <td>2</td></tr><tr class="details-row hidden">
+                <td colspan="3">
+                  <table class="details-table">
+                    <tbody><tr class="msg-warning"><td class="location-col">
+                              52:6
+                          </td>
+                          <td class="severity-col">Warning</td>
+                          <td class="message-col">React Hook useEffect has missing dependencies: &#x27;configuration.id&#x27;, &#x27;dropdownType&#x27;, &#x27;items&#x27;, and &#x27;selectedObj&#x27;. Either include them or remove the dependency array.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/react-hooks/exhaustive-deps">react-hooks/exhaustive-deps</a></td>
+      </tr><tr class="msg-warning"><td class="location-col">
+                              58:6
+                          </td>
+                          <td class="severity-col">Warning</td>
+                          <td class="message-col">React Hook useEffect has a missing dependency: &#x27;onVisibleChange&#x27;. Either include it or remove the dependency array. If &#x27;onVisibleChange&#x27; changes too often, find the parent component that defines it and wrap that definition in useCallback.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/react-hooks/exhaustive-deps">react-hooks/exhaustive-deps</a></td>
+      </tr><tr class="msg-danger"><td class="location-col">
+                              298:17
+                          </td>
+                          <td class="severity-col">Error</td>
+                          <td class="message-col">Elements with the ARIA role &quot;option&quot; must have the following attributes defined: aria-selected</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/jsx-a11y/role-has-required-aria-props">jsx-a11y/role-has-required-aria-props</a></td>
+      </tr></tbody>
+                  </table>
+                </td>
+              </tr><tr class="danger"><td>            <a class="toggle-link" href="javascript:;" onclick="toggleDetails(this)">/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Tooltip/Tooltip.js</a></td>
+              <td>1</td>
+              <td>2</td></tr><tr class="details-row hidden">
+                <td colspan="3">
+                  <table class="details-table">
+                    <tbody><tr class="msg-warning"><td class="location-col">
+                              72:14
+                          </td>
+                          <td class="severity-col">Warning</td>
+                          <td class="message-col">Assignments to the &#x27;diff&#x27; variable from inside React Hook useEffect will be lost after each render. To preserve the value over time, store it in a useRef Hook and keep the mutable value in the &#x27;.current&#x27; property. Otherwise, you can move this variable directly inside useEffect.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/react-hooks/exhaustive-deps">react-hooks/exhaustive-deps</a></td>
+      </tr><tr class="msg-warning"><td class="location-col">
+                              77:27
+                          </td>
+                          <td class="severity-col">Warning</td>
+                          <td class="message-col">Assignments to the &#x27;positionDirection&#x27; variable from inside React Hook useEffect will be lost after each render. To preserve the value over time, store it in a useRef Hook and keep the mutable value in the &#x27;.current&#x27; property. Otherwise, you can move this variable directly inside useEffect.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/react-hooks/exhaustive-deps">react-hooks/exhaustive-deps</a></td>
+      </tr><tr class="msg-danger"><td class="location-col">
+                              713:7
+                          </td>
+                          <td class="severity-col">Error</td>
+                          <td class="message-col">&#x60;tabIndex&#x60; should only be declared on interactive elements.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/jsx-a11y/no-noninteractive-tabindex">jsx-a11y/no-noninteractive-tabindex</a></td>
+      </tr></tbody>
+                  </table>
+                </td>
+              </tr><tr class="danger"><td>            <a class="toggle-link" href="javascript:;" onclick="toggleDetails(this)">/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Overlay/Overlay.js</a></td>
+              <td>1</td>
+              <td>1</td></tr><tr class="details-row hidden">
+                <td colspan="3">
+                  <table class="details-table">
+                    <tbody><tr class="msg-warning"><td class="location-col">
+                              76:6
+                          </td>
+                          <td class="severity-col">Warning</td>
+                          <td class="message-col">React Hook useEffect has missing dependencies: &#x27;clearEvents&#x27;, &#x27;hideOverlayContainer&#x27;, and &#x27;showOverlayContainer&#x27;. Either include them or remove the dependency array.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/react-hooks/exhaustive-deps">react-hooks/exhaustive-deps</a></td>
+      </tr><tr class="msg-danger"><td class="location-col">
+                              185:7
+                          </td>
+                          <td class="severity-col">Error</td>
+                          <td class="message-col">Static HTML elements with event handlers require a role.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/jsx-a11y/no-static-element-interactions">jsx-a11y/no-static-element-interactions</a></td>
+      </tr></tbody>
+                  </table>
+                </td>
+              </tr><tr class="danger"><td>            <a class="toggle-link" href="javascript:;" onclick="toggleDetails(this)">/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/RichTextEditor/RichTextEditor.js</a></td>
+              <td>1</td>
+              <td>1</td></tr><tr class="details-row hidden">
+                <td colspan="3">
+                  <table class="details-table">
+                    <tbody><tr class="msg-warning"><td class="location-col">
+                              145:6
+                          </td>
+                          <td class="severity-col">Warning</td>
+                          <td class="message-col">React Hook useEffect has missing dependencies: &#x27;handler&#x27; and &#x27;onChange&#x27;. Either include them or remove the dependency array. If &#x27;onChange&#x27; changes too often, find the parent component that defines it and wrap that definition in useCallback.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/react-hooks/exhaustive-deps">react-hooks/exhaustive-deps</a></td>
+      </tr><tr class="msg-danger"><td class="location-col">
+                              366:11
+                          </td>
+                          <td class="severity-col">Error</td>
+                          <td class="message-col">&#x60;tabIndex&#x60; should only be declared on interactive elements.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/jsx-a11y/no-noninteractive-tabindex">jsx-a11y/no-noninteractive-tabindex</a></td>
+      </tr></tbody>
+                  </table>
+                </td>
+              </tr><tr class="danger"><td>            <a class="toggle-link" href="javascript:;" onclick="toggleDetails(this)">/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/App.js</a></td>
+              <td>1</td>
+              <td>0</td></tr><tr class="details-row hidden">
+                <td colspan="3">
+                  <table class="details-table">
+                    <tbody><tr class="msg-danger"><td class="location-col">
+                              1057:27
+                          </td>
+                          <td class="severity-col">Error</td>
+                          <td class="message-col">The href attribute requires a valid value to be accessible. Provide a valid, navigable address as the href value. If you cannot provide a valid href, but still need the element to resemble a link, use a button and change it with appropriate styles. Learn more: https://github.com/evcohen/eslint-plugin-jsx-a11y/blob/master/docs/rules/anchor-is-valid.md</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/jsx-a11y/anchor-is-valid">jsx-a11y/anchor-is-valid</a></td>
+      </tr></tbody>
+                  </table>
+                </td>
+              </tr><tr class="danger"><td>            <a class="toggle-link" href="javascript:;" onclick="toggleDetails(this)">/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Notification/Notification.js</a></td>
+              <td>1</td>
+              <td>0</td></tr><tr class="details-row hidden">
+                <td colspan="3">
+                  <table class="details-table">
+                    <tbody><tr class="msg-danger"><td class="location-col">
+                              35:20
+                          </td>
+                          <td class="severity-col">Error</td>
+                          <td class="message-col">React Hook &quot;useIcon&quot; is called conditionally. React Hooks must be called in the exact same order in every component render.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/react-hooks/rules-of-hooks">react-hooks/rules-of-hooks</a></td>
+      </tr></tbody>
+                  </table>
+                </td>
+              </tr><tr class="danger"><td>            <a class="toggle-link" href="javascript:;" onclick="toggleDetails(this)">/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Tag/Tag.js</a></td>
+              <td>1</td>
+              <td>0</td></tr><tr class="details-row hidden">
+                <td colspan="3">
+                  <table class="details-table">
+                    <tbody><tr class="msg-danger"><td class="location-col">
+                              43:5
+                          </td>
+                          <td class="severity-col">Error</td>
+                          <td class="message-col">Visible, non-interactive elements with click handlers must have at least one keyboard listener.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/jsx-a11y/click-events-have-key-events">jsx-a11y/click-events-have-key-events</a></td>
+      </tr></tbody>
+                  </table>
+                </td>
+              </tr><tr class="danger"><td>            <a class="toggle-link" href="javascript:;" onclick="toggleDetails(this)">/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Toast/Toast.js</a></td>
+              <td>1</td>
+              <td>0</td></tr><tr class="details-row hidden">
+                <td colspan="3">
+                  <table class="details-table">
+                    <tbody><tr class="msg-danger"><td class="location-col">
+                              32:18
+                          </td>
+                          <td class="severity-col">Error</td>
+                          <td class="message-col">React Hook &quot;useIcon&quot; is called conditionally. React Hooks must be called in the exact same order in every component render.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/react-hooks/rules-of-hooks">react-hooks/rules-of-hooks</a></td>
+      </tr></tbody>
+                  </table>
+                </td>
+              </tr><tr class="danger"><td>            <a class="toggle-link" href="javascript:;" onclick="toggleDetails(this)">/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/TreeView/TreeViewOverflow.js</a></td>
+              <td>1</td>
+              <td>0</td></tr><tr class="details-row hidden">
+                <td colspan="3">
+                  <table class="details-table">
+                    <tbody><tr class="msg-danger"><td class="location-col">
+                              197:5
+                          </td>
+                          <td class="severity-col">Error</td>
+                          <td class="message-col">Static HTML elements with event handlers require a role.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/jsx-a11y/no-static-element-interactions">jsx-a11y/no-static-element-interactions</a></td>
+      </tr></tbody>
+                  </table>
+                </td>
+              </tr><tr class="danger"><td>            <a class="toggle-link" href="javascript:;" onclick="toggleDetails(this)">/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/Overflowmenu/Overflowmenu.js</a></td>
+              <td>1</td>
+              <td>0</td></tr><tr class="details-row hidden">
+                <td colspan="3">
+                  <table class="details-table">
+                    <tbody><tr class="msg-danger"><td class="location-col">
+                              213:9
+                          </td>
+                          <td class="severity-col">Error</td>
+                          <td class="message-col">Non-interactive elements should not be assigned mouse or keyboard event listeners.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/jsx-a11y/no-noninteractive-element-interactions">jsx-a11y/no-noninteractive-element-interactions</a></td>
+      </tr></tbody>
+                  </table>
+                </td>
+              </tr><tr class="danger"><td>            <a class="toggle-link" href="javascript:;" onclick="toggleDetails(this)">/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/Tab/Tab.js</a></td>
+              <td>1</td>
+              <td>0</td></tr><tr class="details-row hidden">
+                <td colspan="3">
+                  <table class="details-table">
+                    <tbody><tr class="msg-danger"><td class="location-col">
+                              80:7
+                          </td>
+                          <td class="severity-col">Error</td>
+                          <td class="message-col">The href attribute is required for an anchor to be keyboard accessible. Provide a valid, navigable address as the href value. If you cannot provide an href, but still need the element to resemble a link, use a button and change it with appropriate styles. Learn more: https://github.com/evcohen/eslint-plugin-jsx-a11y/blob/master/docs/rules/anchor-is-valid.md</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/jsx-a11y/anchor-is-valid">jsx-a11y/anchor-is-valid</a></td>
+      </tr></tbody>
+                  </table>
+                </td>
+              </tr><tr class="warning"><td>            <a class="toggle-link" href="javascript:;" onclick="toggleDetails(this)">/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/ProgressIndicator/CircleProgressIndicator.js</a></td>
+              <td>0</td>
+              <td>2</td></tr><tr class="details-row hidden">
+                <td colspan="3">
+                  <table class="details-table">
+                    <tbody><tr class="msg-warning"><td class="location-col">
+                              33:16
+                          </td>
+                          <td class="severity-col">Warning</td>
+                          <td class="message-col">Assignments to the &#x27;progress&#x27; variable from inside React Hook useEffect will be lost after each render. To preserve the value over time, store it in a useRef Hook and keep the mutable value in the &#x27;.current&#x27; property. Otherwise, you can move this variable directly inside useEffect.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/react-hooks/exhaustive-deps">react-hooks/exhaustive-deps</a></td>
+      </tr><tr class="msg-warning"><td class="location-col">
+                              42:6
+                          </td>
+                          <td class="severity-col">Warning</td>
+                          <td class="message-col">React Hook useEffect has a missing dependency: &#x27;type&#x27;. Either include it or remove the dependency array.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/react-hooks/exhaustive-deps">react-hooks/exhaustive-deps</a></td>
+      </tr></tbody>
+                  </table>
+                </td>
+              </tr><tr class="warning"><td>            <a class="toggle-link" href="javascript:;" onclick="toggleDetails(this)">/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/DateRangeSelector/DateRangeSelector.js</a></td>
+              <td>0</td>
+              <td>2</td></tr><tr class="details-row hidden">
+                <td colspan="3">
+                  <table class="details-table">
+                    <tbody><tr class="msg-warning"><td class="location-col">
+                              92:6
+                          </td>
+                          <td class="severity-col">Warning</td>
+                          <td class="message-col">React Hook useEffect has missing dependencies: &#x27;format&#x27; and &#x27;updateFormattedDate&#x27;. Either include them or remove the dependency array.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/react-hooks/exhaustive-deps">react-hooks/exhaustive-deps</a></td>
+      </tr><tr class="msg-warning"><td class="location-col">
+                              119:6
+                          </td>
+                          <td class="severity-col">Warning</td>
+                          <td class="message-col">React Hook useEffect has missing dependencies: &#x27;format&#x27; and &#x27;updateFormattedDate&#x27;. Either include them or remove the dependency array.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/react-hooks/exhaustive-deps">react-hooks/exhaustive-deps</a></td>
+      </tr></tbody>
+                  </table>
+                </td>
+              </tr><tr class="warning"><td>            <a class="toggle-link" href="javascript:;" onclick="toggleDetails(this)">/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/DateSelector/DateSelector.js</a></td>
+              <td>0</td>
+              <td>2</td></tr><tr class="details-row hidden">
+                <td colspan="3">
+                  <table class="details-table">
+                    <tbody><tr class="msg-warning"><td class="location-col">
+                              68:6
+                          </td>
+                          <td class="severity-col">Warning</td>
+                          <td class="message-col">React Hook useEffect has missing dependencies: &#x27;format&#x27; and &#x27;updateFormattedDate&#x27;. Either include them or remove the dependency array.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/react-hooks/exhaustive-deps">react-hooks/exhaustive-deps</a></td>
+      </tr><tr class="msg-warning"><td class="location-col">
+                              74:6
+                          </td>
+                          <td class="severity-col">Warning</td>
+                          <td class="message-col">React Hook useEffect has a missing dependency: &#x27;onVisibleChange&#x27;. Either include it or remove the dependency array. If &#x27;onVisibleChange&#x27; changes too often, find the parent component that defines it and wrap that definition in useCallback.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/react-hooks/exhaustive-deps">react-hooks/exhaustive-deps</a></td>
+      </tr></tbody>
+                  </table>
+                </td>
+              </tr><tr class="warning"><td>            <a class="toggle-link" href="javascript:;" onclick="toggleDetails(this)">/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/InlineEdit/InlineEdit.js</a></td>
+              <td>0</td>
+              <td>1</td></tr><tr class="details-row hidden">
+                <td colspan="3">
+                  <table class="details-table">
+                    <tbody><tr class="msg-warning"><td class="location-col">
+                              100:6
+                          </td>
+                          <td class="severity-col">Warning</td>
+                          <td class="message-col">React Hook useEffect has missing dependencies: &#x27;children.type.displayName&#x27; and &#x27;isCustomComponent&#x27;. Either include them or remove the dependency array.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/react-hooks/exhaustive-deps">react-hooks/exhaustive-deps</a></td>
+      </tr></tbody>
+                  </table>
+                </td>
+              </tr><tr class="warning"><td>            <a class="toggle-link" href="javascript:;" onclick="toggleDetails(this)">/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/InPageNavigation/InPageNavigation.js</a></td>
+              <td>0</td>
+              <td>1</td></tr><tr class="details-row hidden">
+                <td colspan="3">
+                  <table class="details-table">
+                    <tbody><tr class="msg-warning"><td class="location-col">
+                              17:6
+                          </td>
+                          <td class="severity-col">Warning</td>
+                          <td class="message-col">React Hook useEffect has a missing dependency: &#x27;onScrollHandler&#x27;. Either include it or remove the dependency array.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/react-hooks/exhaustive-deps">react-hooks/exhaustive-deps</a></td>
+      </tr></tbody>
+                  </table>
+                </td>
+              </tr><tr class="warning"><td>            <a class="toggle-link" href="javascript:;" onclick="toggleDetails(this)">/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Pagination/Pagination.js</a></td>
+              <td>0</td>
+              <td>1</td></tr><tr class="details-row hidden">
+                <td colspan="3">
+                  <table class="details-table">
+                    <tbody><tr class="msg-warning"><td class="location-col">
+                              65:6
+                          </td>
+                          <td class="severity-col">Warning</td>
+                          <td class="message-col">React Hook useEffect has a missing dependency: &#x27;itemsValuesPerPage&#x27;. Either include it or remove the dependency array.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/react-hooks/exhaustive-deps">react-hooks/exhaustive-deps</a></td>
+      </tr></tbody>
+                  </table>
+                </td>
+              </tr><tr class="warning"><td>            <a class="toggle-link" href="javascript:;" onclick="toggleDetails(this)">/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/ProgressIndicator/LinearProgressIndicator.js</a></td>
+              <td>0</td>
+              <td>1</td></tr><tr class="details-row hidden">
+                <td colspan="3">
+                  <table class="details-table">
+                    <tbody><tr class="msg-warning"><td class="location-col">
+                              21:16
+                          </td>
+                          <td class="severity-col">Warning</td>
+                          <td class="message-col">Assignments to the &#x27;progress&#x27; variable from inside React Hook useEffect will be lost after each render. To preserve the value over time, store it in a useRef Hook and keep the mutable value in the &#x27;.current&#x27; property. Otherwise, you can move this variable directly inside useEffect.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/react-hooks/exhaustive-deps">react-hooks/exhaustive-deps</a></td>
+      </tr></tbody>
+                  </table>
+                </td>
+              </tr><tr class="warning"><td>            <a class="toggle-link" href="javascript:;" onclick="toggleDetails(this)">/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Slider/Slider.js</a></td>
+              <td>0</td>
+              <td>1</td></tr><tr class="details-row hidden">
+                <td colspan="3">
+                  <table class="details-table">
+                    <tbody><tr class="msg-warning"><td class="location-col">
+                              50:6
+                          </td>
+                          <td class="severity-col">Warning</td>
+                          <td class="message-col">React Hook useEffect has missing dependencies: &#x27;max&#x27; and &#x27;min&#x27;. Either include them or remove the dependency array.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/react-hooks/exhaustive-deps">react-hooks/exhaustive-deps</a></td>
+      </tr></tbody>
+                  </table>
+                </td>
+              </tr><tr class="warning"><td>            <a class="toggle-link" href="javascript:;" onclick="toggleDetails(this)">/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/DatePicker/DatePicker.js</a></td>
+              <td>0</td>
+              <td>1</td></tr><tr class="details-row hidden">
+                <td colspan="3">
+                  <table class="details-table">
+                    <tbody><tr class="msg-warning"><td class="location-col">
+                              68:6
+                          </td>
+                          <td class="severity-col">Warning</td>
+                          <td class="message-col">React Hook useEffect has missing dependencies: &#x27;format&#x27; and &#x27;updateFormattedDate&#x27;. Either include them or remove the dependency array.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/react-hooks/exhaustive-deps">react-hooks/exhaustive-deps</a></td>
+      </tr></tbody>
+                  </table>
+                </td>
+              </tr><tr class="warning"><td>            <a class="toggle-link" href="javascript:;" onclick="toggleDetails(this)">/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/NumberInput/NumberInput.js</a></td>
+              <td>0</td>
+              <td>1</td></tr><tr class="details-row hidden">
+                <td colspan="3">
+                  <table class="details-table">
+                    <tbody><tr class="msg-warning"><td class="location-col">
+                              62:6
+                          </td>
+                          <td class="severity-col">Warning</td>
+                          <td class="message-col">React Hook useEffect has missing dependencies: &#x27;errorMessage&#x27;, &#x27;max&#x27;, &#x27;min&#x27;, and &#x27;required&#x27;. Either include them or remove the dependency array. If &#x27;setValidationMessage&#x27; needs the current value of &#x27;errorMessage&#x27;, you can also switch to useReducer instead of useState and read &#x27;errorMessage&#x27; in the reducer.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/react-hooks/exhaustive-deps">react-hooks/exhaustive-deps</a></td>
+      </tr></tbody>
+                  </table>
+                </td>
+              </tr><tr class="warning"><td>            <a class="toggle-link" href="javascript:;" onclick="toggleDetails(this)">/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/Tab/Tabs.js</a></td>
+              <td>0</td>
+              <td>1</td></tr><tr class="details-row hidden">
+                <td colspan="3">
+                  <table class="details-table">
+                    <tbody><tr class="msg-warning"><td class="location-col">
+                              12:6
+                          </td>
+                          <td class="severity-col">Warning</td>
+                          <td class="message-col">React Hook useEffect has a missing dependency: &#x27;children.length&#x27;. Either include it or remove the dependency array.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/react-hooks/exhaustive-deps">react-hooks/exhaustive-deps</a></td>
+      </tr></tbody>
+                  </table>
+                </td>
+              </tr><tr class="warning"><td>            <a class="toggle-link" href="javascript:;" onclick="toggleDetails(this)">/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/TimePicker/TimePicker.js</a></td>
+              <td>0</td>
+              <td>1</td></tr><tr class="details-row hidden">
+                <td colspan="3">
+                  <table class="details-table">
+                    <tbody><tr class="msg-warning"><td class="location-col">
+                              53:6
+                          </td>
+                          <td class="severity-col">Warning</td>
+                          <td class="message-col">React Hook useEffect has missing dependencies: &#x27;errorMessage&#x27;, &#x27;timeObj.period&#x27;, and &#x27;type&#x27;. Either include them or remove the dependency array. If &#x27;setErrorMessage&#x27; needs the current value of &#x27;errorMessage&#x27;, you can also switch to useReducer instead of useState and read &#x27;errorMessage&#x27; in the reducer.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/react-hooks/exhaustive-deps">react-hooks/exhaustive-deps</a></td>
+      </tr></tbody>
+                  </table>
+                </td>
+              </tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/Home.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Actions/Actions.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Actions/index.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Breadcrumb/Breadcrumb.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Breadcrumb/BreadcrumbItem.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Breadcrumb/breadcrumb.stories.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Breadcrumb/index.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Button/Button.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Button/button.stories.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Button/button.test.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Button/index.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Checkbox/Checkbox.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Checkbox/checkbox.stories.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Checkbox/checkbox.test.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Checkbox/index.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/DataTable/dataTable.test.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/DataTable/datatable.stories.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/DataTable/index.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Dropdown/dropdown.stories.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Dropdown/dropdown.test.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Dropdown/index.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/FormHelperText/FormHelperText.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/FormHelperText/index.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Heading/Heading.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Heading/heading.stories.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Heading/heading.test.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Heading/index.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Icon/Icon.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Icon/index.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/InPageNavigation/inPageNavigation.stories.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/InPageNavigation/index.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/InlineEdit/index.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/InlineEdit/inline.stories.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Label/Label.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Label/index.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Label/label.stories.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Label/label.test.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Link/Link.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Link/index.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Link/link.stories.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Link/link.test.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/List/List.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/List/index.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/List/list.stories.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/LoadingState/index.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/LoadingState/loadingstate.stories.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/MenuList/MenuList.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/MenuList/index.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Notification/index.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Notification/notification.stories.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Overlay/index.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Overlay/overlay.stories.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Pagination/Pager.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Pagination/index.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Pagination/pagination.stories.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Paragraph/Paragraph.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Paragraph/index.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Paragraph/paragraph.stories.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Password/Password.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Password/Password.stories.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Password/index.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Password/password.test.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/ProgressIndicator/ProgressIndicator.stories.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/ProgressIndicator/index.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Radio/Radio.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Radio/RadioGroup.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Radio/index.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Radio/radio.stories.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Radio/radio.test.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Search/Search.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Search/index.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Search/search.stories.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Select/Select.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Select/SelectItem.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Select/SelectItemGroup.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Select/index.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Select/select.stories.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Slider/index.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Slider/slider.stories.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Slider/slider.test.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Spinner/Spinner.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Spinner/index.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Tag/index.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/TextArea/TextArea.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/TextArea/index.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/TextArea/textarea.stories.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/TextArea/textarea.test.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/TextInput/TextInput.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/TextInput/index.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/TextInput/textinput.stories.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/TextInput/textinput.test.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Tile/ClickableTile.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Tile/Tile.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Tile/index.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Tile/tile.stories.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Toast/index.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Toast/toast.stories.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Toggle/Toggle.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Toggle/index.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Toggle/toggle.stories.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Toggle/toggle.test.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Tooltip/Tooltip.test.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Tooltip/index.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/Tooltip/tooltip.stories.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/TreeView/NodeContent.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/TreeView/NodeIcon.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/TreeView/TextEditor.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/TreeView/TreeInlineEditor.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/TreeView/TreeNode.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/TreeView/TreeNodeTemplate.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/TreeView/TreeView.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/TreeView/TreeView.test.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/TreeView/index.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/TreeView/treeDispatchContext.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/TreeView/treeFunctionContext.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/TreeView/treeReducer.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/TreeView/treeStateContext.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/atoms/TreeView/treeview.stories.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/content.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/index.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/Accordion/Accordion.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/Accordion/AccordionItem.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/Accordion/accordion.stories.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/Accordion/index.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/ActionBar/ActionBar.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/ActionBar/ActionBar.stories.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/ActionBar/ActionList.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/ActionBar/ActionSummary.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/ActionBar/index.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/CodeSnippet/CodeSnippet.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/CodeSnippet/codesnippet.stories.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/CodeSnippet/index.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/ContentSwitcher/ContentSwitcher.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/ContentSwitcher/Switch.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/ContentSwitcher/contentswitcher.stories.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/ContentSwitcher/index.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/DatePicker/DateInput/DateInput.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/DatePicker/DateInput/index.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/DatePicker/DatePanel/index.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/DatePicker/WeekPanel/WeekPanel.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/DatePicker/WeekPanel/index.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/DatePicker/YearMonthPanel/index.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/DatePicker/index.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/DateRangeSelector/DateRangeFooter/DateRangeFooter.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/DateRangeSelector/DateRangeFooter/index.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/DateRangeSelector/DateRangeInput/index.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/DateRangeSelector/dateRangeSelector.stories.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/DateRangeSelector/index.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/DateSelector/DateSelectorInput/DateSelectorInput.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/DateSelector/DateSelectorInput/index.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/DateSelector/SelectPanel/PanelBottom/PanelBottom.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/DateSelector/SelectPanel/PanelBottom/index.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/DateSelector/SelectPanel/PanelHeader/PanelHeader.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/DateSelector/SelectPanel/PanelHeader/index.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/DateSelector/SelectPanel/SelectPanel.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/DateSelector/SelectPanel/index.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/DateSelector/datselector.stories.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/DateSelector/index.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/FileUploader/fileuploader.stories.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/FileUploader/fileuploader.test.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/FileUploader/index.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/Footer/Footer.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/Footer/footer.stories.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/Footer/index.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/Header/Header.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/Header/header.stories.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/Header/index.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/LogicBuilder/LogicBuilder.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/LogicBuilder/LogicBuilderDispatchContext.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/LogicBuilder/LogicBuilderReducer.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/LogicBuilder/LogicBuilderStateContext.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/LogicBuilder/LogicItem.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/LogicBuilder/index.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/Modal/index.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/Modal/modal.stories.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/Modal/modal.test.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/NumberInput/index.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/NumberInput/numberInput.test.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/NumberInput/numberinput.stories.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/Overflowmenu/MenuItem.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/Overflowmenu/index.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/Overflowmenu/overflowmenu.stories.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/Overflowmenu/overflowmenu.test.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/RichTextEditor/index.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/RichTextEditor/richtexteditor.stories.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/Sidebar/index.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/Sidebar/sidebar.stories.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/Slideout/Slideout.stories.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/Slideout/Slideout.test.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/Slideout/index.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/Tab/index.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/Tab/tab.stories.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/TimePicker/index.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/TimePicker/timepicker.stories.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/ToolBar/ToolBar.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/ToolBar/ToolBar.stories.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/ToolBar/ToolBarActions.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/ToolBar/index.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/Wizard/Wizard.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/Wizard/Wizard.test.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/Wizard/index.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/molecules/Wizard/wizard.stories.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/settings.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/util/ComponentDeprecated.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/util/PropDeprecated.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/util/colors.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/util/debounce.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/util/eventManager.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/util/icons.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/util/number.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/util/overlay.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/util/tableUtil.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/util/treeUtil.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/vivekvijayan/Documents/PatronCSS/patron-react-dev/src/util/utility.js</td>
+              <td>0</td>
+              <td>0</td></tr></tbody>
+      </table>
+
+  </div>
+</body>
+</html>

@@ -3,7 +3,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
-let elementId=0;
+let elementId = 0;
 
 const LoadingState = ({ type, className, ...restProps }) => {
   const classnames = `${prefix}-loading ${className ? className.trim() : ''}`;
@@ -111,7 +111,11 @@ const LoadingState = ({ type, className, ...restProps }) => {
     return (
       <div className={`${prefix}-slider-wrapper ${classnames}`}>
         <div className={`${prefix}-slider `}>
-          <label className={`${prefix}-slider-bottom-range`} htmlFor={`element${elementId++}`} aria-label="loading" />
+          <label
+            className={`${prefix}-slider-bottom-range`}
+            htmlFor={`element${elementId++}`}
+            aria-label="loading"
+          />
           <div className={`${prefix}-slider-input-wrapper`}>
             <input
               id={`element${elementId++}`}
