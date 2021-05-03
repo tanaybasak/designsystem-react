@@ -55,6 +55,13 @@ const Overlay = ({
     scrollEnd(targetElement);
   };
 
+  const clearEvents = () => {
+    removeListeners('overlayElementId-' + overlayElementId, 'click');
+    if (scrollListner) {
+      removeListeners('overlayElementId-' + overlayElementId, 'scroll');
+    }
+  };
+
   useEffect(() => {
     if (showOverlay) {
       if (overlayContainerRef && overlayContainerRef.current) {
@@ -65,6 +72,7 @@ const Overlay = ({
     } else {
       hideOverlayContainer('stateChange');
     }
+    return clearEvents;
   }, [showOverlay, targetElement]);
 
   const showOverlayContainer = () => {
@@ -100,13 +108,12 @@ const Overlay = ({
     }
   };
 
-  const hideOverlayContainer = type => {
-    removeListeners('overlayElementId-' + overlayElementId, 'click');
-    if (scrollListner) {
-      removeListeners('overlayElementId-' + overlayElementId, 'scroll');
+  const hideOverlayContainer = (type, direction) => {
+    if (type === 'stateChange') {
+      clearEvents();
     }
     if (onToggle && type !== 'stateChange') {
-      onToggle(false, type);
+      onToggle(false, type, direction);
     }
   };
 
@@ -149,6 +156,7 @@ const Overlay = ({
 
   const keyDownListner = e => {
     if (closeOnEscape && e.keyCode === 27) {
+      e.stopPropagation();
       hideOverlayContainer('escape');
     } else if (e.keyCode === 9) {
       const focusableEls = overlayContainerRef.current.querySelectorAll(
@@ -159,12 +167,12 @@ const Overlay = ({
 
       if (e.shiftKey) {
         if (document.activeElement === firstFocusableEl) {
-          hideOverlayContainer('focusout');
+          hideOverlayContainer('focusout', 'backward');
           e.preventDefault();
         }
       } else {
         if (document.activeElement === lastFocusableEl) {
-          hideOverlayContainer('focusout');
+          hideOverlayContainer('focusout', 'forward');
           e.preventDefault();
         }
       }
@@ -194,20 +202,36 @@ const Overlay = ({
 };
 
 Overlay.propTypes = {
+  /** Used to pass overlay content */
   children: PropTypes.element,
+  /** Used to toggle overlay content */
   showOverlay: PropTypes.bool,
+  /** target element where overlay to be positioned */
   targetElement: PropTypes.object,
+  /** Direction of overlay content */
   direction: PropTypes.oneOf([
     'top-right',
     'top-left',
     'bottom-right',
     'bottom-left'
   ]),
+  /** Overlay content position will change on scroll when attachElementToBody property is true */
   scrollListner: PropTypes.bool,
+  /** Callback function used to toggle the overlay content
+   *
+   * @signature
+   * * ```status``` : boolean value is sent
+   * * ```type``` : type of click (inside/outside).
+   * * ```direction``` : direction of the click.
+   */
   onToggle: PropTypes.func,
+  /** Used to attach element to body tag */
   attachElementToBody: PropTypes.bool,
+  /** onToggle callback will trigger on click of escape key */
   closeOnEscape: PropTypes.bool,
+  /** Used to pass custom classname */
   className: PropTypes.string,
+  /** used to provide elements, where overlay content will not removed on click of these elements */
   preventCloseElements: PropTypes.array
 };
 
@@ -224,4 +248,4 @@ Overlay.defaultProps = {
   preventCloseElements: null
 };
 
-export default React.memo(Overlay);
+export default Overlay;

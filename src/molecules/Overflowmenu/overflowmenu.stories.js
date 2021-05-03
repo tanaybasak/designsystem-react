@@ -38,7 +38,7 @@ const listItems = [
   }
 ];
 
-storiesOf('OverflowMenu', module)
+storiesOf('Components/Overflow Menu', module)
   .add(
     'default',
     () => (
@@ -50,8 +50,8 @@ storiesOf('OverflowMenu', module)
     ),
     {
       info: {
-        text: `Description About Overflowmenu Component \n
-      import { Overflowmenu } from '@patron/patron-react/overflowmenu';`
+        text: `Description About Overflowmenu Component`,
+        document: ['Overflowmenu']
       }
     }
   )
@@ -90,8 +90,8 @@ storiesOf('OverflowMenu', module)
     ),
     {
       info: {
-        text: `Description About Overflowmenu Component \n
-    import { Overflowmenu } from '@patron/patron-react/overflowmenu';`
+        text: `Description About Overflowmenu Component`,
+        document: ['Overflowmenu', 'MenuItem']
       }
     }
   )
@@ -108,8 +108,8 @@ storiesOf('OverflowMenu', module)
     ),
     {
       info: {
-        text: `Description About Overflowmenu Component \n
-    import { Overflowmenu } from '@patron/patron-react/overflowmenu';`
+        text: `Description About Overflowmenu Component`,
+        document: ['Overflowmenu']
       }
     }
   );

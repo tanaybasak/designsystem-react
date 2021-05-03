@@ -20,77 +20,64 @@ const keyListener = e => {
 
 const focusNode = (node, direction = 'next') => {
   if (direction === 'next') {
-    if (!node.parentElement.nextElementSibling) {
+    if (!node.nextElementSibling) {
       if (
-        node.parentElement.parentElement.firstElementChild.classList.contains(
+        node.parentElement.firstElementChild.classList.contains(
           `${prefix}-tabs-disabled`
         )
       ) {
-        focusNode(
-          node.parentElement.parentElement.firstElementChild.firstElementChild
-        );
+        focusNode(node.parentElement.firstElementChild);
       } else {
-        node.parentElement.parentElement.firstElementChild.firstElementChild.focus();
+        node.parentElement.firstElementChild.focus();
       }
     } else if (
-      node.parentElement.nextElementSibling &&
-      node.parentElement.nextElementSibling.classList.contains(
-        `${prefix}-tabs-disabled`
-      )
+      node.nextElementSibling &&
+      node.nextElementSibling.classList.contains(`${prefix}-tabs-disabled`)
     ) {
-      focusNode(node.parentElement.nextElementSibling.firstElementChild);
+      focusNode(node.nextElementSibling);
     } else {
-      if (node.parentElement.nextElementSibling) {
-        node.parentElement.nextElementSibling.firstElementChild.focus();
+      if (node.nextElementSibling) {
+        node.nextElementSibling.focus();
       }
     }
   } else if (direction === 'previous') {
-    if (!node.parentElement.previousElementSibling) {
+    if (!node.previousElementSibling) {
       if (
-        node.parentElement.parentElement.lastElementChild.classList.contains(
+        node.parentElement.lastElementChild.classList.contains(
           `${prefix}-tabs-disabled`
         )
       ) {
         focusNode(
-          node.parentElement.parentElement.lastElementChild.firstElementChild,
+          node.parentElement.lastElementChild.firstElementChild,
           'previous'
         );
       } else {
-        node.parentElement.parentElement.lastElementChild.firstElementChild.focus();
+        node.parentElement.lastElementChild.focus();
       }
     } else if (
-      node.parentElement.previousElementSibling &&
-      node.parentElement.previousElementSibling.classList.contains(
-        `${prefix}-tabs-disabled`
-      )
+      node.previousElementSibling &&
+      node.previousElementSibling.classList.contains(`${prefix}-tabs-disabled`)
     ) {
-      focusNode(
-        node.parentElement.previousElementSibling.firstElementChild,
-        'previous'
-      );
+      focusNode(node.previousElementSibling, 'previous');
     } else {
-      if (node.parentElement.previousElementSibling) {
-        node.parentElement.previousElementSibling.firstElementChild.focus();
+      if (node.previousElementSibling) {
+        node.previousElementSibling.focus();
       }
     }
   }
 };
-function Tab({ label, onClick, active, isDisabled }) {
+function Tab({ label, active, isDisabled, className, ...restProps }) {
   return (
     <li
       role="tab"
-      className={`${prefix}-tabs-nav-item ${active ? 'active' : ''} ${
-        isDisabled ? `${prefix}-tabs-disabled` : ''
-      }`}
-      onClick={onClick}
+      className={`${prefix}-tabs-nav-item${active ? ' active' : ''}${
+        isDisabled ? ` ${prefix}-tabs-disabled` : ''
+      } ${className}`.trim()}
+      tabIndex={0}
+      onKeyDown={keyListener}
+      {...restProps}
     >
-      <a
-        className={`${prefix}-tabs-nav-link`}
-        onKeyDown={keyListener}
-        tabIndex={0}
-      >
-        {label}
-      </a>
+      <a className={`${prefix}-tabs-nav-link`}>{label}</a>
     </li>
   );
 }
@@ -98,20 +85,21 @@ function Tab({ label, onClick, active, isDisabled }) {
 Tab.propTypes = {
   /** Text used to Differentiate Each Tab. */
   label: PropTypes.string,
+  /** custom className for the Tab */
+  className: PropTypes.string,
   /** Disables Tab if 'true'*/
   isDisabled: PropTypes.bool,
-  /** true – ‘active’ class is added to the current element 
-
-false – ‘active’ is removed from the current element.  */
-  active: PropTypes.bool,
-  /** Accepts Click handler as prop/Argument. */
-  onClick: PropTypes.func
+  /**
+   * * ```true``` : ‘active’ class is added to the current element
+   * * ```false``` : ‘active’ is removed from the current element.
+   * */
+  active: PropTypes.bool
 };
 Tab.defaultProps = {
   label: '',
+  className: '',
   isDisabled: false,
-  active: true,
-  onClick: () => {}
+  active: true
 };
 
 export default Tab;

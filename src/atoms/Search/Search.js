@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
-
+import { Close } from '../../util/icons';
 const Search = ({
   type,
   size,
@@ -65,7 +65,7 @@ const Search = ({
     <svg
       focusable="false"
       preserveAspectRatio="xMidYMid meet"
-      xmlns="http://www.w3.org/2000/svg"
+      xmlns="https://www.w3.org/2000/svg"
       className={icon}
       width="16"
       height="16"
@@ -114,30 +114,32 @@ const Search = ({
         disabled={disabled}
         onMouseDown={clearSearch}
         tabIndex="-1"
-      />
+      >
+        {Close}
+      </button>
     </div>
   );
 };
 
 Search.propTypes = {
   /** Type of Search
-    default : Normal Search 
-    clickable : Clickable/Header Search  
-     */
+   * * ```default``` : Normal Search
+   * * ```clickable``` : Clickable/Header Search
+   */
   type: PropTypes.oneOf(['clickable', 'default']),
   /** Size of Search
-    default : Normal Search 
-    small : applying small search styles  
+   * * ```default``` : Normal Search
+   * * ```small``` : applying small search styles
    */
   size: PropTypes.oneOf(['small', 'default']),
   /** used for changing the background color of search component
-    default : Normal Search with grey background
-    white : applying white background in the search text field  
-  */
+   * * ```default``` : Normal Search with grey background
+   * * ```white``` : applying white background in the search text field
+   */
   theme: PropTypes.oneOf(['white', 'default']),
-  /** used for changing the color of search icon 
-    default : Normal Search 
-    white : applying white color to the search icon  
+  /** used for changing the color of search icon
+   * * ```default``` : Normal Search
+   * * ```white``` : applying white color to the search icon
    */
   iconTheme: PropTypes.oneOf(['white', 'default']),
   /** Class/clasess will be applied on the parent div of Search  */
@@ -146,7 +148,11 @@ Search.propTypes = {
   defaultValue: PropTypes.string,
   /** Placeholder for the search text field  */
   placeholder: PropTypes.string,
-  /** call back function which will return the entered character  */
+  /** call back function which will return the entered character
+   *
+   * @signature
+   * ```value``` : search value
+   */
   onChange: PropTypes.func,
   /** call back function triggered on focus out */
   onBlur: PropTypes.func,

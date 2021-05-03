@@ -1,13 +1,19 @@
-import React, { useState, cloneElement } from 'react';
+import React, { useState, useEffect, cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 
-function Tabs({ activeIndex, onChange, children }) {
-  const [isActive, setActive] = useState(activeIndex);
+function Tabs({ activeIndex, onChange, children, ...restProps }) {
+  const [isActive, setActive] = useState(0);
+
+  useEffect(() => {
+    if (activeIndex > -1 && activeIndex < children.length) {
+      setActive(activeIndex);
+    }
+  }, [activeIndex]);
 
   const modifiedChildren = React.Children.map(children, (child, index) => {
     if (child) {
-      const { isDisabled, label } = child.props;
+      const { isDisabled, label, className } = child.props;
       return cloneElement(child, {
         onClick: e => {
           if (!isDisabled) {
@@ -16,7 +22,8 @@ function Tabs({ activeIndex, onChange, children }) {
           }
         },
         key: 'tab' + index,
-        active: isActive === index
+        active: isActive === index,
+        className: className
       });
     }
   });
@@ -38,7 +45,7 @@ function Tabs({ activeIndex, onChange, children }) {
   );
 
   return (
-    <section className={`${prefix}-tab`}>
+    <section className={`${prefix}-tab`} {...restProps}>
       <nav data-tabs role="navigation">
         <ul role="tablist" className={`${prefix}-tabs-nav`}>
           {modifiedChildren}
@@ -52,7 +59,7 @@ function Tabs({ activeIndex, onChange, children }) {
 Tabs.propTypes = {
   /** Index of the tab to be selected. */
   activeIndex: PropTypes.number,
-  /** Accepts event handler as prop/argument. */
+  /** Accepts event handler as prop/argument. The event object passed has 'label' and 'tabIndex' keys which is used to get the current name and index of the Tab respectively.  */
   onChange: PropTypes.func,
   /** self Children i.e Tab Component. */
   children: PropTypes.node.isRequired

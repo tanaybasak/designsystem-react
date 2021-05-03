@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 
@@ -11,7 +11,11 @@ const Toggle = ({
   toggled,
   ...restProps
 }) => {
-  const [checked, setChecked] = useState(toggled || false);
+  const [checked, setChecked] = useState(toggled);
+
+  useEffect(() => {
+    setChecked(toggled);
+  }, [toggled]);
 
   const keyDownOnToggle = e => {
     const key = e.which || e.keyCode;
@@ -62,7 +66,9 @@ Toggle.propTypes = {
   labelOn: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   /** Call back function that is invoked when Toggle is clicked
    *
-   * Argument – event
+   * @signature
+   * * ```value``` : bool value of toggle
+   * * ```event``` : event when toggled
    */
   onChange: PropTypes.func,
   /** Name of the custom class to apply to the Toggle */
@@ -80,7 +86,8 @@ Toggle.defaultProps = {
   labelOff: 'Off',
   labelOn: 'On',
   onChange: () => {},
-  disabled: false
+  disabled: false,
+  toggled: false
 };
 
 export default Toggle;

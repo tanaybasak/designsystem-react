@@ -39,7 +39,7 @@ const TreeNodeWrapper = ({
 
   const configuration = state.configuration;
 
-  const [showText, updateTextStatus] = useState(false);
+  //const [showText, updateTextStatus] = useState(false);
   const [loadingState, updateLoadingState] = useState(false);
 
   let draggable = false;
@@ -87,8 +87,8 @@ const TreeNodeWrapper = ({
               level: level
             }
           });
-          updateLoadingState(false);
         }
+        updateLoadingState(false);
       }
     } else {
       dispatch({
@@ -579,12 +579,12 @@ const TreeNodeWrapper = ({
 
           {callbackContext.customNodeTemplate ? (
             callbackContext.customNodeTemplate(node, parentNode, level)
-          ) : showText ? (
+          ) : state.renameNodeId &&
+            state.renameNodeId === node[configuration.key] ? (
             <TreeInlineEditor
               content={node[configuration.name]}
               node={node}
               level={level}
-              updateTextStatus={updateTextStatus}
             />
           ) : (
             <NodeContent content={node[configuration.name]} />
@@ -608,11 +608,7 @@ const TreeNodeWrapper = ({
               {callbackContext.customActionTemplate(node, parentNode, level)}
             </div>
           ) : callbackContext.getOverFlowItems ? (
-            <TreeViewOverflow
-              node={node}
-              level={level}
-              updateTextStatus={updateTextStatus}
-            />
+            <TreeViewOverflow node={node} level={level} />
           ) : null}
         </TreeNodeTemplate>
       )}

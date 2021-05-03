@@ -7,24 +7,25 @@
   height: 100vh;
 }
 
-// .p-hclsw-folder,
-// .p-hclsw-export {
-//   color: sandybrown;
-// }
-
-// .p-hclsw-document {
-//   color: skyblue;
-// }
-
-.nodrop-cursor {
-  cursor: no-drop;
+.hcl-inpage-navigation-wrapper {
+  position: fixed;
+  top: 400px;
+  right: 27px;
 }
 
-// .hcl-dropdown-container{
-//     display: inline;
-// }
+nav.hcl-sidebar.hcl-sidebar-left {
+  float: left;
+}
 
-
-.hcl-spinner-inline > svg {
-    margin-left: unset;
+.custom-slideout-table {
+  font-size: 14px;
+  font-weight: 400;
+}
+.h-line::after {
+  display: block;
+  content: '';
+  width: 100%;
+  padding: inherit;
+  margin: 10px 15px 0;
+  border: 1px solid #c9c9c9;
 }

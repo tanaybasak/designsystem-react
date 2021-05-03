@@ -1,13 +1,19 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { text, boolean } from '@storybook/addon-knobs';
+import { text, boolean, object } from '@storybook/addon-knobs';
 //@update-path-build-start
 import TimePicker from './TimePicker';
 //@update-path-build-end
 
+const defaultTime = {
+  time: '1:24',
+  period: 'PM',
+  timezone: 'Time zone 2'
+};
+
 const timeZones = ['Time zone 1', 'Time zone 2', 'Time zone 3'];
-storiesOf('TimePicker', module)
+storiesOf('Components/Time Picker', module)
   .add(
     'default',
     () => (
@@ -17,13 +23,15 @@ storiesOf('TimePicker', module)
         helperText={text('Helper Text', 'optional helper text')}
         disabled={boolean('Disabled', false)}
         onChange={action('Timepicker Onchange')}
+        errorMessage={text('Error message', '')}
         aria-label="Time Picker"
+        defaultTime={object('Default Time', defaultTime)}
       />
     ),
     {
       info: {
-        text: `Description About TimePicker Component \n
-      import { TimePicker } from '@patron/patron-react/timepicker';`
+        text: `Description About TimePicker Component`,
+        document: ['TimePicker']
       }
     }
   )
@@ -38,13 +46,15 @@ storiesOf('TimePicker', module)
         helperText={text('Helper Text', 'optional helper text')}
         disabled={boolean('Disabled', false)}
         onChange={action('Timepicker Onchange')}
+        errorMessage={text('Error message', '')}
         aria-label="Time Picker"
+        defaultTime={object('Default Time', defaultTime)}
       />
     ),
     {
       info: {
-        text: `Description About TimePicker Component \n
-        import { TimePicker } from '@patron/patron-react/timepicker';`
+        text: `Description About TimePicker Component`,
+        document: ['TimePicker']
       }
     }
   )
@@ -57,14 +67,16 @@ storiesOf('TimePicker', module)
         helperText={text('Helper Text', 'optional helper text')}
         disabled={boolean('Disabled', false)}
         onChange={action('Timepicker Onchange')}
+        errorMessage={text('Error message', '')}
         timeZones={timeZones}
+        defaultTime={object('Default Time', defaultTime)}
         aria-label="Time Picker"
       />
     ),
     {
       info: {
-        text: `Description About TimePicker Component \n
-        import { TimePicker } from '@patron/patron-react/timepicker';`
+        text: `Description About TimePicker Component`,
+        document: ['TimePicker']
       }
     }
   );

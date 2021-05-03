@@ -21,13 +21,20 @@ import Modal from './molecules/Modal';
 import { Tabs, Tab } from './molecules/Tab';
 import Slider from './atoms/Slider';
 import { Overflowmenu } from './molecules/Overflowmenu';
+import { MenuList, Item } from './atoms/MenuList';
+
 import overflowlist from './molecules/Overflowmenu/sample-overflow-list.json';
 import { ContentSwitcher, Switch } from './molecules/ContentSwitcher';
 import Search from './atoms/Search';
 import FileUploader from './molecules/FileUploader';
 import { Accordion, AccordionItem } from './molecules/Accordion';
 import Dropdown from './atoms/Dropdown';
-import Tile from './atoms/Tile';
+import {
+  Tile,
+  ExpandableTile,
+  SelectableTile,
+  ClickableTile
+} from './atoms/Tile';
 import DatePicker from './molecules/DatePicker';
 import { weekDays, months } from './content';
 import Pagination from './atoms/Pagination';
@@ -42,9 +49,15 @@ import Password from './atoms/Password';
 //import Overlay from './atoms/Overlay';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.cc = React.createRef();
+  }
   state = {
+    indeterminate: false,
     showOverlay: false,
     totalItems: 300,
+    currentPage: 3,
     stepper: 10,
     stepperLimit: 100,
     radio: {
@@ -67,7 +80,37 @@ class App extends Component {
     sidebarExpanded: false,
     password: {
       disabled: false
-    }
+    },
+    tabidx: 0,
+    wizardmodel: [
+      {
+        title: 'Little lillies',
+        description: "It's flowering always"
+      },
+      {
+        title: 'Address',
+        description: 'Input your present address'
+      },
+      {
+        title: 'Card',
+        description: 'Enter your card details'
+      },
+      {
+        title: 'Alternate Contact',
+        description: 'Alternate Contact'
+      }
+    ],
+    expandableTileToggle: false
+  };
+
+  position = {
+    left: [
+      'itemsPerPageSelection',
+      'itemsPerPageInfo',
+      'pageSelection',
+      'pageInfo'
+    ],
+    right: []
   };
 
   itemList = [
@@ -261,7 +304,7 @@ class App extends Component {
       <svg
         focusable="false"
         preserveAspectRatio="xMidYMid meet"
-        xmlns="http://www.w3.org/2000/svg"
+        xmlns="https://www.w3.org/2000/svg"
         width="16"
         height="16"
         viewBox="0 0 16 16"
@@ -279,7 +322,7 @@ class App extends Component {
         data-type="icon"
         focusable="false"
         preserveAspectRatio="xMidYMid meet"
-        xmlns="http://www.w3.org/2000/svg"
+        xmlns="https://www.w3.org/2000/svg"
         width="16"
         height="16"
         viewBox="0 0 16 16"
@@ -317,8 +360,10 @@ class App extends Component {
       <>
         <main className="hcl-content-main">
           <section className="hcl-container pt-5 mb-5">
+            {/* <Wizard activeIndex={0} model={this.state.wizardmodel} /> */}
             <div className="hcl-row m-0">
               {/* Input Field */}
+
               <div className="hcl-form-group hcl-col-12" id="form-section">
                 <Label htmlFor="firstname">First Name </Label>
                 <FormHelperText className="helper-text">
@@ -473,7 +518,7 @@ class App extends Component {
                     width="16"
                     height="16"
                     viewBox="0 0 16 16"
-                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns="https://www.w3.org/2000/svg"
                     aria-hidden="true"
                   >
                     <path
@@ -489,6 +534,27 @@ class App extends Component {
               </div>
               {/* Checkbox */}
               <div className="hcl-col-12 mt-5" id="checkbox-section">
+                <legend className="hcl-legend">Checkbox - INDETERMINATE</legend>
+                <Button
+                  onClick={() => {
+                    this.setState({ indeterminate: !this.state.indeterminate });
+                  }}
+                />
+                <div className="hcl-checkbox-group">
+                  <Checkbox
+                    id="checkbox1"
+                    indeterminate={this.state.indeterminate}
+                    label="1 (default)"
+                    onChange={e => {
+                      this.setState({
+                        indeterminate: e.currentTarget.indeterminate
+                      });
+                    }}
+                  />
+                </div>
+              </div>
+
+              <div className="hcl-col-12 mt-5" id="checkbox-section">
                 <legend className="hcl-legend">
                   Checkbox - Horizontally arranged (default)
                 </legend>
@@ -496,8 +562,10 @@ class App extends Component {
                   <Checkbox
                     id="checkbox1"
                     label="1 (default)"
-                    onChange={() => {
-                      console.log('Default Checkbox.');
+                    onChange={e => {
+                      this.setState({
+                        indeterminate: e.currentTarget.indeterminate
+                      });
                     }}
                   />
                   <Checkbox
@@ -613,10 +681,14 @@ class App extends Component {
                 <Breadcrumb
                   id="small-navigator"
                   className="custom-breadcrumb-top"
-                  activeIndex={Math.floor(Math.random() * 3)}
-                  onSelection={(item, idx, e) => console.log(item, idx, e)}
+                  activeIndex={2}
+                  onSelection={(item, idx) => console.log(item, idx)}
                 >
-                  <BreadcrumbItem className="custom-item" href="#">
+                  <BreadcrumbItem
+                    itemClass="custom-item"
+                    href="#"
+                    onClick={e => console.log('hello', e)}
+                  >
                     Breadcrumb 1
                   </BreadcrumbItem>
                   <BreadcrumbItem href="#">Breadcrumb 2</BreadcrumbItem>
@@ -628,23 +700,19 @@ class App extends Component {
                 <Breadcrumb
                   id="small-navigator"
                   className="custom-breadcrumb-top"
-                  activeIndex={Math.floor(Math.random() * 3)}
+                  activeIndex={0}
                   onSelection={(item, e) => console.log(item, e)}
                 >
-                  <BreadcrumbItem className="custom-item">
+                  <BreadcrumbItem itemClass="custom-item">
                     Breadcrumb 1
                   </BreadcrumbItem>
-                  <BreadcrumbItem>Breadcrumb 2</BreadcrumbItem>
+                  <BreadcrumbItem id={34}>Breadcrumb 2</BreadcrumbItem>
                   <BreadcrumbItem>Breadcrumb 3</BreadcrumbItem>
                   <BreadcrumbItem>Breadcrumb 4</BreadcrumbItem>
-                  <BreadcrumbItem href="#asdf">Breadcrumb 5</BreadcrumbItem>
-                  <BreadcrumbItem
-                    onClick={e => {
-                      console.log('sdfsdf', e);
-                    }}
-                  >
-                    Breadcrumb 6
+                  <BreadcrumbItem href="#asdf" id={45}>
+                    Breadcrumb 5
                   </BreadcrumbItem>
+                  <BreadcrumbItem>Breadcrumb 6</BreadcrumbItem>
                 </Breadcrumb>
               </div>
               {/* Spinner */}
@@ -711,6 +779,7 @@ class App extends Component {
                   subtitle="Lorem Ipsum is simply dummy text of the printing and typesetting industry."
                   type="warning"
                   closable
+                  actionLink="#"
                   visible={this.state.notification.visible}
                   onClose={this._hideNotification}
                 />
@@ -851,16 +920,31 @@ class App extends Component {
                 {/* Danger type Modals */}
                 {this.state.modal === 1 && (
                   <Modal
-                    type="danger"
+                    type="warning"
                     label="optional label"
                     keyboard
                     heading="Heading comes here."
                     onClose={this.onModalClose}
                     actions={this.modalActions1}
                   >
-                    <Paragraph>
-                      Danger Modal with save and close buttons
-                    </Paragraph>
+                    <>
+                      <Paragraph>
+                        Danger Modal with save and close buttons
+                      </Paragraph>
+                      <Tooltip content="Filter" direction="right" type="icon">
+                        {tooltipIcon}
+                      </Tooltip>
+                      <Dropdown
+                        type="top"
+                        items={this.items}
+                        label="Top DropDown"
+                        selectedItem="option-3"
+                        attachElementToBody
+                        onChange={selected => {
+                          console.log('selected item', selected);
+                        }}
+                      />
+                    </>
                   </Modal>
                 )}
                 {this.state.modal === 2 && (
@@ -924,13 +1008,28 @@ class App extends Component {
               </div>
               <div className="hcl-col-12 mt-5 colBorder p-5" id="tabs-section">
                 {/* Tab Component */}
+                <h1>Tab Example</h1>
+                <Button
+                  onClick={() => {
+                    this.setState({ ...this.state, tabidx: 0 });
+                  }}
+                >
+                  0
+                </Button>
+                <Button
+                  onClick={() => {
+                    this.setState({ ...this.state, tabidx: 1 });
+                  }}
+                >
+                  1
+                </Button>
                 <Tabs
-                  activeIndex={0}
+                  activeIndex={this.state.tabidx}
                   onChange={e => {
                     console.log(`Label => ${e.label} Index => ${e.tabIndex}`);
                   }}
                 >
-                  <Tab label="Tab List 1">
+                  <Tab label="Tab List 1" className="testing">
                     Content 1
                     <Accordion>
                       <AccordionItem
@@ -955,6 +1054,9 @@ class App extends Component {
                           passages, and more recently with desktop publishing
                           software like Aldus PageMaker including versions of
                           Lorem Ipsum.
+                          <a target="_blank" rel="noreferrer" href={'#'}>
+                            JiraUrl
+                          </a>
                         </Paragraph>
                       </AccordionItem>
                       <AccordionItem
@@ -1092,7 +1194,9 @@ class App extends Component {
                       </AccordionItem>
                     </Accordion>
                   </Tab>
-                  <Tab label="Tab List 3">Content 3</Tab>
+                  <Tab label="Tab List 3" className="ddd">
+                    Content 3
+                  </Tab>
                 </Tabs>
               </div>
               <section
@@ -1330,18 +1434,27 @@ class App extends Component {
               </section>
               {/* File Uploader Component */}
               <div className="hcl-col-12 mt-5" id="file-uploader-section">
-                <FileUploader
-                  id="file_uploader"
-                  label="Account photo"
-                  description="only .jpg and .png files. 500kb max file size."
-                  fileType=".jpg,.png"
-                  className="hcl-secondary hcl-sml"
-                  onChange={(FileList, e) => {
-                    console.log('FileList:  ', FileList, 'event', e);
+                <form
+                  onSubmit={e => {
+                    e.preventDefault();
+                    return false;
                   }}
                 >
-                  Add file
-                </FileUploader>
+                  <FileUploader
+                    id="file_uploader"
+                    label="Account photo"
+                    description="only .jpg and .png files. 500kb max file size."
+                    fileType=".jpg,.png"
+                    className="hcl-secondary hcl-sml"
+                    onChange={(FileList, e) => {
+                      console.log('FileList:  ', FileList, 'event', e);
+                    }}
+                    required
+                  >
+                    Add file
+                  </FileUploader>
+                  <button>Submit</button>
+                </form>
               </div>
               {/* Dropdown Component */}
               <div className="hcl-row m-3 hcl-col-12">
@@ -1392,33 +1505,46 @@ class App extends Component {
                 </div>
                 <div className="hcl-col-12 mt-5 mb-5">
                   {/* clickable tile */}
-                  <Tile type="clickable" href="">
+                  <ClickableTile type="clickable" href="">
                     <p>This is clickable tile</p>
-                  </Tile>
+                  </ClickableTile>
                 </div>
                 <div className="hcl-col-12 mt-5 mb-5">
                   {/* selectable tile */}
-                  <Tile type="selectable">
+                  <SelectableTile selected>
                     <p>This is selectable tile</p>
-                  </Tile>
+                  </SelectableTile>
                 </div>
-                <div className="hcl-col-12 mt-5 mb-5">
+                <div className="hcl-col-md-6 mt-5 mb-5">
                   {/* expandable bottom right arrow tile */}
-                  <Tile type="expandable" id="expandable-tile-1">
-                    {/* container for default content */}
-                    <div>
-                      <p>Content shown prior expand </p>
-                    </div>
-                    {/* container for content which will be added once expanded */}
-                    <div>
-                      <p>Content shown after expand </p>
-                    </div>
-                  </Tile>
-                  {/* expandable top left arrow tile */}
-                  <Tile
+                  <ExpandableTile
                     type="expandable"
-                    expandableType="top"
-                    id="expandable-tile-2"
+                    id="expandable-tile-1"
+                    expandableType="nw"
+                    foldContentAbove={
+                      <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        sed do eiusmod tempor incididunt ut labore et dolore
+                        magna aliqua. Lorem ipsum dolor sit amet, consectetur
+                        adipiscing elit, sed do eiusmod tempor incididunt ut
+                        labore et dolore magna aliqua. Lorem ipsum dolor sit
+                        amet, consectetur adipiscing elit, sed do eiusmod tempor
+                        incididunt ut labore et dolore magna aliqua labore et
+                        dolore magna aliqua aliqua
+                      </p>
+                    }
+                    foldContentBelow={
+                      <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        sed do eiusmod tempor incididunt ut labore et dolore
+                        magna aliqua. Lorem ipsum dolor sit amet, consectetur
+                        adipiscing elit, sed do eiusmod tempor incididunt ut
+                        labore et dolore magna aliqua. Lorem ipsum dolor sit
+                        amet, consectetur adipiscing elit, sed do eiusmod tempor
+                        incididunt ut labore et dolore magna aliqua labore et
+                        dolore magna aliqua aliqua
+                      </p>
+                    }
                   >
                     {/* container for default content */}
                     <div>
@@ -1428,11 +1554,37 @@ class App extends Component {
                     <div>
                       <p>Content shown after expand </p>
                     </div>
-                  </Tile>
+                  </ExpandableTile>
+                  {/* expandable top left arrow tile */}
+                </div>
+                <div className="hcl-col-md-6 mt-5 mb-5">
+                  <Button
+                    kind="button"
+                    type="primary-danger"
+                    onClick={() => {
+                      this.setState({
+                        ...this.state,
+                        expandableTileToggle: !this.state.expandableTileToggle
+                      });
+                    }}
+                  >
+                    Toggle Expandable tile
+                  </Button>
+                  <ExpandableTile
+                    ref={this.cc}
+                    expanded={this.state.expandableTileToggle}
+                    onChange={s => {
+                      console.log(s);
+                    }}
+                    expandableType="nw"
+                    toggleArrowOnly
+                    id="expandable-tile-2"
+                    foldContentAbove={'Part A'}
+                    foldContentBelow={<p>Part B</p>}
+                  />
                 </div>
               </section>
             </div>
-
             {/* Accordion Component */}
             <div className="hcl-col-12 mt-5 mb-5">
               <Accordion>
@@ -1626,10 +1778,22 @@ class App extends Component {
                     Stepper Limit
                   </button>
                 </Paragraph>
+                <Button
+                  onClick={() => {
+                    console.log('Button Clicked');
+                    this.setState({
+                      currentPage: 10
+                    });
+                  }}
+                >
+                  Hello
+                </Button>
                 <Pagination
                   totalItems={this.state.totalItems}
                   itemsPerPageStepper={this.state.stepper}
                   itemsStepperLimit={this.state.stepperLimit}
+                  position={this.position}
+                  currentPage={this.state.currentPage}
                   itemsPerPageText={'No. of Rows:'}
                   onPageChange={e => {
                     console.log(e);
@@ -1644,6 +1808,7 @@ class App extends Component {
                   itemsPerPageStepper={25}
                   itemsStepperLimit={500}
                   itemsPerPageText={'Items per page:'}
+                  currentPage={this.state.currentPage}
                   onPageChange={e => {
                     console.log(e);
                   }}
@@ -1768,7 +1933,7 @@ class App extends Component {
                           width="16"
                           height="16"
                           viewBox="0 0 16 16"
-                          xmlns="http://www.w3.org/2000/svg"
+                          xmlns="https://www.w3.org/2000/svg"
                           aria-hidden="true"
                         >
                           <path
@@ -1790,7 +1955,7 @@ class App extends Component {
                           width="16"
                           height="16"
                           viewBox="0 0 16 16"
-                          xmlns="http://www.w3.org/2000/svg"
+                          xmlns="https://www.w3.org/2000/svg"
                           aria-hidden="true"
                         >
                           <path
@@ -1812,7 +1977,7 @@ class App extends Component {
                           width="16"
                           height="16"
                           viewBox="0 0 16 16"
-                          xmlns="http://www.w3.org/2000/svg"
+                          xmlns="https://www.w3.org/2000/svg"
                           aria-hidden="true"
                         >
                           <path
@@ -1935,6 +2100,33 @@ class App extends Component {
                     </ToolBarActions>
                   </ToolBar>
                 </div>
+              </div>
+
+              {/* MenuList */}
+              <div className="hcl-col-12 mt-5" id="overflow-menu-section">
+                <h5>Menu List</h5>
+                <MenuList display="true">
+                  <Item className="custom-item">
+                    <button className="hcl-btn hcl-ghost">ghost</button>
+                  </Item>
+                  <Item>
+                    <button className="hcl-btn hcl-ghost">ghost</button>
+                  </Item>
+                  <Item>
+                    <button className="hcl-btn hcl-ghost">ghost</button>
+                  </Item>
+                </MenuList>
+                <MenuList display="true">
+                  <Item className="custom-item">
+                    <button className="hcl-btn hcl-ghost">ghost</button>
+                  </Item>
+                  <Item>
+                    <button className="hcl-btn hcl-ghost">ghost</button>
+                  </Item>
+                  <Item disabled>
+                    <button className="hcl-btn hcl-ghost">ghost</button>
+                  </Item>
+                </MenuList>
               </div>
 
               <div className="hcl-row">

@@ -78,3 +78,81 @@ export const clone = items => {
   });
   return result;
 };
+
+export const convertToDateObj = (format, str, saperator = '/') => {
+  const strArray = str.split(saperator);
+  let dateObj;
+  if (format === 'mm/dd/yyyy') {
+    dateObj = new Date(strArray[2], strArray[0] - 1, strArray[1]);
+  } else if (format === 'dd/mm/yyyy') {
+    dateObj = new Date(strArray[2], strArray[1] - 1, strArray[0]);
+  }
+  return dateObj;
+};
+
+export const createDateObj = (date, month, year) => {
+  return new Date(year, month - 1, date);
+};
+
+export const convertToDateString = (dateObj, format, saperator = '/') => {
+  let dateStr;
+  // console.log('dateObj', dateObj);
+  if (dateObj) {
+    if (format === 'mm/dd/yyyy') {
+      dateStr = `${
+        dateObj.getMonth() + 1
+      }${saperator}${dateObj.getDate()}${saperator}${dateObj.getFullYear()}`;
+    } else if (format === 'dd/mm/yyyy') {
+      dateStr = `${dateObj.getDate()}${saperator}${
+        dateObj.getMonth() + 1
+      }${saperator}${dateObj.getFullYear()}`;
+    }
+  } else {
+    dateStr = '';
+  }
+  // console.log('dateObj', dateStr);
+  return dateStr;
+};
+
+export const monthDiff = (d1, d2) => {
+  // d1 is start and d2 is end. d1 should always less than d2 otherwise it will return 0.
+  let months;
+  months = (d2.getFullYear() - d1.getFullYear()) * 12;
+  months -= d1.getMonth();
+  months += d2.getMonth();
+  return months <= 0 ? 0 : months;
+};
+
+export const dayDiff = (d1, d2) => {
+  // console.log('d1', d1);
+  // console.log('d2', d2);
+  let diffDays;
+  if (
+    d1.getDate() === d2.getDate() &&
+    d1.getMonth() === d2.getMonth() &&
+    d1.getFullYear() === d2.getFullYear()
+  ) {
+    diffDays = 0;
+  } else {
+    let diffTime;
+    if (d1 < d2) {
+      diffTime = Math.abs(d2 - d1);
+      diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    } else {
+      diffTime = Math.abs(d1 - d2);
+      diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) * -1;
+    }
+    // console.log(diffDays);
+  }
+  return diffDays;
+};
+
+export const isDateEqual = (d1, d2) => {
+  d1.setHours(0, 0, 0, 0);
+  d2.setHours(0, 0, 0, 0);
+  return d1.getTime() === d2.getTime();
+};
+
+export const lastday = (y, m) => {
+  return new Date(y, m + 1, 0).getDate();
+};

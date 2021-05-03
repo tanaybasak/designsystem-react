@@ -1,12 +1,17 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { text, boolean } from '@storybook/addon-knobs';
+import { text, boolean, select } from '@storybook/addon-knobs';
 //@update-path-build-start
 import Checkbox from './Checkbox';
 //@update-path-build-end
-
-storiesOf('Checkbox', module)
+const directionOption = {
+  Top: 'top',
+  Bottom: 'bottom',
+  Left: 'left',
+  Right: 'right'
+};
+storiesOf('Components/Checkbox', module)
   .add(
     'default',
     () => (
@@ -20,9 +25,28 @@ storiesOf('Checkbox', module)
     ),
     {
       info: {
-        text: `Description About Checkbox Component \n
-
-      import { Checkbox } from '@patron/patron-react/checkbox';`
+        text: `Description About Checkbox Component`,
+        document: ['Checkbox']
+      }
+    }
+  )
+  .add(
+    'indeterminate',
+    () => (
+      <Checkbox
+        disabled={boolean('Disabled', false)}
+        id="checkbox1"
+        indeterminate={boolean('Indeterminate', true)}
+        checked={boolean('Checked', false)}
+        label={text('Label', 'Checkbox Label')}
+        onChange={action('Checkbox-OnChange')}
+        value="check1"
+      />
+    ),
+    {
+      info: {
+        text: `Description About Checkbox Component`,
+        document: ['Checkbox']
       }
     }
   )
@@ -55,9 +79,8 @@ storiesOf('Checkbox', module)
     ),
     {
       info: {
-        text: `Description About Checkbox Component \n
-  
-        import { Checkbox } from '@patron/patron-react/checkbox';`
+        text: `Description About Checkbox Component`,
+        document: ['Checkbox']
       }
     }
   )
@@ -90,9 +113,35 @@ storiesOf('Checkbox', module)
     ),
     {
       info: {
-        text: `Description About Checkbox Component \n
-  
-        import { Checkbox } from '@patron/patron-react/checkbox';`
+        text: `Description About Checkbox Component`,
+        document: ['Checkbox']
+      }
+    }
+  )
+  .add(
+    'with tooltip',
+    () => (
+      <Checkbox
+        disabled={boolean('Disabled', false)}
+        id="checkbox1"
+        label={text('Label', 'Checkbox Label')}
+        tooltipTitle={text(
+          'Tooltip Title',
+          'Breif Definition of the dotted underlined word.'
+        )}
+        tooltipDirection={select(
+          'Tooltip Direction',
+          directionOption,
+          'bottom'
+        )}
+        onChange={action('Checkbox-OnChange')}
+        value="check1"
+      />
+    ),
+    {
+      info: {
+        text: `Description About Checkbox Component`,
+        document: ['Checkbox']
       }
     }
   );

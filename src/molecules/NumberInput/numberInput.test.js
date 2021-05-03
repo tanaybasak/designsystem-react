@@ -23,12 +23,12 @@ it('Increment Number', () => {
   const wrapper = mount(numberInputComponent);
   expect(wrapper.find('input').props().value).toEqual(10);
   wrapper.find('.increment-btn').simulate('mouseDown');
-  expect(wrapper.find('input').props().value).toEqual(11);
+  expect(wrapper.find('input').props().value).toEqual('11');
 });
 
 it('Decrement Number', () => {
   const wrapper = mount(numberInputComponent);
   expect(wrapper.find('input').props().value).toEqual(10);
   wrapper.find('.decrement-btn').simulate('mouseDown');
-  expect(wrapper.find('input').props().value).toEqual(9);
+  expect(wrapper.find('input').props().value).toEqual('9');
 });

@@ -21,7 +21,9 @@ const TextInput = ({ className, ...restProps }) => {
         value={value}
         onChange={event => {
           setValue(event.currentTarget.value);
-          restProps.onChange(event);
+          if (restProps.onChange) {
+            restProps.onChange(event);
+          }
         }}
       />
     </>
@@ -40,24 +42,14 @@ TextInput.propTypes = {
   /** Value of the input field. */
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   /** The default Value of the field on rendering. */
-  defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  /** Event to subscribe when the value of the Input field changes. */
-  onChange: PropTypes.func,
-  /** Event to subscribe when the Input field is clicked. */
-  onClick: PropTypes.func,
-  /** Event to subscribe when the Input field is focused. */
-  onFocus: PropTypes.func,
-  /** Event to subscribe when the Input field is Blurred. */
-  onBlur: PropTypes.func
+  defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 };
 
 TextInput.defaultProps = {
   className: '',
-  disabled: false,
-  onChange: () => {},
-  onClick: () => {},
-  onFocus: () => {},
-  onBlur: () => {}
+  disabled: false
 };
+
+TextInput.displayName = 'TextInput';
 
 export default TextInput;

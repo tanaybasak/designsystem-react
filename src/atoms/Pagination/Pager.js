@@ -1,34 +1,29 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
+import PropTypes from 'prop-types';
 import prefix from '../../settings';
 
-const Pager = (props, ref) => {
-  if (
-    !props.options &&
-    !props.className &&
-    !props.onChange &&
-    !props.onKeyDown &&
-    props.options.length <= 0 &&
-    !props.value
-  ) {
-    return null;
-  }
-
+const Pager = ({
+  options,
+  className,
+  onKeyDown,
+  value,
+  onChange,
+  arialabel
+}) => {
   return (
     <>
       <select
-        className={props.className}
-        ref={ref}
-        value={props.value}
+        className={className ? className : ''}
+        value={value ? value : undefined}
         onChange={e => {
-          props.onChange(e);
+          if (onChange) onChange(e);
         }}
-        aria-label={props.arialabel}
+        aria-label={arialabel ? arialabel : ''}
         onKeyDown={e => {
-          props.onKeyDown(e);
+          if (onKeyDown) onKeyDown(e);
         }}
       >
-        {props.options.map((item, idx) => {
+        {options.map((item, idx) => {
           return (
             <option key={idx} value={item}>
               {item}
@@ -47,6 +42,23 @@ const Pager = (props, ref) => {
     </>
   );
 };
-//Warning: forwardRef render functions do not support propTypes or defaultProps. Did you accidentally pass a React component?
 
-export default React.forwardRef(Pager);
+Pager.propTypes = {
+  options: PropTypes.array.isRequired,
+  className: PropTypes.string.isRequired,
+  arialabel: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
+  onKeyDown: PropTypes.func.isRequired,
+  value: PropTypes.number
+};
+
+Pager.defaultProps = {
+  options: [],
+  className: '',
+  arialabel: '',
+  onChange: () => {},
+  onKeyDown: () => {},
+  value: undefined
+};
+
+export default Pager;

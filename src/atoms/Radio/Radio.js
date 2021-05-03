@@ -1,8 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
+import Tooltip from '../Tooltip';
 
-const Radio = ({ className, labelText, onChange, ...restProps }) => {
+const Radio = ({
+  className,
+  labelText,
+  onChange,
+  tooltipTitle,
+  tooltipDirection,
+  ...restProps
+}) => {
   const classnames = `${prefix}-radio-item ${className}`.trim();
   const handleChange = evt => {
     onChange(evt.target.value, evt);
@@ -16,9 +24,17 @@ const Radio = ({ className, labelText, onChange, ...restProps }) => {
         onChange={handleChange}
       />
       {labelText ? (
-        <label className={`${prefix}-radio-label`} htmlFor={restProps.id}>
-          {labelText}
-        </label>
+        tooltipTitle ? (
+          <Tooltip content={tooltipTitle} direction={tooltipDirection}>
+            <label className={`${prefix}-radio-label`} htmlFor={restProps.id}>
+              {labelText}
+            </label>
+          </Tooltip>
+        ) : (
+          <label className={`${prefix}-radio-label`} htmlFor={restProps.id}>
+            {labelText}
+          </label>
+        )
       ) : null}
     </div>
   );
@@ -34,6 +50,16 @@ Radio.propTypes = {
   /** Unique identifier of the element. */
   id: PropTypes.string,
   /** Accepts event handler as prop/argument. */
+  /** Tooltip Text for Checkbox Label. */
+  tooltipTitle: PropTypes.string,
+  /** Tooltip Direction eg: top, bottom, left, right */
+  tooltipDirection: PropTypes.oneOf(['top', 'bottom', 'left', 'right']),
+  /** Event to subscribe when the Input field is clicked.
+   *
+   * @signature
+   * * ```value``` : radio value
+   * * ```event``` : on change event
+   */
   onChange: PropTypes.func,
   /** Control Checked state for Radio */
   checked: PropTypes.bool,
@@ -47,6 +73,8 @@ Radio.defaultProps = {
   className: '',
   labelText: '',
   disabled: false,
+  tooltipTitle: null,
+  tooltipDirection: 'bottom',
   onChange: () => {}
 };
 

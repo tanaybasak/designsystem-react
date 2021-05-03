@@ -8,7 +8,6 @@ exports[`Number Input renders correctly 1`] = `
   <label
     className="hcl-label"
     htmlFor="numberInput2"
-    onClick={[Function]}
   >
     Number Input validation
      
@@ -51,7 +50,7 @@ exports[`Number Input renders correctly 1`] = `
           focusable="false"
           preserveAspectRatio="xMidYMid meet"
           viewBox="0 0 8 4"
-          xmlns="http://www.w3.org/2000/svg"
+          xmlns="https://www.w3.org/2000/svg"
         >
           <path
             d="M0 4l4-4 4 4z"
@@ -71,7 +70,7 @@ exports[`Number Input renders correctly 1`] = `
           focusable="false"
           preserveAspectRatio="xMidYMid meet"
           viewBox="0 0 8 4"
-          xmlns="http://www.w3.org/2000/svg"
+          xmlns="https://www.w3.org/2000/svg"
         >
           <path
             d="M8 0L4 4 0 0z"

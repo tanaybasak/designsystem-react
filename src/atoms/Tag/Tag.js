@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
-
+import { Close } from '../../util/icons';
 const Tag = ({
   className,
   children,
@@ -15,12 +15,6 @@ const Tag = ({
   ...restProps
 }) => {
   const classnames = `${prefix}-tag hcl-tag-${type} ${className}`.trim();
-  const keyListener = event => {
-    if (event.keyCode === 13) {
-      event.preventDefault();
-      event.target.click();
-    }
-  };
 
   let element = null;
   icon
@@ -46,11 +40,11 @@ const Tag = ({
     : null;
 
   return (
-    <button
-      type="button"
+    <span
       className={classnames}
       disabled={disabled}
       {...restProps}
+      onClick={disabled ? null : restProps.onClick}
     >
       {thumbnail
         ? React.cloneElement(thumbnail, {
@@ -64,15 +58,17 @@ const Tag = ({
       </span>
       {element}
       {closable ? (
-        <span
-          className={`${prefix}-close`}
+        <button
+          className={`${prefix}-tag-close`}
           aria-label={!disabled ? 'close' : null}
           onClick={onClose}
-          onKeyDown={keyListener}
+          type="button"
           tabIndex={!disabled ? '0' : null}
-        />
+        >
+          {Close}
+        </button>
       ) : null}
-    </button>
+    </span>
   );
 };
 
@@ -80,7 +76,7 @@ Tag.propTypes = {
   /** Custom class for tag */
   className: PropTypes.string,
   /** Text value for tag */
-  children: PropTypes.string,
+  children: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   /** Text value for tag */
   text: PropTypes.string,
   /** Type of Tag eg: 'primary', 'secondary' */
@@ -95,7 +91,8 @@ Tag.propTypes = {
   closable: PropTypes.bool,
   /** Callback function on close of Tag Component
    *
-   * Argument – event
+   * @signature
+   * ```event``` :  event on click of close
    */
   onClose: PropTypes.func,
   /** Thumbnail for Tag Component as an Object */

@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { text, boolean } from '@storybook/addon-knobs';
+import { text, boolean, select } from '@storybook/addon-knobs';
 //@update-path-build-start
 import Radio from './Radio';
 import RadioGroup from './RadioGroup';
@@ -12,8 +12,14 @@ const props = {
     disabled: boolean('Disabled', false)
   })
 };
+const directionOption = {
+  Top: 'top',
+  Bottom: 'bottom',
+  Left: 'left',
+  Right: 'right'
+};
 
-storiesOf('Radio', module)
+storiesOf('Components/Radio', module)
   .add(
     'default',
     () => (
@@ -27,9 +33,32 @@ storiesOf('Radio', module)
     ),
     {
       info: {
-        text: `Description About Radio Component \n
-
-                import { Radio } from '@patron/patron-react/radio';`
+        text: `Description About Radio Component`,
+        document: ['Radio']
+      }
+    }
+  )
+  .add(
+    'with tooltip',
+    () => (
+      <Radio
+        disabled={boolean('Disabled', false)}
+        tooltipTitle={text('Tooltip Title', 'Radio Label')}
+        tooltipDirection={select(
+          'Tooltip Direction',
+          directionOption,
+          'bottom'
+        )}
+        id="radio1"
+        labelText={text('Label', 'Radio Label')}
+        name="test"
+        value="radio1"
+      />
+    ),
+    {
+      info: {
+        text: `Description About Radio Component`,
+        document: ['Radio']
       }
     }
   )
@@ -67,9 +96,8 @@ storiesOf('Radio', module)
     ),
     {
       info: {
-        text: `Description About Radio Group Component \n
-  
-        import { Radio , RadioGroup} from '@patron/patron-react/radio';`
+        text: `Description About Radio Group Component`,
+        document: ['Radio']
       }
     }
   )
@@ -106,9 +134,8 @@ storiesOf('Radio', module)
     ),
     {
       info: {
-        text: `Description About Radio Group Component \n
-  
-        import { Radio , RadioGroup} from '@patron/patron-react/radio';`
+        text: `Description About Radio Group Component`,
+        document: ['Radio']
       }
     }
   );

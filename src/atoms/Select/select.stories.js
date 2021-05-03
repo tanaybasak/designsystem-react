@@ -9,14 +9,15 @@ import { Select, SelectItem, SelectItemGroup } from './index';
 const props = {
   select: () => ({
     label: text('Label', 'Select Option'),
-    onChange: action('onChange')
+    onChange: action('onChange'),
+    disabled: boolean('disabled', false)
   }),
   group: () => ({
-    disabled: boolean('Disabled', false)
+    disabled: boolean('Disable Options', false)
   })
 };
 
-storiesOf('Select', module).add(
+storiesOf('Components/Select', module).add(
   'default',
   () => (
     <Select {...props.select()} id="selct-id">
@@ -33,9 +34,8 @@ storiesOf('Select', module).add(
   ),
   {
     info: {
-      text: `Description About Select Component\n
-      import { Select, SelectItem, SelectItemGroup } from '@patron/patron-react/select';
-      `
+      text: `Description About Select Component`,
+      document: ['Select', 'SelectItem', 'SelectItemGroup']
     }
   }
 );

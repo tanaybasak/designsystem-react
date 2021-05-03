@@ -1,4 +1,4 @@
-import React, { useState, cloneElement } from 'react';
+import React, { useState, cloneElement, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 
@@ -59,8 +59,12 @@ const keyDownOnContextSwitch = e => {
       break;
   }
 };
-function ContentSwitcher({ activeIndex, onChange, children }) {
+function ContentSwitcher({ className, activeIndex, onChange, children }) {
   const [activeSwitch, changeSwitch] = useState(activeIndex);
+
+  useEffect(() => {
+    changeSwitch(activeIndex);
+  }, [activeIndex]);
 
   const modifiedChildren = React.Children.map(children, (child, index) => {
     const { label } = child.props;
@@ -74,8 +78,14 @@ function ContentSwitcher({ activeIndex, onChange, children }) {
     });
   });
 
+  const classNames = [`${prefix}-content-switcher`];
+
+  if (className) {
+    classNames.push(className);
+  }
+
   return (
-    <div className={`${prefix}-content-switcher`} role="tablist">
+    <div className={classNames.join(' ')} role="tablist">
       {modifiedChildren}
     </div>
   );
@@ -84,14 +94,21 @@ function ContentSwitcher({ activeIndex, onChange, children }) {
 ContentSwitcher.propTypes = {
   /** Index of the tab to be selected. */
   activeIndex: PropTypes.number,
-  /** Accepts event handler as prop/argument. */
+  /** Accepts event handler as prop/argument.
+   *
+   * @signature
+   * ```event```: change event object
+   */
   onChange: PropTypes.func,
   /** self Children i.e Switch Component. */
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
+  /** Class/clasess will be applied on the parent div of ContentSwitcher  */
+  className: PropTypes.string
 };
 
 ContentSwitcher.defaultProps = {
   activeIndex: 0,
+  className: '',
   onChange: () => {}
 };
 

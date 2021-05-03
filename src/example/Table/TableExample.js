@@ -6,24 +6,52 @@ import Toggle from '../../atoms/Toggle';
 import Checkbox from '../../atoms/Checkbox';
 import DataTable from '../../atoms/DataTable';
 import { Overflowmenu } from '../../molecules/Overflowmenu';
+import Dropdown from '../../atoms/Dropdown';
+
 class TableExample extends Component {
   state = {
     tableData: [],
     totalItems: 0,
+    selectedItem: {},
+    initSortedColumn: { order: 'asc', name: 'name' },
     displayData: [],
+    enableMultiSort: true,
     tableConfig: [
       {
         field: 'checkbox',
         renderHtml: row => {
-          return <Checkbox id={`${row.id}_checkbox_`} name="testcheck" />;
+          return (
+            <Checkbox
+              id={`${row.id}_checkbox_`}
+              name="testcheck"
+              onChange={e => {
+                const tempSelectedObj = { ...this.state.selectedItem };
+                if (e.target.checked) {
+                  tempSelectedObj[row.id] = e.target.checked;
+                } else {
+                  delete tempSelectedObj[row.id];
+                }
+                this.setState({
+                  selectedItem: tempSelectedObj
+                });
+              }}
+            />
+          );
         },
-
-        width: '40px'
+        width: '40px',
+        headerCellClass: 'custom-header-checkbox',
+        bodyCellClass: 'custom-body-checkbox'
         // pinned: 'left'
       },
       {
         label: 'ID',
         field: 'id',
+        sortable: true,
+        allowResize: true,
+        onColumnSelect: (column, row, e) => {
+          e.stopPropagation();
+          console.log('COLUMN SELECTED', column, row, e);
+        },
         columnHtml: (
           <Tag
             className=""
@@ -40,13 +68,16 @@ class TableExample extends Component {
             Sample Tag
           </Tag>
         ),
-        width: '160px',
-        pinned: 'right'
+        bodyCellClass: 'custom-body-id-class',
+        width: '60px'
+        // pinned: 'left'
       },
 
       {
         label: 'Avatar',
-        pinned: 'left',
+        field: 'avtar',
+        // pinned: 'right',
+
         renderHtml: model => {
           return (
             <img
@@ -55,14 +86,53 @@ class TableExample extends Component {
             />
           );
         },
-        columnHtml: <h6> this is temp</h6>,
-        width: '260px'
+        // columnHtml: <h6> this is temp</h6>,
+        columnHtml: (
+          <Dropdown
+            type="top"
+            items={[
+              {
+                id: 'option-1',
+                text: 'Option 1'
+              },
+              {
+                id: 'option-2',
+                text: 'Option 2'
+              },
+              {
+                id: 'option-3',
+                text: 'Option 3'
+              },
+              {
+                id: 'option-4',
+                text: 'Option 4'
+              },
+              {
+                id: 'option-5',
+                text: 'Option 5'
+              },
+              {
+                id: 'option-6',
+                text: 'Option 6'
+              }
+            ]}
+            label="Top DropDown"
+            selectedItem="option-3"
+            attachElementToBody
+            onChange={selected => {
+              console.log('selected item', selected);
+            }}
+          />
+        ),
+        width: '260px',
+        minResizeWidth: 40, // not less than that
+        maxResizeWidth: 350 // not to restrict
       },
       {
         label: 'Full Name',
         field: 'name',
         sortable: true,
-        //pinned: 'left',
+        // pinned: 'left',
         // renderHtml: model => {
         //     return (
         //       <span>{model.name} {model.name} {model.name} {model.name}{model.name} {model.name} {model.name} {model.name} {model.name} {model.name}</span>
@@ -72,6 +142,7 @@ class TableExample extends Component {
       },
       {
         label: 'Private',
+        field: 'private',
         renderHtml: model => {
           let classname = 'primary';
           if (!model.owner.site_admin) {
@@ -88,8 +159,7 @@ class TableExample extends Component {
       {
         label: 'Language',
         field: 'owner.login',
-
-        width: '120px'
+        width: '420px'
       },
       {
         label: 'Has Issues',
@@ -105,11 +175,12 @@ class TableExample extends Component {
             />
           );
         },
-        width: '150px'
+        width: '550px'
       },
       {
         label: 'Forks Count',
         field: 'forks_count',
+        sortable: true,
         width: '120px'
       },
       {
@@ -121,7 +192,9 @@ class TableExample extends Component {
       {
         label: 'Issues Count',
         field: 'open_issues_count',
-        width: '120px'
+        sortable: true,
+        width: '420px'
+        // pinned: 'right'
       },
       {
         field: 'overflow',
@@ -140,7 +213,7 @@ class TableExample extends Component {
             />
           );
         },
-        width: '500px'
+        width: '400px'
       }
     ]
   };
@@ -157,6 +230,7 @@ class TableExample extends Component {
       .then(response => response.json())
       .then(response => {
         console.log(response);
+        response = response.slice(-5);
 
         this.setState({
           tableData: response,
@@ -167,60 +241,128 @@ class TableExample extends Component {
       .catch(error => {});
   };
 
+  colResize = data => {
+    console.log(data);
+  };
+
   render() {
     return (
-      <main className="hcl-content-main">
-        <section className="hcl-container pt-5 mb-5">
-          <div className="hcl-row m-0">
-            <div className="hcl-col-12 mt-5 mb-5" id="dataTableElement">
-              <DataTable
-                id="sample_table"
-                tableData={this.state.displayData}
-                tableConfig={this.state.tableConfig}
-                stickyHeaderMain={true}
-                // expandRowTemplate={() => {
-                //   return (<Paragraph>
-                //     available, but the majority have suffered alteration
-                //     in some form, by injected humour, or randomised words
-                //     which don&apos;t look even slightly believable. If you
-                //     are going to use a passage of Lorem Ipsum, you need to
-                //     be sure there isn&apos;t anything embarrassing hidden
-                //     in the middle of text. All the Lorem Ipsum generators
-                //     on the Internet tend to repeat predefined chunks as
-                //     necessary, making this the first true generator on the
-                //     Internet. It uses a dictionary of over 200 Latin
-                //     words, combined with a handful of model sentence
-                //     structures, to generate Lorem Ipsum which looks
-                //     reasonable. The generated Lorem Ipsum is therefore
-                //     always free from repetition, injected humour, or
-                //     non-characteristic words etc.
-                //   </Paragraph>);
-                // }}
-                type="zebra borderless"
-                onSort={(field, order) => {
-                  if (order === null) {
-                    this.setState({
-                      displayData: [...this.state.tableData]
-                    });
-                  } else {
-                    let newData = [...this.state.displayData].sort((a, b) => {
+      <section className="hcl-container pt-5 mb-5">
+        <div className="hcl-row m-0">
+          <div className="hcl-col-12 mt-5 mb-5" id="dataTableElement">
+            <DataTable
+              resizable
+              // showDraggableIcon ={false}
+              id="sample_table"
+              multiSort={this.state.enableMultiSort}
+              tableData={this.state.displayData}
+              tableConfig={this.state.tableConfig}
+              isHeaderSticky
+              onColumnAfterResize={this.colResize}
+              // initSortedColumn={this.state.initSortedColumn}
+              columnDraggable
+              resizer
+              selectedItem={this.state.selectedItem}
+              onColumnReorder={dataTableConfig => {
+                console.log('dataTableConfig', dataTableConfig);
+              }}
+              // expandRowTemplate={() => {
+              //   return (<Paragraph>
+              //     available, but the majority have suffered alteration
+              //     in some form, by injected humour, or randomised words
+              //     which don&apos;t look even slightly believable. If you
+              //     are going to use a passage of Lorem Ipsum, you need to
+              //     be sure there isn&apos;t anything embarrassing hidden
+              //     in the middle of text. All the Lorem Ipsum generators
+              //     on the Internet tend to repeat predefined chunks as
+              //     necessary, making this the first true generator on the
+              //     Internet. It uses a dictionary of over 200 Latin
+              //     words, combined with a handful of model sentence
+              //     structures, to generate Lorem Ipsum which looks
+              //     reasonable. The generated Lorem Ipsum is therefore
+              //     always free from repetition, injected humour, or
+              //     non-characteristic words etc.
+              //   </Paragraph>);
+              // }}
+              onRowSelect={row => {
+                console.log('ROW', row);
+              }}
+              type="zebra borderless"
+              onSort={(field, order, rows, multiSortArrayFields) => {
+                let newData = [];
+                if (order === null) {
+                  this.setState({
+                    displayData: [...this.state.tableData]
+                  });
+                } else {
+                  if (!this.state.enableMultiSort) {
+                    newData = [...this.state.displayData].sort((a, b) => {
                       if (a[field].toLowerCase() > b[field].toLowerCase())
                         return order === 'asc' ? 1 : -1;
                       if (b[field].toLowerCase() > a[field].toLowerCase())
                         return order === 'asc' ? -1 : 1;
                       return 0;
                     });
-                    this.setState({
-                      displayData: newData
+                  } else {
+                    const columnNames = [
+                      'forks_count',
+                      'open_issues_count',
+                      'name',
+                      'avtar',
+                      'id'
+                    ];
+                    newData = [...this.state.displayData].sort((a, b) => {
+                      const idx = multiSortArrayFields.findIndex(
+                        item => item['name'] === field
+                      );
+                      if (
+                        field === 'forks_count' ||
+                        field === 'open_issues_count' ||
+                        field === 'id'
+                      ) {
+                        if (multiSortArrayFields[idx].order === 'asc') {
+                          return (
+                            a[multiSortArrayFields[idx].name] -
+                            b[multiSortArrayFields[idx].name]
+                          );
+                        } else if (multiSortArrayFields[idx].order === 'desc') {
+                          return (
+                            b[multiSortArrayFields[idx].name] -
+                            a[multiSortArrayFields[idx].name]
+                          );
+                        } else {
+                          return 0;
+                        }
+                      } else {
+                        debugger;
+                        if (
+                          a[multiSortArrayFields[idx]['name']].toLowerCase() >
+                          b[multiSortArrayFields[idx]['name']].toLowerCase()
+                        )
+                          return a[multiSortArrayFields[idx]['order']] === 'asc'
+                            ? 1
+                            : -1;
+                        if (
+                          b[multiSortArrayFields[idx]['name']].toLowerCase() >
+                          a[multiSortArrayFields[idx]['name']].toLowerCase()
+                        )
+                          return a[multiSortArrayFields[idx]['order']] === 'asc'
+                            ? -1
+                            : 1;
+                        return 0;
+                      }
                     });
                   }
-                }}
-                headerSelection={<Checkbox id={`header_checkbox`} />}
-              />
-            </div>
+                  this.setState({
+                    displayData: newData
+                  });
+                }
+              }}
+              headerSelection={<Checkbox id={`header_checkbox`} />}
+            />
           </div>
-        </section>
-      </main>
+        </div>
+      </section>
     );
   }
 }

@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
-import { Info, Success, Danger, Warning } from '../../util/icons';
+import Link from '../Link';
+import { Info, Success, Danger, Warning, Close } from '../../util/icons';
 
 const useIcon = kindProp =>
   ({
@@ -17,21 +18,33 @@ export default function Notification({
   subtitle,
   className,
   icon,
+  actionLabel,
   closable,
   onClose,
-  visible
+  actionLink,
+  visible,
+  ...restProps
 }) {
   const classnames = `${prefix}-notification ${
     type ? prefix + '-' + type : ''
   } ${className}`.trim();
   return visible ? (
-    <div className={classnames} role="alert">
+    <div className={classnames} role="alert" {...restProps}>
       <div className={`${prefix}-notification-body`}>
         <div className={`${prefix}-notification-icon-container`}>
           {icon || useIcon(type)}
         </div>
         <div className={`${prefix}-notification-text-wrapper`}>
           <p className={`${prefix}-notification-title`}>{title}</p>
+          {actionLink ? (
+            <Link
+              href={actionLink}
+              className={`${prefix}-notification-action`}
+              target="_blank"
+            >
+              {actionLabel}
+            </Link>
+          ) : null}
           <div className={`${prefix}-notification-subtitle`}>{subtitle}</div>
         </div>
       </div>
@@ -41,7 +54,9 @@ export default function Notification({
           type="button"
           aria-label="close"
           onClick={onClose}
-        />
+        >
+          {Close}
+        </button>
       ) : null}
     </div>
   ) : null;
@@ -62,7 +77,15 @@ Notification.propTypes = {
   closable: PropTypes.bool,
   /** to show notification */
   visible: PropTypes.bool.isRequired,
-  /** Callback to invoke when a notification is closed. */
+  /** hyperlink - The URL of the Action link*/
+  actionLink: PropTypes.string,
+  /** actionLabel - Label for the Action */
+  actionLabel: PropTypes.string,
+  /** Callback to invoke when a notification is closed.
+   *
+   * @signature
+   * ```event```: callback event is sent.
+   */
   onClose: PropTypes.func
 };
 
@@ -71,6 +94,8 @@ Notification.defaultProps = {
   subtitle: '',
   className: '',
   icon: null,
+  actionLabel: 'Action',
   closable: true,
+  actionLink: '',
   onClose: () => {}
 };

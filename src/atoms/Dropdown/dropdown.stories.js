@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { object, text } from '@storybook/addon-knobs';
+import { boolean, object, text } from '@storybook/addon-knobs';
 //@update-path-build-start
 import Dropdown from './Dropdown';
 //@update-path-build-end
@@ -25,7 +25,7 @@ const items = [
   }
 ];
 
-storiesOf('Dropdown', module)
+storiesOf('Components/Dropdown', module)
   .add(
     'default',
     () => (
@@ -33,12 +33,14 @@ storiesOf('Dropdown', module)
         items={object('Items', items)}
         label={text('Label', 'Dropdown Label')}
         onChange={action('Dropdown-Onchange')}
+        disabled={boolean('disabled', false)}
       />
     ),
     {
       info: {
-        text: `Description About Dropdown Component \n
-        import { Dropdown } from '@patron/patron-react/dropdown';`
+        text: `Description About Dropdown Component`,
+        className: 'hcl-col-12 hcl-col-sm-8 hcl-col-lg-4',
+        document: ['Dropdown']
       }
     }
   )
@@ -51,12 +53,14 @@ storiesOf('Dropdown', module)
         label={text('Label', 'Dropdown Label')}
         selectedItem={text('Item', 'option-2')}
         onChange={action('Dropdown-Onchange')}
+        disabled={boolean('disabled', false)}
       />
     ),
     {
       info: {
-        text: `Description About Dropdown Component \n
-        import { Dropdown } from '@patron/patron-react/dropdown';`
+        text: `Description About Dropdown Component`,
+        className: 'hcl-col-12 hcl-col-sm-8 hcl-col-lg-4',
+        document: ['Dropdown']
       }
     }
   )
@@ -68,12 +72,14 @@ storiesOf('Dropdown', module)
         items={object('Items', items)}
         label={text('Label', 'MultiSelect Label')}
         onChange={action('Dropdown-Onchange')}
+        disabled={boolean('disabled', false)}
       />
     ),
     {
       info: {
-        text: `Description About Dropdown Component \n
-        import { Dropdown } from '@patron/patron-react/dropdown';`
+        text: `Description About Dropdown Component`,
+        className: 'hcl-col-12 hcl-col-sm-8 hcl-col-lg-4',
+        document: ['Dropdown']
       }
     }
   );

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import prefix from '../../settings';
 import Checkbox from '../Checkbox';
 import Overlay from '../Overlay';
-
+import Tag from '../Tag/Tag';
 let dropdownIdRef = 0;
 const Dropdown = ({
   type,
@@ -13,9 +13,11 @@ const Dropdown = ({
   onChange,
   config,
   selectedItem,
+  disabled,
   className,
   attachElementToBody,
   scrollListner,
+  onVisibleChange,
   ...restProps
 }) => {
   const defaultConfig = { text: 'text', id: 'id' };
@@ -48,6 +50,12 @@ const Dropdown = ({
       setSelected(selectedItem ? selectedOption : null);
     }
   }, [selectedItem]);
+
+  useEffect(() => {
+    if (onVisibleChange) {
+      onVisibleChange(isOpen);
+    }
+  }, [isOpen]);
 
   const focusNode = node => {
     if (node.classList.contains(`${prefix}-dropdown-item`)) {
@@ -125,6 +133,13 @@ const Dropdown = ({
   };
 
   const keydownButton = e => {
+    if (
+      e.target &&
+      e.target.classList &&
+      e.target.classList.contains(`${prefix}-tag-close`)
+    ) {
+      return;
+    }
     const key = e.which || e.keyCode;
     const listItems = dropDownRef.current;
     if (isOpen) {
@@ -175,8 +190,13 @@ const Dropdown = ({
   };
 
   const classNames = [`${prefix}-overlay-wrapper`, `${prefix}-dropdown`];
+  const multidropClassnames = [`${prefix}-btn`, `${prefix}-dropdown-toggle`];
   if (isOpen) {
     classNames.push(`${prefix}-overlay-wrapper-active`);
+  }
+  if (disabled) {
+    multidropClassnames.push(`${prefix}-dropdown-disabled`);
+    classNames.push(`${prefix}-disable-cursor`);
   }
   if (className) {
     classNames.push(className);
@@ -186,9 +206,9 @@ const Dropdown = ({
     <div className={classNames.join(' ')} {...restProps}>
       {dropdownType === 'multi' ? (
         <div
-          className={`${prefix}-btn ${prefix}-dropdown-toggle`}
+          className={multidropClassnames.join(' ')}
           data-toggle="dropdown"
-          tabIndex="0"
+          tabIndex={!disabled ? '0' : null}
           role="button"
           ref={dropDown}
           onKeyDown={keydownButton}
@@ -196,30 +216,19 @@ const Dropdown = ({
           aria-haspopup="true"
         >
           {selectedCount > 0 ? (
-            <button
-              className={`${prefix}-tag ${prefix}-tag-primary`}
-              title="primary-closeable"
-              tabIndex="-1"
+            <Tag
+              closable
+              tabIndex={-1}
+              onClose={e => {
+                e.preventDefault();
+                e.stopPropagation();
+                clearSelection(e);
+              }}
+              title={selectedCount + ''}
+              type="primary"
             >
-              <span
-                aria-label={`${selectedCount}-selected options`}
-                className={`${prefix}-tag-text`}
-              >
-                {selectedCount}
-              </span>
-              <span
-                className={`${prefix}-close`}
-                aria-label="close-icon"
-                onKeyDown={event => {
-                  if (event.key === 'Enter') {
-                    event.preventDefault();
-                    clearSelection(event);
-                  }
-                }}
-                onClick={clearSelection}
-                tabIndex="0"
-              />
-            </button>
+              {selectedCount}
+            </Tag>
           ) : null}
           {label}
         </div>
@@ -228,6 +237,7 @@ const Dropdown = ({
           className={`${prefix}-btn ${prefix}-dropdown-toggle`}
           data-toggle="dropdown"
           ref={dropDown}
+          disabled={disabled}
           onKeyDown={keydownButton}
           onClick={toggleDropDown}
           aria-label={label}
@@ -283,6 +293,7 @@ const Dropdown = ({
                   }
                 }}
                 tabIndex="0"
+                title={item[configuration.text]}
                 aria-label={item[configuration.text]}
                 role="option"
                 aria-checked={
@@ -317,8 +328,14 @@ Dropdown.propTypes = {
   type: PropTypes.string,
 
   /** Array of items eg:
-  [{id: 'option-1',text: 'Option 1'},
-   {id: 'option-2', text: 'Option 2'}]*/
+   *
+   * ```
+   * [
+   *    {id: 'option-1',text: 'Option 1'},
+   *    {id: 'option-2', text: 'Option 2'}
+   * ]
+   * ```
+   * */
   items: PropTypes.array.isRequired,
 
   /** Type of dropdown eg : multiselect, singleselect */
@@ -327,7 +344,12 @@ Dropdown.propTypes = {
   /** Label for Dropdown */
   label: PropTypes.string,
 
-  /** Callback function on selecting item*/
+  /** Callback function on selecting item
+   *
+   * @signature
+   * * ```item``` : Object returns id and text value
+   * * ```list``` : List of the selected Item incase of MultiSelect Dropdown
+   */
   onChange: PropTypes.func,
 
   /** id of item for default selection */
@@ -343,18 +365,31 @@ Dropdown.propTypes = {
   attachElementToBody: PropTypes.bool,
 
   /** Dropdown Container position will changed on scroll. This is applicable when Dropdown container is attached to body */
-  scrollListner: PropTypes.bool
+  scrollListner: PropTypes.bool,
+
+  /** Disabled property for dropdown */
+  disabled: PropTypes.bool,
+  /** Callback on dropdown toggle
+   *
+   * @signature
+   * ```isOpen``` : boolean flag
+   */
+  onVisibleChange: PropTypes.func
 };
 
 Dropdown.defaultProps = {
   type: 'bottom',
   label: 'Select Option',
+  disabled: false,
   onChange: () => {},
   className: '',
   dropdownType: '',
   config: {},
   attachElementToBody: false,
-  scrollListner: false
+  scrollListner: false,
+  onVisibleChange: null
 };
+
+Dropdown.displayName = 'Dropdown';
 
 export default Dropdown;

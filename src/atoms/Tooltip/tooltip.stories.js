@@ -15,7 +15,7 @@ const directionOption = {
   Right: 'right'
 };
 
-storiesOf('Tooltip', module)
+storiesOf('Components/Tooltip', module)
   .add(
     'icon',
     () => (
@@ -33,7 +33,7 @@ storiesOf('Tooltip', module)
           preserveAspectRatio="xMidYMid meet"
           viewBox="0 0 16 16"
           width="16"
-          xmlns="http://www.w3.org/2000/svg"
+          xmlns="https://www.w3.org/2000/svg"
           className="hcl-icon-tooltip"
         >
           <path d="M15 4h-2.1c-.2-1.1-1.2-2-2.4-2s-2.2.9-2.4 2H1v1h7.1c.2 1.1 1.2 2 2.4 2s2.2-.9 2.4-2H15V4zm-4.5 2C9.7 6 9 5.3 9 4.5S9.7 3 10.5 3s1.5.7 1.5 1.5S11.3 6 10.5 6zM1 12h2.1c.2 1.1 1.2 2 2.4 2s2.2-.9 2.4-2H15v-1H7.9c-.2-1.1-1.2-2-2.4-2s-2.2.9-2.4 2H1v1zm4.5-2c.8 0 1.5.7 1.5 1.5S6.3 13 5.5 13 4 12.3 4 11.5 4.7 10 5.5 10z" />
@@ -42,11 +42,8 @@ storiesOf('Tooltip', module)
     ),
     {
       info: {
-        text: `Description About Icon Tooltip Component \n
-        
-        import { Tooltip } from '@patron/patron-react/tooltip';
-        
-        `
+        text: `Description About Icon Tooltip Component`,
+        document: ['Tooltip']
       }
     }
   )
@@ -66,11 +63,8 @@ storiesOf('Tooltip', module)
     ),
     {
       info: {
-        text: `Description About Definition Tooltip Component \n
-        
-        import { Tooltip } from '@patron/patron-react/tooltip';
-        
-        `
+        text: `Description About Definition Tooltip Component`,
+        document: ['Tooltip']
       }
     }
   )
@@ -121,7 +115,7 @@ storiesOf('Tooltip', module)
           preserveAspectRatio="xMidYMid meet"
           viewBox="0 0 16 16"
           width="16"
-          xmlns="http://www.w3.org/2000/svg"
+          xmlns="https://www.w3.org/2000/svg"
           className="hcl-interactive-tooltip"
         >
           <path d="M8.5 11V6.5h-2v1h1V11H6v1h4v-1zM8 3.5c-.4 0-.8.3-.8.8s.4.7.8.7.8-.3.8-.8-.4-.7-.8-.7z" />
@@ -131,14 +125,9 @@ storiesOf('Tooltip', module)
     ),
     {
       info: {
-        text: `Description About Icon Tooltip Component \n
-        
-    import { Tooltip } from '@patron/patron-react/tooltip';
-    import { Paragraph } from '@patron/patron-react/paragraph';
-    import { Button } from '@patron/patron-react/button';
-    import { Link } from '@patron/patron-react/link';
-        
-        `
+        text: `Description About Icon Tooltip Component`,
+        document: ['Tooltip'],
+        internal: ['Paragraph', 'Button', 'Link']
       }
     }
   );
