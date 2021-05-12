@@ -70,7 +70,7 @@ const infoMessage = (
 
 storiesOf('Components/Calendar', module)
   .add(
-    'default',
+    'Calendar with border event style',
     () => (
       <Calendar
         currDateObj={new Date('2021', '03', '15')}
@@ -102,6 +102,28 @@ storiesOf('Components/Calendar', module)
         maxDate={new Date(9999, 12, 31)}
         eventsCategory={object('Events Category', eventsCategoryDot)}
         eventStyle={'dot'}
+        events={object('Events', events)}
+        weekDays={object('weekDays', weekDays)}
+        months={object('months', months)}
+      />
+    ),
+    {
+      info: {
+        text: `Description About Calendar Component`,
+        document: ['Calendar'],
+        info: infoMessage
+      }
+    }
+  ).add(
+    'Calendar with both event style',
+    () => (
+      <Calendar
+        currDateObj={new Date('2021', '03', '15')}
+        onDateSelection={action('onDateSelection triggered')}
+        minDate={new Date(1000, 0, 1)}
+        maxDate={new Date(9999, 12, 31)}
+        eventsCategory={object('Events Category', eventsCategoryDot)}
+        eventStyle={'both'}
         events={object('Events', events)}
         weekDays={object('weekDays', weekDays)}
         months={object('months', months)}
