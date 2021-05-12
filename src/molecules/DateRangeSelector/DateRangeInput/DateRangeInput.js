@@ -178,8 +178,8 @@ DateRangeInput.propTypes = {
   isStartDateSelectedValid: PropTypes.bool,
   isEndDateSelectedValid: PropTypes.bool,
   disabled: PropTypes.bool,
-  setStartDateObj: PropTypes.object,
-  setStartDateObj: PropTypes.object
+  setStartDateObj: PropTypes.func,
+  setEndDateObj: PropTypes.func
 };
 
 export default DateRangeInput;
