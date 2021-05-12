@@ -265,8 +265,8 @@ DateSelector.propTypes = {
   /** This prop enables user to select event style.
    * * ```border``` :  Shows event in form of border.
    * * ```dot``` : Shows event in form of dot.
-   * */
-  eventStyle: PropTypes.oneOf(['border', 'dot']),
+   * * ```both``` : Shows event in form of dot along with border. */ 
+  eventStyle: PropTypes.oneOf(['border', 'dot', 'both']),
 
   /** This prop enables user to pass event and respective category.
    *

@@ -93,8 +93,8 @@ const DateRangeSelectorExample = ({}) => {
 
                   let firstday = new Date(curr.setDate(first));
                   let lastday = new Date(curr.setDate(last));
-                  setEndDate(lastday);
-                  setStartDate(firstday);
+                  setEndDate2(lastday);
+                  setStartDate2(firstday);
                 }}
               >
                 Last Week
@@ -108,8 +108,8 @@ const DateRangeSelectorExample = ({}) => {
 
                   let firstday = new Date(curr.setDate(first));
                   let lastday = new Date(curr.setDate(last));
-                  setEndDate(lastday);
-                  setStartDate(firstday);
+                  setEndDate2(lastday);
+                  setStartDate2(firstday);
                 }}
               >
                 Current Week
@@ -128,8 +128,8 @@ const DateRangeSelectorExample = ({}) => {
                     (now.getMonth() - 1 + 12) % 12,
                     1
                   );
-                  setEndDate(prevMonthLastDate);
-                  setStartDate(prevMonthFirstDate);
+                  setEndDate2(prevMonthLastDate);
+                  setStartDate2(prevMonthFirstDate);
                 }}
               >
                 Last Month
@@ -143,8 +143,8 @@ const DateRangeSelectorExample = ({}) => {
 
                   let firstday = new Date(curr.setDate(first));
                   let lastday = new Date(curr.setDate(last));
-                  setEndDate(lastday);
-                  setStartDate(firstday);
+                  setEndDate2(lastday);
+                  setStartDate2(firstday);
                 }}
               >
                 Next Week
@@ -163,8 +163,8 @@ const DateRangeSelectorExample = ({}) => {
                     date.getMonth() + 1,
                     0
                   );
-                  setEndDate(lastDay);
-                  setStartDate(firstDay);
+                  setEndDate2(lastDay);
+                  setStartDate2(firstDay);
                 }}
               >
                 Current Month
@@ -177,7 +177,7 @@ const DateRangeSelectorExample = ({}) => {
                     firstDay.getTime() - 7 * 24 * 60 * 60 * 1000
                   );
                   setStartDate(previousweek);
-                  setEndDate(firstDay);
+                  setEndDate2(firstDay);
                 }}
               >
                 Last 8 days
@@ -210,8 +210,8 @@ const DateRangeSelectorExample = ({}) => {
 
                   let firstday = new Date(curr.setDate(first));
                   let lastday = new Date(curr.setDate(last));
-                  setEndDate(lastday);
-                  setStartDate(firstday);
+                  setEndDate3(lastday);
+                  setStartDate3(firstday);
                 }}
               >
                 Last Week
@@ -225,8 +225,8 @@ const DateRangeSelectorExample = ({}) => {
 
                   let firstday = new Date(curr.setDate(first));
                   let lastday = new Date(curr.setDate(last));
-                  setEndDate(lastday);
-                  setStartDate(firstday);
+                  setEndDate3(lastday);
+                  setStartDate3(firstday);
                 }}
               >
                 Current Week
@@ -245,8 +245,8 @@ const DateRangeSelectorExample = ({}) => {
                     (now.getMonth() - 1 + 12) % 12,
                     1
                   );
-                  setEndDate(prevMonthLastDate);
-                  setStartDate(prevMonthFirstDate);
+                  setEndDate3(prevMonthLastDate);
+                  setStartDate3(prevMonthFirstDate);
                 }}
               >
                 Last Month
@@ -260,8 +260,8 @@ const DateRangeSelectorExample = ({}) => {
 
                   let firstday = new Date(curr.setDate(first));
                   let lastday = new Date(curr.setDate(last));
-                  setEndDate(lastday);
-                  setStartDate(firstday);
+                  setEndDate3(lastday);
+                  setStartDate3(firstday);
                 }}
               >
                 Next Week
@@ -280,8 +280,8 @@ const DateRangeSelectorExample = ({}) => {
                     date.getMonth() + 1,
                     0
                   );
-                  setEndDate(lastDay);
-                  setStartDate(firstDay);
+                  setEndDate3(lastDay);
+                  setStartDate3(firstDay);
                 }}
               >
                 Current Month
@@ -293,8 +293,8 @@ const DateRangeSelectorExample = ({}) => {
                   let previousweek = new Date(
                     firstDay.getTime() - 7 * 24 * 60 * 60 * 1000
                   );
-                  setStartDate(previousweek);
-                  setEndDate(firstDay);
+                  setStartDate3(previousweek);
+                  setEndDate3(firstDay);
                 }}
               >
                 Last 8 days
