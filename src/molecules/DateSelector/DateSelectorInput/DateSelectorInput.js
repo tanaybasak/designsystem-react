@@ -111,7 +111,7 @@ DateSelectorInput.propTypes = {
   setIsDateSelectedValid: PropTypes.func.isRequired,
   className: PropTypes.string,
   disabled: PropTypes.bool,
-  onDateSelect:PropTypes.func
+  onDateSelect: PropTypes.func
 };
 
 export default DateSelectorInput;
