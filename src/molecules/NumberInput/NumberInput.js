@@ -107,6 +107,14 @@ const NumberInput = ({
     }
   };
 
+  const onNumberInputChange = evt => {
+    const newVal = evt.target.validity.valid ? evt.target.value : value;
+    setValue(newVal);
+    if (restProps.onChange) {
+      restProps.onChange(evt.currentTarget.value);
+    }
+  };
+
   return (
     <div className={classnames} disabled={disabled ? 'disabled' : null}>
       {label ? <Label htmlFor={id ? id : null}>{label} </Label> : null}
@@ -116,6 +124,7 @@ const NumberInput = ({
       <div className={`${prefix}-number-input`}>
         <input
           type="number"
+          pattern="\d*"
           className={`${prefix}-form-control`}
           max={max != null ? max : null}
           min={min != null ? min : null}
@@ -126,10 +135,7 @@ const NumberInput = ({
           value={value}
           {...restProps}
           onChange={event => {
-            setValue(event.currentTarget.value);
-            if (restProps.onChange) {
-              restProps.onChange(event.currentTarget.value);
-            }
+            onNumberInputChange(event);
           }}
           ref={inputRef}
         />
