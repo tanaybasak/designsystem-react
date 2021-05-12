@@ -9,7 +9,7 @@ const DateSelectorExample = ({}) => {
   return (
     <div className="hcl-row">
       <div className=" hcl-col-12 mb-9">
-        <div className="mb-5">Without left panel</div>
+        <div className="mb-5">Without left panel (mm/dd/yyyy)</div>
         <DateSelector
           id="date-selector-id"
           weekDays={['S', 'M', 'T', 'W', 'Th', 'F', 'S']}
@@ -34,7 +34,9 @@ const DateSelectorExample = ({}) => {
         ></DateSelector>
       </div>
       <div className=" hcl-col-12 mb-9">
-        <div className="mb-5">Without left panel and with default date</div>
+        <div className="mb-5">
+          Without left panel and with default date(dd/mm/yyyy)
+        </div>
         <DateSelector
           id="date-selector-id"
           weekDays={['S', 'M', 'T', 'W', 'Th', 'F', 'S']}
@@ -52,11 +54,14 @@ const DateSelectorExample = ({}) => {
             'NOV',
             'DEC'
           ]}
-          format="mm/dd/yyyy"
+          format="dd/mm/yyyy"
           defaultDate={defaultDate1}
           onDateSelect={dateObj => {
             console.log('dateObj', dateObj);
+            setDefaultDate1(dateObj);
           }}
+          minDate={new Date(2011, 10, 5)}
+          maxDate={new Date(2065, 10, 22)}
         ></DateSelector>
       </div>
       <div className=" hcl-col-12 mb-9">
@@ -214,6 +219,8 @@ const DateSelectorExample = ({}) => {
             { date: new Date('2021', '03', '16'), category: 'category2' },
             { date: new Date('2021', '03', '24'), category: 'category3' }
           ]}
+          minDate={new Date(2011, 10, 5)}
+          maxDate={new Date(2065, 10, 22)}
         ></DateSelector>
       </div>
     </div>

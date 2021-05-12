@@ -20,7 +20,9 @@ const DateRangeInput = ({
   datepickerEndInput,
   onDateRangeSelect,
   isStartDateSelectedValid,
-  isEndDateSelectedValid
+  isEndDateSelectedValid,
+  setStartDateObj,
+  setEndDateObj
 }) => {
   const onEnterPressInputDate = event => {
     setShowDateContainer(false);
@@ -28,10 +30,23 @@ const DateRangeInput = ({
     if (event.key === 'Enter') {
       const isdateValid = isValidDate(event.target.value, format);
       const type = event.currentTarget.getAttribute('data-type');
+      let dateObj = convertToDateObj(format, event.target.value);
       if (type === 'start') {
         setIsStartDateSelectedValid(isdateValid);
+        setStartDateObj({
+          day: dateObj.getDay(),
+          month: dateObj.getMonth(),
+          date: dateObj.getDate(),
+          year: dateObj.getFullYear()
+        });
       } else {
         setIsEndDateSelectedValid(isdateValid);
+        setEndDateObj({
+          day: dateObj.getDay(),
+          month: dateObj.getMonth(),
+          date: dateObj.getDate(),
+          year: dateObj.getFullYear()
+        });
       }
       if (isdateValid && event.target.value !== '') {
         const dateArray = event.target.value.split('/');
