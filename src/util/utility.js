@@ -98,19 +98,20 @@ export const convertToDateString = (dateObj, format, saperator = '/') => {
   let dateStr;
   // console.log('dateObj', dateObj);
   if (dateObj) {
+    let date = dateObj.getDate();
+    let month = dateObj.getMonth() + 1;
     if (format === 'mm/dd/yyyy') {
-      dateStr = `${
-        dateObj.getMonth() + 1
-      }${saperator}${dateObj.getDate()}${saperator}${dateObj.getFullYear()}`;
+      dateStr = `${month < 10 ? `0${month}` : month}${saperator}${
+        date < 10 ? `0${date}` : date
+      }${saperator}${dateObj.getFullYear()}`;
     } else if (format === 'dd/mm/yyyy') {
-      dateStr = `${dateObj.getDate()}${saperator}${
-        dateObj.getMonth() + 1
+      dateStr = `${date < 10 ? `0${date}` : date}${saperator}${
+        month < 10 ? `0${month}` : month
       }${saperator}${dateObj.getFullYear()}`;
     }
   } else {
     dateStr = '';
   }
-  // console.log('dateObj', dateStr);
   return dateStr;
 };
 
