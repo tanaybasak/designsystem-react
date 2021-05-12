@@ -114,7 +114,8 @@ storiesOf('Components/Calendar', module)
         info: infoMessage
       }
     }
-  ).add(
+  )
+  .add(
     'Calendar with both event style',
     () => (
       <Calendar

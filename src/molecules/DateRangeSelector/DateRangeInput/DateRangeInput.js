@@ -133,7 +133,9 @@ const DateRangeInput = ({
       </div>
 
       <svg
-        className={`hcl-dateSelector-container-svg hcl-dateSelector-range-icon ${disabled ? 'hcl-dateSelector-range-icon-disabled' : ''}`}
+        className={`hcl-dateSelector-container-svg hcl-dateSelector-range-icon ${
+          disabled ? 'hcl-dateSelector-range-icon-disabled' : ''
+        }`}
         data-name="Refresh-line-icon"
         xmlns="https://www.w3.org/2000/svg"
         viewBox="0 0 16 16"
@@ -175,7 +177,7 @@ DateRangeInput.propTypes = {
   onDateRangeSelect: PropTypes.func,
   isStartDateSelectedValid: PropTypes.bool,
   isEndDateSelectedValid: PropTypes.bool,
-  disabled:PropTypes.bool
+  disabled: PropTypes.bool
 };
 
 export default DateRangeInput;

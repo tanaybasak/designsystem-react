@@ -55,7 +55,7 @@ const DateSelectorInput = ({
   return (
     <div className="hcl-form-group">
       <input
-        disabled ={disabled}
+        disabled={disabled}
         type="text"
         className={`hcl-dateSelector-input ${className}`}
         placeholder={format}
@@ -110,7 +110,7 @@ DateSelectorInput.propTypes = {
   setShowDateContainer: PropTypes.func.isRequired,
   setIsDateSelectedValid: PropTypes.func.isRequired,
   className: PropTypes.string,
-  disabled:PropTypes.bool
+  disabled: PropTypes.bool
 };
 
 export default DateSelectorInput;

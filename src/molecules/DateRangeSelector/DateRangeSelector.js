@@ -519,8 +519,8 @@ DateRangeSelector.propTypes = {
       category: PropTypes.string
     })
   ),
-   /** This props allows user to disable DateSelector Input */
-   disabled: PropTypes.bool
+  /** This props allows user to disable DateSelector Input */
+  disabled: PropTypes.bool
 };
 
 DateRangeSelector.defaultProps = {

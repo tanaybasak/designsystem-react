@@ -39,7 +39,7 @@ const DateRangeSelectorExample = ({}) => {
           onDateRangeSelect={dateObj => {
             console.log('dateObj', dateObj);
           }}
-          disabled ={true}
+          disabled={true}
         ></DateRangeSelector>
       </div>
 

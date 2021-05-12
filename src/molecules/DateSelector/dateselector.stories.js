@@ -81,7 +81,7 @@ storiesOf('Components/Date Selector', module)
         months={object('months', months)}
         format="mm/dd/yyyy"
         onDateSelect={action('onDateSelect triggered')}
-        disabled={boolean('disabled',false)}
+        disabled={boolean('disabled', false)}
       />
     ),
     {
@@ -104,7 +104,7 @@ storiesOf('Components/Date Selector', module)
         eventStyle={'border'}
         events={object('Events', events)}
         defaultDate={new Date(2021, 3, 12)}
-        disabled={boolean('disabled',false)}
+        disabled={boolean('disabled', false)}
       />
     ),
     {
@@ -128,7 +128,7 @@ storiesOf('Components/Date Selector', module)
         eventStyle={'dot'}
         events={object('Events', events)}
         defaultDate={new Date(2021, 3, 12)}
-        disabled={boolean('disabled',false)}
+        disabled={boolean('disabled', false)}
       />
     ),
     {
@@ -152,7 +152,7 @@ storiesOf('Components/Date Selector', module)
         eventStyle={'both'}
         events={object('Events', events)}
         defaultDate={new Date(2021, 3, 12)}
-        disabled={boolean('disabled',false)}
+        disabled={boolean('disabled', false)}
       />
     ),
     {

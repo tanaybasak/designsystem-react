@@ -87,7 +87,7 @@ storiesOf('Components/Date Range Selector', module)
         type="rangepicker"
         format="mm/dd/yyyy"
         onDateRangeSelect={action('onDateRangeSelect triggered')}
-        disabled={boolean('disabled',false)}
+        disabled={boolean('disabled', false)}
       />
     ),
     {
@@ -112,7 +112,7 @@ storiesOf('Components/Date Range Selector', module)
         events={object('Events', events)}
         defaultStartDate={new Date(2013, 10, 2)}
         defaultEndDate={new Date(2021, 3, 15)}
-        disabled={boolean('disabled',false)}
+        disabled={boolean('disabled', false)}
       />
     ),
     {
@@ -138,7 +138,7 @@ storiesOf('Components/Date Range Selector', module)
         events={object('Events', events)}
         defaultStartDate={new Date(2013, 10, 2)}
         defaultEndDate={new Date(2021, 3, 15)}
-        disabled={boolean('disabled',false)}
+        disabled={boolean('disabled', false)}
       />
     ),
     {
@@ -148,7 +148,8 @@ storiesOf('Components/Date Range Selector', module)
         info: infoMessage
       }
     }
-  ).add(
+  )
+  .add(
     'DateRangeSelector with events with both styles',
     () => (
       <DateRangeSelector
@@ -163,7 +164,7 @@ storiesOf('Components/Date Range Selector', module)
         events={object('Events', events)}
         defaultStartDate={new Date(2013, 10, 2)}
         defaultEndDate={new Date(2021, 3, 15)}
-        disabled={boolean('disabled',false)}
+        disabled={boolean('disabled', false)}
       />
     ),
     {

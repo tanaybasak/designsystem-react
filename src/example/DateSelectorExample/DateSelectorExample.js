@@ -34,7 +34,9 @@ const DateSelectorExample = ({}) => {
         ></DateSelector>
       </div>
       <div className=" hcl-col-12 mb-9">
-        <div className="mb-5">Without left panel (mm/dd/yyyy) in disabled state</div>
+        <div className="mb-5">
+          Without left panel (mm/dd/yyyy) in disabled state
+        </div>
         <DateSelector
           disabled={true}
           id="date-selector-id"
