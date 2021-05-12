@@ -25,6 +25,7 @@ const DateSelector = ({
   eventsCategory,
   eventStyle,
   events,
+  disabled,
   ...restProps
 }) => {
   const date = new Date();
@@ -135,6 +136,7 @@ const DateSelector = ({
             setIsDateSelectedValid={setIsDateSelectedValid}
             className={className}
             onDateSelect={onDateSelect}
+            disabled={disabled}
             {...restProps}
           />
 
@@ -285,7 +287,9 @@ DateSelector.propTypes = {
       date: PropTypes.instanceOf(Date),
       category: PropTypes.string
     })
-  )
+  ),
+   /** This props allows user to disable DateSelector Input */
+   disabled: PropTypes.bool
 };
 
 DateSelector.defaultProps = {
@@ -318,7 +322,8 @@ DateSelector.defaultProps = {
   onVisibleChange: null,
   eventsCategory: null,
   eventStyle: 'dot',
-  events: []
+  events: [],
+  disabled: false
 };
 
 DateSelector.displayName = 'DateSelector';

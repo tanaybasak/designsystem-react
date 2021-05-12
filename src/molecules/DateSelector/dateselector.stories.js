@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { text, object } from '@storybook/addon-knobs';
+import { text, object, boolean } from '@storybook/addon-knobs';
 //@update-path-build-start
 import DateSelector from './DateSelector';
 //@update-path-build-end
@@ -81,6 +81,7 @@ storiesOf('Components/Date Selector', module)
         months={object('months', months)}
         format="mm/dd/yyyy"
         onDateSelect={action('onDateSelect triggered')}
+        disabled={boolean('disabled',false)}
       />
     ),
     {
@@ -103,6 +104,7 @@ storiesOf('Components/Date Selector', module)
         eventStyle={'border'}
         events={object('Events', events)}
         defaultDate={new Date(2021, 3, 12)}
+        disabled={boolean('disabled',false)}
       />
     ),
     {
@@ -126,6 +128,31 @@ storiesOf('Components/Date Selector', module)
         eventStyle={'dot'}
         events={object('Events', events)}
         defaultDate={new Date(2021, 3, 12)}
+        disabled={boolean('disabled',false)}
+      />
+    ),
+    {
+      info: {
+        text: `Description About Datepicker Component`,
+        document: ['DateSelector'],
+        info: infoMessage
+      }
+    }
+  )
+  .add(
+    'DateSelector with events (both styles)',
+    () => (
+      <DateSelector
+        id={text('id', 'date-selector-id')}
+        weekDays={object('weekDays', weekDays)}
+        months={object('months', months)}
+        format="mm/dd/yyyy"
+        onDateSelect={action('onDateSelect triggered')}
+        eventsCategory={object('Events Category', eventsCategoryDot)}
+        eventStyle={'both'}
+        events={object('Events', events)}
+        defaultDate={new Date(2021, 3, 12)}
+        disabled={boolean('disabled',false)}
       />
     ),
     {

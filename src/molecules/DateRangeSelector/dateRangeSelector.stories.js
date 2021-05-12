@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { text, object } from '@storybook/addon-knobs';
+import { text, object, boolean } from '@storybook/addon-knobs';
 //@update-path-build-start
 import DateRangeSelector from './DateRangeSelector';
 //@update-path-build-end
@@ -87,6 +87,7 @@ storiesOf('Components/Date Range Selector', module)
         type="rangepicker"
         format="mm/dd/yyyy"
         onDateRangeSelect={action('onDateRangeSelect triggered')}
+        disabled={boolean('disabled',false)}
       />
     ),
     {
@@ -111,6 +112,7 @@ storiesOf('Components/Date Range Selector', module)
         events={object('Events', events)}
         defaultStartDate={new Date(2013, 10, 2)}
         defaultEndDate={new Date(2021, 3, 15)}
+        disabled={boolean('disabled',false)}
       />
     ),
     {
@@ -136,6 +138,32 @@ storiesOf('Components/Date Range Selector', module)
         events={object('Events', events)}
         defaultStartDate={new Date(2013, 10, 2)}
         defaultEndDate={new Date(2021, 3, 15)}
+        disabled={boolean('disabled',false)}
+      />
+    ),
+    {
+      info: {
+        text: `Description About DateRangeSelector Component`,
+        document: ['DateRangeSelector'],
+        info: infoMessage
+      }
+    }
+  ).add(
+    'DateRangeSelector with events with both styles',
+    () => (
+      <DateRangeSelector
+        id={text('id', 'date-range-selector-id')}
+        weekDays={object('weekDays', weekDays)}
+        months={object('months', months)}
+        type="rangepicker"
+        format="mm/dd/yyyy"
+        onDateRangeSelect={action('onDateRangeSelect triggered')}
+        eventsCategory={object('Events Category', eventsCategoryDot)}
+        eventStyle={'both'}
+        events={object('Events', events)}
+        defaultStartDate={new Date(2013, 10, 2)}
+        defaultEndDate={new Date(2021, 3, 15)}
+        disabled={boolean('disabled',false)}
       />
     ),
     {

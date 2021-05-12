@@ -39,6 +39,7 @@ const DateRangeSelectorExample = ({}) => {
           onDateRangeSelect={dateObj => {
             console.log('dateObj', dateObj);
           }}
+          disabled ={true}
         ></DateRangeSelector>
       </div>
 
@@ -322,7 +323,7 @@ const DateRangeSelectorExample = ({}) => {
               numOfDots: 3
             }
           }}
-          eventStyle="dot"
+          eventStyle="both"
           events={[
             { date: new Date('2021', '03', '15'), category: 'category1' },
             { date: new Date('2021', '03', '16'), category: 'category2' },

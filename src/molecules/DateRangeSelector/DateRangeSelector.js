@@ -30,6 +30,7 @@ const DateRangeSelector = ({
   eventsCategory,
   eventStyle,
   events,
+  disabled,
   ...restProps
 }) => {
   const date = new Date();
@@ -318,6 +319,7 @@ const DateRangeSelector = ({
             minDate={minDate}
             setStartDateObj={setStartDateObj}
             setEndDateObj={setEndDateObj}
+            disabled={disabled}
           />
           <Overlay
             attachElementToBody={attachElementToBody}
@@ -516,7 +518,9 @@ DateRangeSelector.propTypes = {
       date: PropTypes.instanceOf(Date),
       category: PropTypes.string
     })
-  )
+  ),
+   /** This props allows user to disable DateSelector Input */
+   disabled: PropTypes.bool
 };
 
 DateRangeSelector.defaultProps = {
@@ -546,6 +550,7 @@ DateRangeSelector.defaultProps = {
   maxDate: new Date(9999, 11, 31),
   eventsCategory: null,
   eventStyle: 'dot',
-  events: []
+  events: [],
+  disabled: false
 };
 export default DateRangeSelector;

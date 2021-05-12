@@ -22,7 +22,8 @@ const DateRangeInput = ({
   isStartDateSelectedValid,
   isEndDateSelectedValid,
   setStartDateObj,
-  setEndDateObj
+  setEndDateObj,
+  disabled
 }) => {
   const onEnterPressInputDate = event => {
     setShowDateContainer(false);
@@ -84,6 +85,7 @@ const DateRangeInput = ({
         <div className="hcl-flex-col hcl-form-group">
           <label className="mb-3 hcl-dateSelector-label">Start</label>
           <input
+            disabled={disabled}
             type="text"
             data-type="start"
             className=" hcl-dateSelector-range-input hcl-dateSelector-input  mr-1"
@@ -107,6 +109,7 @@ const DateRangeInput = ({
         <div className="hcl-flex-col hcl-form-group">
           <label className="mb-3 hcl-dateSelector-label">End</label>
           <input
+            disabled={disabled}
             type="text"
             data-invalid={!isEndDateSelectedValid}
             data-type="end"
@@ -130,7 +133,7 @@ const DateRangeInput = ({
       </div>
 
       <svg
-        className="hcl-dateSelector-container-svg hcl-dateSelector-range-icon"
+        className={`hcl-dateSelector-container-svg hcl-dateSelector-range-icon ${disabled ? 'hcl-dateSelector-range-icon-disabled' : ''}`}
         data-name="Refresh-line-icon"
         xmlns="https://www.w3.org/2000/svg"
         viewBox="0 0 16 16"
@@ -171,7 +174,8 @@ DateRangeInput.propTypes = {
   datepickerEndInput: PropTypes.object.isRequired,
   onDateRangeSelect: PropTypes.func,
   isStartDateSelectedValid: PropTypes.bool,
-  isEndDateSelectedValid: PropTypes.bool
+  isEndDateSelectedValid: PropTypes.bool,
+  disabled:PropTypes.bool
 };
 
 export default DateRangeInput;
