@@ -107,8 +107,16 @@ const NumberInput = ({
     }
   };
 
+  const re = /^[1-9]\d*(\.\d+)?$/;
+
   const onNumberInputChange = evt => {
-    const newVal = evt.target.validity.valid ? evt.target.value : value;
+    const { target } = evt;
+    let currentVal = target.value;
+    let flag = false;
+    currentVal = parseFloat(currentVal, 10);
+    flag = Number.isNaN(currentVal) ? false : re.test(currentVal);
+
+    const newVal = flag ? target.value : value;
     setValue(newVal);
     if (restProps.onChange) {
       restProps.onChange(evt.currentTarget.value);
