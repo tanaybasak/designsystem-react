@@ -1,3 +1,4 @@
+/* eslint-disable no-empty */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
@@ -127,7 +128,8 @@ const NumberInput = ({
       key === 37 ||
       key === 38 ||
       key === 39 ||
-      key === 40
+      key === 40 ||
+      key === 190
     ) {
     } else if (key < 48 || key > 57) {
       // non-numeric characters
