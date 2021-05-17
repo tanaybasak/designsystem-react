@@ -12,8 +12,11 @@ const InlineEdit = ({
   onClose,
   onTextUpdate,
   customIcon,
+  onChange,
   errorMessage,
   loader,
+  disableSave,
+  disableClose,
   children,
   className,
   ...restProps
@@ -117,6 +120,7 @@ const InlineEdit = ({
         onBlur: closeOnFocusOut,
         disabled: loader,
         onChange: (value, values) => {
+          onChange(value, values);
           if (children.props.dropdownType === 'multi') {
             inlineEditValue.current = values;
             setMatchedValue(false);
@@ -131,6 +135,7 @@ const InlineEdit = ({
       return cloneElement(children, {
         onChange: e => {
           e.preventDefault();
+          onChange(e);
           inlineEditValue.current = e.currentTarget.value;
           setMatchedValue(currentValue.current === e.currentTarget.value);
         },
@@ -142,6 +147,7 @@ const InlineEdit = ({
       currentValue.current = children.props.defaultDate;
       return cloneElement(children, {
         onDateSelect: date => {
+          onChange(date);
           inlineEditValue.current = date;
           setMatchedValue(
             isDateEqual(currentValue.current, inlineEditValue.current)
@@ -191,7 +197,7 @@ const InlineEdit = ({
 
   const closeOverlay = status => {
     if (!isCustomComponent) {
-      if (isValueEqual()) {
+      if (isValueEqual() || disableSave) {
         setDisplayActionPanel(status);
         onClose();
       } else {
@@ -255,7 +261,7 @@ const InlineEdit = ({
                   <Button
                     type="neutral"
                     kind="button"
-                    disabled={loader ? true : false}
+                    disabled={disableClose || loader ? true : false}
                     onClick={() => {
                       setDisplayActionPanel(false);
                       onClose();
@@ -267,7 +273,9 @@ const InlineEdit = ({
                   <Button
                     type="primary"
                     kind="button"
-                    disabled={matchedValue || loader ? true : false}
+                    disabled={
+                      disableSave || matchedValue || loader ? true : false
+                    }
                     onClick={() => {
                       onTextUpdate(inlineEditValue.current);
                     }}
@@ -307,17 +315,26 @@ InlineEdit.propTypes = {
   /** Class/clasess will be applied on the parent div of Select */
   className: PropTypes.string,
   /** Used to pass inline element. eg DateSelector, TextInput, Dropdown */
-  children: PropTypes.element
+  children: PropTypes.element,
+  /** disable flag for save button */
+  disableSave: PropTypes.bool,
+  /** disable flag for close button*/
+  disableClose: PropTypes.bool,
+  /** A callback function which will be executed on change value for dropdown, textinput and dropdown*/
+  onChange: PropTypes.func
 };
 
 InlineEdit.defaultProps = {
   onClose: () => {},
+  onChange: () => {},
   onTextUpdate: () => {},
   errorMessage: null,
   loader: false,
   customIcon: null,
   children: null,
-  className: null
+  className: null,
+  disableSave: false,
+  disableClose: false
 };
 
 export default InlineEdit;

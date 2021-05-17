@@ -13,7 +13,9 @@ import Button from '../../atoms/Button';
 class InlineEditExample extends Component {
   state = {
     editingFormType: null,
+    disableClose: false,
     showBusyLoader: false,
+    disableSave: false,
     formValue: {
       title: 'inline editor not working',
       type: { id: 'story', text: 'Story' },
@@ -153,6 +155,55 @@ class InlineEditExample extends Component {
     }, 2000);
   };
 
+  onTextChange = e => {
+    if (e.currentTarget.value === '') {
+      this.setState({
+        disableSave: true
+      });
+    } else {
+      this.setState({
+        disableSave: false
+      });
+    }
+  };
+
+  onDropdownChange = (value) => {
+    if (value.text === 'Bug') {
+      this.setState({
+        disableSave: true
+      });
+    } else {
+      this.setState({
+        disableSave: false
+      });
+    }
+  };
+
+  onMultiDropdownChange = (value, selected) => {
+    if (selected.length < 1) {
+      this.setState({
+        disableSave: true
+      });
+    } else {
+      this.setState({
+        disableSave: false
+      });
+    }
+  };
+
+  onDateChange = (date) => {
+    console.log(this.getDate(date))
+    if (this.getDate(date) == "05/18/2021") {
+      this.setState({
+        disableSave: true
+      });
+    } else {
+      this.setState({
+        disableSave: false
+      });
+    }
+  };
+
   updateExpectedDate = newExpectedDate => {
     this.setState({ showBusyLoader: true });
 
@@ -187,6 +238,9 @@ class InlineEditExample extends Component {
                   loader={this.state.showBusyLoader}
                   errorMessage={this.state.errorMessage}
                   onTextUpdate={this.updateTitleText}
+                  disableSave={this.state.disableSave}
+                  disableClose={this.state.disableClose}
+                  onChange={this.onTextChange}
                   onClose={this.reset}
                 >
                   <TextInput
@@ -217,6 +271,9 @@ class InlineEditExample extends Component {
                   loader={this.state.showBusyLoader}
                   errorMessage={this.state.errorMessage}
                   onTextUpdate={this.updateIssueType}
+                  disableSave={this.state.disableSave}
+                  disableClose={this.state.disableClose}
+                  onChange={this.onDropdownChange}
                   onClose={this.reset}
                 >
                   <Dropdown
@@ -249,6 +306,9 @@ class InlineEditExample extends Component {
                   loader={this.state.showBusyLoader}
                   errorMessage={this.state.errorMessage}
                   onTextUpdate={this.updateFramework}
+                  disableSave={this.state.disableSave}
+                  disableClose={this.state.disableClose}
+                  onChange={this.onMultiDropdownChange}
                   onClose={this.reset}
                 >
                   <Dropdown
@@ -288,6 +348,9 @@ class InlineEditExample extends Component {
                   loader={this.state.showBusyLoader}
                   errorMessage={this.state.errorMessage}
                   onTextUpdate={this.updateExpectedDate}
+                  disableSave={this.state.disableSave}
+                  disableClose={this.state.disableClose}
+                  onChange={this.onDateChange}
                   onClose={this.reset}
                 >
                   <DateSelector
