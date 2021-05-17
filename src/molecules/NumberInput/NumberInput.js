@@ -116,6 +116,26 @@ const NumberInput = ({
     }
   };
 
+  const onNumberInputKeyDown = evt => {
+    const { ctrlKey, metaKey, shiftKey } = evt;
+    const key = evt.which || evt.keyCode;
+    if (ctrlKey || metaKey || shiftKey) {
+    } else if (
+      // backspace, delete, arrow keys
+      key === 8 ||
+      key === 46 ||
+      key === 37 ||
+      key === 38 ||
+      key === 39 ||
+      key === 40
+    ) {
+    } else if (key < 48 || key > 57) {
+      // non-numeric characters
+      evt.preventDefault();
+      return;
+    }
+  };
+
   return (
     <div className={classnames} disabled={disabled ? 'disabled' : null}>
       {label ? <Label htmlFor={id ? id : null}>{label} </Label> : null}
@@ -135,6 +155,7 @@ const NumberInput = ({
           id={id ? id : null}
           value={value}
           {...restProps}
+          onKeyDown={onNumberInputKeyDown.bind(this)}
           onChange={event => {
             onNumberInputChange(event);
           }}
