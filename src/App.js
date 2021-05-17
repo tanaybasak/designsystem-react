@@ -1688,7 +1688,7 @@ class App extends Component {
               <div className="hcl-col-12 mt-5 mb-5">
                 <NumberInput
                   defaultValue={0}
-                  step={2}
+                  step={1}
                   id="numberInput2"
                   label="Number Input"
                   className="hcl-form-group"

@@ -107,17 +107,10 @@ const NumberInput = ({
     }
   };
 
-  const re = /^[1-9]\d*(\.\d+)?$/;
-
   const onNumberInputChange = evt => {
-    const { target } = evt;
-    let currentVal = target.value;
-    let flag = false;
-    currentVal = parseFloat(currentVal, 10);
-    flag = Number.isNaN(currentVal) ? false : re.test(currentVal);
+    const newNumber = evt.target.validity.valid ? evt.target.value : value;
+    setValue(newNumber);
 
-    const newVal = flag ? target.value : value;
-    setValue(newVal);
     if (restProps.onChange) {
       restProps.onChange(evt.currentTarget.value);
     }
@@ -132,7 +125,7 @@ const NumberInput = ({
       <div className={`${prefix}-number-input`}>
         <input
           type="number"
-          pattern="\d*"
+          pattern="^\d*(\.\d+)?$"
           className={`${prefix}-form-control`}
           max={max != null ? max : null}
           min={min != null ? min : null}
