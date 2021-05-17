@@ -39,6 +39,9 @@ storiesOf('Components/Inline Edit', module)
         errorMessage={text('Error message', '')}
         onClose={action('Inline-Close')}
         loader={boolean('Loader', false)}
+        onChange={action('Inline-Onchange')}
+        disableSave={boolean('disableSave', false)}
+        disableClose={boolean('disableClose', false)}
       >
         <TextInput
           value={text('Value', 'Content')}
@@ -63,6 +66,9 @@ storiesOf('Components/Inline Edit', module)
         onTextUpdate={action('Inline-TextUpdate')}
         errorMessage={text('Error message', '')}
         onClose={action('Inline-Close')}
+        onChange={action('Inline-Onchange')}
+        disableSave={boolean('disableSave', false)}
+        disableClose={boolean('disableClose', false)}
         loader={boolean('Loader', false)}
       >
         <Dropdown
@@ -89,6 +95,9 @@ storiesOf('Components/Inline Edit', module)
         onTextUpdate={action('Inline-TextUpdate')}
         errorMessage={text('Error message', '')}
         onClose={action('Inline-Close')}
+        onChange={action('Inline-Onchange')}
+        disableSave={boolean('disableSave', false)}
+        disableClose={boolean('disableClose', false)}
         loader={boolean('Loader', false)}
       >
         <DateSelector defaultDate={new Date()} />
