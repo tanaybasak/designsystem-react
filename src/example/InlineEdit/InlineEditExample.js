@@ -167,7 +167,7 @@ class InlineEditExample extends Component {
     }
   };
 
-  onDropdownChange = (value) => {
+  onDropdownChange = value => {
     if (value.text === 'Bug') {
       this.setState({
         disableSave: true
@@ -191,9 +191,9 @@ class InlineEditExample extends Component {
     }
   };
 
-  onDateChange = (date) => {
-    console.log(this.getDate(date))
-    if (this.getDate(date) == "05/18/2021") {
+  onDateChange = date => {
+    console.log(this.getDate(date));
+    if (this.getDate(date) == '05/18/2021') {
       this.setState({
         disableSave: true
       });
