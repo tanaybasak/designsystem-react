@@ -109,6 +109,7 @@ const NumberInput = ({
   };
 
   const onNumberInputChange = evt => {
+    console.log('onchange');
     const newNumber = evt.target.validity.valid ? evt.target.value : value;
     setValue(newNumber);
 
@@ -129,7 +130,8 @@ const NumberInput = ({
       key === 38 ||
       key === 39 ||
       key === 40 ||
-      key === 190
+      key === 190 ||
+      key === 9
     ) {
     } else if (key < 48 || key > 57) {
       // non-numeric characters
@@ -157,8 +159,8 @@ const NumberInput = ({
           id={id ? id : null}
           value={value}
           {...restProps}
-          onKeyDown={onNumberInputKeyDown.bind(this)}
-          onChange={event => {
+          // onKeyDown={onNumberInputKeyDown.bind(this)}
+          onInput={event => {
             onNumberInputChange(event);
           }}
           ref={inputRef}
