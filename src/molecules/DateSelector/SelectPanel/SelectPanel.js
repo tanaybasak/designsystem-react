@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import PanelHeader from './PanelHeader';
-import PanelBottom from './PanelBottom';
+import PanelHeader from '../../../atoms/Calendar/PanelHeader';
+import PanelBottom from '../../../atoms/Calendar/PanelBottom';
 
 const SelectPanel = ({
   currDateObj,
@@ -10,17 +10,18 @@ const SelectPanel = ({
   onDateSelection,
   dateSelected,
   months,
-  panelType,
   startDateSelected,
   endDateSelected,
   className,
-  range,
   weekDays,
   minDate,
-  maxDate
+  maxDate,
+  eventsCategory,
+  eventStyle,
+  events
 }) => {
   const [view, setView] = useState('date');
-
+  // console.log('currDateObj',currDateObj)
   return (
     <div className={`hcl-dateSelector-panel ${className}`}>
       <PanelHeader
@@ -29,8 +30,6 @@ const SelectPanel = ({
         currDateObj={currDateObj}
         setCurrDateObj={setCurrDateObj}
         months={months}
-        panelType={panelType}
-        range={range}
         weekDays={weekDays}
         minDate={minDate}
         maxDate={maxDate}
@@ -43,13 +42,14 @@ const SelectPanel = ({
         onDateSelection={onDateSelection}
         dateSelected={dateSelected}
         format={format}
-        panelType={panelType}
         startDateSelected={startDateSelected}
         endDateSelected={endDateSelected}
-        range={range}
         months={months}
         minDate={minDate}
         maxDate={maxDate}
+        eventsCategory={eventsCategory}
+        eventStyle={eventStyle}
+        events={events}
       />
     </div>
   );
@@ -62,14 +62,21 @@ SelectPanel.propTypes = {
   onDateSelection: PropTypes.func.isRequired,
   dateSelected: PropTypes.string,
   months: PropTypes.array.isRequired,
-  panelType: PropTypes.string,
   startDateSelected: PropTypes.string,
   endDateSelected: PropTypes.string,
   className: PropTypes.string,
-  range: PropTypes.any,
   weekDays: PropTypes.any,
   minDate: PropTypes.instanceOf(Date),
-  maxDate: PropTypes.instanceOf(Date)
+  maxDate: PropTypes.instanceOf(Date),
+  eventsCategory: PropTypes.any,
+  eventStyle: PropTypes.string,
+  events: PropTypes.array
+};
+
+SelectPanel.defaultProps = {
+  eventsCategory: null,
+  eventStyle: 'dot',
+  events: []
 };
 
 export default SelectPanel;
