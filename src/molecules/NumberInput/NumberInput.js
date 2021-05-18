@@ -109,7 +109,6 @@ const NumberInput = ({
   };
 
   const onNumberInputChange = evt => {
-    console.log('onchange');
     const newNumber = evt.target.validity.valid ? evt.target.value : value;
     setValue(newNumber);
 
@@ -159,7 +158,7 @@ const NumberInput = ({
           id={id ? id : null}
           value={value}
           {...restProps}
-          // onKeyDown={onNumberInputKeyDown.bind(this)}
+          onKeyDown={onNumberInputKeyDown.bind(this)}
           onInput={event => {
             onNumberInputChange(event);
           }}
