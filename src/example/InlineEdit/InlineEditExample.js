@@ -13,7 +13,9 @@ import Button from '../../atoms/Button';
 class InlineEditExample extends Component {
   state = {
     editingFormType: null,
+    disableClose: false,
     showBusyLoader: false,
+    disableSave: false,
     formValue: {
       title: 'inline editor not working',
       type: { id: 'story', text: 'Story' },
@@ -153,6 +155,55 @@ class InlineEditExample extends Component {
     }, 2000);
   };
 
+  onTextChange = e => {
+    if (e.currentTarget.value === '') {
+      this.setState({
+        disableSave: true
+      });
+    } else {
+      this.setState({
+        disableSave: false
+      });
+    }
+  };
+
+  onDropdownChange = value => {
+    if (value.text === 'Bug') {
+      this.setState({
+        disableSave: true
+      });
+    } else {
+      this.setState({
+        disableSave: false
+      });
+    }
+  };
+
+  onMultiDropdownChange = (value, selected) => {
+    if (selected.length < 1) {
+      this.setState({
+        disableSave: true
+      });
+    } else {
+      this.setState({
+        disableSave: false
+      });
+    }
+  };
+
+  onDateChange = date => {
+    console.log(this.getDate(date));
+    if (this.getDate(date) == '05/17/2021') {
+      this.setState({
+        disableSave: true
+      });
+    } else {
+      this.setState({
+        disableSave: false
+      });
+    }
+  };
+
   updateExpectedDate = newExpectedDate => {
     this.setState({ showBusyLoader: true });
 
@@ -187,10 +238,13 @@ class InlineEditExample extends Component {
                   loader={this.state.showBusyLoader}
                   errorMessage={this.state.errorMessage}
                   onTextUpdate={this.updateTitleText}
+                  disableSave={this.state.disableSave}
+                  disableClose={this.state.disableClose}
                   onClose={this.reset}
                 >
                   <TextInput
                     value={this.state.formValue.title}
+                    onChange={this.onTextChange}
                     data-invalid={this.state.titleFormStatus}
                   />
                 </InlineEdit>
@@ -217,13 +271,17 @@ class InlineEditExample extends Component {
                   loader={this.state.showBusyLoader}
                   errorMessage={this.state.errorMessage}
                   onTextUpdate={this.updateIssueType}
+                  disableSave={this.state.disableSave}
+                  disableClose={this.state.disableClose}
                   onClose={this.reset}
                 >
                   <Dropdown
                     type="top"
                     items={this.state.types}
                     label="Top DropDown"
+                    onChange={this.onDropdownChange}
                     selectedItem={this.state.formValue.type.id}
+                    attachElementToBody
                   />
                 </InlineEdit>
               ) : (
@@ -249,6 +307,8 @@ class InlineEditExample extends Component {
                   loader={this.state.showBusyLoader}
                   errorMessage={this.state.errorMessage}
                   onTextUpdate={this.updateFramework}
+                  disableSave={this.state.disableSave}
+                  disableClose={this.state.disableClose}
                   onClose={this.reset}
                 >
                   <Dropdown
@@ -256,7 +316,9 @@ class InlineEditExample extends Component {
                     items={this.state.frameworks}
                     label="Top DropDown"
                     dropdownType="multi"
+                    onChange={this.onMultiDropdownChange}
                     selectedItem={this.state.formValue.framework}
+                    attachElementToBody
                   />
                 </InlineEdit>
               ) : (
@@ -288,10 +350,14 @@ class InlineEditExample extends Component {
                   loader={this.state.showBusyLoader}
                   errorMessage={this.state.errorMessage}
                   onTextUpdate={this.updateExpectedDate}
+                  disableSave={this.state.disableSave}
+                  disableClose={this.state.disableClose}
                   onClose={this.reset}
                 >
                   <DateSelector
                     defaultDate={this.state.formValue.expectedDate}
+                    onChange={this.onDateChange}
+                    attachElementToBody
                   />
                 </InlineEdit>
               ) : (
