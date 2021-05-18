@@ -193,7 +193,7 @@ class InlineEditExample extends Component {
 
   onDateChange = date => {
     console.log(this.getDate(date));
-    if (this.getDate(date) == '05/18/2021') {
+    if (this.getDate(date) == '05/17/2021') {
       this.setState({
         disableSave: true
       });
@@ -240,11 +240,11 @@ class InlineEditExample extends Component {
                   onTextUpdate={this.updateTitleText}
                   disableSave={this.state.disableSave}
                   disableClose={this.state.disableClose}
-                  onChange={this.onTextChange}
                   onClose={this.reset}
                 >
                   <TextInput
                     value={this.state.formValue.title}
+                    onChange={this.onTextChange}
                     data-invalid={this.state.titleFormStatus}
                   />
                 </InlineEdit>
@@ -273,14 +273,15 @@ class InlineEditExample extends Component {
                   onTextUpdate={this.updateIssueType}
                   disableSave={this.state.disableSave}
                   disableClose={this.state.disableClose}
-                  onChange={this.onDropdownChange}
                   onClose={this.reset}
                 >
                   <Dropdown
                     type="top"
                     items={this.state.types}
                     label="Top DropDown"
+                    onChange={this.onDropdownChange}
                     selectedItem={this.state.formValue.type.id}
+                    attachElementToBody
                   />
                 </InlineEdit>
               ) : (
@@ -308,7 +309,6 @@ class InlineEditExample extends Component {
                   onTextUpdate={this.updateFramework}
                   disableSave={this.state.disableSave}
                   disableClose={this.state.disableClose}
-                  onChange={this.onMultiDropdownChange}
                   onClose={this.reset}
                 >
                   <Dropdown
@@ -316,7 +316,9 @@ class InlineEditExample extends Component {
                     items={this.state.frameworks}
                     label="Top DropDown"
                     dropdownType="multi"
+                    onChange={this.onMultiDropdownChange}
                     selectedItem={this.state.formValue.framework}
+                    attachElementToBody
                   />
                 </InlineEdit>
               ) : (
@@ -350,11 +352,12 @@ class InlineEditExample extends Component {
                   onTextUpdate={this.updateExpectedDate}
                   disableSave={this.state.disableSave}
                   disableClose={this.state.disableClose}
-                  onChange={this.onDateChange}
                   onClose={this.reset}
                 >
                   <DateSelector
                     defaultDate={this.state.formValue.expectedDate}
+                    onChange={this.onDateChange}
+                    attachElementToBody
                   />
                 </InlineEdit>
               ) : (

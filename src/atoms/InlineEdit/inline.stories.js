@@ -39,12 +39,12 @@ storiesOf('Components/Inline Edit', module)
         errorMessage={text('Error message', '')}
         onClose={action('Inline-Close')}
         loader={boolean('Loader', false)}
-        onChange={action('Inline-Onchange')}
         disableSave={boolean('disableSave', false)}
         disableClose={boolean('disableClose', false)}
       >
         <TextInput
           value={text('Value', 'Content')}
+          onChange={action('Inline-Onchange')}
           data-invalid={boolean('formStatus', false)}
           aria-label="Inline edit"
         />
@@ -66,7 +66,6 @@ storiesOf('Components/Inline Edit', module)
         onTextUpdate={action('Inline-TextUpdate')}
         errorMessage={text('Error message', '')}
         onClose={action('Inline-Close')}
-        onChange={action('Inline-Onchange')}
         disableSave={boolean('disableSave', false)}
         disableClose={boolean('disableClose', false)}
         loader={boolean('Loader', false)}
@@ -74,6 +73,7 @@ storiesOf('Components/Inline Edit', module)
         <Dropdown
           type="top"
           items={items}
+          onChange={action('Inline-Onchange')}
           label="Top DropDown"
           selectedItem={items[1].id}
         />
@@ -95,12 +95,14 @@ storiesOf('Components/Inline Edit', module)
         onTextUpdate={action('Inline-TextUpdate')}
         errorMessage={text('Error message', '')}
         onClose={action('Inline-Close')}
-        onChange={action('Inline-Onchange')}
         disableSave={boolean('disableSave', false)}
         disableClose={boolean('disableClose', false)}
         loader={boolean('Loader', false)}
       >
-        <DateSelector defaultDate={new Date()} />
+        <DateSelector
+          defaultDate={new Date()}
+          onChange={action('Inline-Onchange')}
+        />
       </InlineEdit>
     ),
     {

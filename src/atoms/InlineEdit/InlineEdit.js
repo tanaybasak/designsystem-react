@@ -12,7 +12,6 @@ const InlineEdit = ({
   onClose,
   onTextUpdate,
   customIcon,
-  onChange,
   errorMessage,
   loader,
   disableSave,
@@ -117,10 +116,10 @@ const InlineEdit = ({
           setDisplayActionPanel(!status);
         },
         onKeyDown: closeOnEscape,
-        onBlur: closeOnFocusOut,
+        onBlur: children.props.attachElementToBody ? null : closeOnFocusOut,
         disabled: loader,
         onChange: (value, values) => {
-          onChange(value, values);
+          children.props.onChange(value, values);
           if (children.props.dropdownType === 'multi') {
             inlineEditValue.current = values;
             setMatchedValue(false);
@@ -135,7 +134,7 @@ const InlineEdit = ({
       return cloneElement(children, {
         onChange: e => {
           e.preventDefault();
-          onChange(e);
+          children.props.onChange(e);
           inlineEditValue.current = e.currentTarget.value;
           setMatchedValue(currentValue.current === e.currentTarget.value);
         },
@@ -147,13 +146,13 @@ const InlineEdit = ({
       currentValue.current = children.props.defaultDate;
       return cloneElement(children, {
         onDateSelect: date => {
-          onChange(date);
+          children.props.onChange(date);
           inlineEditValue.current = date;
           setMatchedValue(
             isDateEqual(currentValue.current, inlineEditValue.current)
           );
         },
-        onBlur: closeOnFocusOut,
+        onBlur: children.props.attachElementToBody ? null : closeOnFocusOut,
         onKeyDown: closeOnEscape,
         disabled: loader,
         onVisibleChange: status => {
@@ -319,14 +318,11 @@ InlineEdit.propTypes = {
   /** disable flag for save button */
   disableSave: PropTypes.bool,
   /** disable flag for close button*/
-  disableClose: PropTypes.bool,
-  /** A callback function which will be executed on change value for dropdown, textinput and dropdown*/
-  onChange: PropTypes.func
+  disableClose: PropTypes.bool
 };
 
 InlineEdit.defaultProps = {
   onClose: () => {},
-  onChange: () => {},
   onTextUpdate: () => {},
   errorMessage: null,
   loader: false,
