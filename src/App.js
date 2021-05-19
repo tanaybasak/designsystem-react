@@ -1689,6 +1689,9 @@ class App extends Component {
                 <NumberInput
                   defaultValue={0}
                   step={1}
+                  onChange={value => {
+                    console.log(value);
+                  }}
                   id="numberInput2"
                   label="Number Input"
                   className="hcl-form-group"
