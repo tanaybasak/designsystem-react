@@ -1,3 +1,4 @@
+/* eslint-disable no-empty */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
@@ -107,6 +108,39 @@ const NumberInput = ({
     }
   };
 
+  const onNumberInputChange = evt => {
+    const newNumber = evt.target.validity.valid ? evt.target.value : value;
+    setValue(newNumber);
+
+    if (restProps.onChange) {
+      restProps.onChange(evt.currentTarget.value);
+    }
+  };
+
+  const onNumberInputKeyDown = evt => {
+    const { ctrlKey, metaKey, shiftKey } = evt;
+    const key = evt.which || evt.keyCode;
+    if (ctrlKey || metaKey || shiftKey) {
+    } else if (
+      // backspace, delete, arrow keys
+      key === 8 ||
+      key === 46 ||
+      key === 37 ||
+      key === 39 ||
+      key === 190 ||
+      key === 9
+    ) {
+    } else if (key === 38) {
+      increment(evt);
+    } else if (key === 40) {
+      decrement(evt);
+    } else if (key < 48 || key > 57) {
+      // non-numeric characters
+      evt.preventDefault();
+      return;
+    }
+  };
+
   return (
     <div className={classnames} disabled={disabled ? 'disabled' : null}>
       {label ? <Label htmlFor={id ? id : null}>{label} </Label> : null}
@@ -116,6 +150,7 @@ const NumberInput = ({
       <div className={`${prefix}-number-input`}>
         <input
           type="number"
+          pattern="^\d*(\.\d+)?$"
           className={`${prefix}-form-control`}
           max={max != null ? max : null}
           min={min != null ? min : null}
@@ -125,11 +160,9 @@ const NumberInput = ({
           id={id ? id : null}
           value={value}
           {...restProps}
-          onChange={event => {
-            setValue(event.currentTarget.value);
-            if (restProps.onChange) {
-              restProps.onChange(event.currentTarget.value);
-            }
+          onKeyDown={onNumberInputKeyDown.bind(this)}
+          onInput={event => {
+            onNumberInputChange(event);
           }}
           ref={inputRef}
         />
