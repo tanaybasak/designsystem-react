@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 // import prefix from '../../../../settings';
-import { isValidDate } from '../../../util/utility';
+import { isValidDate, createDateObj } from '../../../util/utility';
 
 const DateSelectorInput = ({
   format,
@@ -14,6 +14,8 @@ const DateSelectorInput = ({
   setShowDateContainer,
   setIsDateSelectedValid,
   className,
+  onDateSelect,
+  disabled,
   ...restProps
 }) => {
   const onEnterPressInputDate = event => {
@@ -26,9 +28,23 @@ const DateSelectorInput = ({
         switch (format) {
           case 'mm/dd/yyyy':
             updateFormattedDate(dateArray[0], dateArray[1], dateArray[2]);
+            onDateSelect(
+              createDateObj(
+                Number(dateArray[1]),
+                Number(dateArray[0]),
+                dateArray[2]
+              )
+            );
             break;
           case 'dd/mm/yyyy':
             updateFormattedDate(dateArray[1], dateArray[0], dateArray[2]);
+            onDateSelect(
+              createDateObj(
+                Number(dateArray[0]),
+                Number(dateArray[1]),
+                dateArray[2]
+              )
+            );
             break;
         }
       } else {
@@ -39,6 +55,7 @@ const DateSelectorInput = ({
   return (
     <div className="hcl-form-group">
       <input
+        disabled={disabled}
         type="text"
         className={`hcl-dateSelector-input ${className}`}
         placeholder={format}
@@ -92,7 +109,9 @@ DateSelectorInput.propTypes = {
   updateFormattedDate: PropTypes.func.isRequired,
   setShowDateContainer: PropTypes.func.isRequired,
   setIsDateSelectedValid: PropTypes.func.isRequired,
-  className: PropTypes.string.isRequired
+  className: PropTypes.string,
+  disabled: PropTypes.bool,
+  onDateSelect: PropTypes.func
 };
 
 export default DateSelectorInput;

@@ -354,7 +354,16 @@ Dropdown.propTypes = {
    */
   onChange: PropTypes.func,
 
-  /** id of item for default selection */
+  /** id of item for default selection
+   *
+   * ```
+   *[
+   *  { id:0 },
+   *  { id:1 },
+   *  { id:2 }
+   *]
+   * ```
+   */
   selectedItem: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
 
   /** Class/clasess will be applied on the parent div of Dropdown */

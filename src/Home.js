@@ -24,7 +24,7 @@ import WizardExample from './example/WizardExample';
 import RichTextEditorExample from './example/RichTextEditorExample';
 import CodeSnippetExample from './example/CodeSnippetExample';
 import SidebarExample from './example/SidebarExample';
-// import CalendarExample from './example/CalendarExample';
+import CalendarExample from './example/CalendarExample';
 import MainBuilder from './example/MainBuilder';
 import SlideoutExample from './example/SlideoutExample';
 import TileExample from './example/TileExample';
@@ -245,7 +245,7 @@ class Home extends Component {
             />
             <Route exact path="/rte" component={RichTextEditorExample} />
             <Route exact path="/codesnippet" component={CodeSnippetExample} />
-            {/* <Route exact path="/calendar" component={CalendarExample} /> */}
+            <Route exact path="/calendar" component={CalendarExample} />
             <Route exact path="/lb" component={MainBuilder} />
             <Route exact path="/tile" component={TileExample} />
           </Switch>
