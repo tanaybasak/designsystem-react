@@ -126,14 +126,14 @@ const NumberInput = ({
       key === 8 ||
       key === 46 ||
       key === 37 ||
-      key === 38 ||
       key === 39 ||
-      key === 40 ||
       key === 190 ||
       key === 9
     ) {
     } else if (key === 38) {
       increment(evt);
+    } else if (key === 40) {
+      decrement(evt);
     } else if (key < 48 || key > 57) {
       // non-numeric characters
       evt.preventDefault();
