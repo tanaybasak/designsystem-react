@@ -26,7 +26,12 @@ const DateRangeSelector = ({
   defaultStartDate,
   defaultEndDate,
   minDate,
-  maxDate
+  maxDate,
+  eventsCategory,
+  eventStyle,
+  events,
+  disabled,
+  ...restProps
 }) => {
   const date = new Date();
 
@@ -52,7 +57,13 @@ const DateRangeSelector = ({
 
   const [showDateContainer, setShowDateContainer] = useState(false);
   const [startDateSelected, setStartDateSelected] = useState(null);
+  const [prevStartDateSelected, setPrevStartDateSelected] = useState(
+    convertToDateString(defaultStartDate, format)
+  );
   const [endDateSelected, setEndDateSelected] = useState(null);
+  const [prevEndDateSelected, setPrevEndDateSelected] = useState(
+    convertToDateString(defaultEndDate, format)
+  );
   const [isStartDateSelectedValid, setIsStartDateSelectedValid] = useState(
     true
   );
@@ -61,63 +72,43 @@ const DateRangeSelector = ({
   const datepickerEndInput = useRef(null);
   const [targetEl, setTargetEl] = useState(null);
 
-  // const [flag, setFlag] = useState(false);
-
   const [numOfSelectedDated, setNumOfSelectedDated] = useState(0);
-
   useEffect(() => {
     if (defaultStartDate && defaultStartDate !== '') {
-      const defaultDateArray = datepickerStartInput.current
-        .getAttribute('defaultdate')
-        .split('/');
-
-      switch (format) {
-        case 'mm/dd/yyyy':
-          updateFormattedDate(
-            defaultDateArray[0],
-            defaultDateArray[1],
-            defaultDateArray[2],
-            'start'
-          );
-          break;
-        case 'dd/mm/yyyy':
-          updateFormattedDate(
-            defaultDateArray[1],
-            defaultDateArray[0],
-            defaultDateArray[2],
-            'start'
-          );
-          break;
-      }
+      updateFormattedDate(
+        defaultStartDate.getMonth() + 1,
+        defaultStartDate.getDate(),
+        defaultStartDate.getFullYear(),
+        'start'
+      );
+      setStartDateObj({
+        day: defaultStartDate.getDay(),
+        month: defaultStartDate.getMonth(),
+        date: defaultStartDate.getDate(),
+        year: defaultStartDate.getFullYear()
+      });
     }
-  }, [defaultStartDate]);
 
-  useEffect(() => {
     if (defaultEndDate && defaultEndDate !== '') {
-      const defaultDateArray = datepickerEndInput.current
-        .getAttribute('defaultdate')
-        .split('/');
+      updateFormattedDate(
+        defaultEndDate.getMonth() + 1,
+        defaultEndDate.getDate(),
+        defaultEndDate.getFullYear(),
+        'end'
+      );
 
-      switch (format) {
-        case 'mm/dd/yyyy':
-          updateFormattedDate(
-            defaultDateArray[0],
-            defaultDateArray[1],
-            defaultDateArray[2],
-            'end'
-          );
-          break;
-        case 'dd/mm/yyyy':
-          updateFormattedDate(
-            defaultDateArray[1],
-            defaultDateArray[0],
-            defaultDateArray[2],
-            'end'
-          );
-          break;
-      }
+      setEndDateObj({
+        day: defaultEndDate.getDay(),
+        month:
+          defaultStartDate.getMonth() === defaultEndDate.getMonth() &&
+          defaultStartDate.getFullYear() === defaultEndDate.getFullYear()
+            ? defaultEndDate.getMonth() + 1
+            : defaultEndDate.getMonth(),
+        date: defaultEndDate.getDate(),
+        year: defaultEndDate.getFullYear()
+      });
     }
-  }, [defaultEndDate]);
+  }, [defaultStartDate, defaultEndDate]);
 
   let range = 0;
 
@@ -161,6 +152,12 @@ const DateRangeSelector = ({
           defaultEndDate.getMonth() === 11 ? 0 : defaultEndDate.getMonth() + 1,
           1
         );
+      } else {
+        d1 = new Date(
+          startDateObj.month === 11 ? startDateObj.year + 1 : startDateObj.year,
+          startDateObj.month === 11 ? 0 : startDateObj.month + 1,
+          1
+        );
       }
     } else {
       d1 = new Date(
@@ -175,20 +172,25 @@ const DateRangeSelector = ({
 
   const onCancel = () => {
     setShowDateContainer(false);
+    let prevStartDateSelectedObj = convertToDateObj(
+      format,
+      prevStartDateSelected
+    );
+    let prevEndDateSelectedObj = convertToDateObj(format, prevEndDateSelected);
     setStartDateObj({
-      day: date.getDay(),
-      month: date.getMonth(),
-      date: date.getDate(),
-      year: date.getFullYear()
+      day: prevStartDateSelectedObj.getDay(),
+      month: prevStartDateSelectedObj.getMonth(),
+      date: prevStartDateSelectedObj.getDate(),
+      year: prevStartDateSelectedObj.getFullYear()
     });
     setEndDateObj({
-      day: endDate.getDay(),
-      month: endDate.getMonth(),
-      date: endDate.getDate(),
-      year: endDate.getFullYear()
+      day: prevEndDateSelectedObj.getDay(),
+      month: prevEndDateSelectedObj.getMonth(),
+      date: prevEndDateSelectedObj.getDate(),
+      year: prevEndDateSelectedObj.getFullYear()
     });
-    setStartDateSelected(null);
-    setEndDateSelected(null);
+    setStartDateSelected(prevStartDateSelected);
+    setEndDateSelected(prevEndDateSelected);
   };
 
   const toggleDateContainer = target => {
@@ -196,11 +198,11 @@ const DateRangeSelector = ({
     setTargetEl(target.current);
   };
 
-  const onDateSelection = event => {
+  const onDateSelection = (dateObj, event) => {
     let datePicked;
     switch (numOfSelectedDated) {
       case 0:
-        datePicked = event.target.getAttribute('date');
+        datePicked = event.currentTarget.getAttribute('date');
         setStartDateSelected(datePicked);
         setIsStartDateSelectedValid(true);
         if (startDateSelected !== null) {
@@ -211,7 +213,7 @@ const DateRangeSelector = ({
         break;
 
       case 1:
-        datePicked = event.target.getAttribute('date');
+        datePicked = event.currentTarget.getAttribute('date');
         if (
           convertToDateObj(format, datePicked) >=
           convertToDateObj(format, startDateSelected)
@@ -230,15 +232,6 @@ const DateRangeSelector = ({
       case 2:
         break;
     }
-
-    // if (event.target.getAttribute('paneltype') === 'startpanel') {
-    //   setStartDateSelected(event.target.getAttribute('date'));
-    //   setIsStartDateSelectedValid(true);
-    // } else if (event.target.getAttribute('paneltype') === 'endpanel') {
-    //   setEndDateSelected(event.target.getAttribute('date'));
-    //   setIsEndDateSelectedValid(true);
-    // }
-    // setFlag(!flag);
   };
 
   const updateFormattedDate = (mm, dd, yyyy, type) => {
@@ -251,28 +244,15 @@ const DateRangeSelector = ({
     let dateStr = String(date);
     monthStr.length === 1 ? (monthStr = monthStr.padStart(2, '0')) : null;
     dateStr.length === 1 ? (dateStr = dateStr.padStart(2, '0')) : null;
-    // type === 'start'
-    //   ? setStartDateObj({
-    //       day: day,
-    //       month: month,
-    //       date: date,
-    //       year: year
-    //     })
-    //   : setEndDateObj({
-    //       day: day,
-    //       month: month,
-    //       date: date,
-    //       year: year
-    //     });
 
-    type === 'start'
-      ? setStartDateObj({
-          day: day,
-          month: month,
-          date: date,
-          year: year
-        })
-      : null;
+    if (type === 'start') {
+      setStartDateObj({
+        day: day,
+        month: month,
+        date: date,
+        year: year
+      });
+    }
 
     switch (format) {
       case 'mm/dd/yyyy':
@@ -288,12 +268,33 @@ const DateRangeSelector = ({
     }
   };
 
+  const getValidCurrDateObj = () => {
+    let date;
+    if (endDateObj.month === startDateObj.month && endDateObj.month === 11) {
+      date = new Date(startDateObj.year + 1, 0, startDateObj.date);
+    } else {
+      date = new Date(
+        startDateObj.year,
+        startDateObj.month + 1,
+        startDateObj.date
+      );
+    }
+
+    return {
+      day: date.getDay(),
+      month: date.getMonth(),
+      date: date.getDate(),
+      year: date.getFullYear()
+    };
+  };
+
   return (
     <>
       <div
         className={`hcl-dateSelector ${className}`}
         data-component="date-picker"
         id={id}
+        {...restProps}
       >
         <div className="hcl-overlay-wrapper hcl-dateSelector-container">
           <DateRangeInput
@@ -316,6 +317,9 @@ const DateRangeSelector = ({
             onDateRangeSelect={onDateRangeSelect}
             maxDate={maxDate}
             minDate={minDate}
+            setStartDateObj={setStartDateObj}
+            setEndDateObj={setEndDateObj}
+            disabled={disabled}
           />
           <Overlay
             attachElementToBody={attachElementToBody}
@@ -338,7 +342,6 @@ const DateRangeSelector = ({
                     dateSelected={startDateSelected}
                     months={months}
                     weekDays={weekDays}
-                    panelType="startpanel"
                     startDateSelected={startDateSelected}
                     endDateSelected={endDateSelected}
                     startDateObj={startDateObj}
@@ -347,19 +350,25 @@ const DateRangeSelector = ({
                     setEndDateObj={setEndDateObj}
                     type="rangepicker"
                     range={range}
-                    onDateRangeSelect={onDateRangeSelect}
                     maxDate={getMaxDate()}
                     minDate={minDate}
+                    eventsCategory={eventsCategory}
+                    eventStyle={eventStyle}
+                    events={events}
                   />
                   <SelectPanel
-                    currDateObj={endDateObj}
+                    currDateObj={
+                      endDateObj.month === startDateObj.month &&
+                      endDateObj.year === startDateObj.year
+                        ? getValidCurrDateObj()
+                        : endDateObj
+                    }
                     setCurrDateObj={setEndDateObj}
                     format={format}
                     onDateSelection={onDateSelection}
                     dateSelected={endDateSelected}
                     months={months}
                     weekDays={weekDays}
-                    panelType="endpanel"
                     startDateSelected={startDateSelected}
                     endDateSelected={endDateSelected}
                     startDateObj={startDateObj}
@@ -370,10 +379,15 @@ const DateRangeSelector = ({
                     range={range}
                     maxDate={maxDate}
                     minDate={getMinDate()}
+                    eventsCategory={eventsCategory}
+                    eventStyle={eventStyle}
+                    events={events}
                   />
                 </div>
                 <DateRangeFooter
                   onDone={() => {
+                    setPrevStartDateSelected(startDateSelected);
+                    setPrevEndDateSelected(endDateSelected);
                     setShowDateContainer(false);
                     onDateRangeSelect({
                       start: convertToDateObj(format, startDateSelected),
@@ -413,8 +427,7 @@ DateRangeSelector.propTypes = {
   /**
    *
    * * ```mm/dd/yyyy``` :  One of the format available.
-   * * ```dd/mm/yyyy``` : One of the format available.
-   * */
+   * * ```dd/mm/yyyy``` : One of the format available. */
   format: PropTypes.string,
 
   /** Callback function which will be executed on date range selection
@@ -445,14 +458,70 @@ DateRangeSelector.propTypes = {
   sidePanel: PropTypes.node,
 
   /** This props allows user to pass default start date */
-  defaultStartDate: PropTypes.any,
+  defaultStartDate: PropTypes.instanceOf(Date),
 
   /** This props allows user to pass default start date */
-  defaultEndDate: PropTypes.any,
-  /** Min date */
+  defaultEndDate: PropTypes.instanceOf(Date),
+
+  /** This props restrict user from date selection lower than minDate */
   minDate: PropTypes.instanceOf(Date),
-  /** Max date */
-  maxDate: PropTypes.instanceOf(Date)
+
+  /** This props restrict user from date selection higher than maxDate */
+  maxDate: PropTypes.instanceOf(Date),
+
+  /** This prop enables user to define category.
+   *
+   * * ```color``` : color of the border/dot
+   * * ```numOfDots``` : Number Of Dots
+   *
+   * eg:
+   * ```
+   * {
+   *       category1: {
+   *         color: 'var(--orange-100)',
+   *         numOfDots: 1
+   *       },
+   *       category2: {
+   *         color: 'var(--lime-50)',
+   *         numOfDots: 2
+   *       },
+   *       category3: {
+   *         color: 'var(--green-100)',
+   *         numOfDots: 3
+   *       }
+   *     }
+   * ```
+   */
+  eventsCategory: PropTypes.any,
+
+  /** This prop enables user to select event style.
+   * * ```border``` :  Shows event in form of border.
+   * * ```dot``` : Shows event in form of dot.
+   * * ```both``` : Shows event in form of dot along with border. */
+  eventStyle: PropTypes.oneOf(['border', 'dot', 'both']),
+
+  /** This prop enables user to pass event and respective category.
+   *
+   * * ```date``` : event date
+   * * ```category``` : event category
+   *
+   * eg :
+   * ```
+   *  [
+   *   { date: new Date('2021', '03', '15'), category: 'category1' },
+   *   { date: new Date('2021', '03', '16'), category: 'category2' },
+   *   { date: new Date('2021', '03', '24'), category: 'category3' }
+   *  ]
+   * ```
+   */
+  events: PropTypes.arrayOf(
+    PropTypes.shape({
+      date: PropTypes.instanceOf(Date),
+      category: PropTypes.string
+    })
+  ),
+  /** This props allows user to disable DateSelector Input */
+  disabled: PropTypes.bool
 };
 
 DateRangeSelector.defaultProps = {
@@ -476,9 +545,13 @@ DateRangeSelector.defaultProps = {
   scrollListner: false,
   format: 'MM/DD/YYYY',
   onDateRangeSelect: () => {},
-  className: '',
+  className: null,
   id: null,
   minDate: new Date(1000, 0, 1),
-  maxDate: new Date(9999, 12, 31)
+  maxDate: new Date(9999, 11, 31),
+  eventsCategory: null,
+  eventStyle: 'dot',
+  events: [],
+  disabled: false
 };
 export default DateRangeSelector;

@@ -1,11 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import {
-  createDateObj,
-  convertToDateObj,
-  convertToDateString
-} from '../../util/utility';
+import { convertToDateObj, convertToDateString } from '../../util/utility';
 import Overlay from '../../atoms/Overlay';
 import FormHelperText from '../../atoms/FormHelperText';
 import SelectPanel from './SelectPanel';
@@ -26,6 +22,10 @@ const DateSelector = ({
   minDate,
   maxDate,
   onVisibleChange,
+  eventsCategory,
+  eventStyle,
+  events,
+  disabled,
   ...restProps
 }) => {
   const date = new Date();
@@ -108,17 +108,16 @@ const DateSelector = ({
         setDateSelected(`${dateStr}/${monthStr}/${year}`);
         break;
     }
-    dateSelected === ''
-      ? null
-      : onDateSelect(createDateObj(Number(dateStr), Number(monthStr), year));
   };
 
-  const onDateSelection = event => {
-    setDateSelected(event.target.getAttribute('date'));
+  const onDateSelection = (dateObj, event) => {
+    setDateSelected(event.currentTarget.getAttribute('date'));
     setIsDateSelectedValid(true);
     setIsValidYear(true);
     setShowDateContainer(false);
-    onDateSelect(convertToDateObj(format, event.target.getAttribute('date')));
+    onDateSelect(
+      convertToDateObj(format, event.currentTarget.getAttribute('date'))
+    );
   };
 
   return (
@@ -136,6 +135,8 @@ const DateSelector = ({
             setShowDateContainer={setShowDateContainer}
             setIsDateSelectedValid={setIsDateSelectedValid}
             className={className}
+            onDateSelect={onDateSelect}
+            disabled={disabled}
             {...restProps}
           />
 
@@ -161,6 +162,9 @@ const DateSelector = ({
                   weekDays={weekDays}
                   minDate={minDate}
                   maxDate={maxDate}
+                  eventsCategory={eventsCategory}
+                  eventStyle={eventStyle}
+                  events={events}
                 />
               </div>
             </div>
@@ -189,12 +193,11 @@ DateSelector.propTypes = {
   /**
    *
    * * ```mm/dd/yyyy``` :  One of the format available.
-   * * ```dd/mm/yyyy``` : One of the format available.
-   * */
+   * * ```dd/mm/yyyy``` : One of the format available. */
   format: PropTypes.string,
 
   /** This props allows user to pass default date */
-  defaultDate: PropTypes.any,
+  defaultDate: PropTypes.instanceOf(Date),
 
   /** className/clasess will be applied on the parent div of DateSelector */
   className: PropTypes.string,
@@ -223,16 +226,70 @@ DateSelector.propTypes = {
    * ```date``` : selected date
    */
   onDateSelect: PropTypes.func,
-  /** Min date */
+  /** This props restrict user from date selection lower than minDate */
   minDate: PropTypes.instanceOf(Date),
-  /** Max date */
+  /** This props restrict user from date selection higher than maxDate */
   maxDate: PropTypes.instanceOf(Date),
   /** Callback on SelectPanel toggle
    *
    * @signature
    * ```isOpen``` : boolean flag
    */
-  onVisibleChange: PropTypes.func
+  onVisibleChange: PropTypes.func,
+
+  /** This prop enables user to define category.
+   *
+   * * ```color``` : color of the border/dot
+   * * ```numOfDots``` : Number Of Dots
+   *
+   * eg:
+   * ```
+   * {
+   *       category1: {
+   *         color: 'var(--orange-100)',
+   *         numOfDots: 1
+   *       },
+   *       category2: {
+   *         color: 'var(--lime-50)',
+   *         numOfDots: 2
+   *       },
+   *       category3: {
+   *         color: 'var(--green-100)',
+   *         numOfDots: 3
+   *       }
+   *     }
+   * ```
+   */
+  eventsCategory: PropTypes.any,
+
+  /** This prop enables user to select event style.
+   * * ```border``` :  Shows event in form of border.
+   * * ```dot``` : Shows event in form of dot.
+   * * ```both``` : Shows event in form of dot along with border. */
+  eventStyle: PropTypes.oneOf(['border', 'dot', 'both']),
+
+  /** This prop enables user to pass event and respective category.
+   *
+   * * ```date``` : event date
+   * * ```category``` : event category
+   *
+   * eg :
+   * ```
+   *  [
+   *   { date: new Date('2021', '03', '15'), category: 'category1' },
+   *   { date: new Date('2021', '03', '16'), category: 'category2' },
+   *   { date: new Date('2021', '03', '24'), category: 'category3' }
+   *  ]
+   * ```
+   */
+  events: PropTypes.arrayOf(
+    PropTypes.shape({
+      date: PropTypes.instanceOf(Date),
+      category: PropTypes.string
+    })
+  ),
+  /** This props allows user to disable DateSelector Input */
+  disabled: PropTypes.bool
 };
 
 DateSelector.defaultProps = {
@@ -253,8 +310,8 @@ DateSelector.defaultProps = {
     'DEC'
   ],
   format: 'mm/dd/yyyy',
-  defaultDate: '',
-  className: '',
+  defaultDate: null,
+  className: null,
   direction: 'bottom-left',
   scrollListner: false,
   attachElementToBody: false,
@@ -262,7 +319,11 @@ DateSelector.defaultProps = {
   onDateSelect: () => {},
   minDate: new Date(1000, 0, 1),
   maxDate: new Date(9999, 12, 31),
-  onVisibleChange: null
+  onVisibleChange: null,
+  eventsCategory: null,
+  eventStyle: 'dot',
+  events: [],
+  disabled: false
 };
 
 DateSelector.displayName = 'DateSelector';
