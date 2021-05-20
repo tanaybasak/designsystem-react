@@ -45,8 +45,8 @@ Radio.propTypes = {
   className: PropTypes.string,
   /** Disable Radio */
   disabled: PropTypes.bool,
-  /** Text for Radio Label. */
-  labelText: PropTypes.string,
+  /** Label for Radio Label. */
+  labelText: PropTypes.any,
   /** Unique identifier of the element. */
   id: PropTypes.string,
   /** Accepts event handler as prop/argument. */
