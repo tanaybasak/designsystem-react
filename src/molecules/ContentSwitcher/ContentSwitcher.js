@@ -95,6 +95,7 @@ ContentSwitcher.propTypes = {
   /** Index of the tab to be selected. */
   activeIndex: PropTypes.number,
   /** Accepts event handler as prop/argument.
+   * * 'label' and 'switchIndex' keys are provided to get currently selected Switch.
    *
    * @signature
    * ```event```: change event object
