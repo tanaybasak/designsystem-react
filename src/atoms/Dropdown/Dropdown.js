@@ -236,7 +236,7 @@ const Dropdown = ({
         </div>
       ) : (
         <button
-          className={`${prefix}-btn ${prefix}-dropdown-toggle`}
+          className={`${prefix}-btn ${prefix}-dropdown-btn  ${prefix}-dropdown-toggle`}
           data-toggle="dropdown"
           ref={dropDown}
           disabled={disabled}
