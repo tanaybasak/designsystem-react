@@ -18,7 +18,7 @@ storiesOf('Components/Number Input', module).add(
       max={number('Max', 100)}
       min={number('Min', 0)}
       onChange={action('Number Change')}
-      step={number('Step', 0.1)}
+      step={number('Step', 1)}
       required={boolean('Required', false)}
     />
   ),
