@@ -108,16 +108,6 @@ const NumberInput = ({
     }
   };
 
-  // const onNumberInputChange = evt => {
-  //   debugger;
-  //   const newNumber = evt.target.validity.valid ? evt.target.value : value;
-  //   setValue(newNumber);
-
-  //   if (restProps.onChange) {
-  //     restProps.onChange(evt.currentTarget.value);
-  //   }
-  // };
-
   const onNumberInputKeyDown = evt => {
     const { ctrlKey, metaKey, shiftKey } = evt;
     const key = evt.which || evt.keyCode;
@@ -167,8 +157,6 @@ const NumberInput = ({
             if (restProps.onChange) {
               restProps.onChange(event.currentTarget.value);
             }
-            // console.log('oninput', event);
-            // onNumberInputChange(event);
           }}
           ref={inputRef}
         />
