@@ -93,7 +93,7 @@ storiesOf('Components/Calendar', module)
     }
   )
   .add(
-    'Calendar with dot event style',
+    'default',
     () => (
       <Calendar
         currDateObj={new Date('2021', '03', '15')}
