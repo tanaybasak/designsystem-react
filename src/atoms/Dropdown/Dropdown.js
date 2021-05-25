@@ -192,7 +192,11 @@ const Dropdown = ({
   };
 
   const classNames = [`${prefix}-overlay-wrapper`, `${prefix}-dropdown`];
-  const multidropClassnames = [`${prefix}-btn`, `${prefix}-dropdown-toggle`];
+  const multidropClassnames = [
+    `${prefix}-btn`,
+    `${prefix}-multiselect-btn`,
+    `${prefix}-dropdown-toggle`
+  ];
   if (isOpen) {
     classNames.push(`${prefix}-overlay-wrapper-active`);
   }
@@ -236,7 +240,7 @@ const Dropdown = ({
         </div>
       ) : (
         <button
-          className={`${prefix}-btn ${prefix}-dropdown-btn  ${prefix}-dropdown-toggle`}
+          className={`${prefix}-btn ${prefix}-dropdown-toggle`}
           data-toggle="dropdown"
           ref={dropDown}
           disabled={disabled}
