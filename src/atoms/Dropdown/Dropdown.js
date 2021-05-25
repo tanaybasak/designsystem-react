@@ -236,7 +236,7 @@ const Dropdown = ({
               {selectedCount}
             </Tag>
           ) : null}
-          {label}
+          <span className="hcl-dropdown-text">{label}</span>
         </div>
       ) : (
         <button
