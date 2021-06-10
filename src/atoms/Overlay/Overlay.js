@@ -36,8 +36,24 @@ const Overlay = ({
       let canClose = true;
       if (preventCloseElements && preventCloseElements.length > 0) {
         preventCloseElements.forEach(element => {
-          if (e && element && element.contains(e.target)) {
-            canClose = false;
+          if (typeof element === 'string') {
+            document.querySelectorAll(element).forEach(ele => {
+              if (
+                element === '.hcl-overlay-container' &&
+                ele.parentElement.tagName.toUpperCase() === 'BODY' &&
+                e &&
+                ele &&
+                ele.contains(e.target)
+              ) {
+                canClose = false;
+              } else if (e && ele && ele.contains(e.target)) {
+                canClose = false;
+              }
+            });
+          } else {
+            if (e && element && element.contains(e.target)) {
+              canClose = false;
+            }
           }
         });
       }

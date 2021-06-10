@@ -18,6 +18,7 @@ const InlineEdit = ({
   disableClose,
   children,
   className,
+  preventCloseElements,
   ...restProps
 }) => {
   const inlineEditorRef = useRef(null);
@@ -240,6 +241,10 @@ const InlineEdit = ({
         showOverlay={displayActionPanel}
         targetElement={overlayTargetEl}
         className={`${prefix}-inline-editor-overlay`}
+        preventCloseElements={[
+          '.hcl-overlay-container',
+          ...preventCloseElements
+        ]}
         style={{
           width: overlayTargetEl ? overlayTargetEl.offsetWidth + 'px' : '0'
         }}
@@ -318,7 +323,19 @@ InlineEdit.propTypes = {
   /** disable flag for save button */
   disableSave: PropTypes.bool,
   /** disable flag for close button*/
-  disableClose: PropTypes.bool
+  disableClose: PropTypes.bool,
+  /**
+   * used to provide elements, where overlay content will not removed on click of these elements.
+   * can pass classname or ids or html element
+   *
+   * eg:
+   * ```
+   * ['.elementClassName','#elementId',elementRef.current]
+   *
+   * ```
+   *
+   * */
+  preventCloseElements: PropTypes.array
 };
 
 InlineEdit.defaultProps = {
@@ -330,7 +347,8 @@ InlineEdit.defaultProps = {
   children: null,
   className: null,
   disableSave: false,
-  disableClose: false
+  disableClose: false,
+  preventCloseElements: []
 };
 
 export default InlineEdit;
