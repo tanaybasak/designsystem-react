@@ -324,7 +324,17 @@ InlineEdit.propTypes = {
   disableSave: PropTypes.bool,
   /** disable flag for close button*/
   disableClose: PropTypes.bool,
-  /** used to provide elements, where overlay content will not removed on click of these elements */
+  /**
+   * used to provide elements, where overlay content will not removed on click of these elements.
+   * can pass classname or ids or html element
+   *
+   * eg:
+   * ```
+   * ['.elementClassName','#elementId',elementRef.current]
+   *
+   * ```
+   *
+   * */
   preventCloseElements: PropTypes.array
 };
 
