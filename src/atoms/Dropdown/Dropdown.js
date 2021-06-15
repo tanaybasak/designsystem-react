@@ -20,6 +20,7 @@ const Dropdown = ({
   attachElementToBody,
   scrollListner,
   onVisibleChange,
+  isGhostMode,
   ...restProps
 }) => {
   const defaultConfig = { text: 'text', id: 'id' };
@@ -192,10 +193,17 @@ const Dropdown = ({
   };
 
   const classNames = [`${prefix}-overlay-wrapper`, `${prefix}-dropdown`];
-  const multidropClassnames = [
+  const dropdownClassNames = [
     `${prefix}-btn`,
-    `${prefix}-multiselect-btn`,
+    `${prefix}-form-control`,
     `${prefix}-dropdown-toggle`
+  ];
+  if (isGhostMode) {
+    dropdownClassNames.push(`${prefix}-ghost-dropdown`);
+  }
+  const multidropClassnames = [
+    ...dropdownClassNames,
+    `${prefix}-multiselect-btn`
   ];
   if (isOpen) {
     classNames.push(`${prefix}-overlay-wrapper-active`);
@@ -240,7 +248,7 @@ const Dropdown = ({
         </div>
       ) : (
         <button
-          className={`${prefix}-btn ${prefix}-dropdown-toggle`}
+          className={dropdownClassNames.join(' ')}
           data-toggle="dropdown"
           ref={dropDown}
           disabled={disabled}
@@ -389,7 +397,11 @@ Dropdown.propTypes = {
    * @signature
    * ```isOpen``` : boolean flag
    */
-  onVisibleChange: PropTypes.func
+  onVisibleChange: PropTypes.func,
+  /**
+   * used to show dropdown in ghost mode.
+   * */
+  isGhostMode: PropTypes.bool
 };
 
 Dropdown.defaultProps = {
@@ -402,7 +414,8 @@ Dropdown.defaultProps = {
   config: {},
   attachElementToBody: false,
   scrollListner: false,
-  onVisibleChange: null
+  onVisibleChange: null,
+  isGhostMode: false
 };
 
 Dropdown.displayName = 'Dropdown';

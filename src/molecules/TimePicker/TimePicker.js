@@ -5,6 +5,7 @@ import prefix from '../../settings';
 import { period, msg_invalid_time } from '../../content';
 import Label from '../../atoms/Label';
 import FormHelperText from '../../atoms/FormHelperText';
+import { Select, SelectItem } from '../../atoms/Select';
 const TimePicker = ({
   className,
   timeZones,
@@ -70,8 +71,7 @@ const TimePicker = ({
 
   const onSelectPeriod = event => {
     const tempTimeObject = { ...timeObj };
-    tempTimeObject.period =
-      event.currentTarget.options[event.currentTarget.selectedIndex].innerText;
+    tempTimeObject.period = event.value;
 
     setTimeObject(tempTimeObject);
     if (validationMessage === '') {
@@ -81,8 +81,7 @@ const TimePicker = ({
 
   const onSelectTimezone = event => {
     const tempTimeObject = { ...timeObj };
-    tempTimeObject.timezone =
-      event.currentTarget.options[event.currentTarget.selectedIndex].innerText;
+    tempTimeObject.timezone = event.value;
     setTimeObject(tempTimeObject);
     if (validationMessage === '') {
       onChange(tempTimeObject);
@@ -232,42 +231,32 @@ const TimePicker = ({
           <span className={`${prefix}-timepicker-hour-label`}>{labelHH}</span>
         ) : null}
         {type !== 'HH' ? (
-          <select
-            className={`${prefix}-select`}
+          <Select
             aria-label="choose option"
+            className="ml-1"
             onChange={onSelectPeriod}
             value={timeObj.period}
             disabled={disabled}
           >
-            <option className={`${prefix}-select-option`} value={period.am}>
-              {period.am}
-            </option>
-            <option className={`${prefix}-select-option`} value={period.pm}>
-              {period.pm}
-            </option>
-          </select>
+            <SelectItem value={period.am} text={period.am} />
+            <SelectItem value={period.pm} text={period.pm} />
+          </Select>
         ) : null}
 
         {timeZones && timeZones.length > 0 ? (
-          <select
-            className={`${prefix}-select`}
+          <Select
             aria-label="choose option"
+            className="ml-1"
             value={timeObj.timezone}
             onChange={onSelectTimezone}
             disabled={disabled}
           >
             {timeZones.map(timezone => {
               return (
-                <option
-                  className={`${prefix}-select-option`}
-                  value={timezone}
-                  key={timezone}
-                >
-                  {timezone}
-                </option>
+                <SelectItem value={timezone} key={timezone} text={timezone} />
               );
             })}
-          </select>
+          </Select>
         ) : null}
       </div>
       {validationMessage ? (

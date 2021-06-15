@@ -94,7 +94,7 @@ const Search = ({
       ) : null}
       <input
         type="text"
-        className={`${prefix}-search-input`}
+        className={`${prefix}-search-input ${prefix}-form-control`}
         placeholder={restProps.placeholder}
         ref={inputRef}
         value={value}

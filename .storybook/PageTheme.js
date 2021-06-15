@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Overflowmenu } from '../src/molecules/Overflowmenu';
 import Button from '../src/atoms/Button';
+import Toggle from '../src/atoms/Toggle';
 import '@patron/patron-css/patron/index.css';
 const versionJson = require('../package.json');
 const cssVersionJson = require('../node_modules/@patron/patron-css/package.json');
@@ -10,6 +11,9 @@ const PageTheme = () => {
     id: 'blue_active_orange_light',
     name: 'V2 light'
   });
+
+  const [isRounded , setRounded] = useState(false);
+  const [isOutline , setOutline] = useState(false)
 
   useEffect(() => {
     if (
@@ -46,10 +50,108 @@ const PageTheme = () => {
   ];
   return (
     <div style={{ position: 'absolute', right: '100px' }}>
-      <span style={{fontSize : '14px'}}><span>Patronus React Version: </span>
-      <span><span style={{fontWeight:600 , fontSize : '18px'}}>{versionJson.version}</span></span></span>
-      <span> with CSS: <span style={{fontWeight:600 , fontSize : '18px'}}>{cssVersionJson.version}</span></span>&nbsp;&nbsp;
-      
+      <span style={{ fontSize: '14px' }}>
+        <span>Patronus React Version: </span>
+        <span>
+          <span style={{ fontWeight: 600, fontSize: '18px' }}>
+            {versionJson.version}
+          </span>
+        </span>
+      </span>
+      <span>
+        {' '}
+        with CSS:{' '}
+        <span style={{ fontWeight: 600, fontSize: '18px' }}>
+          {cssVersionJson.version}
+        </span>
+      </span>
+      &nbsp;&nbsp;
+      <Toggle
+        aria-label="Toggle"
+        labelOff="filled"
+        labelOn="outline"
+        small
+        id="toggle-element1"
+        toggled={isOutline}
+        onChange={(e)=>{
+            setOutline(e);
+
+            let rootElement = document.getElementById('storybook-preview-iframe')
+            .contentDocument.body;
+          rootElement.classList.remove('outline');
+          rootElement.classList.remove('filled');
+          rootElement.classList.remove('rounded');
+          rootElement.classList.remove('sharp');
+          rootElement.classList.remove('outline-rounded');
+          rootElement.classList.remove('filled-rounded');
+          rootElement.classList.remove('outline-sharp');
+          rootElement.classList.remove('filled-sharp');
+          
+          if(e){
+            rootElement.classList.add('outline');
+            if(isRounded){
+                rootElement.classList.add('outline-rounded');
+                rootElement.classList.add('rounded');
+            }else{
+                rootElement.classList.add('outline-sharp');
+                rootElement.classList.add('sharp');    
+            }
+          }else{
+            rootElement.classList.add('filled');
+            if(isRounded){
+                rootElement.classList.add('filled-rounded');
+                rootElement.classList.add('rounded');
+            }else{
+                rootElement.classList.add('filled-sharp');
+                rootElement.classList.add('sharp');    
+            } 
+          }
+          
+
+        }}
+      />
+      <Toggle
+        aria-label="Toggle"
+        id="toggle-element2"
+        labelOff="sharp"
+        labelOn="rounded"
+        small
+        toggled={isRounded}
+        onChange={(e)=>{
+            setRounded(e);
+
+            let rootElement = document.getElementById('storybook-preview-iframe')
+            .contentDocument.body;
+          rootElement.classList.remove('outline');
+          rootElement.classList.remove('filled');
+          rootElement.classList.remove('rounded');
+          rootElement.classList.remove('sharp');
+          rootElement.classList.remove('outline-rounded');
+          rootElement.classList.remove('filled-rounded');
+          rootElement.classList.remove('outline-sharp');
+          rootElement.classList.remove('filled-sharp');
+          
+          if(e){
+            rootElement.classList.add('rounded');
+            if(isOutline){
+                rootElement.classList.add('outline-rounded');
+                rootElement.classList.add('outline');
+            }else{
+                rootElement.classList.add('filled-rounded');
+                rootElement.classList.add('filled');    
+            }
+          }else{
+            rootElement.classList.add('sharp');
+            if(isOutline){
+                rootElement.classList.add('outline-sharp');
+                rootElement.classList.add('outline');
+            }else{
+                rootElement.classList.add('filled-sharp');
+                rootElement.classList.add('filled');    
+            } 
+          }
+        }}
+      />
       <Overflowmenu
         attachElementToBody
         listItems={themes}

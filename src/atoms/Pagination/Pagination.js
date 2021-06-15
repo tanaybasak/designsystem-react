@@ -82,25 +82,24 @@ const Pagination = ({
   }
 
   const ItemsPerPageChange = e => {
-    const { target } = e;
-    setCurrentItemsPerPageSelected(parseInt(target.value));
-    if (Math.ceil(totalItems / parseInt(target.value)) < currentPageSelected) {
+    setCurrentItemsPerPageSelected(parseInt(e.value));
+    if (Math.ceil(totalItems / parseInt(e.value)) < currentPageSelected) {
       setCurrentPageSelected(1);
       if (onItemsPerPageChange) {
-        onItemsPerPageChange(parseInt(target.value), 1);
+        onItemsPerPageChange(parseInt(e.value), 1);
       }
     } else {
       if (onItemsPerPageChange) {
-        onItemsPerPageChange(parseInt(target.value), currentPageSelected);
+        onItemsPerPageChange(parseInt(e.value), currentPageSelected);
       }
     }
   };
 
   const PageChange = e => {
-    const { target } = e;
-    setCurrentPageSelected(parseInt(target.value));
+    // const { target } = e;
+    setCurrentPageSelected(parseInt(e.value));
     if (onPageChange) {
-      onPageChange(parseInt(target.value), currentItemsPerPageSelected);
+      onPageChange(parseInt(e.value), currentItemsPerPageSelected);
     }
   };
 
@@ -209,7 +208,7 @@ const Pagination = ({
             onKeyDown={onPagesKeyDown}
             onChange={PageChange.bind(this)}
             options={getPagesArrayVal()}
-            className={`${prefix}-pagination-select ${prefix}-page-number`}
+            className={`${prefix}-page-number`}
           />
         </div>
         <button
@@ -247,7 +246,7 @@ const Pagination = ({
             onKeyDown={onPageItemsKeyDown}
             onChange={ItemsPerPageChange.bind(this)}
             options={itemPerPageStepperArray}
-            className={`${prefix}-pagination-select ${prefix}-page-items`}
+            className={`${prefix}-page-items`}
           />
         </div>
       </>

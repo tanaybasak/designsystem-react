@@ -34,6 +34,7 @@ storiesOf('Components/Dropdown', module)
         label={text('Label', 'Dropdown Label')}
         onChange={action('Dropdown-Onchange')}
         disabled={boolean('disabled', false)}
+        isGhostMode={boolean('Ghost Mode', false)}
       />
     ),
     {
@@ -54,6 +55,7 @@ storiesOf('Components/Dropdown', module)
         selectedItem={text('Item', 'option-2')}
         onChange={action('Dropdown-Onchange')}
         disabled={boolean('disabled', false)}
+        isGhostMode={boolean('Ghost Mode', false)}
       />
     ),
     {
@@ -72,6 +74,7 @@ storiesOf('Components/Dropdown', module)
         items={object('Items', items)}
         label={text('Label', 'MultiSelect Label')}
         onChange={action('Dropdown-Onchange')}
+        isGhostMode={boolean('Ghost Mode', false)}
         disabled={boolean('disabled', false)}
       />
     ),
