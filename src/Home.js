@@ -163,15 +163,22 @@ class Home extends Component {
           }
           icons={[
             {
-              onClick: event => console.log(event.currentTarget),
+              onClick: event => {
+                document.body.classList.add('rounded');
+              },
               icon: <button className={`p-hclsw p-hclsw-setting`} />
             },
             {
-              onClick: event => console.log(event.currentTarget),
+              onClick: event => {
+                document.body.classList.remove('rounded');
+              },
               icon: <button className={`p-hclsw p-hclsw-notification`} />
             },
             {
-              onClick: event => console.log(event.currentTarget),
+              onClick: event => {
+                document.body.classList.add('outline-rounded');
+                document.body.classList.add('rounded');
+              },
               icon: <button className={`p-hclsw p-hclsw-logout`} />
             }
           ]}

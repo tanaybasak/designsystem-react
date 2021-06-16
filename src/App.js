@@ -450,6 +450,27 @@ class App extends Component {
                 >
                   Default
                 </Button>
+
+                <Button
+                  title="Default"
+                  type="warning"
+                  className="mr-2"
+                  onClick={() => {
+                    console.log('Button Clicked');
+                  }}
+                >
+                  warning
+                </Button>
+                <Button
+                  title="Default"
+                  type="neutral"
+                  className="mr-2"
+                  onClick={() => {
+                    console.log('Button Clicked');
+                  }}
+                >
+                  neutral
+                </Button>
                 <Button
                   type="primary"
                   className="mr-2"

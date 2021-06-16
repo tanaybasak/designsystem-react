@@ -334,7 +334,7 @@ class TableExample extends Component {
                           return 0;
                         }
                       } else {
-                        debugger;
+                        // debugger;
                         if (
                           a[multiSortArrayFields[idx]['name']].toLowerCase() >
                           b[multiSortArrayFields[idx]['name']].toLowerCase()
