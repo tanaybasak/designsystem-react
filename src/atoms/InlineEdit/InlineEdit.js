@@ -120,7 +120,10 @@ const InlineEdit = ({
         onBlur: children.props.attachElementToBody ? null : closeOnFocusOut,
         disabled: loader,
         onChange: (value, values) => {
-          children.props.onChange(value, values);
+          if (children.props.onChange) {
+            children.props.onChange(value, values);
+          }
+
           if (children.props.dropdownType === 'multi') {
             inlineEditValue.current = values;
             setMatchedValue(false);
@@ -135,7 +138,10 @@ const InlineEdit = ({
       return cloneElement(children, {
         onChange: e => {
           e.preventDefault();
-          children.props.onChange(e);
+          if (children.props.onChange) {
+            children.props.onChange(e);
+          }
+
           inlineEditValue.current = e.currentTarget.value;
           setMatchedValue(currentValue.current === e.currentTarget.value);
         },
@@ -147,7 +153,10 @@ const InlineEdit = ({
       currentValue.current = children.props.defaultDate;
       return cloneElement(children, {
         onDateSelect: date => {
-          children.props.onChange(date);
+          if (children.props.onChange) {
+            children.props.onChange(date);
+          }
+
           inlineEditValue.current = date;
           setMatchedValue(
             isDateEqual(currentValue.current, inlineEditValue.current)
