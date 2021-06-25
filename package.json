@@ -44,12 +44,12 @@
     "@babel/preset-react": "^7.0.0",
     "@patron/patron-css": "git+https://github01.hclpnp.com/UXUIAssets/patron-css.git#typo-outline-token",
     "@patron/patron-icon": "git+https://github01.hclpnp.com/UXUIAssets/patron-icon.git",
-    "@storybook/addon-a11y": "^6.2.9",
-    "@storybook/addon-actions": "^6.2.9",
+    "@storybook/addon-a11y": "^6.3.0",
+    "@storybook/addon-actions": "^6.3.0",
     "@storybook/addon-knobs": "^6.2.9",
-    "@storybook/addon-links": "^6.2.9",
-    "@storybook/addons": "^6.2.9",
-    "@storybook/react": "^6.2.9",
+    "@storybook/addon-links": "^6.3.0",
+    "@storybook/addons": "^6.3.0",
+    "@storybook/react": "^6.3.0",
     "app-root-path": "^3.0.0",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^24.7.1",
@@ -106,7 +106,8 @@
     "webpack-merge": "^4.2.1",
     "whatwg-fetch": "^3.0.0",
     "xml-loader": "^1.2.1",
-    "yargs": "^16.2.0"
+    "yargs": "^16.2.0",
+    "webfontloader": "^1.6.28"
   },
   "jest": {
     "clearMocks": true,

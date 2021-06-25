@@ -6,6 +6,12 @@ import { getEnum, getUnion, getShapeOf, getArrayOf } from './docUtil.js';
 import ReactMarkdown from 'react-markdown';
 import '@patron/patron-css/patron/index.css';
 import './code.css';
+const WebFont = require('webfontloader');
+WebFont.load({
+  google: {
+    families: ['Roboto+Mono', 'Roboto:ital,wght@0,400;0,500;1,400;1,500']
+  }
+});
 
 const Document = ({ main, status }) => {
   let componentTableInfo = [];
@@ -235,7 +241,10 @@ const Document = ({ main, status }) => {
                     <div className="hcl-row">
                       <div className="hcl-col-12">
                         <div className="m-3">
-                          <h6 className="mb-3">Following is the list of languages and their respective library that needs to be imported</h6>
+                          <h6 className="mb-3">
+                            Following is the list of languages and their
+                            respective library that needs to be imported
+                          </h6>
                           <DataTable
                             id={`codeSnippetSupportedLanguageTable`}
                             className="codeSnippetSupportedLanguageTable"

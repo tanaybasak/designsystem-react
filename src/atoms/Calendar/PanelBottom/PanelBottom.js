@@ -164,48 +164,7 @@ const PanelBottom = ({
     let found = events.find(event =>
       isDateEqual(event.date, convertToDateObj(format, formattedDate))
     );
-    return isTodayDate ? (
-      <div key={formattedDate} className={classDetails.join(' ')}>
-        <button
-          className="hcl-dateSelector-date-today hcl-btn hcl-ghost hcl-calendar-btn"
-          date={formattedDate}
-          onClick={
-            onDateSelection
-              ? onDateSelection.bind(
-                  this,
-                  convertToDateObj(format, formattedDate)
-                )
-              : null
-          }
-          type="button"
-          disabled={
-            convertToDateObj(format, formattedDate) >= minDate &&
-            maxDate >= convertToDateObj(format, formattedDate)
-              ? false
-              : true
-          }
-        >
-          {day}
-          {eventStyle === 'dot' || eventStyle === 'both'
-            ? createEventDots(convertToDateObj(format, formattedDate))
-            : null}
-          {eventStyle === 'border' || eventStyle === 'both' ? (
-            <div
-              className="hcl-calendar-border"
-              style={
-                found
-                  ? {
-                      boxShadow: `inset 0 0 0 0 var(--default_bg), inset 0 0 0 2px ${
-                        eventsCategory[found.category].color
-                      }`
-                    }
-                  : null
-              }
-            />
-          ) : null}
-        </button>
-      </div>
-    ) : (
+    return (
       <button
         type="button"
         className={`${classDetails.join(
@@ -221,15 +180,15 @@ const PanelBottom = ({
               )
             : null
         }
-        style={
-          found && (eventStyle === 'border' || eventStyle === 'both')
-            ? {
-                boxShadow: `inset 0 0 0 1px var(--default_bg), inset 0 0 0 3px ${
-                  eventsCategory[found.category].color
-                }`
-              }
-            : null
-        }
+        // style={
+        //   found && (eventStyle === 'border' || eventStyle === 'both')
+        //     ? {
+        //         boxShadow: `inset 0 0 0 2px var(--default_bg), inset 0 0 0 4px ${
+        //           eventsCategory[found.category].color
+        //         }`
+        //       }
+        //     : null
+        // }
         disabled={
           convertToDateObj(format, formattedDate) >= minDate &&
           maxDate >= convertToDateObj(format, formattedDate)
@@ -237,10 +196,32 @@ const PanelBottom = ({
             : true
         }
       >
-        {day}
-        {eventStyle === 'dot' || eventStyle === 'both'
-          ? createEventDots(convertToDateObj(format, formattedDate))
-          : null}
+        <div
+          className="hcl-dateSelector-event-date"
+          style={
+            found && (eventStyle === 'border' || eventStyle === 'both')
+              ? {
+                  border: `2px solid ${eventsCategory[found.category].color}`
+                }
+              : null
+          }
+        >
+          {isTodayDate ? (
+            <div className="hcl-dateSelector-date-today">
+              {day}
+              {eventStyle === 'dot' || eventStyle === 'both'
+                ? createEventDots(convertToDateObj(format, formattedDate))
+                : null}
+            </div>
+          ) : (
+            <>
+              {day}
+              {eventStyle === 'dot' || eventStyle === 'both'
+                ? createEventDots(convertToDateObj(format, formattedDate))
+                : null}
+            </>
+          )}
+        </div>
       </button>
     );
   };

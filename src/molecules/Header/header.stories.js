@@ -4,6 +4,7 @@ import { action } from '@storybook/addon-actions';
 //@update-path-build-start
 import Header from './index';
 import Search from '../../atoms/Search';
+import Button from '../../atoms/Button';
 //@update-path-build-end
 
 storiesOf('Components/Header', module).add(
@@ -12,18 +13,25 @@ storiesOf('Components/Header', module).add(
     <Header
       icons={[
         {
-          icon: <button className="p-hclsw p-hclsw-setting" title="setting" />
-        },
-        {
           icon: (
-            <button
-              className="p-hclsw p-hclsw-notification"
-              title="notification"
-            />
+            <Button type="ghost" small title="setting">
+              <i className="p-hclsw p-hclsw-setting" />
+            </Button>
           )
         },
         {
-          icon: <button className="p-hclsw p-hclsw-logout" title="logout" />
+          icon: (
+            <Button type="ghost" small title="notification">
+              <i className="p-hclsw p-hclsw-notification" />
+            </Button>
+          )
+        },
+        {
+          icon: (
+            <Button type="ghost" small title="logout">
+              <i className="p-hclsw p-hclsw-logout" />
+            </Button>
+          )
         }
       ]}
       logo={<img alt="Logo" src={require('../../assets/images/logo.png')} />}
