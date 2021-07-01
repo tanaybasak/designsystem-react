@@ -7,7 +7,7 @@ import FormHelperText from '../../atoms/FormHelperText';
 import Label from '../../atoms/Label';
 import FileUploader from '../../molecules/FileUploader';
 import TextArea from '../../atoms/TextArea';
-import Tile from '../../atoms/Tile';
+import { Tile } from '../../atoms/Tile';
 
 class WizardExample extends Component {
   constructor(props) {

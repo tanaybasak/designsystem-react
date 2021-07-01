@@ -367,7 +367,7 @@ const RichTextEditor = ({
           ref={editorRef}
           tabIndex="0"
           dangerouslySetInnerHTML={{ __html: value }}
-          className={`${prefix}-rte-editor`}
+          className={`${prefix}-form-control ${prefix}-rte-editor`}
         />
         <Overlay
           targetElement={targetElement}

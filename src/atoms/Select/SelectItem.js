@@ -18,7 +18,7 @@ const SelectItem = ({ value, disabled, hidden, text, ...restProps }) => {
 
 SelectItem.propTypes = {
   /** Specify the value of the <SelectItem> */
-  value: PropTypes.string.isRequired,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 
   /** Specify whether the <SelectItem> should be disabled */
   disabled: PropTypes.bool,
@@ -27,7 +27,7 @@ SelectItem.propTypes = {
   hidden: PropTypes.bool,
 
   /** Provide the contents of <SelectItem>  */
-  text: PropTypes.string.isRequired
+  text: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired
 };
 
 SelectItem.defaultProps = {

@@ -2,7 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import prefix from '../../settings';
 
-const Select = ({ label, onChange, id, className, disabled, ...restProps }) => {
+const Select = ({
+  label,
+  onChange,
+  id,
+  className,
+  disabled,
+  isGhostMode,
+  ...restProps
+}) => {
   const onSelect = event => {
     const itemSelected = {
       value:
@@ -13,7 +21,13 @@ const Select = ({ label, onChange, id, className, disabled, ...restProps }) => {
     onChange(itemSelected);
   };
 
-  const classnames = `${prefix}-select ${className}`.trim();
+  const classnames = [`${prefix}-select`, `${prefix}-form-control`];
+  if (isGhostMode) {
+    classnames.push(`${prefix}-ghost-dropdown`);
+  }
+  if (className) {
+    classnames.push(className);
+  }
 
   return (
     <>
@@ -21,7 +35,7 @@ const Select = ({ label, onChange, id, className, disabled, ...restProps }) => {
       <select
         id={id}
         disabled={disabled}
-        className={classnames}
+        className={classnames.join(' ')}
         onChange={onSelect}
         {...restProps}
       />
@@ -47,7 +61,12 @@ Select.propTypes = {
   className: PropTypes.string,
 
   /** Disable select, if this props is not passed the select won't disable. */
-  disabled: PropTypes.bool
+  disabled: PropTypes.bool,
+  /**
+   * used to show select in ghost mode.
+   * need to set this to **false** inorder to apply *outline* or *filled* style
+   * */
+  isGhostMode: PropTypes.bool
 };
 
 Select.defaultProps = {
@@ -55,7 +74,8 @@ Select.defaultProps = {
   onChange: () => {},
   className: '',
   id: null,
-  disabled: false
+  disabled: false,
+  isGhostMode: true
 };
 
 export default Select;

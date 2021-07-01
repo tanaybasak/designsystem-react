@@ -10,13 +10,15 @@ const props = {
   normal: () => ({
     label: text('Label', 'Select Option'),
     onChange: action('onChange'),
-    disabled: boolean('disabled', false)
+    disabled: boolean('disabled', false),
+    isGhostMode: boolean('Ghost Mode', true)
   }),
   filled: () => ({
     label: text('Label', 'Select Option'),
     className: 'filled',
     onChange: action('onChange'),
-    disabled: boolean('disabled', false)
+    disabled: boolean('disabled', false),
+    isGhostMode: boolean('Ghost Mode', true)
   }),
   group: () => ({
     disabled: boolean('Disable Options', false)

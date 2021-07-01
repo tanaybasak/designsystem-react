@@ -8,6 +8,7 @@ const prettier = require('prettier');
 const parser = require('prettier/parser-babel');
 const componentPathMapper = require('../content/folderComponentMapNew.json');
 import '@patron/patron-css/patron/index.css';
+//import '../../patron-css-dev/output/patron.25d25f95.css';
 import '@patron/patron-icon/dist/patron-font.css';
 import '../src/story.css';
 import './prism.css';
@@ -95,7 +96,7 @@ export default class Container extends Component {
     return (
       <div className="hcl-container hcl-storybook-container">
         <div className="hcl-row mb-10">
-          <div className="hcl-col-12 hcl-col-md-10 hcl-col-xl-8  mb-10">
+            <div className="hcl-col-12 hcl-col-md-10 hcl-col-xl-8  mb-10">
             <h3 style={{ fontWeight: 900 }}>{pageTitle}</h3>
           </div>
         </div>

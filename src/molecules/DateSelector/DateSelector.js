@@ -123,7 +123,11 @@ const DateSelector = ({
   return (
     <>
       <div className="hcl-dateSelector" data-component="date-picker" id={id}>
-        <div className="hcl-overlay-wrapper hcl-dateSelector-container">
+        <div
+          className={`hcl-overlay-wrapper hcl-dateSelector-container${
+            showDateContainer ? ' hcl-overlay-wrapper-active' : ''
+          }`}
+        >
           <DateSelectorInput
             format={format}
             dateSelected={dateSelected}

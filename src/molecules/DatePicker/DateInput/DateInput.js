@@ -20,9 +20,9 @@ const DateInput = ({
     <>
       <input
         type="text"
-        className={`${prefix}-datePicker-input ${
+        className={`${prefix}-datePicker-input ${prefix}-form-control${
           !(isDateSelectedValid && isValidYear)
-            ? `${prefix}-datePicker-container-error`
+            ? ` ${prefix}-datePicker-container-error`
             : ''
         }`}
         placeholder={format}

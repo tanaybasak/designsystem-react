@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import prefix from '../../settings';
 
 const TextArea = ({ className, ...restProps }) => {
-  const classnames = `${prefix}-textarea ${className}`.trim();
+  const classnames = `${prefix}-textarea ${prefix}-form-control ${className}`.trim();
 
   return <textarea className={classnames} {...restProps} />;
 };

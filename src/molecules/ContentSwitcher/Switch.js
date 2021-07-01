@@ -11,6 +11,7 @@ function Switch({ label, onClick, active, isDisabled, icon, ...restProps }) {
       key={`${label}-`}
       onClick={onClick}
       disabled={isDisabled}
+      title={label}
       className={`${prefix}-content-switcher-btn ${active ? 'active' : ''}`}
       {...restProps}
     >

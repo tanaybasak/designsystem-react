@@ -165,6 +165,7 @@ export const getPositions = (
 
   let left = 0;
   let top = 0;
+  let adjustmentTop = 1;
   if (attachElementToBody) {
     switch (direction) {
       case 'bottom-left': {
@@ -181,68 +182,64 @@ export const getPositions = (
       case 'top-left': {
         left = parentElementPosition.left;
         top = parentElementPosition.top - height;
-
+        adjustmentTop = -1;
         break;
       }
       case 'top-right': {
         left = parentElementPosition.right - width;
         top = parentElementPosition.top - height;
-
+        adjustmentTop = -1;
         break;
       }
     }
 
     return {
       left: left + window.pageXOffset + 'px',
-      top: top + window.pageYOffset + 'px',
+      top: top + adjustmentTop + window.pageYOffset + 'px',
       direction
     };
   } else {
     switch (direction) {
       case 'bottom-left': {
-        left = '0px';
+        left = 0;
         top =
           parentElementPosition.height +
           (parentElementPosition.top -
-            targetEl.parentElement.getBoundingClientRect().top) +
-          'px';
+            targetEl.parentElement.getBoundingClientRect().top);
         break;
       }
       case 'bottom-right': {
-        left = parentElementPosition.width - width + 'px';
+        left = parentElementPosition.width - width;
         top =
           parentElementPosition.height +
           (parentElementPosition.top -
-            targetEl.parentElement.getBoundingClientRect().top) +
-          'px';
+            targetEl.parentElement.getBoundingClientRect().top);
 
         break;
       }
       case 'top-left': {
-        left = '0px';
+        left = 0;
         top =
           -height +
           (parentElementPosition.top -
-            targetEl.parentElement.getBoundingClientRect().top) +
-          'px';
-
+            targetEl.parentElement.getBoundingClientRect().top);
+        adjustmentTop = -1;
         break;
       }
       case 'top-right': {
-        left = parentElementPosition.width - width + 'px';
+        left = parentElementPosition.width - width;
         top =
           -height +
           (parentElementPosition.top -
-            targetEl.parentElement.getBoundingClientRect().top) +
-          'px';
-
+            targetEl.parentElement.getBoundingClientRect().top);
+        adjustmentTop = -1;
         break;
       }
     }
 
     return {
-      left: left,
-      top: top,
+      left: left + 'px',
+      top: top + adjustmentTop + 'px',
       direction
     };
   }

@@ -296,7 +296,11 @@ const DateRangeSelector = ({
         id={id}
         {...restProps}
       >
-        <div className="hcl-overlay-wrapper hcl-dateSelector-container">
+        <div
+          className={`hcl-overlay-wrapper hcl-dateSelector-container${
+            showDateContainer ? ' hcl-overlay-wrapper-active' : ''
+          }`}
+        >
           <DateRangeInput
             startDateSelected={startDateSelected}
             endDateSelected={endDateSelected}

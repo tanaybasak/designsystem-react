@@ -57,7 +57,7 @@ const DateSelectorInput = ({
       <input
         disabled={disabled}
         type="text"
-        className={`hcl-dateSelector-input ${className}`}
+        className={`hcl-dateSelector-input hcl-form-control ${className}`}
         placeholder={format}
         autoComplete="off"
         aria-label="Date Selector label"

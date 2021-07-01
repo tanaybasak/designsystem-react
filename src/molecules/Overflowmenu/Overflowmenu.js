@@ -182,7 +182,7 @@ const Overflowmenu = ({
       ) : (
         <button
           className={`
-            ${prefix}-overflow-btn 
+          ${prefix}-btn ${prefix}-ghost ${prefix}-sm ${prefix}-btn-no-margin ${prefix}-overflow-btn 
             ${
               customIcon
                 ? ''
