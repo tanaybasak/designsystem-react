@@ -21,35 +21,39 @@ const DateSelectorInput = ({
   const onEnterPressInputDate = event => {
     setShowDateContainer(false);
     if (event.key === 'Enter' || event.key === 'Tab') {
-      const isdateValid = isValidDate(event.target.value, format);
-      setIsDateSelectedValid(isdateValid);
-      if (isdateValid && event.target.value !== '') {
-        const dateArray = event.target.value.split('/');
-        switch (format) {
-          case 'mm/dd/yyyy':
-            updateFormattedDate(dateArray[0], dateArray[1], dateArray[2]);
-            onDateSelect(
-              createDateObj(
-                Number(dateArray[1]),
-                Number(dateArray[0]),
-                dateArray[2]
-              )
-            );
-            break;
-          case 'dd/mm/yyyy':
-            updateFormattedDate(dateArray[1], dateArray[0], dateArray[2]);
-            onDateSelect(
-              createDateObj(
-                Number(dateArray[0]),
-                Number(dateArray[1]),
-                dateArray[2]
-              )
-            );
-            break;
-        }
-      } else {
-        setDateSelected(event.target.value);
+      setDateInPanel(event.target.value);
+    }
+  };
+
+  const setDateInPanel = value => {
+    const isdateValid = isValidDate(value, format);
+    setIsDateSelectedValid(isdateValid);
+    if (isdateValid && value !== '') {
+      const dateArray = value.split('/');
+      switch (format) {
+        case 'mm/dd/yyyy':
+          updateFormattedDate(dateArray[0], dateArray[1], dateArray[2]);
+          onDateSelect(
+            createDateObj(
+              Number(dateArray[1]),
+              Number(dateArray[0]),
+              dateArray[2]
+            )
+          );
+          break;
+        case 'dd/mm/yyyy':
+          updateFormattedDate(dateArray[1], dateArray[0], dateArray[2]);
+          onDateSelect(
+            createDateObj(
+              Number(dateArray[0]),
+              Number(dateArray[1]),
+              dateArray[2]
+            )
+          );
+          break;
       }
+    } else {
+      setDateSelected(value);
     }
   };
   return (
@@ -65,6 +69,7 @@ const DateSelectorInput = ({
         onClick={event => {
           event.stopPropagation();
           toggleDateContainer(datepickerInput);
+          setDateInPanel(event.target.value);
         }}
         defaultdate={defaultDate}
         onChange={event => {
