@@ -257,6 +257,7 @@ const Dropdown = ({
           aria-label={label}
           aria-haspopup="true"
           type="button"
+          title={selected ? selected[configuration.text] : label}
         >
           {selected ? selected[configuration.text] : label}
         </button>
