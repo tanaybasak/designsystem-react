@@ -38,7 +38,6 @@ const PageTheme = () => {
   let typoStyle = `hcl-productive`;
 
   const openTheme = () => {
-    console.log('vvv');
     setSlideoutStatus(true);
   };
 
@@ -181,7 +180,6 @@ const PageTheme = () => {
           setSlideoutStatus(false);
         }}
         onOutsideClick={() => {
-          console.log('cc');
           setSlideoutStatus(false);
         }}
         onEscClose={true}
