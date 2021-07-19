@@ -7,7 +7,7 @@ module.exports = {
     '@storybook/addon-a11y',
     '@storybook/addon-links',
     './addon-toolbar/register',
-    './addon-tab/register'
+    './addon-tab1/register'
   ],
   webpackFinal: async (config, { configType }) => {
     config.module.rules.push({
