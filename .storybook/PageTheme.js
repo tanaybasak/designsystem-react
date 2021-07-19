@@ -26,8 +26,8 @@ const PageTheme = () => {
   });
 
   const [selectedInput, setInput] = useState({
-    id: 'sharp',
-    text: 'Sharp'
+    id: 'filled',
+    text: 'Filled'
   });
 
   let inputStyle = 'filled';
@@ -115,8 +115,11 @@ const PageTheme = () => {
 
     rootElement.classList.remove('outline-rounded');
     rootElement.classList.remove('outline-sharp');
+    rootElement.classList.remove('small-rounded');
     rootElement.classList.remove('rounded');
     rootElement.classList.remove('sharp');
+    rootElement.classList.remove('outline');
+    rootElement.classList.remove('filled');
     rootElement.classList.remove('filled-rounded');
     rootElement.classList.remove('filled-sharp');
   };
@@ -255,21 +258,10 @@ const PageTheme = () => {
                     'storybook-preview-iframe'
                   ).contentDocument.body;
                   clearstyle();
-                  const roundedcorner =
-                    cornerStyle === 'small-rounded' ? 'rounded' : cornerStyle;
-                  const style = `${e.id}-${roundedcorner}`;
-                  if (e.text === 'Outline') {
-                    inputStyle = 'outline';
-                    rootElement.classList.add(inputStyle);
-                    rootElement.classList.add(style);
-                    rootElement.classList.add(cornerStyle);
-                  } else {
-                    inputStyle = 'filled';
-                    rootElement.classList.remove('outline-sharp');
-                    rootElement.classList.add(inputStyle);
-                    rootElement.classList.add(style);
-                    rootElement.classList.add(cornerStyle);
-                  }
+                  inputStyle = e.id;
+                  let style = `${e.id}-${cornerStyle}`;
+                  rootElement.classList.add(style);
+                  rootElement.classList.add(cornerStyle);
                   setInput(e);
                 }}
               />
@@ -292,18 +284,13 @@ const PageTheme = () => {
                     'storybook-preview-iframe'
                   ).contentDocument.body;
                   clearstyle();
-                  if (e.text === 'Rounded') {
-                    cornerStyle = 'rounded';
-                    const style = `${inputStyle}-${cornerStyle}`;
-                    rootElement.classList.add(cornerStyle);
+                  cornerStyle = e.id == 'small-rounded' ? 'rounded' : e.id;
+                  let style = `${inputStyle}-${cornerStyle}`;
+                  if (e.id == 'small-rounded') {
+                    rootElement.classList.remove(cornerStyle);
+                    rootElement.classList.add('small-rounded');
                     rootElement.classList.add(style);
-                  } else if (e.text === 'Small Rounded') {
-                    cornerStyle = 'small-rounded';
-                    rootElement.classList.add(`${inputStyle}-rounded`);
-                    rootElement.classList.add(cornerStyle);
                   } else {
-                    cornerStyle = 'sharp';
-                    const style = `${inputStyle}-${cornerStyle}`;
                     rootElement.classList.add(style);
                     rootElement.classList.add(cornerStyle);
                   }
