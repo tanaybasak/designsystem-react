@@ -30,9 +30,6 @@ const PageTheme = () => {
     text: 'Sharp'
   });
 
-  const [isRounded, setRounded] = useState(false);
-  const [isOutline, setOutline] = useState(false);
-
   let inputStyle = 'filled';
   let cornerStyle = 'sharp';
   let typoStyle = `hcl-productive`;
