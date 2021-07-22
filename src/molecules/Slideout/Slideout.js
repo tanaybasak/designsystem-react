@@ -13,6 +13,7 @@ const Slideout = ({
   isOpen,
   type,
   className,
+  overlayBackground,
   header,
   onClose,
   onEscClose,
@@ -165,7 +166,11 @@ const Slideout = ({
         onKeyDown={focusTrap}
       >
         <div
-          className={`hcl-slideout-mask`}
+          className={
+            overlayBackground
+              ? `hcl-slideout-mask`
+              : 'hcl-slideout-mask hcl-slideout-mask-noback'
+          }
           onKeyDown={opened ? handleKeyDown.bind(this) : null}
           onClick={opened ? handleClick.bind(this) : null}
         />
@@ -261,7 +266,9 @@ Slideout.propTypes = {
     })
   ),
   /** custom className passed to the component */
-  className: PropTypes.string
+  className: PropTypes.string,
+  /** show overlay background in the component */
+  overlayBackground: PropTypes.bool
 };
 
 Slideout.defaultProps = {
@@ -269,6 +276,7 @@ Slideout.defaultProps = {
   type: 'default',
   varient: 'default',
   direction: 'right',
+  overlayBackground: true,
   header: null,
   onClose: null,
   actions: [],
